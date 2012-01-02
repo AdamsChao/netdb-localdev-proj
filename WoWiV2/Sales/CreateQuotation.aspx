@@ -10,7 +10,7 @@
     TagPrefix="uc4" %>
 <%@ Register Src="uc/ucCreateQuotationTab6.ascx" TagName="ucCreateQuotationTab6"
     TagPrefix="uc6" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server"> 
     <link href="../Scripts/jquery-ui.css" rel="stylesheet" type="text/css" />
 <link href="../../Scripts/jquery-ui.css" rel="stylesheet" type="text/css" />
     <script src="../Scripts/jquery-ui.min.js" type="text/javascript"></script>
