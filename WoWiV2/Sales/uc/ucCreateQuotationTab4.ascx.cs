@@ -1,0 +1,177 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using QuotationModel;
+
+public partial class Sales_uc_ucCreateQuotationTab4 : System.Web.UI.UserControl
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+
+        if (!IsPostBack)
+        {
+            LoadDropDown();
+
+            int quotation_id = ((Imaster)this.Page).getQuotationID();
+            if (quotation_id > 0)
+            {
+                hidQuotationID.Text = quotation_id.ToString();
+                LoadData(quotation_id);
+            }
+            else
+            {
+                Load_Lable(DateTime.Now.Month, DateTime.Now.Year);
+            }
+        }
+    }
+
+    private void Load_Lable(int NowMonth, int NowYear)
+    {
+        List<Label> LabelList = new List<Label>() { lbl00, lbl01, lbl02, lbl03, lbl04, lbl05, lbl06, lbl07, lbl08, lbl09, lbl10, lbl11 };
+
+        List<string> lblMonthText = new List<string>() { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
+        List<TextBox> TextBoxList = new List<TextBox>() { rolling_forecast_dollar0, rolling_forecast_dollar1, rolling_forecast_dollar2, rolling_forecast_dollar3, rolling_forecast_dollar4, rolling_forecast_dollar5, rolling_forecast_dollar6, rolling_forecast_dollar7, rolling_forecast_dollar8, rolling_forecast_dollar9, rolling_forecast_dollar10, rolling_forecast_dollar11 };
+
+        int i = NowMonth;
+        foreach (Label item in LabelList)
+        {
+
+            if (i > 12)
+            {
+                i = i - 12;
+                NowYear = NowYear + 1;
+            }
+            item.Text = lblMonthText[i - 1] + "/" +  NowYear.ToString().Substring(2, 2);
+            i++;
+        }
+    }
+
+    private void LoadData(int quotation_id)
+    {
+        Quotation_Version quo = Quotation_Controller.Get_Quotation(quotation_id);
+        txtOpenDate.Text =(quo.Quotation_OpenDate==null)?"":((DateTime)quo.Quotation_OpenDate).ToString("yyyy/MM/dd HH:mm");
+        txtOpenBy.Text = quo.create_user;
+        txtRevisedDate.Text = (quo.revise_date==null)?"":((DateTime)quo.revise_date).ToString("yyyy/MM/dd HH:mm");
+        txtRevisedBy.Text = quo.modify_user;
+        //txtTargetTotalPrice.Text = Quotation_Controller.GetTotalUnitPrice(quotation_id).ToString();
+        //txtDiscount.Text = Quotation_Controller.GetTotalTargetDiscount(quotation_id).ToString();
+        //txtFinalTotalPrice.Text = Quotation_Controller.GetTotalPrice(quotation_id).ToString();
+
+        txtTargetTotalPrice.Text = quo.TargetTotalPrice.ToString();
+        txtDiscount.Text = quo.Discount.ToString();
+        txtFinalTotalPrice.Text = quo.FinalTotalPrice.ToString();
+        txtTotal_Disc_Amt.Text = quo.Total_disc_amt.ToString();
+        txtRemark.Text = quo.Remark;
+
+        txtPocheckno.Text = quo.pocheckno;
+        ddlProbability.SelectedValue = quo.Probability;
+        rolling_forecast_dollar0.Text = quo.rolling_forecast_dollar0;
+        rolling_forecast_dollar1.Text = quo.rolling_forecast_dollar1;
+        rolling_forecast_dollar2.Text = quo.rolling_forecast_dollar2;
+        rolling_forecast_dollar3.Text = quo.rolling_forecast_dollar3;
+        rolling_forecast_dollar4.Text = quo.rolling_forecast_dollar4;
+        rolling_forecast_dollar5.Text = quo.rolling_forecast_dollar5;
+        rolling_forecast_dollar6.Text = quo.rolling_forecast_dollar6;
+        rolling_forecast_dollar7.Text = quo.rolling_forecast_dollar7;
+        rolling_forecast_dollar8.Text = quo.rolling_forecast_dollar8;
+        rolling_forecast_dollar9.Text = quo.rolling_forecast_dollar9;
+        rolling_forecast_dollar10.Text = quo.rolling_forecast_dollar10;
+        rolling_forecast_dollar11.Text = quo.rolling_forecast_dollar11;
+        int NowMon = ((DateTime)quo.Quotation_OpenDate).Month;
+        int NowYear = ((DateTime)quo.Quotation_OpenDate).Year;
+        Load_Lable(NowMon, NowYear);
+    }
+
+    private void LoadDropDown()
+    {
+        //ddlQuotstatus.DataSource = CodeTableController.GetAll_Quotation_Status();
+        //ddlQuotstatus.DataTextField = "Value";
+        //ddlQuotstatus.DataValueField = "Key";
+        //ddlQuotstatus.DataBind();
+    }
+
+    protected void btnSubmitType2_Click(object sender, EventArgs e)
+    {
+        Update();
+        int quotation_id = ((Imaster)this.Page).getQuotationID();
+        if (quotation_id == 0)
+        {
+            quotation_id = ((Imaster)this.Page).saveQuotationID();
+        }
+
+        Quotation_Version quo = Quotation_Controller.Get_Quotation(quotation_id);
+        //obj.revise_date
+        //obj.modify_user
+        //obj.modify_user_ID
+        quo.modify_date = DateTime.Now;
+        quo.pocheckno=txtPocheckno.Text;
+        quo.Probability = ddlProbability.SelectedValue;
+        quo.rolling_forecast_dollar0 = rolling_forecast_dollar0.Text;
+        quo.rolling_forecast_dollar1 = rolling_forecast_dollar1.Text;
+        quo.rolling_forecast_dollar2 = rolling_forecast_dollar2.Text;
+        quo.rolling_forecast_dollar3 = rolling_forecast_dollar3.Text;
+        quo.rolling_forecast_dollar4 = rolling_forecast_dollar4.Text;
+        quo.rolling_forecast_dollar5 = rolling_forecast_dollar5.Text;
+        quo.rolling_forecast_dollar6 = rolling_forecast_dollar6.Text;
+        quo.rolling_forecast_dollar7 = rolling_forecast_dollar7.Text;
+        quo.rolling_forecast_dollar8 = rolling_forecast_dollar8.Text;
+        quo.rolling_forecast_dollar9 = rolling_forecast_dollar9.Text;
+        quo.rolling_forecast_dollar10 = rolling_forecast_dollar10.Text;
+        quo.rolling_forecast_dollar11 = rolling_forecast_dollar11.Text;
+        Quotation_Controller.Update_Quotation(Quotation_Controller.ent, quo);
+
+        //LoadData(quotation_id);
+        Response.Redirect("CreateQuotation.aspx?q=" + quotation_id.ToString() + "&t=2");
+
+    }
+    protected void btnSubmitType1_Click(object sender, EventArgs e)
+    {
+       
+
+    }
+
+
+    private void Update()
+    {
+        bool isUpdate = false;
+        int quotation_id = ((Imaster)this.Page).getQuotationID();
+        if (quotation_id == 0)
+        {
+            quotation_id = ((Imaster)this.Page).saveQuotationID();
+            isUpdate = false;
+        }
+        else
+        {
+            isUpdate = true;
+        }
+
+        //if (isUpdate)
+        //{
+        //    Quotation_Version obj = Quotation_Controller.Get_Quotation(quotation_id);
+        //    obj.revise_date = DateTime.Now;
+        //    obj.modify_user = Page.User.Identity.Name;
+        //    employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
+        //    obj.modify_user_ID = emp.id;
+        //    obj.modify_date = DateTime.Now;
+        //    Quotation_Controller.Update_Quotation(Quotation_Controller.ent, obj);
+        //}
+
+        Quotation_Version obj = Quotation_Controller.Get_Quotation(quotation_id);
+        obj.revise_date = DateTime.Now;
+        obj.modify_user = Page.User.Identity.Name;
+        employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
+        obj.modify_user_ID = emp.id;
+        obj.modify_date = DateTime.Now;
+        //obj.Payment_Method_Id = Int32.Parse(ddlPaymentMethod.SelectedValue);
+        obj.Remark = txtRemark.Text;
+        obj.Total_disc_amt = Decimal.Parse(txtTotal_Disc_Amt.Text);
+
+        Quotation_Controller.Update_Quotation(Quotation_Controller.ent, obj);
+      
+    }
+}

@@ -1,0 +1,13 @@
+﻿body {
+}
+
+/* Edit Item */
+.tbEditItem{border-left:1px #60B0A8 solid; border-right:1px #60B0A8 solid;background-color: #60B0A8;line-height:25px}
+.tbEditItem .tdHeader{text-align:center;font-size: 10pt;color: #FFFFFF;background-color:#60B0A8;}
+.tbEditItem .tdHeader1{font-size:10pt;text-align:left;background-color:#BDDFDC; font-weight:bolder;}
+.tbEditItem .tdHeader2{font-size:10pt;text-align:center;background-color:#BDDFDC}
+.tbEditItem .tdRowName{font-size:10pt;text-align:right;background-color:#BDDFDC}
+.tbEditItem .tdRowName1{font-size:10pt;text-align:center;background-color:#BDDFDC}
+.tbEditItem .tdRowValue{font-size:10pt;background-color: #FFFFFF;}
+.tbEditItem .tdRowValue1{font-size:10pt;background-color: #FFFFFF;text-align:center;}
+.tbEditItem .tdFooter{height:25px;background-color: #60B0A8;padding: 3px 0px 0px 1px;}

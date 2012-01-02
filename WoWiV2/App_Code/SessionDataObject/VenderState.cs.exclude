@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI.WebControls;
+
+/// <summary>
+/// Summary description for VenderState
+/// </summary>
+public class VenderState
+{
+	public VenderState()
+	{
+		//
+		// TODO: Add constructor logic here
+		//
+	}
+
+    public WoWiModel.vendor Vender;
+    public List<ListItem> Selected;
+    public List<String> VenderTypes;
+}
