@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>
-        Change Password
+        Change Password 
     </h2>
     <p>
         Use the form below to change your password.
