@@ -74,11 +74,11 @@
                                             <%--<asp:ListItem Value="H">Standards</asp:ListItem>--%>
                                             <asp:ListItem Value="F">Local Agent</asp:ListItem>
                                             <%--<asp:ListItem Value="J">Application Procedures</asp:ListItem>--%>
-                                            <%--<asp:ListItem Value="K">Testing and submission preparation</asp:ListItem>--%>
+                                            <asp:ListItem Value="K">Testing and submission preparation</asp:ListItem>
                                             <%--<asp:ListItem Value="M">Sample shipping</asp:ListItem>--%>
-                                            <%--<asp:ListItem Value="N">Periodic Factory inspection</asp:ListItem>--%>
-                                            <%--<asp:ListItem Value="O">Certificate</asp:ListItem>--%>
-                                            <%--<asp:ListItem Value="P">Post certification</asp:ListItem>--%>
+                                            <asp:ListItem Value="N">Periodic Factory inspection</asp:ListItem>
+                                            <asp:ListItem Value="O">Certificate</asp:ListItem>
+                                            <asp:ListItem Value="P">Post certification</asp:ListItem>
                                             <asp:ListItem Value="E">Enforcement–Market Inspection</asp:ListItem>
                                             <asp:ListItem Value="L">Fee schedule</asp:ListItem>
                                         </asp:DropDownList>
@@ -371,22 +371,34 @@
                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
                                     </asp:BoundField>
-                                    <asp:BoundField DataField="RF" HeaderText="RF">
-                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                    <asp:TemplateField HeaderText="RF">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRF" runat="server" Text='<%# Convert.ToBoolean(Eval("RF")) ? "Y" : "N" %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
-                                    </asp:BoundField>
-                                    <asp:BoundField DataField="EMC" HeaderText="EMC">
-                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="EMC">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblEMC" runat="server" Text='<%# Convert.ToBoolean(Eval("EMC")) ? "Y" : "N" %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
-                                    </asp:BoundField>
-                                    <asp:BoundField DataField="Safety" HeaderText="Safety">
-                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Safety">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblSafety" runat="server" Text='<%# Convert.ToBoolean(Eval("Safety")) ? "Y" : "N" %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
-                                    </asp:BoundField>
-                                    <asp:BoundField DataField="Telecom" HeaderText="Telecom">
-                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Telecom">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblTelecom" runat="server" Text='<%# Convert.ToBoolean(Eval("Telecom")) ? "Y" : "N" %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
-                                    </asp:BoundField>
+                                    </asp:TemplateField>
                                     <asp:BoundField DataField="Credit" HeaderText="Credit">
                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
@@ -413,6 +425,146 @@
                                     <asp:Parameter Name="LocalAgentID" Type="Int32" />
                                 </DeleteParameters>
                             </asp:SqlDataSource>
+                            <asp:GridView ID="gvN" runat="server" DataKeyNames="PeriodicID" SkinID="gvList" DataSourceID="sdsN">
+                                <Columns>
+                                    <asp:TemplateField ShowHeader="False">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditN"
+                                                Text="Edit" CommandArgument='<%# Eval("PeriodicID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete"
+                                                Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("PeriodicID") %>'></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyN"
+                                                Text="Copy" CommandArgument='<%# Eval("PeriodicID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailN.aspx?" + Request.QueryString.ToString() + "&pcid="+Eval("PeriodicID").ToString() %>'>Detail</asp:HyperLink>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
+                                        <ItemStyle HorizontalAlign="Center" Width="140px" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Factory  Inspection">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblFactoryInspection" runat="server" Text="Document review only" Visible='<%#Eval("FactoryInspection").ToString()=="Document" ? true : false %>'></asp:Label>
+                                            <asp:Label ID="lblOneTime" runat="server" Text="One-time on-site Inspection Required"
+                                                Visible='<%#Eval("FactoryInspection").ToString()=="OneTime" ? true : false %>'></asp:Label>
+                                            <asp:Label ID="Label2" runat="server" Text="Periodic on-site Inspection Required"
+                                                Visible='<%#Eval("FactoryInspection").ToString()=="Periodic" ? true : false %>'></asp:Label>
+                                            <%--<asp:RadioButtonList ID="rblFactoryInspection" runat="server">
+                                                <asp:ListItem Text="Document review only" Value="Document" Selected='<%#Eval("FactoryInspection").ToString()=="Document" ? true : false %>'></asp:ListItem>
+                                                <asp:ListItem Text="One-time on-site Inspection Required" Value="OneTime" Selected='<%#Eval("FactoryInspection").ToString()=="OneTime" ? true : false %>'></asp:ListItem>
+                                                <asp:ListItem Text="Periodic on-site Inspection Required" Value="Periodic" Selected='<%#Eval("FactoryInspection").ToString()=="Periodic" ? true : false %>'></asp:ListItem>
+                                            </asp:RadioButtonList>--%>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="wowi_product_type_name" HeaderText="Product Type">
+                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="sdsN" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="STP_IMAGetPeriodic" SelectCommandType="StoredProcedure" DeleteCommand="delete from Ima_Periodic where PeriodicID=@PeriodicID;delete from Ima_Periodic_Files where PeriodicID=@PeriodicID"
+                                DeleteCommandType="Text" OnSelected="sdsC_Selected">
+                                <SelectParameters>
+                                    <asp:QueryStringParameter Name="world_region_id" QueryStringField="rid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="country_id" QueryStringField="cid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="wowi_product_type_id" QueryStringField="pid" Type="Int32"
+                                        DefaultValue="0" />
+                                    <asp:ControlParameter ControlID="ddlDocCategory" Name="DocCategory" PropertyName="SelectedValue" />
+                                </SelectParameters>
+                                <DeleteParameters>
+                                    <asp:Parameter Name="PeriodicID" Type="Int32" />
+                                </DeleteParameters>
+                            </asp:SqlDataSource>
+                            <asp:GridView ID="gvO" runat="server" DataKeyNames="CertificateID" SkinID="gvList"
+                                DataSourceID="sdsO">
+                                <Columns>
+                                    <asp:TemplateField ShowHeader="False">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditO"
+                                                Text="Edit" CommandArgument='<%# Eval("CertificateID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete"
+                                                Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyO"
+                                                Text="Copy" CommandArgument='<%# Eval("CertificateID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="100px" />
+                                        <ItemStyle HorizontalAlign="Center" Width="100px" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Method of Certificate Delivery">
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="cbEmail" runat="server" Text="Email to WoWi" Checked='<%# Eval("Email") %>' Enabled="false" />
+                                            <asp:CheckBox ID="cbCopy" runat="server" Text="Hard copy to WoWi" Checked='<%# Eval("Copy") %>' Enabled="false" />
+                                            <asp:CheckBox ID="cbLocal" runat="server" Text="Hard copy to Local Applicant" Checked='<%# Eval("Local") %>' Enabled="false" />
+                                            <asp:CheckBox ID="cbProof" runat="server" Text="Proof shown on website" Checked='<%# Eval("Proof") %>' Enabled="false" />
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="wowi_product_type_name" HeaderText="Product Type">
+                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="sdsO" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="STP_IMAGetCertificate" SelectCommandType="StoredProcedure" DeleteCommand="delete from Ima_Certificate where CertificateID=@CertificateID"
+                                DeleteCommandType="Text" OnSelected="sdsC_Selected">
+                                <SelectParameters>
+                                    <asp:QueryStringParameter Name="world_region_id" QueryStringField="rid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="country_id" QueryStringField="cid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="wowi_product_type_id" QueryStringField="pid" Type="Int32"
+                                        DefaultValue="0" />
+                                    <asp:ControlParameter ControlID="ddlDocCategory" Name="DocCategory" PropertyName="SelectedValue" />
+                                </SelectParameters>
+                                <DeleteParameters>
+                                    <asp:Parameter Name="CertificateID" Type="Int32" />
+                                </DeleteParameters>
+                            </asp:SqlDataSource>
+                            <asp:GridView ID="gvP" runat="server" DataKeyNames="PostID" SkinID="gvList" DataSourceID="sdsP">
+                                <Columns>
+                                    <asp:TemplateField ShowHeader="False">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditP"
+                                                Text="Edit" CommandArgument='<%# Eval("PostID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete"
+                                                Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("PostID") %>'></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyP"
+                                                Text="Copy" CommandArgument='<%# Eval("PostID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailP.aspx?" + Request.QueryString.ToString() + "&pcid="+Eval("PostID").ToString() %>'>Detail</asp:HyperLink>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
+                                        <ItemStyle HorizontalAlign="Center" Width="140px" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Label Requirement">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRequirement" runat="server" Text='<%# Eval("Requirement") %>'></asp:Label>；
+                                            <asp:CheckBox ID="cbPrint" runat="server" Checked='<%# Convert.ToBoolean(Eval("Print")) %>' Enabled="false" Text="Labels can be self-printed" />
+                                            <asp:CheckBox ID="cbPurchase" runat="server" Checked='<%# Convert.ToBoolean(Eval("Purchase")) %>' Enabled="false" Text="Labels need to be purchase from authority" />
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="wowi_product_type_name" HeaderText="Product Type">
+                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="sdsP" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="STP_IMAGetPost" SelectCommandType="StoredProcedure" 
+                                DeleteCommand="delete from Ima_Post where PostID=@PostID;delete from Ima_Post_Files where PostID=@PostID"
+                                DeleteCommandType="Text" OnSelected="sdsC_Selected">
+                                <SelectParameters>
+                                    <asp:QueryStringParameter Name="world_region_id" QueryStringField="rid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="country_id" QueryStringField="cid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="wowi_product_type_id" QueryStringField="pid" Type="Int32" DefaultValue="0" />
+                                    <asp:ControlParameter ControlID="ddlDocCategory" Name="DocCategory" PropertyName="SelectedValue" />
+                                </SelectParameters>
+                                <DeleteParameters>
+                                    <asp:Parameter Name="PostID" Type="Int32" />
+                                </DeleteParameters>
+                            </asp:SqlDataSource>
                             <asp:GridView ID="gvE" runat="server" DataKeyNames="EnforcementID" SkinID="gvList"
                                 DataSourceID="sdsE">
                                 <Columns>
@@ -430,9 +582,9 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Types of enforcement applied">
                                         <ItemTemplate>
-                                            <asp:CheckBox ID="cbCustom" runat="server" Text="Custom/Importation Enforcement" Checked='<%# Eval("Custom") %>' />
-                                            <asp:CheckBox ID="cbMarket" runat="server" Text="Market Surveillance" Checked='<%# Eval("Market") %>' />
-                                            <asp:CheckBox ID="cbFactory" runat="server" Text="Factory Inspection" Checked='<%# Eval("Factory") %>' />
+                                            <asp:CheckBox ID="cbCustom" runat="server" Text="Custom/Importation Enforcement" Checked='<%# Eval("Custom") %>' Enabled="false" />
+                                            <asp:CheckBox ID="cbMarket" runat="server" Text="Market Surveillance" Checked='<%# Eval("Market") %>' Enabled="false" />
+                                            <asp:CheckBox ID="cbFactory" runat="server" Text="Factory Inspection" Checked='<%# Eval("Factory") %>' Enabled="false" />
                                         </ItemTemplate>
                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
@@ -503,6 +655,66 @@
                                 </SelectParameters>
                                 <DeleteParameters>
                                     <asp:Parameter Name="FeeScheduleID" Type="Int32" />
+                                </DeleteParameters>
+                            </asp:SqlDataSource>
+                            <asp:GridView ID="gvK" runat="server" DataKeyNames="TestingID" SkinID="gvList" DataSourceID="sdsK">
+                                <Columns>
+                                    <asp:TemplateField ShowHeader="False">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditK"
+                                                Text="Edit" CommandArgument='<%# Eval("TestingID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete"
+                                                Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("TestingID") %>'></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyK"
+                                                Text="Copy" CommandArgument='<%# Eval("TestingID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailK.aspx?" + Request.QueryString.ToString() + "&tid="+Eval("TestingID").ToString() %>'>Detail</asp:HyperLink>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
+                                        <ItemStyle HorizontalAlign="Center" Width="140px" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Language Acceptance">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRequirement" runat="server" Text='<%# Eval("Language").ToString()=="All" ? "All English" : "Other or Partial" %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Test Report/Certification">
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="cbFCCTest" runat="server" Text="FCC Test Report" Checked='<%# Convert.ToBoolean(Eval("FCCTest")) %>'
+                                                Enabled="false" />
+                                            <asp:CheckBox ID="cbFCCCertificate" runat="server" Text="FCC Certificate" Checked='<%# Convert.ToBoolean(Eval("FCCCertificate")) %>'
+                                                Enabled="false" />
+                                            <asp:CheckBox ID="cbCETest" runat="server" Text="CE Test Report" Checked='<%# Convert.ToBoolean(Eval("CETest")) %>'
+                                                Enabled="false" /><br />
+                                            <asp:CheckBox ID="cbNBEO" runat="server" Text="NBEO" Checked='<%# Convert.ToBoolean(Eval("NBEO")) %>'
+                                                Enabled="false" />
+                                            <asp:CheckBox ID="cbEUDoC" runat="server" Checked='<%# Convert.ToBoolean(Eval("EUDoC")) %>'
+                                                Enabled="false" Text="EU DoC" />
+                                            <asp:CheckBox ID="cbConformance" runat="server" Checked='<%# Convert.ToBoolean(Eval("Conformance")) %>'
+                                                Enabled="false" Text="Conformance for GSM,CDMA,and WCDMA" />
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="wowi_product_type_name" HeaderText="Product Type">
+                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="sdsK" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="STP_IMAGetTesting" SelectCommandType="StoredProcedure" DeleteCommand="delete from Ima_Testing where TestingID=@TestingID;delete from Ima_Testing_Files where TestingID=@TestingID"
+                                DeleteCommandType="Text" OnSelected="sdsC_Selected">
+                                <SelectParameters>
+                                    <asp:QueryStringParameter Name="world_region_id" QueryStringField="rid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="country_id" QueryStringField="cid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="wowi_product_type_id" QueryStringField="pid" Type="Int32"
+                                        DefaultValue="0" />
+                                    <asp:ControlParameter ControlID="ddlDocCategory" Name="DocCategory" PropertyName="SelectedValue" />
+                                </SelectParameters>
+                                <DeleteParameters>
+                                    <asp:Parameter Name="TestingID" Type="Int32" />
                                 </DeleteParameters>
                             </asp:SqlDataSource>
                         </td>

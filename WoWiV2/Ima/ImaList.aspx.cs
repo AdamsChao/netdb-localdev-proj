@@ -135,6 +135,10 @@ public partial class Ima_ImaList : System.Web.UI.Page
         {
             strURL = "ImaLocalAgent.aspx";
         }
+        else if (ddlDocCategory.SelectedValue == "O")
+        {
+            strURL = "ImaCertificate.aspx";
+        }
         else if (ddlDocCategory.SelectedValue == "E")
         {
             strURL = "ImaEnforcement.aspx";
@@ -142,6 +146,18 @@ public partial class Ima_ImaList : System.Web.UI.Page
         else if (ddlDocCategory.SelectedValue == "L")
         {
             strURL = "ImaFeeSchedule.aspx";
+        }
+        else if (ddlDocCategory.SelectedValue == "P")
+        {
+            strURL = "ImaPost.aspx";
+        }
+        else if (ddlDocCategory.SelectedValue == "N")
+        {
+            strURL = "ImaPeriodic.aspx";
+        }
+        else if (ddlDocCategory.SelectedValue == "K")
+        {
+            strURL = "ImaTesting.aspx";
         }
         Response.Redirect(strURL + GetQueryString(true, dic, null));
     }
@@ -273,6 +289,42 @@ public partial class Ima_ImaList : System.Web.UI.Page
                 dic.Add("fsid", lbtn.CommandArgument);
                 dic.Add("copy", "1");
                 strURL = "ImaFeeSchedule.aspx";
+                break;
+            case "GoEditO":
+                dic.Add("cfid", lbtn.CommandArgument);
+                strURL = "ImaCertificate.aspx";
+                break;
+            case "GoCopyO":
+                dic.Add("cfid", lbtn.CommandArgument);
+                dic.Add("copy", "1");
+                strURL = "ImaCertificate.aspx";
+                break;
+            case "GoEditP":
+                dic.Add("pcid", lbtn.CommandArgument);
+                strURL = "ImaPost.aspx";
+                break;
+            case "GoCopyP":
+                dic.Add("pcid", lbtn.CommandArgument);
+                dic.Add("copy", "1");
+                strURL = "ImaPost.aspx";
+                break;
+            case "GoEditN":
+                dic.Add("pfiid", lbtn.CommandArgument);
+                strURL = "ImaPeriodic.aspx";
+                break;
+            case "GoCopyN":
+                dic.Add("pfiid", lbtn.CommandArgument);
+                dic.Add("copy", "1");
+                strURL = "ImaPeriodic.aspx";
+                break;
+            case "GoEditK":
+                dic.Add("tid", lbtn.CommandArgument);
+                strURL = "ImaTesting.aspx";
+                break;
+            case "GoCopyK":
+                dic.Add("tid", lbtn.CommandArgument);
+                dic.Add("copy", "1");
+                strURL = "ImaTesting.aspx";
                 break;
         }
         Response.Redirect(strURL + GetQueryString(true, dic, null));

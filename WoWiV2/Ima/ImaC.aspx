@@ -15,7 +15,7 @@
                 <table cellpadding="1" cellspacing="1" border="0" class="tbEditItem">
                     <tr>
                         <td colspan="2" class="tdHeader">
-                            National governed rules and regulation Detail
+                            National government rules and regulation Detail
                         </td>
                     </tr>
                     <tr>
