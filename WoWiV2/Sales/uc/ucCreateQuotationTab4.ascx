@@ -2,7 +2,7 @@
     Inherits="Sales_uc_ucCreateQuotationTab4" %>
 <style type="text/css">
     TD
-    {
+    { 
         font-size: 12px;
         font-style: normal;
     }
