@@ -378,4 +378,4 @@
 </table>
 <p>
     <asp:TextBox ID="hidQuotationID" runat="server" Text="0" Visible="false"></asp:TextBox>
-</p>
+    t</p>
