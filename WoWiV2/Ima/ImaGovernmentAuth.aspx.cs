@@ -93,7 +93,8 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
         cmd.Parameters.Add("@Mandatory", SqlDbType.NVarChar);
         cmd.Parameters.Add("@wowi_product_type_id", SqlDbType.Int);
         cmd.Parameters.Add("@CertificateValid", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@IsTransfer", SqlDbType.Bit);
+        //cmd.Parameters.Add("@IsTransfer", SqlDbType.Bit);
+        cmd.Parameters.Add("@IsTransfer", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Description", SqlDbType.NVarChar);
         cmd.Parameters.Add("@CreateUser", SqlDbType.NVarChar);
         cmd.Parameters.Add("@LasterUpdateUser", SqlDbType.NVarChar);
