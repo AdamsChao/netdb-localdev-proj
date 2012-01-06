@@ -119,9 +119,10 @@
                             Transfer of Certificate：
                         </td>
                         <td class="tdRowValue">
-                            <asp:RadioButtonList ID="rblTransfer" runat="server" RepeatDirection="Horizontal">
-                                <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
-                                <asp:ListItem Text="NO" Value="0"></asp:ListItem>
+                            <asp:RadioButtonList ID="rblTransfer" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                                <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                             <asp:Label ID="lblDescription" runat="server" ></asp:Label>
                             <asp:GridView ID="gvImaFiles" runat="server" DataKeyNames="GoverAuthFileID" SkinID="gvList"
