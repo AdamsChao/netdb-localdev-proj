@@ -21,6 +21,7 @@ public partial class Ima_ImaB : System.Web.UI.Page
     protected void LoadData()
     {
         string strID = Request["gaid"];
+
         trProductType.Visible = false;
         if (strID != null)
         {
