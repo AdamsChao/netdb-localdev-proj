@@ -199,6 +199,23 @@ public class Quotation_Controller
         return (TargetDiscount + Total_disc_amt).ToString();
     }
 
+    public static string GetTotalVersionTotal_disc_amt(string Quotation_No)
+    {
+        //Decimal TargetDiscount;
+        Decimal Total_disc_amt;
+        QuotationEntities entities = new QuotationEntities();
+  
+        var result2 = from n in ent.Quotation_Version
+                      where n.Quotation_No == Quotation_No
+                      select n.Total_disc_amt;
+        if (result2.ToList().Count > 0)
+            Total_disc_amt = (decimal)result2.Sum();
+        else
+            Total_disc_amt = 0;
+
+        return Total_disc_amt.ToString("N2");
+    }
+
     public static string GetTotalVersionUnitPrice(string Quotation_No)
     {
         QuotationEntities entities = new QuotationEntities();
@@ -215,7 +232,7 @@ public class Quotation_Controller
         return sum.ToString();
     }
 
-    public static void Status_AwaitingApproval(decimal FinalTotalPrice, string Currency, Quotation_Version quotation)
+    public static int Status_AwaitingApproval(decimal FinalTotalPrice, string Currency, Quotation_Version quotation, int SupervisorID)
     {
         employee emp;
         QuotationEntities entities = new QuotationEntities();
@@ -224,14 +241,18 @@ public class Quotation_Controller
         string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id ;
 
         var result = from n in entities.employee
-                     where n.q_authorize_amt < FinalTotalPrice || n.q_authorize_currency == Currency
-                     orderby n.q_authorize_amt
+                     where n.q_authorize_currency == Currency && n.id == SupervisorID                     
                      select n;
         if (result.Count() > 0)
         {
             emp = result.First();
             if (!String.IsNullOrEmpty(emp.email))
-                Mail(emp.email, mailSubject, mailContent); 
+                Mail(emp.email, mailSubject, mailContent);
+            return 2;
+        }
+        else
+        {
+            return 3;
         }
        
         
@@ -243,27 +264,27 @@ public class Quotation_Controller
        QuotationEntities entities = new QuotationEntities();
 
 
-       var Max_Q_Authorize_Amt = (from n in entities.employee
+       var emp = (from n in entities.employee
                                   where n.id == EmpID
-                                  select n.q_authorize_amt).First();
-       quotation.Max_Q_Authorize_Amt = Max_Q_Authorize_Amt;
+                                  select n).First();
+
+       quotation.Max_Q_Authorize_Amt = emp.q_authorize_amt;
        Quotation_Controller.Update_Quotation(ent, quotation);
 
-       employee emp;
-       string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is request for approval ";
-       string mailContent = "test";
-
-
        var result = from n in entities.employee
-                    where n.q_authorize_amt < FinalTotalPrice || n.q_authorize_currency == Currency
-                    orderby n.q_authorize_amt
+                    where n.q_authorize_currency == Currency && n.id==emp.supervisor_id
                     select n;
        if (result.Count() > 0)
        {
-           emp = result.First();
-           if (!String.IsNullOrEmpty(emp.email))
-               Mail(emp.email, mailSubject, mailContent);
+           employee supervisor = result.First();
+           if (!String.IsNullOrEmpty(supervisor.email))
+           {
+               string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is request for approval ";
+               string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id;
 
+               Mail(supervisor.email, mailSubject, mailContent);             
+           }
+           quotation.Waiting_Approve_UserID = supervisor.id;
            return false;
        }
        else

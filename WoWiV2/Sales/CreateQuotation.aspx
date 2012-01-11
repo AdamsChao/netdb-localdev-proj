@@ -18,20 +18,27 @@
     function btn() {
         $("#dialog").dialog();
     }
+
+    function btnDeny() {
+        $("#dialogDeny").dialog();
+    }
+    
 </script>
     <script language="javascript" type="text/javascript">
-        function printform() {
-            var printContent = document.getElementById("<%= TabContainer1.ClientID %>");
-            var windowUrl = 'about:blank';
+        function printform(qid) {
+            //var printContent = document.getElementById("<%= TabContainer1.ClientID %>");
+            var windowUrl = 'QuotationViewPrint.aspx?q=' + qid;
             var uniqueName = new Date();
             var windowName = 'Print' + uniqueName.getTime();
             var printWindow = window.open(windowUrl, windowName);
 
-            printWindow.document.write(printContent.innerHTML);
-            printWindow.document.close();
+//            printWindow.document.write(printContent.innerHTML);
+//            printWindow.document.close();
             printWindow.focus();
             printWindow.print();
             //printWindow.close();
+
+            return false;
         } 
     </script>
 </asp:Content>
@@ -50,8 +57,8 @@
                 </td>
                 <td>
                     <asp:Button ID="cmdCopy" runat="server" Text="Copy" OnClick="cmdCopy_Click" />
-                    &nbsp;&nbsp;&nbsp;<input id="btnViewPrint" type="button" value="View/Print" 
-                        onclick="printform();" style="visibility: hidden"  />
+                    &nbsp;&nbsp;&nbsp;
+                        <asp:Button ID="btnViewPrint" runat="server" Text="View/Print"  />
                 </td>
             </tr>
             <tr>
@@ -86,44 +93,130 @@
         <asp:TabPanel runat="server" HeaderText="EUT" ID="TabPanel1">
             <ContentTemplate>
                 
+                
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <uc1:ucCreateQuotationTab1 ID="ucTab1" runat="server" />
+
+
+
+
+
+
+
+
+
+
                 
 
+                
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-            </ContentTemplate>
             
-        </asp:TabPanel>
+</ContentTemplate>
+            
+            
+        
+
+
+
+
+
+
+
+
+
+</asp:TabPanel>
         <asp:TabPanel ID="TabPanel2" runat="server" HeaderText="Test Target">
             <ContentTemplate>
                 
+                
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <uc2:ucCreateQuotationTab2 ID="ucTab2" runat="server" />
                 
+                
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-            </ContentTemplate>
             
-        </asp:TabPanel>
+</ContentTemplate>
+            
+            
+        
+
+
+
+
+
+
+
+
+
+</asp:TabPanel>
         <asp:TabPanel ID="TabPanel3" runat="server" HeaderText="Remark/Payment">
             <ContentTemplate>
                 
+                
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <uc4:ucCreateQuotationTab4 ID="ucTab4" runat="server" />
                 
+                
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-            </ContentTemplate>
             
-        </asp:TabPanel>
+</ContentTemplate>
+            
+            
+        
+
+
+
+
+
+
+
+
+
+</asp:TabPanel>
         <asp:TabPanel ID="TabPanel4" runat="server" HeaderText="History">
             <ContentTemplate>
                 
+                
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <uc6:ucCreateQuotationTab6 ID="ucTab6" runat="server" />
                 
+                
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-            </ContentTemplate>
             
-        </asp:TabPanel>
+</ContentTemplate>
+            
+            
+        
+
+
+
+
+
+
+
+
+
+</asp:TabPanel>
     </asp:TabContainer>
     <asp:TextBox ID="hidQuotation_Version_Id" runat="server" Visible="false"></asp:TextBox>
+    <div id="dialogDeny" title="Message" style="display: none;">
+    You Can't Approvel the Quotation</div>
 </asp:Content>

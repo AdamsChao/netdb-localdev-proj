@@ -53,8 +53,8 @@
         </th>
         <td>
             <asp:RadioButtonList ID="RadioButtonListCurrency" runat="server" RepeatDirection="Horizontal">
-                <asp:ListItem Selected="True">NTD</asp:ListItem>
-                <asp:ListItem>USD</asp:ListItem>
+                <asp:ListItem >NTD</asp:ListItem>
+                <asp:ListItem Selected="True">USD</asp:ListItem>
             </asp:RadioButtonList>
         </td>
     </tr>

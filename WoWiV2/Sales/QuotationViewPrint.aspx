@@ -40,6 +40,13 @@
         {
             font-weight: bold;
         }
+        .CCSTextBoxRD
+        {
+            font-style: normal;
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            background: #dddddd;
+            font-size: 9pt;
+        }
     </style>
 </head>
 <body>
@@ -67,7 +74,7 @@
         </tr>
         <tr>
             <td align="middle" class="ccsh1" colspan="3" valign="top">
-                QUOTATION# 
+                QUOTATION#
                 <asp:Label ID="lblQuotationNo" runat="server" Text="I1010031-02"></asp:Label>
             </td>
         </tr>
@@ -75,9 +82,8 @@
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td align="left" class="ccstextboxh" width="100%">
-                Your Account Representative is: 
+                Your Account Representative is:
                 <asp:Label ID="lblRepresentative" runat="server" Text="Shirley Kang"></asp:Label>
-                
             </td>
             <td rowspan="2">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -145,10 +151,10 @@
         <tr>
             <td class="ccstextboxh" valign="top">
                 <u>EUT INFORMATION</u><br />
-                Description: 
+                Description:
                 <asp:Label ID="lblDescription" runat="server" Text="Audio transceiver module"></asp:Label>
                 <p>
-                    Model Name: 
+                    Model Name:
                     <asp:Label ID="lblModelName" runat="server" Text="SWA-5000 / FCC ID: A3LSWA5000"></asp:Label></p>
             </td>
             <td align="right" class="ccstextboxh">
@@ -225,130 +231,83 @@
                     </tr>
                     <tr>
                         <td>
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td class="ccstextboxh" width="4%">
-                                        No.
-                                    </td>
-                                    <td class="ccstextboxh" width="7%">
-                                        Code
-                                    </td>
-                                    <td class="ccstextboxh" width="30%">
-                                        Test Standard
-                                    </td>
-                                    <td class="ccstextboxh" width="4%">
-                                        Units
-                                    </td>
-                                    <td align="right" class="ccstextboxh" width="9%">
-                                        Unit Price
-                                    </td>
-                                    <td align="right" class="ccstextboxh" width="8%">
-                                        Test Price
-                                    </td>
-                                    <td align="right" class="ccstextboxh" width="7%">
-                                        &nbsp;
-                                    </td>
-                                    <td align="right" class="ccstextboxh" width="8%">
-                                        Test Total
-                                    </td>
-                                    <td align="right" class="ccstextboxh" width="8%">
-                                        Report
-                                    </td>
-                                    <td align="right" class="ccstextboxh" width="8%">
-                                        Agent:
-                                    </td>
-                                    <td align="left" class="ccstextboxh" width="7%">
-                                        Pay To
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="CCSItemText" valign="top">
-                                        1
-                                    </td>
-                                    <td class="CCSItemText" valign="top">
-                                        CIRN023-1
-                                    </td>
-                                    <td class="CCSItemText">
-                                        Iran Certification
-                                    </td>
-                                    <td align="middle" class="CCSItemText" valign="top">
-                                        1
-                                    </td>
-                                    <td align="right" class="CCSItemText" valign="top">
-                                        $5,000.00
-                                    </td>
-                                    <td align="right" class="CCSItemText" valign="top">
-                                        $0.00
-                                    </td>
-                                    <td align="right" class="CCSItemText" valign="top">
-                                        &nbsp;
-                                    </td>
-                                    <td align="right" class="CCSItemText" valign="top">
-                                        $0.00
-                                    </td>
-                                    <td align="right" class="CCSItemText" valign="top">
-                                        $0.00
-                                    </td>
-                                    <td align="right" class="CCSItemText" valign="top">
-                                        $5,000.00&nbsp;
-                                    </td>
-                                    <td align="left" class="CCSItemText" valign="top">
-                                        &nbsp;WoWi
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="CCSItemText" valign="top">
-                                        2
-                                    </td>
-                                    <td class="CCSItemText" valign="top">
-                                        CARE060-1
-                                    </td>
-                                    <td class="CCSItemText">
-                                        United Arab Emirates Certification
-                                    </td>
-                                    <td align="middle" class="CCSItemText" valign="top">
-                                        1
-                                    </td>
-                                    <td align="right" class="CCSItemText" valign="top">
-                                        $3,300.00
-                                    </td>
-                                    <td align="right" class="CCSItemText" valign="top">
-                                        $0.00
-                                    </td>
-                                    <td align="right" class="CCSItemText" valign="top">
-                                        &nbsp;
-                                    </td>
-                                    <td align="right" class="CCSItemText" valign="top">
-                                        $0.00
-                                    </td>
-                                    <td align="right" class="CCSItemText" valign="top">
-                                        $0.00
-                                    </td>
-                                    <td align="right" class="CCSItemText" valign="top">
-                                        $3,300.00&nbsp;
-                                    </td>
-                                    <td align="left" class="CCSItemText" valign="top">
-                                        &nbsp;WoWi
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th align="left" class="CCSItemText" colspan="7">
-                                        Sub Total
-                                    </th>
-                                    <td align="right" class="CCSItemText">
-                                        $0.00
-                                    </td>
-                                    <td align="right" class="CCSItemText">
-                                        $0.00
-                                    </td>
-                                    <td align="right" class="CCSItemText">
-                                        $8,300.00&nbsp;
-                                    </td>
-                                    <td align="left" class="CCSItemText">
-                                        &nbsp;
-                                    </td>
-                                </tr>
-                            </table>
+                            <asp:GridView ID="gvTestTargetList" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1"
+                                Width="100%" CaptionAlign="Top" ShowFooter="True" Style="text-align: left">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="No.">
+                                        <ItemTemplate>
+                                            <%#Container.DataItemIndex + 1%>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="Vername" HeaderText="Version" SortExpression="Vername">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="target_description" HeaderText="T. Description" SortExpression="target_description">
+                                        <HeaderStyle HorizontalAlign="Left" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Status" HeaderText="Status" ReadOnly="True" SortExpression="Status">
+                                        <HeaderStyle HorizontalAlign="Left" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="unit" HeaderText="Unit" SortExpression="unit">
+                                        <HeaderStyle HorizontalAlign="Right" />
+                                        <ItemStyle HorizontalAlign="Right" />
+                                    </asp:BoundField>
+                                    <asp:TemplateField HeaderText="Unit Price" SortExpression="unit_price">
+                                        <EditItemTemplate>
+                                            <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("unit_price") %>'></asp:TextBox>
+                                        </EditItemTemplate>
+                                        <ItemTemplate>
+                                            <asp:Label ID="Label2" runat="server" Text='<%# Bind("unit_price") %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Right" />
+                                        <ItemStyle HorizontalAlign="Right" />
+                                        <FooterStyle HorizontalAlign="Right" />
+                                        <FooterTemplate>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        Sub Total
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Total Disc Amt
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Total
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </FooterTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="FinalPrice" SortExpression="FinalPrice">
+                                        <ItemTemplate>
+                                           <%-- <asp:Label ID="Label1" runat="server" Text='<%# Bind("FinalPrice") %>'></asp:Label>--%>
+                                          <%# GetUnitPrice(decimal.Parse(Eval("FinalPrice").ToString())).ToString("N2")%>
+
+
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Right" />
+                                        <ItemStyle HorizontalAlign="Right" />
+                                        <FooterStyle HorizontalAlign="Right" />
+                                        <FooterTemplate>
+                                            <asp:Literal ID="Literal1" runat="server" Text="<%# GetNumber()%>"></asp:Literal>
+                                        </FooterTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id FROM vw_Test_Target_List WHERE (Quotation_No = @Quotation_No) ORDER BY Quotation_Version_Id">
+                                <SelectParameters>
+                                    <asp:ControlParameter ControlID="hidQuotation_No" Name="Quotation_No" PropertyName="Text"
+                                        Type="String" />
+                                </SelectParameters>
+                            </asp:SqlDataSource>
                         </td>
                     </tr>
                 </table>
@@ -748,6 +707,8 @@
         </table>
         <!-- end body -->
     </p>
+    <asp:TextBox ID="hidQuotationID" runat="server" Text="0" Visible="false"></asp:TextBox>
+    <asp:TextBox ID="hidQuotation_No" runat="server" Text="0" Visible="false"></asp:TextBox>
     </form>
 </body>
 </html>

@@ -27,6 +27,11 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
             {
                 LoadData(QuotationID);
             }
+            else
+            {
+                employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
+                DropDownListEmp.SelectedValue = emp.id.ToString();
+            }
         }
     }
 
@@ -103,6 +108,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         obj.Bill_CAddress = txtBill_CAddress.Text;
         obj.Total_disc_amt = 0;
         obj.Max_Q_Authorize_Amt = 0;
+        obj.Waiting_Approve_UserID = -1;
         //obj.Approve
         //obj.Approved_Date
         //obj.ApprovedBy

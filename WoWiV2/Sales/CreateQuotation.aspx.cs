@@ -70,6 +70,31 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                     DropDownListStatus.SelectedValue = quotation.Quotation_Status.ToString();
                     txtQuotation_Statusdate.Text = ((DateTime)quotation.Quotation_Statusdate).ToString("yyyy/MM/dd HH:mm");
                     txtQuotation_Statusby.Text = quotation.Quotation_Statusby;
+
+
+                    string strJavaScript = string.Empty;
+                    strJavaScript = "return printform('" + QuotationID.ToString() + "');";
+                    btnViewPrint.OnClientClick = strJavaScript;
+
+                    employee loginUser = CodeTableController.GetEmployee(Page.User.Identity.Name);
+
+                    int Waiting_Approve_UserID = (quotation.Waiting_Approve_UserID != null) ? (int)quotation.Waiting_Approve_UserID : 0;
+                    if (loginUser.id == Waiting_Approve_UserID || loginUser.id == quotation.SalesId)
+                    {
+                        DropDownListStatus.Enabled = true;
+                        cmdStatus.Enabled = true;
+                    }
+                    else
+                    {
+                        DropDownListStatus.Enabled = false;
+                        cmdStatus.Enabled = false;
+                    }
+
+                }
+                else
+                {
+                    DropDownListStatus.Enabled = false;
+                    cmdStatus.Enabled = false;
                 }
 
 
@@ -86,13 +111,14 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
 
         if (getQuotationID() == 0)
         {
-            DropDownListStatus.Enabled = false;
-            cmdStatus.Enabled = false;
+            //DropDownListStatus.Enabled = false;
+            //cmdStatus.Enabled = false;
         }
         else
         {
-            DropDownListStatus.Enabled = true;
-            cmdStatus.Enabled = true;
+
+            //DropDownListStatus.Enabled = true;
+            //cmdStatus.Enabled = true;
 
             Project project = CodeTableController.GetProject(getQuotationID());
             if ((project == null) && (DropDownListStatus.SelectedValue == "5"))
@@ -119,37 +145,57 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
             Quotation_Version quotation = Quotation_Controller.Get_Quotation(QuotationID);
             if (quotation != null)
             {
-                quotation.Quotation_Status = Int32.Parse(DropDownListStatus.SelectedValue);
+               
                 quotation.Quotation_Statusdate = DateTime.Now;
                 quotation.Quotation_Statusby = Page.User.Identity.Name;
                 employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
                 quotation.Quotation_StatusbyID = emp.id;
 
+
                 txtQuotation_Statusdate.Text = ((DateTime)quotation.Quotation_Statusdate).ToString("yyyy/MM/dd HH:mm:ss");
                 txtQuotation_Statusby.Text = quotation.Quotation_Statusby;
 
-                Quotation_Controller.Update_Quotation(Quotation_Controller.ent, quotation);
 
                 if ((DropDownListStatus.SelectedValue == "2") && (quotation.FinalTotalPrice != null))
                 {
-                    Quotation_Controller.Status_AwaitingApproval((Decimal)quotation.FinalTotalPrice, quotation.Currency, quotation);
-
+                    int status = Quotation_Controller.Status_AwaitingApproval((Decimal)quotation.FinalTotalPrice, quotation.Currency, quotation, (int)emp.supervisor_id);
+                    quotation.Quotation_Status = Int32.Parse(DropDownListStatus.SelectedValue);
+                    quotation.Waiting_Approve_UserID = emp.supervisor_id;
+                    quotation.Quotation_Status = status;
+                    Quotation_Controller.Update_Quotation(Quotation_Controller.ent, quotation);
+           
                 }
 
                 if ((DropDownListStatus.SelectedValue == "3") && (quotation.FinalTotalPrice != null))
                 {
+                    //CheckIfUserCanApprove();
+                    if (quotation.Waiting_Approve_UserID != emp.id)
+                    {
+                        string strScript = "<script language='JavaScript'>alert('Only SuperVisor can do it! ')</script>";
+                        Page.RegisterStartupScript("PopUp", strScript);
+                        return;
+                    }
+
                     bool result = Quotation_Controller.Status_Approved((Decimal)quotation.FinalTotalPrice, quotation.Currency, quotation, emp.id);
 
                     if (!result)
                     {
+                        //quotation.Waiting_Approve_UserID 
                         DropDownListStatus.SelectedValue = "2";
                     }
+                    quotation.Quotation_Status = Int32.Parse(DropDownListStatus.SelectedValue);
+                    Quotation_Controller.Update_Quotation(Quotation_Controller.ent, quotation);
 
                 }
             }
 
         }
 
+    }
+
+    private void CheckIfUserCanApprove()
+    {
+        throw new NotImplementedException();
     }
     protected void cmdAdditional_Click(object sender, EventArgs e)
     {
