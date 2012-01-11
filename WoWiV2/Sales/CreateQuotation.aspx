@@ -35,7 +35,7 @@
 //            printWindow.document.write(printContent.innerHTML);
 //            printWindow.document.close();
             printWindow.focus();
-            printWindow.print();
+            //printWindow.print();
             //printWindow.close();
 
             return false;

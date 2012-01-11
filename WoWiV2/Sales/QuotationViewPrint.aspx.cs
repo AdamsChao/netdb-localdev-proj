@@ -16,7 +16,50 @@ public partial class Sales_QuotationViewPrint : System.Web.UI.Page
         if (q != null && Int32.TryParse(q, out QuotationID))
         {
             hidQuotationID.Text = QuotationID.ToString();
-            hidQuotation_No.Text = Quotation_Controller.Get_Quotation(QuotationID).Quotation_No.ToString();
+            vw_Quotation_Print quo = Quotation_Controller.GetQuotationPrint(QuotationID);
+            if (quo != null)
+            {
+
+                hidQuotation_No.Text = quo.Quotation_No.ToString();                
+                lblQuotationNo.Text = quo.Quotation_No.ToString();
+                lblQuotationNo0.Text = quo.Quotation_No.ToString();
+                lblRepresentative.Text = quo.fname + " " + quo.lname;
+                lblRepresentative0.Text = quo.fname + " " + quo.lname;
+                lblRepresentative1.Text = quo.fname + " " + quo.lname;
+                lblBillTo.Text = quo.Bill_Companyname;
+                lblBillTo0.Text = quo.Bill_Companyname;
+                lblBillTo1.Text = quo.Bill_Companyname;
+                lblApplicant.Text = quo.Applicant;
+                lblApplicant0.Text = quo.Applicant;
+                lblTel.Text = quo.workphone;
+                lblTel0.Text = quo.workphone;
+                lblEmail.Text = quo.email;
+                lblEmail0.Text = quo.email;
+                lblDate.Text = DateTime.Now.ToString("MM/dd/yyyy");
+                lblDate0.Text = DateTime.Now.ToString("MM/dd/yyyy");
+                lblDate1.Text = DateTime.Now.ToString("MM/dd/yyyy");
+                lblDescription.Text = quo.Product_Name;
+                lblDescription0.Text = quo.Product_Name;
+                lblModelName.Text = quo.Model_No;
+                lblModelName0.Text = quo.Model_No;
+                lblBrandName.Text = quo.Brand_Name;
+                lblBrandName0.Text = quo.Brand_Name;
+                lblContact.Text = quo.Bill_Name;
+                lblContact0.Text = quo.Bill_Name;
+                lblClientPhone.Text = quo.Bill_Phone;
+                lblClientPhone0.Text = quo.Bill_Phone;
+                lblClientEmail.Text = quo.Bill_Email;
+                lblClientEmail0.Text = quo.Bill_Email;
+                lblClientAddress.Text = quo.Bill_Address;
+                lblClientAddress0.Text = quo.Bill_Address;
+                lblCleintCountry.Text = quo.Bill_Country;
+                lblCleintCountry0.Text = quo.Bill_Country;
+                imgSign.ImageUrl = "../Images/sign/" + quo.fname + "." + quo.lname + ".bmp";
+                lblTitle.Text = quo.title;
+
+
+
+            }
         }
 
     }
@@ -45,6 +88,8 @@ public partial class Sales_QuotationViewPrint : System.Web.UI.Page
         sb.Replace("Discount", list[1]);
         sb.Replace("Total", list[2]);
 
+        lblTotalCost.Text = list[2];
+        lblTotalCost2.Text = list[2];
         return sb.ToString();
     }
 

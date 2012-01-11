@@ -25,6 +25,27 @@
       [vw_Product_Type].[country_id] AS [country_id]
       FROM [dbo].[vw_Product_Type] AS [vw_Product_Type]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="vw_Quotation_Print" EntityType="QuotationModel.Store.vw_Quotation_Print" store:Type="Views" store:Schema="dbo" store:Name="vw_Quotation_Print">
+            <DefiningQuery>SELECT 
+      [vw_Quotation_Print].[Quotation_Version_Id] AS [Quotation_Version_Id], 
+      [vw_Quotation_Print].[Quotation_No] AS [Quotation_No], 
+      [vw_Quotation_Print].[fname] AS [fname], 
+      [vw_Quotation_Print].[lname] AS [lname], 
+      [vw_Quotation_Print].[Bill_Companyname] AS [Bill_Companyname], 
+      [vw_Quotation_Print].[Applicant] AS [Applicant], 
+      [vw_Quotation_Print].[workphone] AS [workphone], 
+      [vw_Quotation_Print].[email] AS [email], 
+      [vw_Quotation_Print].[Product_Name] AS [Product_Name], 
+      [vw_Quotation_Print].[Model_No] AS [Model_No], 
+      [vw_Quotation_Print].[Brand_Name] AS [Brand_Name], 
+      [vw_Quotation_Print].[Bill_Name] AS [Bill_Name], 
+      [vw_Quotation_Print].[Bill_Phone] AS [Bill_Phone], 
+      [vw_Quotation_Print].[Bill_Email] AS [Bill_Email], 
+      [vw_Quotation_Print].[Bill_Country] AS [Bill_Country], 
+      [vw_Quotation_Print].[Bill_Address] AS [Bill_Address], 
+      [vw_Quotation_Print].[title] AS [title]
+      FROM [dbo].[vw_Quotation_Print] AS [vw_Quotation_Print]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
         <EntityType Name="Authority">
           <Key>
@@ -259,6 +280,7 @@
           <Property Name="Bill_CCompanyname" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_Phone" Type="nvarchar" MaxLength="20" />
           <Property Name="Bill_Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Bill_Country" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_Address" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_CAddress" Type="nvarchar" MaxLength="100" />
           <Property Name="Approve" Type="char" MaxLength="1" />
@@ -342,6 +364,31 @@
           <Property Name="wowi_product_type_name" Type="varchar" MaxLength="50" />
           <Property Name="country_id" Type="int" />
         </EntityType>
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'wowi.dbo.vw_Quotation_Print' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+      -->
+        <EntityType Name="vw_Quotation_Print">
+          <Key>
+            <PropertyRef Name="Quotation_Version_Id" />
+          </Key>
+          <Property Name="Quotation_Version_Id" Type="int" Nullable="false" />
+          <Property Name="Quotation_No" Type="nvarchar" MaxLength="20" />
+          <Property Name="fname" Type="nvarchar" MaxLength="25" />
+          <Property Name="lname" Type="nvarchar" MaxLength="25" />
+          <Property Name="Bill_Companyname" Type="nvarchar" MaxLength="100" />
+          <Property Name="Applicant" Type="nvarchar" MaxLength="50" />
+          <Property Name="workphone" Type="nvarchar" MaxLength="20" />
+          <Property Name="email" Type="nvarchar" MaxLength="30" />
+          <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Model_No" Type="nvarchar" MaxLength="50" />
+          <Property Name="Brand_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bill_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Bill_Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Bill_Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Bill_Country" Type="nvarchar" MaxLength="100" />
+          <Property Name="Bill_Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -360,6 +407,7 @@
           <EntitySet Name="clientapplicant_technology" EntityType="QuotationModel.clientapplicant_technology" />
           <EntitySet Name="Project" EntityType="QuotationModel.Project" />
           <EntitySet Name="Quotation_Version" EntityType="QuotationModel.Quotation_Version" />
+          <EntitySet Name="vw_Quotation_Print" EntityType="QuotationModel.vw_Quotation_Print" />
         </EntityContainer>
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -639,6 +687,7 @@
           <Property Type="String" Name="Bill_CCompanyname" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Bill_Phone" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Bill_Email" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Bill_Country" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Bill_Address" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Bill_CAddress" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Approve" MaxLength="1" FixedLength="true" Unicode="false" />
@@ -673,6 +722,28 @@
           <Property Type="Decimal" Name="Discount" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="FinalTotalPrice" Precision="20" Scale="2" />
           <Property Type="String" Name="Probability" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vw_Quotation_Print">
+          <Key>
+            <PropertyRef Name="Quotation_Version_Id" />
+          </Key>
+          <Property Type="Int32" Name="Quotation_Version_Id" Nullable="false" />
+          <Property Type="String" Name="Quotation_No" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="fname" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="lname" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Bill_Companyname" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Applicant" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="workphone" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="email" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Product_Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Model_No" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Brand_Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Bill_Name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Bill_Phone" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Bill_Email" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Bill_Country" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Bill_Address" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="title" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -960,6 +1031,7 @@
                 <ScalarProperty Name="Approve" ColumnName="Approve" />
                 <ScalarProperty Name="Bill_CAddress" ColumnName="Bill_CAddress" />
                 <ScalarProperty Name="Bill_Address" ColumnName="Bill_Address" />
+                <ScalarProperty Name="Bill_Country" ColumnName="Bill_Country" />
                 <ScalarProperty Name="Bill_Email" ColumnName="Bill_Email" />
                 <ScalarProperty Name="Bill_Phone" ColumnName="Bill_Phone" />
                 <ScalarProperty Name="Bill_CCompanyname" ColumnName="Bill_CCompanyname" />
@@ -1005,6 +1077,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="vw_Quotation_Print">
+            <EntityTypeMapping TypeName="QuotationModel.vw_Quotation_Print">
+              <MappingFragment StoreEntitySet="vw_Quotation_Print">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="Bill_Address" ColumnName="Bill_Address" />
+                <ScalarProperty Name="Bill_Country" ColumnName="Bill_Country" />
+                <ScalarProperty Name="Bill_Email" ColumnName="Bill_Email" />
+                <ScalarProperty Name="Bill_Phone" ColumnName="Bill_Phone" />
+                <ScalarProperty Name="Bill_Name" ColumnName="Bill_Name" />
+                <ScalarProperty Name="Brand_Name" ColumnName="Brand_Name" />
+                <ScalarProperty Name="Model_No" ColumnName="Model_No" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="workphone" ColumnName="workphone" />
+                <ScalarProperty Name="Applicant" ColumnName="Applicant" />
+                <ScalarProperty Name="Bill_Companyname" ColumnName="Bill_Companyname" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="Quotation_No" ColumnName="Quotation_No" />
+                <ScalarProperty Name="Quotation_Version_Id" ColumnName="Quotation_Version_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1035,10 +1130,11 @@
         <EntityTypeShape EntityType="QuotationModel.Target_Rates" Width="1.5" PointX="6.75" PointY="0.75" Height="2.1725878906249996" />
         <EntityTypeShape EntityType="QuotationModel.clientapplicant" Width="1.5" PointX="6.75" PointY="3.75" Height="11.018453776041667" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Target" Width="1.5" PointX="8.75" PointY="0.75" Height="5.8263151041666674" />
-        <EntityTypeShape EntityType="QuotationModel.employee" Width="1.5" PointX="3.375" PointY="8.75" Height="6.7878222656250031" />
-        <EntityTypeShape EntityType="QuotationModel.clientapplicant_technology" Width="1.5" PointX="9.375" PointY="7.75" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="QuotationModel.Project" Width="1.5" PointX="11.375" PointY="0.75" Height="2.1725878906250031" />
-        <EntityTypeShape EntityType="QuotationModel.Quotation_Version" Width="1.5" PointX="0.75" PointY="8.75" Height="15.633688151041667" />
+        <EntityTypeShape EntityType="QuotationModel.employee" Width="1.5" PointX="0.75" PointY="8.75" Height="6.7878222656250031" />
+        <EntityTypeShape EntityType="QuotationModel.clientapplicant_technology" Width="1.5" PointX="2.75" PointY="8.75" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="QuotationModel.Project" Width="1.5" PointX="8.75" PointY="8.75" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="QuotationModel.Quotation_Version" Width="1.5" PointX="10.75" PointY="0.75" Height="15.825989583333332" />
+        <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print" Width="1.5" PointX="12.75" PointY="0.75" Height="4.2879036458333388" />
       </Diagram>
     </Diagrams>
   </Designer>

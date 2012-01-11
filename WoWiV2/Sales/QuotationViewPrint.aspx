@@ -75,7 +75,7 @@
         <tr>
             <td align="middle" class="ccsh1" colspan="3" valign="top">
                 QUOTATION#
-                <asp:Label ID="lblQuotationNo" runat="server" Text="I1010031-02"></asp:Label>
+                <asp:Label ID="lblQuotationNo" runat="server" Text=""></asp:Label>
             </td>
         </tr>
     </table>
@@ -83,7 +83,7 @@
         <tr>
             <td align="left" class="ccstextboxh" width="100%">
                 Your Account Representative is:
-                <asp:Label ID="lblRepresentative" runat="server" Text="Shirley Kang"></asp:Label>
+                <asp:Label ID="lblRepresentative" runat="server" Text="lblRepresentative"></asp:Label>
             </td>
             <td rowspan="2">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -93,7 +93,7 @@
                         </td>
                         <td align="left" class="ccstextboxh">
                             <nobr>
-                            (02) 2799-8382x200</nobr>
+                            <asp:Label ID="lblTel" runat="server" Text="lblTel"></asp:Label></nobr>
                         </td>
                     </tr>
                     <tr>
@@ -109,7 +109,7 @@
                             Email:
                         </td>
                         <td align="left" class="ccstextboxh">
-                            <asp:Label ID="lblEmail" runat="server" Text="Shirley.Kang@WoWiApproval.com"></asp:Label>
+                            <asp:Label ID="lblEmail" runat="server" Text="lblEmail"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -125,7 +125,9 @@
         </tr>
         <tr>
             <td align="left" class="ccstexth">
-                BILL TO:&nbsp;Samsung Electronics Co., LTD.
+                BILL TO:&nbsp;<asp:Label ID="lblBillTo" runat="server" Text="lblBillTo"></asp:Label><br />
+                APPLICANT:&nbsp;
+                <asp:Label ID="lblApplicant" runat="server" Text="lblApplicant"></asp:Label>
             </td>
         </tr>
     </table>
@@ -152,10 +154,14 @@
             <td class="ccstextboxh" valign="top">
                 <u>EUT INFORMATION</u><br />
                 Description:
-                <asp:Label ID="lblDescription" runat="server" Text="Audio transceiver module"></asp:Label>
+                <asp:Label ID="lblDescription" runat="server" Text="lblDescription"></asp:Label>
                 <p>
                     Model Name:
-                    <asp:Label ID="lblModelName" runat="server" Text="SWA-5000 / FCC ID: A3LSWA5000"></asp:Label></p>
+                    <asp:Label ID="lblModelName" runat="server" Text="lblModelName"></asp:Label></p>
+                <p>
+                    Brand Name:
+                    <asp:Label ID="lblBrandName" runat="server" Text="lblBrandName"></asp:Label>
+                </p>
             </td>
             <td align="right" class="ccstextboxh">
                 <table border="0" cellpadding="0" cellspacing="0">
@@ -171,7 +177,7 @@
                         </td>
                         <td align="left" class="ccstextboxh">
                             <nobr>
-                            <asp:Label ID="lblContact" runat="server" Text="ChangSeub Eum"></asp:Label></nobr>
+                            <asp:Label ID="lblContact" runat="server" Text="lblContact"></asp:Label></nobr>
                         </td>
                     </tr>
                     <tr>
@@ -180,7 +186,7 @@
                         </td>
                         <td align="left" class="ccstextboxh">
                             <nobr>
-                            <asp:Label ID="lblClientPhone" runat="server" Text="Contact"></asp:Label>+82-31-2772635</nobr>
+                            <asp:Label ID="lblClientPhone" runat="server" Text="lblClientPhone"></asp:Label></nobr>
                         </td>
                     </tr>
                     <tr>
@@ -188,7 +194,7 @@
                             Email:
                         </td>
                         <td align="left" class="ccstextboxh">
-                            <asp:Label ID="lblClientEmail" runat="server" Text="cseum@samsung.com"></asp:Label>
+                            <asp:Label ID="lblClientEmail" runat="server" Text="lblClientEmail"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -196,18 +202,12 @@
                             Address:
                         </td>
                         <td align="left" class="ccstextboxh">
-                            <nobr>
-                            <asp:Label ID="lblClientAddress" runat="server" Text="416, Maetan-3 Dong , Yeongtong-Gu, Suwon-City Gyeonggi-Do, 443-742 443-742"></asp:Label>
+                            <asp:Label ID="lblClientAddress" runat="server" Text="lblClientAddress"></asp:Label>
                             <br />
-                            <asp:Label ID="lblCleintCountry" runat="server" Text="South Korea"></asp:Label></nobr>
+                            <asp:Label ID="lblCleintCountry" runat="server" Text="lblCleintCountry"></asp:Label>
                         </td>
                     </tr>
                 </table>
-            </td>
-        </tr>
-        <tr>
-            <td align="left" class="ccstextboxh" colspan="2" valign="top">
-                PO:_____________Limit: $
             </td>
         </tr>
         <tr>
@@ -247,10 +247,6 @@
                                         <HeaderStyle HorizontalAlign="Left" />
                                         <ItemStyle HorizontalAlign="Left" />
                                     </asp:BoundField>
-                                    <asp:BoundField DataField="Status" HeaderText="Status" ReadOnly="True" SortExpression="Status">
-                                        <HeaderStyle HorizontalAlign="Left" />
-                                        <ItemStyle HorizontalAlign="Left" />
-                                    </asp:BoundField>
                                     <asp:BoundField DataField="unit" HeaderText="Unit" SortExpression="unit">
                                         <HeaderStyle HorizontalAlign="Right" />
                                         <ItemStyle HorizontalAlign="Right" />
@@ -285,12 +281,10 @@
                                             </table>
                                         </FooterTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="FinalPrice" SortExpression="FinalPrice">
+                                    <asp:TemplateField HeaderText="Total" SortExpression="FinalPrice">
                                         <ItemTemplate>
-                                           <%-- <asp:Label ID="Label1" runat="server" Text='<%# Bind("FinalPrice") %>'></asp:Label>--%>
-                                          <%# GetUnitPrice(decimal.Parse(Eval("FinalPrice").ToString())).ToString("N2")%>
-
-
+                                            <%-- <asp:Label ID="Label1" runat="server" Text='<%# Bind("FinalPrice") %>'></asp:Label>--%>
+                                            <%# GetUnitPrice(decimal.Parse(Eval("FinalPrice").ToString())).ToString("N2")%>
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="Right" />
                                         <ItemStyle HorizontalAlign="Right" />
@@ -338,38 +332,12 @@
                             &nbsp;
                         </td>
                         <td align="right" class="ccstexth">
-                            Test Cost:
-                        </td>
-                        <td align="right" class="ccstexth">
-                            <nobr>
-                            &nbsp; &nbsp; &nbsp; $0.00</nobr>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="100%">
-                            &nbsp;
-                        </td>
-                        <td align="right" class="ccstexth">
-                            <nobr>
-                            Agency Fees (Advanced by WoWi, payable to WoWi):</nobr>
-                        </td>
-                        <td align="right" class="ccstexth">
-                            <nobr>
-                            &nbsp; &nbsp; &nbsp; $8,300.00</nobr>
-                        </td>
-                    </tr>
-                    <!--    <tr><td>&nbsp;</td><td class="ccstexth" align="right"><nobr>Other Fees:</nobr></td><td class="ccstexth" align="right">$0.00</td></tr>  -->
-                    <tr>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td align="right" class="ccstexth">
                             <nobr>
                             Total Cost (payable to WoWi):</nobr>
                         </td>
                         <td align="right" class="ccstexth">
                             <nobr>
-                            &nbsp; &nbsp; &nbsp; $8,300.00</nobr>
+                            &nbsp; &nbsp; &nbsp; <asp:Label ID="lblTotalCost" runat="server" Text="lblTotalCost"></asp:Label></nobr>
                         </td>
                     </tr>
                 </table>
@@ -401,14 +369,18 @@
             </tr>
             <tr>
                 <td align="middle" class="ccsh1" colspan="3" valign="top">
-                    QUOTATION# I1010031-02
+                    QUOTATION#
+                    <asp:Label ID="lblQuotationNo0" runat="server" Text=""></asp:Label>
+                    &nbsp;
                 </td>
             </tr>
         </table>
         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <td align="left" class="ccstextboxh" width="100%">
-                    Your Account Representative is: Shirley Kang
+                    Your Account Representative is:
+                    <asp:Label ID="lblRepresentative0" runat="server" Text="lblRepresentative"></asp:Label>
+                    &nbsp;
                 </td>
                 <td rowspan="2">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -418,7 +390,7 @@
                             </td>
                             <td align="left" class="ccstextboxh">
                                 <nobr>
-                                (02) 2799-8382x200</nobr>
+                            <asp:Label ID="lblTel0" runat="server" Text="lblTel"></asp:Label></nobr>
                             </td>
                         </tr>
                         <tr>
@@ -434,7 +406,7 @@
                                 Email:
                             </td>
                             <td align="left" class="ccstextboxh">
-                                Shirley.Kang@WoWiApproval.com
+                                <asp:Label ID="lblEmail0" runat="server" Text="lblEmail"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -442,7 +414,9 @@
                                 Date:
                             </td>
                             <td align="left" class="ccstextboxh">
-                                6/17/2010
+                               
+                            <asp:Label ID="lblDate0" runat="server" Text="6/17/2010"></asp:Label>
+                               
                             </td>
                         </tr>
                     </table>
@@ -450,7 +424,9 @@
             </tr>
             <tr>
                 <td align="left" class="ccstexth">
-                    BILL TO:&nbsp;Samsung Electronics Co., LTD.
+                    BILL TO:&nbsp;<asp:Label ID="lblBillTo0" runat="server" Text="lblBillTo"></asp:Label><br />
+                    APPLICANT:&nbsp;
+                    <asp:Label ID="lblApplicant0" runat="server" Text="lblApplicant"></asp:Label>
                 </td>
             </tr>
         </table>
@@ -484,9 +460,17 @@
             </tr>
             <tr>
                 <td class="ccstextboxh" valign="top" width="100%">
-                    Description: Audio transceiver module
+                    Description: Audio transceiver module Description:
+                    <asp:Label ID="lblDescription0" runat="server" Text="lblDescription"></asp:Label>
                     <p>
-                        Model Name: SWA-5000 / FCC ID: A3LSWA5000</p>
+                        Model Name:
+                        <asp:Label ID="lblModelName0" runat="server" Text="lblModelName"></asp:Label></p>
+                    <p>
+                        Brand Name:
+                        <asp:Label ID="lblBrandName0" runat="server" Text="lblBrandName"></asp:Label>
+                    </p>
+                    <p>
+                        &nbsp;</p>
                 </td>
                 <td align="left" class="ccstextboxh">
                     <table border="0" cellpadding="0" cellspacing="0">
@@ -494,9 +478,8 @@
                             <td align="left" class="ccstextboxh">
                                 Contact:
                             </td>
-                            <td align="left" class="ccstextboxh">
-                                <nobr>
-                                ChangSeub Eum</nobr>
+                            <td>
+                                <asp:Label ID="lblContact0" runat="server" Text="lblContact"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -505,7 +488,7 @@
                             </td>
                             <td align="left" class="ccstextboxh">
                                 <nobr>
-                                +82-31-2772635</nobr>
+                            <asp:Label ID="lblClientPhone0" runat="server" Text="lblClientPhone"></asp:Label></nobr>
                             </td>
                         </tr>
                         <tr>
@@ -513,7 +496,7 @@
                                 Email:
                             </td>
                             <td align="left" class="ccstextboxh">
-                                cseum@samsung.com
+                            <asp:Label ID="lblClientEmail0" runat="server" Text="lblClientEmail"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -522,10 +505,11 @@
                             </td>
                             <td align="left" class="ccstextboxh">
                                 <nobr>
-                                416, Maetan-3 Dong , Yeongtong-Gu, Suwon-City<br />
-                                Gyeonggi-Do, 443-742 443-742
+                               
+                                </nobr>
+                                <asp:Label ID="lblClientAddress0" runat="server" Text="lblClientAddress"></asp:Label>
                                 <br />
-                                South Korea</nobr>
+                                <asp:Label ID="lblCleintCountry0" runat="server" Text="lblCleintCountry"></asp:Label>
                             </td>
                         </tr>
                     </table>
@@ -587,21 +571,18 @@
                         </tr>
                         <tr>
                             <td align="right" class="ccstexth">
-                                Test Cost:
+                                &nbsp;
                             </td>
                             <td align="right" class="ccstexth">
-                                <nobr>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $0.00</nobr>
+                                &nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td align="right" class="ccstexth">
-                                <nobr>
-                                Agency Fees (Advanced by WoWi, payable to WoWi):</nobr>
+                                &nbsp;
                             </td>
                             <td align="right" class="ccstexth">
-                                <nobr>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $8,300.00</nobr>
+                                &nbsp;
                             </td>
                         </tr>
                         <!--    <tr><td class="ccstexth" align="right"><nobr>Other Fees:</nobr></td><td class="ccstexth" align="right">$0.00</td></tr>  -->
@@ -612,7 +593,7 @@
                             </td>
                             <td align="right" class="ccstexth">
                                 <nobr>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $8,300.00</nobr>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Label ID="lblTotalCost2" runat="server" Text="lblTotalCost2"></asp:Label></nobr>
                             </td>
                         </tr>
                     </table>
@@ -647,7 +628,8 @@
                     <table border="1" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <th class="ccstexth" width="50%">
-                                Samsung Electronics Co., LTD.
+                                <asp:Label ID="lblBillTo1" runat="server" 
+                                    Text="lblBillTo"></asp:Label>
                             </th>
                             <th class="ccstexth" width="50%">
                                 WoWi Approval Services Inc.
@@ -658,15 +640,17 @@
                                 By:
                             </td>
                             <td class="ccstextboxh">
-                                By:<img border="0" height="31" src="../Images/Quotation/skang.bmp" width="114" />
-                            </td>
+                                By:<asp:Image 
+                                    ID="imgSign" runat="server" Height="31" Width="114" />
+&nbsp;</td>
                         </tr>
                         <tr>
                             <td class="ccstextboxh" height="30">
                                 Name:
                             </td>
                             <td class="ccstextboxh" height="30">
-                                Name:Shirley Kang
+                                Name:
+                            <asp:Label ID="lblRepresentative1" runat="server" Text="lblRepresentative"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -674,7 +658,8 @@
                                 Title:
                             </td>
                             <td class="ccstextboxh" height="30">
-                                Title:Vice President
+                                Title:<asp:Label ID="lblTitle" 
+                                    runat="server" Text="lblTitle"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -682,7 +667,24 @@
                                 Date:
                             </td>
                             <td class="ccstextboxh" height="30">
-                                Date:6/17/2010
+                                Date:<asp:Label ID="lblDate1" runat="server" 
+                                    Text=""></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ccstextboxh" height="30">
+                                &nbsp;
+                            </td>
+                            <td class="ccstextboxh" height="30">
+                                Review:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ccstextboxh" height="30">
+                                &nbsp;
+                            </td>
+                            <td class="ccstextboxh" height="30">
+                                Approve:
                             </td>
                         </tr>
                     </table>

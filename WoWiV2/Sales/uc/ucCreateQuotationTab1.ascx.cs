@@ -104,6 +104,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         obj.Bill_CCompanyname = txtBill_CCompanyname.Text;
         obj.Bill_Phone = txtBill_Phone.Text;
         obj.Bill_Email = txtBill_Email.Text;
+        obj.Bill_Country = txtBill_Country.Text;
         obj.Bill_Address = txtBill_Address.Text;
         obj.Bill_CAddress = txtBill_CAddress.Text;
         obj.Total_disc_amt = 0;
@@ -175,6 +176,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         obj.Bill_CCompanyname = txtBill_CCompanyname.Text;
         obj.Bill_Phone = txtBill_Phone.Text;
         obj.Bill_Email = txtBill_Email.Text;
+        obj.Bill_Country = txtBill_Country.Text;
         obj.Bill_Address = txtBill_Address.Text;
         obj.Bill_CAddress = txtBill_CAddress.Text;
         //obj.Approve
@@ -227,6 +229,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         txtBill_CCompanyname.Text = obj.Bill_CCompanyname;
         txtBill_Phone.Text = obj.Bill_Phone;
         txtBill_Email.Text = obj.Bill_Email;
+        txtBill_Country.Text = obj.Bill_Country;
         txtBill_Address.Text = obj.Bill_Address;
         txtBill_CAddress.Text = obj.Bill_CAddress;
         txtPayment_Days.Text = obj.Payment_Days;
@@ -239,6 +242,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
 
         int cID = Int32.Parse(DropDownListClient.SelectedValue);
         clientapplicant obj = CodeTableController.GetClientApplicant(cID);
+        
 
         txtBill_Name.Text = obj.bill_firstname + " " + obj.bill_lastname;
         txtBill_Title.Text = obj.bill_title;
@@ -248,6 +252,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         txtBill_CCompanyname.Text = obj.bill_companyname;
         txtBill_Phone.Text = obj.bill_workphone;
         txtBill_Email.Text = obj.bill_email;
+        txtBill_Country.Text = CodeTableController.GetCountryName((int)obj.country_id);
         txtBill_Address.Text = obj.bill_address;
         txtBill_CAddress.Text = obj.bill_caddress;
     }

@@ -313,4 +313,15 @@ public class Quotation_Controller
 
         return result.SingleOrDefault().companyname;
     }
+
+    public static vw_Quotation_Print GetQuotationPrint(int Quotation_ID)
+    {
+        QuotationEntities entity = new QuotationEntities();
+        entity = new QuotationEntities();
+        var result = from n in entity.vw_Quotation_Print
+                     where n.Quotation_Version_Id == Quotation_ID
+                     select n;
+        return result.SingleOrDefault();
+    
+    }
 }

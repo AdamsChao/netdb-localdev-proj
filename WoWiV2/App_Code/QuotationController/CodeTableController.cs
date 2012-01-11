@@ -22,6 +22,18 @@ public class CodeTableController
         return result.ToDictionary(n => n.country_id, n => n.country_name);
     }
 
+    public static string GetCountryName(int Country_ID)
+    {
+
+        QuotationEntities entities = new QuotationEntities();
+        var result = from n in entities.country
+                     where n.country_id == Country_ID
+                     select n;
+        if (result.Count() > 0)
+            return result.First().country_name;
+        else
+            return "";
+    }
 
     public static Dictionary<int, string> GetAll_Product_Type(int country_id)
     {
@@ -91,9 +103,11 @@ public class CodeTableController
     {
         QuotationEntities entities = new QuotationEntities();
         var result = from n in entities.clientapplicant
+                     //join c in entities.country on n.country_id equals c.country_id
                      where n.id == ClientID
                      select n;
-        return result.FirstOrDefault();
+                     //select new { n, c.country_name };
+        return result.First();
 
     }
 
