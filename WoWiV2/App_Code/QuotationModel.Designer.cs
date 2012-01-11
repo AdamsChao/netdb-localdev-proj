@@ -244,22 +244,6 @@ namespace QuotationModel
         /// <summary>
         /// 沒有可用的中繼資料文件。
         /// </summary>
-        public ObjectSet<Quotation_Version> Quotation_Version
-        {
-            get
-            {
-                if ((_Quotation_Version == null))
-                {
-                    _Quotation_Version = base.CreateObjectSet<Quotation_Version>("Quotation_Version");
-                }
-                return _Quotation_Version;
-            }
-        }
-        private ObjectSet<Quotation_Version> _Quotation_Version;
-    
-        /// <summary>
-        /// 沒有可用的中繼資料文件。
-        /// </summary>
         public ObjectSet<Project> Project
         {
             get
@@ -272,6 +256,22 @@ namespace QuotationModel
             }
         }
         private ObjectSet<Project> _Project;
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        public ObjectSet<Quotation_Version> Quotation_Version
+        {
+            get
+            {
+                if ((_Quotation_Version == null))
+                {
+                    _Quotation_Version = base.CreateObjectSet<Quotation_Version>("Quotation_Version");
+                }
+                return _Quotation_Version;
+            }
+        }
+        private ObjectSet<Quotation_Version> _Quotation_Version;
 
         #endregion
         #region AddTo 方法
@@ -365,19 +365,19 @@ namespace QuotationModel
         }
     
         /// <summary>
-        /// 將新物件加入 Quotation_Version EntitySet 的方法已被取代。請考慮改為使用關聯的 ObjectSet&lt;T&gt; 屬性的 .Add 方法。
-        /// </summary>
-        public void AddToQuotation_Version(Quotation_Version quotation_Version)
-        {
-            base.AddObject("Quotation_Version", quotation_Version);
-        }
-    
-        /// <summary>
         /// 將新物件加入 Project EntitySet 的方法已被取代。請考慮改為使用關聯的 ObjectSet&lt;T&gt; 屬性的 .Add 方法。
         /// </summary>
         public void AddToProject(Project project)
         {
             base.AddObject("Project", project);
+        }
+    
+        /// <summary>
+        /// 將新物件加入 Quotation_Version EntitySet 的方法已被取代。請考慮改為使用關聯的 ObjectSet&lt;T&gt; 屬性的 .Add 方法。
+        /// </summary>
+        public void AddToQuotation_Version(Quotation_Version quotation_Version)
+        {
+            base.AddObject("Quotation_Version", quotation_Version);
         }
 
         #endregion
@@ -3990,6 +3990,174 @@ namespace QuotationModel
         private Nullable<global::System.Decimal> _balance2;
         partial void Onbalance2Changing(Nullable<global::System.Decimal> value);
         partial void Onbalance2Changed();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> test_started
+        {
+            get
+            {
+                return _test_started;
+            }
+            set
+            {
+                Ontest_startedChanging(value);
+                ReportPropertyChanging("test_started");
+                _test_started = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("test_started");
+                Ontest_startedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _test_started;
+        partial void Ontest_startedChanging(Nullable<global::System.DateTime> value);
+        partial void Ontest_startedChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> test_completed
+        {
+            get
+            {
+                return _test_completed;
+            }
+            set
+            {
+                Ontest_completedChanging(value);
+                ReportPropertyChanging("test_completed");
+                _test_completed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("test_completed");
+                Ontest_completedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _test_completed;
+        partial void Ontest_completedChanging(Nullable<global::System.DateTime> value);
+        partial void Ontest_completedChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> certification_submit_to_authority
+        {
+            get
+            {
+                return _certification_submit_to_authority;
+            }
+            set
+            {
+                Oncertification_submit_to_authorityChanging(value);
+                ReportPropertyChanging("certification_submit_to_authority");
+                _certification_submit_to_authority = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("certification_submit_to_authority");
+                Oncertification_submit_to_authorityChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _certification_submit_to_authority;
+        partial void Oncertification_submit_to_authorityChanging(Nullable<global::System.DateTime> value);
+        partial void Oncertification_submit_to_authorityChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> certification_completed
+        {
+            get
+            {
+                return _certification_completed;
+            }
+            set
+            {
+                Oncertification_completedChanging(value);
+                ReportPropertyChanging("certification_completed");
+                _certification_completed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("certification_completed");
+                Oncertification_completedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _certification_completed;
+        partial void Oncertification_completedChanging(Nullable<global::System.DateTime> value);
+        partial void Oncertification_completedChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Estimated_Lead_time
+        {
+            get
+            {
+                return _Estimated_Lead_time;
+            }
+            set
+            {
+                OnEstimated_Lead_timeChanging(value);
+                ReportPropertyChanging("Estimated_Lead_time");
+                _Estimated_Lead_time = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Estimated_Lead_time");
+                OnEstimated_Lead_timeChanged();
+            }
+        }
+        private global::System.String _Estimated_Lead_time;
+        partial void OnEstimated_Lead_timeChanging(global::System.String value);
+        partial void OnEstimated_Lead_timeChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Actual_Lead_time
+        {
+            get
+            {
+                return _Actual_Lead_time;
+            }
+            set
+            {
+                OnActual_Lead_timeChanging(value);
+                ReportPropertyChanging("Actual_Lead_time");
+                _Actual_Lead_time = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Actual_Lead_time");
+                OnActual_Lead_timeChanged();
+            }
+        }
+        private global::System.String _Actual_Lead_time;
+        partial void OnActual_Lead_timeChanging(global::System.String value);
+        partial void OnActual_Lead_timeChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Agent
+        {
+            get
+            {
+                return _Agent;
+            }
+            set
+            {
+                OnAgentChanging(value);
+                ReportPropertyChanging("Agent");
+                _Agent = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Agent");
+                OnAgentChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Agent;
+        partial void OnAgentChanging(Nullable<global::System.Int32> value);
+        partial void OnAgentChanged();
 
         #endregion
     
@@ -4405,6 +4573,30 @@ namespace QuotationModel
         private Nullable<global::System.Int32> _Max_Q_Authorize_Amt;
         partial void OnMax_Q_Authorize_AmtChanging(Nullable<global::System.Int32> value);
         partial void OnMax_Q_Authorize_AmtChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Waiting_Approve_UserID
+        {
+            get
+            {
+                return _Waiting_Approve_UserID;
+            }
+            set
+            {
+                OnWaiting_Approve_UserIDChanging(value);
+                ReportPropertyChanging("Waiting_Approve_UserID");
+                _Waiting_Approve_UserID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Waiting_Approve_UserID");
+                OnWaiting_Approve_UserIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Waiting_Approve_UserID;
+        partial void OnWaiting_Approve_UserIDChanging(Nullable<global::System.Int32> value);
+        partial void OnWaiting_Approve_UserIDChanged();
     
         /// <summary>
         /// 沒有可用的中繼資料文件。
