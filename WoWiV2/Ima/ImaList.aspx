@@ -71,11 +71,11 @@
                                             <asp:ListItem Value="C">National governed rules and regulation</asp:ListItem>
                                             <asp:ListItem Value="D">Certification bodies and websites</asp:ListItem>
                                             <asp:ListItem Value="G">Products Control</asp:ListItem>
-                                            <%--<asp:ListItem Value="H">Standards</asp:ListItem>--%>
+                                            <asp:ListItem Value="H">Standards</asp:ListItem>
                                             <asp:ListItem Value="F">Local Agent</asp:ListItem>
-                                            <%--<asp:ListItem Value="J">Application Procedures</asp:ListItem>--%>
+                                            <asp:ListItem Value="J">Application Procedures</asp:ListItem>
                                             <asp:ListItem Value="K">Testing and submission preparation</asp:ListItem>
-                                            <%--<asp:ListItem Value="M">Sample shipping</asp:ListItem>--%>
+                                            <asp:ListItem Value="M">Sample shipping</asp:ListItem>
                                             <asp:ListItem Value="N">Periodic Factory inspection</asp:ListItem>
                                             <asp:ListItem Value="O">Certificate</asp:ListItem>
                                             <asp:ListItem Value="P">Post certification</asp:ListItem>
@@ -94,14 +94,20 @@
                                         <asp:CheckBoxList ID="cbProductType" runat="server" RepeatDirection="Horizontal"
                                             DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" DataValueField="wowi_product_type_id">
                                         </asp:CheckBoxList>
+                                        <asp:RadioButtonList ID="rblProductType" runat="server" RepeatDirection="Horizontal" Visible="false"
+                                            DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" DataValueField="wowi_product_type_id">
+                                        </asp:RadioButtonList>
                                         <asp:SqlDataSource ID="sdsProductType" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                             SelectCommand="select wowi_product_type_id,wowi_product_type_name from wowi_product_type where publish='Y'">
                                         </asp:SqlDataSource>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" align="right"><asp:Button ID="btnAddDocument" runat="server" Text="Create Product Documents" OnClick="btnAddDocument_Click"
-                                            OnClientClick="return IsSelect();" /></td>
+                                    <td colspan="2" align="right">
+                                        <asp:Button ID="btnAddDocument" runat="server" Text="Create Product Documents" OnClick="btnAddDocument_Click"
+                                            OnClientClick="return IsSelect();" />
+                                        <asp:Button ID="btnAdd" runat="server" Text="Create Product Documents" OnClick="btnAddDocument_Click"  />
+                                    </td>
                                 </tr>
                             </table>
                         </td>
@@ -715,6 +721,151 @@
                                 </SelectParameters>
                                 <DeleteParameters>
                                     <asp:Parameter Name="TestingID" Type="Int32" />
+                                </DeleteParameters>
+                            </asp:SqlDataSource>
+                            <asp:GridView ID="gvH" runat="server" DataKeyNames="StandardID" SkinID="gvList" DataSourceID="sdsH">
+                                <Columns>
+                                    <asp:TemplateField ShowHeader="False">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditH"
+                                                Text="Edit" CommandArgument='<%# Eval("StandardID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete"
+                                                Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("StandardID") %>'></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyH"
+                                                Text="Copy" CommandArgument='<%# Eval("StandardID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailH.aspx?" + Request.QueryString.ToString() + "&sid="+Eval("StandardID").ToString() %>'>Detail</asp:HyperLink>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
+                                        <ItemStyle HorizontalAlign="Center" Width="140px" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Harmonized">
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="cbFCC" runat="server" Text="FCC" Checked='<%# Convert.ToBoolean(Eval("FCC")) %>'
+                                                Enabled="false" Visible='<%#Eval("wowi_product_type_name").ToString()=="Safety" ? false : true %>' />
+                                            <asp:CheckBox ID="cbIEC" runat="server" Text="IEC" Checked='<%# Convert.ToBoolean(Eval("FCC")) %>'
+                                                Enabled="false" Visible='<%#Eval("wowi_product_type_name").ToString()=="Safety" ? true : false %>' />
+                                            <asp:CheckBox ID="cbCE" runat="server" Text="CE" Checked='<%# Convert.ToBoolean(Eval("CE")) %>' Enabled="false" />
+                                            <asp:Label ID="lblOthers" runat="server" Text='<%#Eval("Others").ToString()!="" ?  "； Others："+Eval("Others").ToString() : "" %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="wowi_product_type_name" HeaderText="Product Type">
+                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="sdsH" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="STP_IMAGetStandard" SelectCommandType="StoredProcedure" DeleteCommand="delete from Ima_Standard where StandardID=@StandardID;delete from Ima_Standard_Files where StandardID=@StandardID"
+                                DeleteCommandType="Text" OnSelected="sdsC_Selected">
+                                <SelectParameters>
+                                    <asp:QueryStringParameter Name="world_region_id" QueryStringField="rid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="country_id" QueryStringField="cid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="wowi_product_type_id" QueryStringField="pid" Type="Int32"
+                                        DefaultValue="0" />
+                                    <asp:ControlParameter ControlID="ddlDocCategory" Name="DocCategory" PropertyName="SelectedValue" />
+                                </SelectParameters>
+                                <DeleteParameters>
+                                    <asp:Parameter Name="StandardID" Type="Int32" />
+                                </DeleteParameters>
+                            </asp:SqlDataSource>
+                            <asp:GridView ID="gvJ" runat="server" DataKeyNames="ApplicationID" SkinID="gvList"
+                                DataSourceID="sdsJ">
+                                <Columns>
+                                    <asp:TemplateField ShowHeader="False">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditJ"
+                                                Text="Edit" CommandArgument='<%# Eval("ApplicationID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete"
+                                                Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyJ"
+                                                Text="Copy" CommandArgument='<%# Eval("ApplicationID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailJ.aspx?" + Request.QueryString.ToString() + "&aid="+Eval("ApplicationID").ToString() %>'>Detail</asp:HyperLink>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
+                                        <ItemStyle HorizontalAlign="Center" Width="140px" />
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="ApprovalMethod" HeaderText="Name of approval method">
+                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:BoundField>
+                                    <asp:TemplateField HeaderText="Submission Methods ">
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="cbDirect" runat="server" Text="Direct Submission" Checked='<%# Eval("Direct") %>'
+                                                Enabled="false" />
+                                            <asp:CheckBox ID="cbLocalAgent" runat="server" Text="Local Agent Submission" Checked='<%# Eval("LocalAgent") %>'
+                                                Enabled="false" />
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="wowi_product_type_name" HeaderText="Product Type">
+                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="sdsJ" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="STP_IMAGetApplication" SelectCommandType="StoredProcedure" DeleteCommand="delete from Ima_Application where ApplicationID=@ApplicationID;delete from Ima_Application_Files where ApplicationID=@ApplicationID"
+                                DeleteCommandType="Text" OnSelected="sdsC_Selected">
+                                <SelectParameters>
+                                    <asp:QueryStringParameter Name="world_region_id" QueryStringField="rid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="country_id" QueryStringField="cid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="wowi_product_type_id" QueryStringField="pid" Type="Int32"
+                                        DefaultValue="0" />
+                                    <asp:ControlParameter ControlID="ddlDocCategory" Name="DocCategory" PropertyName="SelectedValue" />
+                                </SelectParameters>
+                                <DeleteParameters>
+                                    <asp:Parameter Name="ApplicationID" Type="Int32" />
+                                </DeleteParameters>
+                            </asp:SqlDataSource>
+                            <asp:GridView ID="gvM" runat="server" DataKeyNames="SampleShippingID" SkinID="gvList"
+                                DataSourceID="sdsM">
+                                <Columns>
+                                    <asp:TemplateField ShowHeader="False">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditM"
+                                                Text="Edit" CommandArgument='<%# Eval("SampleShippingID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete"
+                                                Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyM"
+                                                Text="Copy" CommandArgument='<%# Eval("SampleShippingID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                            <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailM.aspx?" + Request.QueryString.ToString() + "&ssid="+Eval("SampleShippingID").ToString() %>'>Detail</asp:HyperLink>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
+                                        <ItemStyle HorizontalAlign="Center" Width="140px" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Which carrier is preferable">
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="cbFedex" runat="server" Text="Fedex" Checked='<%# Eval("Fedex") %>'
+                                                Enabled="false" />
+                                            <asp:CheckBox ID="cbDHL" runat="server" Text="DHL" Checked='<%# Eval("DHL") %>' Enabled="false" />
+                                            <asp:CheckBox ID="cbUPS" runat="server" Text="UPS" Checked='<%# Eval("UPS") %>' Enabled="false" />
+                                            Other (specify)：<asp:Label ID="lblOtherCarrier" runat="server" Text='<%# Eval("OtherCarrier") %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="wowi_product_type_name" HeaderText="Product Type">
+                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="sdsM" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="STP_IMAGetSampleShipping" SelectCommandType="StoredProcedure"
+                                DeleteCommand="delete from Ima_SampleShipping where SampleShippingID=@SampleShippingID;delete from Ima_SampleShipping_Files where SampleShippingID=@SampleShippingID"
+                                DeleteCommandType="Text" OnSelected="sdsC_Selected">
+                                <SelectParameters>
+                                    <asp:QueryStringParameter Name="world_region_id" QueryStringField="rid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="country_id" QueryStringField="cid" Type="Int32" />
+                                    <asp:QueryStringParameter Name="wowi_product_type_id" QueryStringField="pid" Type="Int32"
+                                        DefaultValue="0" />
+                                    <asp:ControlParameter ControlID="ddlDocCategory" Name="DocCategory" PropertyName="SelectedValue" />
+                                </SelectParameters>
+                                <DeleteParameters>
+                                    <asp:Parameter Name="SampleShippingID" Type="Int32" />
                                 </DeleteParameters>
                             </asp:SqlDataSource>
                         </td>

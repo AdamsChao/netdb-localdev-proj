@@ -8,7 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 
-public partial class Ima_ImaPeriodic : System.Web.UI.Page
+public partial class Ima_ImaStandard : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -21,8 +21,8 @@ public partial class Ima_ImaPeriodic : System.Web.UI.Page
     //取得General資料
     protected void LoadData()
     {
-        lblTitle.Text = "Periodic Factory inspection Edit";
-        string strID = Request["pfiid"];
+        lblTitle.Text = "Standards Edit";
+        string strID = Request["sid"];
         trProductType.Visible = false;
         trCopyTo.Visible = false;
         btnSave.Visible = false;
@@ -30,27 +30,47 @@ public partial class Ima_ImaPeriodic : System.Web.UI.Page
         btnSaveCopy.Visible = false;
         gvFile1.Columns[0].Visible = false;
         gvFile1.Columns[1].Visible = false;
+        lblFCCTitle.Text = "";
+        lblRequiredTitle.Text = "";
+        cbFCC.Visible = false;
+        cbIEC.Visible = false;
         if (strID != null)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * from Ima_Periodic where PeriodicID=@PeriodicID";
-            cmd.Parameters.AddWithValue("@PeriodicID", strID);
+            cmd.CommandText = "select * from Ima_Standard where StandardID=@StandardID";
+            cmd.Parameters.AddWithValue("@StandardID", strID);
             DataTable dt = new DataTable();
             dt = SQLUtil.QueryDS(cmd).Tables[0];
             if (dt.Rows.Count > 0)
             {
-                rblFactoryInspection.SelectedValue = dt.Rows[0]["FactoryInspection"].ToString();
-                tbYear.Text = dt.Rows[0]["Year"].ToString();
-                tbMonth.Text = dt.Rows[0]["Month"].ToString();
-                tbPeriodicDesc.Text = dt.Rows[0]["PeriodicDesc"].ToString();
+                tbOthers.Text = dt.Rows[0]["Others"].ToString();
+                rblRequired.SelectedValue = dt.Rows[0]["Required"].ToString();
+                tbStandardDesc.Text = dt.Rows[0]["StandardDesc"].ToString();
+                cbFCC.Checked = Convert.ToBoolean(dt.Rows[0]["FCC"]);
+                cbIEC.Checked = Convert.ToBoolean(dt.Rows[0]["FCC"]);
+                cbCE.Checked = Convert.ToBoolean(dt.Rows[0]["CE"]);
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
-                cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
+                rblProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
+                
+                //if (lblProTypeName.Text.Trim() != "Safety")
+                //{
+                //    lblFCCTitle.Text = "Harmonized with FCC or CE";
+                //    cbFCC.Visible = true;
+                //    lblRequiredTitle.Text = "Safety Required";
+                //}
+                //else
+                //{
+                //    lblFCCTitle.Text = "Harmonized with IEC or CE";
+                //    cbIEC.Visible = true;
+                //    lblRequiredTitle.Text = "EMC Required";
+                //}
+
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;
                     btnSaveCopy.Visible = true;
-                    lblTitle.Text = "Periodic Factory inspection Copy";
+                    lblTitle.Text = "Standards Copy";
                     gvFile1.Columns[1].Visible = true;
                 }
                 else
@@ -64,38 +84,49 @@ public partial class Ima_ImaPeriodic : System.Web.UI.Page
         else
         {
             btnSave.Visible = true;
+            lblProTypeName.Text = IMAUtil.GetProductType(Request.Params["pt"]);
         }
+
+
+
+        if (lblProTypeName.Text.Trim() != "Safety")
+        {
+            lblFCCTitle.Text = "Harmonized with FCC or CE";
+            cbFCC.Visible = true;
+            lblRequiredTitle.Text = "Safety Required";
+        }
+        else
+        {
+            lblFCCTitle.Text = "Harmonized with IEC or CE";
+            cbIEC.Visible = true;
+            lblRequiredTitle.Text = "EMC Required";
+        }
+
     }
 
     //儲存
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_Periodic (world_region_id,country_id,wowi_product_type_id,FactoryInspection,Year,Month,PeriodicDesc,CreateUser,LasterUpdateUser) ";
-        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@FactoryInspection,@Year,@Month,@PeriodicDesc,@CreateUser,@LasterUpdateUser)";
+        string strTsql = "insert into Ima_Standard (world_region_id,country_id,wowi_product_type_id,FCC,CE,Others,Required,StandardDesc,CreateUser,LasterUpdateUser) ";
+        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@FCC,@CE,@Others,@Required,@StandardDesc,@CreateUser,@LasterUpdateUser)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
         cmd.Parameters.Add("@world_region_id", SqlDbType.Int);
         cmd.Parameters.Add("@country_id", SqlDbType.Int);
         cmd.Parameters.Add("@wowi_product_type_id", SqlDbType.Int);
-        cmd.Parameters.Add("@FactoryInspection", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@Year", SqlDbType.Int);
-        cmd.Parameters.Add("@Month", SqlDbType.Int);
-        cmd.Parameters.Add("@PeriodicDesc", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@FCC", SqlDbType.Bit);
+        cmd.Parameters.Add("@CE", SqlDbType.Bit);
+        cmd.Parameters.Add("@Others", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@Required", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@StandardDesc", SqlDbType.NVarChar);
         cmd.Parameters.Add("@CreateUser", SqlDbType.NVarChar);
         cmd.Parameters.Add("@LasterUpdateUser", SqlDbType.NVarChar);
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null)
         {
-            foreach (ListItem li in cbProductType.Items)
-            {
-                if (li.Selected)
-                {
-                    strCopyTo += "," + li.Value;
-                }
-            }
-            if (strCopyTo != "") { strCopyTo = strCopyTo.Remove(0, 1); }
+            strCopyTo = rblProductType.SelectedValue;
         }
         foreach (string str in strCopyTo.Split(','))
         {
@@ -105,25 +136,18 @@ public partial class Ima_ImaPeriodic : System.Web.UI.Page
                 cmd.Parameters["@world_region_id"].Value = Request["rid"];
                 cmd.Parameters["@country_id"].Value = Request["cid"];
                 cmd.Parameters["@wowi_product_type_id"].Value = str;
-                cmd.Parameters["@FactoryInspection"].Value = rblFactoryInspection.SelectedValue;
-                
-                if (tbYear.Text.Trim().Length > 0)
+                if (rblProductType.SelectedItem.Text != "Safety")
                 {
-                    cmd.Parameters["@Year"].Value = tbYear.Text.Trim();
+                    cmd.Parameters["@FCC"].Value = cbFCC.Checked;
                 }
-                else
+                else 
                 {
-                    cmd.Parameters["@Year"].Value = DBNull.Value;
+                    cmd.Parameters["@FCC"].Value = cbIEC.Checked;
                 }
-                if (tbMonth.Text.Trim().Length > 0)
-                {
-                    cmd.Parameters["@Month"].Value = tbMonth.Text.Trim();
-                }
-                else
-                {
-                    cmd.Parameters["@Month"].Value = DBNull.Value;
-                }
-                cmd.Parameters["@PeriodicDesc"].Value = tbPeriodicDesc.Text.Trim();
+                cmd.Parameters["@CE"].Value = cbCE.Checked;
+                cmd.Parameters["@Others"].Value = tbOthers.Text.Trim();
+                cmd.Parameters["@Required"].Value = rblRequired.SelectedValue;
+                cmd.Parameters["@StandardDesc"].Value = tbStandardDesc.Text.Trim();
                 cmd.Parameters["@CreateUser"].Value = IMAUtil.GetUser();
                 cmd.Parameters["@LasterUpdateUser"].Value = IMAUtil.GetUser();
                 int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
@@ -156,7 +180,7 @@ public partial class Ima_ImaPeriodic : System.Web.UI.Page
                 if (strFileURLO != strFileURLN)
                 {
                     //上傳檔案路徑
-                    string strUploadPath = IMAUtil.GetIMAUploadPath() + @"\" + IMAUtil.GetCountryName(Request["cid"]) + @"\PeriodicFactoryinspection\" + IMAUtil.GetProductType(lblProType.Text.Trim());
+                    string strUploadPath = IMAUtil.GetIMAUploadPath() + @"\" + IMAUtil.GetCountryName(Request["cid"]) + @"\Standards\" + IMAUtil.GetProductType(lblProType.Text.Trim());
                     //檢查上傳檔案路徑是否存在，若不存在就自動建立
                     IMAUtil.CheckURL(strUploadPath);
                     System.IO.File.Copy(strFileURLO, strFileURLN, true);
@@ -168,16 +192,16 @@ public partial class Ima_ImaPeriodic : System.Web.UI.Page
     //複制文件基本資料
     protected void CopyDoc(int intGAID, string strGAFID)
     {
-        string strTsql = "insert into Ima_Periodic_Files (PeriodicID,FileURL,FileName,FileType,FileCategory,CreateUser,LasterUpdateUser)";
-        strTsql += "select @PeriodicID,replace(FileURL,@s1,@s2),FileName,FileType,FileCategory,@CreateUser,@LasterUpdateUser from Ima_Periodic_Files where PeriodicFileID=@PeriodicFileID";
+        string strTsql = "insert into Ima_Standard_Files (StandardID,FileURL,FileName,FileType,FileCategory,CreateUser,LasterUpdateUser)";
+        strTsql += "select @StandardID,replace(FileURL,@s1,@s2),FileName,FileType,FileCategory,@CreateUser,@LasterUpdateUser from Ima_Standard_Files where StandardFileID=@StandardFileID";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
-        cmd.Parameters.AddWithValue("@PeriodicID", intGAID);
+        cmd.Parameters.AddWithValue("@StandardID", intGAID);
         cmd.Parameters.AddWithValue("@s1", @"\" + lblProTypeName.Text.Trim() + @"\");
         cmd.Parameters.AddWithValue("@s2", @"\" + IMAUtil.GetProductType(lblProType.Text.Trim()) + @"\");
         cmd.Parameters.AddWithValue("@CreateUser", IMAUtil.GetUser());
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
-        cmd.Parameters.AddWithValue("@PeriodicFileID", strGAFID);
+        cmd.Parameters.AddWithValue("@StandardFileID", strGAFID);
         SQLUtil.ExecuteSql(cmd);
     }
 
@@ -203,7 +227,7 @@ public partial class Ima_ImaPeriodic : System.Web.UI.Page
             strFileName = fu.FileName.Trim();
             //strFileURL = @"D:\IMA\General\" + strFileName;
             //上傳檔案路徑
-            string strUploadPath = IMAUtil.GetIMAUploadPath() + @"\" + IMAUtil.GetCountryName(Request["cid"]) + @"\PeriodicFactoryinspection\" + IMAUtil.GetProductType(lblProType.Text.Trim());
+            string strUploadPath = IMAUtil.GetIMAUploadPath() + @"\" + IMAUtil.GetCountryName(Request["cid"]) + @"\Standards\" + IMAUtil.GetProductType(lblProType.Text.Trim());
             //檢查上傳檔案路徑是否存在，若不存在就自動建立
             IMAUtil.CheckURL(strUploadPath);
             strFileURL = strUploadPath + @"\" + strFileName;
@@ -211,11 +235,11 @@ public partial class Ima_ImaPeriodic : System.Web.UI.Page
             strFileType = strFileName.Substring(strFileName.LastIndexOf(Convert.ToChar(".")) + 1).Trim().ToLower();
             strFileName = strFileName.Replace("." + strFileType, "");
 
-            string strTsql = "insert into Ima_Periodic_Files (PeriodicID,FileURL,FileName,FileType,FileCategory,CreateUser,LasterUpdateUser) ";
-            strTsql += "values(@PeriodicID,@FileURL,@FileName,@FileType,@FileCategory,@CreateUser,@LasterUpdateUser)";
+            string strTsql = "insert into Ima_Standard_Files (StandardID,FileURL,FileName,FileType,FileCategory,CreateUser,LasterUpdateUser) ";
+            strTsql += "values(@StandardID,@FileURL,@FileName,@FileType,@FileCategory,@CreateUser,@LasterUpdateUser)";
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = strTsql;
-            cmd.Parameters.AddWithValue("@PeriodicID", intID);
+            cmd.Parameters.AddWithValue("@StandardID", intID);
             cmd.Parameters.AddWithValue("@FileURL", strFileURL.Replace(IMAUtil.GetIMAUploadPath(), ""));
             cmd.Parameters.AddWithValue("@FileName", strFileName);
             cmd.Parameters.AddWithValue("@FileType", strFileType);
@@ -230,33 +254,27 @@ public partial class Ima_ImaPeriodic : System.Web.UI.Page
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_Periodic set FactoryInspection=@FactoryInspection,Year=@Year,Month=@Month,PeriodicDesc=@PeriodicDesc,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate() ";
-        strTsql += "where PeriodicID=@PeriodicID";
+        string strTsql = "Update Ima_Standard set FCC=@FCC,CE=@CE,Others=@Others,Required=@Required,StandardDesc=@StandardDesc,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate() ";
+        strTsql += "where StandardID=@StandardID";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
-        cmd.Parameters.AddWithValue("@PeriodicID", Request["pfiid"]);
-        cmd.Parameters.AddWithValue("@FactoryInspection", rblFactoryInspection.SelectedValue);
-        if (tbYear.Text.Trim().Length > 0)
+        cmd.Parameters.AddWithValue("@StandardID", Request["sid"]);
+        if (lblProTypeName.Text.Trim() != "Safety")
         {
-            cmd.Parameters.AddWithValue("@Year", tbYear.Text.Trim());
+            cmd.Parameters.AddWithValue("@FCC", cbFCC.Checked);
         }
         else
         {
-            cmd.Parameters.AddWithValue("@Year", DBNull.Value);
+            cmd.Parameters.AddWithValue("@FCC", cbIEC.Checked);
         }
-        if (tbMonth.Text.Trim().Length > 0)
-        {
-            cmd.Parameters.AddWithValue("@Month", tbMonth.Text.Trim());
-        }
-        else
-        {
-            cmd.Parameters.AddWithValue("@Month", DBNull.Value);
-        }
-        cmd.Parameters.AddWithValue("@PeriodicDesc", tbPeriodicDesc.Text.Trim());
+        cmd.Parameters.AddWithValue("@CE", cbCE.Checked);
+        cmd.Parameters.AddWithValue("@Others", tbOthers.Text.Trim());
+        cmd.Parameters.AddWithValue("@Required", rblRequired.SelectedValue);
+        cmd.Parameters.AddWithValue("@StandardDesc", tbStandardDesc.Text.Trim());
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
         SQLUtil.ExecuteSql(cmd);
         //文件上傳
-        GeneralFileUpload(Convert.ToInt32(Request["pfiid"]));
+        GeneralFileUpload(Convert.ToInt32(Request["sid"]));
         BackURL();
 
     }
@@ -267,7 +285,7 @@ public partial class Ima_ImaPeriodic : System.Web.UI.Page
 
     protected void BackURL()
     {
-        Response.Redirect("ImaList.aspx" + GetQueryString(false, null, new string[] { "pt", "pfiid", "copy" }));
+        Response.Redirect("ImaList.aspx" + GetQueryString(false, null, new string[] { "pt", "sid", "copy" }));
     }
 
     /// <summary>
@@ -282,5 +300,22 @@ public partial class Ima_ImaPeriodic : System.Web.UI.Page
         //預設參數
         Dictionary<string, string> dic = new Dictionary<string, string>();
         return IMAUtil.SetQueryString(isClear, dic, dicAdd, strRemove);
+    }
+    protected void rblProductType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        cbFCC.Visible = false;
+        cbIEC.Visible = false;
+        if (rblProductType.SelectedItem.Text != "Safety")
+        {
+            lblFCCTitle.Text = "Harmonized with FCC or CE";
+            cbFCC.Visible = true;
+            lblRequiredTitle.Text = "Safety Required";
+        }
+        else
+        {
+            lblFCCTitle.Text = "Harmonized with IEC or CE";
+            cbIEC.Visible = true;
+            lblRequiredTitle.Text = "EMC Required";
+        }
     }
 }

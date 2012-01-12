@@ -18,7 +18,7 @@ public partial class Ima_ImaList : System.Web.UI.Page
                 ddlDocCategory.SelectedValue = Request["categroy"].ToString();
                 SetDDlChanged();
             }            
-            SetControlInit();            
+            SetControlInit();
         }
     }
 
@@ -73,7 +73,24 @@ public partial class Ima_ImaList : System.Web.UI.Page
                 }
             }
         }
+        SetButton();
     }
+
+    private void SetButton()
+    {
+        btnAdd.Visible = false;
+        btnAddDocument.Visible = false;
+
+        if (ddlDocCategory.SelectedValue == "H")
+        {
+            btnAdd.Visible = true;
+        }
+        else
+        {
+            btnAddDocument.Visible = true;
+        }
+    }
+
 
     //新增文件
     protected void btnAddDocument_Click(object sender, EventArgs e)
@@ -103,18 +120,27 @@ public partial class Ima_ImaList : System.Web.UI.Page
         Dictionary<string, string> dic = new Dictionary<string, string>();
         string strURL = "";
         string strParm = "";
-        foreach (ListItem li in cbProductType.Items)
+        if (ddlDocCategory.SelectedValue != "H")
         {
-            if (li.Selected)
+            foreach (ListItem li in cbProductType.Items)
             {
-                strParm += "," + li.Value;
+                if (li.Selected)
+                {
+                    strParm += "," + li.Value;
+                }
+            }
+            if (strParm.Length > 0)
+            {
+                strParm = strParm.Remove(0, 1);
+                dic.Add("pt", strParm);
             }
         }
-        if (strParm.Length > 0) 
+        else 
         {
-            strParm = strParm.Remove(0, 1);
+            strParm = rblProductType.SelectedValue;
             dic.Add("pt", strParm);
-        }
+        }        
+
         if (ddlDocCategory.SelectedValue == "B")
         {
             strURL = "ImaGovernmentAuth.aspx";
@@ -159,6 +185,18 @@ public partial class Ima_ImaList : System.Web.UI.Page
         {
             strURL = "ImaTesting.aspx";
         }
+        else if (ddlDocCategory.SelectedValue == "H")
+        {
+            strURL = "ImaStandard.aspx";
+        }
+        else if (ddlDocCategory.SelectedValue == "J")
+        {
+            strURL = "ImaApplication.aspx";
+        }
+        else if (ddlDocCategory.SelectedValue == "M")
+        {
+            strURL = "ImaSampleShipping.aspx";
+        }
         Response.Redirect(strURL + GetQueryString(true, dic, null));
     }
 
@@ -186,6 +224,7 @@ public partial class Ima_ImaList : System.Web.UI.Page
     protected void ddlDocCategory_SelectedIndexChanged(object sender, EventArgs e)
     {
         SetDDlChanged();
+        SetButton();
     }
 
     protected void SetDDlChanged() 
@@ -199,6 +238,18 @@ public partial class Ima_ImaList : System.Web.UI.Page
             trImaGover.Visible = true;
             //lblTitle.Text = "Country：" + IMAUtil.GetCountryName(Request.Params["cid"]) + @" \ Document Categories--> ";
             //lblTitle.Text += ddlDocCategory.SelectedItem.Text + @" \ Data：";
+        }        
+        if (ddlDocCategory.SelectedValue == "H")
+        {
+            rblProductType.DataBind();
+            rblProductType.Visible = true;
+            rblProductType.SelectedIndex = 0;
+            cbProductType.Visible = false;
+        }
+        else 
+        {
+            rblProductType.Visible = false;
+            cbProductType.Visible = true;
         }
     }
 
@@ -325,6 +376,33 @@ public partial class Ima_ImaList : System.Web.UI.Page
                 dic.Add("tid", lbtn.CommandArgument);
                 dic.Add("copy", "1");
                 strURL = "ImaTesting.aspx";
+                break;
+            case "GoEditH":
+                dic.Add("sid", lbtn.CommandArgument);
+                strURL = "ImaStandard.aspx";
+                break;
+            case "GoCopyH":
+                dic.Add("sid", lbtn.CommandArgument);
+                dic.Add("copy", "1");
+                strURL = "ImaStandard.aspx";
+                break;
+            case "GoEditJ":
+                dic.Add("aid", lbtn.CommandArgument);
+                strURL = "ImaApplication.aspx";
+                break;
+            case "GoCopyJ":
+                dic.Add("aid", lbtn.CommandArgument);
+                dic.Add("copy", "1");
+                strURL = "ImaApplication.aspx";
+                break;
+            case "GoEditM":
+                dic.Add("ssid", lbtn.CommandArgument);
+                strURL = "ImaSampleShipping.aspx";
+                break;
+            case "GoCopyM":
+                dic.Add("ssid", lbtn.CommandArgument);
+                dic.Add("copy", "1");
+                strURL = "ImaSampleShipping.aspx";
                 break;
         }
         Response.Redirect(strURL + GetQueryString(true, dic, null));
