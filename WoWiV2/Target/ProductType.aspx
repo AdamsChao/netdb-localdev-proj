@@ -74,8 +74,8 @@
                             Text="Clear" />
                     </td>
                     <td>
-                        <asp:TextBox ID="wowi_product_type_idTextBox" runat="server" 
-                            Text='<%# Bind("wowi_product_type_id") %>' />
+                       <%-- <asp:TextBox ID="wowi_product_type_idTextBox" runat="server" 
+                            Text='<%# Bind("wowi_product_type_id") %>' />--%>
                     </td>
                     <td>
                         <asp:TextBox ID="wowi_product_type_nameTextBox" runat="server" 
@@ -161,15 +161,15 @@
         <asp:SqlDataSource ID="SqlDataSourceProductType" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [wowi_product_type] WHERE [wowi_product_type_id] = @wowi_product_type_id" 
-            InsertCommand="INSERT INTO [wowi_product_type] ([wowi_product_type_id], [wowi_product_type_name], [publish]) VALUES (@wowi_product_type_id, @wowi_product_type_name, @publish)" 
+            InsertCommand="INSERT INTO [wowi_product_type] ([wowi_product_type_name], [publish]) VALUES (@wowi_product_type_name, @publish)" 
             SelectCommand="SELECT [wowi_product_type_id], [wowi_product_type_name], [publish] FROM [wowi_product_type]" 
+            
             
             UpdateCommand="UPDATE [wowi_product_type] SET [wowi_product_type_name] = @wowi_product_type_name, [publish] = @publish WHERE [wowi_product_type_id] = @wowi_product_type_id">
             <DeleteParameters>
                 <asp:Parameter Name="wowi_product_type_id" Type="Int32" />
             </DeleteParameters>
             <InsertParameters>
-                <asp:Parameter Name="wowi_product_type_id" Type="Int32" />
                 <asp:Parameter Name="wowi_product_type_name" Type="String" />
                 <asp:Parameter Name="publish" Type="String" />
             </InsertParameters>

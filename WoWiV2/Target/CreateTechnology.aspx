@@ -15,8 +15,6 @@
         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" 
             DataSourceID="SqlDataSourceTechnology" DefaultMode="Insert" Height="50px">
             <Fields>
-                <asp:BoundField DataField="wowi_tech_id" HeaderText="Technology ID" 
-                    ReadOnly="True" SortExpression="wowi_tech_id" />
                 <asp:BoundField DataField="wowi_tech_name" HeaderText="Technology Name" 
                     SortExpression="wowi_tech_name" />
                 <asp:TemplateField HeaderText="Product Type" 
@@ -65,7 +63,7 @@
         <asp:SqlDataSource ID="SqlDataSourceTechnology" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [wowi_tech] WHERE [wowi_tech_id] = @wowi_tech_id" 
-            InsertCommand="INSERT INTO [wowi_tech] ([wowi_tech_id], [wowi_tech_name], [wowi_product_type_id], [publish]) VALUES (@wowi_tech_id, @wowi_tech_name, @wowi_product_type_id, @publish)" 
+            InsertCommand="INSERT INTO [wowi_tech] ([wowi_tech_name], [wowi_product_type_id], [publish]) VALUES (@wowi_tech_name, @wowi_product_type_id, @publish)" 
             SelectCommand="SELECT wowi_tech.wowi_tech_id, wowi_tech.wowi_tech_name, wowi_tech.wowi_product_type_id, wowi_tech.publish, wowi_tech.create_user, wowi_tech.create_date, wowi_tech.modify_user, wowi_tech.modify_date, wowi_product_type.wowi_product_type_name FROM wowi_tech INNER JOIN wowi_product_type ON wowi_tech.wowi_product_type_id = wowi_product_type.wowi_product_type_id" 
             
             
@@ -73,8 +71,7 @@
             <DeleteParameters>
                 <asp:Parameter Name="wowi_tech_id" Type="Int32" />
             </DeleteParameters>
-            <InsertParameters>
-                <asp:Parameter Name="wowi_tech_id" Type="Int32" />
+            <InsertParameters>                
                 <asp:Parameter Name="wowi_tech_name" Type="String" />
                 <asp:Parameter Name="wowi_product_type_id" Type="Int32" />
                 <asp:Parameter Name="publish" Type="String" />

@@ -16,9 +16,7 @@
             <AlternatingItemTemplate>
                 <tr style="">
                     <td>
-                       <%-- <asp:Button ID="DeleteButton" runat="server" CommandName="Delete" 
-                            Text="Delete" />--%>
-                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="編輯" />
                     </td>
                     <td>
                         <asp:Label ID="world_region_idLabel" runat="server" 
@@ -34,9 +32,9 @@
                 <tr style="">
                     <td>
                         <asp:Button ID="UpdateButton" runat="server" CommandName="Update" 
-                            Text="Update" />
+                            Text="更新" />
                         <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" 
-                            Text="Cancel" />
+                            Text="取消" />
                     </td>
                     <td>
                         <asp:Label ID="world_region_idLabel1" runat="server" 
@@ -52,7 +50,7 @@
                 <table runat="server" style="">
                     <tr>
                         <td>
-                            No data was returned.</td>
+                            未傳回資料。</td>
                     </tr>
                 </table>
             </EmptyDataTemplate>
@@ -60,13 +58,12 @@
                 <tr style="">
                     <td>
                         <asp:Button ID="InsertButton" runat="server" CommandName="Insert" 
-                            Text="Insert" />
+                            Text="插入" />
                         <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" 
-                            Text="Clear" />
+                            Text="清除" />
                     </td>
                     <td>
-                        <asp:TextBox ID="world_region_idTextBox" runat="server" 
-                            Text='<%# Bind("world_region_id") %>' />
+                        
                     </td>
                     <td>
                         <asp:TextBox ID="world_region_nameTextBox" runat="server" 
@@ -77,9 +74,7 @@
             <ItemTemplate>
                 <tr style="">
                     <td>
-                        <%--<asp:Button ID="DeleteButton" runat="server" CommandName="Delete" 
-                            Text="Delete" />--%>
-                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="編輯" />
                     </td>
                     <td>
                         <asp:Label ID="world_region_idLabel" runat="server" 
@@ -100,9 +95,9 @@
                                     <th runat="server">
                                     </th>
                                     <th runat="server">
-                                        Country region id</th>
+                                        world_region_id</th>
                                     <th runat="server">
-                                        Country region name</th>
+                                        world_region_name</th>
                                 </tr>
                                 <tr ID="itemPlaceholder" runat="server">
                                 </tr>
@@ -127,9 +122,8 @@
             <SelectedItemTemplate>
                 <tr style="">
                     <td>
-                        <asp:Button ID="DeleteButton" runat="server" CommandName="Delete" 
-                            Text="Delete" />
-                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" 
+                            Text="編輯" />
                     </td>
                     <td>
                         <asp:Label ID="world_region_idLabel" runat="server" 
@@ -145,14 +139,14 @@
         <asp:SqlDataSource ID="SqlDataSourceRegion" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [world_region] WHERE [world_region_id] = @world_region_id" 
-            InsertCommand="INSERT INTO [world_region] ([world_region_id], [world_region_name]) VALUES (@world_region_id, @world_region_name)" 
+            InsertCommand="INSERT INTO [world_region] ([world_region_name]) VALUES (@world_region_name)" 
             SelectCommand="SELECT [world_region_id], [world_region_name] FROM [world_region]" 
+            
             UpdateCommand="UPDATE [world_region] SET [world_region_name] = @world_region_name WHERE [world_region_id] = @world_region_id">
             <DeleteParameters>
                 <asp:Parameter Name="world_region_id" Type="Byte" />
             </DeleteParameters>
             <InsertParameters>
-                <asp:Parameter Name="world_region_id" Type="Byte" />
                 <asp:Parameter Name="world_region_name" Type="String" />
             </InsertParameters>
             <UpdateParameters>
