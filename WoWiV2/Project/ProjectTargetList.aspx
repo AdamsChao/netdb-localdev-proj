@@ -1,14 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true" CodeFile="ProjectTargetList.aspx.cs" Inherits="Project_ProjectTargetList" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxcontroltoolkit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <p>
-        Project :
+        Project No:
         <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" 
             DataSourceID="SqlDataSourceProject" DataTextField="Project_No" 
             DataValueField="Quotation_Id">
         </asp:DropDownList>
+        <br />
+        <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
         <asp:SqlDataSource ID="SqlDataSourceProject" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             
@@ -27,20 +30,29 @@
                 <asp:BoundField DataField="country_name" HeaderText="country_name" 
                     SortExpression="country_name" />
                 <asp:BoundField DataField="test_started" HeaderText="test_started" 
-                    SortExpression="test_started" />
+                    SortExpression="test_started" DataFormatString="{0:d}" />
                 <asp:BoundField DataField="test_completed" HeaderText="test_completed" 
-                    SortExpression="test_completed" />
+                    SortExpression="test_completed" DataFormatString="{0:d}" />
                 <asp:BoundField DataField="certification_submit_to_authority" 
                     HeaderText="certification_submit_to_authority" 
-                    SortExpression="certification_submit_to_authority" />
+                    SortExpression="certification_submit_to_authority" 
+                    DataFormatString="{0:d}" />
                 <asp:BoundField DataField="certification_completed" 
-                    HeaderText="certification_completed" SortExpression="certification_completed" />
+                    HeaderText="certification_completed" 
+                    SortExpression="certification_completed" DataFormatString="{0:d}" />
                 <asp:BoundField DataField="Estimated_Lead_time" HeaderText="Estimated_Lead_time" 
-                    SortExpression="Estimated_Lead_time" />
+                    SortExpression="Estimated_Lead_time" Visible="False" />
                     <asp:BoundField DataField="Actual_Lead_time" HeaderText="Actual_Lead_time" 
-                    SortExpression="Actual_Lead_time" />
-                     <asp:BoundField DataField="Agent" HeaderText="Agent" 
-                    SortExpression="Agent" />
+                    SortExpression="Actual_Lead_time" Visible="False" />
+                     <asp:TemplateField HeaderText="Agent" SortExpression="Agent" 
+                    Visible="False">
+                         <EditItemTemplate>
+                             <asp:TextBox ID="TextBoxAgent" runat="server" Text='<%# Bind("Agent") %>'></asp:TextBox>
+                         </EditItemTemplate>
+                         <ItemTemplate>
+                             <asp:Label ID="LabelAgent" runat="server" Text='<%# Bind("Agent") %>'></asp:Label>
+                         </ItemTemplate>
+                </asp:TemplateField>
             </Columns>
         </asp:GridView>
         <asp:SqlDataSource ID="SqlDataSourceTarget" runat="server" 
@@ -134,7 +146,9 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
         </asp:SqlDataSource>
         <asp:DetailsView ID="DetailsViewTarget" runat="server" AutoGenerateRows="False" 
             Caption="Target Details" DataKeyNames="Quotation_Target_Id" 
-            DataSourceID="SqlDataSourceModifyTarget" DefaultMode="Edit" Width="100%">
+            DataSourceID="SqlDataSourceModifyTarget" DefaultMode="Edit" Width="100%" 
+            onitemupdated="DetailsViewTarget_ItemUpdated" 
+            onitemupdating="DetailsViewTarget_ItemUpdating">
             <Fields>
                 <asp:BoundField DataField="Quotation_Target_Id" 
                     HeaderText="Quotation_Target_Id" InsertVisible="False" ReadOnly="True" 
@@ -151,26 +165,118 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                         <asp:Label ID="Label1" runat="server" Text='<%# Bind("authority_id") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:BoundField DataField="test_started" HeaderText="test_started" 
-                    SortExpression="test_started" />
-                <asp:BoundField DataField="test_completed" HeaderText="test_completed" 
-                    SortExpression="test_completed" />
-                <asp:BoundField DataField="certification_submit_to_authority" 
-                    HeaderText="certification_submit_to_authority" 
-                    SortExpression="certification_submit_to_authority" />
-                <asp:BoundField DataField="certification_completed" 
-                    HeaderText="certification_completed" SortExpression="certification_completed" />
-                <asp:BoundField DataField="Estimated_Lead_time" 
-                    HeaderText="Estimated_Lead_time" SortExpression="Estimated_Lead_time" />
+                <asp:TemplateField HeaderText="test_started" SortExpression="test_started">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox3" runat="server" 
+                            Text='<%# Bind("test_started","{0:d}") %>'></asp:TextBox>                        
+                          <ajaxcontroltoolkit:calendarextender ID="TextBox3_CalendarExtender" 
+                            runat="server" Enabled="True" Format="yyyy/MM/dd" PopupButtonID="Image1" 
+                            TargetControlID="TextBox3">
+                          </ajaxcontroltoolkit:calendarextender>
+                          <asp:Image ID="Image1" runat="server" 
+                            ImageUrl="~/Images/Calendar_scheduleHS.png" />
+                          <asp:CompareValidator ID="CompareValidator1" runat="server" 
+                            ControlToValidate="TextBox3" Display="Dynamic" ErrorMessage="日期格式有誤" 
+                            Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                        <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("test_started") %>'></asp:TextBox>
+                    </InsertItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label4" runat="server" Text='<%# Bind("test_started") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="test_completed" SortExpression="test_completed">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("test_completed","{0:d}") %>'></asp:TextBox>
+                         <ajaxcontroltoolkit:calendarextender ID="TextBox4_CalendarExtender" 
+                            runat="server" Enabled="True" Format="yyyy/MM/dd" PopupButtonID="Image2" 
+                            TargetControlID="TextBox4">
+                          </ajaxcontroltoolkit:calendarextender>
+                          <asp:Image ID="Image2" runat="server" 
+                            ImageUrl="~/Images/Calendar_scheduleHS.png" />
+                          <asp:CompareValidator ID="CompareValidator2" runat="server" 
+                            ControlToValidate="TextBox4" Display="Dynamic" ErrorMessage="日期格式有誤" 
+                            Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                        <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("test_completed") %>'></asp:TextBox>
+                    </InsertItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label5" runat="server" Text='<%# Bind("test_completed") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="certification_submit_to_authority" 
+                    SortExpression="certification_submit_to_authority">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox5" runat="server" 
+                            Text='<%# Bind("certification_submit_to_authority","{0:d}") %>'></asp:TextBox>
+                            <ajaxcontroltoolkit:calendarextender ID="TextBox5_CalendarExtender" 
+                            runat="server" Enabled="True" Format="yyyy/MM/dd" PopupButtonID="Image5" 
+                            TargetControlID="TextBox5">
+                          </ajaxcontroltoolkit:calendarextender>
+                          <asp:Image ID="Image5" runat="server" 
+                            ImageUrl="~/Images/Calendar_scheduleHS.png" />
+                          <asp:CompareValidator ID="CompareValidator5" runat="server" 
+                            ControlToValidate="TextBox5" Display="Dynamic" ErrorMessage="日期格式有誤" 
+                            Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                        <asp:TextBox ID="TextBox6" runat="server" 
+                            Text='<%# Bind("certification_submit_to_authority") %>'></asp:TextBox>
+                    </InsertItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label6" runat="server" 
+                            Text='<%# Bind("certification_submit_to_authority") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="certification_completed" 
+                    SortExpression="certification_completed">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox6" runat="server" 
+                            Text='<%# Bind("certification_completed","{0:d}") %>'></asp:TextBox>
+                            <ajaxcontroltoolkit:calendarextender ID="TextBox6_CalendarExtender" 
+                            runat="server" Enabled="True" Format="yyyy/MM/dd" PopupButtonID="Image6" 
+                            TargetControlID="TextBox6">
+                          </ajaxcontroltoolkit:calendarextender>
+                          <asp:Image ID="Image6" runat="server" 
+                            ImageUrl="~/Images/Calendar_scheduleHS.png" />
+                          <asp:CompareValidator ID="CompareValidator6" runat="server" 
+                            ControlToValidate="TextBox6" Display="Dynamic" ErrorMessage="日期格式有誤" 
+                            Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                        <asp:TextBox ID="TextBox7" runat="server" 
+                            Text='<%# Bind("certification_completed") %>'></asp:TextBox>
+                    </InsertItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label7" runat="server" 
+                            Text='<%# Bind("certification_completed") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Estimated_Lead_time" 
+                    SortExpression="Estimated_Lead_time">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox7" runat="server" 
+                            Text='<%# Bind("Estimated_Lead_time") %>'></asp:TextBox> (Weeks)
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                        <asp:TextBox ID="TextBox8" runat="server" 
+                            Text='<%# Bind("Estimated_Lead_time") %>'></asp:TextBox>
+                    </InsertItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label8" runat="server" Text='<%# Bind("Estimated_Lead_time") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Actual_Lead_time" 
                     SortExpression="Actual_Lead_time">
                     <EditItemTemplate>
-                        <asp:TextBox ID="TextBox2" runat="server" 
-                            Text='<%# Bind("Actual_Lead_time") %>'></asp:TextBox>
+                        <asp:TextBox ID="TextBox_Actual_Lead_time" runat="server" ReadOnly="true" Enabled="false"
+                           Text='<%# Eval("Actual_Lead_time") %>' ></asp:TextBox> (Weeks)
                     </EditItemTemplate>
                     <InsertItemTemplate>
-                        <asp:TextBox ID="TextBox2" runat="server" 
-                            Text='<%# Bind("Actual_Lead_time") %>'></asp:TextBox>
+                        <asp:TextBox ID="TextBox_Actual_Lead_time" runat="server" 
+                            Text='<%# Eval("Actual_Lead_time") %>'></asp:TextBox>
                     </InsertItemTemplate>
                     <ItemTemplate>
                         <asp:Label ID="Label2" runat="server" Text='<%# Bind("Actual_Lead_time") %>'></asp:Label>
@@ -178,10 +284,9 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Agent" SortExpression="Agent">
                     <EditItemTemplate>
-                        <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Agent") %>'></asp:TextBox>
-                        <asp:DropDownList ID="DropDownList2" runat="server" 
-                            DataSourceID="SqlDataSourceVender" DataTextField="name" DataValueField="id" 
-                            SelectedValue='<%# Bind("Agent") %>'>
+                        <asp:DropDownList ID="DropDownListAgent" runat="server" 
+                            DataSourceID="SqlDataSourceVender" DataTextField="name" 
+                            DataValueField="id" SelectedValue='<%# Bind("Agent") %>'>
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="SqlDataSourceVender" runat="server" 
                             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
@@ -195,7 +300,7 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                         <asp:Label ID="Label3" runat="server" Text='<%# Bind("Agent") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:CommandField ShowEditButton="True" />
+                <asp:CommandField ShowEditButton="True" />               
             </Fields>
         </asp:DetailsView>
         <asp:SqlDataSource ID="SqlDataSourceModifyTarget" runat="server" 
