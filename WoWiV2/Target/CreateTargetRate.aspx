@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
 <%@ Import Namespace="System.Data"  %>
 <%@ Import Namespace="System.Data.SqlClient"  %>
+<%@ Import Namespace="System.Configuration"  %>
 
 <script runat="server">
     protected void DropDownListPT_SelectedIndexChanged(object sender, EventArgs e)
@@ -14,16 +15,45 @@
         TextBoxRate.Text = "";
     }
 
-            //    <InsertParameters>
-            //    <asp:Parameter Name="country_id" Type="Int32" />
-            //    <asp:Parameter Name="product_type_id" Type="Int32" />
-            //    <asp:Parameter Name="authority_name" Type="String" />
-            //    <asp:Parameter Name="Technology_id" Type="Int32" />
-            //    <asp:Parameter Name="rate" Type="Decimal" />
-            //</InsertParameters>
+    //    <InsertParameters>
+    //    <asp:Parameter Name="country_id" Type="Int32" />
+    //    <asp:Parameter Name="product_type_id" Type="Int32" />
+    //    <asp:Parameter Name="authority_name" Type="String" />
+    //    <asp:Parameter Name="Technology_id" Type="Int32" />
+    //    <asp:Parameter Name="rate" Type="Decimal" />
+    //</InsertParameters>
+
+    bool CheckTargetRate(string country_id, string product_type_id, string Technology_id)
+    {
+        int counter = 0;
+        using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["WoWiConnectionString"].ConnectionString))
+        {
+            cn.Open();
+            SqlCommand cmd =
+                new SqlCommand("Select count(*) from Target_Rates where country_id=@country_id and product_type_id=@product_type_id and Technology_id=@Technology_id", cn);
+            cmd.Parameters.AddWithValue("@country_id", country_id);
+            cmd.Parameters.AddWithValue("@product_type_id", product_type_id);
+            cmd.Parameters.AddWithValue("@Technology_id", Technology_id);
+            counter = int.Parse(cmd.ExecuteScalar().ToString());
+        }
+        if (counter > 0)
+        {
+            return true;            
+        }
+        else
+        {
+            return false;
+        }
+    }
     
     protected void LinkButtonInsert_Click(object sender, EventArgs e)
     {
+        if (CheckTargetRate(DropDownListCountry.SelectedValue, DropDownListPT.SelectedValue, DropDownListTL.SelectedValue))
+        {
+            LabelMessage.Text = "This TargetRate is already Exist , Please Insert the other one!";
+            return;
+        }
+        
         SqlDataSourceRate.InsertParameters["country_id"].DefaultValue =DropDownListCountry.SelectedValue;
         SqlDataSourceRate.InsertParameters["product_type_id"].DefaultValue = DropDownListPT.SelectedValue;
         SqlDataSourceRate.InsertParameters["authority_name"].DefaultValue = DropDownListAuthority.SelectedValue;
