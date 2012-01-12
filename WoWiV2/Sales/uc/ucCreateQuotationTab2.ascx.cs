@@ -223,6 +223,7 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
         target.discPrice = Decimal.Parse(hidDiscPrice.Value);
         target.FinalPrice = Decimal.Parse(hidFprice.Value);
         target.PayTo = txtPayTo.Text;
+        target.Agent = 0;
         Quotation_Target_Controller.Add(target);
 
         Response.Redirect("CreateQuotation.aspx?q=" + quotation_id.ToString() + "&t=1");
