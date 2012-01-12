@@ -19,12 +19,12 @@
         </asp:SqlDataSource>
         <asp:GridView ID="GridViewProjectTarget" runat="server" AllowPaging="True" 
             AutoGenerateColumns="False" DataKeyNames="Quotation_Target_Id" 
-            DataSourceID="SqlDataSourceTarget" PageSize="20" Width="100%">
+            DataSourceID="SqlDataSourceTarget" PageSize="20" Width="100%" 
+            AllowSorting="True">
             <Columns>
                 <asp:CommandField SelectText="Details" ShowSelectButton="True" />
                 <asp:BoundField DataField="Quotation_Target_Id" 
-                    HeaderText="Id" InsertVisible="False" ReadOnly="True" 
-                    SortExpression="Quotation_Target_Id" />
+                    HeaderText="Id" InsertVisible="False" ReadOnly="True" />
                 <asp:BoundField DataField="authority_name" HeaderText="authority_name" 
                     SortExpression="authority_name" />
                 <asp:BoundField DataField="country_name" HeaderText="country_name" 
