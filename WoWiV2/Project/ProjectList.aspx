@@ -14,7 +14,7 @@
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             SelectCommand="SELECT [id], [companyname] FROM [clientapplicant] where clientapplicant_type=1 or clientapplicant_type=3">
         </asp:SqlDataSource>
-&nbsp;and Description :
+&nbsp;and Model :
         <asp:TextBox ID="TextBoxDesc" runat="server"></asp:TextBox>
 &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" 
             onclick="btnSearch_Click" />
@@ -55,9 +55,10 @@
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="Product" HeaderText="Product" ReadOnly="True" />
-                <asp:BoundField DataField="Model" HeaderText="Model" ReadOnly="True" />
+                <asp:BoundField DataField="Model" HeaderText="Model" ReadOnly="True" 
+                    SortExpression="Model" />
                 <asp:BoundField DataField="Description" HeaderText="Description" 
-                    ReadOnly="True" />
+                    ReadOnly="True" Visible="False" />
                 <asp:TemplateField HeaderText="Client_Action" SortExpression="Client_Action">
                     <EditItemTemplate>
                         <asp:TextBox ID="txtClientAction" runat="server" 
@@ -93,7 +94,8 @@
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [Project] WHERE [Project_Id] = @Project_Id" 
             InsertCommand="INSERT INTO [Project] ([Project_No], [Project_Status], [Client_Action], [Create_Date], [Quotation_Id]) VALUES (@Project_No, @Project_Status, @Client_Action, @Create_Date, @Quotation_Id)" 
-            SelectCommand="SELECT Project.Project_Id, Project.Project_No, Project.Project_Status, Project.Client_Action, Project.Create_Date, Project.Quotation_Id, (SELECT fname FROM employee WHERE (id = Quotation_Version.SalesId)) AS AE, Quotation_Version.Product_Name AS Product, Quotation_Version.Model_No AS Model, Quotation_Version.Model_Difference AS Description, (SELECT companyname FROM clientapplicant WHERE (id = Quotation_Version.Client_Id)) AS Client, (SELECT companyname FROM clientapplicant AS clientapplicant_1 WHERE (id = Quotation_Version.Applicant_Id)) AS Applicant, Quotation_Version.Quotation_No FROM Project INNER JOIN Quotation_Version ON Project.Quotation_Id = Quotation_Version.Quotation_Version_Id Where Quotation_Version.Client_Id like @clientID and Quotation_Version.Model_Difference like  '%' + @Desc + '%' "            
+            SelectCommand="SELECT Project.Project_Id, Project.Project_No, Project.Project_Status, Project.Client_Action, Project.Create_Date, Project.Quotation_Id, (SELECT fname FROM employee WHERE (id = Quotation_Version.SalesId)) AS AE, Quotation_Version.Product_Name AS Product, Quotation_Version.Model_No AS Model, Quotation_Version.Model_Difference AS Description, (SELECT companyname FROM clientapplicant WHERE (id = Quotation_Version.Client_Id)) AS Client, (SELECT companyname FROM clientapplicant AS clientapplicant_1 WHERE (id = Quotation_Version.Applicant_Id)) AS Applicant, Quotation_Version.Quotation_No FROM Project INNER JOIN Quotation_Version ON Project.Quotation_Id = Quotation_Version.Quotation_Version_Id Where Quotation_Version.Client_Id like @clientID and Quotation_Version.Model_No like  '%' + @Model + '%' "            
+            
             UpdateCommand="UPDATE [Project] SET [Project_No] = @Project_No, [Project_Status] = @Project_Status, [Client_Action] = @Client_Action, [Create_Date] = @Create_Date, [Quotation_Id] = @Quotation_Id WHERE [Project_Id] = @Project_Id">
             <DeleteParameters>
                 <asp:Parameter Name="Project_Id" Type="Int32" />
@@ -108,7 +110,7 @@
             <SelectParameters>
                 <asp:ControlParameter ControlID="DropDownListClient" DefaultValue="%" 
                     Name="clientID" PropertyName="SelectedValue" />
-                <asp:ControlParameter ControlID="TextBoxDesc" DefaultValue="%" Name="Desc" 
+                <asp:ControlParameter ControlID="TextBoxDesc" DefaultValue="%" Name="Model" 
                     PropertyName="Text" />
             </SelectParameters>
             <UpdateParameters>

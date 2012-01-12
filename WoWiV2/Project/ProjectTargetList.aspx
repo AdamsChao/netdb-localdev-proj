@@ -64,10 +64,6 @@ FROM Quotation_Target
 INNER JOIN country ON Quotation_Target.country_id = country.country_id 
 INNER JOIN Authority ON Quotation_Target.authority_id = Authority.authority_id 
 WHERE (Quotation_Target.quotation_id = @quotation_id)" 
-            
-            
-            
-            
             UpdateCommand="UPDATE [Quotation_Target] SET [quotation_id] = @quotation_id, [target_id] = @target_id, [target_description] = @target_description, [country_id] = @country_id, [product_type_id] = @product_type_id, [authority_id] = @authority_id, [technology_id] = @technology_id, [target_rate] = @target_rate, [unit] = @unit, [unit_price] = @unit_price, [discount_type] = @discount_type, [discValue1] = @discValue1, [discValue2] = @discValue2, [discPrice] = @discPrice, [FinalPrice] = @FinalPrice, [PayTo] = @PayTo, [Status] = @Status, [Bill] = @Bill, [option1] = @option1, [option2] = @option2, [advance1] = @advance1, [advance2] = @advance2, [balance1] = @balance1, [balance2] = @balance2, [test_started] = @test_started, [test_completed] = @test_completed, [certification_submit_to_authority] = @certification_submit_to_authority, [certification_completed] = @certification_completed, [Estimated_Lead_time] = @Estimated_Lead_time, [Actual_Lead_time] = @Actual_Lead_time, [Agent] = @Agent WHERE [Quotation_Target_Id] = @Quotation_Target_Id">
             <DeleteParameters>
                 <asp:Parameter Name="Quotation_Target_Id" Type="Int32" />
@@ -272,7 +268,9 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                     SortExpression="Actual_Lead_time">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox_Actual_Lead_time" runat="server" ReadOnly="true" Enabled="false"
-                           Text='<%# Eval("Actual_Lead_time") %>' ></asp:TextBox> (Weeks)
+                           Text='<%# Eval("Actual_Lead_time") %>' ></asp:TextBox> 
+                        <asp:Label ID="Label_Actual_Lead_time" runat="server"></asp:Label>
+                        (Weeks)
                     </EditItemTemplate>
                     <InsertItemTemplate>
                         <asp:TextBox ID="TextBox_Actual_Lead_time" runat="server" 
