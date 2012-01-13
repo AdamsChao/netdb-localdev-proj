@@ -14,37 +14,8 @@
             String str = Request.QueryString["id"];
             id = int.Parse(str);
             
-            try
-            {
-            //    PlaceHolder ph = (PlaceHolder)FormView1.FindControl("Contacts");
-            //    using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
-            //    {
-            //        try
-            //        {
-            //            var conList = from c in db.m_vender_contact where c.vender_id == id select c;
-            //            foreach (WoWiModel.m_vender_contact item in conList)
-            //            {
-            //                var data = (from d in db.contact_info where d.id == item.contact_id select d).First();
-            //                //ViewState["WoWiModel.contact_info"] = data;
-            //                //Control con = Page.LoadControl("~/UserControls/ContactItem.ascx");
-            //                Label con = new Label();
-            //                con.Text = data.fname + " " + data.lname;
-            //                ph.Controls.Add(con);
-            //                HtmlGenericControl br = new HtmlGenericControl("br");
-            //                ph.Controls.Add(br);
-            //            }
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //        }
-            //    }
-            }
-            catch
-            {
-            }
         }
     }
-
 
     private void InitVenderTypes()
     {

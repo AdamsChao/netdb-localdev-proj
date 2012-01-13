@@ -46,7 +46,7 @@
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                     
-                    SelectCommand="SELECT [id], [name], [c_name], [tel1], [fax1], [address], [c_address] FROM [vendor]">
+                    SelectCommand="SELECT [id], [name], [c_name], [tel1], [fax1], [address], [c_address] FROM [vendor] Where id > 0">
                 </asp:SqlDataSource>
             </ContentTemplate>
         </asp:UpdatePanel>
