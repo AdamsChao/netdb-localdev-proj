@@ -38,6 +38,7 @@
       <siteMapNode url="~/Project/ProjectList.aspx" title="Project List"  description="" />      
       <siteMapNode url="~/Project/ProjectTargetList.aspx" title="Project Target List"  description="" />     
       <siteMapNode url="~/Project/ProjectWorkingStatus.aspx" title="Working Status"  description="" />
+      <siteMapNode url="~/Project/ProjectWorkingStatusReport.aspx" title="Working Status Report"  description="" />     
     </siteMapNode>
     <siteMapNode url="" title="Report"  description="" >
       <siteMapNode url="" title="Forecast"  description="" />
