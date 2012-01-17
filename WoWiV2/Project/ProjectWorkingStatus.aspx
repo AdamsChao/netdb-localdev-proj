@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 <asp:Panel ID="pnlWorkingStatusManagement" runat="server">        
-        <center><a href="~/Project/ProjectWorkingStatusReport.aspx" target="_blank">Generate Working Status Report</a></center>
+        <center><a href="ProjectWorkingStatusReport.aspx" target="_blank">Generate Working Status Report</a></center>
         <fieldset>
             <legend>Working Status List</legend>
             <br />
