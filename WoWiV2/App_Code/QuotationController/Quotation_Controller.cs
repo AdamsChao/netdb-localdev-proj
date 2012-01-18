@@ -324,4 +324,15 @@ public class Quotation_Controller
         return result.SingleOrDefault();
     
     }
+
+    public static vw_Quotation_Print_Chinese GetQuotationPrintChinese(int Quotation_ID)
+    {
+        QuotationEntities entity = new QuotationEntities();
+        entity = new QuotationEntities();
+        var result = from n in entity.vw_Quotation_Print_Chinese
+                     where n.Quotation_Version_Id == Quotation_ID
+                     select n;
+        return result.SingleOrDefault();
+
+    }
 }

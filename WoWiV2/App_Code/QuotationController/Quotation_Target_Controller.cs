@@ -99,4 +99,13 @@ public class Quotation_Target_Controller
         Quotation_Controller.TargetChange((int)result.quotation_id);
         
     }
+
+    public static IEnumerable<vw_Test_Target_List> SelectView(string Quotation_No)
+    {
+        QuotationEntities entities = new QuotationEntities();
+        IEnumerable<vw_Test_Target_List> TargetList =
+            entities.vw_Test_Target_List.Where
+            (c => c.Quotation_No == Quotation_No);
+        return TargetList;
+    }
 }

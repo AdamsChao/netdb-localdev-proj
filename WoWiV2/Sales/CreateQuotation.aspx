@@ -39,6 +39,15 @@
             //printWindow.close();
 
             return false;
+        }
+
+        function printchineseform(qid) {
+            var windowUrl = 'print.aspx?q=' + qid;
+            var uniqueName = new Date();
+            var windowName = 'Print' + uniqueName.getTime();
+            var printWindow = window.open(windowUrl, windowName);
+            printWindow.focus();
+            return false;
         } 
     </script>
 </asp:Content>
@@ -59,6 +68,7 @@
                     <asp:Button ID="cmdCopy" runat="server" Text="Copy" OnClick="cmdCopy_Click" />
                     &nbsp;&nbsp;&nbsp;
                         <asp:Button ID="btnViewPrint" runat="server" Text="View/Print"  />
+                        <asp:Button ID="btnViewPrintChinese" runat="server" Text="View/Print" />
                 </td>
             </tr>
             <tr>

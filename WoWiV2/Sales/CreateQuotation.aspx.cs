@@ -71,10 +71,17 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                     txtQuotation_Statusdate.Text = ((DateTime)quotation.Quotation_Statusdate).ToString("yyyy/MM/dd HH:mm");
                     txtQuotation_Statusby.Text = quotation.Quotation_Statusby;
 
+                    if (quotation.Currency == "USD")
+                        btnViewPrint.Visible = true;
+
+                    if (quotation.Currency == "NTD")
+                        btnViewPrintChinese.Visible = true;
 
                     string strJavaScript = string.Empty;
                     strJavaScript = "return printform('" + QuotationID.ToString() + "');";
                     btnViewPrint.OnClientClick = strJavaScript;
+                    
+                    btnViewPrintChinese.OnClientClick = "return printchineseform('" + QuotationID.ToString() + "');";
 
                     employee loginUser = CodeTableController.GetEmployee(Page.User.Identity.Name);
 
@@ -231,4 +238,5 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
         cmdCreateProject.Text = "Project has been created";
         cmdCreateProject.Enabled = false;
     }
+
 }

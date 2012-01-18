@@ -126,6 +126,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         obj.Payment_Term = ddlPayment_Term.Text;
         obj.Client_Status = txtClient_Status.Text;
         obj.DHL_Acct = txtDHL.Text;
+        
 
         int QuotationID = Quotation_Controller.Add_Quotation(obj);
 
