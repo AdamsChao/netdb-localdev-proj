@@ -198,7 +198,8 @@
                                                     </asp:BulletedList>
                                                     <asp:SqlDataSource ID="SqlDataSourceStatus" runat="server" 
                                                         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                        SelectCommand="SELECT log_content + ' Display On:' + CONVERT(char(10), log_date, 111) AS 'Status' FROM Project_working_log WHERE (target_id = @Quotation_Version_Id)">
+                                                        
+                                                        SelectCommand="SELECT Substring(CONVERT(char(10), log_date, 111) , 6,10) + ':' + log_content  AS 'Status' FROM Project_working_log WHERE (target_id = @Quotation_Version_Id)">
                                                         <SelectParameters>
                                                             <asp:ControlParameter ControlID="Label_Quotation_Target_Id" 
                                                                 Name="Quotation_Version_Id" PropertyName="Text" />
