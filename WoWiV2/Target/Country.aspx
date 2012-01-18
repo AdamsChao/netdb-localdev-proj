@@ -28,7 +28,7 @@
         <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             DataKeyNames="country_id" DataSourceID="SqlDataSourceCountry" 
-            AllowSorting="True" onrowupdated="GridView1_RowUpdated">
+            AllowSorting="True" onrowupdated="GridView1_RowUpdated" Width="100%">
             <Columns>
                 <asp:CommandField ShowEditButton="True">
                 <ItemStyle Wrap="False" />
@@ -39,7 +39,7 @@
                     SortExpression="country_name" />
                 <asp:TemplateField HeaderText="Country 3 Code" SortExpression="country_3_code">
                     <EditItemTemplate>
-                        <asp:TextBox ID="TextBox1" runat="server" MaxLength="3" 
+                        <asp:TextBox ID="TextBox1" runat="server" MaxLength="3" Width="50px" 
                             Text='<%# Bind("country_3_code") %>'></asp:TextBox>
                     </EditItemTemplate>
                     <ItemTemplate>
@@ -51,8 +51,30 @@
                         <asp:Label ID="Label3" runat="server" Text='<%# Bind("country_2_code") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:TextBox ID="TextBox2" runat="server" MaxLength="2" 
+                        <asp:TextBox ID="TextBox2" runat="server" MaxLength="2" Width="50px" 
                             Text='<%# Bind("country_2_code") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="country telephone code" 
+                    SortExpression="country_telephone_code">
+                    <ItemTemplate>
+                        <asp:Label ID="Label4" runat="server" 
+                            Text='<%# Bind("country_telephone_code") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox3" runat="server" Width="100px" 
+                            Text='<%# Bind("country_telephone_code") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="country currency type" 
+                    SortExpression="country_currency_type">
+                    <ItemTemplate>
+                        <asp:Label ID="Label5" runat="server" 
+                            Text='<%# Bind("country_currency_type") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox4" runat="server" Width="100px" 
+                            Text='<%# Bind("country_currency_type") %>'></asp:TextBox>
                     </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Region" SortExpression="world_region_id">
@@ -74,10 +96,11 @@
         <asp:SqlDataSource ID="SqlDataSourceCountry" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [country] WHERE [country_id] = @country_id" 
-            InsertCommand="INSERT INTO [country] ([country_id], [country_name], [country_3_code], [country_2_code], [world_region_id]) VALUES (@country_id, @country_name, @country_3_code, @country_2_code, @world_region_id)" 
-            SelectCommand="SELECT country.country_id, country.country_name, country.country_3_code, country.country_2_code, country.world_region_id, world_region.world_region_name FROM country INNER JOIN world_region ON country.world_region_id = world_region.world_region_id" 
+            InsertCommand="INSERT INTO [country] ([country_id], [country_name], [country_3_code], [country_2_code], [world_region_id],[country_telephone_code],[country_currency_type]) VALUES (@country_id, @country_name, @country_3_code, @country_2_code, @world_region_id,@country_telephone_code,@country_currency_type)" 
+            SelectCommand="SELECT country.country_id, country.country_name, country.country_3_code, country.country_2_code, country.world_region_id, world_region.world_region_name,[country_telephone_code] , [country_currency_type] FROM country INNER JOIN world_region ON country.world_region_id = world_region.world_region_id" 
             
-            UpdateCommand="UPDATE [country] SET [country_name] = @country_name, [country_3_code] = @country_3_code, [country_2_code] = @country_2_code, [world_region_id] = @world_region_id WHERE [country_id] = @country_id">
+            
+            UpdateCommand="UPDATE [country] SET [country_name] = @country_name, [country_3_code] = @country_3_code, [country_2_code] = @country_2_code, [world_region_id] = @world_region_id,[country_telephone_code]=@country_telephone_code,[country_currency_type]=@country_currency_type WHERE [country_id] = @country_id">
             <DeleteParameters>
                 <asp:Parameter Name="country_id" Type="Int32" />
             </DeleteParameters>
@@ -87,12 +110,16 @@
                 <asp:Parameter Name="country_3_code" Type="String" />
                 <asp:Parameter Name="country_2_code" Type="String" />
                 <asp:Parameter Name="world_region_id" Type="Byte" />
+                <asp:Parameter Name="country_telephone_code" />
+                <asp:Parameter Name="country_currency_type" />
             </InsertParameters>
             <UpdateParameters>
                 <asp:Parameter Name="country_name" Type="String" />
                 <asp:Parameter Name="country_3_code" Type="String" />
                 <asp:Parameter Name="country_2_code" Type="String" />
                 <asp:Parameter Name="world_region_id" Type="Byte" />
+                <asp:Parameter Name="country_telephone_code" />
+                <asp:Parameter Name="country_currency_type" />
                 <asp:Parameter Name="country_id" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
