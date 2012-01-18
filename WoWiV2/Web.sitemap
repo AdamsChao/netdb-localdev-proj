@@ -25,7 +25,7 @@
       <siteMapNode url="~/Sales/Quotation.aspx" title="Quotation Search"  description="" />
     </siteMapNode>
     <siteMapNode url="" title="Accounting"  description="" >
-      <siteMapNode url="" title="PR"  description="" />
+      <siteMapNode url="~/Accounting/PRList.aspx" title="PR"  description="" />
       <siteMapNode url="~/Accounting/Invoice.aspx" title="Invoice"  description="" />
       <siteMapNode url="~/Accounting/AR.aspx" title="AR"  description="" >
         <siteMapNode url="~/Accounting/ARAnalysis.aspx" title="AR Analysis"  description="" />
