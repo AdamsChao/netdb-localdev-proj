@@ -24,7 +24,7 @@ public partial class Sales_print : System.Web.UI.Page
 
                 ApplicationClass wordApp = new ApplicationClass();
                 object missing = System.Reflection.Missing.Value;
-                object tempName = @"C:\Quotation.doc";//word範本檔案
+                object tempName = Server.MapPath("../") + "\\Sales\\ReportFiles\\Quotation.doc"; //word範本檔案                
                 object docName = @"C:\a.doc";//要儲存的檔案名稱
                 Document MyDoc = wordApp.Documents.Add(ref tempName, ref missing, ref missing, ref missing);
                 wordApp.Visible = true;
@@ -50,7 +50,8 @@ public partial class Sales_print : System.Web.UI.Page
                         bmk = MyDoc.Bookmarks.get_Item(ref item);
                         start = bmk.Start;
                         end = bmk.End;
-                        MyDoc.Range(ref start, ref end).InlineShapes.AddPicture("D:\\Rose.ke.bmp", ref missing, ref missing, ref missing);
+                        string imgURL = Server.MapPath("../") + "\\Images\\sign\\Rose.ke.bmp";
+                        MyDoc.Range(ref start, ref end).InlineShapes.AddPicture(imgURL, ref missing, ref missing, ref missing);
                         i--;
                     }
                 }
