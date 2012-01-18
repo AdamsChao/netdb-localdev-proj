@@ -2,6 +2,18 @@
 
 <script runat="server">
 
+    protected void DetailsView1_ItemInserted(object sender, DetailsViewInsertedEventArgs e)
+    {
+        if (e.Exception != null)
+        {
+            Message.Text = e.Exception.Message;
+            e.ExceptionHandled = true;
+        }
+        else
+        {
+            Message.Text = "Country Creation Successful!";
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -14,16 +26,36 @@
         <br />
         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" 
             DataSourceID="SqlDataSourceCountry" DefaultMode="Insert" Height="50px" 
-            Width="125px">
+            Width="125px" oniteminserted="DetailsView1_ItemInserted">
             <Fields>
                 <asp:BoundField DataField="country_name" HeaderText="country_name" 
                     SortExpression="country_name" />
-                <asp:BoundField DataField="country_3_code" HeaderText="country_3_code" 
-                    SortExpression="country_3_code" />
-                <asp:BoundField DataField="country_2_code" HeaderText="country_2_code" 
-                    SortExpression="country_2_code" />
-                <asp:TemplateField HeaderText="world_region_id" 
-                    SortExpression="Rsgion">
+                <asp:TemplateField HeaderText="country_3_code" 
+                    SortExpression="country_3_code">
+                    <ItemTemplate>
+                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("country_3_code") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("country_3_code") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                          <asp:TextBox ID="TextBox1" runat="server" MaxLength="3" 
+                              Text='<%# Bind("country_3_code") %>'></asp:TextBox>
+                    </InsertItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="country_2_code" SortExpression="country_2_code">
+                    <ItemTemplate>
+                        <asp:Label ID="Label3" runat="server" Text='<%# Bind("country_2_code") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("country_2_code") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                        <asp:TextBox ID="TextBox2" runat="server" MaxLength="2" 
+                            Text='<%# Bind("country_2_code") %>'></asp:TextBox>
+                    </InsertItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="world_region_id" SortExpression="Rsgion">
                     <ItemTemplate>
                         <asp:Label ID="Label1" runat="server" Text='<%# Bind("world_region_name") %>'></asp:Label>
                     </ItemTemplate>
@@ -31,7 +63,7 @@
                         <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("world_region_id") %>'></asp:TextBox>
                     </EditItemTemplate>
                     <InsertItemTemplate>
-                          <asp:DropDownList ID="DropDownList1" runat="server" 
+                        <asp:DropDownList ID="DropDownList1" runat="server" 
                             DataSourceID="SqlDataSourceRegion" DataTextField="world_region_name" 
                             DataValueField="world_region_id" SelectedValue='<%# Bind("world_region_id") %>'>
                         </asp:DropDownList>
@@ -68,6 +100,7 @@
                 <asp:Parameter Name="country_id" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
+        <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
     </p>
 </asp:Content>
 

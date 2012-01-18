@@ -12,7 +12,7 @@
         SqlDataSourceTarget.InsertParameters["target_description"].DefaultValue = TextBoxDes.Text;
         SqlDataSourceTarget.InsertParameters["target_cost"].DefaultValue = TextBoxCost.Text;
         
-        SqlDataSourceTarget.Insert();       
+        SqlDataSourceTarget.Insert();
     }
 
     protected void SqlDataSourceTarget_Inserted(object sender, SqlDataSourceStatusEventArgs e)
@@ -24,7 +24,7 @@
         }
         else
         {
-            LabelMessage.Text = "Insert Data Successful";
+            LabelMessage.Text = "Target Creation Successful";
         }
     }
 

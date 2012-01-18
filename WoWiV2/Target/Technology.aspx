@@ -2,6 +2,19 @@
 
 <script runat="server">
 
+    protected void GridView1_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+    {
+        if (e.Exception != null)
+        {
+            Message.Text = e.Exception.Message + " , Please try again!";
+            e.ExceptionHandled = true;
+            e.KeepInEditMode = true;
+        }
+        else
+        {
+            Message.Text = "Technology Update Successful!";
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -15,7 +28,7 @@
     <p>
         <asp:GridView ID="GridView1" runat="server" AllowSorting="True" 
             AutoGenerateColumns="False" DataKeyNames="wowi_tech_id" 
-            DataSourceID="SqlDataSourceTechnology">
+            DataSourceID="SqlDataSourceTechnology" onrowupdated="GridView1_RowUpdated">
             <Columns>
                 <asp:CommandField ShowEditButton="True" />
                 <asp:BoundField DataField="wowi_tech_id" HeaderText="wowi_tech_id" 
@@ -57,6 +70,7 @@
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
+        <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
         <asp:SqlDataSource ID="SqlDataSourceTechnology" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [wowi_tech] WHERE [wowi_tech_id] = @wowi_tech_id" 

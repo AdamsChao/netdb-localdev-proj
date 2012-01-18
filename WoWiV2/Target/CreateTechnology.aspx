@@ -2,6 +2,18 @@
 
 <script runat="server">
 
+    protected void DetailsView1_ItemInserted(object sender, DetailsViewInsertedEventArgs e)
+    {
+        if (e.Exception != null)
+        {
+            Message.Text = e.Exception.Message;
+            e.ExceptionHandled = true;
+        }
+        else
+        {
+            Message.Text = "Technology Creation Successful!";
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -13,7 +25,8 @@
             NavigateUrl="~/Target/Technology.aspx">Technology Lists</asp:HyperLink>
         <br />
         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" 
-            DataSourceID="SqlDataSourceTechnology" DefaultMode="Insert" Height="50px">
+            DataSourceID="SqlDataSourceTechnology" DefaultMode="Insert" Height="50px" 
+            oniteminserted="DetailsView1_ItemInserted">
             <Fields>
                 <asp:BoundField DataField="wowi_tech_name" HeaderText="Technology Name" 
                     SortExpression="wowi_tech_name" />
@@ -83,6 +96,7 @@
                 <asp:Parameter Name="wowi_tech_id" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
+        <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
     </p>
 </asp:Content>
 

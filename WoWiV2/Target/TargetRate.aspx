@@ -2,6 +2,19 @@
 
 <script runat="server">
 
+    protected void GridViewRate_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+    {
+        if (e.Exception != null)
+        {
+            Message.Text = e.Exception.Message + " , Please try again!";
+            e.ExceptionHandled = true;
+            e.KeepInEditMode = true;
+        }
+        else
+        {
+            Message.Text = "TargetRate Update Successful!";
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -14,7 +27,7 @@
         <br />
         <asp:GridView ID="GridViewRate" runat="server" AllowPaging="True" 
             AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Target_rate_id" 
-            DataSourceID="SqlDataSourceRate">
+            DataSourceID="SqlDataSourceRate" onrowupdated="GridViewRate_RowUpdated">
             <Columns>
                 <asp:CommandField ShowEditButton="True" />
                 <asp:BoundField DataField="Target_rate_id" HeaderText="Target_rate_id" 
@@ -94,6 +107,7 @@
                 <asp:Parameter Name="Target_rate_id" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
+        <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
     </p>
 </asp:Content>
 

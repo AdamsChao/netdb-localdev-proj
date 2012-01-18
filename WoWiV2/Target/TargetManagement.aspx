@@ -2,6 +2,19 @@
 
 <script runat="server">
 
+    protected void GridView1_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+    {
+        if (e.Exception!=null)
+        {
+            Message.Text = e.Exception.Message + " , Please try again!";
+            e.ExceptionHandled = true;
+            e.KeepInEditMode = true;            
+        }
+        else
+        {
+            Message.Text = "Target Update Successful!";
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -15,7 +28,8 @@
     </p>
     <asp:GridView ID="GridView1" runat="server" AllowSorting="True" 
         AutoGenerateColumns="False" DataKeyNames="target_id" 
-        DataSourceID="SqlDataSourceTarget">
+        DataSourceID="SqlDataSourceTarget" onrowupdated="GridView1_RowUpdated" 
+        Width="100%">
         <Columns>
             <asp:CommandField ShowEditButton="True" />
             <asp:BoundField DataField="target_id" HeaderText="target_id" 
@@ -118,5 +132,6 @@ and [Target].technology_id = Target_Rates.technology_id
             <asp:Parameter Name="target_id" Type="Int32" />
         </UpdateParameters>
     </asp:SqlDataSource>
-</asp:Content>
+        <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
+        </asp:Content>
 

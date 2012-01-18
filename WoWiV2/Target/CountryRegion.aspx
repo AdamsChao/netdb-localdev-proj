@@ -2,6 +2,18 @@
 
 <script runat="server">
 
+    protected void ListView1_ItemInserted(object sender, ListViewInsertedEventArgs e)
+    {
+        if (e.Exception != null)
+        {
+            Message.Text = e.Exception.Message;
+            e.ExceptionHandled = true;
+        }
+        else
+        {
+            Message.Text = "Country Region Creation Successful!";
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -12,7 +24,8 @@
     </p>
     <p>
         <asp:ListView ID="ListView1" runat="server" DataKeyNames="world_region_id" 
-            DataSourceID="SqlDataSourceRegion" InsertItemPosition="LastItem">
+            DataSourceID="SqlDataSourceRegion" InsertItemPosition="LastItem" 
+            oniteminserted="ListView1_ItemInserted">
             <AlternatingItemTemplate>
                 <tr style="">
                     <td>
@@ -154,6 +167,7 @@
                 <asp:Parameter Name="world_region_id" Type="Byte" />
             </UpdateParameters>
         </asp:SqlDataSource>
+        <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
     </p>
 </asp:Content>
 

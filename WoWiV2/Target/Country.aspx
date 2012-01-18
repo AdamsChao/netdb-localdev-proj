@@ -2,6 +2,19 @@
 
 <script runat="server">
 
+    protected void GridView1_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+    {
+        if (e.Exception != null)
+        {
+            Message.Text = e.Exception.Message + " , Please try again!";
+            e.ExceptionHandled = true;
+            e.KeepInEditMode = true;
+        }
+        else
+        {
+            Message.Text = "Country Update Successful!";
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -15,7 +28,7 @@
     <p>
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             DataKeyNames="country_id" DataSourceID="SqlDataSourceCountry" 
-            AllowSorting="True">
+            AllowSorting="True" onrowupdated="GridView1_RowUpdated">
             <Columns>
                 <asp:CommandField ShowEditButton="True">
                 <ItemStyle Wrap="False" />
@@ -24,11 +37,28 @@
                     SortExpression="country_id" Visible="False" />
                 <asp:BoundField DataField="country_name" HeaderText="Country Name" 
                     SortExpression="country_name" />
-                <asp:BoundField DataField="country_3_code" HeaderText="Country 3 Code" 
-                    SortExpression="country_3_code" />
-                <asp:BoundField DataField="country_2_code" HeaderText="Country 2 Code" 
-                    SortExpression="country_2_code" />
+                <asp:TemplateField HeaderText="Country 3 Code" SortExpression="country_3_code">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox1" runat="server" MaxLength="3" 
+                            Text='<%# Bind("country_3_code") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("country_3_code") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Country 2 Code" SortExpression="country_2_code">
+                    <ItemTemplate>
+                        <asp:Label ID="Label3" runat="server" Text='<%# Bind("country_2_code") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox2" runat="server" MaxLength="2" 
+                            Text='<%# Bind("country_2_code") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Region" SortExpression="world_region_id">
+                    <ItemTemplate>
+                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("world_region_name") %>'></asp:Label>
+                    </ItemTemplate>
                     <EditItemTemplate>
                         <asp:DropDownList ID="DropDownList1" runat="server" 
                             DataSourceID="SqlDataSourceRegion" DataTextField="world_region_name" 
@@ -38,9 +68,6 @@
                             ConnectionString="<%$ ConnectionStrings:ApplicationServices %>" 
                             SelectCommand="SELECT * FROM [world_region]"></asp:SqlDataSource>
                     </EditItemTemplate>
-                    <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("world_region_name") %>'></asp:Label>
-                    </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
@@ -69,6 +96,7 @@
                 <asp:Parameter Name="country_id" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
+        <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
     </p>
 </asp:Content>
 

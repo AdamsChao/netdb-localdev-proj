@@ -71,7 +71,7 @@
         }
         else
         {
-            LabelMessage.Text = "Insert Data Successful";          
+            LabelMessage.Text = "TargetRate Creation Successful";          
         }
     }
 </script>

@@ -2,6 +2,19 @@
 
 <script runat="server">
 
+    protected void ListView1_ItemUpdated(object sender, ListViewUpdatedEventArgs e)
+    {
+        if (e.Exception != null)
+        {
+            Message.Text = e.Exception.Message + " , Please try again!";
+            e.ExceptionHandled = true;
+            e.KeepInEditMode = true;
+        }
+        else
+        {
+            Message.Text = "ProductType Update Successful!";
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -11,7 +24,8 @@
         Product Type Lists</p>
     <p>
         <asp:ListView ID="ListView1" runat="server" DataKeyNames="wowi_product_type_id" 
-            DataSourceID="SqlDataSourceProductType" InsertItemPosition="LastItem">
+            DataSourceID="SqlDataSourceProductType" InsertItemPosition="LastItem" 
+            onitemupdated="ListView1_ItemUpdated">
             <AlternatingItemTemplate>
                 <tr style="">
                     <td>
@@ -179,6 +193,7 @@
                 <asp:Parameter Name="wowi_product_type_id" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
+        <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
     </p>
 </asp:Content>
 
