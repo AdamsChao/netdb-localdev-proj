@@ -24,8 +24,8 @@
         Country Lists :
         <asp:Button ID="Button1" runat="server" 
             PostBackUrl="~/Target/CreateCountry.aspx" Text="Create Country" />
-    </p>
-    <p>
+        <br />
+        <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             DataKeyNames="country_id" DataSourceID="SqlDataSourceCountry" 
             AllowSorting="True" onrowupdated="GridView1_RowUpdated">
@@ -96,7 +96,6 @@
                 <asp:Parameter Name="country_id" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
-        <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
     </p>
 </asp:Content>
 
