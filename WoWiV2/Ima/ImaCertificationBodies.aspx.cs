@@ -45,6 +45,7 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
                 tbVolumePerYear1.Text = dt.Rows[0]["VolumePerYear1"].ToString();
                 rblPublish1.SelectedValue = Convert.ToInt32(dt.Rows[0]["Publish1"]).ToString();
                 tbWebsite.Text = dt.Rows[0]["Website"].ToString();
+                tbWebsite1.Text = dt.Rows[0]["Website1"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
@@ -71,8 +72,8 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_CertificationBodies (world_region_id,country_id,wowi_product_type_id,Name,Authority,CertificationBody,VolumePerYear,Publish,AccredidedLab,VolumePerYear1,Publish1,Website,CreateUser,LasterUpdateUser) ";
-        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Name,@Authority,@CertificationBody,@VolumePerYear,@Publish,@AccredidedLab,@VolumePerYear1,@Publish1,@Website,@CreateUser,@LasterUpdateUser)";
+        string strTsql = "insert into Ima_CertificationBodies (world_region_id,country_id,wowi_product_type_id,Name,Authority,CertificationBody,VolumePerYear,Publish,AccredidedLab,VolumePerYear1,Publish1,Website,Website1,CreateUser,LasterUpdateUser) ";
+        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Name,@Authority,@CertificationBody,@VolumePerYear,@Publish,@AccredidedLab,@VolumePerYear1,@Publish1,@Website,@Website1,@CreateUser,@LasterUpdateUser)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -87,7 +88,8 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
         cmd.Parameters.Add("@AccredidedLab", SqlDbType.NVarChar);
         cmd.Parameters.Add("@VolumePerYear1", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Publish1", SqlDbType.Bit);
-        cmd.Parameters.Add("@Website", SqlDbType.NVarChar);        
+        cmd.Parameters.Add("@Website", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@Website1", SqlDbType.NVarChar); 
         cmd.Parameters.Add("@CreateUser", SqlDbType.NVarChar);
         cmd.Parameters.Add("@LasterUpdateUser", SqlDbType.NVarChar);
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
@@ -119,6 +121,7 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
                 cmd.Parameters["@VolumePerYear1"].Value = tbVolumePerYear1.Text.Trim();
                 cmd.Parameters["@Publish1"].Value = rblPublish1.SelectedValue == "1";
                 cmd.Parameters["@Website"].Value = tbWebsite.Text.Trim();
+                cmd.Parameters["@Website1"].Value = tbWebsite1.Text.Trim();
                 cmd.Parameters["@CreateUser"].Value = IMAUtil.GetUser();
                 cmd.Parameters["@LasterUpdateUser"].Value = IMAUtil.GetUser();
                 int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));                
@@ -130,7 +133,7 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
     
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_CertificationBodies set Name=@Name,Authority=@Authority,CertificationBody=@CertificationBody,VolumePerYear=@VolumePerYear,Publish=@Publish,AccredidedLab=@AccredidedLab,VolumePerYear1=@VolumePerYear1,Publish1=@Publish1,Website=@Website,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate() ";
+        string strTsql = "Update Ima_CertificationBodies set Name=@Name,Authority=@Authority,CertificationBody=@CertificationBody,VolumePerYear=@VolumePerYear,Publish=@Publish,AccredidedLab=@AccredidedLab,VolumePerYear1=@VolumePerYear1,Publish1=@Publish1,Website=@Website,Website1=@Website1,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate() ";
         strTsql += "where CertificationBodiesID=@CertificationBodiesID";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -144,6 +147,7 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@VolumePerYear1", tbVolumePerYear1.Text.Trim());
         cmd.Parameters.AddWithValue("@Publish1", rblPublish1.SelectedValue == "1");
         cmd.Parameters.AddWithValue("@Website", tbWebsite.Text.Trim());
+        cmd.Parameters.AddWithValue("@Website1", tbWebsite1.Text.Trim());
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
         SQLUtil.ExecuteSql(cmd);
         BackURL();

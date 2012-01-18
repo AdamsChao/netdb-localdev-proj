@@ -86,7 +86,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tdRowName">
+                        <td class="tdRowName" valign="top">
                             Publish：
                         </td>
                         <td class="tdRowValue">
@@ -95,6 +95,9 @@
                                 <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="NO" Value="0"></asp:ListItem>
                             </asp:RadioButtonList>
+                            &nbsp;&nbsp;
+                            Website：
+                            <asp:TextBox ID="tbWebsite" runat="server" Width="450px"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -114,7 +117,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tdRowName">
+                        <td class="tdRowName" valign="top">
                             Publish：
                         </td>
                         <td class="tdRowValue">
@@ -122,16 +125,18 @@
                                 <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="NO" Value="0"></asp:ListItem>
                             </asp:RadioButtonList>
+                            &nbsp;&nbsp; Website：
+                            <asp:TextBox ID="tbWebsite1" runat="server" Width="450px"></asp:TextBox>
                         </td>
                     </tr>
-                    <tr>
+                    <%--<tr>
                         <td class="tdRowName">
                             Website：
                         </td>
                         <td class="tdRowValue">
-                            <asp:TextBox ID="tbWebsite" runat="server" Rows="3" TextMode="MultiLine" Width="90%"></asp:TextBox>
+                            <asp:TextBox ID="tbWebsite1" runat="server" Rows="3" TextMode="MultiLine" Width="90%"></asp:TextBox>
                         </td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                         <td colspan="2" align="center" class="tdFooter">
                             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />

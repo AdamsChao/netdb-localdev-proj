@@ -257,10 +257,10 @@
                                                 Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
                                             <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyD"
                                                 Text="Copy" CommandArgument='<%# Eval("CertificationBodiesID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                            <%--<asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailG.aspx?" + Request.QueryString.ToString() + "&fid="+Eval("ProductControlID").ToString() %>'>Detail</asp:HyperLink>--%>
+                                            <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailD.aspx?" + Request.QueryString.ToString() + "&cbwid="+Eval("CertificationBodiesID").ToString() %>'>Detail</asp:HyperLink>
                                         </ItemTemplate>
-                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="100px" />
-                                        <ItemStyle HorizontalAlign="Center" Width="100px" />
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
+                                        <ItemStyle HorizontalAlign="Center" Width="140px" />
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="Name" HeaderText="Name">
                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
