@@ -230,6 +230,32 @@
         {
             id = int.Parse(Request.QueryString["id"]);
         }
+        
+    }
+
+    protected void PlaceHolder1_Load(object sender, EventArgs e)
+    {
+        (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Clear();
+        String UpPath = ConfigurationManager.AppSettings["UploadFolderPath"];
+        String prid = Request.QueryString["id"];
+        UpPath = UpPath + "/PR/" + prid;
+        if (System.IO.Directory.Exists(UpPath))
+        {
+            String[] list = System.IO.Directory.GetFiles(UpPath);
+            foreach (String item in list)
+            {
+                HyperLink link = new HyperLink();
+                int idx = item.LastIndexOf("\\");
+                String fileName = item.Substring(idx + 1);
+                link.NavigateUrl = "~/Accounting/FileListHandler.ashx?id=" + prid + "&fn=" + fileName;
+                link.Text = fileName;
+                (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Add(link);
+                Label lb = new Label();
+                lb.Text = "<br>";
+                (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Add(lb);
+            }
+            (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Visible = true;
+        }
     }
 
     protected void EntityDataSource1_Updated(object sender, EntityDataSourceChangedEventArgs e)
@@ -238,7 +264,7 @@
         {
             WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
 
-            Response.Redirect("~/Accounting/MultiFileUpload.aspx?id=" + obj.pr_id);
+            Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
         }
     }
 
@@ -246,17 +272,17 @@
     {
         WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
         DropDownList ddlContact = (FormView1.FindControl("ddlContact") as DropDownList);
-        if (ddlContact.SelectedValue != null)
+        if (!String.IsNullOrEmpty(ddlContact.SelectedValue))
         {
             obj.vendor_contact_id = int.Parse(ddlContact.SelectedValue);
         }
         DropDownList ddlVenderList = (FormView1.FindControl("ddlVenderList") as DropDownList);
-        if (ddlVenderList.SelectedValue != null)
+        if (!String.IsNullOrEmpty(ddlVenderList.SelectedValue))
         {
             obj.vendor_id = int.Parse(ddlVenderList.SelectedValue);
         }
         DropDownList ddlBankAccount = (FormView1.FindControl("ddlBankAccount") as DropDownList);
-        if (ddlBankAccount.SelectedValue != null)
+        if (!String.IsNullOrEmpty(ddlBankAccount.SelectedValue))
         {
             obj.vendor_banking_id = int.Parse(ddlBankAccount.SelectedValue);
         }
@@ -303,6 +329,11 @@
         }
         
     </style>
+    <script type="text/javascript">
+        function openAttachWin() {
+            window.open('<%= "MultiFileUpload.aspx?id=" + Request.QueryString["id"] %>', 'new', 'scrollbars=no,menubar=no,height=300,width=600,resizable=no,toolbar=no,location=no,status=no,menubar=no');
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
  
@@ -339,6 +370,13 @@
                                      <asp:Label ID="lblQuotationNo" runat="server" Text="Label" 
                                          onload="lblQuotationNo_Load"></asp:Label>
                             </td></tr>
+                            
+                             <tr><th 
+                                   align="left" class="style11">&nbsp;&nbsp; Attachments:&nbsp;&nbsp;</th><td 
+                                   class="style12" colspan="3">
+                                       <asp:Button ID="Button1" runat="server" Text="Attach Files" OnClientClick="openAttachWin()" /><br>
+                                       <asp:PlaceHolder ID="PlaceHolder1" runat="server" OnLoad="PlaceHolder1_Load"></asp:PlaceHolder>
+                            </td></tr>
                             <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Target:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
@@ -346,7 +384,17 @@
                                     AutoPostBack="True"  OnLoad="ddlTarget_Load"
                                         onselectedindexchanged="ddlTarget_SelectedIndexChanged">
                                     <asp:ListItem Value="-1">Select one</asp:ListItem>
-                               </asp:DropDownList>
+                               </asp:DropDownList>&nbsp;<asp:Button ID="Button2" runat="server" Text="Add" />
+                            </td></tr>
+                             <tr><th 
+                                   align="left" class="style11">&nbsp;&nbsp;&nbsp;Currency:&nbsp;&nbsp;</th><td 
+                                   class="style12" width="30%">
+                                     <asp:TextBox ID="tbCurrency" runat="server" 
+                                         ></asp:TextBox>
+                            </td><th align="left" 
+                                   class="style11">&nbsp; Total:&nbsp;</th><td class="style12" width="30%">
+                                    <asp:TextBox ID="tbTotalAmount" runat="server" 
+                                         ></asp:TextBox>
                             </td></tr>
                             <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Vender:&nbsp;&nbsp;</th><td 
@@ -359,7 +407,6 @@
                                         Visible="false" onclick="btnShow_Click" />
                             </td></tr>
                              
-                                </tr>
                    <asp:Panel ID="VenderPanel" runat="server" Visible="false">
 
                                  <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
@@ -592,6 +639,125 @@
                                     </asp:GridView>
               </td>
               </tr>              </asp:Panel>
+               <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
+                            <th colspan="4">
+                                Authority Owner</th>
+                        </tr>
+                            <tr><td colspan="4">
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                          <tr >
+                                 <td>
+                                    Requisitioner
+                                 </td>
+                                 <td>
+                                     <asp:Button ID="btnSendReq" runat="server" Text="SendRequest" />
+                                 </td>
+                                 <td>
+                                 </td>
+                                 <td>
+                                     <asp:Label ID="lblRequisitioner" runat="server" Text="lblRequisitioner"></asp:Label>
+                                 </td>
+                                 <td>
+                                    Date : <asp:Label ID="lblRequisitionerDate" runat="server" Text="lblRequisitionerDate"></asp:Label>
+                                 </td>
+                                 <td rowspan="3">
+                                 Internal Marks:<br/>
+                                     <asp:TextBox ID="tbInternalMarks" runat="server" TextMode="MultiLine" Width="200" Height="100"></asp:TextBox>
+                                 </td>
+                          </tr>
+                           <tr >
+                                 <td>
+                                    Supervisor
+                                 </td>
+                                 <td>
+                                     <asp:Button ID="btnSupervisorApprove" runat="server" Text="Approve" />
+                                 </td>
+                                 <td>
+                                    <asp:Button ID="btnSupervisorDisapprove" runat="server" Text="Disapprove" />
+                                 </td>
+                                 <td>
+                                     <asp:Label ID="lblSupervisor" runat="server" Text="lblSupervisor"></asp:Label>
+                                 </td>
+                                 <td>
+                                    Date : <asp:Label ID="lblSupervisorDate" runat="server" Text="lblSupervisorDate"></asp:Label>
+                                 </td>
+                          </tr>
+                           <tr >
+                                 <td>
+                                    VP
+                                 </td>
+                                 <td>
+                                     <asp:Button ID="btnVPApprove" runat="server" Text="Approve" />
+                                 </td>
+                                 <td>
+                                    <asp:Button ID="btnVPDisapprove" runat="server" Text="Disapprove" />
+                                 </td>
+                                 <td>
+                                     <asp:Label ID="lblVP" runat="server" Text="lblVP"></asp:Label>
+                                 </td>
+                                 <td>
+                                    Date : <asp:Label ID="lblVPDate" runat="server" Text="lblVPDate"></asp:Label>
+                                 </td>
+                          </tr>
+                          <tr >
+                                 <td>
+                                    President
+                                 </td>
+                                 <td>
+                                     <asp:Button ID="btnPresidentApprove" runat="server" Text="Approve" />
+                                 </td>
+                                 <td>
+                                    <asp:Button ID="btnPresidentDisapprove" runat="server" Text="Disapprove" />
+                                 </td>
+                                 <td>
+                                     <asp:Label ID="lblPresident" runat="server" Text="lblPresident"></asp:Label>
+                                 </td>
+                                 <td>
+                                    Date : <asp:Label ID="lblPresidentDate" runat="server" Text="lblPresidentDate"></asp:Label>
+                                 </td>
+                                 <td rowspan="3">
+                                 Instruction:<br/>
+                                     <asp:TextBox ID="tbInstruction" runat="server" TextMode="MultiLine" Width="200" Height="100"></asp:TextBox>
+                                 </td>
+                          </tr>
+                          <tr >
+                                 <td>
+                                    Finance Dept:
+                                 </td>
+                                 <td>
+                                     
+                                 </td>
+                                 <td>
+                                    
+                                 </td>
+                                 <td>
+                                     <asp:Label ID="lblFinance" runat="server" Text="lblFinance"></asp:Label>
+                                 </td>
+                                 <td>
+                                    Date : <asp:Label ID="lblFinanceDate" runat="server" Text="lblFinanceDate"></asp:Label>
+                                 </td>
+                          </tr>
+                          <tr >
+                                 <td>
+                                    Cancel:
+                                 </td>
+                                 <td>
+                                     <asp:Button ID="btnCancel" runat="server" Text="Withdraw" />
+                                 </td>
+                                 <td>
+                                    
+                                 </td>
+                                 <td>
+                                    
+                                 </td>
+                                 <td>
+                                   
+                                 </td>
+                          </tr>
+                      </table>
+
+                            </td></tr>
+
                                 <tr align="center"><td class="style4" colspan="4">
                       <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
                           <tr align="center">

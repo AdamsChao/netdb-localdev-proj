@@ -2,53 +2,7 @@
 
 <script runat="server">
     WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities();
-    protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
-    {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            try
-            {
-                int id = int.Parse(e.Row.Cells[3].Text);
-                if (id == -1)
-                {
-                    e.Row.Cells[3].Text = "None";
-                }
-                else
-                {
-                    var data = db.departments.Where(c => c.id == id).First();
-                    e.Row.Cells[3].Text = data.name;
-                }
-            }
-            catch (Exception)
-            {
-                
-                
-            }
-
-            try
-            {
-                int vid = int.Parse(e.Row.Cells[4].Text);
-                if (vid == -1)
-                {
-                    e.Row.Cells[4].Text = "";
-                }
-                else
-                {
-                    var data = db.vendors.Where(c => c.id == vid).First();
-                    e.Row.Cells[4].Text = data.name;
-                }
-            }
-            catch (Exception)
-            {
-                
-                
-            }
-
-
-            
-        }
-
-    }
+   
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -61,8 +15,8 @@
     <p>
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             SkinID="GridView" Width="100%"
-            DataKeyNames="pr_no" DataSourceID="SqlDataSourceClient" AllowPaging="True" 
-            AllowSorting="True" onrowdatabound="GridView1_RowDataBound">
+            DataKeyNames="pr_id" DataSourceID="SqlDataSourceClient" AllowPaging="True" 
+            AllowSorting="True" >
             <Columns>
                 <asp:TemplateField InsertVisible="False" SortExpression="pr_no">
                     <EditItemTemplate>
@@ -70,26 +24,23 @@
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:HyperLink ID="HyperLink2" runat="server" 
-                            NavigateUrl='<%# Bind("pr_no","~/Accounting/UpdatePR.aspx?id={0}") %>'>Edit</asp:HyperLink>
+                            NavigateUrl='<%# Bind("pr_id","~/Accounting/UpdatePR.aspx?id={0}") %>' Enabled="false">Edit</asp:HyperLink>
                         &nbsp;
                         <asp:HyperLink ID="HyperLink3" runat="server" 
-                            NavigateUrl='<%# Bind("pr_no","~/Accounting/PRDetails.aspx?id={0}") %>'>Details</asp:HyperLink>
+                            NavigateUrl='<%# Bind("pr_id","~/Accounting/PRDetails.aspx?id={0}") %>' Enabled="false">Details</asp:HyperLink>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:BoundField DataField="pr_no" HeaderText="PR No" SortExpression="pr_no" 
+                <asp:BoundField DataField="pr_id" HeaderText="PR No" SortExpression="pr_id" 
                     ReadOnly="True" />
-                <asp:BoundField DataField="status" HeaderText="Status" 
-                    SortExpression="status" />
-                <asp:BoundField DataField="expense_department" HeaderText="Dept." 
-                    SortExpression="expense_department" ReadOnly="True" />
-                <asp:BoundField DataField="vendor_id" HeaderText="Vendor Name" 
+                <asp:BoundField DataField="project_id" HeaderText="Project Id" 
+                    SortExpression="project_id" ReadOnly="True" />
+                <asp:BoundField DataField="vendor_id" HeaderText="Vendor Id" 
                     SortExpression="vendor_id" />
                 <asp:BoundField DataField="total_cost" HeaderText="Total Cost" 
                     SortExpression="total_cost" />
-                <asp:BoundField DataField="quotation_no" HeaderText="Quotation No" 
-                    SortExpression="quotation_no" />
-                <asp:BoundField DataField="requisitioner" HeaderText="Requisitioner" 
-                    SortExpression="requisitioner" />
+                <asp:BoundField DataField="quotaion_id" HeaderText="Quotation Id" 
+                    SortExpression="quotaion_id" />
+               
             </Columns>
         </asp:GridView>
     </p>
@@ -97,31 +48,8 @@
         <br />
         <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-            DeleteCommand="DELETE FROM [PR] WHERE [pr_no] = @pr_no" 
-            InsertCommand="INSERT INTO [PR] ([pr_no], [status], [vendor_id], [total_cost], [quotation_no], [requisitioner]) VALUES (@pr_no, @status, @vendor_id, @total_cost, @quotation_no, @requisitioner)" 
-            SelectCommand="SELECT [pr_no], [status], [expense_department], [vendor_id], [total_cost], [quotation_no], [requisitioner] FROM [PR]" 
             
-            UpdateCommand="UPDATE [PR] SET [status] = @status, [profit_center] = @profit_center, [vendor_id] = @vendor_id, [total_cost] = @total_cost, [quotation_no] = @quotation_no, [requisitioner] = @requisitioner WHERE [pr_no] = @pr_no">
-            <DeleteParameters>
-                <asp:Parameter Name="pr_no" Type="Int32" />
-            </DeleteParameters>
-            <InsertParameters>
-                <asp:Parameter Name="pr_no" Type="Int32" />
-                <asp:Parameter Name="status" Type="Byte" />
-                <asp:Parameter Name="vendor_id" Type="Int32" />
-                <asp:Parameter Name="total_cost" Type="Decimal" />
-                <asp:Parameter Name="quotation_no" Type="String" />
-                <asp:Parameter Name="requisitioner" Type="String" />
-            </InsertParameters>
-            <UpdateParameters>
-                <asp:Parameter Name="status" Type="Byte" />
-                <asp:Parameter Name="profit_center" Type="Byte" />
-                <asp:Parameter Name="vendor_id" Type="Int32" />
-                <asp:Parameter Name="total_cost" Type="Decimal" />
-                <asp:Parameter Name="quotation_no" Type="String" />
-                <asp:Parameter Name="requisitioner" Type="String" />
-                <asp:Parameter Name="pr_no" Type="Int32" />
-            </UpdateParameters>
+            SelectCommand="SELECT [pr_id], [project_id], [quotaion_id], [vendor_id], [total_cost] FROM [PR]">
         </asp:SqlDataSource>
     </p>
 </asp:Content>

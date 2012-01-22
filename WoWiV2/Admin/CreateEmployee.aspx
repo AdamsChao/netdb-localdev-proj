@@ -83,7 +83,7 @@
                             <tr>
                             <th align="left" class="style4">
                                 <font color="red">*&nbsp;</font>User Name:&nbsp;</th>
-                            <td class="style7">
+                            <td class="style7" colspan="3">
                                 <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("username") %>'></asp:TextBox>(For Login)
                             </td>                        
                         </tr>

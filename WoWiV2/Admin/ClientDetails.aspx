@@ -304,7 +304,7 @@
                                        <asp:DropDownList ID="dlPaymentTerm" runat="server" Enabled="false"
                                            SelectedValue='<%# Bind("paymentterm") %>'>
                                            <asp:ListItem  Value="0" >Net 30</asp:ListItem>
-                                           <asp:ListItem  Value="1" >Cache</asp:ListItem>
+                                           <asp:ListItem  Value="1" >Cash</asp:ListItem>
                                        </asp:DropDownList>
                                    </td>
                                </tr>

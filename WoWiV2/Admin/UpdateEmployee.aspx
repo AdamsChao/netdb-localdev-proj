@@ -89,6 +89,13 @@
                                  Checked='<%# Bind("dotesting") %>' Text="Do Testing" />--%>
                          </td>
                      </tr>
+                      <tr>
+                            <th align="left" class="style4">
+                               &nbsp; User Name:&nbsp;</th>
+                            <td class="style7" colspan="3">
+                                <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("username") %>' Enabled="false"></asp:TextBox>(For Login)
+                            </td>                        
+                        </tr>
                  </table>
                  </td>
                  </tr>

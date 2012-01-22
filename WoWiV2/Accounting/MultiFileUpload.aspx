@@ -4,6 +4,7 @@
 <script runat="server">
     String UpPath;
     String prid;
+    bool closeWin;
     protected void Page_Load(object sender, EventArgs e)
     {
         UpPath = ConfigurationManager.AppSettings["UploadFolderPath"];
@@ -16,26 +17,28 @@
                 Directory.CreateDirectory(UpPath);
             }
         }
-        String[] list = Directory.GetFiles(UpPath);
-        foreach (String item in list)
+        PlaceHolder1.Controls.Clear();
+        if (System.IO.Directory.Exists(UpPath))
         {
-            HyperLink link = new HyperLink();
-            int idx = item.LastIndexOf("\\");
-            String fileName = item.Substring(idx+1);
-            link.NavigateUrl = "~/Accounting/FileListHandler.ashx?id=" + prid+"&fn=" + fileName;
-            link.Text = fileName;
-            PlaceHolder1.Controls.Add(link);
-            Label lb = new Label();
-            lb.Text = "<br>";
-            PlaceHolder1.Controls.Add(lb);
+            String[] list = Directory.GetFiles(UpPath);
+            foreach (String item in list)
+            {
+                HyperLink link = new HyperLink();
+                int idx = item.LastIndexOf("\\");
+                String fileName = item.Substring(idx + 1);
+                link.NavigateUrl = "~/Accounting/FileListHandler.ashx?id=" + prid + "&fn=" + fileName;
+                link.Text = fileName;
+                PlaceHolder1.Controls.Add(link);
+                Label lb = new Label();
+                lb.Text = "<br>";
+                PlaceHolder1.Controls.Add(lb);
+            }
+            PlaceHolder1.Visible = true;
         }
-        PlaceHolder1.Visible = true;
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        //UpPath = ConfigurationManager.AppSettings["UploadFolderPath"];
-        //prid = Request.QueryString["id"];
-        //UpPath = UpPath + "/PR/" + prid;
+        PlaceHolder1.Controls.Clear();
         HttpFileCollection uploads = HttpContext.Current.Request.Files;
         for (int i = 0; i < uploads.Count; i++)
         {
@@ -50,28 +53,33 @@
             {
                 upload.SaveAs(UpPath + "/" + c);
                 Span1.InnerHtml = "Upload(s) Successful.";
+                closeWin = true;
             }
             catch (Exception Exp)
             {
                 Span1.InnerHtml = "Upload(s) failed.";
             }
         }
-        String[] list = Directory.GetFiles(UpPath);
-        foreach (String item in list)
+        if (System.IO.Directory.Exists(UpPath))
         {
-            HyperLink link = new HyperLink();
-            int idx = item.LastIndexOf("\\");
-            String fileName = item.Substring(idx + 1);
-            link.NavigateUrl = "~/Accounting/FileListHandler.ashx?id=" + prid + "&fn=" + fileName;
-            link.Text = fileName;
-            PlaceHolder1.Controls.Add(link);
-            Label lb = new Label();
-            lb.Text = "<br>";
-            PlaceHolder1.Controls.Add(lb);
+            String[] list = Directory.GetFiles(UpPath);
+            foreach (String item in list)
+            {
+                HyperLink link = new HyperLink();
+                int idx = item.LastIndexOf("\\");
+                String fileName = item.Substring(idx + 1);
+                link.NavigateUrl = "~/Accounting/FileListHandler.ashx?id=" + prid + "&fn=" + fileName;
+                link.Text = fileName;
+                PlaceHolder1.Controls.Add(link);
+                Label lb = new Label();
+                lb.Text = "<br>";
+                PlaceHolder1.Controls.Add(lb);
+            }
+            PlaceHolder1.Visible = true;
         }
-        PlaceHolder1.Visible = true;
     }
-
+ 
+    
  
 </script>
 
@@ -106,6 +114,15 @@
             uploadArea.appendChild(newUploadBox);
             addFileUploadBox.lastAssignedId++;
         }
+         var flag;
+        function closeAndReLoad()
+        {
+            if (flag) {
+                alert("Upload(s) Successful!");
+                self.close();
+                opener.window.location = opener.window.location;
+            }
+        }
 </script>
 </head>
 <body>
@@ -122,3 +139,7 @@
 </body>
 </html>
 
+<script type="text/javascript">
+    var flag = <%= closeWin.ToString().ToLower() %>;
+    closeAndReLoad();
+</script>
