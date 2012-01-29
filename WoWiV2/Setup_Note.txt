@@ -1,0 +1,18 @@
+﻿要讓Word報表能在IIS順利執行請注意下面步驟
+
+1.Server上需安裝office2007或以上版本
+
+2.檢查Web.Config的<system.web>區段內是否有<identity impersonate="true" userName="administrator" password="..."/>
+
+3.在Server新增資料夾
+Windows 2008 Server x64
+建立一個Folder路徑如下(Folder名稱Desktop)
+C:/Windows/SysWOW64/config/systemprofile/Desktop
+
+Windows 2008 Server x86
+建立一個Folder路徑如下(Folder名稱Desktop)
+C:/Windows/System32/config/systemprofile/Desktop
+
+
+如果在自己的開發專案要執行Word元件請參考以下設定:
+加入- 參考 - .Net頁籤 - 選擇Microsoft.Office.Interop.Word
