@@ -31,6 +31,11 @@ public partial class Account_Login : System.Web.UI.Page
                 while (dr.Read())
                 {
                     string username = dr["username"].ToString();
+                    using (WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities())
+                    {
+                        int id = (from emp in wowidb.employees where emp.username == username select emp.id).First();
+                        Session["Session_User_Id"] = id;
+                    }
                     FormsAuthentication.RedirectFromLoginPage(username, false);
                 }
             }
