@@ -15,6 +15,7 @@
           <EntitySet Name="country" EntityType="WoWiModel.Store.country" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="department" EntityType="WoWiModel.Store.department" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="employee" EntityType="WoWiModel.Store.employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="employee_jobtitle" EntityType="WoWiModel.Store.employee_jobtitle" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="invoice" EntityType="WoWiModel.Store.invoice" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_clientappliant_contact" EntityType="WoWiModel.Store.m_clientappliant_contact" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_clientappliant_industry" EntityType="WoWiModel.Store.m_clientappliant_industry" store:Type="Tables" Schema="dbo" />
@@ -231,6 +232,19 @@
           <Property Name="q_authorize_currency" Type="nvarchar" MaxLength="10" />
           <Property Name="pr_authorize_amt" Type="int" />
           <Property Name="pr_authorize_currency" Type="nvarchar" MaxLength="10" />
+          <Property Name="jobtitle_id" Type="int" />
+        </EntityType>
+        <EntityType Name="employee_jobtitle">
+          <Key>
+            <PropertyRef Name="jobtitle_id" />
+          </Key>
+          <Property Name="jobtitle_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="jobtitle_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="publish" Type="bit" Nullable="false" />
+          <Property Name="create_date" Type="datetime" />
+          <Property Name="create_user" Type="nvarchar" MaxLength="26" />
+          <Property Name="modify_date" Type="datetime" />
+          <Property Name="modify_user" Type="nvarchar" MaxLength="26" />
         </EntityType>
         <EntityType Name="invoice">
           <Key>
@@ -574,6 +588,7 @@
           <EntitySet Name="PRs" EntityType="WoWiModel.PR" />
           <EntitySet Name="PR_item" EntityType="WoWiModel.PR_item" />
           <EntitySet Name="PR_authority_history" EntityType="WoWiModel.PR_authority_history" />
+          <EntitySet Name="employee_jobtitle" EntityType="WoWiModel.employee_jobtitle" />
         </EntityContainer>
         <EntityType Name="clientapplicant_industry">
           <Key>
@@ -698,6 +713,7 @@
           <Property Type="String" Name="q_authorize_currency" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="pr_authorize_amt" />
           <Property Type="String" Name="pr_authorize_currency" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="jobtitle_id" />
         </EntityType>
         <EntityType Name="m_clientappliant_contact">
           <Key>
@@ -1077,6 +1093,18 @@
           <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
         </EntityType>
+        <EntityType Name="employee_jobtitle">
+          <Key>
+            <PropertyRef Name="jobtitle_id" />
+          </Key>
+          <Property Type="Int32" Name="jobtitle_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="jobtitle_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="publish" Nullable="false" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1181,6 +1209,7 @@
           <EntitySetMapping Name="employees">
             <EntityTypeMapping TypeName="WoWiModel.employee">
               <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="jobtitle_id" ColumnName="jobtitle_id" />
                 <ScalarProperty Name="pr_authorize_currency" ColumnName="pr_authorize_currency" />
                 <ScalarProperty Name="pr_authorize_amt" ColumnName="pr_authorize_amt" />
                 <ScalarProperty Name="q_authorize_currency" ColumnName="q_authorize_currency" />
@@ -1606,6 +1635,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="employee_jobtitle">
+            <EntityTypeMapping TypeName="WoWiModel.employee_jobtitle">
+              <MappingFragment StoreEntitySet="employee_jobtitle">
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="publish" ColumnName="publish" />
+                <ScalarProperty Name="jobtitle_name" ColumnName="jobtitle_name" />
+                <ScalarProperty Name="jobtitle_id" ColumnName="jobtitle_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1657,6 +1699,7 @@
         <EntityTypeShape EntityType="WoWiModel.PR" Width="1.5" PointX="5.375" PointY="15.75" Height="4.4885872395833246" />
         <EntityTypeShape EntityType="WoWiModel.PR_item" Width="1.5" PointX="15.375" PointY="0.75" Height="2.9050911458333246" />
         <EntityTypeShape EntityType="WoWiModel.PR_authority_history" Width="1.5" PointX="7.375" PointY="15.75" Height="6.7758593750000031" />
+        <EntityTypeShape EntityType="WoWiModel.employee_jobtitle" Width="1.5" PointX="15.375" PointY="9.75" Height="2.2013151041666674" />
       </Diagram>
     </Diagrams>
   </Designer>

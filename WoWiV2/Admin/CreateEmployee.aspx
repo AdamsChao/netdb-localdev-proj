@@ -130,7 +130,14 @@
                             <th align="left" class="style4">
                                 <font color="red">*&nbsp;</font>Title:&nbsp;</th>
                             <td class="style7">
-                                <asp:TextBox ID="tnTitle" runat="server"  Text='<%# Bind("title") %>'></asp:TextBox>
+                                <asp:DropDownList ID="DropDownList2" runat="server" 
+                                    DataSourceID="SqlDataSource4" DataTextField="jobtitle_name" 
+                                    DataValueField="jobtitle_id" SelectedValue='<%# Bind("jobtitle_id") %>'>
+                                </asp:DropDownList>
+                                <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
+                                    ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                    SelectCommand="SELECT [jobtitle_id], [jobtitle_name] FROM [employee_jobtitle]">
+                                </asp:SqlDataSource>
                             </td>
                             <th align="left" class="style4">
                                 <font color="red">*&nbsp;</font>Department:&nbsp;</th>
@@ -258,8 +265,8 @@
                     &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" 
                         CausesValidation="False" CommandName="Cancel" Text="Cancel" />
                          &nbsp;
-                        <asp:HyperLink ID="HyperLink2" runat="server" 
-            NavigateUrl="~/Admin/EmployeeList.aspx">Back to list</asp:HyperLink>
+                       <%-- <asp:HyperLink ID="HyperLink2" runat="server" 
+            NavigateUrl="~/Admin/EmployeeList.aspx">Back to list</asp:HyperLink>--%>
                 </td>
             </tr>
         </table>

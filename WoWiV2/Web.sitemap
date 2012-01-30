@@ -4,6 +4,7 @@
     <siteMapNode url="" title="Admin"  description="" >
       <siteMapNode url="~/Admin/DepartmentList.aspx" title="Department"  description="" />
       <siteMapNode url="~/Admin/EmployeeList.aspx" title="Employee"  description="" />
+      <siteMapNode url="~/Admin/JobTitleList.aspx" title="Employee JobTitle"  description="" />
       <siteMapNode url="~/Admin/VenderTypeList.aspx" title="Vender Type"  description="" />
       <siteMapNode url="~/Admin/VenderList.aspx" title="Vender"  description="" />
       <siteMapNode url="~/Admin/ClientList.aspx" title="Client"  description="" />

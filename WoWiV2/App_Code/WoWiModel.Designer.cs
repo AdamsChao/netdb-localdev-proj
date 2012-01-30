@@ -544,6 +544,22 @@ namespace WoWiModel
             }
         }
         private ObjectSet<PR_authority_history> _PR_authority_history;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<employee_jobtitle> employee_jobtitle
+        {
+            get
+            {
+                if ((_employee_jobtitle == null))
+                {
+                    _employee_jobtitle = base.CreateObjectSet<employee_jobtitle>("employee_jobtitle");
+                }
+                return _employee_jobtitle;
+            }
+        }
+        private ObjectSet<employee_jobtitle> _employee_jobtitle;
 
         #endregion
         #region AddTo Methods
@@ -786,6 +802,14 @@ namespace WoWiModel
         public void AddToPR_authority_history(PR_authority_history pR_authority_history)
         {
             base.AddObject("PR_authority_history", pR_authority_history);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the employee_jobtitle EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToemployee_jobtitle(employee_jobtitle employee_jobtitle)
+        {
+            base.AddObject("employee_jobtitle", employee_jobtitle);
         }
 
         #endregion
@@ -4679,6 +4703,233 @@ namespace WoWiModel
         private global::System.String _pr_authorize_currency;
         partial void Onpr_authorize_currencyChanging(global::System.String value);
         partial void Onpr_authorize_currencyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> jobtitle_id
+        {
+            get
+            {
+                return _jobtitle_id;
+            }
+            set
+            {
+                Onjobtitle_idChanging(value);
+                ReportPropertyChanging("jobtitle_id");
+                _jobtitle_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("jobtitle_id");
+                Onjobtitle_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _jobtitle_id;
+        partial void Onjobtitle_idChanging(Nullable<global::System.Int32> value);
+        partial void Onjobtitle_idChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WoWiModel", Name="employee_jobtitle")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class employee_jobtitle : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new employee_jobtitle object.
+        /// </summary>
+        /// <param name="jobtitle_id">Initial value of the jobtitle_id property.</param>
+        /// <param name="jobtitle_name">Initial value of the jobtitle_name property.</param>
+        /// <param name="publish">Initial value of the publish property.</param>
+        public static employee_jobtitle Createemployee_jobtitle(global::System.Int32 jobtitle_id, global::System.String jobtitle_name, global::System.Boolean publish)
+        {
+            employee_jobtitle employee_jobtitle = new employee_jobtitle();
+            employee_jobtitle.jobtitle_id = jobtitle_id;
+            employee_jobtitle.jobtitle_name = jobtitle_name;
+            employee_jobtitle.publish = publish;
+            return employee_jobtitle;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 jobtitle_id
+        {
+            get
+            {
+                return _jobtitle_id;
+            }
+            set
+            {
+                if (_jobtitle_id != value)
+                {
+                    Onjobtitle_idChanging(value);
+                    ReportPropertyChanging("jobtitle_id");
+                    _jobtitle_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("jobtitle_id");
+                    Onjobtitle_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _jobtitle_id;
+        partial void Onjobtitle_idChanging(global::System.Int32 value);
+        partial void Onjobtitle_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String jobtitle_name
+        {
+            get
+            {
+                return _jobtitle_name;
+            }
+            set
+            {
+                Onjobtitle_nameChanging(value);
+                ReportPropertyChanging("jobtitle_name");
+                _jobtitle_name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("jobtitle_name");
+                Onjobtitle_nameChanged();
+            }
+        }
+        private global::System.String _jobtitle_name;
+        partial void Onjobtitle_nameChanging(global::System.String value);
+        partial void Onjobtitle_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean publish
+        {
+            get
+            {
+                return _publish;
+            }
+            set
+            {
+                OnpublishChanging(value);
+                ReportPropertyChanging("publish");
+                _publish = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("publish");
+                OnpublishChanged();
+            }
+        }
+        private global::System.Boolean _publish;
+        partial void OnpublishChanging(global::System.Boolean value);
+        partial void OnpublishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> create_date
+        {
+            get
+            {
+                return _create_date;
+            }
+            set
+            {
+                Oncreate_dateChanging(value);
+                ReportPropertyChanging("create_date");
+                _create_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("create_date");
+                Oncreate_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _create_date;
+        partial void Oncreate_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Oncreate_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String create_user
+        {
+            get
+            {
+                return _create_user;
+            }
+            set
+            {
+                Oncreate_userChanging(value);
+                ReportPropertyChanging("create_user");
+                _create_user = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("create_user");
+                Oncreate_userChanged();
+            }
+        }
+        private global::System.String _create_user;
+        partial void Oncreate_userChanging(global::System.String value);
+        partial void Oncreate_userChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> modify_date
+        {
+            get
+            {
+                return _modify_date;
+            }
+            set
+            {
+                Onmodify_dateChanging(value);
+                ReportPropertyChanging("modify_date");
+                _modify_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("modify_date");
+                Onmodify_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _modify_date;
+        partial void Onmodify_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onmodify_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String modify_user
+        {
+            get
+            {
+                return _modify_user;
+            }
+            set
+            {
+                Onmodify_userChanging(value);
+                ReportPropertyChanging("modify_user");
+                _modify_user = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("modify_user");
+                Onmodify_userChanged();
+            }
+        }
+        private global::System.String _modify_user;
+        partial void Onmodify_userChanging(global::System.String value);
+        partial void Onmodify_userChanged();
 
         #endregion
     

@@ -144,7 +144,14 @@
                                  <th align="left" class="style4">
                                      <font color="red">*&nbsp;</font>Title:&nbsp;</th>
                                  <td class="style7">
-                                     <asp:Label ID="tnTitle" runat="server" Text='<%# Bind("title") %>'></asp:Label>
+                                     <asp:DropDownList ID="DropDownList2" runat="server" 
+                                    DataSourceID="SqlDataSource4" DataTextField="jobtitle_name" Enabled="false"
+                                    DataValueField="jobtitle_id" SelectedValue='<%# Bind("jobtitle_id") %>'>
+                                </asp:DropDownList>
+                                <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
+                                    ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                    SelectCommand="SELECT [jobtitle_id], [jobtitle_name] FROM [employee_jobtitle]">
+                                </asp:SqlDataSource>
                                  </td>
                                  <th align="left" class="style4">
                                      <font color="red">*&nbsp;</font>Department:&nbsp;</th>

@@ -6,16 +6,24 @@
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            int id = int.Parse(e.Row.Cells[9].Text);
-            if (id == -1)
+            try
             {
-                e.Row.Cells[9].Text = "None";
+                int id = int.Parse(e.Row.Cells[9].Text);
+                if (id == -1)
+                {
+                    e.Row.Cells[9].Text = "None";
+                }
+                else
+                {
+                    var data = db.employees.Where(c => c.id == id).First();
+                    e.Row.Cells[9].Text = data.fname + " " + data.lname;
+                }
             }
-            else
+            catch (Exception)
             {
-                var data = db.employees.Where(c => c.id == id).First();
-                e.Row.Cells[9].Text = data.fname + " " + data.lname;
+
             }
+            
             
         }
 

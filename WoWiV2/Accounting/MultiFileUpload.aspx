@@ -131,7 +131,7 @@
 <div id="upload-area">
    <input id="File1" type="file" runat="server" size="60" />  
 </div>
-檔案清單:<br>
+File List:<br>
 <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
 
 
