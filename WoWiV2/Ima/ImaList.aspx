@@ -266,22 +266,31 @@
                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
                                     </asp:BoundField>
-                                    <asp:BoundField DataField="Authority" HeaderText="Authority">
-                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                    <asp:TemplateField HeaderText="Authority">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblAuthority" runat="server" Text='<%# Convert.ToBoolean(Eval("Authority")) ? "Yes" : "No" %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
-                                    </asp:BoundField>
-                                    <asp:BoundField DataField="CertificationBody" HeaderText="Certification Body">
-                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Certification Body">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCertificationBody" runat="server" Text='<%# Convert.ToBoolean(Eval("CertificationBody")) ? "Yes" : "No" %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
-                                    </asp:BoundField>
+                                    </asp:TemplateField>
                                     <asp:BoundField DataField="VolumePerYear" HeaderText="Volume Per Year">
                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
                                     </asp:BoundField>
-                                    <asp:BoundField DataField="Publish" HeaderText="Publish">
-                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                    <asp:TemplateField HeaderText="Publish">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblPublish" runat="server" Text='<%# Convert.ToBoolean(Eval("Publish")) ? "Yes" : "No" %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
-                                    </asp:BoundField>
+                                    </asp:TemplateField>
                                     <asp:BoundField DataField="AccredidedLab" HeaderText="Accredided Lab">
                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
@@ -290,10 +299,13 @@
                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
                                     </asp:BoundField>
-                                    <asp:BoundField DataField="Publish1" HeaderText="Publish">
-                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                    <asp:TemplateField HeaderText="Publish1">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblPublish1" runat="server" Text='<%# Convert.ToBoolean(Eval("Publish1")) ? "Yes" : "No" %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />
-                                    </asp:BoundField>
+                                    </asp:TemplateField>
                                     <asp:BoundField DataField="Website" HeaderText="Website">
                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Left" />

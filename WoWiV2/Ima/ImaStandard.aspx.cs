@@ -136,14 +136,24 @@ public partial class Ima_ImaStandard : System.Web.UI.Page
                 cmd.Parameters["@world_region_id"].Value = Request["rid"];
                 cmd.Parameters["@country_id"].Value = Request["cid"];
                 cmd.Parameters["@wowi_product_type_id"].Value = str;
-                if (rblProductType.SelectedItem.Text != "Safety")
+                //if (rblProductType.SelectedItem.Text != "Safety")
+                //{
+                //    cmd.Parameters["@FCC"].Value = cbFCC.Checked;
+                //}
+                //else
+                //{
+                //    cmd.Parameters["@FCC"].Value = cbIEC.Checked;
+                //}
+
+                if (cbFCC.Visible)
                 {
                     cmd.Parameters["@FCC"].Value = cbFCC.Checked;
                 }
-                else 
+                else
                 {
                     cmd.Parameters["@FCC"].Value = cbIEC.Checked;
                 }
+
                 cmd.Parameters["@CE"].Value = cbCE.Checked;
                 cmd.Parameters["@Others"].Value = tbOthers.Text.Trim();
                 cmd.Parameters["@Required"].Value = rblRequired.SelectedValue;
@@ -301,6 +311,7 @@ public partial class Ima_ImaStandard : System.Web.UI.Page
         Dictionary<string, string> dic = new Dictionary<string, string>();
         return IMAUtil.SetQueryString(isClear, dic, dicAdd, strRemove);
     }
+
     protected void rblProductType_SelectedIndexChanged(object sender, EventArgs e)
     {
         cbFCC.Visible = false;

@@ -80,7 +80,7 @@ public partial class Ima_SampleShipping : System.Web.UI.Page
         else
         {
             btnSave.Visible = true;
-            lblProTypeName.Text = IMAUtil.GetProductType(Request.Params["pt"]);
+            //lblProTypeName.Text = IMAUtil.GetProductType(Request.Params["pt"]);
         }
     }
 

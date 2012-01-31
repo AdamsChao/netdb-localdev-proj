@@ -241,17 +241,24 @@ public partial class Ima_ImaApplication : System.Web.UI.Page
                 cmd.Parameters["@CETest"].Value = cbCETest.Checked;
                 cmd.Parameters["@LocalTest"].Value = cbLocalTest.Checked;
                 cmd.Parameters["@SamplesRequired"].Value = cbSamplesRequired.Checked;
-                cmd.Parameters["@Radiated"].Value = tbRadiated.Text.Trim();
-                cmd.Parameters["@Conducted"].Value = tbConducted.Text.Trim();
-                cmd.Parameters["@NormalLink"].Value = tbNormalLink.Text.Trim();
-                cmd.Parameters["@ReviewOnly"].Value = tbReviewOnly.Text.Trim();
+                if (tbRadiated.Text.Trim() == "") { cmd.Parameters["@Radiated"].Value = DBNull.Value; }
+                else { cmd.Parameters["@Radiated"].Value = tbRadiated.Text.Trim(); }
+                if (tbConducted.Text.Trim() == "") { cmd.Parameters["@Conducted"].Value = DBNull.Value; }
+                else { cmd.Parameters["@Conducted"].Value = tbConducted.Text.Trim(); }
+                if (tbNormalLink.Text.Trim() == "") { cmd.Parameters["@NormalLink"].Value = DBNull.Value; }
+                else { cmd.Parameters["@NormalLink"].Value = tbNormalLink.Text.Trim(); }
+                if (tbReviewOnly.Text.Trim() == "") { cmd.Parameters["@ReviewOnly"].Value = DBNull.Value; }
+                else { cmd.Parameters["@ReviewOnly"].Value = tbReviewOnly.Text.Trim(); }
                 cmd.Parameters["@Modular"].Value = rblModular.SelectedValue;
                 cmd.Parameters["@ModularDesc"].Value = tbModularDesc.Text.Trim();
                 cmd.Parameters["@Representative"].Value = rblRepresentative.SelectedValue;
                 cmd.Parameters["@RepresentativeDesc"].Value = tbRepresentativeDesc.Text.Trim();
-                cmd.Parameters["@LabLeadTime"].Value = tbLabLeadTime.Text.Trim();
-                cmd.Parameters["@BodyLeadTime"].Value = tbBodyLeadTime.Text.Trim();
-                cmd.Parameters["@AuthorityLeadTime"].Value = tbAuthorityLeadTime.Text.Trim();
+                if (tbLabLeadTime.Text.Trim() == "") { cmd.Parameters["@LabLeadTime"].Value = DBNull.Value; }
+                else { cmd.Parameters["@LabLeadTime"].Value = tbLabLeadTime.Text.Trim(); }
+                if (tbBodyLeadTime.Text.Trim() == "") { cmd.Parameters["@BodyLeadTime"].Value = DBNull.Value; }
+                else { cmd.Parameters["@BodyLeadTime"].Value = tbBodyLeadTime.Text.Trim(); }
+                if (tbAuthorityLeadTime.Text.Trim() == "") { cmd.Parameters["@AuthorityLeadTime"].Value = DBNull.Value; }
+                else { cmd.Parameters["@AuthorityLeadTime"].Value = tbAuthorityLeadTime.Text.Trim(); }
                 cmd.Parameters["@ExpeditedProcess"].Value = rblExpeditedProcess.SelectedValue;
                 cmd.Parameters["@ExpeditedProcessDesc"].Value = tbExpeditedProcessDesc.Text.Trim();
                 cmd.Parameters["@ControlByCertificate"].Value = cbControlByCertificate.Checked;
@@ -454,17 +461,24 @@ public partial class Ima_ImaApplication : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@CETest", cbCETest.Checked);
         cmd.Parameters.AddWithValue("@LocalTest", cbLocalTest.Checked);
         cmd.Parameters.AddWithValue("@SamplesRequired", cbSamplesRequired.Checked);
-        cmd.Parameters.AddWithValue("@Radiated", tbRadiated.Text.Trim());
-        cmd.Parameters.AddWithValue("@Conducted", tbConducted.Text.Trim());
-        cmd.Parameters.AddWithValue("@NormalLink", tbNormalLink.Text.Trim());
-        cmd.Parameters.AddWithValue("@ReviewOnly", tbReviewOnly.Text.Trim());
+        if (tbRadiated.Text.Trim() == "") { cmd.Parameters.AddWithValue("@Radiated", DBNull.Value); }
+        else { cmd.Parameters.AddWithValue("@Radiated", tbRadiated.Text.Trim()); }
+        if (tbConducted.Text.Trim() == "") { cmd.Parameters.AddWithValue("@Conducted", DBNull.Value); }
+        else { cmd.Parameters.AddWithValue("@Conducted", tbConducted.Text.Trim()); }
+        if (tbNormalLink.Text.Trim() == "") { cmd.Parameters.AddWithValue("@NormalLink", DBNull.Value); }
+        else { cmd.Parameters.AddWithValue("@NormalLink", tbNormalLink.Text.Trim()); }
+        if (tbReviewOnly.Text.Trim() == "") { cmd.Parameters.AddWithValue("@ReviewOnly", DBNull.Value); }
+        else { cmd.Parameters.AddWithValue("@ReviewOnly", tbReviewOnly.Text.Trim()); }
         cmd.Parameters.AddWithValue("@Modular", rblModular.SelectedValue);
         cmd.Parameters.AddWithValue("@ModularDesc", tbModularDesc.Text.Trim());
         cmd.Parameters.AddWithValue("@Representative", rblRepresentative.SelectedValue);
         cmd.Parameters.AddWithValue("@RepresentativeDesc", tbRepresentativeDesc.Text.Trim());
-        cmd.Parameters.AddWithValue("@LabLeadTime", tbLabLeadTime.Text.Trim());
-        cmd.Parameters.AddWithValue("@BodyLeadTime", tbBodyLeadTime.Text.Trim());
-        cmd.Parameters.AddWithValue("@AuthorityLeadTime", tbAuthorityLeadTime.Text.Trim());
+        if (tbLabLeadTime.Text.Trim() == "") { cmd.Parameters.AddWithValue("@LabLeadTime", DBNull.Value); }
+        else { cmd.Parameters.AddWithValue("@LabLeadTime", tbLabLeadTime.Text.Trim()); }
+        if (tbBodyLeadTime.Text.Trim() == "") { cmd.Parameters.AddWithValue("@BodyLeadTime", DBNull.Value); }
+        else { cmd.Parameters.AddWithValue("@BodyLeadTime", tbBodyLeadTime.Text.Trim()); }
+        if (tbAuthorityLeadTime.Text.Trim() == "") { cmd.Parameters.AddWithValue("@AuthorityLeadTime", DBNull.Value); }
+        else { cmd.Parameters.AddWithValue("@AuthorityLeadTime", tbAuthorityLeadTime.Text.Trim()); }
         cmd.Parameters.AddWithValue("@ExpeditedProcess", rblExpeditedProcess.SelectedValue);
         cmd.Parameters.AddWithValue("@ExpeditedProcessDesc", tbExpeditedProcessDesc.Text.Trim());
         cmd.Parameters.AddWithValue("@ControlByCertificate", cbControlByCertificate.Checked);
