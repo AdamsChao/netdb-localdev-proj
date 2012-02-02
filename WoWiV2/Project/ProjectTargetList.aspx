@@ -4,6 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
+<center><a href="ProjectWorkingStatus.aspx">Setting Working Status</a></center>
     <p>
         Project No:
         <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" 
@@ -337,5 +338,6 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
             </UpdateParameters>
         </asp:SqlDataSource>
     </p>
+    <center><a href="ProjectWorkingStatus.aspx">Setting Working Status</a></center>
 </asp:Content>
 

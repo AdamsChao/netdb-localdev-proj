@@ -172,7 +172,7 @@
                                                 SortExpression="country_name" />
                                             <asp:BoundField DataField="authority_name" HeaderText="Authority(Target)" 
                                                 SortExpression="authority_name" />
-                                            <asp:BoundField DataField="companyname" HeaderText="Applicant" 
+                                            <asp:BoundField DataField="VenderName" HeaderText="Agent" 
                                                 SortExpression="companyname" />
                                             <asp:BoundField DataField="test_started" HeaderText="test_started" 
                                                 SortExpression="test_started" DataFormatString="{0:d}" />
@@ -212,16 +212,8 @@
                                         </Columns>
                                     </asp:GridView>
                                     <asp:SqlDataSource ID="SqlDataSourceReport" runat="server" 
-                                        ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" SelectCommand="SELECT     Quotation_Target.Quotation_Target_Id,country.country_name, Authority.authority_name, clientapplicant.companyname, Quotation_Target.test_started, Quotation_Target.test_completed, 
-                      Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed, Quotation_Target.Estimated_Lead_time, 
-                      Quotation_Target.Actual_Lead_time, Project.Client_Action
-FROM         Project INNER JOIN
-                      Quotation_Target ON Project.Quotation_Id = Quotation_Target.Quotation_Id INNER JOIN
-                      Authority ON Quotation_Target.authority_id = Authority.authority_id INNER JOIN
-                      country ON Quotation_Target.country_id = country.country_id INNER JOIN
-                      Quotation_Version ON Quotation_Target.quotation_id = Quotation_Version.Quotation_Version_Id INNER JOIN
-                      clientapplicant ON Quotation_Version.Applicant_Id = clientapplicant.id
-Where Project.Project_ID=@Project_ID">
+                                        ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                        SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, country.country_name, Authority.authority_name, clientapplicant.companyname, Quotation_Target.test_started, Quotation_Target.test_completed, Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed, Quotation_Target.Estimated_Lead_time, Quotation_Target.Actual_Lead_time, Project.Client_Action, vendor.name AS VenderName, Quotation_Target.Agent FROM Project INNER JOIN Quotation_Target ON Project.Quotation_Id = Quotation_Target.quotation_id INNER JOIN Authority ON Quotation_Target.authority_id = Authority.authority_id INNER JOIN country ON Quotation_Target.country_id = country.country_id INNER JOIN Quotation_Version ON Quotation_Target.quotation_id = Quotation_Version.Quotation_Version_Id INNER JOIN clientapplicant ON Quotation_Version.Applicant_Id = clientapplicant.id INNER JOIN vendor ON Quotation_Target.Agent = vendor.id WHERE (Project.Project_Id = @Project_ID)">
                                         <SelectParameters>
                                             <asp:ControlParameter ControlID="GridViewProject" Name="Project_ID" 
                                                 PropertyName="SelectedValue" />

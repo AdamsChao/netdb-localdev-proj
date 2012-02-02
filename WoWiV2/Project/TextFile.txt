@@ -1,0 +1,14 @@
+﻿SELECT          Project.Project_Id, Project.Project_No, Project.Project_Status, Project.Client_Action, Project.Create_Date, 
+                            Project.Quotation_Id, (Select fname from employee where id=Quotation_Version.SalesId) as AE, Quotation_Version.Product_Name as Product, 
+                            Quotation_Version.Model_No as Model, Quotation_Version.Model_Difference as Description, 
+                            (Select companyname from [clientapplicant] Where Id= Quotation_Version.Client_Id ) as Client , 
+                            (Select companyname from [clientapplicant] Where Id= Quotation_Version.Applicant_Id ) as Applicant                             
+FROM              Project INNER JOIN
+                            Quotation_Version ON Project.Quotation_Id = Quotation_Version.Quotation_Version_Id
+
+
+
+
+1. 依選定 "客戶別' 將此客戶底下的所有案件都產出報表, 不同 Model No. 列於不同 excel 的 Sheet    
+2. 依選定的 單一 Project No. 產出單一報表
+3. 依選定的 多個 Project No. 不同 Model No. (Project No.) 列於不同 excel 的 Sheet 
