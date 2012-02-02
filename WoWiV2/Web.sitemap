@@ -21,7 +21,7 @@
       <siteMapNode url="~/Target/TargetRate.aspx" title="Target Rate"  description="" />
       <siteMapNode url="~/Target/TargetManagement.aspx" title="Target Management"  description="" />
     </siteMapNode>
-    <siteMapNode url="" title="Sales"  description=""  roles="SystemAdmin,Manager" >
+    <siteMapNode url="" title="Sales"  description=""  roles="SystemAdmin,Manager,Sales" >
       <siteMapNode url="~/Sales/CreateQuotation.aspx" title="Quotation"  description="" />
       <siteMapNode url="~/Sales/Quotation.aspx" title="Quotation Search"  description="" />
     </siteMapNode>
@@ -55,7 +55,7 @@
     </siteMapNode>
     <!--<siteMapNode url="~/About.aspx" title="Document"  description="" />-->
 
-    <siteMapNode url="" title="IMA System"  description=""  roles="SystemAdmin,IMA" >
+    <siteMapNode url="" title="IMA System"  description=""  roles="SystemAdmin,IMA,Sales" >
       <siteMapNode url="~/Ima/ImaList.aspx" title="Documents Manage"  description="" />
       <siteMapNode url="" title="Documents Search"  description="" />
     </siteMapNode>
