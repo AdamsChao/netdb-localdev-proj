@@ -203,4 +203,36 @@ public partial class Ima_ImaGeneralEdit : System.Web.UI.Page
         Dictionary<string, string> dic = new Dictionary<string, string>();
         return IMAUtil.SetQueryString(isClear, dic, dicAdd, strRemove);
     }
+
+    //自動代入CurrencyCode及CountryCode
+    protected void btnSelCurrencyCode_Click(object sender, EventArgs e)
+    {
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "select country_telephone_code,country_currency_type from country where country_id=@country_id";
+        cmd.Parameters.AddWithValue("@country_id", Request["cid"]);
+        SqlDataReader sdr = SQLUtil.QueryDR(cmd);
+        if (sdr.Read())
+        {
+            if (sdr["country_currency_type"].ToString() == "")
+            {
+                lblCurrencyCodeMsg.Text = "No Currency Code Data";
+            }
+            else 
+            {
+                tbCurrency_Code.Text = sdr["country_currency_type"].ToString();
+                tbCountry_Code.Text = sdr["country_telephone_code"].ToString();
+            }
+        }
+        else 
+        {
+            lblCurrencyCodeMsg.Text = "No Currency Code Data";
+        }
+        sdr.Close();
+    }
+
+    
+    protected void tbCurrency_Code_TextChanged(object sender, EventArgs e)
+    {
+        if (lblCurrencyCodeMsg.Text.Trim().Length > 0) { lblCurrencyCodeMsg.Text = ""; }        
+    }
 }

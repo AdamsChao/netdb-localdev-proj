@@ -69,11 +69,37 @@
                             <span style="color: Red; font-size: 10pt;">*</span> Currency Code：
                         </td>
                         <td class="tdRowValue">
-                            <asp:TextBox ID="tbCurrency_Code" runat="server"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvCurrency_Code" runat="server" ControlToValidate="tbCurrency_Code"
-                                ErrorMessage="Input Currency Code" Display="None" SetFocusOnError="true"></asp:RequiredFieldValidator>
-                            <act:ValidatorCalloutExtender ID="vceCurrency_Code" runat="server" TargetControlID="rfvCurrency_Code">
-                            </act:ValidatorCalloutExtender>
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <asp:UpdatePanel ID="upCurrencyCode" runat="server">
+                                            <ContentTemplate>
+                                                <asp:TextBox ID="tbCurrency_Code" runat="server" AutoPostBack="True" 
+                                                    ontextchanged="tbCurrency_Code_TextChanged"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvCurrency_Code" runat="server" ControlToValidate="tbCurrency_Code"
+                                                    ErrorMessage="Input Currency Code" Display="None" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                                                <act:ValidatorCalloutExtender ID="vceCurrency_Code" runat="server" TargetControlID="rfvCurrency_Code">
+                                                </act:ValidatorCalloutExtender>
+                                            </ContentTemplate>
+                                            <Triggers>
+                                                <asp:AsyncPostBackTrigger ControlID="btnSelCurrencyCode" EventName="Click" />
+                                            </Triggers>
+                                        </asp:UpdatePanel>
+                                    </td>
+                                    <td valign="baseline"><asp:Button ID="btnSelCurrencyCode" runat="server" Text="Auto Input" CausesValidation="false" OnClick="btnSelCurrencyCode_Click" Font-Size="8pt" Width="64px" /></td>
+                                    <td>
+                                        <asp:UpdatePanel ID="upCurrencyCodeMsg" runat="server">
+                                            <ContentTemplate>
+                                                <asp:Label ID="lblCurrencyCodeMsg" runat="server" Font-Size="8pt" ForeColor="Red"></asp:Label>
+                                            </ContentTemplate>
+                                            <Triggers>
+                                                <asp:AsyncPostBackTrigger ControlID="btnSelCurrencyCode" EventName="Click" />
+                                                <asp:AsyncPostBackTrigger ControlID="tbCurrency_Code" EventName="TextChanged" />
+                                            </Triggers>
+                                        </asp:UpdatePanel>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr>
@@ -112,11 +138,18 @@
                             <span style="color: Red; font-size: 10pt;">*</span> Country code：
                         </td>
                         <td class="tdRowValue">
-                            +<asp:TextBox ID="tbCountry_Code" runat="server"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvCountry_Code" runat="server" ControlToValidate="tbCountry_Code"
-                                ErrorMessage="Input Country code" Display="None" SetFocusOnError="true"></asp:RequiredFieldValidator>
-                            <act:ValidatorCalloutExtender ID="vceCountry_Code" runat="server" TargetControlID="rfvCountry_Code">
-                            </act:ValidatorCalloutExtender>
+                            <asp:UpdatePanel ID="upCountryCode" runat="server">
+                                <ContentTemplate>
+                                    +<asp:TextBox ID="tbCountry_Code" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvCountry_Code" runat="server" ControlToValidate="tbCountry_Code"
+                                        ErrorMessage="Input Country code" Display="None" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                                    <act:ValidatorCalloutExtender ID="vceCountry_Code" runat="server" TargetControlID="rfvCountry_Code">
+                                    </act:ValidatorCalloutExtender>
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="btnSelCurrencyCode" EventName="Click" />
+                                </Triggers>
+                            </asp:UpdatePanel>
                         </td>
                     </tr>
                     <tr>
