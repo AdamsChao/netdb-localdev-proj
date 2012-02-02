@@ -22,7 +22,7 @@ public partial class Account_Login : System.Web.UI.Page
         {
             cn.Open();
             SqlCommand cmd =
-                new SqlCommand("Select username from employee Where username=@username and password=@password where status='Active'", cn);
+                new SqlCommand("Select username from employee Where username=@username and password=@password and status='Active'", cn);
             cmd.Parameters.AddWithValue("@username", LoginUser.UserName);
             cmd.Parameters.AddWithValue("@password", LoginUser.Password);
             SqlDataReader dr = cmd.ExecuteReader();
