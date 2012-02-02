@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
   <siteMapNode url="~/Home.aspx" title="Home"  description="Home">
-    <siteMapNode url="" title="Admin"  description="" >
+    <siteMapNode url="" title="Admin"  description="" roles="SystemAdmin,Manager" >
       <siteMapNode url="~/Admin/DepartmentList.aspx" title="Department"  description="" />
       <siteMapNode url="~/Admin/EmployeeList.aspx" title="Employee"  description="" />
       <siteMapNode url="~/Admin/JobTitleList.aspx" title="Employee JobTitle"  description="" />
@@ -12,7 +12,7 @@
       <siteMapNode url="~/Admin/ContactRoleList.aspx" title="Contact Role"  description="" />
       <siteMapNode url="~/Admin/ContactList.aspx" title="Contact"  description="" />
     </siteMapNode>
-    <siteMapNode url="" title="Target"  description="" >
+    <siteMapNode url="" title="Target"  description=""  roles="SystemAdmin,Manager" >
       <siteMapNode url="~/Target/CountryRegion.aspx" title="Country Region"  description="" />
       <siteMapNode url="~/Target/Country.aspx" title="Country"  description="" />
       <siteMapNode url="~/Target/ProductType.aspx" title="Product Type"  description="" />
@@ -21,11 +21,11 @@
       <siteMapNode url="~/Target/TargetRate.aspx" title="Target Rate"  description="" />
       <siteMapNode url="~/Target/TargetManagement.aspx" title="Target Management"  description="" />
     </siteMapNode>
-    <siteMapNode url="" title="Sales"  description="" >
+    <siteMapNode url="" title="Sales"  description=""  roles="SystemAdmin,Manager" >
       <siteMapNode url="~/Sales/CreateQuotation.aspx" title="Quotation"  description="" />
       <siteMapNode url="~/Sales/Quotation.aspx" title="Quotation Search"  description="" />
     </siteMapNode>
-    <siteMapNode url="" title="Accounting"  description="" >
+    <siteMapNode url="" title="Accounting"  description=""  roles="SystemAdmin,Manager,Accounting" >
       <siteMapNode url="~/Accounting/PRList.aspx" title="PR"  description="" />
       <siteMapNode url="~/Accounting/Invoice.aspx" title="Invoice"  description="" />
       <siteMapNode url="~/Accounting/AR.aspx" title="AR"  description="" >
@@ -35,13 +35,13 @@
       <siteMapNode url="~/Accounting/Payment4Vender.aspx" title="Payment for Vender"  description="" />
       <siteMapNode url="~/Accounting/CostAnalysis.aspx" title="Cost Analysis"  description="" />
     </siteMapNode>
-    <siteMapNode url="" title="Project"  description="" >
+    <siteMapNode url="" title="Project"  description=""  roles="SystemAdmin,Manager" >
       <siteMapNode url="~/Project/ProjectList.aspx" title="Project List"  description="" />      
       <siteMapNode url="~/Project/ProjectTargetList.aspx" title="Project Target List"  description="" />     
       <siteMapNode url="~/Project/ProjectWorkingStatus.aspx" title="Working Status"  description="" />
       <siteMapNode url="~/Project/ProjectWorkingStatusReport.aspx" title="Working Status Report"  description="" />     
     </siteMapNode>
-    <siteMapNode url="" title="Report"  description="" >
+    <siteMapNode url="" title="Report"  description=""  roles="SystemAdmin,Manager,Accounting" >
       <siteMapNode url="" title="Forecast"  description="" />
       <siteMapNode url="" title="Sales Report"  description="" >
         <siteMapNode url="~/Report/SalesReport.aspx" title="總表"  description="" />
@@ -55,7 +55,7 @@
     </siteMapNode>
     <!--<siteMapNode url="~/About.aspx" title="Document"  description="" />-->
 
-    <siteMapNode url="" title="IMA System"  description="" >
+    <siteMapNode url="" title="IMA System"  description=""  roles="SystemAdmin,IMA" >
       <siteMapNode url="~/Ima/ImaList.aspx" title="Documents Manage"  description="" />
       <siteMapNode url="" title="Documents Search"  description="" />
     </siteMapNode>
