@@ -63,6 +63,16 @@ public class IMAUtil
         } 
     }
 
+    //刪除檔案
+    static public void DelFile(string strFilePath) 
+    {
+        FileInfo fi = new FileInfo(strFilePath);
+        if (fi.Exists) 
+        {
+            fi.Delete();
+        }
+    }
+
     /// <summary>
     /// QuseryString處理
     /// </summary>
