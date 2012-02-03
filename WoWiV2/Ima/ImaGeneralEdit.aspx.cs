@@ -24,13 +24,15 @@ public partial class Ima_ImaGeneralEdit : System.Web.UI.Page
         btnSave.Visible = false;
         btnUpd.Visible = false;
         trDocList.Visible = false;
+        DataTable dtGeneralImage = CreateImageDataTable();
         if (strGeneralID != null)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * from Ima_General where GeneralID=@GeneralID";
+            cmd.CommandText = "select * from Ima_General where GeneralID=@GeneralID;select * from Ima_General_Images where GeneralID=@GeneralID";
             cmd.Parameters.AddWithValue("@GeneralID", strGeneralID);
+            DataSet ds=SQLUtil.QueryDS(cmd);
             DataTable dt = new DataTable();
-            dt = SQLUtil.QueryDS(cmd).Tables[0];
+            dt = ds.Tables[0];
             if (dt.Rows.Count > 0)
             {
                 tbVoltage.Text = dt.Rows[0]["Voltage"].ToString();
@@ -43,12 +45,45 @@ public partial class Ima_ImaGeneralEdit : System.Web.UI.Page
                 tbCulture_Taboos.Text = dt.Rows[0]["Culture_Taboos"].ToString();
                 btnUpd.Visible = true;
                 if (gvIma_General_Files.Rows.Count > 0) { trDocList.Visible = true; }
-            }            
+            }
+          
+            //載入圖片
+            DataTable dtImage=new DataTable();
+            dtImage = ds.Tables[1];
+            if (dtImage.Rows.Count > 0) 
+            {
+                foreach (DataRow dr in dtImage.Rows) 
+                {
+                    DataRow row = dtGeneralImage.NewRow();
+                    row["GeneralImageID"] = dr["GeneralImageID"].ToString();
+                    row["GeneralID"] = dr["GeneralID"].ToString();
+                    row["GeneralImageURL"] = IMAUtil.GetIMAUploadPath() + dr["GeneralImageURL"].ToString();
+                    row["GeneralImageDesc"] = dr["GeneralImageDesc"].ToString();
+                    dtGeneralImage.Rows.Add(row);
+                }
+                string strNum = dtImage.Rows[dtImage.Rows.Count - 1]["GeneralImageURL"].ToString();
+                strNum=strNum.Substring(dtImage.Rows[dtImage.Rows.Count - 1]["GeneralImageURL"].ToString().LastIndexOf(Convert.ToChar(@"\")) + 1);
+                strNum = strNum.Split('.')[0].ToString().Replace(Request["cid"] + "_", "");
+                hfImageNum.Value = strNum;
+                dlImages.DataSource = dtGeneralImage;
+                dlImages.DataBind();
+            }
         }
         else
         {
             btnSave.Visible = true;
         }
+        ViewState["GeneralImage"] = dtGeneralImage;
+    }
+
+    protected DataTable CreateImageDataTable() 
+    {
+        DataTable dt=new DataTable();
+        dt.Columns.Add("GeneralImageID");
+        dt.Columns.Add("GeneralID");
+        dt.Columns.Add("GeneralImageURL");
+        dt.Columns.Add("GeneralImageDesc");
+        return dt;
     }
 
     //取消/返回
@@ -106,6 +141,8 @@ public partial class Ima_ImaGeneralEdit : System.Web.UI.Page
         int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
         //文件上傳
         GeneralFileUpload(intGeneralID);
+        //圖片上傳
+        GeneralImageUpload(intGeneralID);
         BackURL();
     }
 
@@ -143,6 +180,8 @@ public partial class Ima_ImaGeneralEdit : System.Web.UI.Page
         SQLUtil.ExecuteSql(cmd);
         //文件上傳
         GeneralFileUpload(Convert.ToInt32(Request["gid"]));
+        //圖片上傳
+        GeneralImageUpload(Convert.ToInt32(Request["gid"]));
         BackURL();
     }
         
@@ -190,6 +229,31 @@ public partial class Ima_ImaGeneralEdit : System.Web.UI.Page
         }
     }
 
+    //上傳圖片
+    protected void GeneralImageUpload(int intGeneralID) 
+    {
+        DataTable dtGeneralImage = (DataTable)ViewState["GeneralImage"];
+        if (dtGeneralImage.Rows.Count > 0) 
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "insert into Ima_General_Images (GeneralID,GeneralImageURL,GeneralImageDesc,CreateUser,LasterUpdateUser) values(@GeneralID,@GeneralImageURL,@GeneralImageDesc,@CreateUser,@LasterUpdateUser)";            
+            cmd.Parameters.AddWithValue("@GeneralID", intGeneralID);
+            cmd.Parameters.Add("@GeneralImageURL", SqlDbType.NVarChar);
+            cmd.Parameters.Add("@GeneralImageDesc", SqlDbType.NText);
+            cmd.Parameters.AddWithValue("@CreateUser", IMAUtil.GetUser());
+            cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
+            foreach (DataRow row in dtGeneralImage.Rows)
+            {
+                if (row["GeneralImageID"].ToString() == "0")
+                {
+                    cmd.Parameters["@GeneralImageURL"].Value = row["GeneralImageURL"].ToString().Replace(IMAUtil.GetIMAUploadPath(), "");
+                    cmd.Parameters["@GeneralImageDesc"].Value = row["GeneralImageDesc"].ToString();
+                    SQLUtil.ExecuteSql(cmd);
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// 下一頁的 Get 參數設定
     /// </summary>
@@ -234,5 +298,92 @@ public partial class Ima_ImaGeneralEdit : System.Web.UI.Page
     protected void tbCurrency_Code_TextChanged(object sender, EventArgs e)
     {
         if (lblCurrencyCodeMsg.Text.Trim().Length > 0) { lblCurrencyCodeMsg.Text = ""; }        
+    }
+
+    //圖片上傳
+    protected void btnImageUpload_Click(object sender, EventArgs e)
+    {
+        lblImageMsg.Text = "";
+        if (fuImage.HasFile) 
+        {
+            string strFileURL = "";
+            string strFileName = fuImage.FileName.Trim();
+            //取得副檔名
+            string strFileType = strFileName.Substring(strFileName.LastIndexOf(Convert.ToChar(".")) + 1).Trim().ToLower();
+            //判斷上傳檔案是否為圖檔
+            if (strFileType == "gif" || strFileType == "jpeg" || strFileType == "jpg" || strFileType == "png")
+            {
+                string strImageNum = (Convert.ToInt32(hfImageNum.Value) + 1).ToString();
+                string strUploadPath = IMAUtil.GetIMAUploadPath() + @"\" + IMAUtil.GetCountryName(Request["cid"]) + @"\GeneralImages";
+                //檢查上傳檔案路徑是否存在，若不存在就自動建立
+                IMAUtil.CheckURL(strUploadPath);
+                strFileURL = strUploadPath + @"\" + Request["cid"] + "_" + strImageNum + "." + strFileType;
+                fuImage.SaveAs(strFileURL);
+
+                DataTable dtGeneralImage = (DataTable)ViewState["GeneralImage"];
+                DataRow row = dtGeneralImage.NewRow();
+                row["GeneralImageID"] = "0";
+                row["GeneralID"] = "0";
+                row["GeneralImageURL"] = strFileURL;
+                row["GeneralImageDesc"] = tbImageDesc.Text.Trim();
+                dtGeneralImage.Rows.Add(row);
+
+                dlImages.DataSource = dtGeneralImage;
+                dlImages.DataBind();
+                ViewState["GeneralImage"] = dtGeneralImage;
+                tbImageDesc.Text = "";
+                hfImageNum.Value = strImageNum;
+            }
+            else 
+            {
+                lblImageMsg.Text = @"Please Upload Image!("".gif"","".jpeg"","".jpg"","".png"")";
+            }
+        }
+    }
+
+    //刪除圖片
+    protected void dlImages_DeleteCommand(object source, DataListCommandEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem) 
+        {
+            string strGeneralImageID = dlImages.DataKeys[e.Item.ItemIndex].ToString();
+            DataTable dt = (DataTable)ViewState["GeneralImage"];
+            if (strGeneralImageID != "0")
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = "delete from Ima_General_Images where GeneralImageID=@GeneralImageID";
+                cmd.Parameters.AddWithValue("@GeneralImageID", strGeneralImageID);
+                SQLUtil.ExecuteSql(cmd);
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (strGeneralImageID == row["GeneralImageID"].ToString())
+                    {
+                        //刪除資料夾圖片
+                        IMAUtil.DelFile(@row["GeneralImageURL"].ToString());
+                        //刪除DataTable資料
+                        row.Delete();
+                        break;
+                    }
+                }
+            }
+            else 
+            {
+                string strURL = e.CommandArgument.ToString();
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (strURL == row["GeneralImageURL"].ToString())
+                    {
+                        //刪除資料夾圖片
+                        IMAUtil.DelFile(@row["GeneralImageURL"].ToString());
+                        //刪除DataTable資料
+                        row.Delete();
+                        break;
+                    }
+                }
+            }
+            dlImages.DataSource = dt;
+            dlImages.DataBind();
+            ViewState["GeneralImage"] = dt;
+        }
     }
 }

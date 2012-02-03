@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true"
     CodeFile="ImaGeneralEdit.aspx.cs" Inherits="Ima_ImaGeneralEdit" StylesheetTheme="IMA" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="act" %>
 <%@ Register Src="../UserControls/ImaTree.ascx" TagName="ImaTree" TagPrefix="uc1" %>
@@ -48,15 +48,79 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tdRowName">
+                        <td class="tdRowName" valign="top">
                             <span style="color: Red; font-size: 10pt;">*</span> Plug Type(s)：
                         </td>
-                        <td class="tdRowValue">
-                            <asp:TextBox ID="tbPlugType" runat="server"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvPlugType" runat="server" ControlToValidate="tbPlugType"
-                                ErrorMessage="Input Plug Type(s)" Display="None" SetFocusOnError="true"></asp:RequiredFieldValidator>
-                            <act:ValidatorCalloutExtender ID="vcePlugType" runat="server" TargetControlID="rfvPlugType">
-                            </act:ValidatorCalloutExtender>
+                        <td class="tdRowValue" valign="top">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <asp:TextBox ID="tbPlugType" runat="server"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvPlugType" runat="server" ControlToValidate="tbPlugType"
+                                            ErrorMessage="Input Plug Type(s)" Display="None" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                                        <act:ValidatorCalloutExtender ID="vcePlugType" runat="server" TargetControlID="rfvPlugType">
+                                        </act:ValidatorCalloutExtender>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td valign="top">Image Upload：</td>
+                                                <td>
+                                                    <asp:FileUpload ID="fuImage" runat="server" />
+                                                    <asp:Button ID="btnImageUpload" runat="server" Text="Upload" Font-Size="8pt" onclick="btnImageUpload_Click" CausesValidation="false" />
+                                                    <asp:Label ID="lblImageMsg" runat="server" Font-Size="8pt" ForeColor="Red"></asp:Label>
+                                                </td>
+                                                <td><asp:HiddenField ID="hfImageNum" runat="server" Value="0" /></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td valign="top">Description：</td>
+                                                <td><asp:TextBox ID="tbImageDesc" runat="server" Rows="3" TextMode="MultiLine" Width="400px"></asp:TextBox></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:UpdatePanel ID="upImages" runat="server">
+                                            <ContentTemplate>
+                                                <asp:DataList ID="dlImages" runat="server" DataKeyField="GeneralImageID" 
+                                                    RepeatColumns="1" RepeatDirection="Horizontal" 
+                                                    ondeletecommand="dlImages_DeleteCommand">
+                                                    <ItemTemplate>
+                                                        <table border="0">
+                                                            <tr>
+                                                                <td>
+                                                                    <asp:Image ID="img" runat="server" ImageUrl='<%# Eval("GeneralImageURL") %>'/>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <asp:Label ID="lblImgDec" runat="server" Text='<%# Eval("GeneralImageDesc") %>'></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <asp:Button ID="btnImgDel" runat="server" CommandArgument='<%# Eval("GeneralImageURL") %>'
+                                                                        CommandName="Delete" CssClass="btn_b" OnClientClick="return confirm('Delete the Picture？')"
+                                                                        Text="Delete the Picture" CausesValidation="false" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </ItemTemplate>
+                                                </asp:DataList>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr>

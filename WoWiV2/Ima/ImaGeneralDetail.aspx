@@ -40,11 +40,34 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tdRowName">
+                        <td class="tdRowName" valign="top">
                             Plug Type(s)：
                         </td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblPlugType" runat="server"></asp:Label>
+                            <asp:DataList ID="dlImages" runat="server" DataKeyField="GeneralImageID" RepeatColumns="1"
+                                RepeatDirection="Horizontal" DataSourceID="sdsImage">
+                                <ItemTemplate>
+                                    <table border="0">
+                                        <tr>
+                                            <td>
+                                                <asp:Image ID="img" runat="server" ImageUrl='<%# IMAUtil.GetIMAUploadPath()+Eval("GeneralImageURL").ToString() %>' />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="lblImgDec" runat="server" Text='<%# Eval("GeneralImageDesc") %>'></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </ItemTemplate>
+                            </asp:DataList>
+                            <asp:SqlDataSource ID="sdsImage" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="SELECT * FROM [Ima_General_Images] WHERE ([GeneralID] = @GeneralID)">
+                                <SelectParameters>
+                                    <asp:QueryStringParameter Name="GeneralID" QueryStringField="gid" Type="Int32" />
+                                </SelectParameters>
+                            </asp:SqlDataSource>
                         </td>
                     </tr>
                     <tr>
