@@ -10,11 +10,66 @@
         if (e.Exception == null)
         {
             WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
-
-            Response.Redirect("~/Accounting/CreatePR_SetItems.aspx?id=" + obj.pr_id );
+            int id = obj.pr_id;
+            int empid = int.Parse(Session["Session_User_Id"].ToString());
+            WoWiModel.PR_authority_history auth = new WoWiModel.PR_authority_history();
+            auth.pr_id = obj.pr_id;
+            auth.requisitioner_id = empid;
+            FillAuthForm(auth);
+            auth.create_date = DateTime.Now;
+            auth.create_user = User.Identity.Name;
+            auth.status = (byte)PRStatus.Init;
+            wowidb.PR_authority_history.AddObject(auth);
+            wowidb.SaveChanges();
+            WoWiModel.PR pr = wowidb.PRs.Where(n => n.pr_id == obj.pr_id).First();
+            pr.pr_auth_id = auth.pr_auth_id;
+            wowidb.SaveChanges();
+            Response.Redirect("~/Accounting/CreatePR_SetItems.aspx?id=" +id );
         }
     }
+    protected void FillAuthForm(WoWiModel.PR_authority_history auth )
+    {
+        int empid = (int)auth.requisitioner_id;
+        auth.requisitioner = GetNameById(empid);
+        try
+        {
+            WoWiModel.employee vp = (from e in wowidb.employees from jt in wowidb.employee_jobtitle where jt.jobtitle_name.Trim().Equals("Vice President") & e.jobtitle_id == jt.jobtitle_id select e).First();
 
+            WoWiModel.employee p = (from e in wowidb.employees from jt in wowidb.employee_jobtitle where jt.jobtitle_name.Trim().Equals("President") & e.jobtitle_id == jt.jobtitle_id select e).First();
+
+            WoWiModel.employee emp = (from e in wowidb.employees where e.id == empid select e).First();
+            if (emp.supervisor_id != -1)
+            {
+                auth.supervisor_id = emp.supervisor_id;
+                auth.supervisor = GetNameById((int)emp.supervisor_id);
+            }
+            if (empid != vp.id || empid != p.id)
+            {
+                auth.vp_id = vp.id;
+                auth.vp = GetNameById(vp.id);
+                auth.president_id = p.id;
+                auth.president = GetNameById(p.id);
+            }
+            WoWiModel.employee finance = (from e in wowidb.employees from jt in wowidb.employee_jobtitle where jt.jobtitle_name.Trim().Equals("Finance") & e.jobtitle_id == jt.jobtitle_id select e).First();
+            auth.finance_id = finance.id;
+            auth.finance = GetNameById(finance.id);
+        }
+        catch (Exception ex )
+        {
+            
+            
+        }
+        
+    }
+
+    protected String GetNameById(int id)
+    {
+        String name = "";
+        WoWiModel.employee emp = (from e in wowidb.employees where e.id == id select e).First();
+        name = String.IsNullOrEmpty(emp.fname)?emp.c_lname +" "+emp.c_fname:emp.fname +" "+emp.lname;
+        return name;
+
+    }
     protected void lbMessage_Load(object sender, EventArgs e)
     {
         Utils.Message_Load((Label)sender, ViewState, VenderUtils.Key_ViewState_InsertMessage);

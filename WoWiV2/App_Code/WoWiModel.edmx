@@ -371,7 +371,7 @@
           <Key>
             <PropertyRef Name="pr_auth_id" />
           </Key>
-          <Property Name="pr_auth_id" Type="int" Nullable="false" />
+          <Property Name="pr_auth_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="pr_id" Type="int" Nullable="false" />
           <Property Name="requisitioner_id" Type="int" />
           <Property Name="requisitioner" Type="nvarchar" MaxLength="26" />
@@ -587,8 +587,8 @@
           <EntitySet Name="invoices" EntityType="WoWiModel.invoice" />
           <EntitySet Name="PRs" EntityType="WoWiModel.PR" />
           <EntitySet Name="PR_item" EntityType="WoWiModel.PR_item" />
-          <EntitySet Name="PR_authority_history" EntityType="WoWiModel.PR_authority_history" />
           <EntitySet Name="employee_jobtitle" EntityType="WoWiModel.employee_jobtitle" />
+          <EntitySet Name="PR_authority_history" EntityType="WoWiModel.PR_authority_history" />
         </EntityContainer>
         <EntityType Name="clientapplicant_industry">
           <Key>
@@ -1055,11 +1055,23 @@
           <Property Type="String" Name="status" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
         </EntityType>
+        <EntityType Name="employee_jobtitle">
+          <Key>
+            <PropertyRef Name="jobtitle_id" />
+          </Key>
+          <Property Type="Int32" Name="jobtitle_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="jobtitle_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="publish" Nullable="false" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="PR_authority_history">
           <Key>
             <PropertyRef Name="pr_auth_id" />
           </Key>
-          <Property Type="Int32" Name="pr_auth_id" Nullable="false" />
+          <Property Type="Int32" Name="pr_auth_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="pr_id" Nullable="false" />
           <Property Type="Int32" Name="requisitioner_id" />
           <Property Type="String" Name="requisitioner" MaxLength="26" FixedLength="false" Unicode="true" />
@@ -1092,18 +1104,6 @@
           <Property Type="DateTime" Name="create_date" />
           <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
-        </EntityType>
-        <EntityType Name="employee_jobtitle">
-          <Key>
-            <PropertyRef Name="jobtitle_id" />
-          </Key>
-          <Property Type="Int32" Name="jobtitle_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="jobtitle_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="publish" Nullable="false" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1596,6 +1596,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="employee_jobtitle">
+            <EntityTypeMapping TypeName="WoWiModel.employee_jobtitle">
+              <MappingFragment StoreEntitySet="employee_jobtitle">
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="publish" ColumnName="publish" />
+                <ScalarProperty Name="jobtitle_name" ColumnName="jobtitle_name" />
+                <ScalarProperty Name="jobtitle_id" ColumnName="jobtitle_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PR_authority_history">
             <EntityTypeMapping TypeName="WoWiModel.PR_authority_history">
               <MappingFragment StoreEntitySet="PR_authority_history">
@@ -1632,19 +1645,6 @@
                 <ScalarProperty Name="requisitioner_id" ColumnName="requisitioner_id" />
                 <ScalarProperty Name="pr_id" ColumnName="pr_id" />
                 <ScalarProperty Name="pr_auth_id" ColumnName="pr_auth_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="employee_jobtitle">
-            <EntityTypeMapping TypeName="WoWiModel.employee_jobtitle">
-              <MappingFragment StoreEntitySet="employee_jobtitle">
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="publish" ColumnName="publish" />
-                <ScalarProperty Name="jobtitle_name" ColumnName="jobtitle_name" />
-                <ScalarProperty Name="jobtitle_id" ColumnName="jobtitle_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1698,8 +1698,8 @@
         <EntityTypeShape EntityType="WoWiModel.invoice" Width="1.5" PointX="14.75" PointY="4.75" Height="4.13669921875001" />
         <EntityTypeShape EntityType="WoWiModel.PR" Width="1.5" PointX="5.375" PointY="15.75" Height="4.4885872395833246" />
         <EntityTypeShape EntityType="WoWiModel.PR_item" Width="1.5" PointX="15.375" PointY="0.75" Height="2.9050911458333246" />
-        <EntityTypeShape EntityType="WoWiModel.PR_authority_history" Width="1.5" PointX="7.375" PointY="15.75" Height="6.7758593750000031" />
         <EntityTypeShape EntityType="WoWiModel.employee_jobtitle" Width="1.5" PointX="15.375" PointY="9.75" Height="2.2013151041666674" />
+        <EntityTypeShape EntityType="WoWiModel.PR_authority_history" Width="1.5" PointX="7.375" PointY="15.75" Height="6.77585937500001" />
       </Diagram>
     </Diagrams>
   </Designer>

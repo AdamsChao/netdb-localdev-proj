@@ -93,9 +93,11 @@ public class MailUtil
             panel.RenderControl(hw);
             mail.Body = sw.ToString();
 
-            SmtpClient client = new SmtpClient("smtp.supreme.com.tw");
-            client.Credentials = new System.Net.NetworkCredential("itest", "zaq1@WSX", "supreme.com.tw");
-            client.Send(mail);
+            //SmtpClient client = new SmtpClient("smtp.supreme.com.tw");
+            //client.Credentials = new System.Net.NetworkCredential("itest", "zaq1@WSX", "supreme.com.tw");
+            SmtpClient smtpClient = new SmtpClient("msa.hinet.net", 25);//設定E-mail Server和port
+            smtpClient.Send(mail);
+            smtpClient.Send(mail);
         }
         catch (Exception ex)
         {

@@ -9,7 +9,7 @@
  
     protected void ddlVenderList_Load(object sender, EventArgs e)
     {
-        var list = (from c in wowidb.vendors select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name : c.name });
+        var list = (from c in wowidb.vendors from country in wowidb.countries where c.country == country.country_id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name+" ]" : c.name + " - [ " + country.country_name+" ]" });
 
         (sender as DropDownList).DataSource = list;
         (sender as DropDownList).DataTextField = "Text";
@@ -230,7 +230,7 @@
         {
             id = int.Parse(Request.QueryString["id"]);
         }
-        
+       
     }
 
     protected void PlaceHolder1_Load(object sender, EventArgs e)
@@ -313,6 +313,103 @@
             (sender as Label).Text = (from d in db.Quotation_Version where d.Quotation_Version_Id == quotaion_id select d.Quotation_No).First();
         }
     }
+
+    protected void AuthLabel_Load(object sender, EventArgs e)
+    {
+        if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+        {
+            int id = int.Parse(Request.QueryString["id"]);
+            WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
+            if (obj.pr_auth_id == null) return;
+            int authid = (int)obj.pr_auth_id;
+            WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid select au).First();
+            Label lbl = sender as Label;
+            switch (lbl.ID)
+            {
+                case "lblRequisitioner":
+                    lbl.Text = auth.requisitioner;
+                    break;
+                case "lblRequisitionerDate":
+                    lbl.Text = auth.requisitioner_date == null ? "" : String.Format("{0:yyy/MM/dd}",(DateTime)auth.requisitioner_date);
+                    break;
+                case "lblFinance":
+                    lbl.Text = auth.finance;
+                    break;
+                case "lblFinanceDate":
+                    lbl.Text = auth.finance_date == null ? "" : String.Format("{0:yyy/MM/dd}", (DateTime)auth.finance_date);
+                    break;
+                case "lblPresident":
+                    lbl.Text = auth.president;
+                    break;
+                case "lblPresidentDate":
+                    lbl.Text = auth.president_date == null ? "" : String.Format("{0:yyy/MM/dd}", (DateTime)auth.president_date);
+                    break;
+                case "lblVP":
+                    lbl.Text = auth.vp;
+                    break;
+                case "lblVPDate":
+                    lbl.Text = auth.vp_date == null ? "" : String.Format("{0:yyy/MM/dd}", (DateTime)auth.vp_date);
+                    break;
+                case "lblSupervisor":
+                    lbl.Text = auth.supervisor;
+                    break;
+                case "lblSupervisorDate":
+                    lbl.Text = auth.supervisor_date == null ? "" : String.Format("{0:yyy/MM/dd}", (DateTime)auth.supervisor_date);
+                    break;
+            }
+        }
+    }
+
+    protected void FormView1_PageIndexChanging(object sender, FormViewPageEventArgs e)
+    {
+
+    }
+
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+        {
+            int id = int.Parse(Request.QueryString["id"]);
+            WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
+            if (obj.pr_auth_id == null) return;
+            int authid = (int)obj.pr_auth_id;
+            WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid select au).First();
+            auth.status = (byte)PRStatus.Cancel;
+            db.SaveChanges();
+        }
+    }
+
+    protected void btnSendReq_Click(object sender, EventArgs e)
+    {
+        if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+        {
+            int id = int.Parse(Request.QueryString["id"]);
+            WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
+            if (obj.pr_auth_id == null) return;
+            int authid = (int)obj.pr_auth_id;
+            WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid select au).First();
+            auth.status = (byte)PRStatus.Requisitioner;
+            auth.requisitioner_date = DateTime.Now;
+            (FormView1.FindControl("lblRequisitionerDate") as Label).Text = String.Format("{0:yyy/MM/dd}",DateTime.Now);
+            auth.requisitioner_approval = "y";
+            String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
+            String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
+            if(!String.IsNullOrEmpty(remark) ){
+                auth.remark = remark + "by "+auth.requisitioner+" \n";
+               
+            }
+            (FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
+            if(!String.IsNullOrEmpty(inst) ){
+                auth.instruction = inst + "by " + auth.requisitioner + " \n";
+               
+            }
+            (FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
+            db.SaveChanges();
+            //Send Email
+            PRUtils.WaitingSupervisorApproval(auth);//Not Yet
+            (sender as Button).Enabled = false;
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -339,7 +436,8 @@
  
         <asp:FormView ID="FormView1" runat="server" DataKeyNames="pr_id"  
            SkinID="FormView"
-            DataSourceID="EntityDataSource1" DefaultMode="Edit" Width="900px"  >
+            DataSourceID="EntityDataSource1" DefaultMode="Edit" Width="900px" 
+            onpageindexchanging="FormView1_PageIndexChanging"  >
            
             <EditItemTemplate>
              <%-- <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional"><ContentTemplate>--%>
@@ -385,6 +483,9 @@
                                         onselectedindexchanged="ddlTarget_SelectedIndexChanged">
                                     <asp:ListItem Value="-1">Select one</asp:ListItem>
                                </asp:DropDownList>&nbsp;<asp:Button ID="Button2" runat="server" Text="Add" />
+                            </td></tr>
+                            <tr><td colspan="4">
+                                
                             </td></tr>
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp;Currency:&nbsp;&nbsp;</th><td 
@@ -650,15 +751,16 @@
                                     Requisitioner
                                  </td>
                                  <td>
-                                     <asp:Button ID="btnSendReq" runat="server" Text="SendRequest" />
+                                     <asp:Button ID="btnSendReq" runat="server" Text="SendRequest" 
+                                         onclick="btnSendReq_Click" />
                                  </td>
                                  <td>
                                  </td>
                                  <td>
-                                     <asp:Label ID="lblRequisitioner" runat="server" Text="lblRequisitioner"></asp:Label>
+                                     <asp:Label ID="lblRequisitioner" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                                  <td>
-                                    Date : <asp:Label ID="lblRequisitionerDate" runat="server" Text="lblRequisitionerDate"></asp:Label>
+                                    Date : <asp:Label ID="lblRequisitionerDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                                  <td rowspan="3">
                                  Internal Marks:<br/>
@@ -670,16 +772,17 @@
                                     Supervisor
                                  </td>
                                  <td>
-                                     <asp:Button ID="btnSupervisorApprove" runat="server" Text="Approve" />
+                                     <asp:Button ID="btnSupervisorApprove" runat="server" Text="Approve" Enabled ="false" />
                                  </td>
                                  <td>
-                                    <asp:Button ID="btnSupervisorDisapprove" runat="server" Text="Disapprove" />
+                                    <asp:Button ID="btnSupervisorDisapprove" runat="server" Text="Disapprove" Enabled ="false" />
                                  </td>
                                  <td>
-                                     <asp:Label ID="lblSupervisor" runat="server" Text="lblSupervisor"></asp:Label>
+                                     <asp:Label ID="Label5" runat="server" Text=""> </asp:Label>
+                                     <asp:Label ID="lblSupervisor" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                                  <td>
-                                    Date : <asp:Label ID="lblSupervisorDate" runat="server" Text="lblSupervisorDate"></asp:Label>
+                                    Date : <asp:Label ID="lblSupervisorDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                           </tr>
                            <tr >
@@ -687,16 +790,16 @@
                                     VP
                                  </td>
                                  <td>
-                                     <asp:Button ID="btnVPApprove" runat="server" Text="Approve" />
+                                     <asp:Button ID="btnVPApprove" runat="server" Text="Approve" Enabled ="false" />
                                  </td>
                                  <td>
-                                    <asp:Button ID="btnVPDisapprove" runat="server" Text="Disapprove" />
+                                    <asp:Button ID="btnVPDisapprove" runat="server" Text="Disapprove" Enabled ="false" />
                                  </td>
                                  <td>
-                                     <asp:Label ID="lblVP" runat="server" Text="lblVP"></asp:Label>
+                                     <asp:Label ID="lblVP" runat="server" Text=""  OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                                  <td>
-                                    Date : <asp:Label ID="lblVPDate" runat="server" Text="lblVPDate"></asp:Label>
+                                    Date : <asp:Label ID="lblVPDate" runat="server" Text=""  OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                           </tr>
                           <tr >
@@ -704,16 +807,16 @@
                                     President
                                  </td>
                                  <td>
-                                     <asp:Button ID="btnPresidentApprove" runat="server" Text="Approve" />
+                                     <asp:Button ID="btnPresidentApprove" runat="server" Text="Approve" Enabled ="false" />
                                  </td>
                                  <td>
-                                    <asp:Button ID="btnPresidentDisapprove" runat="server" Text="Disapprove" />
+                                    <asp:Button ID="btnPresidentDisapprove" runat="server" Text="Disapprove" Enabled ="false"  />
                                  </td>
                                  <td>
-                                     <asp:Label ID="lblPresident" runat="server" Text="lblPresident"></asp:Label>
+                                     <asp:Label ID="lblPresident" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                                  <td>
-                                    Date : <asp:Label ID="lblPresidentDate" runat="server" Text="lblPresidentDate"></asp:Label>
+                                    Date : <asp:Label ID="lblPresidentDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                                  <td rowspan="3">
                                  Instruction:<br/>
@@ -731,10 +834,10 @@
                                     
                                  </td>
                                  <td>
-                                     <asp:Label ID="lblFinance" runat="server" Text="lblFinance"></asp:Label>
+                                     <asp:Label ID="lblFinance" runat="server" Text=""  OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                                  <td>
-                                    Date : <asp:Label ID="lblFinanceDate" runat="server" Text="lblFinanceDate"></asp:Label>
+                                    Date : <asp:Label ID="lblFinanceDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                           </tr>
                           <tr >
@@ -742,7 +845,8 @@
                                     Cancel:
                                  </td>
                                  <td>
-                                     <asp:Button ID="btnCancel" runat="server" Text="Withdraw" />
+                                     <asp:Button ID="btnCancel" runat="server" Text="Withdraw" 
+                                         onclick="btnCancel_Click" Enabled="false" />
                                  </td>
                                  <td>
                                     
