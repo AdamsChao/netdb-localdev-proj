@@ -304,7 +304,7 @@
     InsertCommand="INSERT INTO [employee] ([username], [password], [fname], [lname],[c_fname], [c_lname], [title], [hiredate], [terminationdate], [workphone], [homephone], [cellphone], [email], [address], [country], [status], [department_id], [accessprivilege], [supervisor_id], [create_date], [create_user], [modify_date], [modify_user], [work_ext], [signature]) VALUES (@username, @password, @fname, @lname, @title, @hiredate, @terminationdate, @workphone, @homephone, @cellphone, @email, @address, @country, @status, @department_id, @accessprivilege, @supervisorid, @create_date, @create_user, @modify_date, @modify_user, @work_ext, @signature)" 
     SelectCommand="SELECT * FROM [employee] WHERE ([id] = @id)" 
     
-        UpdateCommand="UPDATE [employee] SET [username] = @username, [password] = @password, [fname] = @fname, [lname] = @lname, [c_fname] = @c_fname, [c_lname] = @c_lname, [title] = @title, [hiredate] = @hiredate, [terminationdate] = @terminationdate, [workphone] = @workphone, [homephone] = @homephone, [cellphone] = @cellphone, [email] = @email, [address] = @address, [country] = @country, [status] = @status, [department_id] = @department_id, [accessprivilege] = @accessprivilege, [supervisor_id] = @supervisor_id, [create_date] = @create_date, [create_user] = @create_user, [modify_date] = @modify_date, [modify_user] = @modify_user, [work_ext] = @work_ext, [signature] = @signature,[q_authorize_amt] = @q_authorize_amt, [q_authorize_currency]=  @q_authorize_currency,[pr_authorize_amt]=  @pr_authorize_amt, [pr_authorize_currency]=  @pr_authorize_currency  WHERE [id] = @id" 
+        UpdateCommand="UPDATE [employee] SET [username] = @username, [password] = @password, [fname] = @fname, [lname] = @lname, [c_fname] = @c_fname, [c_lname] = @c_lname, [title] = @title, [hiredate] = @hiredate, [terminationdate] = @terminationdate, [workphone] = @workphone, [homephone] = @homephone, [cellphone] = @cellphone, [email] = @email, [address] = @address, [country] = @country, [status] = @status, [department_id] = @department_id, [accessprivilege] = @accessprivilege, [supervisor_id] = @supervisor_id, [create_date] = @create_date, [create_user] = @create_user, [modify_date] = @modify_date, [modify_user] = @modify_user, [work_ext] = @work_ext, [signature] = @signature,[q_authorize_amt] = @q_authorize_amt, [q_authorize_currency]=  @q_authorize_currency,[pr_authorize_amt]=  @pr_authorize_amt, [pr_authorize_currency]=  @pr_authorize_currency , [jobtitle_id] = @jobtitle_id WHERE [id] = @id" 
         oninserting="SqlDataSource1_Inserting">
     <DeleteParameters>
         <asp:Parameter Name="id" Type="Int32" />
@@ -342,6 +342,7 @@
          <asp:Parameter Name="c_fname" Type="String" />
         <asp:Parameter Name="c_lname" Type="String" />
         <asp:Parameter Name="title" Type="String" />
+        <asp:Parameter Name="jobtitle_id" Type="Int32" />
         <asp:Parameter Name="hiredate" Type="DateTime" />
         <asp:Parameter Name="terminationdate" Type="DateTime" />
         <asp:Parameter Name="workphone" Type="String" />
