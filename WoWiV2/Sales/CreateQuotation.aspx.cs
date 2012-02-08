@@ -141,8 +141,8 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
             }
             else
             {
-                btnViewPrint.Enabled = false;
-                btnViewPrintChinese.Enabled = false;
+                btnViewPrint.Visible = false;
+                btnViewPrintChinese.Visible = false;
             }
 
             Project project = CodeTableController.GetProject(getQuotationID());
@@ -184,14 +184,12 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                 if ((DropDownListStatus.SelectedValue == "2") && (quotation.FinalTotalPrice != null))
                 {
                     int status = Quotation_Controller.Status_AwaitingApproval((Decimal)quotation.FinalTotalPrice, quotation.Currency, quotation, (int)emp.supervisor_id);
-                    quotation.Quotation_Status = Int32.Parse(DropDownListStatus.SelectedValue);
+                    //quotation.Quotation_Status = Int32.Parse(DropDownListStatus.SelectedValue);
                     quotation.Waiting_Approve_UserID = emp.supervisor_id;
                     quotation.Quotation_Status = status;
                     Quotation_Controller.Update_Quotation(Quotation_Controller.ent, quotation);
 
-                }
-
-                if ((DropDownListStatus.SelectedValue == "3") && (quotation.FinalTotalPrice != null))
+                }else if ((DropDownListStatus.SelectedValue == "3") && (quotation.FinalTotalPrice != null))
                 {
                     //CheckIfUserCanApprove();
                     if (quotation.Waiting_Approve_UserID != emp.id)
@@ -212,9 +210,16 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                     Quotation_Controller.Update_Quotation(Quotation_Controller.ent, quotation);
 
                 }
+                else
+                {
+                    quotation.Quotation_Status = Int32.Parse(DropDownListStatus.SelectedValue);
+                    Quotation_Controller.Update_Quotation(Quotation_Controller.ent, quotation);
+                }
             }
 
         }
+
+        Response.Redirect("CreateQuotation.aspx?q=" + QuotationID.ToString());
 
     }
 
