@@ -82,7 +82,7 @@
         obj.quotaion_id = int.Parse(ddlProjectNo.SelectedValue);
         int proj_id = (from p in db.Project where p.Project_No == ddlProjectNo.SelectedItem.Text select p).First().Project_Id;
         obj.project_id = proj_id;
-        
+        obj.currency = "USD";
         obj.create_date = DateTime.Now;
         obj.create_user = User.Identity.Name;
     }

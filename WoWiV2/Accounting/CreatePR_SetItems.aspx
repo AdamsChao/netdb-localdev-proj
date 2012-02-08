@@ -43,33 +43,43 @@
 
     protected void ddlVenderList_SelectedIndexChanged(object sender, EventArgs e)
     {
-        int id = int.Parse((sender as DropDownList).SelectedValue);
+        int vid = int.Parse((sender as DropDownList).SelectedValue);
+        
         Panel VenderPanel = FormView1.FindControl("VenderPanel") as Panel;
-        VenderPanel.Visible = true;
-        (FormView1.FindControl("btnShow") as Button).Visible = true;
-        WoWiModel.vendor data = (from s in wowidb.vendors where s.id == id select s).First();
-        (FormView1.FindControl("lbCompany") as Label).Text = data.name;
-        (FormView1.FindControl("lbcCompany") as Label).Text = data.c_name;
-        (FormView1.FindControl("lbFax1") as Label).Text = data.fax1;
-        (FormView1.FindControl("lbFax2") as Label).Text = data.fax2;
-        (FormView1.FindControl("lbTel1") as Label).Text = data.tel1;
-        (FormView1.FindControl("lbTel2") as Label).Text = data.tel2;
-        (FormView1.FindControl("lbAddress") as Label).Text = data.address;
-        (FormView1.FindControl("lbcAddress") as Label).Text = data.c_address;
-        (FormView1.FindControl("lbLU") as Label).Text = data.ub_license_number;
-        (FormView1.FindControl("ddlCountry") as DropDownList).SelectedValue = data.country.ToString();
-        (FormView1.FindControl("ddlQualification") as DropDownList).SelectedValue = data.qualification;
-        (FormView1.FindControl("ddlContractType") as DropDownList).SelectedValue = data.contract_type;
-        (FormView1.FindControl("ddlBankCharge") as DropDownList).SelectedValue = data.bank_charge.ToString();
-        (FormView1.FindControl("ddlPaymentType") as DropDownList).SelectedValue = data.payment_type.ToString();
-        (FormView1.FindControl("ddlPaymentDays") as DropDownList).SelectedValue = data.paymentdays;
-        (FormView1.FindControl("ddlPaymentTerm1") as DropDownList).SelectedValue = data.payment_term1.ToString();
-        (FormView1.FindControl("ddlPaymentTerm2") as DropDownList).SelectedValue = data.payment_term2.ToString();
-        (FormView1.FindControl("ddlPaymentTerm3") as DropDownList).SelectedValue = data.payment_term3.ToString();
-        (FormView1.FindControl("ddlPaymentTermF") as DropDownList).SelectedValue = data.payment_term_final.ToString();
-        (FormView1.FindControl("lbPaymentBal") as Label).Text = data.payment_balance.ToString() ;
-        initContact(id);
-        initBankingAccount(id);
+        if (vid == -1)
+        {
+            VenderPanel.Visible = false;
+            (FormView1.FindControl("btnShow") as Button).Visible = false;
+            return;
+        }
+        else
+        {
+            VenderPanel.Visible = true;
+            (FormView1.FindControl("btnShow") as Button).Visible = true;
+            WoWiModel.vendor data = (from s in wowidb.vendors where s.id == vid select s).First();
+            (FormView1.FindControl("lbCompany") as Label).Text = data.name;
+            (FormView1.FindControl("lbcCompany") as Label).Text = data.c_name;
+            (FormView1.FindControl("lbFax1") as Label).Text = data.fax1;
+            (FormView1.FindControl("lbFax2") as Label).Text = data.fax2;
+            (FormView1.FindControl("lbTel1") as Label).Text = data.tel1;
+            (FormView1.FindControl("lbTel2") as Label).Text = data.tel2;
+            (FormView1.FindControl("lbAddress") as Label).Text = data.address;
+            (FormView1.FindControl("lbcAddress") as Label).Text = data.c_address;
+            (FormView1.FindControl("lbLU") as Label).Text = data.ub_license_number;
+            (FormView1.FindControl("ddlCountry") as DropDownList).SelectedValue = data.country.ToString();
+            (FormView1.FindControl("ddlQualification") as DropDownList).SelectedValue = data.qualification;
+            (FormView1.FindControl("ddlContractType") as DropDownList).SelectedValue = data.contract_type;
+            (FormView1.FindControl("ddlBankCharge") as DropDownList).SelectedValue = data.bank_charge.ToString();
+            (FormView1.FindControl("ddlPaymentType") as DropDownList).SelectedValue = data.payment_type.ToString();
+            (FormView1.FindControl("ddlPaymentDays") as DropDownList).SelectedValue = data.paymentdays;
+            (FormView1.FindControl("ddlPaymentTerm1") as DropDownList).SelectedValue = data.payment_term1.ToString();
+            (FormView1.FindControl("ddlPaymentTerm2") as DropDownList).SelectedValue = data.payment_term2.ToString();
+            (FormView1.FindControl("ddlPaymentTerm3") as DropDownList).SelectedValue = data.payment_term3.ToString();
+            (FormView1.FindControl("ddlPaymentTermF") as DropDownList).SelectedValue = data.payment_term_final.ToString();
+            (FormView1.FindControl("lbPaymentBal") as Label).Text = data.payment_balance.ToString();
+            initContact(vid);
+            initBankingAccount(vid);
+        }
     }
     protected void initContact(int id)
     {
@@ -415,27 +425,28 @@
             if (!String.IsNullOrEmpty(ddlTarget.SelectedValue))
             {
                 int tid = int.Parse(ddlTarget.SelectedValue);
-                if (tid != null)
-                {
-                    try
-                    {
 
-                        var data = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
-                        GridView gv = (FormView1.FindControl("GridView4") as GridView);
-                        gv.DataSource = data;
-                        gv.DataBind();
-                        var d = data.First();
-                        obj.total_cost = d.FinalPrice;
-                        obj.currency = "USD";
-                        WoWiModel.PR_item item = new WoWiModel.PR_item() { pr_id = id, model_no = d.ModelNo, item_desc = d.ItemDescription, quantity = (int)d.Qty, unit_price = d.Price, quotation_id = (int)d.QuotataionID, quotation_target_id = (int)d.Quotation_Target_Id, amount = d.FinalPrice };
-                        wowidb.PR_item.AddObject(item);
-                        wowidb.SaveChanges();
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;//Show Message In Javascript
-                    }
+                try
+                {
+
+                    var data = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
+                    GridView gv = (FormView1.FindControl("GridView4") as GridView);
+                    gv.DataSource = data;
+                    gv.DataBind();
+                    var d = data.First();
+                    obj.total_cost = d.FinalPrice;
+                    obj.currency = "USD";
+                    (FormView1.FindControl("tbCurrency") as TextBox).Text = obj.currency;
+                    (FormView1.FindControl("tbTotalAmount") as TextBox).Text = obj.total_cost.ToString();
+                    WoWiModel.PR_item item = new WoWiModel.PR_item() { pr_id = id, model_no = d.ModelNo, item_desc = d.ItemDescription, quantity = (int)d.Qty, unit_price = d.Price, quotation_id = (int)d.QuotataionID, quotation_target_id = (int)d.Quotation_Target_Id, amount = d.FinalPrice };
+                    wowidb.PR_item.AddObject(item);
+                    wowidb.SaveChanges();
                 }
+                catch (Exception ex)
+                {
+                    throw ex;//Show Message In Javascript
+                }
+
             }
          }
     }
@@ -508,11 +519,18 @@
                                    align="left" class="style11">&nbsp;&nbsp; Target:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
                                 <asp:DropDownList ID="ddlTarget" runat="server" 
-                                    AutoPostBack="True"  OnLoad="ddlTarget_Load"
-                                        onselectedindexchanged="ddlTarget_SelectedIndexChanged">
+                                    AutoPostBack="True"  OnLoad="ddlTarget_Load" AppendDataBoundItems="true"
+                                        onselectedindexchanged="ddlTarget_SelectedIndexChanged" 
+                                        ValidationGroup="VenderGroupT">
                                     <asp:ListItem Value="-1">Select one</asp:ListItem>
                                </asp:DropDownList>&nbsp;<asp:Button ID="btnAddItem" runat="server" Text="Add" 
-                                        onclick="AddItem_Click" />
+                                        onclick="AddItem_Click" CausesValidation="False" 
+                                        ValidationGroup="VenderGroupT" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                                        ControlToValidate="ddlTarget" ErrorMessage="Please select vender!" 
+                                        ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroupT">*</asp:RequiredFieldValidator>
+                                    <asp:ValidationSummary ID="ValidationSummary2" runat="server" 
+                                        ShowMessageBox="True" ShowSummary="False" ValidationGroup="VenderGroupT" />
                             </td></tr>
                             <tr><td colspan="4">
                                 
@@ -520,30 +538,31 @@
                                 </asp:GridView>
                                 
                             </td></tr>
-                             <%--<tr><th 
+                             <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp;Currency:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
-                                     <asp:TextBox ID="tbCurrency" runat="server" 
+                                     <asp:TextBox ID="tbCurrency" runat="server" Text='<%# Bind("currency")%>'
                                          ></asp:TextBox>
                             </td><th align="left" 
                                    class="style11">&nbsp; Total:&nbsp;</th><td class="style12" width="30%">
-                                    <asp:TextBox ID="tbTotalAmount" runat="server" 
+                                    <asp:TextBox ID="tbTotalAmount" runat="server"  Text='<%# Bind("total_cost")%>'
                                          ></asp:TextBox>
-                            </td></tr>--%>
+                            </td></tr>
                             <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Vender:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
                                 <asp:DropDownList ID="ddlVenderList" runat="server" 
                                     AppendDataBoundItems="True" AutoPostBack="True" onload="ddlVenderList_Load" 
-                                        onselectedindexchanged="ddlVenderList_SelectedIndexChanged">
+                                        onselectedindexchanged="ddlVenderList_SelectedIndexChanged" 
+                                        ValidationGroup="VenderGroup">
                                     <asp:ListItem Value="-1">Select one</asp:ListItem>
                                 </asp:DropDownList>&nbsp;<asp:Button ID="btnShow" runat="server" Text="Hide" 
-                                        Visible="false" onclick="btnShow_Click" />
+                                        Visible="false" onclick="btnShow_Click" ValidationGroup="VenderGroup" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                                         ControlToValidate="ddlVenderList" ErrorMessage="Please select vender!" 
-                                        ForeColor="Red">*</asp:RequiredFieldValidator>
+                                        ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroup">*</asp:RequiredFieldValidator>
                                     <asp:ValidationSummary ID="ValidationSummary1" runat="server" 
-                                        ShowMessageBox="True" ShowSummary="False" />
+                                        ShowMessageBox="True" ShowSummary="False" ValidationGroup="VenderGroup" />
                             </td></tr>
                              
                    <asp:Panel ID="VenderPanel" runat="server" Visible="false">
@@ -905,7 +924,7 @@
                           <tr align="center">
                               <td>
                                   <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" 
-                                            CommandName="Update" Text="Finish" />
+                                            CommandName="Update" Text="Finish" ValidationGroup="VenderGroup" />
                                         &nbsp;
                                         <asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" 
                                             CommandName="Cancel" Text="Cancel" />

@@ -20,6 +20,7 @@
             WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id ==prid select pr).First();
 
             int id = (int)obj.vendor_id;
+            if (id == -1) return;
             (sender as DropDownList).SelectedValue = id + "";
             Panel VenderPanel = FormView1.FindControl("VenderPanel") as Panel;
             VenderPanel.Visible = true;
@@ -361,6 +362,9 @@
                 case "tbInstruction":
                     tb.Text = auth.instruction;
                     break;
+                case "lblStatus":
+                    lbl.Text = ((PRStatus)auth.status).ToString();
+                    break;
             }
         }
     }
@@ -415,8 +419,8 @@
              <tr><th 
                            align="left" class="style10"><font size="+1">&nbsp;Purchase Request 
                   Id = <asp:Label ID="lblPRNo" runat="server" Text='<%# Eval("pr_id") %>'></asp:Label> Details Information 
-                 &nbsp;</font><%--<asp:HyperLink 
-                           ID="HyperLink1" runat="server" NavigateUrl="~/Accounting/PRList.aspx">PR List</asp:HyperLink>--%>&#160;</th></tr>
+                 &nbsp;</font><asp:HyperLink 
+                           ID="HyperLink1" runat="server" NavigateUrl="~/Accounting/PRList.aspx">PR List</asp:HyperLink>&#160;</th></tr>
                             
                            <tr><td><table 
                                align="center" border="1" cellpadding="0" cellspacing="0" width="100%"><tr><td 
@@ -748,7 +752,6 @@
                                     <asp:Button ID="btnSupervisorDisapprove" runat="server" Text="Disapprove" Enabled ="false" />
                                  </td>
                                  <td>
-                                     <asp:Label ID="Label5" runat="server" Text=""> </asp:Label>
                                      <asp:Label ID="lblSupervisor" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                                  <td>
@@ -820,12 +823,14 @@
                                  </td>
                                  <td>
                                     
-                                 </td>
+                                    </td>
                                  <td>
+                                    
+                                      Status:
                                     
                                  </td>
                                  <td>
-                                   
+                                   <asp:Label ID="lblStatus" runat="server" OnLoad="AuthLabel_Load" Font-Bold="True" ForeColor="Black"></asp:Label>
                                  </td>
                           </tr>
                       </table>

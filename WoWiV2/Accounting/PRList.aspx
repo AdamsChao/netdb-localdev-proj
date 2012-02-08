@@ -24,7 +24,7 @@
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:HyperLink ID="HyperLink2" runat="server" 
-                            NavigateUrl='<%# Bind("pr_id","~/Accounting/UpdatePR.aspx?id={0}") %>' Enabled="false">Edit</asp:HyperLink>
+                            NavigateUrl='<%# Bind("pr_id","~/Accounting/UpdatePR.aspx?id={0}") %>' >Edit</asp:HyperLink>
                         &nbsp;
                         <asp:HyperLink ID="HyperLink3" runat="server" 
                             NavigateUrl='<%# Bind("pr_id","~/Accounting/PRDetails.aspx?id={0}") %>' >Details</asp:HyperLink>
