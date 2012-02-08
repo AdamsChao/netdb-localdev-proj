@@ -29,8 +29,7 @@
                        select new
                        {
                            No = q.Quotation_No,
-                           Version = q.Vername
-                           ,
+                           Version = q.Vername,
                            Id = q.Quotation_Version_Id
                        };
             var data = from t in db.Target from qt in db.Quotation_Target from q in list from c in db.country where qt.quotation_id == q.Id & qt.target_id == t.target_id & t.country_id == c.country_id select new { Text = t.target_code + "(" + q.No + ") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
@@ -330,31 +329,31 @@
                     lbl.Text = auth.requisitioner;
                     break;
                 case "lblRequisitionerDate":
-                    lbl.Text = auth.requisitioner_date == null ? "" : String.Format("{0:yyy/MM/dd}",(DateTime)auth.requisitioner_date);
+                    lbl.Text = auth.requisitioner_date == null ? "" : String.Format("{0:yyyy/MM/dd}",(DateTime)auth.requisitioner_date);
                     break;
                 case "lblFinance":
                     lbl.Text = auth.finance;
                     break;
                 case "lblFinanceDate":
-                    lbl.Text = auth.finance_date == null ? "" : String.Format("{0:yyy/MM/dd}", (DateTime)auth.finance_date);
+                    lbl.Text = auth.finance_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.finance_date);
                     break;
                 case "lblPresident":
                     lbl.Text = auth.president;
                     break;
                 case "lblPresidentDate":
-                    lbl.Text = auth.president_date == null ? "" : String.Format("{0:yyy/MM/dd}", (DateTime)auth.president_date);
+                    lbl.Text = auth.president_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.president_date);
                     break;
                 case "lblVP":
                     lbl.Text = auth.vp;
                     break;
                 case "lblVPDate":
-                    lbl.Text = auth.vp_date == null ? "" : String.Format("{0:yyy/MM/dd}", (DateTime)auth.vp_date);
+                    lbl.Text = auth.vp_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.vp_date);
                     break;
                 case "lblSupervisor":
                     lbl.Text = auth.supervisor;
                     break;
                 case "lblSupervisorDate":
-                    lbl.Text = auth.supervisor_date == null ? "" : String.Format("{0:yyy/MM/dd}", (DateTime)auth.supervisor_date);
+                    lbl.Text = auth.supervisor_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.supervisor_date);
                     break;
             }
         }
@@ -390,25 +389,55 @@
             WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid select au).First();
             auth.status = (byte)PRStatus.Requisitioner;
             auth.requisitioner_date = DateTime.Now;
-            (FormView1.FindControl("lblRequisitionerDate") as Label).Text = String.Format("{0:yyy/MM/dd}",DateTime.Now);
+            (FormView1.FindControl("lblRequisitionerDate") as Label).Text = String.Format("{0:yyyy/MM/dd}",DateTime.Now);
             auth.requisitioner_approval = "y";
             String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
             String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
-            if(!String.IsNullOrEmpty(remark) ){
-                auth.remark = remark + "by "+auth.requisitioner+" \n";
-               
-            }
+            auth.remark = remark + " by "+auth.requisitioner+" \n";
             (FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
-            if(!String.IsNullOrEmpty(inst) ){
-                auth.instruction = inst + "by " + auth.requisitioner + " \n";
-               
-            }
+            auth.instruction = inst + " by " + auth.requisitioner + " \n";
             (FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
-            db.SaveChanges();
+            wowidb.SaveChanges();
             //Send Email
             PRUtils.WaitingSupervisorApproval(auth);//Not Yet
             (sender as Button).Enabled = false;
         }
+    }
+
+    protected void AddItem_Click(object sender, EventArgs e)
+    {
+        DropDownList ddlTarget = (FormView1.FindControl("ddlTarget") as DropDownList);
+         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+        {
+             
+            int id = int.Parse(Request.QueryString["id"]);
+            WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
+            if (!String.IsNullOrEmpty(ddlTarget.SelectedValue))
+            {
+                int tid = int.Parse(ddlTarget.SelectedValue);
+                if (tid != null)
+                {
+                    try
+                    {
+
+                        var data = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
+                        GridView gv = (FormView1.FindControl("GridView4") as GridView);
+                        gv.DataSource = data;
+                        gv.DataBind();
+                        var d = data.First();
+                        obj.total_cost = d.FinalPrice;
+                        obj.currency = "USD";
+                        WoWiModel.PR_item item = new WoWiModel.PR_item() { pr_id = id, model_no = d.ModelNo, item_desc = d.ItemDescription, quantity = (int)d.Qty, unit_price = d.Price, quotation_id = (int)d.QuotataionID, quotation_target_id = (int)d.Quotation_Target_Id, amount = d.FinalPrice };
+                        wowidb.PR_item.AddObject(item);
+                        wowidb.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;//Show Message In Javascript
+                    }
+                }
+            }
+         }
     }
 </script>
 
@@ -482,12 +511,16 @@
                                     AutoPostBack="True"  OnLoad="ddlTarget_Load"
                                         onselectedindexchanged="ddlTarget_SelectedIndexChanged">
                                     <asp:ListItem Value="-1">Select one</asp:ListItem>
-                               </asp:DropDownList>&nbsp;<asp:Button ID="Button2" runat="server" Text="Add" />
+                               </asp:DropDownList>&nbsp;<asp:Button ID="btnAddItem" runat="server" Text="Add" 
+                                        onclick="AddItem_Click" />
                             </td></tr>
                             <tr><td colspan="4">
                                 
+                                <asp:GridView ID="GridView4" runat="server" Width="100%">
+                                </asp:GridView>
+                                
                             </td></tr>
-                             <tr><th 
+                             <%--<tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp;Currency:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
                                      <asp:TextBox ID="tbCurrency" runat="server" 
@@ -496,7 +529,7 @@
                                    class="style11">&nbsp; Total:&nbsp;</th><td class="style12" width="30%">
                                     <asp:TextBox ID="tbTotalAmount" runat="server" 
                                          ></asp:TextBox>
-                            </td></tr>
+                            </td></tr>--%>
                             <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Vender:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
@@ -506,6 +539,11 @@
                                     <asp:ListItem Value="-1">Select one</asp:ListItem>
                                 </asp:DropDownList>&nbsp;<asp:Button ID="btnShow" runat="server" Text="Hide" 
                                         Visible="false" onclick="btnShow_Click" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                                        ControlToValidate="ddlVenderList" ErrorMessage="Please select vender!" 
+                                        ForeColor="Red">*</asp:RequiredFieldValidator>
+                                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" 
+                                        ShowMessageBox="True" ShowSummary="False" />
                             </td></tr>
                              
                    <asp:Panel ID="VenderPanel" runat="server" Visible="false">
@@ -763,7 +801,7 @@
                                     Date : <asp:Label ID="lblRequisitionerDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                                  <td rowspan="3">
-                                 Internal Marks:<br/>
+                                     Internal Remarks:<br/>
                                      <asp:TextBox ID="tbInternalMarks" runat="server" TextMode="MultiLine" Width="200" Height="100"></asp:TextBox>
                                  </td>
                           </tr>
@@ -876,11 +914,6 @@
                       </table>
                       </td></tr>
                              </table>
-               <%-- </ContentTemplate>
-                  <Triggers>
-                      <asp:PostBackTrigger ControlID="UpdateButton" />
-                  </Triggers>
-                </asp:UpdatePanel>--%>
            </EditItemTemplate>
         </asp:FormView>
    

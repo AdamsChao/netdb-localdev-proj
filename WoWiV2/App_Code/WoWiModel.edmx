@@ -420,6 +420,8 @@
           <Property Name="currency" Type="nvarchar" MaxLength="5" />
           <Property Name="status" Type="nvarchar" MaxLength="5" />
           <Property Name="modify_date" Type="datetime" />
+          <Property Name="quotation_target_id" Type="int" Nullable="false" />
+          <Property Name="quotation_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Quotation_Price">
           <Key>
@@ -1054,6 +1056,8 @@
           <Property Type="String" Name="currency" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="status" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
+          <Property Type="Int32" Name="quotation_target_id" Nullable="false" />
+          <Property Type="Int32" Name="quotation_id" Nullable="false" />
         </EntityType>
         <EntityType Name="employee_jobtitle">
           <Key>
@@ -1582,6 +1586,8 @@
           <EntitySetMapping Name="PR_item">
             <EntityTypeMapping TypeName="WoWiModel.PR_item">
               <MappingFragment StoreEntitySet="PR_item">
+                <ScalarProperty Name="quotation_id" ColumnName="quotation_id" />
+                <ScalarProperty Name="quotation_target_id" ColumnName="quotation_target_id" />
                 <ScalarProperty Name="modify_date" ColumnName="modify_date" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="currency" ColumnName="currency" />

@@ -7548,11 +7548,15 @@ namespace WoWiModel
         /// </summary>
         /// <param name="pr_item_id">Initial value of the pr_item_id property.</param>
         /// <param name="pr_id">Initial value of the pr_id property.</param>
-        public static PR_item CreatePR_item(global::System.Int32 pr_item_id, global::System.Int32 pr_id)
+        /// <param name="quotation_target_id">Initial value of the quotation_target_id property.</param>
+        /// <param name="quotation_id">Initial value of the quotation_id property.</param>
+        public static PR_item CreatePR_item(global::System.Int32 pr_item_id, global::System.Int32 pr_id, global::System.Int32 quotation_target_id, global::System.Int32 quotation_id)
         {
             PR_item pR_item = new PR_item();
             pR_item.pr_item_id = pr_item_id;
             pR_item.pr_id = pr_id;
+            pR_item.quotation_target_id = quotation_target_id;
+            pR_item.quotation_id = quotation_id;
             return pR_item;
         }
 
@@ -7825,6 +7829,54 @@ namespace WoWiModel
         private Nullable<global::System.DateTime> _modify_date;
         partial void Onmodify_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onmodify_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 quotation_target_id
+        {
+            get
+            {
+                return _quotation_target_id;
+            }
+            set
+            {
+                Onquotation_target_idChanging(value);
+                ReportPropertyChanging("quotation_target_id");
+                _quotation_target_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("quotation_target_id");
+                Onquotation_target_idChanged();
+            }
+        }
+        private global::System.Int32 _quotation_target_id;
+        partial void Onquotation_target_idChanging(global::System.Int32 value);
+        partial void Onquotation_target_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 quotation_id
+        {
+            get
+            {
+                return _quotation_id;
+            }
+            set
+            {
+                Onquotation_idChanging(value);
+                ReportPropertyChanging("quotation_id");
+                _quotation_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("quotation_id");
+                Onquotation_idChanged();
+            }
+        }
+        private global::System.Int32 _quotation_id;
+        partial void Onquotation_idChanging(global::System.Int32 value);
+        partial void Onquotation_idChanged();
 
         #endregion
     

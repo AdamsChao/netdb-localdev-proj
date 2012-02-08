@@ -27,7 +27,7 @@
                             NavigateUrl='<%# Bind("pr_id","~/Accounting/UpdatePR.aspx?id={0}") %>' Enabled="false">Edit</asp:HyperLink>
                         &nbsp;
                         <asp:HyperLink ID="HyperLink3" runat="server" 
-                            NavigateUrl='<%# Bind("pr_id","~/Accounting/PRDetails.aspx?id={0}") %>' Enabled="false">Details</asp:HyperLink>
+                            NavigateUrl='<%# Bind("pr_id","~/Accounting/PRDetails.aspx?id={0}") %>' >Details</asp:HyperLink>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="pr_id" HeaderText="PR No" SortExpression="pr_id" 
