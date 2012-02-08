@@ -43,6 +43,11 @@
                 auth.supervisor_id = emp.supervisor_id;
                 auth.supervisor = GetNameById((int)emp.supervisor_id);
             }
+            else
+            {
+                auth.supervisor_id = empid;
+                auth.supervisor = GetNameById(empid);
+            }
             if (empid != vp.id || empid != p.id)
             {
                 auth.vp_id = vp.id;

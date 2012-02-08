@@ -20,14 +20,74 @@ public class PRUtils
         MailUtil.SendHTMLMail(mailfrom, mailto, mailcc, null, mailSubject, panel);
     }
 
-    public static void WaitingSupervisorApproval(WoWiModel.PR_authority_history auth)
+    public static void WaitingForSupervisorApprove(WoWiModel.PR_authority_history auth)
     {
         QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
         WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
-        string mailSubject = String.Format("PR No.#{0} / {1} / {2} / {3} / {4}  is request for approval", auth.pr_id, "Vender", "Item Description", "Part", "M#");
+        string mailSubject = String.Format("PR No.#{0} / {1} / {2} / {3}  is request for approval", auth.pr_id, "Vender", "Item Description", "Part/M#"); 
         string mailContent = String.Format("{0} by {1}", mailSubject, auth.requisitioner + "<br />" + PRApproval_URL + auth.pr_id);
 
         
+
+
+    }
+
+    public static void WaitingForVPApprove(WoWiModel.PR_authority_history auth)
+    {
+        QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
+        WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
+        string mailSubject = String.Format("PR No.#{0} / {1} / {2} / {3}  is request for approval", auth.pr_id, "Vender", "Item Description", "Part/M#");
+        string mailContent = String.Format("{0} by {1}", mailSubject, auth.requisitioner + "<br />" + PRApproval_URL + auth.pr_id);
+
+
+
+
+    }
+
+    public static void WaitingForPresidentApprove(WoWiModel.PR_authority_history auth)
+    {
+        QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
+        WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
+        string mailSubject = String.Format("PR No.#{0} / {1} / {2} / {3}  is request for approval", auth.pr_id, "Vender", "Item Description", "Part/M#"); 
+        string mailContent = String.Format("{0} by {1}", mailSubject, auth.requisitioner + "<br />" + PRApproval_URL + auth.pr_id);
+
+
+
+
+    }
+
+    public static void SupervisorDisapprove(WoWiModel.PR_authority_history auth)
+    {
+        QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
+        WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
+        string mailSubject = String.Format("PR No.#{0} / {1} / {2} / {3}  is request for approval", auth.pr_id, "Vender", "Item Description", "Part/M#");
+        string mailContent = String.Format("{0} by {1}", mailSubject, auth.requisitioner + "<br />" + PRApproval_URL + auth.pr_id);
+
+
+
+
+    }
+
+    public static void VPDisapprove(WoWiModel.PR_authority_history auth)
+    {
+        QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
+        WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
+        string mailSubject = String.Format("PR No.#{0} / {1} / {2} / {3}  is request for approval", auth.pr_id, "Vender", "Item Description", "Part/M#");
+        string mailContent = String.Format("{0} by {1}", mailSubject, auth.requisitioner + "<br />" + PRApproval_URL + auth.pr_id);
+
+
+
+
+    }
+
+    public static void PresidentDisapprove(WoWiModel.PR_authority_history auth)
+    {
+        QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
+        WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
+        string mailSubject = String.Format("PR No.#{0} / {1} / {2} / {3}  is request for approval", auth.pr_id, "Vender", "Item Description", "Part/M#");
+        string mailContent = String.Format("{0} by {1}", mailSubject, auth.requisitioner + "<br />" + PRApproval_URL + auth.pr_id);
+
+
 
 
     }

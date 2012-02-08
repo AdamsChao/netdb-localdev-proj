@@ -409,7 +409,7 @@
             (FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
             wowidb.SaveChanges();
             //Send Email
-            PRUtils.WaitingSupervisorApproval(auth);//Not Yet
+            PRUtils.WaitingForSupervisorApprove(auth);//Not Yet
             (sender as Button).Enabled = false;
         }
     }

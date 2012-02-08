@@ -65,6 +65,10 @@
                 }
                 (FormView1.FindControl("VenderPanel") as Panel).Visible = false;
             }
+            else
+            {
+                (FormView1.FindControl("VenderPanel") as Panel).Visible = false;
+            }
         }
         
     }
@@ -496,13 +500,67 @@
             (FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
             wowidb.SaveChanges();
             //Send Email
-            PRUtils.WaitingSupervisorApproval(auth);//Not Yet
+            PRUtils.WaitingForSupervisorApprove(auth);//Not Yet
             (sender as Button).Enabled = false;
         }
     }
 
     protected void btn_Load(object sender, EventArgs e)
     {
+        if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+        {
+            int id = int.Parse(Request.QueryString["id"]);
+            WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
+            if (obj.pr_auth_id == null) return;
+            int authid = (int)obj.pr_auth_id;
+            WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid select au).First();
+            PRStatus st = (PRStatus) auth.status;
+            Button btn = (Button)sender;
+            btn.Enabled = false;
+            String btnID = btn.ID;
+            int empid = int.Parse(Session["Session_User_Id"].ToString());
+            switch (st)
+            {
+                case PRStatus.Init:
+                    if (btnID == "btnSendReq" || btnID == "btnCancel")
+                    {
+                        if (empid == auth.requisitioner_id)
+                        {
+                            btn.Enabled = true;
+                        }
+                    }
+                        
+                    break;
+                case PRStatus.Requisitioner:
+                    if (btnID == "btnSupervisorApprove" || btnID == "btnSupervisorDisapprove")
+                    {
+                        if (empid == auth.supervisor_id)
+                        {
+                            btn.Enabled = true;
+                        }
+                    }
+                    break;
+                case PRStatus.Supervisor:
+                    if (btnID == "btnVPApprove" || btnID == "btnVPDisapprove")
+                    {
+                        if (empid == auth.vp_id)
+                        {
+                            btn.Enabled = true;
+                        }
+                    }
+                    break;
+                case PRStatus.VicePresident:
+                    if (btnID == "btnPresidentApprove" || btnID == "btnPresidentDisapprove")
+                    {
+                        if (empid == auth.president_id)
+                        {
+                            btn.Enabled = true;
+                        }
+                    }
+                    break;
+                
+            }
+        }
 
     }
 
@@ -515,21 +573,115 @@
             if (obj.pr_auth_id == null) return;
             int authid = (int)obj.pr_auth_id;
             WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid select au).First();
-            //auth.status = (byte)PRStatus.Requisitioner;
-            //auth.requisitioner_date = DateTime.Now;
-            //(FormView1.FindControl("lblRequisitionerDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
-            //auth.requisitioner_approval = "y";
-            //String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
-            //String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
-            //auth.remark = remark + " by " + auth.requisitioner + " \n";
-            //(FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
-            //auth.instruction = inst + " by " + auth.requisitioner + " \n";
-            //(FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
-            //wowidb.SaveChanges();
-            ////Send Email
-            //PRUtils.WaitingSupervisorApproval(auth);//Not Yet
-            //(sender as Button).Enabled = false;
+            Button btn = (Button)sender;
+            String btnID = btn.ID;
+            int empid = int.Parse(Session["Session_User_Id"].ToString());
+            WoWiModel.employee emp =  (from c in wowidb.employees where c.id == empid select c).First();
+            String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
+            String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
+            switch (btnID)
+            {
+                case "btnSupervisorApprove":
+                    if (emp.pr_authorize_amt >= obj.total_cost)
+                    {
+                        auth.status = (byte)PRStatus.Done;
+                    }
+                    else
+                    {
+                        auth.status = (byte)PRStatus.Supervisor;
+                    }
+                    auth.supervisor_date = DateTime.Now;
+                    (FormView1.FindControl("lblSupervisorDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
+                    auth.supervisor_approval = "y";
+                    auth.remark += remark + " by " + auth.supervisor + " \n";
+                    auth.instruction += inst + " by " + auth.supervisor + " \n";
+                    wowidb.SaveChanges();
+                    //Send Email To
+                    if (auth.status == (byte)PRStatus.Supervisor)
+                    {
+                        PRUtils.WaitingForVPApprove(auth);//Not Yet
+                    }
+                    break;
+                case "btnSupervisorDisapprove":
+                    disapprove(obj, auth, "lblSupervisorDate");
+                    //Send Email To Requisitioner
+                    PRUtils.SupervisorDisapprove(auth);//Not Yet
+                    break;
+                case "btnVPApprove":
+                    if (emp.pr_authorize_amt >= obj.total_cost)
+                    {
+                        auth.status = (byte)PRStatus.Done;
+                    }
+                    else
+                    {
+                        auth.status = (byte)PRStatus.VicePresident;
+                    }
+                    auth.vp_date = DateTime.Now;
+                    (FormView1.FindControl("lblVPDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
+                    auth.vp_approval = "y";
+                    auth.remark += remark + " by " + auth.supervisor + " \n";
+                    auth.instruction += inst + " by " + auth.supervisor + " \n";
+                    wowidb.SaveChanges();
+                    //Send Email To
+                    if (auth.status == (byte)PRStatus.VicePresident)
+                    {
+                        PRUtils.WaitingForPresidentApprove(auth);//Not Yet
+                    }
+                    break;
+                case "btnVPDisapprove":
+                    disapprove(obj, auth, "lblVPDate");
+                    //Send Email To Requisitioner
+                    PRUtils.VPDisapprove(auth);//Not Yet
+                    break;
+                case "btnPresidentApprove":
+                    auth.status = (byte)PRStatus.Done;
+                    auth.president_date = DateTime.Now;
+                    (FormView1.FindControl("lblPresidentDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
+                    auth.president_approval = "y";
+                    auth.remark += remark + " by " + auth.supervisor + " \n";
+                    auth.instruction += inst + " by " + auth.supervisor + " \n";
+                    wowidb.SaveChanges();
+                    break;
+                case "btnPresidentDisapprove":
+                    disapprove(obj, auth, "lblPresidentDate");
+                    //Send Email To Requisitioner
+                    PRUtils.PresidentDisapprove(auth);//Not Yet
+                    break;
+            }
+            (FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
+            (FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
         }
+    }
+
+    public void disapprove(WoWiModel.PR obj,WoWiModel.PR_authority_history auth, String labelId)
+    {
+        (FormView1.FindControl(labelId) as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
+        String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
+        String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
+        String remarkHis = (FormView1.FindControl("tbInternalMarksHis") as TextBox).Text;
+        String instHis = (FormView1.FindControl("tbInstructionHis") as TextBox).Text;
+        auth.remark = remarkHis + remark + " by " + auth.supervisor + " \n";
+        auth.instruction = instHis + inst + " by " + auth.supervisor + " \n";
+        auth.status = (byte)PRStatus.History;//Become History
+        //New Auth
+        WoWiModel.PR_authority_history newauth = new WoWiModel.PR_authority_history();
+        newauth.pr_id = obj.pr_id;
+        newauth.requisitioner_id = auth.requisitioner_id;
+        newauth.requisitioner = auth.requisitioner;
+        newauth.supervisor_id = auth.supervisor_id;
+        newauth.supervisor = auth.supervisor;
+        newauth.vp_id = auth.vp_id;
+        newauth.vp = auth.vp;
+        newauth.president_id = auth.president_id;
+        newauth.president = auth.president;
+        newauth.create_date = DateTime.Now;
+        newauth.create_user = User.Identity.Name;
+        newauth.status = (byte)PRStatus.Init;
+        wowidb.PR_authority_history.AddObject(auth);
+        wowidb.SaveChanges();
+        WoWiModel.PR pr = wowidb.PRs.Where(n => n.pr_id == obj.pr_id).First();
+        pr.pr_auth_id = newauth.pr_auth_id;
+        wowidb.SaveChanges();
     }
     
 </script>
@@ -879,7 +1031,7 @@
                                     Requisitioner
                                  </td>
                                  <td>
-                                     <asp:Button ID="btnSendReq" runat="server" Text="SendRequest" Enabled="false"
+                                     <asp:Button ID="btnSendReq" runat="server" Text="SendRequest"
                                          onclick="btnSendReq_Click" onload="btn_Load" />
                                  </td>
                                  <td>
@@ -903,10 +1055,10 @@
                                     Supervisor
                                  </td>
                                  <td>
-                                     <asp:Button ID="btnSupervisorApprove" runat="server" Text="Approve" Enabled ="false" onload="btn_Load" onclick="btn_Click"/>
+                                     <asp:Button ID="btnSupervisorApprove" runat="server" Text="Approve"  onload="btn_Load" onclick="btn_Click"/>
                                  </td>
                                  <td>
-                                    <asp:Button ID="btnSupervisorDisapprove" runat="server" Text="Disapprove" Enabled ="false" onload="btn_Load" onclick="btn_Click"/>
+                                    <asp:Button ID="btnSupervisorDisapprove" runat="server" Text="Disapprove"  onload="btn_Load" onclick="btn_Click"/>
                                  </td>
                                  <td>
                                      <asp:Label ID="lblSupervisor" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
@@ -920,10 +1072,10 @@
                                     VP
                                  </td>
                                  <td>
-                                     <asp:Button ID="btnVPApprove" runat="server" Text="Approve" Enabled ="false" onload="btn_Load" onclick="btn_Click"/>
+                                     <asp:Button ID="btnVPApprove" runat="server" Text="Approve"  onload="btn_Load" onclick="btn_Click"/>
                                  </td>
                                  <td>
-                                    <asp:Button ID="btnVPDisapprove" runat="server" Text="Disapprove" Enabled ="false" onload="btn_Load"  onclick="btn_Click"/>
+                                    <asp:Button ID="btnVPDisapprove" runat="server" Text="Disapprove"  onload="btn_Load"  onclick="btn_Click"/>
                                  </td>
                                  <td>
                                      <asp:Label ID="lblVP" runat="server" Text=""  OnLoad="AuthLabel_Load"></asp:Label>
@@ -937,10 +1089,10 @@
                                     President
                                  </td>
                                  <td>
-                                     <asp:Button ID="btnPresidentApprove" runat="server" Text="Approve" Enabled ="false" onload="btn_Load" onclick="btn_Click"/>
+                                     <asp:Button ID="btnPresidentApprove" runat="server" Text="Approve"  onload="btn_Load" onclick="btn_Click"/>
                                  </td>
                                  <td>
-                                    <asp:Button ID="btnPresidentDisapprove" runat="server" Text="Disapprove" Enabled ="false" onload="btn_Load" onclick="btn_Click"/>
+                                    <asp:Button ID="btnPresidentDisapprove" runat="server" Text="Disapprove"  onload="btn_Load" onclick="btn_Click"/>
                                  </td>
                                  <td>
                                      <asp:Label ID="lblPresident" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
@@ -979,7 +1131,7 @@
                                  </td>
                                  <td>
                                      <asp:Button ID="btnCancel" runat="server" Text="Withdraw" onload="btn_Load"
-                                         onclick="btnCancel_Click" Enabled="false" />
+                                         onclick="btnCancel_Click" />
                                  </td>
                                  <td>
                                     
