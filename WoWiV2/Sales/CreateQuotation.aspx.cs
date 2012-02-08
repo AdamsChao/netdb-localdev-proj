@@ -71,16 +71,11 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                     txtQuotation_Statusdate.Text = ((DateTime)quotation.Quotation_Statusdate).ToString("yyyy/MM/dd HH:mm");
                     txtQuotation_Statusby.Text = quotation.Quotation_Statusby;
 
-                    if (quotation.Currency == "USD")
-                        btnViewPrint.Visible = true;
-
-                    if (quotation.Currency == "NTD")
-                        btnViewPrintChinese.Visible = true;
 
                     string strJavaScript = string.Empty;
                     strJavaScript = "return printform('" + QuotationID.ToString() + "');";
                     btnViewPrint.OnClientClick = strJavaScript;
-                    
+
                     btnViewPrintChinese.OnClientClick = "return printchineseform('" + QuotationID.ToString() + "');";
 
                     employee loginUser = CodeTableController.GetEmployee(Page.User.Identity.Name);
@@ -126,6 +121,29 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
 
             //DropDownListStatus.Enabled = true;
             //cmdStatus.Enabled = true;
+            Quotation_Version quotation = Quotation_Controller.Get_Quotation(QuotationID);
+
+            if (quotation.Quotation_Status == 3 ||
+               quotation.Quotation_Status == 4 ||
+               quotation.Quotation_Status == 5)
+            {
+                if (quotation.Currency == "USD")
+                {
+                    btnViewPrint.Visible = true;
+                    btnViewPrintChinese.Visible = false;
+
+                }
+                if (quotation.Currency == "NTD")
+                {
+                    btnViewPrint.Visible = false;
+                    btnViewPrintChinese.Visible = true;
+                }
+            }
+            else
+            {
+                btnViewPrint.Enabled = false;
+                btnViewPrintChinese.Enabled = false;
+            }
 
             Project project = CodeTableController.GetProject(getQuotationID());
             if ((project == null) && (DropDownListStatus.SelectedValue == "5"))
@@ -152,7 +170,7 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
             Quotation_Version quotation = Quotation_Controller.Get_Quotation(QuotationID);
             if (quotation != null)
             {
-               
+
                 quotation.Quotation_Statusdate = DateTime.Now;
                 quotation.Quotation_Statusby = Page.User.Identity.Name;
                 employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
@@ -170,7 +188,7 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                     quotation.Waiting_Approve_UserID = emp.supervisor_id;
                     quotation.Quotation_Status = status;
                     Quotation_Controller.Update_Quotation(Quotation_Controller.ent, quotation);
-           
+
                 }
 
                 if ((DropDownListStatus.SelectedValue == "3") && (quotation.FinalTotalPrice != null))
