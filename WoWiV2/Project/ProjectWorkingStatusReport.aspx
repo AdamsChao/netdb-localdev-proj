@@ -125,6 +125,10 @@
                                                 <strong>Product Name</strong></td>
                                             <td class="style2">
                                                 <strong>Model No</strong></td>
+                                                <td class="style2">
+                                                <strong>Client</strong></td>
+                                            <td class="style2">
+                                                <strong>Project No</strong></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -133,21 +137,14 @@
                                             <td>
                                                 <asp:Label ID="LabelModel" runat="server"></asp:Label>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="style2">
-                                                <strong>Client</strong></td>
+                                             <td>
+                                                 <asp:Label ID="LabelClient" runat="server"></asp:Label>
+                                            </td>
                                             <td>
-                                                <asp:Label ID="LabelClient" runat="server"></asp:Label>
+                                               <asp:Label ID="LabelProject" runat="server"></asp:Label>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="style2">
-                                                <strong>Project No</strong></td>
-                                            <td>
-                                                <asp:Label ID="LabelProject" runat="server"></asp:Label>
-                                            </td>
-                                        </tr>
+                                       
                                     </table>
 
                                 </td>
@@ -170,24 +167,25 @@
                                         <Columns>
                                             <asp:BoundField DataField="country_name" HeaderText="Country" 
                                                 SortExpression="country_name" />
-                                            <asp:BoundField DataField="authority_name" HeaderText="Authority(Target)" 
+                                            <asp:BoundField DataField="authority_name" HeaderText="Authority" 
                                                 SortExpression="authority_name" />
                                             <asp:BoundField DataField="VenderName" HeaderText="Agent" 
-                                                SortExpression="companyname" />
-                                            <asp:BoundField DataField="test_started" HeaderText="test_started" 
+                                                SortExpression="companyname" Visible="False" />
+                                            <asp:BoundField DataField="test_started" HeaderText="Test started" 
                                                 SortExpression="test_started" DataFormatString="{0:d}" />
                                             <asp:BoundField DataField="test_completed" HeaderText="Est. completed" 
                                                 SortExpression="test_completed" DataFormatString="{0:d}" />
                                             <asp:BoundField DataField="certification_submit_to_authority" 
-                                                HeaderText="submit to authority" 
+                                                HeaderText="Submit to authority" 
                                                 SortExpression="certification_submit_to_authority" 
                                                 DataFormatString="{0:d}" />
                                             <asp:BoundField DataField="certification_completed" HeaderText="Est. completed" 
                                                 SortExpression="certification_completed" DataFormatString="{0:d}" />
                                             <asp:BoundField DataField="Estimated_Lead_time" 
-                                                HeaderText="Estimated Lead Time" SortExpression="Estimated_Lead_time" />
+                                                HeaderText="Estimated Lead Time" SortExpression="Estimated_Lead_time" 
+                                                Visible="False" />
                                             <asp:BoundField DataField="Actual_Lead_time" HeaderText="Actual Lead Time" 
-                                                SortExpression="Actual_Lead_time" />
+                                                SortExpression="Actual_Lead_time" Visible="False" />
                                             <asp:TemplateField HeaderText="Project Status">
                                                 <ItemTemplate>
                                                     <asp:Label ID="Label_Quotation_Target_Id" runat="server" Visible="false" 
