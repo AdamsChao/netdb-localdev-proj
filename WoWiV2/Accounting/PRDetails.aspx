@@ -384,7 +384,49 @@
         }
     }
 
-    
+
+    protected void HistoryPanel_Load(object sender, EventArgs e)
+    {
+        if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+        {
+            int id = int.Parse(Request.QueryString["id"]);
+            Panel p = sender as Panel;
+            p.Visible = false;
+            try
+            {
+                var data = from c in wowidb.PR_authority_history where c.pr_id == id && c.status == (byte)PRStatus.History
+                           select new
+                           {
+                               Requisitioner = c.requisitioner ,
+                               RequisitionerDate = c.requisitioner_date,
+                               Supervisor = c.supervisor ,
+                               SupervisorDate = c.supervisor_date,
+                               VP = c.vp ,
+                               VPDate = c.vp_date ,
+                               President = c.president,
+                               PresidentDate = c.president_date ,
+                               InternalRemarks = c.remark,
+                               Instruction = c.instruction
+                };
+                if (data.Count() != 0)
+                {
+                    GridView gv = (FormView1.FindControl("GridView5") as GridView);
+                    if (gv != null)
+                    {
+                        gv.DataSource = data;
+                        gv.DataBind();
+                    }
+                    p.Visible = true;
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -836,20 +878,20 @@
                       </table>
 
                             </td></tr>
-
-                               <%-- <tr align="center"><td class="style4" colspan="4">
-                      <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
-                          <tr align="center">
-                              <td>
-                                  <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" 
-                                            CommandName="Update" Text="Finish" />
-                                        &nbsp;
-                                        <asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" 
-                                            CommandName="Cancel" Text="Cancel" />
-                                        &nbsp;</td>
-                          </tr>
+                            <asp:Panel ID="HistoryPanel" runat="server" onload="HistoryPanel_Load">
+                              <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
+                            <th colspan="4">
+                                Authority History</th>
+                        </tr>
+                            <tr><td colspan="4">
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                         <tr><td>
+                         </td></tr>
+                                <asp:GridView ID="GridView5" runat="server">
+                                </asp:GridView>
                       </table>
-                      </td></tr>--%>
+                            </td></tr>
+                            </asp:Panel>
                              </table>
            </EditItemTemplate>
         </asp:FormView>

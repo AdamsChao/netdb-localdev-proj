@@ -808,7 +808,7 @@
                                     Requisitioner
                                  </td>
                                  <td>
-                                     <asp:Button ID="btnSendReq" runat="server" Text="SendRequest" 
+                                     <asp:Button ID="btnSendReq" runat="server" Text="SendRequest"  Enabled="false"
                                          onclick="btnSendReq_Click" />
                                  </td>
                                  <td>
