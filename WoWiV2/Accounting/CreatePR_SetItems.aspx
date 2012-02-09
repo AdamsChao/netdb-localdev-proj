@@ -430,14 +430,14 @@
 
                 try
                 {
-
-                    var data = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
+                    String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
+                    var data = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency , Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
                     GridView gv = (FormView1.FindControl("GridView4") as GridView);
                     gv.DataSource = data;
                     gv.DataBind();
                     var d = data.First();
                     obj.total_cost = d.FinalPrice;
-                    obj.currency = "USD";
+                    obj.currency = currency;
                     (FormView1.FindControl("tbCurrency") as TextBox).Text = obj.currency;
                     (FormView1.FindControl("tbTotalAmount") as TextBox).Text = obj.total_cost.ToString();
                     WoWiModel.PR_item item = new WoWiModel.PR_item() { pr_id = id, model_no = d.ModelNo, item_desc = d.ItemDescription, quantity = (int)d.Qty, unit_price = d.Price, quotation_id = (int)d.QuotataionID, quotation_target_id = (int)d.Quotation_Target_Id, amount = d.FinalPrice };
