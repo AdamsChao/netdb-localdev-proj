@@ -30,11 +30,20 @@ public class PRUtils
     {
         int prid = auth.pr_id;
         WoWiModel.PR obj = (from p in wowidb.PRs where p.pr_id == prid select p).First();
-        WoWiModel.vendor c = (from v in wowidb.vendors where v.id == obj.vendor_id select v).First();
-        String venderName = String.IsNullOrEmpty(c.name) ? c.c_name : c.name;
-        WoWiModel.PR_item item = (from i in wowidb.PR_item where i.pr_id == obj.pr_id select i).First();
+        WoWiModel.vendor ven = (from v in wowidb.vendors where v.id == obj.vendor_id select v).First();
+        String venderName = String.IsNullOrEmpty(ven.name) ? ven.c_name : ven.name;
+        String quotaion_no = (from d in db.Quotation_Version where d.Quotation_Version_Id == obj.quotaion_id select d.Quotation_No).First();
+        var list = from q in db.Quotation_Version
+                       where q.Quotation_No.Equals(quotaion_no)
+                       select new
+                       {
+                           No = q.Quotation_No,
+                           Version = q.Vername,
+                           Id = q.Quotation_Version_Id
+                       };
+        var data = (from t in db.Target from qt in db.Quotation_Target from q in list where qt.quotation_id == q.Id & qt.target_id == t.target_id select new { Code = t.target_code, Desc = t.target_description }).First();
         String templateStr = "PR No.#{0} / {1} / {2} / {3}  is "+message;
-        return String.Format(templateStr, prid, venderName, item.item_desc, item.model_no);
+        return String.Format(templateStr, prid, venderName, data.Desc,data.Code);
     }
 
     private static String GetPRMailContent(String subject,String sender)

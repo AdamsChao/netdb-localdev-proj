@@ -9,6 +9,7 @@
  
     protected void ddlVenderList_Load(object sender, EventArgs e)
     {
+        if (Page.IsPostBack) return;
         var list = (from c in wowidb.vendors from country in wowidb.countries where c.country == country.country_id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name+" ]" : c.name + " - [ " + country.country_name+" ]" });
 
         (sender as DropDownList).DataSource = list;
@@ -18,6 +19,7 @@
 
     protected void ddlTarget_Load(object sender, EventArgs e)
     {
+        if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             id = int.Parse(Request.QueryString["id"]);
@@ -273,7 +275,7 @@
         {
             WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
 
-            Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
+            Response.Redirect("~/Accounting/UpdatePR.aspx?id=" + obj.pr_id);
         }
     }
 
@@ -797,7 +799,7 @@
                                     </asp:GridView>
               </td>
               </tr>              </asp:Panel>
-               <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
+              <%-- <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
                             <th colspan="4">
                                 Authority Owner</th>
                         </tr>
@@ -917,14 +919,14 @@
                           </tr>
                       </table>
 
-                            </td></tr>
+                            </td></tr>--%>
 
                                 <tr align="center"><td class="style4" colspan="4">
                       <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
                           <tr align="center">
                               <td>
                                   <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" 
-                                            CommandName="Update" Text="Finish" ValidationGroup="VenderGroup" />
+                                            CommandName="Update" Text="Next" ValidationGroup="VenderGroup" />
                                         &nbsp;
                                         <asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" 
                                             CommandName="Cancel" Text="Cancel" />

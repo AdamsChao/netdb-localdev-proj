@@ -503,6 +503,7 @@
             //Send Email
             PRUtils.WaitingForSupervisorApprove(auth);//Not Yet
             (sender as Button).Enabled = false;
+            Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
         }
     }
 
@@ -577,7 +578,7 @@
             Button btn = (Button)sender;
             String btnID = btn.ID;
             int empid = int.Parse(Session["Session_User_Id"].ToString());
-            WoWiModel.employee emp =  (from c in wowidb.employees where c.id == empid select c).First();
+            WoWiModel.employee emp = (from c in wowidb.employees where c.id == empid select c).First();
             String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
             String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
             switch (btnID)
@@ -594,8 +595,14 @@
                     auth.supervisor_date = DateTime.Now;
                     (FormView1.FindControl("lblSupervisorDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
                     auth.supervisor_approval = "y";
-                    auth.remark += remark + " by " + auth.supervisor + " \n";
-                    auth.instruction += inst + " by " + auth.supervisor + " \n";
+                    if (!String.IsNullOrEmpty(remark.Trim()))
+                    {
+                        auth.remark += remark + " by " + auth.supervisor + " <br>";
+                    }
+                    if (!String.IsNullOrEmpty(inst.Trim()))
+                    {
+                        auth.instruction += inst + " by " + auth.supervisor + " <br>";
+                    }
                     wowidb.SaveChanges();
                     //Send Email To
                     if (auth.status == (byte)PRStatus.Supervisor)
@@ -624,8 +631,14 @@
                     auth.vp_date = DateTime.Now;
                     (FormView1.FindControl("lblVPDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
                     auth.vp_approval = "y";
-                    auth.remark += remark + " by " + auth.supervisor + " \n";
-                    auth.instruction += inst + " by " + auth.supervisor + " \n";
+                    if (!String.IsNullOrEmpty(remark.Trim()))
+                    {
+                        auth.remark += remark + " by " + auth.supervisor + " <br>";
+                    }
+                    if (!String.IsNullOrEmpty(inst.Trim()))
+                    {
+                        auth.instruction += inst + " by " + auth.supervisor + " <br>";
+                    }
                     wowidb.SaveChanges();
                     //Send Email To
                     if (auth.status == (byte)PRStatus.VicePresident)
@@ -647,8 +660,14 @@
                     auth.president_date = DateTime.Now;
                     (FormView1.FindControl("lblPresidentDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
                     auth.president_approval = "y";
-                    auth.remark += remark + " by " + auth.supervisor + " \n";
-                    auth.instruction += inst + " by " + auth.supervisor + " \n";
+                    if (!String.IsNullOrEmpty(remark.Trim()))
+                    {
+                        auth.remark += remark + " by " + auth.supervisor + " <br>";
+                    }
+                    if (!String.IsNullOrEmpty(inst.Trim()))
+                    {
+                        auth.instruction += inst + " by " + auth.supervisor + " <br>";
+                    }
                     wowidb.SaveChanges();
                     PRUtils.PRStatusDone(auth);
                     break;
@@ -660,6 +679,7 @@
             }
             (FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
             (FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
+            Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
         }
     }
 
@@ -668,8 +688,14 @@
         (FormView1.FindControl(labelId) as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
         String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
         String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
-        auth.remark +=remark + " by " + auth.supervisor + " \n";
-        auth.instruction += inst + " by " + auth.supervisor + " \n";
+        if (!String.IsNullOrEmpty(remark))
+        {
+            auth.remark += remark + " by " + auth.supervisor + " <br>";
+        }
+        if (!String.IsNullOrEmpty(inst))
+        {
+            auth.instruction += inst + " by " + auth.supervisor + " <br>";
+        }
         auth.status = (byte)PRStatus.History;//Become History
         (FormView1.FindControl("lblStatus") as Label).Text = PRStatus.History.ToString();
         wowidb.SaveChanges();
@@ -692,6 +718,7 @@
         WoWiModel.PR pr = wowidb.PRs.Where(n => n.pr_id == obj.pr_id).First();
         pr.pr_auth_id = newauth.pr_auth_id;
         wowidb.SaveChanges();
+        Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
     }
     
 </script>
