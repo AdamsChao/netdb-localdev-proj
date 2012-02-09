@@ -24,11 +24,11 @@
             <div class="loginDisplay">
                 <asp:LoginView ID="HeadLoginView" runat="server">
                     <AnonymousTemplate>
-                        [ <a href="~/Account/Login.aspx" ID="HeadLoginStatus" runat="server">登入</a> ]
+                        [ <a href="~/Account/Login.aspx" ID="HeadLoginStatus" runat="server">Login</a> ]
                     </AnonymousTemplate>
                     <LoggedInTemplate>
                         歡迎 <span class="bold"><asp:LoginName ID="HeadLoginName" runat="server" /></span>
-                        [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="登出" LogoutPageUrl="~/"/> ]
+                        [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Logout" LogoutPageUrl="~/"/> ]
                     </LoggedInTemplate>
                 </asp:LoginView>
             </div>
