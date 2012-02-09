@@ -615,7 +615,7 @@
                     }
                     break;
                 case "btnSupervisorDisapprove":
-                    disapprove(obj, auth, "lblSupervisorDate");
+                    disapprove(obj, auth, "lblSupervisorDate",auth.supervisor);
                     //Send Email To Requisitioner
                     PRUtils.SupervisorDisapprove(auth);//Not Yet
                     break;
@@ -651,7 +651,7 @@
                     }
                     break;
                 case "btnVPDisapprove":
-                    disapprove(obj, auth, "lblVPDate");
+                    disapprove(obj, auth, "lblVPDate", auth.vp);
                     //Send Email To Requisitioner
                     PRUtils.VPDisapprove(auth);//Not Yet
                     break;
@@ -672,7 +672,7 @@
                     PRUtils.PRStatusDone(auth);
                     break;
                 case "btnPresidentDisapprove":
-                    disapprove(obj, auth, "lblPresidentDate");
+                    disapprove(obj, auth, "lblPresidentDate",auth.president);
                     //Send Email To Requisitioner
                     PRUtils.PresidentDisapprove(auth);//Not Yet
                     break;
@@ -683,18 +683,18 @@
         }
     }
 
-    public void disapprove(WoWiModel.PR obj,WoWiModel.PR_authority_history auth, String labelId)
+    public void disapprove(WoWiModel.PR obj,WoWiModel.PR_authority_history auth, String labelId,String owner)
     {
         (FormView1.FindControl(labelId) as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
         String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
         String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
         if (!String.IsNullOrEmpty(remark))
         {
-            auth.remark += remark + " by " + auth.supervisor + " <br>";
+            auth.remark += remark + " by " + owner + " <br>";
         }
         if (!String.IsNullOrEmpty(inst))
         {
-            auth.instruction += inst + " by " + auth.supervisor + " <br>";
+            auth.instruction += inst + " by " + owner + " <br>";
         }
         auth.status = (byte)PRStatus.History;//Become History
         (FormView1.FindControl("lblStatus") as Label).Text = PRStatus.History.ToString();
