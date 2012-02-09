@@ -51,7 +51,8 @@
                                     <table border="0">
                                         <tr>
                                             <td>
-                                                <asp:Image ID="img" runat="server" ImageUrl='<%# IMAUtil.GetIMAUploadPath()+Eval("GeneralImageURL").ToString() %>' />
+                                                <%--<asp:Image ID="img" runat="server" ImageUrl='<%# IMAUtil.GetIMAUploadPath()+Eval("GeneralImageURL").ToString() %>' />--%>
+                                                <asp:Image ID="img" runat="server" ImageUrl='<%# Eval("GeneralImageURL") %>' />
                                             </td>
                                         </tr>
                                         <tr>

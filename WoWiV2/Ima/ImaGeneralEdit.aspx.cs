@@ -57,12 +57,13 @@ public partial class Ima_ImaGeneralEdit : System.Web.UI.Page
                     DataRow row = dtGeneralImage.NewRow();
                     row["GeneralImageID"] = dr["GeneralImageID"].ToString();
                     row["GeneralID"] = dr["GeneralID"].ToString();
-                    row["GeneralImageURL"] = IMAUtil.GetIMAUploadPath() + dr["GeneralImageURL"].ToString();
+                    //row["GeneralImageURL"] = IMAUtil.GetIMAUploadPath() + dr["GeneralImageURL"].ToString();
+                    row["GeneralImageURL"] = dr["GeneralImageURL"].ToString();
                     row["GeneralImageDesc"] = dr["GeneralImageDesc"].ToString();
                     dtGeneralImage.Rows.Add(row);
                 }
                 string strNum = dtImage.Rows[dtImage.Rows.Count - 1]["GeneralImageURL"].ToString();
-                strNum=strNum.Substring(dtImage.Rows[dtImage.Rows.Count - 1]["GeneralImageURL"].ToString().LastIndexOf(Convert.ToChar(@"\")) + 1);
+                strNum=strNum.Substring(dtImage.Rows[dtImage.Rows.Count - 1]["GeneralImageURL"].ToString().LastIndexOf(Convert.ToChar(@"/")) + 1);
                 strNum = strNum.Split('.')[0].ToString().Replace(Request["cid"] + "_", "");
                 hfImageNum.Value = strNum;
                 dlImages.DataSource = dtGeneralImage;
@@ -314,11 +315,15 @@ public partial class Ima_ImaGeneralEdit : System.Web.UI.Page
             if (strFileType == "gif" || strFileType == "jpeg" || strFileType == "jpg" || strFileType == "png")
             {
                 string strImageNum = (Convert.ToInt32(hfImageNum.Value) + 1).ToString();
-                string strUploadPath = IMAUtil.GetIMAUploadPath() + @"\" + IMAUtil.GetCountryName(Request["cid"]) + @"\GeneralImages";
+                //string strUploadPath = IMAUtil.GetIMAUploadPath() + @"\" + IMAUtil.GetCountryName(Request["cid"]) + @"\GeneralImages";
+                string strUploadPath = @"~/Images/IMA/" + IMAUtil.GetCountryName(Request["cid"]) + @"/GeneralImages";
                 //檢查上傳檔案路徑是否存在，若不存在就自動建立
-                IMAUtil.CheckURL(strUploadPath);
-                strFileURL = strUploadPath + @"\" + Request["cid"] + "_" + strImageNum + "." + strFileType;
-                fuImage.SaveAs(strFileURL);
+                //IMAUtil.CheckURL(strUploadPath);
+                IMAUtil.CheckURL(Server.MapPath(strUploadPath));
+                //strFileURL = strUploadPath + @"\" + Request["cid"] + "_" + strImageNum + "." + strFileType;
+                strFileURL = strUploadPath + @"/" + Request["cid"] + "_" + strImageNum + "." + strFileType;
+                //fuImage.SaveAs(strFileURL);
+                fuImage.SaveAs(Server.MapPath(strFileURL));
 
                 DataTable dtGeneralImage = (DataTable)ViewState["GeneralImage"];
                 DataRow row = dtGeneralImage.NewRow();
@@ -359,7 +364,8 @@ public partial class Ima_ImaGeneralEdit : System.Web.UI.Page
                     if (strGeneralImageID == row["GeneralImageID"].ToString())
                     {
                         //刪除資料夾圖片
-                        IMAUtil.DelFile(@row["GeneralImageURL"].ToString());
+                        //IMAUtil.DelFile(@row["GeneralImageURL"].ToString());
+                        IMAUtil.DelFile(Server.MapPath(row["GeneralImageURL"].ToString()));
                         //刪除DataTable資料
                         row.Delete();
                         break;
@@ -374,7 +380,8 @@ public partial class Ima_ImaGeneralEdit : System.Web.UI.Page
                     if (strURL == row["GeneralImageURL"].ToString())
                     {
                         //刪除資料夾圖片
-                        IMAUtil.DelFile(@row["GeneralImageURL"].ToString());
+                        //IMAUtil.DelFile(@row["GeneralImageURL"].ToString());
+                        IMAUtil.DelFile(Server.MapPath(row["GeneralImageURL"].ToString()));
                         //刪除DataTable資料
                         row.Delete();
                         break;
