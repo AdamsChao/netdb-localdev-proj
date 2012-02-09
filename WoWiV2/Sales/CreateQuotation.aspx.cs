@@ -146,7 +146,7 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
             }
 
             Project project = CodeTableController.GetProject(getQuotationID());
-            if ((project == null) && (DropDownListStatus.SelectedValue == "5"))
+            if ((project == null) && (quotation.Quotation_Status == 5))
             {
                 cmdCreateProject.Enabled = true;
                 cmdCreateProject.Text = "Create Project";
