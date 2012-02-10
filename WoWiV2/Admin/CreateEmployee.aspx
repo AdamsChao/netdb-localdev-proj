@@ -132,7 +132,9 @@
                             <td class="style7">
                                 <asp:DropDownList ID="DropDownList2" runat="server" 
                                     DataSourceID="SqlDataSource4" DataTextField="jobtitle_name" 
-                                    DataValueField="jobtitle_id" SelectedValue='<%# Bind("jobtitle_id") %>'>
+                                    DataValueField="jobtitle_id" SelectedValue='<%# Bind("jobtitle_id") %>' 
+                                    AppendDataBoundItems="True">
+                                    <asp:ListItem Value="-1">Select one</asp:ListItem>
                                 </asp:DropDownList>
                                 <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
                                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
@@ -304,7 +306,7 @@
 <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
     DeleteCommand="DELETE FROM [employee] WHERE [id] = @id" 
-    InsertCommand="INSERT INTO [employee] ([username], [password], [fname], [lname],[c_fname], [c_lname], [title], [hiredate], [terminationdate], [workphone], [homephone], [cellphone], [email], [address], [country], [status], [department_id], [accessprivilege], [supervisor_id], [create_date], [create_user], [modify_date], [modify_user], [work_ext], [signature] ,[q_authorize_amt], [q_authorize_currency],[pr_authorize_amt], [pr_authorize_currency]) VALUES (@username, @password, @fname, @lname, @c_fname, @c_lname, @title, @hiredate, @terminationdate, @workphone, @homephone, @cellphone, @email, @address, @country, @status, @department_id, @accessprivilege, @supervisor_id, @create_date, @create_user, @modify_date, @modify_user, @work_ext, @signature, @q_authorize_amt, @q_authorize_currency, @pr_authorize_amt, @pr_authorize_currency)" 
+    InsertCommand="INSERT INTO [employee] ([username], [password], [fname], [lname],[c_fname], [c_lname], [title], [hiredate], [terminationdate], [workphone], [homephone], [cellphone], [email], [address], [country], [status], [department_id], [accessprivilege], [supervisor_id], [create_date], [create_user], [modify_date], [modify_user], [work_ext], [signature] ,[q_authorize_amt], [q_authorize_currency],[pr_authorize_amt], [pr_authorize_currency] , [jobtitle_id]) VALUES (@username, @password, @fname, @lname, @c_fname, @c_lname, @title, @hiredate, @terminationdate, @workphone, @homephone, @cellphone, @email, @address, @country, @status, @department_id, @accessprivilege, @supervisor_id, @create_date, @create_user, @modify_date, @modify_user, @work_ext, @signature, @q_authorize_amt, @q_authorize_currency, @pr_authorize_amt, @pr_authorize_currency,@jobtitle_id)" 
     SelectCommand="SELECT * FROM [employee]" 
     UpdateCommand="UPDATE [employee] SET [username] = @username, [password] = @password, [fname] = @fname, [lname] = @lname, [title] = @title, [hiredate] = @hiredate, [terminationdate] = @terminationdate, [workphone] = @workphone, [homephone] = @homephone, [cellphone] = @cellphone, [email] = @email, [address] = @address, [country] = @country, [status] = @status, [department_id] = @department_id, [accessprivilege] = @accessprivilege, [supervisor_id] = @supervisorid, [create_date] = @create_date, [create_user] = @create_user, [modify_date] = @modify_date, [modify_user] = @modify_user, [work_ext] = @work_ext, [signature] = @signature, [dotesting] = @dotesting WHERE [id] = @id">
     <DeleteParameters>
@@ -315,6 +317,7 @@
         <asp:Parameter Name="password" Type="String" />
         <asp:Parameter Name="fname" Type="String" />
         <asp:Parameter Name="lname" Type="String" />
+        <asp:Parameter Name="jobtitle_id" Type="Int32" />
          <asp:Parameter Name="c_fname" Type="String" />
         <asp:Parameter Name="c_lname" Type="String" />
         <asp:Parameter Name="title" Type="String" />

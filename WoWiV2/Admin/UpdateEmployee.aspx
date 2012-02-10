@@ -146,9 +146,11 @@
                                  <th align="left" class="style4">
                                      <font color="red">*&nbsp;</font>Title:&nbsp;</th>
                                  <td class="style7">
-                                     <asp:DropDownList ID="DropDownList2" runat="server" 
+                                    <asp:DropDownList ID="DropDownList2" runat="server" 
                                     DataSourceID="SqlDataSource4" DataTextField="jobtitle_name" 
-                                    DataValueField="jobtitle_id" SelectedValue='<%# Bind("jobtitle_id") %>'>
+                                    DataValueField="jobtitle_id" SelectedValue='<%# Bind("jobtitle_id") %>' 
+                                    AppendDataBoundItems="True">
+                                    <asp:ListItem Value="-1">Select one</asp:ListItem>
                                 </asp:DropDownList>
                                 <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
                                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
