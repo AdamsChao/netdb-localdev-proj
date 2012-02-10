@@ -234,7 +234,7 @@
                                    </tr>
                                    <tr>
                                    
-                                   <td width="40%" align="right" >Final Prepayment : </td><td width="10%" > </td>
+                                   <td width="40%" align="right" >Final Payment : </td><td width="10%" > </td>
                                    <td width="50%" >
                                    <asp:DropDownList ID="ddlPaymentTermF" runat="server" onload="DropDownList1_Load"  Enabled="false"
                                            SelectedValue='<%# Bind("payment_term_final") %>'>
