@@ -108,7 +108,7 @@
                             Certificate is valid for：
                         </td>
                         <td class="tdRowValue">
-                            <asp:RadioButtonList ID="rblCertificateValid" runat="server" RepeatDirection="Horizontal">
+                            <asp:RadioButtonList ID="rblCertificateValid" runat="server" RepeatDirection="Horizontal" Enabled="false">
                                 <asp:ListItem Text="Single Importer" Value="Single"></asp:ListItem>
                                 <asp:ListItem Text="Any Importer" Value="Any"></asp:ListItem>
                             </asp:RadioButtonList>
