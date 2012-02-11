@@ -40,6 +40,7 @@ public partial class Ima_ImaDetailN : System.Web.UI.Page
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
+
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;

@@ -50,6 +50,7 @@
                                             <asp:ListItem Text="Document review only" Value="Document" Selected="True"></asp:ListItem>
                                             <asp:ListItem Text="One-time on-site Inspection Required" Value="OneTime"></asp:ListItem>
                                             <asp:ListItem Text="Periodic on-site Inspection Required" Value="Periodic"></asp:ListItem>
+                                            <asp:ListItem Value="NotRequired" Text="Not Required"></asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>

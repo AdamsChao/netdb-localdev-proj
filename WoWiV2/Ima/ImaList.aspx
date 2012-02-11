@@ -453,7 +453,7 @@
                                                 Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("PeriodicID") %>'></asp:LinkButton>
                                             <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyN"
                                                 Text="Copy" CommandArgument='<%# Eval("PeriodicID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                            <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailN.aspx?" + Request.QueryString.ToString() + "&pcid="+Eval("PeriodicID").ToString() %>'>Detail</asp:HyperLink>
+                                            <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailN.aspx?" + Request.QueryString.ToString() + "&pfiid="+Eval("PeriodicID").ToString() %>'>Detail</asp:HyperLink>
                                         </ItemTemplate>
                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
                                         <ItemStyle HorizontalAlign="Center" Width="140px" />
@@ -461,10 +461,9 @@
                                     <asp:TemplateField HeaderText="Factory  Inspection">
                                         <ItemTemplate>
                                             <asp:Label ID="lblFactoryInspection" runat="server" Text="Document review only" Visible='<%#Eval("FactoryInspection").ToString()=="Document" ? true : false %>'></asp:Label>
-                                            <asp:Label ID="lblOneTime" runat="server" Text="One-time on-site Inspection Required"
-                                                Visible='<%#Eval("FactoryInspection").ToString()=="OneTime" ? true : false %>'></asp:Label>
-                                            <asp:Label ID="Label2" runat="server" Text="Periodic on-site Inspection Required"
-                                                Visible='<%#Eval("FactoryInspection").ToString()=="Periodic" ? true : false %>'></asp:Label>
+                                            <asp:Label ID="lblOneTime" runat="server" Text="One-time on-site Inspection Required" Visible='<%#Eval("FactoryInspection").ToString()=="OneTime" ? true : false %>'></asp:Label>
+                                            <asp:Label ID="lblPeriodic" runat="server" Text="Periodic on-site Inspection Required" Visible='<%#Eval("FactoryInspection").ToString()=="Periodic" ? true : false %>'></asp:Label>
+                                            <asp:Label ID="lblNotRequired" runat="server" Text="Not Required" Visible='<%#Eval("FactoryInspection").ToString()=="NotRequired" ? true : false %>'></asp:Label>
                                             <%--<asp:RadioButtonList ID="rblFactoryInspection" runat="server">
                                                 <asp:ListItem Text="Document review only" Value="Document" Selected='<%#Eval("FactoryInspection").ToString()=="Document" ? true : false %>'></asp:ListItem>
                                                 <asp:ListItem Text="One-time on-site Inspection Required" Value="OneTime" Selected='<%#Eval("FactoryInspection").ToString()=="OneTime" ? true : false %>'></asp:ListItem>

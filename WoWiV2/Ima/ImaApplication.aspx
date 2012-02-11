@@ -356,6 +356,7 @@
                                             <asp:ListItem Value="LocalCompany" Text="Local Company" Selected="True"></asp:ListItem>
                                             <asp:ListItem Value="LocalDealer" Text="Local Dealer"></asp:ListItem>
                                             <asp:ListItem Value="RealImporter" Text="Real Importer"></asp:ListItem>
+                                            <asp:ListItem Value="NotRequired" Text="Not Required"></asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>

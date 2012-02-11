@@ -36,7 +36,7 @@ public partial class Ima_ImaB : System.Web.UI.Page
                 lblWebsite.Text = dt.Rows[0]["Website"].ToString();
                 lblMandatory.Text = dt.Rows[0]["Mandatory"].ToString();
                 rblCertificateValid.SelectedValue = dt.Rows[0]["CertificateValid"].ToString();
-                rblTransfer.SelectedValue = Convert.ToInt32(dt.Rows[0]["IsTransfer"]).ToString();
+                rblTransfer.SelectedValue = dt.Rows[0]["IsTransfer"].ToString();
                 lblDescription.Text = dt.Rows[0]["Description"].ToString();                
                 trProductType.Visible = true;
                 lblCountry.Text = IMAUtil.GetCountryName(Request.Params["cid"]);
