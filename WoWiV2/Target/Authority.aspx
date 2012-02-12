@@ -45,8 +45,17 @@
                             Text='<%# Bind("wowi_product_type_name") %>'></asp:Label>
                     </EditItemTemplate>
                 </asp:TemplateField>
-                <asp:BoundField DataField="authority_name" HeaderText="Authority Name" 
-                    SortExpression="authority_name" />
+                <asp:TemplateField HeaderText="Authority Name" SortExpression="authority_name">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("authority_name") %>'></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                            ControlToValidate="TextBox1" Display="Dynamic" 
+                            ErrorMessage="Authority Name cant be Empty" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label4" runat="server" Text='<%# Bind("authority_name") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:BoundField DataField="authority_fullname" HeaderText="Authority_Fullname" 
                     SortExpression="authority_fullname" />
                 <asp:BoundField DataField="create_user" HeaderText="create_user" 
