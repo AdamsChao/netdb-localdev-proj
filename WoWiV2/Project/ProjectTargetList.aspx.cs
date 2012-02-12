@@ -30,7 +30,7 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
         else if (!string.IsNullOrEmpty(test_started.Text) && !string.IsNullOrEmpty(test_completed.Text))
         {
             DateTime dt_test_started = DateTime.Parse(test_started.Text);
-            DateTime dt_test_completed = DateTime.Parse(test_completed.Text);
+            DateTime dt_test_completed = DateTime.Parse(test_completed.Text);            
             wk = Math.Ceiling(decimal.Parse(dt_test_completed.Subtract(dt_test_started).Days.ToString()) / 7);
             TextBox_Actual_Lead_time.Text = wk.ToString();            
         }

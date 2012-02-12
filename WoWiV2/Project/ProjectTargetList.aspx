@@ -162,7 +162,7 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                         <asp:Label ID="Label1" runat="server" Text='<%# Bind("authority_id") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="test_started" SortExpression="test_started">
+                <asp:TemplateField HeaderText="test_started<br/>test_completed" SortExpression="test_started">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox3" runat="server" 
                             Text='<%# Bind("test_started","{0:d}") %>'></asp:TextBox>                        
@@ -174,18 +174,10 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                             ImageUrl="~/Images/Calendar_scheduleHS.png" />
                           <asp:CompareValidator ID="CompareValidator1" runat="server" 
                             ControlToValidate="TextBox3" Display="Dynamic" ErrorMessage="日期格式有誤" 
-                            Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
-                    </EditItemTemplate>
-                    <InsertItemTemplate>
-                        <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("test_started") %>'></asp:TextBox>
-                    </InsertItemTemplate>
-                    <ItemTemplate>
-                        <asp:Label ID="Label4" runat="server" Text='<%# Bind("test_started") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="test_completed" SortExpression="test_completed">
-                    <EditItemTemplate>
-                        <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("test_completed","{0:d}") %>'></asp:TextBox>
+                            Operator="DataTypeCheck" SetFocusOnError="True" Type="Date" 
+                            ForeColor="Red"></asp:CompareValidator>
+                            <br/>
+                             <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("test_completed","{0:d}") %>'></asp:TextBox>
                          <ajaxcontroltoolkit:calendarextender ID="TextBox4_CalendarExtender" 
                             runat="server" Enabled="True" Format="yyyy/MM/dd" PopupButtonID="Image2" 
                             TargetControlID="TextBox4">
@@ -194,7 +186,23 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                             ImageUrl="~/Images/Calendar_scheduleHS.png" />
                           <asp:CompareValidator ID="CompareValidator2" runat="server" 
                             ControlToValidate="TextBox4" Display="Dynamic" ErrorMessage="日期格式有誤" 
-                            Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                            Operator="DataTypeCheck" SetFocusOnError="True" Type="Date" 
+                            ForeColor="Red"></asp:CompareValidator>
+                        <asp:CompareValidator ID="CompareValidator7" runat="server" 
+                            ControlToCompare="TextBox4" ControlToValidate="TextBox3" Display="Dynamic" 
+                            ErrorMessage="test started 日期不得大於 test completed，請重新輸入!" ForeColor="Red" 
+                            Operator="LessThan" Type="Date"></asp:CompareValidator>
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                        <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("test_started") %>'></asp:TextBox>
+                    </InsertItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label4" runat="server" Text='<%# Bind("test_started") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+               <%-- <asp:TemplateField HeaderText="test_completed" SortExpression="test_completed">
+                    <EditItemTemplate>
+                       
                     </EditItemTemplate>
                     <InsertItemTemplate>
                         <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("test_completed") %>'></asp:TextBox>
@@ -202,8 +210,8 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                     <ItemTemplate>
                         <asp:Label ID="Label5" runat="server" Text='<%# Bind("test_completed") %>'></asp:Label>
                     </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="certification_submit_to_authority" 
+                </asp:TemplateField>--%>
+                <asp:TemplateField HeaderText="certification_submit_to_authority<br/>certification_completed" 
                     SortExpression="certification_submit_to_authority">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox5" runat="server" 
@@ -217,20 +225,8 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                           <asp:CompareValidator ID="CompareValidator5" runat="server" 
                             ControlToValidate="TextBox5" Display="Dynamic" ErrorMessage="日期格式有誤" 
                             Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
-                    </EditItemTemplate>
-                    <InsertItemTemplate>
-                        <asp:TextBox ID="TextBox6" runat="server" 
-                            Text='<%# Bind("certification_submit_to_authority") %>'></asp:TextBox>
-                    </InsertItemTemplate>
-                    <ItemTemplate>
-                        <asp:Label ID="Label6" runat="server" 
-                            Text='<%# Bind("certification_submit_to_authority") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="certification_completed" 
-                    SortExpression="certification_completed">
-                    <EditItemTemplate>
-                        <asp:TextBox ID="TextBox6" runat="server" 
+                            <br/>
+                             <asp:TextBox ID="TextBox6" runat="server" 
                             Text='<%# Bind("certification_completed","{0:d}") %>'></asp:TextBox>
                             <ajaxcontroltoolkit:calendarextender ID="TextBox6_CalendarExtender" 
                             runat="server" Enabled="True" Format="yyyy/MM/dd" PopupButtonID="Image6" 
@@ -241,6 +237,24 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                           <asp:CompareValidator ID="CompareValidator6" runat="server" 
                             ControlToValidate="TextBox6" Display="Dynamic" ErrorMessage="日期格式有誤" 
                             Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                        <asp:CompareValidator ID="CompareValidator8" runat="server" 
+                            ControlToCompare="TextBox6" ControlToValidate="TextBox5" Display="Dynamic" 
+                            ErrorMessage="certification_submit_to_authority 日期不得大於 certification_completed，請重新輸入!" 
+                            ForeColor="Red" Operator="LessThan" Type="Date"></asp:CompareValidator>
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                        <asp:TextBox ID="TextBox6" runat="server" 
+                            Text='<%# Bind("certification_submit_to_authority") %>'></asp:TextBox>
+                    </InsertItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label6" runat="server" 
+                            Text='<%# Bind("certification_submit_to_authority") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+               <%-- <asp:TemplateField HeaderText="certification_completed" 
+                    SortExpression="certification_completed">
+                    <EditItemTemplate>
+                       
                     </EditItemTemplate>
                     <InsertItemTemplate>
                         <asp:TextBox ID="TextBox7" runat="server" 
@@ -250,7 +264,7 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                         <asp:Label ID="Label7" runat="server" 
                             Text='<%# Bind("certification_completed") %>'></asp:Label>
                     </ItemTemplate>
-                </asp:TemplateField>
+                </asp:TemplateField>--%>
                 <asp:TemplateField HeaderText="Estimated_Lead_time" 
                     SortExpression="Estimated_Lead_time">
                     <EditItemTemplate>
