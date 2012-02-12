@@ -6,7 +6,11 @@
     {
         if (e.Exception!=null)
         {
-            Message.Text = e.Exception.Message;
+            DropDownList country = (DropDownList)DetailsViewAuthority.FindControl("DropDownList1");
+            DropDownList product_type = (DropDownList)DetailsViewAuthority.FindControl("DropDownList2");
+            Message.Text = "The Authority of " + product_type.SelectedItem.Text + " in " + country.SelectedItem.Text + " already Exists! Please try again.";
+            
+            //Message.Text = e.Exception.Message;
             e.ExceptionHandled = true;
         }
         else
@@ -26,7 +30,7 @@
         <br />
         <asp:DetailsView ID="DetailsViewAuthority" runat="server" 
             AutoGenerateRows="False" DataSourceID="SqlDataSourceAuthority" 
-            DefaultMode="Insert" Height="50px" Width="125px" 
+            DefaultMode="Insert" 
             oniteminserted="DetailsViewAuthority_ItemInserted">
             <Fields>
                 <asp:TemplateField HeaderText="Country" SortExpression="country_id">
@@ -70,6 +74,9 @@
                     </EditItemTemplate>
                     <InsertItemTemplate>
                         <asp:TextBox ID="TextBox3" runat="server" Width="90%" Text='<%# Bind("authority_name") %>'></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                            ControlToValidate="TextBox3" Display="Dynamic" 
+                            ErrorMessage="Authority Name cant be Empty" ForeColor="Red"></asp:RequiredFieldValidator>
                     </InsertItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Authority_Fullname" 
