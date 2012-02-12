@@ -256,5 +256,9 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         txtBill_Country.Text = CodeTableController.GetCountryName((int)obj.country_id);
         txtBill_Address.Text = obj.bill_address;
         txtBill_CAddress.Text = obj.bill_caddress;
+        txtPayment_Days.Text = obj.paymentdays.ToString();
+        //ddlPayment_Term.SelectedValue= obj.paymentterm;
+        //txtClient_Status.Text = obj.clientstatus;
+        txtDHL.Text = obj.dhl_acct;
     }
 }
