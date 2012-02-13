@@ -149,10 +149,13 @@
                                     <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                     <ItemStyle HorizontalAlign="Left" />
                                     </asp:BoundField>
-                                    <asp:BoundField DataField="CertificateValid" HeaderText="Valid" >
-                                    <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
-                                    <ItemStyle HorizontalAlign="Center" />
-                                    </asp:BoundField>
+                                    <asp:TemplateField HeaderText="Valid">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCertificateValid" runat="server" Text='<%# Eval("CertificateValid").ToString()!="" ? Eval("CertificateValid").ToString()+" Importer" : "" %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:TemplateField>
                                     <asp:BoundField DataField="wowi_product_type_name" HeaderText="Product Type">
                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                         <ItemStyle HorizontalAlign="Center" />

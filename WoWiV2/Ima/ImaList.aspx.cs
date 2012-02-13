@@ -81,7 +81,7 @@ public partial class Ima_ImaList : System.Web.UI.Page
         btnAdd.Visible = false;
         btnAddDocument.Visible = false;
 
-        if (ddlDocCategory.SelectedValue == "H")
+        if (ddlDocCategory.SelectedValue == "H" || ddlDocCategory.SelectedValue == "B")
         {
             btnAdd.Visible = true;
         }
@@ -120,7 +120,12 @@ public partial class Ima_ImaList : System.Web.UI.Page
         Dictionary<string, string> dic = new Dictionary<string, string>();
         string strURL = "";
         string strParm = "";
-        if (ddlDocCategory.SelectedValue != "H")
+        if (ddlDocCategory.SelectedValue == "H" || ddlDocCategory.SelectedValue == "B")
+        {
+            strParm = rblProductType.SelectedValue;
+            dic.Add("pt", strParm);
+        }
+        else 
         {
             foreach (ListItem li in cbProductType.Items)
             {
@@ -134,11 +139,6 @@ public partial class Ima_ImaList : System.Web.UI.Page
                 strParm = strParm.Remove(0, 1);
                 dic.Add("pt", strParm);
             }
-        }
-        else 
-        {
-            strParm = rblProductType.SelectedValue;
-            dic.Add("pt", strParm);
         }        
 
         if (ddlDocCategory.SelectedValue == "B")
@@ -238,8 +238,8 @@ public partial class Ima_ImaList : System.Web.UI.Page
             trImaGover.Visible = true;
             //lblTitle.Text = "Country：" + IMAUtil.GetCountryName(Request.Params["cid"]) + @" \ Document Categories--> ";
             //lblTitle.Text += ddlDocCategory.SelectedItem.Text + @" \ Data：";
-        }        
-        if (ddlDocCategory.SelectedValue == "H")
+        }
+        if (ddlDocCategory.SelectedValue == "H" || ddlDocCategory.SelectedValue == "B")
         {
             rblProductType.DataBind();
             rblProductType.Visible = true;

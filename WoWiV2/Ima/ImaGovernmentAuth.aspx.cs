@@ -73,6 +73,18 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
         else
         {
             btnSave.Visible = true;
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select * from Authority where country_id=@country_id and wowi_product_type_id=@wowi_product_type_id";
+            cmd.Parameters.AddWithValue("@country_id", Request["cid"]);
+            cmd.Parameters.AddWithValue("@wowi_product_type_id", Request["pt"]);            
+            SqlDataReader sdr = SQLUtil.QueryDR(cmd);
+            while (sdr.Read()) 
+            {
+                tbFullAuthorityName.Text = sdr["authority_fullname"].ToString();
+                tbAbbreviatedAuthorityName.Text = sdr["authority_name"].ToString();
+            }
+            sdr.Close();
         }
     }
 
