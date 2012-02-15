@@ -11,6 +11,7 @@
         {
             WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
             int id = obj.pr_id;
+            if (Session["Session_User_Id"] == null) return;
             int empid = int.Parse(Session["Session_User_Id"].ToString());
             WoWiModel.PR_authority_history auth = new WoWiModel.PR_authority_history();
             auth.pr_id = obj.pr_id;
@@ -87,6 +88,7 @@
         obj.quotaion_id = int.Parse(ddlProjectNo.SelectedValue);
         int proj_id = (from p in db.Project where p.Project_No == ddlProjectNo.SelectedItem.Text select p).First().Project_Id;
         obj.project_id = proj_id;
+        obj.vendor_id = -1;
         obj.currency = "USD";
         obj.create_date = DateTime.Now;
         obj.create_user = User.Identity.Name;

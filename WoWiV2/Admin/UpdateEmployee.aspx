@@ -281,7 +281,7 @@
                          <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" 
                              CommandName="Update" Text="Update" />
                          &nbsp;
-                         <asp:LinkButton ID="UpdateDeleteButton" runat="server" 
+                         <asp:LinkButton ID="UpdateDeleteButton" runat="server" Visible="false"
                              CausesValidation="False" CommandName="Delete" Text="Delete" />
                          &nbsp;
                          <asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" 

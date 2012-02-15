@@ -35,10 +35,9 @@
                            Id = q.Quotation_Version_Id
                        };
             var data = from t in db.Target from qt in db.Quotation_Target from q in list from c in db.country where qt.quotation_id == q.Id & qt.target_id == t.target_id & t.country_id == c.country_id select new { Text = t.target_code + "(" + q.No + ") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
-            (sender as DropDownList).DataSource = data;
+            (sender as DropDownList).DataSource = data.Distinct();
             (sender as DropDownList).DataTextField = "Text";
             (sender as DropDownList).DataValueField = "Id";
-            (sender as DropDownList).DataBind();
         }
         
     }
@@ -427,7 +426,7 @@
             if (!String.IsNullOrEmpty(ddlTarget.SelectedValue))
             {
                 int tid = int.Parse(ddlTarget.SelectedValue);
-
+                if (tid == -1) return;
                 try
                 {
                     String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();

@@ -15,7 +15,7 @@
     </p>
     <p>
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" SkinID="GridView" Width="100%"
-            DataKeyNames="id" DataSourceID="SqlDataSourceClient" AllowPaging="True" 
+            DataKeyNames="id" DataSourceID="SqlDataSourceClient" AllowPaging="True" PageSize="50" 
             AllowSorting="True">
             <Columns>
                 <asp:TemplateField InsertVisible="False" SortExpression="id">

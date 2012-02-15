@@ -43,7 +43,7 @@
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" SkinID="GridView" Width="100%"
-        AutoGenerateColumns="False" DataKeyNames="id" 
+        AutoGenerateColumns="False" DataKeyNames="id" PageSize="50"
         DataSourceID="SqlDataSource1" 
         AllowSorting="True" onrowdatabound="GridView1_RowDataBound" >
         <Columns>
@@ -53,7 +53,7 @@
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl='<%# Bind("id","~/Admin/UpdateEmployee.aspx?id={0}") %>'>Edit</asp:HyperLink>
-                    &nbsp;<asp:HyperLink ID="HyperLink3" NavigateUrl='<%# Bind("id","~/Admin/EmployeeDetails.aspx?id={0}") %>' runat="server">Details</asp:HyperLink>&nbsp;<asp:LinkButton ID="LinkButton1" runat="server" CommandName="Delete" OnClientClick="return confirm('Delete Employee？');">Delete</asp:LinkButton>
+                    &nbsp;<asp:HyperLink ID="HyperLink3" NavigateUrl='<%# Bind("id","~/Admin/EmployeeDetails.aspx?id={0}") %>' runat="server">Details</asp:HyperLink>&nbsp;<asp:LinkButton ID="LinkButton1" runat="server" CommandName="Delete" OnClientClick="return confirm('Delete Employee？');" Visible="false">Delete</asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:BoundField DataField="username" HeaderText="Username" 

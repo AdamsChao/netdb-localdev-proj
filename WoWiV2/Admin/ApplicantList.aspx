@@ -14,7 +14,7 @@
             runat="server" Text="Create" PostBackUrl="~/Admin/CreateApplicant.aspx" />
     </p>
     <p>
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" SkinID="GridView"
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" SkinID="GridView" PageSize="50" 
             DataKeyNames="id" DataSourceID="SqlDataSourceClient" AllowPaging="True"  Width="100%"
             AllowSorting="True">
             <Columns>
