@@ -237,6 +237,13 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         ddlPayment_Term.Text = obj.Payment_Term;
         txtClient_Status.Text = obj.Client_Status;
         txtDHL.Text = obj.DHL_Acct;
+
+        employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
+
+        if (obj.SalesId == emp.id)
+            btnSubmit.Enabled = true;
+        else
+            btnSubmit.Enabled = false;
     }
     protected void DropDownListClient_SelectedIndexChanged(object sender, EventArgs e)
     {

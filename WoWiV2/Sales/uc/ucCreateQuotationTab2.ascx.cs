@@ -15,13 +15,24 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
             LoadDropDown();
 
             int quotation_id = ((Imaster)this.Page).getQuotationID();
-            //if (quotation_id == 0)
-            //{
-            //    quotation_id = ((Imaster)this.Page).saveQuotationID();
-            //}
+
             hidQuotationID.Text = quotation_id.ToString();
             gvData.DataBind();
+
+            if (quotation_id != 0)
+            {
+                Quotation_Version obj = Quotation_Controller.Get_Quotation(quotation_id);
+                employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
+
+                if (obj.SalesId == emp.id)
+                    btnSubmit.Enabled = true;
+                else
+                    btnSubmit.Enabled = false;
+            }
         }
+
+
+
     }
 
     private void LoadDropDown()
@@ -140,7 +151,7 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
     //Target Rate
     private void Get_Target_Rate()
     {
-        if (ddlCountry.SelectedValue != "" && ddlProductType.SelectedValue != "" && ddlAuthority.SelectedValue != "" && ddlTechnology.SelectedValue != "" )
+        if (ddlCountry.SelectedValue != "" && ddlProductType.SelectedValue != "" && ddlAuthority.SelectedValue != "" && ddlTechnology.SelectedValue != "")
         {
             txtRate.Text = CodeTableController.GetAll_Target_Rates(Int32.Parse(ddlCountry.SelectedValue), Int32.Parse(ddlProductType.SelectedValue), ddlAuthority.SelectedItem.Text, Int32.Parse(ddlTechnology.SelectedValue)).ToString();
 
@@ -195,11 +206,11 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
 
         if (isUpdate)
         {
-            Quotation_Version obj = Quotation_Controller.Get_Quotation(quotation_id);           
+            Quotation_Version obj = Quotation_Controller.Get_Quotation(quotation_id);
             obj.revise_date = DateTime.Now;
             obj.modify_user = Page.User.Identity.Name;
             employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
-            obj.modify_user_ID = emp.id;            
+            obj.modify_user_ID = emp.id;
             obj.modify_date = DateTime.Now;
             Quotation_Controller.Update_Quotation(Quotation_Controller.ent, obj);
         }
@@ -314,7 +325,7 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
                 break;
         }
 
-      
+
     }
 
     private void LoadTarget(int TargetID)
@@ -329,7 +340,7 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
         ddlTechnology.SelectedValue = target.technology_id.ToString();
         ddlTarget_Bind();
         ddlTarget.SelectedValue = target.target_id.ToString();
-        txtDespction.Text = target.target_description;        
+        txtDespction.Text = target.target_description;
         txtRate.Text = target.target_rate.ToString();
         txtUnit.Text = target.unit.ToString();
         txtUnitPrice.Text = target.unit_price.ToString();

@@ -86,7 +86,7 @@
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:HyperLinkField DataNavigateUrlFields="Quotation_Version_Id" DataNavigateUrlFormatString="CreateQuotation.aspx?q={0}"
-                    NavigateUrl="CreateQuotation.aspx" Text="Edit" />
+                    NavigateUrl="CreateQuotation.aspx" Text="Edit\View" />
                 <asp:BoundField DataField="Quotation_No" HeaderText="Quot. No" SortExpression="Quotation_No" />
                 <asp:BoundField DataField="Vername" HeaderText="Version" SortExpression="Vername" />
                 <asp:BoundField DataField="Quotation_Status_Name" HeaderText="Status" SortExpression="Quotation_Status_Name" />
