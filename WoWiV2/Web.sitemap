@@ -22,8 +22,9 @@
       <siteMapNode url="~/Target/TargetManagement.aspx" title="Target Management"  description="" />
     </siteMapNode>
     <siteMapNode url="" title="Sales"  description=""  roles="SystemAdmin,Manager,Sales" >
-      <siteMapNode url="~/Sales/CreateQuotation.aspx" title="Quotation"  description="" />
-      <siteMapNode url="~/Sales/Quotation.aspx" title="Quotation Search"  description="" />
+      <!--<siteMapNode url="~/Sales/CreateQuotation.aspx" title="Quotation"  description="" />
+      <siteMapNode url="~/Sales/Quotation.aspx" title="Quotation Search"  description="" />-->
+      <siteMapNode url="~/Sales/Quotation.aspx" title="Quotation"  description="" />
     </siteMapNode>
     <siteMapNode url="" title="Accounting"  description=""  roles="SystemAdmin,Manager,Accounting" >
       <siteMapNode url="~/Accounting/PRList.aspx" title="PR"  description="" />
