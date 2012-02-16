@@ -8,7 +8,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <p>
-        Contact Role List&nbsp;
+        Contact Title List&nbsp;
     <asp:HyperLink ID="HyperLink1" runat="server" 
         NavigateUrl="~/Admin/CreateContactRole.aspx">Create</asp:HyperLink>
  <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
