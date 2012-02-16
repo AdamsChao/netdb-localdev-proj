@@ -211,7 +211,7 @@
                         </asp:DropDownList>
                     </td>
                     <td width="50%">
-                        Product Type:
+                        Certification Type:
                         <asp:DropDownList ID="ddlProductType" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlProductType_SelectedIndexChanged">
                         </asp:DropDownList>
                     </td>
