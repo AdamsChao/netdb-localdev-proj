@@ -56,6 +56,10 @@
                     <td>
                         <asp:TextBox ID="world_region_nameTextBox" runat="server" 
                             Text='<%# Bind("world_region_name") %>' />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                         ControlToValidate="world_region_nameTextBox"  Display="Dynamic"
+                          ForeColor="Red"
+                        ErrorMessage="Region Name Cant be Empty!"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
             </EditItemTemplate>
@@ -108,9 +112,9 @@
                                     <th runat="server">
                                     </th>
                                     <th runat="server">
-                                        world_region_id</th>
+                                        World Region Id</th>
                                     <th runat="server">
-                                        world_region_name</th>
+                                        World Region Name</th>
                                 </tr>
                                 <tr ID="itemPlaceholder" runat="server">
                                 </tr>
