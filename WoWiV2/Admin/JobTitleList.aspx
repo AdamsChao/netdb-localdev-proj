@@ -38,21 +38,21 @@
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
         
-        DeleteCommand="DELETE FROM [employee_jobtitle] WHERE [jobtitle_id] = @id" 
-        InsertCommand="INSERT INTO [employee_jobtitle] ([jobtitle_name], [publish]) VALUES (@name, @publish)" 
+        DeleteCommand="DELETE FROM [employee_jobtitle] WHERE [jobtitle_id] = @jobtitle_id" 
+        InsertCommand="INSERT INTO [employee_jobtitle] ([jobtitle_name], [publish]) VALUES (@jobtitle_name, @publish)" 
        SelectCommand="SELECT * FROM [employee_jobtitle]" 
-        UpdateCommand="UPDATE [employee_jobtitle] SET [jobtitle_name] = @name, [publish] = @publish WHERE [jobtitle_id] = @id">
+        UpdateCommand="UPDATE [employee_jobtitle] SET [jobtitle_name] = @jobtitle_name, [publish] = @publish WHERE [jobtitle_id] = @jobtitle_id">
         <DeleteParameters>
-            <asp:Parameter Name="id" Type="Int32" />
+            <asp:Parameter Name="jobtitle_id" Type="Int32" />
         </DeleteParameters>
         <InsertParameters>
-            <asp:Parameter Name="name" Type="String" />
+            <asp:Parameter Name="jobtitle_name" Type="String" />
             <asp:Parameter Name="publish" Type="Boolean" />
         </InsertParameters>
         <UpdateParameters>
-            <asp:Parameter Name="name" Type="String" />
+            <asp:Parameter Name="jobtitle_name" Type="String" />
             <asp:Parameter Name="publish" Type="Boolean" />
-            <asp:Parameter Name="id" Type="Int32" />
+            <asp:Parameter Name="jobtitle_id" Type="Int32" />
         </UpdateParameters>   
     </asp:SqlDataSource>
      </ContentTemplate>
