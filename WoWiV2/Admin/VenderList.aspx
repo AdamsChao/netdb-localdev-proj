@@ -80,7 +80,7 @@
                 <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                     
-             SelectCommand="SELECT * FROM [vendor] WHERE ([name] LIKE '%' + @name + '%') OR  ([c_name] LIKE '%' + @c_name + '%') ">
+             SelectCommand="SELECT * FROM [vendor] WHERE id > 0 AND (([name] LIKE '%' + @name + '%') OR  ([c_name] LIKE '%' + @c_name + '%')) ">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="tbName" Name="name" PropertyName="Text" 
                             Type="String" />
@@ -91,7 +91,7 @@
                  <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                     
-             SelectCommand="SELECT * FROM [vendor] WHERE ([name] LIKE '%' + @name + '%') ">
+             SelectCommand="SELECT * FROM [vendor] WHERE  id > 0 AND ([name] LIKE '%' + @name + '%') ">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="tbName" Name="name" PropertyName="Text" 
                             Type="String" />
@@ -101,7 +101,7 @@
                  <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                     
-             SelectCommand="SELECT * FROM [vendor] WHERE  ([c_name] LIKE '%' + @c_name + '%') ">
+             SelectCommand="SELECT * FROM [vendor] WHERE  id > 0 AND ([c_name] LIKE '%' + @c_name + '%') ">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="tbCName" Name="c_name" PropertyName="Text" 
                             Type="String" />
