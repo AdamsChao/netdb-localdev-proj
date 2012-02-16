@@ -29,7 +29,7 @@
             <AlternatingItemTemplate>
                 <tr style="">
                     <td>
-                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="編輯" />
+                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
                     </td>
                     <td>
                         <asp:Label ID="world_region_idLabel" runat="server" 
@@ -45,9 +45,9 @@
                 <tr style="">
                     <td>
                         <asp:Button ID="UpdateButton" runat="server" CommandName="Update" 
-                            Text="更新" />
+                            Text="Update" />
                         <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" 
-                            Text="取消" />
+                            Text="Cancel" />
                     </td>
                     <td>
                         <asp:Label ID="world_region_idLabel1" runat="server" 
@@ -71,9 +71,9 @@
                 <tr style="">
                     <td>
                         <asp:Button ID="InsertButton" runat="server" CommandName="Insert" 
-                            Text="插入" />
+                            Text="Insert" />
                         <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" 
-                            Text="清除" />
+                            Text="Cancel" />
                     </td>
                     <td>
                         
@@ -87,7 +87,7 @@
             <ItemTemplate>
                 <tr style="">
                     <td>
-                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="編輯" />
+                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
                     </td>
                     <td>
                         <asp:Label ID="world_region_idLabel" runat="server" 
@@ -136,7 +136,7 @@
                 <tr style="">
                     <td>
                         <asp:Button ID="EditButton" runat="server" CommandName="Edit" 
-                            Text="編輯" />
+                            Text="Edit" />
                     </td>
                     <td>
                         <asp:Label ID="world_region_idLabel" runat="server" 
