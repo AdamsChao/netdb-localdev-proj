@@ -26,10 +26,10 @@
                 <asp:CommandField SelectText="Details" ShowSelectButton="True" />
                 <asp:BoundField DataField="Quotation_Target_Id" 
                     HeaderText="Id" InsertVisible="False" ReadOnly="True" />
-                <asp:BoundField DataField="authority_name" HeaderText="authority_name" 
-                    SortExpression="authority_name" />
                 <asp:BoundField DataField="country_name" HeaderText="country_name" 
                     SortExpression="country_name" />
+                <asp:BoundField DataField="authority_name" HeaderText="authority_name" 
+                    SortExpression="authority_name" />
                 <asp:BoundField DataField="test_started" HeaderText="test_started" 
                     SortExpression="test_started" DataFormatString="{0:d}" />
                 <asp:BoundField DataField="test_completed" HeaderText="test_completed" 
