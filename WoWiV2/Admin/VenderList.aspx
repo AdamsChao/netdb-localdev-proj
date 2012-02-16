@@ -37,15 +37,15 @@
         </asp:ScriptManagerProxy>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate> 
-               <p>
+          Vender List&nbsp;<br>
          Name:
          <asp:TextBox ID="tbName" runat="server"></asp:TextBox>
 &nbsp;or 名稱 :
          <asp:TextBox ID="tbCName" runat="server"></asp:TextBox>
 &nbsp;<asp:Button ID="btnSearch" runat="server" onclick="btnSearch_Click" 
              Text="Search" />
-     <p>
-    Vender List&nbsp;<asp:Button ID="Button1"
+     <br>
+   <asp:Button ID="Button1"
             runat="server" Text="Create" PostBackUrl="~/Admin/CreateVender.aspx" />
                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
                     SkinID="GridView" Width="100%" PageSize="50" 
