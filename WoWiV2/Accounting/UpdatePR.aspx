@@ -95,21 +95,28 @@
             (sender as DropDownList).DataTextField = "Text";
             (sender as DropDownList).DataValueField = "Id";
             (sender as DropDownList).DataBind();
-            WoWiModel.PR_item item = (from i in wowidb.PR_item where i.pr_id ==id select i).First();
-            int tid = (item.quotation_target_id);
-            (sender as DropDownList).SelectedValue = tid.ToString();
             try
             {
-                String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-                var idata = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
-                GridView gv = (FormView1.FindControl("GridView4") as GridView);
-                gv.DataSource = idata;
-                gv.DataBind();
-               
+                WoWiModel.PR_item item = (from i in wowidb.PR_item where i.pr_id == id select i).First();
+                int tid = (item.quotation_target_id);
+                (sender as DropDownList).SelectedValue = tid.ToString();
+                try
+                {
+                    String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
+                    var idata = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
+                    GridView gv = (FormView1.FindControl("GridView4") as GridView);
+                    gv.DataSource = idata;
+                    gv.DataBind();
+
+                }
+                catch (Exception ex)
+                {
+                    //throw ex;//Show Message In Javascript
+                }
             }
             catch (Exception ex)
             {
-                throw ex;//Show Message In Javascript
+                //throw ex;//Show Message In Javascript
             }
         }
         

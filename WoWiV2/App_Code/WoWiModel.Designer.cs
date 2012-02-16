@@ -164,22 +164,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<employee> employees
-        {
-            get
-            {
-                if ((_employees == null))
-                {
-                    _employees = base.CreateObjectSet<employee>("employees");
-                }
-                return _employees;
-            }
-        }
-        private ObjectSet<employee> _employees;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<m_clientappliant_contact> m_clientappliant_contact
         {
             get
@@ -560,6 +544,22 @@ namespace WoWiModel
             }
         }
         private ObjectSet<PR_authority_history> _PR_authority_history;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<employee> employees
+        {
+            get
+            {
+                if ((_employees == null))
+                {
+                    _employees = base.CreateObjectSet<employee>("employees");
+                }
+                return _employees;
+            }
+        }
+        private ObjectSet<employee> _employees;
 
         #endregion
         #region AddTo Methods
@@ -610,14 +610,6 @@ namespace WoWiModel
         public void AddTodepartments(department department)
         {
             base.AddObject("departments", department);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the employees EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToemployees(employee employee)
-        {
-            base.AddObject("employees", employee);
         }
     
         /// <summary>
@@ -810,6 +802,14 @@ namespace WoWiModel
         public void AddToPR_authority_history(PR_authority_history pR_authority_history)
         {
             base.AddObject("PR_authority_history", pR_authority_history);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the employees EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToemployees(employee employee)
+        {
+            base.AddObject("employees", employee);
         }
 
         #endregion
