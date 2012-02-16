@@ -30,7 +30,7 @@
             <Fields>
                 <asp:BoundField DataField="wowi_tech_name" HeaderText="Technology Name" 
                     SortExpression="wowi_tech_name" />
-                <asp:TemplateField HeaderText="Product Type" 
+                <asp:TemplateField HeaderText="Certification Type" 
                     SortExpression="wowi_product_type_id">
                     <ItemTemplate>
                         <asp:Label ID="Label1" runat="server" 

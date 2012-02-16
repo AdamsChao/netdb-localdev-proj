@@ -43,7 +43,8 @@
                     <asp:TextBox ID="TextBox1" runat="server"  Visible="false" Text='<%# Bind("country_id") %>'></asp:TextBox>
                 </EditItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="product_type" SortExpression="product_type_id">
+            <asp:TemplateField HeaderText="Certification Type" 
+                SortExpression="product_type_id">
                 <ItemTemplate>
                     <asp:Label ID="Label2" runat="server" 
                             Text='<%# Bind("wowi_product_type_name") %>'></asp:Label>
@@ -73,7 +74,7 @@
                 </EditItemTemplate>
             </asp:TemplateField>
             <asp:BoundField DataField="target_code" HeaderText="target_code" 
-                SortExpression="target_code" />
+                SortExpression="target_code" Visible="False" />
             <asp:BoundField DataField="target_description" 
                 HeaderText="target_description" />
             <asp:TemplateField HeaderText="target_cost">

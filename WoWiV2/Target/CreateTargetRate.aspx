@@ -99,7 +99,7 @@
             </tr>
             <tr>
                 <td>
-                    Product Type</td>
+                    Certification Type</td>
                 <td>
                     <asp:DropDownList ID="DropDownListPT" runat="server" 
                             DataSourceID="SqlDataSourcePT" DataTextField="wowi_product_type_name" 
@@ -166,15 +166,16 @@
             </tr>
             <tr>
                 <td>
-                    Rate</td>
+                    Rate(USD)</td>
                 <td>
                     <asp:TextBox ID="TextBoxRate" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                        ControlToValidate="TextBoxRate" Display="Dynamic" ErrorMessage="Can't be Empty"></asp:RequiredFieldValidator>
+                        ControlToValidate="TextBoxRate" Display="Dynamic" 
+                        ErrorMessage="Can't be Empty" ForeColor="Red"></asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" 
                         ControlToValidate="TextBoxRate" Display="Dynamic" 
                         ErrorMessage="Please Input Currency" Operator="GreaterThanEqual" 
-                        Type="Currency" ValueToCompare="0"></asp:CompareValidator>
+                        Type="Currency" ValueToCompare="0" ForeColor="Red"></asp:CompareValidator>
                 </td>
             </tr>
             <tr>

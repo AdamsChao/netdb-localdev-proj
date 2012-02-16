@@ -42,7 +42,8 @@
                         <asp:TextBox ID="TextBox1" Visible="false" runat="server" Text='<%# Bind("country_id") %>'></asp:TextBox>
                     </EditItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Product Type" SortExpression="product_type_id">
+                <asp:TemplateField HeaderText="Certification Type" 
+                    SortExpression="product_type_id">
                     <ItemTemplate>
                         <asp:Label ID="Label2" runat="server" 
                             Text='<%# Bind("wowi_product_type_name") %>'></asp:Label>

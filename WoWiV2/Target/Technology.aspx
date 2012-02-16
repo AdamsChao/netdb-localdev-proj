@@ -35,7 +35,7 @@
                     ReadOnly="True" SortExpression="wowi_tech_id" Visible="False" />
                 <asp:BoundField DataField="wowi_tech_name" HeaderText="Technology" 
                     SortExpression="wowi_tech_name" />
-                <asp:TemplateField HeaderText="Product Type" 
+                <asp:TemplateField HeaderText="Certification Type" 
                     SortExpression="wowi_product_type_id">
                     <EditItemTemplate>
                         <asp:DropDownList ID="DropDownListPT" runat="server" 

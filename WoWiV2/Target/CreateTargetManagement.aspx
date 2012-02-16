@@ -57,7 +57,7 @@
         </tr>
         <tr>
             <td>
-                    Product Type</td>
+                    Certification Type</td>
             <td>
                 <asp:DropDownList ID="DropDownListPT" runat="server" 
                             DataSourceID="SqlDataSourcePT" DataTextField="wowi_product_type_name" 
@@ -121,34 +121,33 @@
                     </SelectParameters>
                 </asp:SqlDataSource>
             </td>
-        </tr>
-        <tr>
-            <td>
-                Target Code</td>
-            <td>
-                <asp:TextBox ID="TextBoxCode" runat="server"></asp:TextBox>
-            </td>
-        </tr>
+        </tr>        
         <tr>
             <td>
                 Target Description</td>
             <td>
+                <asp:TextBox ID="TextBoxCode" runat="server" Visible="false"></asp:TextBox>
                 <asp:TextBox ID="TextBoxDes" runat="server" Rows="3" TextMode="MultiLine" 
                     Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td>
-                Target Cost (USD)</td>
+                Target Cost </td>
             <td>
+                <asp:DropDownList ID="DropDownList1" runat="server">
+                    <asp:ListItem>USD</asp:ListItem>
+                    <asp:ListItem>EUR</asp:ListItem>
+                    <asp:ListItem>NTD</asp:ListItem>
+                </asp:DropDownList>
                 <asp:TextBox ID="TextBoxCost" runat="server"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
                         ControlToValidate="TextBoxCost" Display="Dynamic" 
-                    ErrorMessage="Can't be Empty"></asp:RequiredFieldValidator>
+                    ErrorMessage="Can't be Empty" ForeColor="Red"></asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="CompareValidator3" runat="server" 
                         ControlToValidate="TextBoxCost" Display="Dynamic" 
                         ErrorMessage="Please Input Currency" Operator="GreaterThanEqual" 
-                        Type="Currency" ValueToCompare="0"></asp:CompareValidator>
+                        Type="Currency" ValueToCompare="0" ForeColor="Red"></asp:CompareValidator>
             </td>
         </tr>
         <tr>
