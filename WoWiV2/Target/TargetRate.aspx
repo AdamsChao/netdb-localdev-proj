@@ -73,7 +73,7 @@
                         <asp:TextBox ID="TextBox4" Visible="false" runat="server" Text='<%# Bind("Technology_id") %>'></asp:TextBox>
                     </EditItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Rate" SortExpression="rate">
+                <asp:TemplateField HeaderText="Rate (USD)" SortExpression="rate">
                     <ItemTemplate>
                         <asp:Label ID="Label5" runat="server" Text='<%# Bind("rate") %>'></asp:Label>
                     </ItemTemplate>

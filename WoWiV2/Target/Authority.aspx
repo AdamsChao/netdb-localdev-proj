@@ -15,7 +15,7 @@
         <asp:GridView ID="GridViewAuthority" runat="server" AllowPaging="True" 
             AllowSorting="True" AutoGenerateColumns="False" 
             DataKeyNames="country_id,wowi_product_type_id" 
-            DataSourceID="SqlDataSourceAuthority" Width="90%">
+            DataSourceID="SqlDataSourceAuthority" Width="100%" PageSize="20">
             <Columns>
                 <asp:CommandField ShowEditButton="True" />
                 <asp:TemplateField HeaderText="Country" SortExpression="country_id">
