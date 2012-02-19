@@ -11,7 +11,7 @@
         SqlDataSourceTarget.InsertParameters["target_code"].DefaultValue = TextBoxCode.Text;
         SqlDataSourceTarget.InsertParameters["target_description"].DefaultValue = TextBoxDes.Text;
         SqlDataSourceTarget.InsertParameters["target_cost"].DefaultValue = TextBoxCost.Text;
-        
+        SqlDataSourceTarget.InsertParameters["target_cost_currency"].DefaultValue = DropDownListCurrency.SelectedItem.Text;        
         SqlDataSourceTarget.Insert();
     }
 
@@ -135,10 +135,19 @@
             <td>
                 Target Cost </td>
             <td>
-                <asp:DropDownList ID="DropDownList1" runat="server">
+                <asp:DropDownList ID="DropDownListCurrency" runat="server">
                     <asp:ListItem>USD</asp:ListItem>
                     <asp:ListItem>EUR</asp:ListItem>
                     <asp:ListItem>NTD</asp:ListItem>
+                    <asp:ListItem>GNF</asp:ListItem>
+                    <asp:ListItem>MAD</asp:ListItem>
+                    <asp:ListItem>NIO</asp:ListItem>
+                    <asp:ListItem>OMR</asp:ListItem>
+                    <asp:ListItem>ZAR</asp:ListItem>
+                    <asp:ListItem>THB</asp:ListItem>
+                    <asp:ListItem>CFA</asp:ListItem>
+                    <asp:ListItem>AED</asp:ListItem>
+                    <asp:ListItem>XCD</asp:ListItem>
                 </asp:DropDownList>
                 <asp:TextBox ID="TextBoxCost" runat="server"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
@@ -163,10 +172,10 @@
     <asp:SqlDataSource ID="SqlDataSourceTarget" runat="server" 
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
         DeleteCommand="DELETE FROM [Target] WHERE [target_id] = @target_id" 
-        InsertCommand="INSERT INTO [Target] ([country_id], [product_type_id], [authority_id], [technology_id], [target_code], [target_description], [target_cost]) VALUES (@country_id, @product_type_id, @authority_id, @technology_id, @target_code, @target_description, @target_cost)" 
+        InsertCommand="INSERT INTO [Target] ([country_id], [product_type_id], [authority_id], [technology_id], [target_code], [target_description], [target_cost], [target_cost_currency]) VALUES (@country_id, @product_type_id, @authority_id, @technology_id, @target_code, @target_description, @target_cost, @target_cost_currency)" 
         SelectCommand="SELECT * FROM [Target]" 
         
-        UpdateCommand="UPDATE [Target] SET [country_id] = @country_id, [product_type_id] = @product_type_id, [authority_id] = @authority_id, [technology_id] = @technology_id, [target_code] = @target_code, [target_description] = @target_description, [target_cost] = @target_cost WHERE [target_id] = @target_id" 
+        UpdateCommand="UPDATE [Target] SET [country_id] = @country_id, [product_type_id] = @product_type_id, [authority_id] = @authority_id, [technology_id] = @technology_id, [target_code] = @target_code, [target_description] = @target_description, [target_cost] = @target_cost, [target_cost_currency] = @target_cost_currency WHERE [target_id] = @target_id" 
         oninserted="SqlDataSourceTarget_Inserted">
         <DeleteParameters>
             <asp:Parameter Name="target_id" Type="Int32" />
@@ -179,6 +188,7 @@
             <asp:Parameter Name="target_code" Type="String" />
             <asp:Parameter Name="target_description" Type="String" />
             <asp:Parameter Name="target_cost" Type="Decimal" />
+            <asp:Parameter Name="target_cost_currency" Type="String" />
         </InsertParameters>
         <UpdateParameters>
             <asp:Parameter Name="country_id" Type="Int32" />
@@ -188,6 +198,7 @@
             <asp:Parameter Name="target_code" Type="String" />
             <asp:Parameter Name="target_description" Type="String" />
             <asp:Parameter Name="target_cost" Type="Decimal" />
+            <asp:Parameter Name="target_cost_currency" Type="String" />
             <asp:Parameter Name="target_id" Type="Int32" />
         </UpdateParameters>
     </asp:SqlDataSource>
