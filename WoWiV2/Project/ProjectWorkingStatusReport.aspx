@@ -171,15 +171,15 @@
                                                 SortExpression="authority_name" />
                                             <asp:BoundField DataField="VenderName" HeaderText="Agent" 
                                                 SortExpression="companyname" Visible="False" />
-                                            <asp:BoundField DataField="test_started" HeaderText="Test started" 
+                                            <asp:BoundField DataField="test_started" HeaderText="Test Started" 
                                                 SortExpression="test_started" DataFormatString="{0:d}" />
-                                            <asp:BoundField DataField="test_completed" HeaderText="Est. completed" 
+                                            <asp:BoundField DataField="test_completed" HeaderText="Est. Completed" 
                                                 SortExpression="test_completed" DataFormatString="{0:d}" />
                                             <asp:BoundField DataField="certification_submit_to_authority" 
-                                                HeaderText="Submit to authority" 
+                                                HeaderText="Submit to Authority" 
                                                 SortExpression="certification_submit_to_authority" 
                                                 DataFormatString="{0:d}" />
-                                            <asp:BoundField DataField="certification_completed" HeaderText="Est. completed" 
+                                            <asp:BoundField DataField="certification_completed" HeaderText="Est. Completed" 
                                                 SortExpression="certification_completed" DataFormatString="{0:d}" />
                                             <asp:BoundField DataField="Estimated_Lead_time" 
                                                 HeaderText="Estimated Lead Time" SortExpression="Estimated_Lead_time" 
