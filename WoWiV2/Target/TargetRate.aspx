@@ -28,7 +28,7 @@
         <asp:GridView ID="GridViewRate" runat="server" AllowPaging="True" 
             AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Target_rate_id" 
             DataSourceID="SqlDataSourceRate" onrowupdated="GridViewRate_RowUpdated" 
-            PageSize="20" Width="90%">
+            PageSize="20" Width="100%">
             <Columns>
                 <asp:CommandField ShowEditButton="True" />
                 <asp:BoundField DataField="Target_rate_id" HeaderText="Target_rate_id" 
