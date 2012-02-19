@@ -186,6 +186,7 @@
                                                 Visible="False" />
                                             <asp:BoundField DataField="Actual_Lead_time" HeaderText="Actual Lead Time" 
                                                 SortExpression="Actual_Lead_time" Visible="False" />
+                                            <asp:BoundField DataField="CountryManager" HeaderText="Country Manager" />
                                             <asp:TemplateField HeaderText="Project Status">
                                                 <ItemTemplate>
                                                     <asp:Label ID="Label_Quotation_Target_Id" runat="server" Visible="false" 
@@ -211,7 +212,8 @@
                                     </asp:GridView>
                                     <asp:SqlDataSource ID="SqlDataSourceReport" runat="server" 
                                         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                        SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, country.country_name, Authority.authority_name, clientapplicant.companyname, Quotation_Target.test_started, Quotation_Target.test_completed, Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed, Quotation_Target.Estimated_Lead_time, Quotation_Target.Actual_Lead_time, Project.Client_Action, vendor.name AS VenderName, Quotation_Target.Agent FROM Project INNER JOIN Quotation_Target ON Project.Quotation_Id = Quotation_Target.quotation_id INNER JOIN Authority ON Quotation_Target.authority_id = Authority.authority_id INNER JOIN country ON Quotation_Target.country_id = country.country_id INNER JOIN Quotation_Version ON Quotation_Target.quotation_id = Quotation_Version.Quotation_Version_Id INNER JOIN clientapplicant ON Quotation_Version.Applicant_Id = clientapplicant.id INNER JOIN vendor ON Quotation_Target.Agent = vendor.id WHERE (Project.Project_Id = @Project_ID)">
+                                        
+                                        SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, country.country_name, Authority.authority_name, clientapplicant.companyname, Quotation_Target.test_started, Quotation_Target.test_completed, Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed, Quotation_Target.Estimated_Lead_time, Quotation_Target.Actual_Lead_time, Project.Client_Action, vendor.name AS VenderName, Quotation_Target.Agent, (Select fname from employee where id = Country_Manager ) as CountryManager FROM Project INNER JOIN Quotation_Target ON Project.Quotation_Id = Quotation_Target.quotation_id INNER JOIN Authority ON Quotation_Target.authority_id = Authority.authority_id INNER JOIN country ON Quotation_Target.country_id = country.country_id INNER JOIN Quotation_Version ON Quotation_Target.quotation_id = Quotation_Version.Quotation_Version_Id INNER JOIN clientapplicant ON Quotation_Version.Applicant_Id = clientapplicant.id INNER JOIN vendor ON Quotation_Target.Agent = vendor.id WHERE (Project.Project_Id = @Project_ID)">
                                         <SelectParameters>
                                             <asp:ControlParameter ControlID="GridViewProject" Name="Project_ID" 
                                                 PropertyName="SelectedValue" />

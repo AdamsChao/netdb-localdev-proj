@@ -4,6 +4,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <p>
+        Project List Infomation :
+        <br />
         Client :
         <asp:DropDownList ID="DropDownListClient" runat="server" AppendDataBoundItems="True" 
             DataSourceID="SqlDataSourceClient" DataTextField="companyname" 
@@ -23,13 +25,14 @@
         <br />
         <asp:GridView ID="GridViewProject" runat="server" AutoGenerateColumns="False" 
             DataKeyNames="Project_Id" DataSourceID="SqlDataSourceProject" 
-            AllowSorting="True" EmptyDataText="查詢不到任何相關Project資料!">
+            AllowSorting="True" EmptyDataText="查詢不到任何相關Project資料!" AllowPaging="True" 
+            onrowupdated="GridViewProject_RowUpdated" PageSize="20" Width="100%">
             <Columns>
                 <asp:CommandField ShowEditButton="True" />
-                <asp:BoundField DataField="Project_Id" HeaderText="Project_Id" 
+                <asp:BoundField DataField="Project_Id" HeaderText="Project Id" 
                     InsertVisible="False" ReadOnly="True" SortExpression="Project_Id" 
                     Visible="False" />
-                <asp:TemplateField HeaderText="Project_No" SortExpression="Project_No">
+                <asp:TemplateField HeaderText="Project No" SortExpression="Project_No">
                     <EditItemTemplate>
                          <asp:Label ID="Label1" runat="server" Text='<%# Bind("Project_No") %>'></asp:Label>
                     </EditItemTemplate>
@@ -37,7 +40,7 @@
                         <asp:Label ID="Label1" runat="server" Text='<%# Bind("Project_No") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Project_Status" SortExpression="Project_Status">
+                <asp:TemplateField HeaderText="Project Status" SortExpression="Project_Status">
                     <EditItemTemplate>
                         <asp:DropDownList ID="DropDownList2" runat="server" 
                             SelectedValue='<%# Bind("Project_Status") %>'>
@@ -70,6 +73,7 @@
                 </asp:TemplateField>
                 <asp:BoundField DataField="Client" HeaderText="Client" ReadOnly="True" />
                 <asp:BoundField DataField="Applicant" HeaderText="Applicant" ReadOnly="True" />
+                <asp:BoundField DataField="AE" HeaderText="AE" ReadOnly="True" />
                 <asp:TemplateField HeaderText="Create_Date" SortExpression="Create_Date">
                     <EditItemTemplate>
                          <asp:Label ID="Label4" runat="server" Text='<%# Bind("Create_Date") %>'></asp:Label>
@@ -78,7 +82,7 @@
                         <asp:Label ID="Label4" runat="server" Text='<%# Bind("Create_Date") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>                
-                <asp:TemplateField HeaderText="Quotation_No" SortExpression="Quotation_No">
+                <asp:TemplateField HeaderText="Quotation No" SortExpression="Quotation_No">
                     <EditItemTemplate>
                         <asp:Label ID="Label5" runat="server" Visible="false" Text='<%# Bind("Quotation_Id") %>'></asp:Label>
                         <asp:Label ID="Label2" runat="server" Text='<%# Eval("Quotation_No") %>'></asp:Label>

@@ -34,4 +34,17 @@ public partial class Project_ProjectList : System.Web.UI.Page
 
        
     }
+    protected void GridViewProject_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+    {
+        if (e.Exception != null)
+        {
+            Message.Text = e.Exception.Message + " , Please try again!";
+            e.ExceptionHandled = true;
+            e.KeepInEditMode = true;
+        }
+        else
+        {
+            Message.Text = "Project Update Successful!";
+        }
+    }
 }
