@@ -520,7 +520,7 @@
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp;Currency:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
-                                     <asp:TextBox ID="tbCurrency" runat="server" Enabled="false" 
+                                     <asp:TextBox ID="tbCurrency" runat="server" Enabled="false" Text='<%# Eval("Currency") %>'
                                          ></asp:TextBox>
                             </td><th align="left" 
                                    class="style11">&nbsp; Total:&nbsp;</th><td class="style12" width="30%"  >
