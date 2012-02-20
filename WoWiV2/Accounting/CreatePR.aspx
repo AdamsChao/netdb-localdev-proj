@@ -11,21 +11,28 @@
         {
             WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
             int id = obj.pr_id;
-            if (Session["Session_User_Id"] == null) return;
-            int empid = int.Parse(Session["Session_User_Id"].ToString());
-            WoWiModel.PR_authority_history auth = new WoWiModel.PR_authority_history();
-            auth.pr_id = obj.pr_id;
-            auth.requisitioner_id = empid;
-            FillAuthForm(auth);
-            auth.create_date = DateTime.Now;
-            auth.create_user = User.Identity.Name;
-            auth.status = (byte)PRStatus.Init;
-            wowidb.PR_authority_history.AddObject(auth);
-            wowidb.SaveChanges();
-            WoWiModel.PR pr = wowidb.PRs.Where(n => n.pr_id == obj.pr_id).First();
-            pr.pr_auth_id = auth.pr_auth_id;
-            wowidb.SaveChanges();
-            Response.Redirect("~/Accounting/CreatePR_SetItems.aspx?id=" +id );
+            string username = User.Identity.Name;
+            try
+            {
+                int empid = (from emp in wowidb.employees where emp.username == username select emp.id).First();
+                WoWiModel.PR_authority_history auth = new WoWiModel.PR_authority_history();
+                auth.pr_id = obj.pr_id;
+                auth.requisitioner_id = empid;
+                FillAuthForm(auth);
+                auth.create_date = DateTime.Now;
+                auth.create_user = User.Identity.Name;
+                auth.status = (byte)PRStatus.Init;
+                wowidb.PR_authority_history.AddObject(auth);
+                wowidb.SaveChanges();
+                WoWiModel.PR pr = wowidb.PRs.Where(n => n.pr_id == obj.pr_id).First();
+                pr.pr_auth_id = auth.pr_auth_id;
+                wowidb.SaveChanges();
+                Response.Redirect("~/Accounting/CreatePR_SetItems.aspx?id=" + id);
+            }
+            catch
+            {
+            }
+            
         }
     }
     protected void FillAuthForm(WoWiModel.PR_authority_history auth )

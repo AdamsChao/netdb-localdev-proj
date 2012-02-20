@@ -527,48 +527,56 @@
             Button btn = (Button)sender;
             btn.Enabled = false;
             String btnID = btn.ID;
-            int empid = int.Parse(Session["Session_User_Id"].ToString());
-            switch (st)
+            string username = User.Identity.Name;
+            try
             {
-                case PRStatus.Init:
-                    if (btnID == "btnSendReq" || btnID == "btnCancel")
-                    {
-                        if (empid == auth.requisitioner_id)
+                int empid = (from emp in wowidb.employees where emp.username == username select emp.id).First();
+                switch (st)
+                {
+                    case PRStatus.Init:
+                        if (btnID == "btnSendReq" || btnID == "btnCancel")
                         {
-                            btn.Enabled = true;
+                            if (empid == auth.requisitioner_id)
+                            {
+                                btn.Enabled = true;
+                            }
                         }
-                    }
-                        
-                    break;
-                case PRStatus.Requisitioner:
-                    if (btnID == "btnSupervisorApprove" || btnID == "btnSupervisorDisapprove")
-                    {
-                        if (empid == auth.supervisor_id)
+
+                        break;
+                    case PRStatus.Requisitioner:
+                        if (btnID == "btnSupervisorApprove" || btnID == "btnSupervisorDisapprove")
                         {
-                            btn.Enabled = true;
+                            if (empid == auth.supervisor_id)
+                            {
+                                btn.Enabled = true;
+                            }
                         }
-                    }
-                    break;
-                case PRStatus.Supervisor:
-                    if (btnID == "btnVPApprove" || btnID == "btnVPDisapprove")
-                    {
-                        if (empid == auth.vp_id)
+                        break;
+                    case PRStatus.Supervisor:
+                        if (btnID == "btnVPApprove" || btnID == "btnVPDisapprove")
                         {
-                            btn.Enabled = true;
+                            if (empid == auth.vp_id)
+                            {
+                                btn.Enabled = true;
+                            }
                         }
-                    }
-                    break;
-                case PRStatus.VicePresident:
-                    if (btnID == "btnPresidentApprove" || btnID == "btnPresidentDisapprove")
-                    {
-                        if (empid == auth.president_id)
+                        break;
+                    case PRStatus.VicePresident:
+                        if (btnID == "btnPresidentApprove" || btnID == "btnPresidentDisapprove")
                         {
-                            btn.Enabled = true;
+                            if (empid == auth.president_id)
+                            {
+                                btn.Enabled = true;
+                            }
                         }
-                    }
-                    break;
-                
+                        break;
+
+                }
             }
+            catch
+            {
+            }
+            
         }
 
     }
@@ -584,109 +592,116 @@
             WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid select au).First();
             Button btn = (Button)sender;
             String btnID = btn.ID;
-            int empid = int.Parse(Session["Session_User_Id"].ToString());
-            WoWiModel.employee emp = (from c in wowidb.employees where c.id == empid select c).First();
-            String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
-            String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
-            switch (btnID)
+            string username = User.Identity.Name;
+            try
             {
-                case "btnSupervisorApprove":
-                    if (emp.pr_authorize_amt >= obj.total_cost)
-                    {
+                int empid = (from em in wowidb.employees where em.username == username select em.id).First();
+                WoWiModel.employee emp = (from c in wowidb.employees where c.id == empid select c).First();
+                String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
+                String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
+                switch (btnID)
+                {
+                    case "btnSupervisorApprove":
+                        if (emp.pr_authorize_amt >= obj.total_cost)
+                        {
+                            auth.status = (byte)PRStatus.Done;
+                        }
+                        else
+                        {
+                            auth.status = (byte)PRStatus.Supervisor;
+                        }
+                        auth.supervisor_date = DateTime.Now;
+                        (FormView1.FindControl("lblSupervisorDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
+                        auth.supervisor_approval = "y";
+                        if (!String.IsNullOrEmpty(remark.Trim()))
+                        {
+                            auth.remark += remark + " by " + auth.supervisor + " <br>";
+                        }
+                        if (!String.IsNullOrEmpty(inst.Trim()))
+                        {
+                            auth.instruction += inst + " by " + auth.supervisor + " <br>";
+                        }
+                        wowidb.SaveChanges();
+                        //Send Email To
+                        if (auth.status == (byte)PRStatus.Supervisor)
+                        {
+                            PRUtils.WaitingForVPApprove(auth);//Not Yet
+                        }
+                        else
+                        {
+                            PRUtils.PRStatusDone(auth);
+                        }
+                        break;
+                    case "btnSupervisorDisapprove":
+                        disapprove(obj, auth, "lblSupervisorDate", auth.supervisor);
+                        //Send Email To Requisitioner
+                        PRUtils.SupervisorDisapprove(auth);//Not Yet
+                        break;
+                    case "btnVPApprove":
+                        if (emp.pr_authorize_amt >= obj.total_cost)
+                        {
+                            auth.status = (byte)PRStatus.Done;
+                        }
+                        else
+                        {
+                            auth.status = (byte)PRStatus.VicePresident;
+                        }
+                        auth.vp_date = DateTime.Now;
+                        (FormView1.FindControl("lblVPDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
+                        auth.vp_approval = "y";
+                        if (!String.IsNullOrEmpty(remark.Trim()))
+                        {
+                            auth.remark += remark + " by " + auth.supervisor + " <br>";
+                        }
+                        if (!String.IsNullOrEmpty(inst.Trim()))
+                        {
+                            auth.instruction += inst + " by " + auth.supervisor + " <br>";
+                        }
+                        wowidb.SaveChanges();
+                        //Send Email To
+                        if (auth.status == (byte)PRStatus.VicePresident)
+                        {
+                            PRUtils.WaitingForPresidentApprove(auth);//Not Yet
+                        }
+                        else
+                        {
+                            PRUtils.PRStatusDone(auth);
+                        }
+                        break;
+                    case "btnVPDisapprove":
+                        disapprove(obj, auth, "lblVPDate", auth.vp);
+                        //Send Email To Requisitioner
+                        PRUtils.VPDisapprove(auth);//Not Yet
+                        break;
+                    case "btnPresidentApprove":
                         auth.status = (byte)PRStatus.Done;
-                    }
-                    else
-                    {
-                        auth.status = (byte)PRStatus.Supervisor;
-                    }
-                    auth.supervisor_date = DateTime.Now;
-                    (FormView1.FindControl("lblSupervisorDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
-                    auth.supervisor_approval = "y";
-                    if (!String.IsNullOrEmpty(remark.Trim()))
-                    {
-                        auth.remark += remark + " by " + auth.supervisor + " <br>";
-                    }
-                    if (!String.IsNullOrEmpty(inst.Trim()))
-                    {
-                        auth.instruction += inst + " by " + auth.supervisor + " <br>";
-                    }
-                    wowidb.SaveChanges();
-                    //Send Email To
-                    if (auth.status == (byte)PRStatus.Supervisor)
-                    {
-                        PRUtils.WaitingForVPApprove(auth);//Not Yet
-                    }
-                    else
-                    {
+                        auth.president_date = DateTime.Now;
+                        (FormView1.FindControl("lblPresidentDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
+                        auth.president_approval = "y";
+                        if (!String.IsNullOrEmpty(remark.Trim()))
+                        {
+                            auth.remark += remark + " by " + auth.supervisor + " <br>";
+                        }
+                        if (!String.IsNullOrEmpty(inst.Trim()))
+                        {
+                            auth.instruction += inst + " by " + auth.supervisor + " <br>";
+                        }
+                        wowidb.SaveChanges();
                         PRUtils.PRStatusDone(auth);
-                    }
-                    break;
-                case "btnSupervisorDisapprove":
-                    disapprove(obj, auth, "lblSupervisorDate",auth.supervisor);
-                    //Send Email To Requisitioner
-                    PRUtils.SupervisorDisapprove(auth);//Not Yet
-                    break;
-                case "btnVPApprove":
-                    if (emp.pr_authorize_amt >= obj.total_cost)
-                    {
-                        auth.status = (byte)PRStatus.Done;
-                    }
-                    else
-                    {
-                        auth.status = (byte)PRStatus.VicePresident;
-                    }
-                    auth.vp_date = DateTime.Now;
-                    (FormView1.FindControl("lblVPDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
-                    auth.vp_approval = "y";
-                    if (!String.IsNullOrEmpty(remark.Trim()))
-                    {
-                        auth.remark += remark + " by " + auth.supervisor + " <br>";
-                    }
-                    if (!String.IsNullOrEmpty(inst.Trim()))
-                    {
-                        auth.instruction += inst + " by " + auth.supervisor + " <br>";
-                    }
-                    wowidb.SaveChanges();
-                    //Send Email To
-                    if (auth.status == (byte)PRStatus.VicePresident)
-                    {
-                        PRUtils.WaitingForPresidentApprove(auth);//Not Yet
-                    }
-                    else
-                    {
-                        PRUtils.PRStatusDone(auth);
-                    }
-                    break;
-                case "btnVPDisapprove":
-                    disapprove(obj, auth, "lblVPDate", auth.vp);
-                    //Send Email To Requisitioner
-                    PRUtils.VPDisapprove(auth);//Not Yet
-                    break;
-                case "btnPresidentApprove":
-                    auth.status = (byte)PRStatus.Done;
-                    auth.president_date = DateTime.Now;
-                    (FormView1.FindControl("lblPresidentDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
-                    auth.president_approval = "y";
-                    if (!String.IsNullOrEmpty(remark.Trim()))
-                    {
-                        auth.remark += remark + " by " + auth.supervisor + " <br>";
-                    }
-                    if (!String.IsNullOrEmpty(inst.Trim()))
-                    {
-                        auth.instruction += inst + " by " + auth.supervisor + " <br>";
-                    }
-                    wowidb.SaveChanges();
-                    PRUtils.PRStatusDone(auth);
-                    break;
-                case "btnPresidentDisapprove":
-                    disapprove(obj, auth, "lblPresidentDate",auth.president);
-                    //Send Email To Requisitioner
-                    PRUtils.PresidentDisapprove(auth);//Not Yet
-                    break;
+                        break;
+                    case "btnPresidentDisapprove":
+                        disapprove(obj, auth, "lblPresidentDate", auth.president);
+                        //Send Email To Requisitioner
+                        PRUtils.PresidentDisapprove(auth);//Not Yet
+                        break;
+                }
+                (FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
+                (FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
+                Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
             }
-            (FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
-            (FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
-            Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
+            catch
+            {
+            }
         }
     }
 
