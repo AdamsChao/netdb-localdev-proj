@@ -56,7 +56,7 @@
 
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" SkinID="GridView"  Width="100%"
         AutoGenerateColumns="False" DataKeyNames="id" AllowSorting="True"
-        DataSourceID="SqlDataSource1" >
+        DataSourceID="SqlDataSource1" PageSize="50" >
         <Columns>
             <asp:TemplateField InsertVisible="False" SortExpression="id">
                 <EditItemTemplate>
