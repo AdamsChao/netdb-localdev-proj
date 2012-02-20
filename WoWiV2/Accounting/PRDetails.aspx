@@ -107,13 +107,23 @@
             (sender as DropDownList).DataValueField = "Id";
             (sender as DropDownList).DataBind();
             (sender as DropDownList).Enabled = false;
-            int tid= (from c in wowidb.PR_item where c.pr_id == id select c.quotation_target_id).First();
-            (sender as DropDownList).SelectedValue = tid.ToString();
-            String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-            var data2 = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
-            GridView gv = (FormView1.FindControl("GridView4") as GridView);
-            gv.DataSource = data2;
-            gv.DataBind();
+            try
+            {
+                int tid = (from c in wowidb.PR_item where c.pr_id == id select c.quotation_target_id).First();
+                (sender as DropDownList).SelectedValue = tid.ToString();
+                String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
+                var data2 = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
+                GridView gv = (FormView1.FindControl("GridView4") as GridView);
+                gv.DataSource = data2;
+                gv.DataBind();
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+            
+            
         }
         
     }
