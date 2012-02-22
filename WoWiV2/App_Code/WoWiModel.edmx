@@ -29,6 +29,7 @@
           <EntitySet Name="PR" EntityType="WoWiModel.Store.PR" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PR_authority_history" EntityType="WoWiModel.Store.PR_authority_history" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PR_item" EntityType="WoWiModel.Store.PR_item" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PR_Payment" EntityType="WoWiModel.Store.PR_Payment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Quotation_Price" EntityType="WoWiModel.Store.Quotation_Price" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Target_Rates" EntityType="WoWiModel.Store.Target_Rates" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="venderbanking" EntityType="WoWiModel.Store.venderbanking" store:Type="Tables" Schema="dbo" />
@@ -423,6 +424,24 @@
           <Property Name="quotation_target_id" Type="int" Nullable="false" />
           <Property Name="quotation_id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="PR_Payment">
+          <Key>
+            <PropertyRef Name="pr_pay_id" />
+          </Key>
+          <Property Name="pr_pay_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="pr_id" Type="int" Nullable="false" />
+          <Property Name="exchange_rate" Type="float" Nullable="false" />
+          <Property Name="exchanged_amount" Type="decimal" Precision="10" Scale="5" />
+          <Property Name="original_amount" Type="decimal" Precision="10" Scale="5" />
+          <Property Name="adjust_amount" Type="decimal" Precision="10" Scale="5" />
+          <Property Name="total_amount" Type="decimal" Precision="10" Scale="5" />
+          <Property Name="fromcurrency" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="tocurrency" Type="nvarchar" MaxLength="10" />
+          <Property Name="rate_operator" Type="nvarchar" MaxLength="5" />
+          <Property Name="adjust_operator" Type="nvarchar" MaxLength="5" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" />
+        </EntityType>
         <EntityType Name="Quotation_Price">
           <Key>
             <PropertyRef Name="quotid" />
@@ -591,6 +610,7 @@
           <EntitySet Name="employee_jobtitle" EntityType="WoWiModel.employee_jobtitle" />
           <EntitySet Name="PR_authority_history" EntityType="WoWiModel.PR_authority_history" />
           <EntitySet Name="employees" EntityType="WoWiModel.employee" />
+          <EntitySet Name="PR_Payment" EntityType="WoWiModel.PR_Payment" />
         </EntityContainer>
         <EntityType Name="clientapplicant_industry">
           <Key>
@@ -1108,6 +1128,24 @@
           <Property Type="Int32" Name="pr_authorize_amt" />
           <Property Type="String" Name="pr_authorize_currency" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="jobtitle_id" />
+        </EntityType>
+        <EntityType Name="PR_Payment">
+          <Key>
+            <PropertyRef Name="pr_pay_id" />
+          </Key>
+          <Property Type="Int32" Name="pr_pay_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="pr_id" Nullable="false" />
+          <Property Type="Double" Name="exchange_rate" Nullable="false" />
+          <Property Type="Decimal" Name="exchanged_amount" Precision="10" Scale="5" />
+          <Property Type="Decimal" Name="original_amount" Precision="10" Scale="5" />
+          <Property Type="Decimal" Name="adjust_amount" Precision="10" Scale="5" />
+          <Property Type="Decimal" Name="total_amount" Precision="10" Scale="5" />
+          <Property Type="String" Name="fromcurrency" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="tocurrency" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="rate_operator" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="adjust_operator" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="status" Nullable="false" />
+          <Property Type="DateTime" Name="modify_date" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1654,6 +1692,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PR_Payment">
+            <EntityTypeMapping TypeName="WoWiModel.PR_Payment">
+              <MappingFragment StoreEntitySet="PR_Payment">
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="adjust_operator" ColumnName="adjust_operator" />
+                <ScalarProperty Name="rate_operator" ColumnName="rate_operator" />
+                <ScalarProperty Name="tocurrency" ColumnName="tocurrency" />
+                <ScalarProperty Name="fromcurrency" ColumnName="fromcurrency" />
+                <ScalarProperty Name="total_amount" ColumnName="total_amount" />
+                <ScalarProperty Name="adjust_amount" ColumnName="adjust_amount" />
+                <ScalarProperty Name="original_amount" ColumnName="original_amount" />
+                <ScalarProperty Name="exchanged_amount" ColumnName="exchanged_amount" />
+                <ScalarProperty Name="exchange_rate" ColumnName="exchange_rate" />
+                <ScalarProperty Name="pr_id" ColumnName="pr_id" />
+                <ScalarProperty Name="pr_pay_id" ColumnName="pr_pay_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1706,6 +1763,7 @@
         <EntityTypeShape EntityType="WoWiModel.employee_jobtitle" Width="1.5" PointX="15.375" PointY="9.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.PR_authority_history" Width="1.5" PointX="7.375" PointY="15.75" Height="6.77585937500001" />
         <EntityTypeShape EntityType="WoWiModel.employee" Width="1.5" PointX="15.375" PointY="12.75" Height="6.4239713541666674" />
+        <EntityTypeShape EntityType="WoWiModel.PR_Payment" Width="1.5" PointX="17.375" PointY="0.75" Height="3.2569791666666674" />
       </Diagram>
     </Diagrams>
   </Designer>

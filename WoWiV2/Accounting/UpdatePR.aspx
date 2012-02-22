@@ -9,6 +9,11 @@
  
     protected void ddlVenderList_Load(object sender, EventArgs e)
     {
+
+        if (!String.IsNullOrEmpty(Request.QueryString["type"]) && Request.QueryString["type"]=="payment")
+        {
+            (sender as DropDownList).Enabled = false;
+        }
         if (Page.IsPostBack) return;
         var list = (from c in wowidb.vendors from country in wowidb.countries where c.country == country.country_id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name+" ]" : c.name + " - [ " + country.country_name+" ]" });
 
@@ -76,6 +81,10 @@
     protected void ddlTarget_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
+        if (!String.IsNullOrEmpty(Request.QueryString["type"]) && Request.QueryString["type"] == "payment")
+        {
+            (sender as DropDownList).Enabled = false;
+        }
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             id = int.Parse(Request.QueryString["id"]);
@@ -169,6 +178,10 @@
     }
     protected void initContact(int id)
     {
+        if (!String.IsNullOrEmpty(Request.QueryString["type"]) && Request.QueryString["type"] == "payment")
+        {
+            (FormView1.FindControl("ddlContact") as DropDownList).Enabled = false;
+        }
         DropDownList ddl = (FormView1.FindControl("ddlContact") as DropDownList);
         Label lbl = FormView1.FindControl("lblC") as Label;
         GridView gv = (FormView1.FindControl("GridView1") as GridView);
@@ -322,6 +335,8 @@
         {
             id = int.Parse(Request.QueryString["id"]);
         }
+        
+  
        
     }
 
@@ -522,7 +537,8 @@
             WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
             if (obj.pr_auth_id == null) return;
             int authid = (int)obj.pr_auth_id;
-            WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid select au).First();
+            const byte hisStatus= (byte)PRStatus.History;
+            WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid & ((byte)au.status) != hisStatus select au).First();
             PRStatus st = (PRStatus) auth.status;
             Button btn = (Button)sender;
             btn.Enabled = false;
@@ -570,7 +586,18 @@
                             }
                         }
                         break;
-
+                    case PRStatus.Done:
+                        if (Request.QueryString["type"] == "payment")
+                        {
+                            if (btnID == "btnPay")
+                            {
+                                if (empid == auth.finance_id)
+                                {
+                                    btn.Enabled = true;
+                                }
+                            }
+                        }
+                        break;
                 }
             }
             catch
@@ -613,13 +640,13 @@
                         auth.supervisor_date = DateTime.Now;
                         (FormView1.FindControl("lblSupervisorDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
                         auth.supervisor_approval = "y";
-                        if (!String.IsNullOrEmpty(remark.Trim()))
+                        if (remark.Trim() == "")
                         {
-                            auth.remark += remark + " by " + auth.supervisor + " <br>";
+                            auth.remark += remark + " by " + auth.supervisor + " / ";
                         }
-                        if (!String.IsNullOrEmpty(inst.Trim()))
+                        if (inst.Trim() == "")
                         {
-                            auth.instruction += inst + " by " + auth.supervisor + " <br>";
+                            auth.instruction += inst + " by " + auth.supervisor + " / ";
                         }
                         wowidb.SaveChanges();
                         //Send Email To
@@ -651,11 +678,11 @@
                         auth.vp_approval = "y";
                         if (!String.IsNullOrEmpty(remark.Trim()))
                         {
-                            auth.remark += remark + " by " + auth.supervisor + " <br>";
+                            auth.remark += remark + " by " + auth.supervisor + " / ";
                         }
                         if (!String.IsNullOrEmpty(inst.Trim()))
                         {
-                            auth.instruction += inst + " by " + auth.supervisor + " <br>";
+                            auth.instruction += inst + " by " + auth.supervisor + " / ";
                         }
                         wowidb.SaveChanges();
                         //Send Email To
@@ -680,11 +707,11 @@
                         auth.president_approval = "y";
                         if (!String.IsNullOrEmpty(remark.Trim()))
                         {
-                            auth.remark += remark + " by " + auth.supervisor + " <br>";
+                            auth.remark += remark + " by " + auth.supervisor + " / ";
                         }
                         if (!String.IsNullOrEmpty(inst.Trim()))
                         {
-                            auth.instruction += inst + " by " + auth.supervisor + " <br>";
+                            auth.instruction += inst + " by " + auth.supervisor + " / ";
                         }
                         wowidb.SaveChanges();
                         PRUtils.PRStatusDone(auth);
@@ -693,6 +720,9 @@
                         disapprove(obj, auth, "lblPresidentDate", auth.president);
                         //Send Email To Requisitioner
                         PRUtils.PresidentDisapprove(auth);//Not Yet
+                        break;
+                    case "btnPay":
+                        Response.Redirect("~/Accounting/PRPayment.aspx?id=" + obj.pr_id);
                         break;
                 }
                 (FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
@@ -710,13 +740,13 @@
         (FormView1.FindControl(labelId) as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
         String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
         String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
-        if (!String.IsNullOrEmpty(remark))
+        if (!String.IsNullOrEmpty(remark.Trim()))
         {
-            auth.remark += remark + " by " + owner + " <br>";
+            auth.remark += remark + " by " + owner + " / ";
         }
-        if (!String.IsNullOrEmpty(inst))
+        if (!String.IsNullOrEmpty(inst.Trim()))
         {
-            auth.instruction += inst + " by " + owner + " <br>";
+            auth.instruction += inst + " by " + owner + " / ";
         }
         auth.status = (byte)PRStatus.History;//Become History
         (FormView1.FindControl("lblStatus") as Label).Text = PRStatus.History.ToString();
@@ -823,11 +853,11 @@
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp;Currency:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
-                                     <asp:TextBox ID="tbCurrency" runat="server" Text='<%# Bind("currency")%>'
+                                     <asp:TextBox ID="tbCurrency" runat="server" Text='<%# Bind("currency")%>' Enabled="False"
                                          ></asp:TextBox>
                             </td><th align="left" 
                                    class="style11">&nbsp; Total:&nbsp;</th><td class="style12" width="30%">
-                                    <asp:TextBox ID="tbTotalAmount" runat="server"  Text='<%# Bind("total_cost")%>'
+                                    <asp:TextBox ID="tbTotalAmount" runat="server"  Text='<%# Bind("total_cost")%>' Enabled="False"
                                          ></asp:TextBox>
                             </td></tr>
                             <tr><th 
@@ -1175,7 +1205,7 @@
                                      
                                  </td>
                                  <td>
-                                    
+                                     <asp:Button ID="btnPay" runat="server" Text="Payment"  onload="btn_Load" onclick="btn_Click" enabled="false"/>
                                  </td>
                                  <td>
                                      <asp:Label ID="lblFinance" runat="server" Text=""  OnLoad="AuthLabel_Load"></asp:Label>
