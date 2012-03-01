@@ -5,10 +5,7 @@
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Page.IsPostBack)
-        {
-            selectionChanged();
-        }
+       
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             
@@ -41,9 +38,15 @@
                 {
                     lblAddress.Text += String.IsNullOrEmpty(vendor.c_address) ? "" : " / " + vendor.c_address;
                 }
-                int bank_id = (int)obj.vendor_banking_id;
-                WoWiModel.venderbanking bank = (from b in wowidb.venderbankings where b.bank_id == bank_id select b).First();
-                lblAcctNo.Text = bank.bank_account_no;
+                try
+                {
+                    int bank_id = (int)obj.vendor_banking_id;
+                    WoWiModel.venderbanking bank = (from b in wowidb.venderbankings where b.bank_id == bank_id select b).First();
+                    lblAcctNo.Text = bank.bank_account_no;
+                }
+                catch
+                {
+                }
                 int contact_id = (int)obj.vendor_contact_id;
                 WoWiModel.contact_info contact = (from con in wowidb.contact_info where con.id == contact_id select con).First();
                 lblContact.Text = String.IsNullOrEmpty(contact.fname) ? "" : contact.fname + "" + contact.lname;
@@ -115,6 +118,10 @@
             }
             catch
             {
+            }
+            if (Page.IsPostBack)
+            {
+                selectionChanged();
             }
            
         }
@@ -358,6 +365,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+ 
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td align="right" class="ccstextboxh" colspan="3" height="15" valign="top">
@@ -442,11 +450,14 @@
                             <asp:Label ID="lblClientEmail" runat="server" Text="lblClientEmail"></asp:Label>
                         </td>
                     </tr>
-                    <tr>
-      &nbsp;</td>
-                        <td align="left" class="ccstextboxh">
-                            <br />
-                        </td>
+                    <caption>
+                        &nbsp;</caption>
+            </td>
+                        <tr>
+                            <td align="left" class="ccstextboxh">
+                                <br />
+                            </td>
+            </tr>
                     </tr>
                 </table>
             </td>
@@ -475,7 +486,8 @@
        <tr>
             <td class="ccstextboxh" valign="top">
                 <u>Instruction</u><br />
-                <asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px"></asp:TextBox>
+                <asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px" 
+                    Enabled="False"></asp:TextBox>
                 <br />
             </td>
             <td align="right" class="ccstextboxh">
@@ -629,6 +641,8 @@
         </table>
         <!-- end body -->
     </p>
-    </form>
+   
+   
+     </form>
 </body>
 </html>
