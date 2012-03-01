@@ -517,9 +517,16 @@
             auth.requisitioner_approval = "y";
             String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
             String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
-            auth.remark = remark + " by "+auth.requisitioner+" \n";
+            if (remark.Trim() != "")
+            {
+                auth.remark = remark + " by " + auth.requisitioner + " \n";
+            }
             (FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
-            auth.instruction = inst + " by " + auth.requisitioner + " \n";
+
+            if (inst.Trim() != "")
+            {
+                auth.instruction = inst + " by " + auth.requisitioner + " \n";
+            }
             (FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
             wowidb.SaveChanges();
             //Send Email
@@ -642,11 +649,11 @@
                         auth.supervisor_approval = "y";
                         if (remark.Trim() == "")
                         {
-                            auth.remark += remark + " by " + auth.supervisor + " / ";
+                            auth.remark += remark + " by " + auth.supervisor + " \n";
                         }
                         if (inst.Trim() == "")
                         {
-                            auth.instruction += inst + " by " + auth.supervisor + " / ";
+                            auth.instruction += inst + " by " + auth.supervisor + " \n";
                         }
                         wowidb.SaveChanges();
                         //Send Email To
@@ -678,11 +685,11 @@
                         auth.vp_approval = "y";
                         if (!String.IsNullOrEmpty(remark.Trim()))
                         {
-                            auth.remark += remark + " by " + auth.supervisor + " / ";
+                            auth.remark += remark + " by " + auth.vp + " \n";
                         }
                         if (!String.IsNullOrEmpty(inst.Trim()))
                         {
-                            auth.instruction += inst + " by " + auth.supervisor + " / ";
+                            auth.instruction += inst + " by " + auth.vp + " \n";
                         }
                         wowidb.SaveChanges();
                         //Send Email To
@@ -707,11 +714,11 @@
                         auth.president_approval = "y";
                         if (!String.IsNullOrEmpty(remark.Trim()))
                         {
-                            auth.remark += remark + " by " + auth.supervisor + " / ";
+                            auth.remark += remark + " by " + auth.president + " \n";
                         }
                         if (!String.IsNullOrEmpty(inst.Trim()))
                         {
-                            auth.instruction += inst + " by " + auth.supervisor + " / ";
+                            auth.instruction += inst + " by " + auth.president + " \n";
                         }
                         wowidb.SaveChanges();
                         PRUtils.PRStatusDone(auth);
@@ -725,8 +732,8 @@
                         Response.Redirect("~/Accounting/PRPayment.aspx?id=" + obj.pr_id);
                         break;
                 }
-                (FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
-                (FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
+                //(FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
+                //(FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
                 Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
             }
             catch
@@ -742,11 +749,11 @@
         String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
         if (!String.IsNullOrEmpty(remark.Trim()))
         {
-            auth.remark += remark + " by " + owner + " / ";
+            auth.remark += remark + " by " + owner + " \n";
         }
         if (!String.IsNullOrEmpty(inst.Trim()))
         {
-            auth.instruction += inst + " by " + owner + " / ";
+            auth.instruction += inst + " by " + owner + " \n";
         }
         auth.status = (byte)PRStatus.History;//Become History
         (FormView1.FindControl("lblStatus") as Label).Text = PRStatus.History.ToString();
