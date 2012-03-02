@@ -30,7 +30,7 @@
                         <asp:Label ID="Label4" runat="server" Text='<%# Bind("country_name") %>'></asp:Label>
                     </EditItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Product Type" 
+                <asp:TemplateField HeaderText="Certification Type" 
                     SortExpression="wowi_product_type_id">
                     <ItemTemplate>
                         <asp:Label ID="Label2" runat="server" 
