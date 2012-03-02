@@ -103,7 +103,8 @@
 
     protected void ddlProjectNo_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if(ddlQuotationNo.Items.Count >=2){
+        if (ddlQuotationNo.Items.Count >= 2)
+        {
             ddlQuotationNo.Items.RemoveAt(1);
         }
         int id= int.Parse(ddlProjectNo.SelectedValue);
@@ -114,7 +115,7 @@
     }
     protected void ddlProjectNo_Load(object sender, EventArgs e)
     {
-       
+        if (Page.IsPostBack) return;
         ddlProjectNo.DataSource = db.Project;
         ddlProjectNo.DataTextField = "Project_No";
         ddlProjectNo.DataValueField = "Quotation_Id";

@@ -80,8 +80,9 @@
     protected void Button1_Click(object sender, EventArgs e)
     {
        
-        Panel1.Visible = true;
-        tbIssueInvoice.Text = String.Format("W{0}{1}", DateTime.Now.ToString("yyyyMMdd"), GetSerialNum());
+        //Panel1.Visible = true;
+        //tbIssueInvoice.Text = String.Format("W{0}{1}", DateTime.Now.ToString("yyyyMMdd"), GetSerialNum());
+        Response.Redirect("~/Accounting/CreateInvoice.aspx");
     }
     
     protected void Button2_Click(object sender, EventArgs e)
@@ -95,22 +96,22 @@
 
     protected void DropDownList5_SelectedIndexChanged(object sender, EventArgs e)
     {
-        List<ProjectInvoiceData> list = new List<ProjectInvoiceData>()
-        {
-            new ProjectInvoiceData(){ Version="I11100085-Main", Status = "Done",Date="2011/06/20",TDescription="TW",Qty="1",UOM="EA",UnitPrice="2000",FPrice="2000",Bill="CB"},
-            new ProjectInvoiceData(){ Version="I11100085-A01", Status = "Done",Date="2011/06/10",TDescription="TW1",Qty="2",UOM="EA",UnitPrice="3000",FPrice="3000",Bill="預收 60% 尾款 40%"},
-            new ProjectInvoiceData(){ Version="I11100085-A02", Status = "Cancel",Date="2011/06/12",TDescription="TW2",Qty="1",UOM="EA",UnitPrice="4000",FPrice="4000",Bill="CB"},
-            new ProjectInvoiceData(){ Version="I11100085-A03", Status = "Done",Date="2011/06/15",TDescription="TW3",Qty="1",UOM="EA",UnitPrice="5000",FPrice="5000",Bill="預收 20% 尾款 80%"},
-            new ProjectInvoiceData(){ UnitPrice="Total : ", FPrice="US$14000"},
-            new ProjectInvoiceData(){ UnitPrice="Tax : ", FPrice="0"},
-            new ProjectInvoiceData(){ UnitPrice="Amount Due : ", FPrice="US$14000"},
-            new ProjectInvoiceData(){ UnitPrice="Exchange Rate : ", FPrice="29"},
-            new ProjectInvoiceData(){ UnitPrice="Total : ", FPrice="NT$406000"}
+        //List<ProjectInvoiceData> list = new List<ProjectInvoiceData>()
+        //{
+        //    new ProjectInvoiceData(){ Version="I11100085-Main", Status = "Done",Date="2011/06/20",TDescription="TW",Qty="1",UOM="EA",UnitPrice="2000",FPrice="2000",Bill="CB"},
+        //    new ProjectInvoiceData(){ Version="I11100085-A01", Status = "Done",Date="2011/06/10",TDescription="TW1",Qty="2",UOM="EA",UnitPrice="3000",FPrice="3000",Bill="預收 60% 尾款 40%"},
+        //    new ProjectInvoiceData(){ Version="I11100085-A02", Status = "Cancel",Date="2011/06/12",TDescription="TW2",Qty="1",UOM="EA",UnitPrice="4000",FPrice="4000",Bill="CB"},
+        //    new ProjectInvoiceData(){ Version="I11100085-A03", Status = "Done",Date="2011/06/15",TDescription="TW3",Qty="1",UOM="EA",UnitPrice="5000",FPrice="5000",Bill="預收 20% 尾款 80%"},
+        //    new ProjectInvoiceData(){ UnitPrice="Total : ", FPrice="US$14000"},
+        //    new ProjectInvoiceData(){ UnitPrice="Tax : ", FPrice="0"},
+        //    new ProjectInvoiceData(){ UnitPrice="Amount Due : ", FPrice="US$14000"},
+        //    new ProjectInvoiceData(){ UnitPrice="Exchange Rate : ", FPrice="29"},
+        //    new ProjectInvoiceData(){ UnitPrice="Total : ", FPrice="NT$406000"}
             
-        };
-        iGridView2.DataSource = list;
-        iGridView2.DataBind();
-        Panel2.Visible = true;
+        //};
+        //iGridView2.DataSource = list;
+        //iGridView2.DataBind();
+        //Panel2.Visible = true;
     }
 </script>
 

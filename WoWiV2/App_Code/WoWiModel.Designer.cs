@@ -468,22 +468,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<invoice> invoices
-        {
-            get
-            {
-                if ((_invoices == null))
-                {
-                    _invoices = base.CreateObjectSet<invoice>("invoices");
-                }
-                return _invoices;
-            }
-        }
-        private ObjectSet<invoice> _invoices;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<PR> PRs
         {
             get
@@ -576,6 +560,38 @@ namespace WoWiModel
             }
         }
         private ObjectSet<PR_Payment> _PR_Payment;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<invoice_target> invoice_target
+        {
+            get
+            {
+                if ((_invoice_target == null))
+                {
+                    _invoice_target = base.CreateObjectSet<invoice_target>("invoice_target");
+                }
+                return _invoice_target;
+            }
+        }
+        private ObjectSet<invoice_target> _invoice_target;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<invoice> invoices
+        {
+            get
+            {
+                if ((_invoices == null))
+                {
+                    _invoices = base.CreateObjectSet<invoice>("invoices");
+                }
+                return _invoices;
+            }
+        }
+        private ObjectSet<invoice> _invoices;
 
         #endregion
         #region AddTo Methods
@@ -781,14 +797,6 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the invoices EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToinvoices(invoice invoice)
-        {
-            base.AddObject("invoices", invoice);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the PRs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToPRs(PR pR)
@@ -834,6 +842,22 @@ namespace WoWiModel
         public void AddToPR_Payment(PR_Payment pR_Payment)
         {
             base.AddObject("PR_Payment", pR_Payment);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the invoice_target EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToinvoice_target(invoice_target invoice_target)
+        {
+            base.AddObject("invoice_target", invoice_target);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the invoices EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToinvoices(invoice invoice)
+        {
+            base.AddObject("invoices", invoice);
         }
 
         #endregion
@@ -1069,6 +1093,30 @@ namespace WoWiModel
         private global::System.Int32 _authority_id;
         partial void Onauthority_idChanging(global::System.Int32 value);
         partial void Onauthority_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String authority_fullname
+        {
+            get
+            {
+                return _authority_fullname;
+            }
+            set
+            {
+                Onauthority_fullnameChanging(value);
+                ReportPropertyChanging("authority_fullname");
+                _authority_fullname = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("authority_fullname");
+                Onauthority_fullnameChanged();
+            }
+        }
+        private global::System.String _authority_fullname;
+        partial void Onauthority_fullnameChanging(global::System.String value);
+        partial void Onauthority_fullnameChanged();
 
         #endregion
     
@@ -3773,6 +3821,54 @@ namespace WoWiModel
         private Nullable<global::System.DateTime> _modify_date;
         partial void Onmodify_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onmodify_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String country_telephone_code
+        {
+            get
+            {
+                return _country_telephone_code;
+            }
+            set
+            {
+                Oncountry_telephone_codeChanging(value);
+                ReportPropertyChanging("country_telephone_code");
+                _country_telephone_code = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("country_telephone_code");
+                Oncountry_telephone_codeChanged();
+            }
+        }
+        private global::System.String _country_telephone_code;
+        partial void Oncountry_telephone_codeChanging(global::System.String value);
+        partial void Oncountry_telephone_codeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String country_currency_type
+        {
+            get
+            {
+                return _country_currency_type;
+            }
+            set
+            {
+                Oncountry_currency_typeChanging(value);
+                ReportPropertyChanging("country_currency_type");
+                _country_currency_type = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("country_currency_type");
+                Oncountry_currency_typeChanged();
+            }
+        }
+        private global::System.String _country_currency_type;
+        partial void Oncountry_currency_typeChanging(global::System.String value);
+        partial void Oncountry_currency_typeChanged();
 
         #endregion
     
@@ -5015,48 +5111,48 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> project_id
+        public global::System.String project_no
         {
             get
             {
-                return _project_id;
+                return _project_no;
             }
             set
             {
-                Onproject_idChanging(value);
-                ReportPropertyChanging("project_id");
-                _project_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("project_id");
-                Onproject_idChanged();
+                Onproject_noChanging(value);
+                ReportPropertyChanging("project_no");
+                _project_no = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("project_no");
+                Onproject_noChanged();
             }
         }
-        private Nullable<global::System.Int32> _project_id;
-        partial void Onproject_idChanging(Nullable<global::System.Int32> value);
-        partial void Onproject_idChanged();
+        private global::System.String _project_no;
+        partial void Onproject_noChanging(global::System.String value);
+        partial void Onproject_noChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> quotaion_id
+        public global::System.String quotaion_no
         {
             get
             {
-                return _quotaion_id;
+                return _quotaion_no;
             }
             set
             {
-                Onquotaion_idChanging(value);
-                ReportPropertyChanging("quotaion_id");
-                _quotaion_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("quotaion_id");
-                Onquotaion_idChanged();
+                Onquotaion_noChanging(value);
+                ReportPropertyChanging("quotaion_no");
+                _quotaion_no = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("quotaion_no");
+                Onquotaion_noChanged();
             }
         }
-        private Nullable<global::System.Int32> _quotaion_id;
-        partial void Onquotaion_idChanging(Nullable<global::System.Int32> value);
-        partial void Onquotaion_idChanged();
+        private global::System.String _quotaion_no;
+        partial void Onquotaion_noChanging(global::System.String value);
+        partial void Onquotaion_noChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5183,48 +5279,24 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> ntd
+        public Nullable<global::System.Decimal> ototal
         {
             get
             {
-                return _ntd;
+                return _ototal;
             }
             set
             {
-                OnntdChanging(value);
-                ReportPropertyChanging("ntd");
-                _ntd = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ntd");
-                OnntdChanged();
+                OnototalChanging(value);
+                ReportPropertyChanging("ototal");
+                _ototal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ototal");
+                OnototalChanged();
             }
         }
-        private Nullable<global::System.Decimal> _ntd;
-        partial void OnntdChanging(Nullable<global::System.Decimal> value);
-        partial void OnntdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> usd
-        {
-            get
-            {
-                return _usd;
-            }
-            set
-            {
-                OnusdChanging(value);
-                ReportPropertyChanging("usd");
-                _usd = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("usd");
-                OnusdChanged();
-            }
-        }
-        private Nullable<global::System.Decimal> _usd;
-        partial void OnusdChanging(Nullable<global::System.Decimal> value);
-        partial void OnusdChanged();
+        private Nullable<global::System.Decimal> _ototal;
+        partial void OnototalChanging(Nullable<global::System.Decimal> value);
+        partial void OnototalChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5279,48 +5351,24 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> ntd_exchange_rate
+        public Nullable<global::System.Decimal> exchange_rate
         {
             get
             {
-                return _ntd_exchange_rate;
+                return _exchange_rate;
             }
             set
             {
-                Onntd_exchange_rateChanging(value);
-                ReportPropertyChanging("ntd_exchange_rate");
-                _ntd_exchange_rate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ntd_exchange_rate");
-                Onntd_exchange_rateChanged();
+                Onexchange_rateChanging(value);
+                ReportPropertyChanging("exchange_rate");
+                _exchange_rate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("exchange_rate");
+                Onexchange_rateChanged();
             }
         }
-        private Nullable<global::System.Decimal> _ntd_exchange_rate;
-        partial void Onntd_exchange_rateChanging(Nullable<global::System.Decimal> value);
-        partial void Onntd_exchange_rateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> usd_exchange_rate
-        {
-            get
-            {
-                return _usd_exchange_rate;
-            }
-            set
-            {
-                Onusd_exchange_rateChanging(value);
-                ReportPropertyChanging("usd_exchange_rate");
-                _usd_exchange_rate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("usd_exchange_rate");
-                Onusd_exchange_rateChanged();
-            }
-        }
-        private Nullable<global::System.Decimal> _usd_exchange_rate;
-        partial void Onusd_exchange_rateChanging(Nullable<global::System.Decimal> value);
-        partial void Onusd_exchange_rateChanged();
+        private Nullable<global::System.Decimal> _exchange_rate;
+        partial void Onexchange_rateChanging(Nullable<global::System.Decimal> value);
+        partial void Onexchange_rateChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5417,6 +5465,463 @@ namespace WoWiModel
         private Nullable<global::System.DateTime> _modify_date;
         partial void Onmodify_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onmodify_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ocurrency
+        {
+            get
+            {
+                return _ocurrency;
+            }
+            set
+            {
+                OnocurrencyChanging(value);
+                ReportPropertyChanging("ocurrency");
+                _ocurrency = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ocurrency");
+                OnocurrencyChanged();
+            }
+        }
+        private global::System.String _ocurrency;
+        partial void OnocurrencyChanging(global::System.String value);
+        partial void OnocurrencyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String remarks
+        {
+            get
+            {
+                return _remarks;
+            }
+            set
+            {
+                OnremarksChanging(value);
+                ReportPropertyChanging("remarks");
+                _remarks = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("remarks");
+                OnremarksChanged();
+            }
+        }
+        private global::System.String _remarks;
+        partial void OnremarksChanging(global::System.String value);
+        partial void OnremarksChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Byte> status
+        {
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                OnstatusChanging(value);
+                ReportPropertyChanging("status");
+                _status = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("status");
+                OnstatusChanged();
+            }
+        }
+        private Nullable<global::System.Byte> _status;
+        partial void OnstatusChanging(Nullable<global::System.Byte> value);
+        partial void OnstatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String exchange_operate
+        {
+            get
+            {
+                return _exchange_operate;
+            }
+            set
+            {
+                Onexchange_operateChanging(value);
+                ReportPropertyChanging("exchange_operate");
+                _exchange_operate = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("exchange_operate");
+                Onexchange_operateChanged();
+            }
+        }
+        private global::System.String _exchange_operate;
+        partial void Onexchange_operateChanging(global::System.String value);
+        partial void Onexchange_operateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> final_total
+        {
+            get
+            {
+                return _final_total;
+            }
+            set
+            {
+                Onfinal_totalChanging(value);
+                ReportPropertyChanging("final_total");
+                _final_total = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("final_total");
+                Onfinal_totalChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _final_total;
+        partial void Onfinal_totalChanging(Nullable<global::System.Decimal> value);
+        partial void Onfinal_totalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> adjust
+        {
+            get
+            {
+                return _adjust;
+            }
+            set
+            {
+                OnadjustChanging(value);
+                ReportPropertyChanging("adjust");
+                _adjust = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("adjust");
+                OnadjustChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _adjust;
+        partial void OnadjustChanging(Nullable<global::System.Decimal> value);
+        partial void OnadjustChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> due_date
+        {
+            get
+            {
+                return _due_date;
+            }
+            set
+            {
+                Ondue_dateChanging(value);
+                ReportPropertyChanging("due_date");
+                _due_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("due_date");
+                Ondue_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _due_date;
+        partial void Ondue_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Ondue_dateChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WoWiModel", Name="invoice_target")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class invoice_target : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new invoice_target object.
+        /// </summary>
+        /// <param name="invoice_target_id">Initial value of the invoice_target_id property.</param>
+        /// <param name="quotation_target_id">Initial value of the quotation_target_id property.</param>
+        /// <param name="quotation_id">Initial value of the quotation_id property.</param>
+        /// <param name="target_id">Initial value of the target_id property.</param>
+        /// <param name="bill_status">Initial value of the bill_status property.</param>
+        /// <param name="percentage">Initial value of the percentage property.</param>
+        /// <param name="modify_date">Initial value of the modify_date property.</param>
+        /// <param name="amount">Initial value of the amount property.</param>
+        /// <param name="invoice_id">Initial value of the invoice_id property.</param>
+        /// <param name="invoice_no">Initial value of the invoice_no property.</param>
+        public static invoice_target Createinvoice_target(global::System.Int32 invoice_target_id, global::System.Int32 quotation_target_id, global::System.Int32 quotation_id, global::System.Int32 target_id, global::System.Byte bill_status, global::System.Int32 percentage, global::System.DateTime modify_date, global::System.Decimal amount, global::System.Int32 invoice_id, global::System.String invoice_no)
+        {
+            invoice_target invoice_target = new invoice_target();
+            invoice_target.invoice_target_id = invoice_target_id;
+            invoice_target.quotation_target_id = quotation_target_id;
+            invoice_target.quotation_id = quotation_id;
+            invoice_target.target_id = target_id;
+            invoice_target.bill_status = bill_status;
+            invoice_target.percentage = percentage;
+            invoice_target.modify_date = modify_date;
+            invoice_target.amount = amount;
+            invoice_target.invoice_id = invoice_id;
+            invoice_target.invoice_no = invoice_no;
+            return invoice_target;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 invoice_target_id
+        {
+            get
+            {
+                return _invoice_target_id;
+            }
+            set
+            {
+                if (_invoice_target_id != value)
+                {
+                    Oninvoice_target_idChanging(value);
+                    ReportPropertyChanging("invoice_target_id");
+                    _invoice_target_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("invoice_target_id");
+                    Oninvoice_target_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _invoice_target_id;
+        partial void Oninvoice_target_idChanging(global::System.Int32 value);
+        partial void Oninvoice_target_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 quotation_target_id
+        {
+            get
+            {
+                return _quotation_target_id;
+            }
+            set
+            {
+                Onquotation_target_idChanging(value);
+                ReportPropertyChanging("quotation_target_id");
+                _quotation_target_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("quotation_target_id");
+                Onquotation_target_idChanged();
+            }
+        }
+        private global::System.Int32 _quotation_target_id;
+        partial void Onquotation_target_idChanging(global::System.Int32 value);
+        partial void Onquotation_target_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 quotation_id
+        {
+            get
+            {
+                return _quotation_id;
+            }
+            set
+            {
+                Onquotation_idChanging(value);
+                ReportPropertyChanging("quotation_id");
+                _quotation_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("quotation_id");
+                Onquotation_idChanged();
+            }
+        }
+        private global::System.Int32 _quotation_id;
+        partial void Onquotation_idChanging(global::System.Int32 value);
+        partial void Onquotation_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 target_id
+        {
+            get
+            {
+                return _target_id;
+            }
+            set
+            {
+                Ontarget_idChanging(value);
+                ReportPropertyChanging("target_id");
+                _target_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("target_id");
+                Ontarget_idChanged();
+            }
+        }
+        private global::System.Int32 _target_id;
+        partial void Ontarget_idChanging(global::System.Int32 value);
+        partial void Ontarget_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte bill_status
+        {
+            get
+            {
+                return _bill_status;
+            }
+            set
+            {
+                Onbill_statusChanging(value);
+                ReportPropertyChanging("bill_status");
+                _bill_status = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("bill_status");
+                Onbill_statusChanged();
+            }
+        }
+        private global::System.Byte _bill_status;
+        partial void Onbill_statusChanging(global::System.Byte value);
+        partial void Onbill_statusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 percentage
+        {
+            get
+            {
+                return _percentage;
+            }
+            set
+            {
+                OnpercentageChanging(value);
+                ReportPropertyChanging("percentage");
+                _percentage = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("percentage");
+                OnpercentageChanged();
+            }
+        }
+        private global::System.Int32 _percentage;
+        partial void OnpercentageChanging(global::System.Int32 value);
+        partial void OnpercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime modify_date
+        {
+            get
+            {
+                return _modify_date;
+            }
+            set
+            {
+                Onmodify_dateChanging(value);
+                ReportPropertyChanging("modify_date");
+                _modify_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("modify_date");
+                Onmodify_dateChanged();
+            }
+        }
+        private global::System.DateTime _modify_date;
+        partial void Onmodify_dateChanging(global::System.DateTime value);
+        partial void Onmodify_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal amount
+        {
+            get
+            {
+                return _amount;
+            }
+            set
+            {
+                OnamountChanging(value);
+                ReportPropertyChanging("amount");
+                _amount = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("amount");
+                OnamountChanged();
+            }
+        }
+        private global::System.Decimal _amount;
+        partial void OnamountChanging(global::System.Decimal value);
+        partial void OnamountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 invoice_id
+        {
+            get
+            {
+                return _invoice_id;
+            }
+            set
+            {
+                Oninvoice_idChanging(value);
+                ReportPropertyChanging("invoice_id");
+                _invoice_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("invoice_id");
+                Oninvoice_idChanged();
+            }
+        }
+        private global::System.Int32 _invoice_id;
+        partial void Oninvoice_idChanging(global::System.Int32 value);
+        partial void Oninvoice_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String invoice_no
+        {
+            get
+            {
+                return _invoice_no;
+            }
+            set
+            {
+                Oninvoice_noChanging(value);
+                ReportPropertyChanging("invoice_no");
+                _invoice_no = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("invoice_no");
+                Oninvoice_noChanged();
+            }
+        }
+        private global::System.String _invoice_no;
+        partial void Oninvoice_noChanging(global::System.String value);
+        partial void Oninvoice_noChanged();
 
         #endregion
     
