@@ -85,6 +85,10 @@
                     <td>
                         <asp:TextBox ID="world_region_nameTextBox" runat="server" 
                             Text='<%# Bind("world_region_name") %>' />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2"
+                         ControlToValidate="world_region_nameTextBox" Display="Dynamic"
+                         runat="server"  ForeColor="Red"
+                         ErrorMessage="World Region Name Cant be Empty!"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
             </InsertItemTemplate>
