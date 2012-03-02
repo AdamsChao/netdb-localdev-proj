@@ -31,7 +31,7 @@
         <asp:DetailsView ID="DetailsViewAuthority" runat="server" 
             AutoGenerateRows="False" DataSourceID="SqlDataSourceAuthority" 
             DefaultMode="Insert" 
-            oniteminserted="DetailsViewAuthority_ItemInserted">
+            oniteminserted="DetailsViewAuthority_ItemInserted" Width="100%">
             <Fields>
                 <asp:TemplateField HeaderText="Country" SortExpression="country_id">
                     <ItemTemplate>
@@ -47,7 +47,7 @@
                         </asp:DropDownList>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Product Type" 
+                <asp:TemplateField HeaderText="Certification Type" 
                     SortExpression="wowi_product_type_id">
                     <ItemTemplate>
                         <asp:Label ID="Label2" runat="server" 
@@ -73,13 +73,13 @@
                         <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("authority_name") %>'></asp:TextBox>
                     </EditItemTemplate>
                     <InsertItemTemplate>
-                        <asp:TextBox ID="TextBox3" runat="server" Width="90%" Text='<%# Bind("authority_name") %>'></asp:TextBox>
+                        <asp:TextBox ID="TextBox3" runat="server" Width="400px" Text='<%# Bind("authority_name") %>'></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                             ControlToValidate="TextBox3" Display="Dynamic" 
                             ErrorMessage="Authority Name cant be Empty" ForeColor="Red"></asp:RequiredFieldValidator>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Authority_Fullname" 
+                <asp:TemplateField HeaderText="Authority Fullname" 
                     SortExpression="authority_fullname">
                     <ItemTemplate>
                         <asp:Label ID="Label4" runat="server" Text='<%# Bind("authority_fullname") %>'></asp:Label>
@@ -89,7 +89,7 @@
                             Text='<%# Bind("authority_fullname") %>'></asp:TextBox>
                     </EditItemTemplate>
                     <InsertItemTemplate>
-                        <asp:TextBox ID="TextBox1" runat="server" Width="90%"
+                        <asp:TextBox ID="TextBox1" runat="server" Width="400px"
                             Text='<%# Bind("authority_fullname") %>'></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
