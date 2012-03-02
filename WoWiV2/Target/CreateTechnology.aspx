@@ -25,17 +25,28 @@
             NavigateUrl="~/Target/Technology.aspx">Technology Lists</asp:HyperLink>
         <br />
         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" 
-            DataSourceID="SqlDataSourceTechnology" DefaultMode="Insert" Height="50px" 
-            oniteminserted="DetailsView1_ItemInserted">
+            DataSourceID="SqlDataSourceTechnology" DefaultMode="Insert" 
+            oniteminserted="DetailsView1_ItemInserted" Width="100%">
             <Fields>
-                <asp:BoundField DataField="wowi_tech_name" HeaderText="Technology Name" 
-                    SortExpression="wowi_tech_name" />
+<asp:TemplateField HeaderText="Technology Name" SortExpression="wowi_tech_name">
+<ItemTemplate>
+                        <asp:Label ID="Label3" runat="server" 
+                            Text='<%# Bind("wowi_tech_name") %>'></asp:Label>
+                    
+</ItemTemplate>
+    <EditItemTemplate>
+        <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("wowi_tech_name") %>'></asp:TextBox>
+    </EditItemTemplate>
+    <InsertItemTemplate>
+        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("wowi_tech_name") %>' 
+            Width="400px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+            ControlToValidate="TextBox1" Display="Dynamic" 
+            ErrorMessage="Technology Name Cant be Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
+    </InsertItemTemplate>
+</asp:TemplateField>
                 <asp:TemplateField HeaderText="Certification Type" 
                     SortExpression="wowi_product_type_id">
-                    <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" 
-                            Text='<%# Bind("wowi_product_type_id") %>'></asp:Label>
-                    </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox1" runat="server" 
                             Text='<%# Bind("wowi_product_type_id") %>'></asp:TextBox>
@@ -56,6 +67,10 @@
                     </InsertItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Publish" SortExpression="publish">
+                    <ItemTemplate>
+                        <asp:Label ID="Label1" runat="server" 
+                            Text='<%# Bind("wowi_product_type_id") %>'></asp:Label>
+                    </ItemTemplate>
                     <ItemTemplate>
                         <asp:Label ID="Label2" runat="server" Text='<%# Bind("publish") %>'></asp:Label>
                     </ItemTemplate>
