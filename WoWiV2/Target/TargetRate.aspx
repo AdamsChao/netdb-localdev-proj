@@ -21,9 +21,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <p>
-        TargetRate Lists :
+        Target Rate Lists :
         <asp:Button ID="Button1" runat="server" 
-            PostBackUrl="~/Target/CreateTargetRate.aspx" Text="Create TargetRate" />
+            PostBackUrl="~/Target/CreateTargetRate.aspx" Text="Create Target Rate" />
         <br />
         <asp:GridView ID="GridViewRate" runat="server" AllowPaging="True" 
             AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Target_rate_id" 
