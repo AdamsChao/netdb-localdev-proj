@@ -28,7 +28,8 @@
     <p>
         <asp:GridView ID="GridView1" runat="server" AllowSorting="True" 
             AutoGenerateColumns="False" DataKeyNames="wowi_tech_id" 
-            DataSourceID="SqlDataSourceTechnology" onrowupdated="GridView1_RowUpdated">
+            DataSourceID="SqlDataSourceTechnology" onrowupdated="GridView1_RowUpdated" 
+            Width="100%">
             <Columns>
                 <asp:CommandField ShowEditButton="True" />
                 <asp:BoundField DataField="wowi_tech_id" HeaderText="wowi_tech_id" 
