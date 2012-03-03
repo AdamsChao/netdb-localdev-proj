@@ -5,7 +5,7 @@
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+       
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             
@@ -38,9 +38,15 @@
                 {
                     lblAddress.Text += String.IsNullOrEmpty(vendor.c_address) ? "" : " / " + vendor.c_address;
                 }
-                int bank_id = (int)obj.vendor_banking_id;
-                WoWiModel.venderbanking bank = (from b in wowidb.venderbankings where b.bank_id == bank_id select b).First();
-                lblAcctNo.Text = bank.bank_account_no;
+                try
+                {
+                    int bank_id = (int)obj.vendor_banking_id;
+                    WoWiModel.venderbanking bank = (from b in wowidb.venderbankings where b.bank_id == bank_id select b).First();
+                    lblAcctNo.Text = bank.bank_account_no;
+                }
+                catch
+                {
+                }
                 int contact_id = (int)obj.vendor_contact_id;
                 WoWiModel.contact_info contact = (from con in wowidb.contact_info where con.id == contact_id select con).First();
                 lblContact.Text = String.IsNullOrEmpty(contact.fname) ? "" : contact.fname + "" + contact.lname;
@@ -107,50 +113,15 @@
                 catch (Exception ex)
                 {
                     //throw ex;//Show Message In Javascript
-                }
-                try
-                {
-                    WoWiModel.PR_Payment payment = (from p in wowidb.PR_Payment where p.pr_id == id & p.status == (byte) PRStatus.Paid select p).First();
-
-                    tbCurrency.Text = payment.tocurrency;
-                    lblFinalCurrency.Text = tbCurrency.Text;
-                    ddlAdjustOperate.SelectedValue = payment.adjust_operator;
-                    ddlOperate.SelectedValue = payment.rate_operator;
-                    tbRate.Text = payment.exchange_rate+"";
-                    tbAdjustAmount.Text = payment.adjust_amount + "";
-                    lblTotal.Text = payment.total_amount+"";
-                    //.Text = payment.fromcurrency;
-                }
-                catch (Exception)
-                {
-                    
-                    //throw;
-                }
-
-                try
-                {
-                    var history = from p in wowidb.PR_Payment where p.pr_id == id & p.status == (byte)PRStatus.PayHistory select new { Original_Currency = p.fromcurrency, Original_TotalPrice = p.original_amount,Paid_Currency = p.tocurrency,Rate_Operator = p.rate_operator,Exchange_Rate = p.exchange_rate,Adjust_Operator = p.adjust_operator,Adjust_Anount=p.adjust_amount ,Balance_Total = p.total_amount, Modify_Date = (DateTime)p.modify_date};
-                    if (history.Count() > 0)
-                    {
-                        lblHisList.Visible = true;
-                        HistoryList.Visible = true;
-                        HistoryList.DataSource = history;
-                        HistoryList.DataBind();
-                    }
-                    else
-                    {
-                        lblHisList.Visible = false;
-                        HistoryList.Visible = false;
-                    }
-                }
-                catch (Exception)
-                {
-                    lblHisList.Visible = false;
-                    HistoryList.Visible = false;
-                }
+                }   
+                
             }
             catch
             {
+            }
+            if (Page.IsPostBack)
+            {
+                selectionChanged();
             }
            
         }
@@ -164,8 +135,183 @@
         return name;
 
     }
-   
-   
+    protected void tbCurrency_TextChanged(object sender, EventArgs e)
+    {
+        TextBox curr = sender as TextBox;
+        lblFinalCurrency.Text = curr.Text;
+    }
+
+    protected void ddlOperate_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+        selectionChanged();
+        
+    }
+
+    private void selectionChanged()
+    {
+        decimal total;
+        decimal rate = 1;
+        try
+        {
+            rate = decimal.Parse(tbRate.Text);
+            
+        }
+        catch
+        {
+        }
+        if (ddlOperate.SelectedValue == "*")
+        {
+            total = decimal.Parse(lblOtotal.Text) * rate;
+        }
+        else
+        {
+            total = decimal.Parse(lblOtotal.Text) / rate;
+        }
+
+        decimal adj = 0;
+        try
+        {
+            adj = decimal.Parse(tbAdjustAmount.Text);
+
+        }
+        catch
+        {
+        }
+
+        if (ddlAdjustOperate.SelectedValue == "+")
+        {
+            total += adj;
+        }
+        else
+        {
+            total -= adj;
+        }
+
+        lblTotal.Text = "" + total;
+    }
+    protected void ddlAdjustOperate_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        selectionChanged();
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        selectionChanged();
+    }
+
+    protected void tbRate_TextChanged(object sender, EventArgs e)
+    {
+        selectionChanged();
+    }
+
+    protected void tbAdjustAmount_TextChanged(object sender, EventArgs e)
+    {
+        selectionChanged();
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+        {
+            int id = int.Parse(Request.QueryString["id"]);
+            try
+            {
+                WoWiModel.PR_Payment payment = new WoWiModel.PR_Payment()
+                {
+                    pr_id = id,
+                    fromcurrency = lblOCurrency.Text,
+                    tocurrency = tbCurrency.Text,
+                    rate_operator = ddlOperate.SelectedValue,
+                    adjust_operator = ddlAdjustOperate.SelectedValue,
+                    modify_date = DateTime.Now,
+                    status = (byte)PRStatus.Paid,
+                    original_amount = decimal.Parse(lblOtotal.Text)
+                };
+                decimal rate = 1;
+                if (!String.IsNullOrEmpty(tbRate.Text))
+                {
+                    try
+                    {
+
+                       rate = decimal.Parse(tbRate.Text);
+                        payment.exchange_rate = (double)rate;
+                    }
+                    catch (Exception)
+                    {
+                        payment.exchange_rate = (double)rate;
+                        
+                    }
+
+                }
+                decimal adj = 0;
+                if (!String.IsNullOrEmpty(tbAdjustAmount.Text))
+                {
+                    try
+                    {
+
+                        adj = decimal.Parse(tbAdjustAmount.Text);
+                        payment.adjust_amount = (decimal)adj;
+                    }
+                    catch (Exception)
+                    {
+
+                        payment.adjust_amount = (decimal)adj;
+                    }
+
+                }
+
+                decimal total;
+                if (ddlOperate.SelectedValue == "*")
+                {
+                    total = decimal.Parse(lblOtotal.Text) * rate;
+                }
+                else
+                {
+                    total = decimal.Parse(lblOtotal.Text) / rate;
+                }
+
+                if (ddlAdjustOperate.SelectedValue == "+")
+                {
+                    total += adj;
+                }
+                else
+                {
+                    total -= adj;
+                }
+                payment.total_amount = total;
+                
+                wowidb.PR_Payment.AddObject(payment);
+                wowidb.SaveChanges();
+                int payid = payment.pr_pay_id;
+                try
+                {
+                    var list = from p in wowidb.PR_Payment where p.pr_id == id & p.pr_pay_id != payid select p;
+                    foreach (var pitem in list)
+                    {
+                        if (pitem.status != (byte)PRStatus.PayHistory)
+                        {
+                            pitem.status = (byte)PRStatus.PayHistory;
+                        }
+                        
+                    }
+                    wowidb.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    
+                    //throw;
+                }
+
+                Response.Redirect("~/Accounting/PRPaymentDetails.aspx?id=" + id);
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+        }
+    }
 </script>
 
 
@@ -219,6 +365,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+ 
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td align="right" class="ccstextboxh" colspan="3" height="15" valign="top">
@@ -303,11 +450,14 @@
                             <asp:Label ID="lblClientEmail" runat="server" Text="lblClientEmail"></asp:Label>
                         </td>
                     </tr>
-                    <tr>
-      &nbsp;</td>
-                        <td align="left" class="ccstextboxh">
-                            <br />
-                        </td>
+                    <caption>
+                        &nbsp;</caption>
+            </td>
+                        <tr>
+                            <td align="left" class="ccstextboxh">
+                                <br />
+                            </td>
+            </tr>
                     </tr>
                 </table>
             </td>
@@ -324,7 +474,7 @@
                     <tr>
                         <td>
                             <asp:GridView ID="TargetList" runat="server" AutoGenerateColumns="true" width="100%">
-                                
+                             
                             </asp:GridView>
                          
                         </td>
@@ -361,7 +511,7 @@
                 Exchange Currency :
                     </td>
                     <td align="left" class="ccstextboxh" >
-                    <asp:TextBox ID="tbCurrency" runat="server"
+                    <asp:TextBox ID="tbCurrency" runat="server" ontextchanged="tbCurrency_TextChanged" 
                             AutoPostBack="True" Enabled="False"></asp:TextBox>
                     </td>
                     <td align="right" class="ccstextboxh" >
@@ -369,13 +519,13 @@
                     </td>
                     <td align="left" class="ccstextboxh" >
                         <asp:DropDownList ID="ddlOperate" runat="server" 
-                           
+                            onselectedindexchanged="ddlOperate_SelectedIndexChanged" 
                             AutoPostBack="True" Enabled="False">
                             <asp:ListItem>*</asp:ListItem>
                             <asp:ListItem>/</asp:ListItem>
                         </asp:DropDownList>
                <asp:TextBox ID="tbRate" runat="server" AutoPostBack="True" 
-                             Enabled="False"></asp:TextBox>
+                            ontextchanged="tbRate_TextChanged" Enabled="False"></asp:TextBox>
                     </td>
                     </tr>
                      <tr>
@@ -390,13 +540,13 @@
                     </td>
                     <td align="left" class="ccstextboxh" >
                         <asp:DropDownList ID="ddlAdjustOperate" runat="server" 
-                           
+                            onselectedindexchanged="ddlAdjustOperate_SelectedIndexChanged" 
                             AutoPostBack="True" Enabled="False">
                             <asp:ListItem>+</asp:ListItem>
                             <asp:ListItem>-</asp:ListItem>
                         </asp:DropDownList>
                <asp:TextBox ID="tbAdjustAmount" runat="server" AutoPostBack="True" 
-                            Enabled="False"></asp:TextBox>
+                            ontextchanged="tbAdjustAmount_TextChanged" Enabled="False"></asp:TextBox>
                     </td>
                     </tr>
                     <tr>
@@ -418,28 +568,6 @@
                         &nbsp;</td>
                     </tr>
                 </table>
-            </td>
-        </tr>
-         <tr>
-            <td colspan="2">
-                <!-- start target -->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                        <td>
-                            <hr color="#003300" noshade size="1" />
-                            <asp:Label ID="lblHisList" runat="server" Text="HistoryList"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:GridView ID="HistoryList" runat="server" AutoGenerateColumns="true" width="100%">
-                                
-                            </asp:GridView>
-                         
-                        </td>
-                    </tr>
-                </table>
-                <!-- end target -->
             </td>
         </tr>
         <!-- end cost summary service -->
@@ -510,6 +638,8 @@
         </table>
         <!-- end body -->
     </p>
-    </form>
+   
+   
+     </form>
 </body>
 </html>
