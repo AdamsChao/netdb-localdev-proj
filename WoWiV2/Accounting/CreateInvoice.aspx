@@ -127,7 +127,7 @@
                         TDescription = i.TDescription,
                         Qty = i.Qty,
                         UnitPrice = i.UnitPrice,
-                        FPrice = (decimal)i.PrePayment,
+                        FPrice = (decimal)i.Qty * i.UnitPrice,
                         Bill = i.Bill,
                         PayType = "PrePayment",
                         PayAmount = i.PrePayment.ToString(),
@@ -148,7 +148,7 @@
                         TDescription = i.TDescription,
                         Qty = i.Qty,
                         UnitPrice = i.UnitPrice,
-                        FPrice = (decimal)i.FinalPayment,
+                        FPrice = (decimal)i.Qty * i.UnitPrice,
                         Bill = i.Bill,
                         PayType = "FinalPayment",
                         PayAmount = i.FinalPayment.ToString(),
@@ -168,13 +168,13 @@
                         TDescription = i.TDescription,
                         Qty = i.Qty,
                         UnitPrice = i.UnitPrice,
-                        FPrice = i.FPrice,
+                        FPrice = (decimal)i.Qty * i.UnitPrice,
                         Bill = i.Bill,
                         PayType = "FinalPayment",
                         PayAmount = i.FPrice.ToString(),
                         Qutation_Target_Id = i.Qutation_Target_Id     
                     };
-                    total += i.FPrice;
+                    total += decimal.Parse(temp.PayAmount);
                     items.Add(temp);
                 }
             }
@@ -211,7 +211,7 @@
             }
             else
             {
-                tot += decimal.Parse((row.FindControl("lblFPrice") as Label).Text);
+                tot += decimal.Parse((row.FindControl("lblPayAmount") as Label).Text);
             }
             rowIndex++;
         }
