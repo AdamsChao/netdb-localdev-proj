@@ -1,8 +1,61 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
 
 <script runat="server">
-    WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities();
-   
+    QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
+    WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
+
+    protected void GridView1_PreRender(object sender, EventArgs e)
+    {
+        foreach (GridViewRow row in GridView1.Rows)
+        {
+
+            String projIDStr= row.Cells[2].Text;
+            try
+            {
+                int pid = int.Parse(projIDStr);
+                row.Cells[2].Text = (from p in db.Project where p.Project_Id == pid select p.Project_No).First();
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+            String venderIDStr = row.Cells[3].Text;
+            if (venderIDStr == "-1")
+            {
+                row.Cells[3].Text = "Not set yet";
+            }
+            else
+            {
+                try
+                {
+                    int vid = int.Parse(venderIDStr);
+                    var vender = (from v in wowidb.vendors where v.id == vid select v).First();
+                    row.Cells[3].Text = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
+            }
+            if (row.Cells[4].Text.Trim() != "&nbsp;")
+            {
+                row.Cells[4].Text = "$" + row.Cells[4].Text;
+            }
+            String quoIDStr = row.Cells[5].Text;
+            try
+            {
+                int qid = int.Parse(quoIDStr);
+                row.Cells[5].Text = (from q in db.Quotation_Version where q.Quotation_Version_Id == qid select q.Quotation_No).First();
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -16,7 +69,7 @@
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             SkinID="GridView" Width="100%"
             DataKeyNames="pr_id" DataSourceID="SqlDataSourceClient" AllowPaging="True" 
-            AllowSorting="True" >
+            AllowSorting="True" onprerender="GridView1_PreRender" >
             <Columns>
                 <asp:TemplateField InsertVisible="False" SortExpression="pr_no">
                     <EditItemTemplate>
