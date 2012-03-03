@@ -7,22 +7,6 @@
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (Session["InvoiceDataList"] == null)
-        //{
-        //    List<InvoiceData> list = new List<InvoiceData>()
-        //    {
-        //        new InvoiceData(){ id = "1",InvoiceNo="W201107003", InvoiceDate = "2011/06/30",Client="Apple",USD=241.30,NTD = 7000,Sales="賽德克",Model="MIB2000",Country="TW",QutationNo="I1110085"},
-        //        new InvoiceData(){ id = "1",InvoiceNo="W201107002", InvoiceDate = "2011/06/25",Client="三爽",USD=7500,NTD = 21000,Sales="賽德克",Model="MHU300",Country="JP",QutationNo="I1110086"},
-        //        new InvoiceData(){ id = "1",InvoiceNo="W201107001", InvoiceDate = "2011/06/12",Client="三爽",USD=9000,NTD = 7400,Sales="沈佳宜",Model="光梭21",Country="US",QutationNo="I1110083"},
-        //        new InvoiceData(){ id = "1",InvoiceNo="W201106002", InvoiceDate = "2011/06/21",Client="亞訊",USD=2500,NTD = 3300,Sales="七把劍",Model="翻滾250",Country="China",QutationNo="I1110076"},
-        //        new InvoiceData(){ id = "1",Client="Total : ",USD=19241.30,NTD = 38700},
-        //        new InvoiceData(){ id = "1",Client="Issue Invoice Total : ",USD=19000,NTD = 31700}
-        //    };
-        //    Session["InvoiceDataList"] = list;
-        //}
-        //iGridView1.DataSource = (List<InvoiceData>)(Session["InvoiceDataList"]);
-        //iGridView1.DataBind();
-
         if (Page.IsPostBack) return;
         var data = from i in wowidb.invoices select i;
         List<InvoiceData> list = new List<InvoiceData>();
@@ -87,11 +71,17 @@
             {
                 temp.USD = ((double)item.final_total);
                 temp.NTD = temp.USD / (double)item.exchange_rate;
+                usdtotal += temp.USD;
+                usdissuetotal += temp.USD;
+                ntdtotal += temp.NTD;
             }
             else
             {
                 temp.NTD = ((double)item.final_total);
                 temp.USD = temp.NTD * (double)item.exchange_rate;
+                ntdtotal += temp.NTD;
+                ntdissuetotal += temp.NTD;
+                usdtotal += temp.USD;
             }
 
             if (item.due_date.HasValue)
@@ -105,34 +95,19 @@
         }
         iGridView1.DataSource = list;
         iGridView1.DataBind();
-        
-       
+
+        if (iGridView1.Rows.Count == 0)
+        {
+            Button2.Enabled = false;
+        }
+        else
+        {
+            Button2.Enabled = true;
+        }
         
         
     }
-   
-    private int i = 0;
-    protected void iGridView1_SetCSSClass(GridViewRow row)
-    {
-        int count = ((List<InvoiceData>)(Session["InvoiceDataList"])).Count;
-        if (i == 0)
-        {
-            row.Cells[6].CssClass = "HighLight";
-        }
-        if( i != 0){
-            row.Cells[5].CssClass = "HighLight";
-        }
-        if (i == count || i==(count+1))
-        {
-            row.Cells[3].CssClass = "HighLight";
-            row.Cells[4].CssClass = "HighLight";
-            row.Cells[6].CssClass = "HighLight";
-        }
-        i++;
-    }
-
-    
-
+  
     protected void Button1_Click(object sender, EventArgs e)
     {
        
@@ -170,7 +145,9 @@
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        
+        if (iGridView1.Rows.Count == 0)
+        {
+        }
         Response.Clear();
         Response.AddHeader("content-disposition", "attachment;filename=InvoiceList_"+DateTime.Now.ToString("yyyyMMddHH")+".xls");
         Response.Charset = "";
@@ -186,6 +163,201 @@
     public override void VerifyRenderingInServerForm(Control control)
     {
         //base.VerifyRenderingInServerForm(control);
+    }
+
+    protected void iGridView1_PreRender(object sender, EventArgs e)
+    {
+        foreach (GridViewRow row in iGridView1.Rows)
+        {
+            if ((row.FindControl("lblCurrency") as Label).Text == "USD")
+            {
+                row.Cells[5].CssClass = "HighLight";
+            }
+            else
+            {
+                row.Cells[6].CssClass = "HighLight";
+            }
+        }
+    }
+    double usdtotal = 0;
+    double usdissuetotal = 0;
+    double ntdtotal = 0;
+    double ntdissuetotal = 0;
+    public string GetUSD()
+    {
+        return GetTotal(usdtotal, usdissuetotal);
+    }
+    public string GetNTD()
+    {
+        return GetTotal(ntdtotal, ntdissuetotal);
+    }
+    public string GetTotal(double tot,double issuetot)
+    {
+
+        StringBuilder sb = new StringBuilder();
+        sb.Append("<table width='100%'><tr><td align='right' class='Total'>Totall</td></tr><tr><td align='right' class='Total'>IssueTotal</tr></table>");
+        sb.Replace("Totall", tot.ToString("F2"));
+        sb.Replace("IssueTotal", issuetot.ToString("F2"));
+
+        return sb.ToString();
+    }
+
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        var data = from i in wowidb.invoices select i;
+        if (ddlProj.SelectedValue != "-1")
+        {
+            String projNo = ddlProj.SelectedItem.Text;
+            data = data.Where(d => d.project_no == projNo);
+        }
+
+        try
+        {
+            DateTime openDate = dcOpenDate.GetDate();
+            data = data.Where(d => ((DateTime)d.invoice_date).Year == openDate.Year && ((DateTime)d.invoice_date).Month == openDate.Month && ((DateTime)d.invoice_date).Day == openDate.Day );
+        }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
+
+        try
+        {
+            DateTime fromDate = dcFromDate.GetDate();
+            data = data.Where(d => ((DateTime)d.invoice_date) >= fromDate);
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+
+        try
+        {
+            DateTime toDate = dcToDate.GetDate();
+            data = data.Where(d => ((DateTime)d.invoice_date) <=toDate);
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+        List<InvoiceData> list = new List<InvoiceData>();
+        InvoiceData temp;
+        if (data.Count() != 0)
+        {
+            usdissuetotal = usdtotal = ntdtotal = ntdissuetotal = 0;
+        }
+        foreach (var item in data)
+        {
+            temp = new InvoiceData();
+            temp.id = item.invoice_id + "";
+            temp.InvoiceNo = item.issue_invoice_no;
+            if (item.issue_invoice_date.HasValue)
+            {
+                temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
+            }
+            temp.ProjectNo = item.project_no;
+            try
+            {
+                QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_No == item.quotaion_no select q).First();
+                temp.Model = quo.Model_No;
+
+                int cid = (int)quo.Client_Id;
+                try
+                {
+                    var client = (from cli in wowidb.clientapplicants where cli.id == cid select cli).First();
+                    if (ddlClient.SelectedValue != "-1")
+                    {
+                        int clientID = int.Parse(ddlClient.SelectedValue);
+                        if (clientID != client.id)
+                        {
+                            continue;
+                        }
+                    }
+                    temp.Client = String.IsNullOrEmpty(client.c_companyname) ? client.companyname : client.c_companyname;
+
+                    int countryid = (int)client.country_id;
+                    var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
+                    temp.Country = country.country_name;
+                    WoWiModel.contact_info contact;
+                    int contactid;
+                    if (quo.Client_Contact != null)
+                    {
+                        contactid = (int)quo.Client_Contact;
+                    }
+                    else
+                    {
+                        contactid = (from c in wowidb.m_clientappliant_contact where c.clientappliant_id == quo.Client_Id select c.contact_id).First();
+                    }
+                    contact = (from c in wowidb.contact_info where c.id == contactid select c).First();
+                    temp.Attn = String.IsNullOrEmpty(contact.fname) ? contact.c_lname + " " + contact.c_fname : contact.fname + " " + contact.lname;
+
+                }
+
+                catch (Exception)
+                {
+
+                    //throw;
+                }
+                if (ddlSales.SelectedValue != "-1")
+                {
+                    int salesID = int.Parse(ddlSales.SelectedValue);
+                    if (salesID != (int)quo.SalesId)
+                    {
+                        continue;
+                    }
+                }
+                int salesid = (int)quo.SalesId;
+                //temp.Sales
+                var sales = (from emp in wowidb.employees where emp.id == salesid select emp).First();
+                temp.Sales = sales.fname + " " + sales.lname;
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+
+            temp.Currency = item.currency;
+            if (temp.Currency == "USD")
+            {
+                temp.USD = ((double)item.final_total);
+                temp.NTD = temp.USD / (double)item.exchange_rate;
+                usdtotal += temp.USD;
+                usdissuetotal += temp.USD;
+                ntdtotal += temp.NTD;
+            }
+            else
+            {
+                temp.NTD = ((double)item.final_total);
+                temp.USD = temp.NTD * (double)item.exchange_rate;
+                ntdtotal += temp.NTD;
+                ntdissuetotal += temp.NTD;
+                usdtotal += temp.USD;
+            }
+
+            if (item.due_date.HasValue)
+            {
+                temp.IVDate = ((DateTime)item.due_date).ToString("yyyy/MM/dd");
+            }
+            temp.IVNo = item.invoice_no;
+
+            temp.QutationNo = item.quotaion_no;
+            list.Add(temp);
+        }
+        iGridView1.DataSource = list;
+        iGridView1.DataBind();
+        if (iGridView1.Rows.Count == 0)
+        {
+            Button2.Enabled = false;
+        }
+        else
+        {
+            Button2.Enabled = true;
+        }
+        
     }
 </script>
 
@@ -215,8 +387,9 @@
     }
     .Total
     {
-         font-weight:bold;
-         font-style:italic;
+         /*font-weight:bold;*/
+         /*font-style:italic;*/
+         text-align :right;
          background-color:yellow;   
     }
     .Total1
@@ -231,6 +404,11 @@
          background-color:orange;   
    
     }
+    
+    .hidden
+    {
+        display:none;
+    }
 </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
@@ -242,7 +420,7 @@
                             <th align="left" width="13%">
                                 Sales :&nbsp;</th>
                             <td width="20%">
-                                <asp:DropDownList ID="DropDownList1" runat="server" 
+                                <asp:DropDownList ID="ddlSales" runat="server" 
                                     AppendDataBoundItems="True" 
                                     onload="DropDownList1_Load">
                                     <asp:ListItem Value="-1">All</asp:ListItem>
@@ -251,19 +429,19 @@
                             <th align="left" width="13%">
                                 Issue Invoice Date : </th>
                             <td width="20%">
-                                <uc1:DateChooser ID="DateChooser1" runat="server" />
+                                <uc1:DateChooser ID="dcFromDate" runat="server" />
                             </td>
                              <th align="left" width="13%">
                                  To :&nbsp;</th>
                             <td width="20%">
-                                <uc1:DateChooser ID="DateChooser2" runat="server" />
+                                <uc1:DateChooser ID="dcToDate" runat="server" />
                             </td>
                         </tr>
                         <tr>
                             <th align="left" width="13%">
                                 Project No. :&nbsp;</th>
                             <td width="20%">
-                                <asp:DropDownList ID="DropDownList2" runat="server" AppendDataBoundItems="True" 
+                                <asp:DropDownList ID="ddlProj" runat="server" AppendDataBoundItems="True" 
                                     onload="DropDownList2_Load">
                                     <asp:ListItem Value="-1">All</asp:ListItem>
                                 </asp:DropDownList>
@@ -271,12 +449,12 @@
                             <th align="left" width="13%">
                                 Open Date : </th>
                             <td width="20%">
-                                <uc1:DateChooser ID="DateChooser3" runat="server" />
+                                <uc1:DateChooser ID="dcOpenDate" runat="server" />
                             </td>
                              <th align="left" width="13%">
                                  Client :&nbsp;</th>
                             <td width="20%">
-                                <asp:DropDownList ID="DropDownList3" runat="server" AppendDataBoundItems="True" 
+                                <asp:DropDownList ID="ddlClient" runat="server" AppendDataBoundItems="True" 
                                     onload="DropDownList3_Load">
                                     <asp:ListItem Value="-1">All</asp:ListItem>
                                 </asp:DropDownList>
@@ -295,7 +473,7 @@
                                 
                             </td>
                             <td align="right" colspan="2">
-                                 <asp:Button ID="Button3" runat="server" Text="Search" Enabled="False" />&nbsp;&nbsp;
+                                 <asp:Button ID="Button3" runat="server" Text="Search" onclick="Button3_Click" />&nbsp;&nbsp;
                                 <asp:Button ID="Button1" runat="server" Text="New" onclick="Button1_Click" />
                                 &nbsp;&nbsp;
                                 <asp:Button ID="Button2" runat="server" Text="Print List" 
@@ -308,6 +486,7 @@
                     <asp:GridView ID="iGridView1" runat="server" Height="150px" 
           Width="100%" SkinID="GridView"
                          AutoGenerateColumns="False" 
+          onprerender="iGridView1_PreRender" ShowFooter="True" 
                        >
                         <Columns>
                             <asp:TemplateField HeaderText="Invoice No">
@@ -317,34 +496,73 @@
                                 <ItemTemplate>
                                     <asp:HyperLink ID="HyperLink1" runat="server" 
                                         NavigateUrl='<%# Bind("id","~/Accounting/UpdateInvoice.aspx?id={0}") %>' Text='<%# Bind("InvoiceNo") %>'></asp:HyperLink>
+                                    <asp:Label ID="lblCurrency" runat="server" Text='<%# Bind("Currency") %>' CssClass="hidden"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             
                             <asp:BoundField DataField="InvoiceDate" HeaderText="Invoice Date" />
                             <asp:BoundField DataField="ProjectNo" HeaderText="Project No" />
-                            <asp:BoundField DataField="Client" HeaderText="Client" />
+                            <asp:TemplateField HeaderText="Client">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Client") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <table width="100%">
+                                        <tr>
+                                            <td align="right">
+                                                Total :
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                Issue Invoice Total :</td>
+                                        </tr>
+                                    </table>
+                                </FooterTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("Client") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:BoundField DataField="Attn" HeaderText="Attn" />
-                            <asp:BoundField DataField="USD" HeaderText="Inv USD$" 
-                                ControlStyle-CssClass="Currency" DataFormatString="{0:F2}">
-                            <ControlStyle CssClass="Currency" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="NTD" HeaderText="Inv NT$" 
-                                ControlStyle-CssClass="Currency" DataFormatString="{0:F2}">
-                            <ControlStyle CssClass="Currency" />
-                            </asp:BoundField>
+                            <asp:TemplateField HeaderText="Inv USD$">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("USD") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("USD", "{0:F2}") %>'></asp:Label>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Literal ID="Literal1" runat="server" Text="<%# GetUSD()%>"></asp:Literal>
+                                </FooterTemplate>
+                                <ControlStyle CssClass="Currency" />
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Inv NT$">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("NTD") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label3" runat="server" Text='<%# Bind("NTD", "{0:F2}") %>'></asp:Label>
+                                </ItemTemplate>
+                                 <FooterTemplate>
+                                    <asp:Literal ID="Literal1" runat="server" Text="<%# GetNTD()%>"></asp:Literal>
+                                     </FooterTemplate>
+                                <ControlStyle CssClass="Currency" />
+                            </asp:TemplateField>
                             <asp:BoundField DataField="IVDate" HeaderText="I/V Date"  />
                             <asp:BoundField DataField="IVNo" HeaderText="I/V No" />
                             <asp:BoundField DataField="Sales" HeaderText="Sales" />
                             <asp:BoundField DataField="Model" HeaderText="Model" />
                             <asp:BoundField DataField="Country" HeaderText="Country" />
                             <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" />
+                            
                         </Columns>
                     </asp:GridView>
-              
+      
       </ContentTemplate>
       <Triggers>
           <asp:PostBackTrigger ControlID="Button2" />
       </Triggers>
+      
    </asp:UpdatePanel>
 </asp:Content>
 
