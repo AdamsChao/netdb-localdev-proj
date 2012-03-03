@@ -44,7 +44,7 @@
       <siteMapNode url="~/Project/ProjectWorkingStatus.aspx" title="Working Status"  description="" />
       <siteMapNode url="~/Project/ProjectWorkingStatusReport.aspx" title="Working Status Report"  description="" />     
     </siteMapNode>
-    <siteMapNode url="" title="Report"  description=""  roles="System Admin,Management,Accounting" >
+    <!--<siteMapNode url="" title="Report"  description=""  roles="System Admin,Management,Accounting" >
       <siteMapNode url="" title="Forecast"  description="" />
       <siteMapNode url="" title="Sales Report"  description="" >
         <siteMapNode url="~/Report/SalesReport.aspx" title="總表"  description="" />
@@ -55,12 +55,10 @@
         <siteMapNode url="~/Report/IMAAnalysisReport.aspx" title="分析報表"  description="" />
       </siteMapNode>
       <siteMapNode url="" title="Project Summary"  description="" />
-    </siteMapNode>
-    <!--<siteMapNode url="~/About.aspx" title="Document"  description="" />-->
-
+    </siteMapNode>-->
     <siteMapNode url="" title="IMA System"  description=""  roles="System Admin,IMA-Latin America,Sales" >
       <siteMapNode url="~/Ima/ImaList.aspx" title="Documents Manage"  description="" />
-      <siteMapNode url="" title="Documents Search"  description="" />
+      <!--<siteMapNode url="" title="Documents Search"  description="" />-->
     </siteMapNode>
       
   </siteMapNode>
