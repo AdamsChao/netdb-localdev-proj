@@ -209,12 +209,19 @@
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
+<script type="text/javascript">
+    function openPrintWin() {
+        window.open('<%= "InvoicePrint.aspx?id=" + Request.QueryString["id"] %>', 'new', 'scrollbars=no,menubar=yes,height=800,width=800,resizable=no,toolbar=no,location=no,status=no');
+    }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     Invoice ID = 
     <asp:Label ID="lblInvoiceID" runat="server" Text=""></asp:Label>,&nbsp;&nbsp;Status = <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>&nbsp;&nbsp;<asp:HyperLink 
                            ID="HyperLink1" runat="server" NavigateUrl="~/Accounting/Invoice.aspx">Invoice List</asp:HyperLink>
-                     <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
+                     &nbsp;<asp:Button ID="Button1" runat="server" 
+        onclientclick="openPrintWin();" Text="View/Print" />
+&nbsp;<table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <th align="left" width="13%">
                             Issue Invoice :&nbsp;</th>
