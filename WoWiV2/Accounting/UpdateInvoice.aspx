@@ -1,13 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
 <%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
 
-<%@ Register assembly="iServerControls" namespace="iControls.Web" tagprefix="cc1" %>
 <script runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             int id = int.Parse(Request.QueryString["id"]);//invoiceid
