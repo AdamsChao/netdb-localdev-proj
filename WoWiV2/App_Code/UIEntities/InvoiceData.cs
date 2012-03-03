@@ -14,7 +14,7 @@ public class InvoiceData
 		// TODO: Add constructor logic here
 		//
 	}
-
+    public String id { get; set; }
     public String InvoiceNo { get; set; }
     public String InvoiceDate { get; set; }
     public String ProjectNo { get; set; }
@@ -29,4 +29,5 @@ public class InvoiceData
     public String Model { get; set; }
     public String Country { get; set; }
     public String QutationNo { get; set; }
+    public String Currency { get; set; }
 }

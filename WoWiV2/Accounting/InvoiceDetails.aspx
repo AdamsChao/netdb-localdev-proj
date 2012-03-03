@@ -348,7 +348,7 @@
                                         <tr>
                                              <td align="right">
                                                 Exchange Rate : </td>
-                                                <td>&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddloperate" runat="server" 
+                                                <td>&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddloperate" runat="server" Enabled="false"
                                                         AutoPostBack="True">
                                                     <asp:ListItem>*</asp:ListItem>
                                                     <asp:ListItem>/</asp:ListItem>
