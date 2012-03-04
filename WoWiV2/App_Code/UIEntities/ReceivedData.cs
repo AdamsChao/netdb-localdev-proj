@@ -15,7 +15,7 @@ public class ReceivedData
 		//
 	}
 
-    public String ReceivedDate { get; set; }
+    public DateTime ReceivedDate { get; set; }
     public String Amount { get; set; }
     public String Balance { get; set; }
     public String IVNo { get; set; }
