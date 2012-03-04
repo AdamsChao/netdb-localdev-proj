@@ -5633,6 +5633,30 @@ namespace WoWiModel
         private Nullable<global::System.DateTime> _due_date;
         partial void Ondue_dateChanging(Nullable<global::System.DateTime> value);
         partial void Ondue_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> ar_balance
+        {
+            get
+            {
+                return _ar_balance;
+            }
+            set
+            {
+                Onar_balanceChanging(value);
+                ReportPropertyChanging("ar_balance");
+                _ar_balance = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ar_balance");
+                Onar_balanceChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _ar_balance;
+        partial void Onar_balanceChanging(Nullable<global::System.Decimal> value);
+        partial void Onar_balanceChanged();
 
         #endregion
     

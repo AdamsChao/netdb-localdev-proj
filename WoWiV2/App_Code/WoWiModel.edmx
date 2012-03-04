@@ -278,6 +278,7 @@
           <Property Name="final_total" Type="decimal" Precision="10" Scale="2" />
           <Property Name="adjust" Type="decimal" Precision="10" Scale="2" />
           <Property Name="due_date" Type="datetime" />
+          <Property Name="ar_balance" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="invoice_target">
           <Key>
@@ -1194,6 +1195,7 @@
           <Property Type="Decimal" Name="final_total" Precision="10" Scale="2" />
           <Property Type="Decimal" Name="adjust" Precision="10" Scale="2" />
           <Property Type="DateTime" Name="due_date" />
+          <Property Type="Decimal" Name="ar_balance" Precision="10" Scale="2" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1757,6 +1759,7 @@
           <EntitySetMapping Name="invoices">
             <EntityTypeMapping TypeName="WoWiModel.invoice">
               <MappingFragment StoreEntitySet="invoice">
+                <ScalarProperty Name="ar_balance" ColumnName="ar_balance" />
                 <ScalarProperty Name="due_date" ColumnName="due_date" />
                 <ScalarProperty Name="adjust" ColumnName="adjust" />
                 <ScalarProperty Name="final_total" ColumnName="final_total" />
