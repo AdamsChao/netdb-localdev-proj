@@ -23,8 +23,11 @@
             {
                 rate = 30;
             }
+            currency = invoice.currency;
+            lblCurrency.Text = currency;
             if (invoice.currency == "USD")
             {
+                
                 lblUSD.Text = "$"+ ((decimal)invoice.final_total).ToString("F2");
                 lblUSD.ForeColor = System.Drawing.Color.Blue;
                 lblNTD.Text = "$" + ((decimal)invoice.final_total * rate).ToString("F2");
@@ -35,7 +38,10 @@
                 lblNTD.ForeColor = System.Drawing.Color.Blue;
                 lblUSD.Text = "$" + ((decimal)invoice.final_total / rate).ToString("F2");
             }
+            GetAllItems(id);
         }
+
+       
         
     }
 
@@ -110,10 +116,85 @@
         
     }
 
-   
+    double tot;
+    String currency;
+    public string GetTotal()
+    {
 
-   
-    
+        StringBuilder sb = new StringBuilder();
+        sb.Append("<table width='100%'><tr><td align='right' class='Total'>Currency$Total</td></tr></table>");
+        sb.Replace("Total", tot.ToString("F2"));
+        sb.Replace("Currency", currency);
+        return sb.ToString();
+    }
+
+    protected void GetAllItems(int id)
+    {
+        try
+        {
+            WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == id select i).First();
+            decimal btotal = (decimal)invoice.final_total;
+            List<ReceivedData> data = new List<ReceivedData>();
+            var list = from rd in wowidb.invoice_received where rd.invoice_id == id select rd;
+            ReceivedData temp;
+            foreach (var item in list)
+            {
+                temp = new ReceivedData()
+                {
+                    ReceivedDate = (DateTime)item.received_date,
+                    Amount = ((decimal)item.amount).ToString("F2"),
+                    IVNo = item.iv_no,
+                    Note = item.note
+                };
+                tot += ((double)item.amount);
+                btotal -= ((decimal)item.amount);
+                temp.Balance = btotal.ToString("F2");
+                data.Add(temp);
+            }
+            iGridView2.DataSource = data;
+            iGridView2.DataBind();
+        }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+        {
+            int id = int.Parse(Request.QueryString["id"]);//invoiceid
+            try
+            {
+                WoWiModel.invoice_received recevivedData = new WoWiModel.invoice_received()
+                {
+                    invoice_id = id,
+                    received_date = dcReceivedDate.GetDate(),
+                    amount = decimal.Parse(tbAmount.Text),
+                    iv_no = tbIVNo.Text,
+                    note = tbNote.Text,
+                    create_date = DateTime.Now,
+                    modify_date = DateTime.Now
+                };
+                wowidb.invoice_received.AddObject(recevivedData);
+                WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == id select i).First();
+                invoice.ar_balance -= recevivedData.amount;
+                wowidb.SaveChanges();
+                dcReceivedDate.ClearText();
+                tbAmount.Text= "";
+                tbIVNo.Text= "";
+                tbNote.Text = "";
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+            GetAllItems(id);
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -147,9 +228,10 @@
                                 <asp:Label ID="lblProjNo" runat="server"></asp:Label>
                             </td>
                             <th align="left" width="13%">
-                                &nbsp;</th>
+                                Currency : </th>
                             <td width="20%">
-                                &nbsp;</td>
+                                <asp:Label ID="lblCurrency" runat="server" Text="lblCurrency"></asp:Label>
+                            </td>
                              <th align="left" width="13%">
                                 Inv USD$. : </th>
                             <td width="20%">
@@ -198,50 +280,73 @@
                                 <asp:Label ID="lblAddress" runat="server" Text=""></asp:Label>
                              </td>
                         </tr>
-                 
+                 <tr>
+                 <td colspan="6" >
+                 Received Add
+                 <table align="right" border="1" cellpadding="0" cellspacing="0" width="100%">
+                  <tr><th></th><th>Received Date</th><th>Amount</th><th>IV/ NO.</th><th>Note</th></tr>
+                 <tr>
+                     <td><asp:Button ID="Button1" runat="server" Text="+" onclick="Button1_Click" /></td>
+                      <td>
+                         <uc1:DateChooser ID="dcReceivedDate" runat="server" />
+                     </td> <td>
+                         $
+                         <asp:TextBox ID="tbAmount" runat="server"></asp:TextBox>
+                     </td> <td>
+                         <asp:TextBox ID="tbIVNo" runat="server" MaxLength="10"></asp:TextBox>
+                     </td> <td>
+                         <asp:TextBox ID="tbNote" runat="server" Width="300px"></asp:TextBox>
+                     </td></tr>
+                 </table>
+                 </td>
+                 </tr>
                           <tr >
                             <td colspan="6"  >
+                            Received History
                             <asp:Gridview ID="iGridView2" runat="server"  Width="100%" 
-                         AutoGenerateColumns="False" CssClass="Gridview"  
-                           SkipColNum="0" ShowFooter="True"  >
+                         AutoGenerateColumns="False" CssClass="Gridview"  ShowFooter="True"  >
                         <Columns>
                        
-                            <asp:BoundField DataField="Version" HeaderText="Version" />
-                           <%-- <asp:BoundField DataField="Status" HeaderText="Status" />--%>
-                            <asp:BoundField DataField="Date" HeaderText="Date" 
-                                DataFormatString="{0:yyyy/MM/dd}" />
                             
-                            <asp:BoundField DataField="TDescription" HeaderText="TDescription" />
-                            <asp:BoundField DataField="Qty" HeaderText="Qty" />
-                            <asp:BoundField DataField="UOM" HeaderText="UOM" />
-                            <asp:TemplateField HeaderText="UnitPrice">
+                            <asp:TemplateField HeaderText="Received Date">
                                 <EditItemTemplate>
-                                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:TextBox>
+                                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("ReceivedDate") %>'></asp:TextBox>
                                 </EditItemTemplate>
+                                <FooterTemplate>
+                                    <table width="100%">
+                                        <tr>
+                                            <td align="right">
+                                                Total :
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </FooterTemplate>
                                 <ItemTemplate>
-                                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:Label>
+                                    <asp:Label ID="Label1" runat="server" 
+                                        Text='<%# Bind("ReceivedDate", "{0:yyyy/MM/dd}") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="F. Price" >
+                            <asp:TemplateField HeaderText="Amount">
                                 <EditItemTemplate>
-                                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("FPrice") %>'></asp:TextBox>
+                                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Amount") %>'></asp:TextBox>
                                 </EditItemTemplate>
-                                
                                 <ItemTemplate>
-                                    <asp:Label ID="lblFPrice" runat="server" Text='<%# Bind("FPrice") %>'></asp:Label>
+                                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("Amount") %>'></asp:Label>
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <table width="100%">
+                                        <tr>
+                                            <td align="right">
+                                                <asp:Literal ID="Literal1" runat="server" Text="<%# GetTotal()%>"></asp:Literal>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </FooterTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Bill">
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Bill") %>'></asp:TextBox>
-                                </EditItemTemplate>
-                               
-                                <ItemTemplate>
-                                    <asp:Label ID="lblBill" runat="server" Text='<%# Bind("Bill") %>'></asp:Label>
-                                    &nbsp;<asp:Label ID="lblPayType" runat="server" Text='<%# Bind("PayType") %>'></asp:Label>
-                                    &nbsp;$<asp:Label ID="lblPayAmount" runat="server" Text='<%# Bind("PayAmount") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                            <asp:BoundField DataField="Balance" HeaderText="Balance" />
+                            <asp:BoundField DataField="IVNo" HeaderText="IVNo" />
+                            <asp:BoundField DataField="Note" HeaderText="Note" />
+                           
                         </Columns>
                     </asp:Gridview>
                              </td>

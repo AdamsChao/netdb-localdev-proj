@@ -256,7 +256,8 @@
             temp.ProjectNo = item.project_no;
             try
             {
-                QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_No == item.quotaion_no select q).First();
+                QuotationModel.Project proj = (from pp in db.Project where pp.Project_No == item.project_no select pp).First();
+                QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_Version_Id == proj.Quotation_Id select q).First();
                 temp.Model = quo.Model_No;
 
                 int cid = (int)quo.Client_Id;

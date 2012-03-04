@@ -66,7 +66,7 @@
                 //throw;
             }
             
-            temp.Currency = item.currency;
+            temp.Currency = item.ocurrency;
             if (temp.Currency == "USD")
             {
                 temp.USD = ((double)item.final_total);
@@ -145,16 +145,7 @@
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        
-        ////Response.Clear();
-        ////Response.AddHeader("content-disposition", "attachment;filename=InvoiceList_"+DateTime.Now.ToString("yyyyMMddHH")+".xls");
-        ////Response.Charset = "";
-        ////Response.ContentType = "application/vnd.xls";
-        ////System.IO.StringWriter stringWrite = new System.IO.StringWriter();
-        ////System.Web.UI.HtmlTextWriter htmlWrite = new HtmlTextWriter(stringWrite);
-        ////iGridView1.RenderControl(htmlWrite);
-        ////Response.Write(stringWrite.ToString());
-        ////Response.End();
+
         Utils.ExportExcel(iGridView1, "InvoiceList");
     }
 
@@ -318,7 +309,7 @@
                 //throw;
             }
 
-            temp.Currency = item.currency;
+            temp.Currency = item.ocurrency;
             if (temp.Currency == "USD")
             {
                 temp.USD = ((double)item.final_total);
@@ -357,6 +348,7 @@
         }
         
     }
+    
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">

@@ -15,4 +15,10 @@ public partial class UserControls_DateChooser : System.Web.UI.UserControl
     {
         return DateTime.ParseExact(TextBox1.Text,"yyyy/MM/dd",null);
     }
+
+    public String ClearText()
+    {
+        TextBox1.Text = "";
+        return "";
+    }
 }
