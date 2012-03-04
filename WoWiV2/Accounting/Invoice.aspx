@@ -145,19 +145,17 @@
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        if (iGridView1.Rows.Count == 0)
-        {
-        }
-        Response.Clear();
-        Response.AddHeader("content-disposition", "attachment;filename=InvoiceList_"+DateTime.Now.ToString("yyyyMMddHH")+".xls");
-        Response.Charset = "";
-        Response.ContentType = "application/vnd.xls";
-        System.IO.StringWriter stringWrite = new System.IO.StringWriter();
-        System.Web.UI.HtmlTextWriter htmlWrite = new HtmlTextWriter(stringWrite);
-        iGridView1.RenderControl(htmlWrite);
-        Response.Write(stringWrite.ToString());
-        Response.End();
-
+        
+        ////Response.Clear();
+        ////Response.AddHeader("content-disposition", "attachment;filename=InvoiceList_"+DateTime.Now.ToString("yyyyMMddHH")+".xls");
+        ////Response.Charset = "";
+        ////Response.ContentType = "application/vnd.xls";
+        ////System.IO.StringWriter stringWrite = new System.IO.StringWriter();
+        ////System.Web.UI.HtmlTextWriter htmlWrite = new HtmlTextWriter(stringWrite);
+        ////iGridView1.RenderControl(htmlWrite);
+        ////Response.Write(stringWrite.ToString());
+        ////Response.End();
+        Utils.ExportExcel(iGridView1, "InvoiceList");
     }
 
     public override void VerifyRenderingInServerForm(Control control)
