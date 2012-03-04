@@ -17,6 +17,7 @@
           <EntitySet Name="employee" EntityType="WoWiModel.Store.employee" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="employee_jobtitle" EntityType="WoWiModel.Store.employee_jobtitle" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="invoice" EntityType="WoWiModel.Store.invoice" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="invoice_received" EntityType="WoWiModel.Store.invoice_received" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="invoice_target" EntityType="WoWiModel.Store.invoice_target" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_clientappliant_contact" EntityType="WoWiModel.Store.m_clientappliant_contact" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_clientappliant_industry" EntityType="WoWiModel.Store.m_clientappliant_industry" store:Type="Tables" Schema="dbo" />
@@ -279,6 +280,21 @@
           <Property Name="adjust" Type="decimal" Precision="10" Scale="2" />
           <Property Name="due_date" Type="datetime" />
           <Property Name="ar_balance" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="invoice_received">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="invoice_id" Type="int" Nullable="false" />
+          <Property Name="received_date" Type="datetime" />
+          <Property Name="amount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="create_date" Type="datetime" />
+          <Property Name="modify_date" Type="datetime" />
+          <Property Name="ocurrency" Type="nvarchar" MaxLength="5" />
+          <Property Name="note" Type="nvarchar" MaxLength="200" />
+          <Property Name="status" Type="tinyint" />
+          <Property Name="iv_no" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="invoice_target">
           <Key>
@@ -637,6 +653,7 @@
           <EntitySet Name="PR_Payment" EntityType="WoWiModel.PR_Payment" />
           <EntitySet Name="invoice_target" EntityType="WoWiModel.invoice_target" />
           <EntitySet Name="invoices" EntityType="WoWiModel.invoice" />
+          <EntitySet Name="invoice_received" EntityType="WoWiModel.invoice_received" />
         </EntityContainer>
         <EntityType Name="clientapplicant_industry">
           <Key>
@@ -1196,6 +1213,21 @@
           <Property Type="Decimal" Name="adjust" Precision="10" Scale="2" />
           <Property Type="DateTime" Name="due_date" />
           <Property Type="Decimal" Name="ar_balance" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="invoice_received">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="invoice_id" Nullable="false" />
+          <Property Type="DateTime" Name="received_date" />
+          <Property Type="Decimal" Name="amount" Precision="10" Scale="2" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="ocurrency" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="note" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="status" />
+          <Property Type="String" Name="iv_no" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1786,6 +1818,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="invoice_received">
+            <EntityTypeMapping TypeName="WoWiModel.invoice_received">
+              <MappingFragment StoreEntitySet="invoice_received">
+                <ScalarProperty Name="iv_no" ColumnName="iv_no" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="ocurrency" ColumnName="ocurrency" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="received_date" ColumnName="received_date" />
+                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1840,6 +1888,7 @@
         <EntityTypeShape EntityType="WoWiModel.PR_Payment" Width="1.5" PointX="17.375" PointY="0.75" Height="3.2569791666666674" />
         <EntityTypeShape EntityType="WoWiModel.invoice_target" Width="1.5" PointX="17.375" PointY="11.75" Height="2.7291471354166674" />
         <EntityTypeShape EntityType="WoWiModel.invoice" Width="1.5" PointX="17.375" PointY="5.75" Height="4.8404752604166674" />
+        <EntityTypeShape EntityType="WoWiModel.invoice_received" Width="1.5" PointX="17.375" PointY="15.75" Height="2.7291471354166674" />
       </Diagram>
     </Diagrams>
   </Designer>

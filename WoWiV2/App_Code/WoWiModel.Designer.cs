@@ -592,6 +592,22 @@ namespace WoWiModel
             }
         }
         private ObjectSet<invoice> _invoices;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<invoice_received> invoice_received
+        {
+            get
+            {
+                if ((_invoice_received == null))
+                {
+                    _invoice_received = base.CreateObjectSet<invoice_received>("invoice_received");
+                }
+                return _invoice_received;
+            }
+        }
+        private ObjectSet<invoice_received> _invoice_received;
 
         #endregion
         #region AddTo Methods
@@ -858,6 +874,14 @@ namespace WoWiModel
         public void AddToinvoices(invoice invoice)
         {
             base.AddObject("invoices", invoice);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the invoice_received EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToinvoice_received(invoice_received invoice_received)
+        {
+            base.AddObject("invoice_received", invoice_received);
         }
 
         #endregion
@@ -5657,6 +5681,279 @@ namespace WoWiModel
         private Nullable<global::System.Decimal> _ar_balance;
         partial void Onar_balanceChanging(Nullable<global::System.Decimal> value);
         partial void Onar_balanceChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WoWiModel", Name="invoice_received")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class invoice_received : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new invoice_received object.
+        /// </summary>
+        /// <param name="id">Initial value of the id property.</param>
+        /// <param name="invoice_id">Initial value of the invoice_id property.</param>
+        public static invoice_received Createinvoice_received(global::System.Int32 id, global::System.Int32 invoice_id)
+        {
+            invoice_received invoice_received = new invoice_received();
+            invoice_received.id = id;
+            invoice_received.invoice_id = invoice_id;
+            return invoice_received;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 invoice_id
+        {
+            get
+            {
+                return _invoice_id;
+            }
+            set
+            {
+                Oninvoice_idChanging(value);
+                ReportPropertyChanging("invoice_id");
+                _invoice_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("invoice_id");
+                Oninvoice_idChanged();
+            }
+        }
+        private global::System.Int32 _invoice_id;
+        partial void Oninvoice_idChanging(global::System.Int32 value);
+        partial void Oninvoice_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> received_date
+        {
+            get
+            {
+                return _received_date;
+            }
+            set
+            {
+                Onreceived_dateChanging(value);
+                ReportPropertyChanging("received_date");
+                _received_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("received_date");
+                Onreceived_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _received_date;
+        partial void Onreceived_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onreceived_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> amount
+        {
+            get
+            {
+                return _amount;
+            }
+            set
+            {
+                OnamountChanging(value);
+                ReportPropertyChanging("amount");
+                _amount = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("amount");
+                OnamountChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _amount;
+        partial void OnamountChanging(Nullable<global::System.Decimal> value);
+        partial void OnamountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> create_date
+        {
+            get
+            {
+                return _create_date;
+            }
+            set
+            {
+                Oncreate_dateChanging(value);
+                ReportPropertyChanging("create_date");
+                _create_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("create_date");
+                Oncreate_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _create_date;
+        partial void Oncreate_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Oncreate_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> modify_date
+        {
+            get
+            {
+                return _modify_date;
+            }
+            set
+            {
+                Onmodify_dateChanging(value);
+                ReportPropertyChanging("modify_date");
+                _modify_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("modify_date");
+                Onmodify_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _modify_date;
+        partial void Onmodify_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onmodify_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ocurrency
+        {
+            get
+            {
+                return _ocurrency;
+            }
+            set
+            {
+                OnocurrencyChanging(value);
+                ReportPropertyChanging("ocurrency");
+                _ocurrency = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ocurrency");
+                OnocurrencyChanged();
+            }
+        }
+        private global::System.String _ocurrency;
+        partial void OnocurrencyChanging(global::System.String value);
+        partial void OnocurrencyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String note
+        {
+            get
+            {
+                return _note;
+            }
+            set
+            {
+                OnnoteChanging(value);
+                ReportPropertyChanging("note");
+                _note = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("note");
+                OnnoteChanged();
+            }
+        }
+        private global::System.String _note;
+        partial void OnnoteChanging(global::System.String value);
+        partial void OnnoteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Byte> status
+        {
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                OnstatusChanging(value);
+                ReportPropertyChanging("status");
+                _status = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("status");
+                OnstatusChanged();
+            }
+        }
+        private Nullable<global::System.Byte> _status;
+        partial void OnstatusChanging(Nullable<global::System.Byte> value);
+        partial void OnstatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String iv_no
+        {
+            get
+            {
+                return _iv_no;
+            }
+            set
+            {
+                Oniv_noChanging(value);
+                ReportPropertyChanging("iv_no");
+                _iv_no = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("iv_no");
+                Oniv_noChanged();
+            }
+        }
+        private global::System.String _iv_no;
+        partial void Oniv_noChanging(global::System.String value);
+        partial void Oniv_noChanged();
 
         #endregion
     
