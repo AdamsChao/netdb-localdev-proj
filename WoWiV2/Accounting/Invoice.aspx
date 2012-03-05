@@ -485,11 +485,11 @@
                                 </EditItemTemplate>
                                 <ItemTemplate>
                                     <asp:HyperLink ID="HyperLink1" runat="server" 
-                                        NavigateUrl='<%# Bind("id","~/Accounting/UpdateInvoice.aspx?id={0}") %>' Text='<%# Bind("InvoiceNo") %>'></asp:HyperLink>
+                                        NavigateUrl='<%# Bind("id","~/Accounting/UpdateInvoice.aspx?id={0}") %>' Text='Edit/View'></asp:HyperLink>
                                     <asp:Label ID="lblCurrency" runat="server" Text='<%# Bind("Currency") %>' CssClass="hidden"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            
+                            <asp:BoundField DataField="InvoiceNo" HeaderText="Invoice No" />
                             <asp:BoundField DataField="InvoiceDate" HeaderText="Invoice Date" />
                             <asp:BoundField DataField="ProjectNo" HeaderText="Project No" />
                             <asp:TemplateField HeaderText="Client">
