@@ -217,6 +217,14 @@
             int id = int.Parse(Request.QueryString["id"]);
             try
             {
+                
+                try{
+                    var list = (from p in wowidb.PR_Payment where p.pr_id == id select p).First();
+                    wowidb.PR_Payment.DeleteObject(list);
+                    wowidb.SaveChanges();
+                }catch{
+                
+                }
                 WoWiModel.PR_Payment payment = new WoWiModel.PR_Payment()
                 {
                     pr_id = id,
@@ -228,6 +236,7 @@
                     status = (byte)PRStatus.Paid,
                     original_amount = decimal.Parse(lblOtotal.Text)
                 };
+                
                 decimal rate = 1;
                 if (!String.IsNullOrEmpty(tbRate.Text))
                 {
@@ -280,7 +289,8 @@
                     total -= adj;
                 }
                 payment.total_amount = total;
-                
+                payment.modify_date = DateTime.Now;
+                payment.pay_date = DateTime.Now;
                 wowidb.PR_Payment.AddObject(payment);
                 wowidb.SaveChanges();
                 int payid = payment.pr_pay_id;

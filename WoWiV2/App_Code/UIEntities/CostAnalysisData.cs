@@ -10,6 +10,7 @@ public class CostAnalysisData
 {
     public String ProjectNo { get; set; }
     public String QutationNo { get; set; }
+    public int QutationId { get; set; }
     public String OpenDate { get; set; }
     public String Client { get; set; }
     public String Country { get; set; }
@@ -36,4 +37,15 @@ public class CostAnalysisData
     public String TotalPayment { get; set; }
     public String PaymentDate { get; set; }
     public String PRNo { get; set; }
+    //public int PRId { get; set; }
+
+    public CostAnalysisData()
+    {
+        Prepay = "-";
+        Preunpay = "-";
+        Unpay = "-";
+        Payable = "-";
+        Payment = "-";
+        TotalPayment = "-";
+    }
 }

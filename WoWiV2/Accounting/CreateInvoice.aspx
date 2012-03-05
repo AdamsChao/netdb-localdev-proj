@@ -34,8 +34,8 @@
     {
         try
         {
-            int projid = int.Parse((sender as DropDownList).SelectedValue);
-            QuotationModel.Quotation_Version quotation = (from d in db.Quotation_Version where d.Quotation_Version_Id == projid select d).First();
+            int quoid = int.Parse((sender as DropDownList).SelectedValue);
+            QuotationModel.Quotation_Version quotation = (from d in db.Quotation_Version where d.Quotation_Version_Id == quoid select d).First();
             lblQuotationNo.Text = quotation.Quotation_No;
             lblModel.Text = quotation.Model_No;
             GetAllItems(quotation.Quotation_No);
@@ -97,6 +97,7 @@
                        where qt.quotation_id == qu.Quotation_Version_Id
                        select new 
                        {
+                           qId = qu.Quotation_Version_Id,
                            No = no,
                            VersionNo = (int)qu.Vername, 
                            Status = qt.Status,
@@ -131,7 +132,8 @@
                         Bill = i.Bill,
                         PayType = "PrePayment",
                         PayAmount = i.PrePayment.ToString(),
-                        Qutation_Target_Id = i.Qutation_Target_Id           
+                        Qutation_Target_Id = i.Qutation_Target_Id,
+                        Qutation_Id = i.qId         
                     };
                     total += (decimal)i.PrePayment;
                     items.Add(temp);
@@ -152,7 +154,8 @@
                         Bill = i.Bill,
                         PayType = "FinalPayment",
                         PayAmount = i.FinalPayment.ToString(),
-                        Qutation_Target_Id = i.Qutation_Target_Id     
+                        Qutation_Target_Id = i.Qutation_Target_Id,
+                        Qutation_Id = i.qId       
                     };
                     total += (decimal)i.FinalPayment;
                     items.Add(temp);
@@ -172,7 +175,8 @@
                         Bill = i.Bill,
                         PayType = "FinalPayment",
                         PayAmount = i.FPrice.ToString(),
-                        Qutation_Target_Id = i.Qutation_Target_Id     
+                        Qutation_Target_Id = i.Qutation_Target_Id,
+                        Qutation_Id = i.qId         
                     };
                     total += decimal.Parse(temp.PayAmount);
                     items.Add(temp);
@@ -318,6 +322,7 @@
                 invoice.issue_invoice_date = DateTime.ParseExact(tbIssueInvoiceDate.Text, "yyyy/MM/dd", null);
                 invoice.total = decimal.Parse((iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text);
                 invoice.final_total = decimal.Parse((iGridView2.FooterRow.FindControl("tbTotal") as TextBox).Text);
+                invoice.ar_balance = invoice.final_total;
                 invoice.adjust = invoice.final_total - (decimal)invoice.total;
             }
             catch (Exception)
@@ -400,7 +405,17 @@
                     {
                         itarget.bill_status = (byte)InvoicePaymentStatus.FinalPaid;
                     }
-                    itarget.amount = decimal.Parse((row.FindControl("lblPayAmount") as Label).Text);
+                    try
+                    {
+                        itarget.amount = decimal.Parse((row.FindControl("lblPayAmount") as Label).Text);
+                        itarget.quotation_id = int.Parse((row.FindControl("lblQuotationId") as Label).Text);
+                    }
+                    catch (Exception)
+                    {
+                        
+                        //throw;
+                    }
+                    
                     wowidb.invoice_target.AddObject(itarget);
                 }
             }
@@ -416,6 +431,12 @@
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
+<style type="text/css">
+.hidden
+{
+    display:none;
+}
+</style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
  Issued New&nbsp;&nbsp;<asp:HyperLink 
@@ -520,6 +541,7 @@
                                 </EditItemTemplate>
                                 <ItemTemplate>
                                     <asp:Label ID="Label1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:Label>
+                                    <asp:Label ID="lblQuotationId" runat="server"  Text='<%# Bind("Qutation_Id") %>' CssClass="hidden"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="F. Price" >

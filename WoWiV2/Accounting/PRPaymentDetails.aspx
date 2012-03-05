@@ -416,7 +416,7 @@
                  <tr>
                         <td align="left" class="ccstextboxh" colspan="2">
                 Account No.:
-                    <asp:Label ID="lblAcctNo" runat="server" Text="lblAcctNo"></asp:Label>
+                    <asp:Label ID="lblAcctNo" runat="server"></asp:Label>
                     </td></tr>
                     <tr>
                         <td align="left" class="ccstextboxh" colspan="2">

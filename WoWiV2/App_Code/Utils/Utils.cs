@@ -112,8 +112,9 @@ public class Utils
     public static void ExportExcel(GridView iGridView1, String filrName)
     {
         HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.Write("<meta http-equiv=Content-Type content=text/html;charset=utf-8>");
         HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=" + filrName + "_" + DateTime.Now.ToString("yyyyMMddHH") + ".xls");
-        HttpContext.Current.Response.Charset = "";
+        //HttpContext.Current.Response.Charset = "utf-8";
         HttpContext.Current.Response.ContentType = "application/vnd.xls";
         System.IO.StringWriter stringWrite = new System.IO.StringWriter();
         System.Web.UI.HtmlTextWriter htmlWrite = new HtmlTextWriter(stringWrite);

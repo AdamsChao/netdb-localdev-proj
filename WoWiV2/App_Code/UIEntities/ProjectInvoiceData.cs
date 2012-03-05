@@ -28,5 +28,5 @@ public class ProjectInvoiceData
     public String PayType { get; set; }
     public String PayAmount { get; set; }
     public int Qutation_Target_Id { get; set; }
- 
+    public int Qutation_Id { get; set; }
 }

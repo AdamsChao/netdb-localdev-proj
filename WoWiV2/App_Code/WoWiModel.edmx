@@ -484,6 +484,7 @@
           <Property Name="adjust_operator" Type="nvarchar" MaxLength="5" />
           <Property Name="status" Type="tinyint" Nullable="false" />
           <Property Name="modify_date" Type="datetime" />
+          <Property Name="pay_date" Type="datetime" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -1266,6 +1267,7 @@
           <Property Type="String" Name="adjust_operator" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Type="Byte" Name="status" Nullable="false" />
           <Property Type="DateTime" Name="modify_date" />
+          <Property Type="DateTime" Name="pay_date" />
         </EntityType>
         <EntityType Name="invoice_target">
           <Key>
@@ -1946,6 +1948,7 @@
           <EntitySetMapping Name="PR_Payment">
             <EntityTypeMapping TypeName="WoWiModel.PR_Payment">
               <MappingFragment StoreEntitySet="PR_Payment">
+                <ScalarProperty Name="pay_date" ColumnName="pay_date" />
                 <ScalarProperty Name="modify_date" ColumnName="modify_date" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="adjust_operator" ColumnName="adjust_operator" />

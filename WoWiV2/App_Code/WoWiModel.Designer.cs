@@ -9126,6 +9126,30 @@ namespace WoWiModel
         private Nullable<global::System.DateTime> _modify_date;
         partial void Onmodify_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onmodify_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> pay_date
+        {
+            get
+            {
+                return _pay_date;
+            }
+            set
+            {
+                Onpay_dateChanging(value);
+                ReportPropertyChanging("pay_date");
+                _pay_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("pay_date");
+                Onpay_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _pay_date;
+        partial void Onpay_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onpay_dateChanged();
 
         #endregion
     

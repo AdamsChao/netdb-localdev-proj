@@ -16,7 +16,10 @@
             temp = new ARInvoiceData();
             temp.id = item.invoice_id+"";
             temp.InvoiceNo = item.issue_invoice_no;
-            temp.ARBalance = ((decimal)item.ar_balance).ToString("F2");
+            if (item.ar_balance.HasValue)
+            {
+                temp.ARBalance = ((decimal)item.ar_balance).ToString("F2");
+            }
             if (item.issue_invoice_date.HasValue)
             {
                 temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
@@ -419,7 +422,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
   <ContentTemplate>
-  Invoice Management
+  AR Management
                     <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <th align="left" width="13%">
