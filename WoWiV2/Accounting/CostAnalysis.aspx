@@ -81,7 +81,7 @@
                     catch (Exception)
                     {
                         
-                        throw;
+                        //throw;
                     }
                     
                 }
@@ -163,7 +163,7 @@
 
                         //throw;
                     }
-                    temp.OpenDate = proj.Create_Date.ToString("yyy/MM/dd");
+                    temp.OpenDate = proj.Create_Date.ToString("yyyy/MM/dd");
 
 
                     try
@@ -218,7 +218,7 @@
                                 try
                                 {
                                     DateTime fromDate =  dcInvoiceFrom.GetDate();
-                                    if ((fromDate - (DateTime)proj.Create_Date).TotalDays >= 0)
+                                    if ((fromDate - (DateTime)ii.issue_invoice_date).TotalDays >= 0)
                                     {
                                         flag = true;
                                         break;
@@ -232,7 +232,7 @@
                                 try
                                 {
                                     DateTime toDate = dcInvoiceTo.GetDate();
-                                    if ((toDate - (DateTime)proj.Create_Date).TotalDays <= 0)
+                                    if ((toDate - (DateTime)ii.issue_invoice_date).TotalDays <= 0)
                                     {
                                         flag = true;
                                         break;
@@ -581,7 +581,7 @@
                             <asp:BoundField DataField="InvUSD" HeaderText="Inv USD" />
                             <asp:BoundField DataField="InvDate" HeaderText="Inv Date" />
                             <asp:BoundField DataField="InvNo" HeaderText="Inv No" />
-                            <asp:BoundField DataField="ReceiveDate" HeaderText="Receive Date" />
+                            <asp:BoundField DataField="ReceiveDate" HeaderText="Received Date" />
                             <asp:BoundField DataField="IMA" HeaderText="IMA" />
                             <asp:BoundField DataField="VenderNo" HeaderText="No" />
                             <asp:BoundField DataField="VenderName" HeaderText="Name" />
