@@ -240,13 +240,24 @@
                     }
                     temp.OpenDate = proj.Create_Date.ToString("yyyy/MM/dd");
                     var country = (from cou in wowidb.countries where cou.country_id == cli.country_id select cou).First();
-                    temp.Country = country.country_name;
+                    //temp.Country = country.country_name;
                     if (ddlCountry.SelectedValue != "-1")
                     {
                         if (country.country_id != int.Parse(ddlCountry.SelectedValue))
                         {
                             continue;
                         }
+                    }
+                    try
+                    {
+                       var tDesc =  (from k in wowidb.PR_item from kk in wowidb.Quotation_Target from kkk in wowidb.Targets where k.pr_id == item.pr_id && k.quotation_target_id == kk.Quotation_Target_Id && kk.target_id == kkk.target_id select kkk.target_description ).First();
+                       temp.Country = tDesc;
+                         
+                    }
+                    catch (Exception)
+                    {
+                        
+                        //throw;
                     }
                     bool flag = false;
                     try
