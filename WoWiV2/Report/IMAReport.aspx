@@ -62,7 +62,7 @@
     }
     protected void btnExport_Click(object sender, EventArgs e)
     {
-        Utils.ExportExcel(iGridView1, "CostAnalysis");
+        Utils.ExportExcel(iGridView1, "IMAReport");
     }
 
     public override void VerifyRenderingInServerForm(Control control)
@@ -305,30 +305,6 @@
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
-<style type="text/css">
-    th
-    {
-         font-size : 12px;
-    }
-    .Gridview
-    {
-        text-align : right;
-        font-size : 12px;
-    }
-    .Currency
-    {
-        color:blue;
-    }
-    .HighLight
-    {
-        background-color:yellow;
-    }
-    .HighLight1
-    {
-        background-color:orange;
-    }
-
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
   <asp:UpdatePanel runat="server">

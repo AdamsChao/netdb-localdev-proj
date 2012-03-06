@@ -570,52 +570,6 @@
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
-<style type="text/css">
-    th
-    {
-         font-size : 12px;
-    }
-    .Gridview
-    {
-        text-align : right;
-        font-size : 12px;
-    }
-    .Currency
-    {
-        color:blue;
-    }
-    .HighLight
-    {
-        background-color:yellow;
-    }
-    .HiddenPanel
-    {
-        padding: 0 0 0 0 ;
-   
-    }
-    .Total
-    {
-         font-weight:bold;
-         font-style:italic;
-         background-color:yellow;   
-    }
-    .Total1
-    {
-         font-weight:bold;
-         font-style:italic;
-    }
-    .AmountDue
-    {
-         font-weight:bold;
-         font-style:italic;
-         background-color:orange;   
-   
-    }
-    .style1
-    {
-        height: 57px;
-    }
-</style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
   <asp:UpdatePanel runat="server">

@@ -431,12 +431,6 @@
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
-<style type="text/css">
-.hidden
-{
-    display:none;
-}
-</style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
  Issued New&nbsp;&nbsp;<asp:HyperLink 

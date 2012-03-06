@@ -5,7 +5,8 @@
 <%@ Register assembly="iServerControls" namespace="iControls.Web" tagprefix="cc1" %>
 
 <script runat="server">
-
+    QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
+    WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     protected void Page_Load(object sender, EventArgs e)
     {
         SetGridViewHidden();
@@ -41,7 +42,7 @@
         
     }
 
-    protected void SetMergedHerderColumnsReport(iGridView iGridView1, int idx)
+    protected void SetMergedHerderColumnsReport(iRowSpanGridView iGridView1, int idx)
     {
         iGridView1.AddMergedColumns("Samsung", idx, 2);
         iGridView1.AddMergedColumns("亞旭", idx + 2, 2);
@@ -49,8 +50,8 @@
         iGridView1.AddMergedColumns("奇美", idx + 6, 2);
         iGridView1.AddMergedColumns("Balance Total", idx + 8, 2);
     }
-    
-    protected void SetMergedHerderColumnsMonthReport(iGridView iGridView1, int idx)
+
+    protected void SetMergedHerderColumnsMonthReport(iRowSpanGridView iGridView1, int idx)
     {
         iGridView1.AddMergedColumns("Jan", idx, 2);
         iGridView1.AddMergedColumns("Feb", idx+2, 2);
@@ -67,7 +68,7 @@
         iGridView1.AddMergedColumns("Balance Total", idx + 24, 2);
         
     }
-    protected void SetMergedHerderColumnsSeasonReport(iGridView iGridView1,int idx)
+    protected void SetMergedHerderColumnsSeasonReport(iRowSpanGridView iGridView1, int idx)
     {
         iGridView1.AddMergedColumns("Jan ~ Mar", idx, 2);
         iGridView1.AddMergedColumns("Apr ~ Jun", idx + 2, 2);
@@ -75,7 +76,7 @@
         iGridView1.AddMergedColumns("Oct ~ Dec", idx + 6, 2);
         iGridView1.AddMergedColumns("Balance Total", idx + 8, 2);
     }
-    protected void SetMergedHerderColumnsIntervalReport(iGridView iGridView1,int idx)
+    protected void SetMergedHerderColumnsIntervalReport(iRowSpanGridView iGridView1, int idx)
     {
         iGridView1.AddMergedColumns("Ballance Total", idx, 2);
     }
@@ -501,51 +502,49 @@
     {
         SetHeaderText(e, 1, dcFrom.GetText() + " ~ " + dcFrom.GetText());
     }
+    public override void VerifyRenderingInServerForm(Control control)
+    {
+        
+    }
+    protected void btnExport_Click(object sender, EventArgs e)
+    {
+    }
+    
+    protected void ddlYear_Load(object sender, EventArgs e)
+    {
+        if (Page.IsPostBack) return;
+        int year = DateTime.Now.Year;
+        for (int i = 0; i < 5; i++)
+        {
+            (sender as DropDownList).Items.Add((year - i).ToString());
+        }
+    }
+    protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if ((sender as DropDownList).SelectedValue == "3")
+        {
+            IntervalPanel.Visible = true;
+        }
+        else
+        {
+            IntervalPanel.Visible = false;
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
-<style type="text/css">
-    th
-    {
-         font-size : 12px;
-    }
-    .Gridview
-    {
-        text-align : right;
-        font-size : 12px;
-    }
-    .Currency
-    {
-        color:blue;
-    }
-    .HighLight
-    {
-        background-color:yellow;
-    }
-    .HighLight1
-    {
-        background-color:orange;
-    }
-
-    .style1
-    {
-        height: 53px;
-    }
-
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
   <asp:UpdatePanel runat="server">
   <ContentTemplate>
       Sales Analysis Report
-                    <table align="center" border="1" cellpadding="0" cellspacing="0" width="920">
+                    <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
                       
                         <tr>
                              <th align="left" width="13%">
                                  Report&nbsp; :&nbsp;</th>
                             <td width="20%">
-                                <asp:DropDownList ID="ddlReport" runat="server" DataTextField='fname'  
-                                    DataValueField="id" AppendDataBoundItems="True" AutoPostBack="True" 
+                                <asp:DropDownList ID="ddlReport" runat="server" AppendDataBoundItems="True" AutoPostBack="True" 
                                     onselectedindexchanged="ddlReport_SelectedIndexChanged">
                                     <asp:ListItem Value="1">業務銷售分析</asp:ListItem>
                                     <asp:ListItem Value="2">客戶期間分析</asp:ListItem>
@@ -557,23 +556,22 @@
                             </td>
                             <td align="left" colspan="2">
                                 Year :
-                                <asp:DropDownList ID="ddlYear" runat="server">
-                                    <asp:ListItem>2011</asp:ListItem>
-                                    <asp:ListItem>2010</asp:ListItem>
-                                    <asp:ListItem>2009</asp:ListItem>
+                                <asp:DropDownList ID="ddlYear" runat="server" onload="ddlYear_Load">
                                 </asp:DropDownList>
-                           
-                                 Type :
-                                <asp:DropDownList ID="ddlType" runat="server" style="height: 22px">
-                                    <asp:ListItem Value=" ">      </asp:ListItem>
+                                &nbsp;&nbsp;
+                                Type :
+                                <asp:DropDownList ID="ddlType" runat="server" style="height: 22px" 
+                                    AutoPostBack="True" onselectedindexchanged="ddlType_SelectedIndexChanged">
                                     <asp:ListItem Value="1">月</asp:ListItem>
                                     <asp:ListItem Value="2">季</asp:ListItem>
+                                    <asp:ListItem Value="3">指定區間</asp:ListItem>
                                 </asp:DropDownList>
+                                
                             </td>
                             <td  align="center" colspan="2">
-                                <asp:Button ID="Button1" runat="server" Text="Search" onclick="Button1_Click" />
+                                   <asp:Button ID="btnSearch" runat="server" Text="Search" onclick="Button1_Click" />
                                 &nbsp;&nbsp;
-                                <asp:Button ID="Button4" runat="server" Text="Excel" />
+                                <asp:Button ID="btnExport" runat="server" Text="Excel" Enabled="False" />
                             </td>
                         </tr>
                         <tr>
@@ -587,12 +585,13 @@
                                 </asp:DropDownList>
                             </td>
                             <td colspan="2">
-                                From : 
+                                <asp:Panel ID="IntervalPanel" runat="server" Visible="false" >   
+                                 From : 
                                 <uc1:DateChooser ID="dcFrom" runat="server" />
-                            
-                            <br>
-                                &nbsp;&nbsp;&nbsp; To :
+                   &nbsp;&nbsp;
+                                 To :
                                 <uc1:DateChooser ID="dcTo" runat="server" />
+                                </asp:Panel> 
                             </td>
                              <td colspan="2" >
                                 
@@ -603,12 +602,12 @@
                        
                        
                    <tr><td colspan="6">
-                    <cc1:iGridView ID="iGridView1" runat="server" Height="300px" Width="920px" 
-                        DefaultColumnWidth="120px" AutoGenerateColumns="False" CssClass="Gridview" 
+                    <cc1:iRowSpanGridView ID="iGridView1" runat="server"  Width="100%" 
+                         AutoGenerateColumns="False" CssClass="Gridview" 
                            onsetcssclass="iGridView1_SetCSSClass"  useCustomCelloutput="true" isHeaderColMerged="true"
                            onrowdatabound="iGridView1_RowDataBound" oncustomcelloutput="iGridView1_CustomCellOutput" 
                           >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                             <asp:BoundField DataField="Sales" HeaderText="Sales/Client" />
                             <asp:BoundField DataField="Client" HeaderText="Sales/Client" />
@@ -626,14 +625,14 @@
                             <asp:BoundField DataField="Month12USD" HeaderText="Dec" /> 
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" /> 
                         </Columns>
-                    </cc1:iGridView>
-                     <cc1:iGridView ID="iGridView2" runat="server" Height="300px" Width="920px"
-                        DefaultColumnWidth="120px" AutoGenerateColumns="False" CssClass="Gridview" 
+                    </cc1:iRowSpanGridView>
+                     <cc1:iRowSpanGridView ID="iGridView2" runat="server"  Width="100%"
+                         AutoGenerateColumns="False" CssClass="Gridview" 
                            useCustomCelloutput="true"   isHeaderColMerged="true"
                            onsetcssclass="iGridView1_SetCSSClass" 
                            onrowdatabound="iGridView2_RowDataBound" oncustomcelloutput="iGridView1_CustomCellOutput" 
                           >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                              <asp:BoundField DataField="Sales" HeaderText="Sales/Client" />
                             <asp:BoundField DataField="Client" HeaderText="Sales/Client" />
@@ -643,26 +642,26 @@
                             <asp:BoundField DataField="Season04USD" HeaderText="Oct ~ Dec" />
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                         </Columns>
-                    </cc1:iGridView>
-                    <cc1:iGridView ID="iGridView3" runat="server" Height="300px" Width="920px" 
+                    </cc1:iRowSpanGridView>
+                    <cc1:iRowSpanGridView ID="iGridView3" runat="server"  Width="100%" 
                           useCustomCelloutput="true"   isHeaderColMerged="true"
                            onsetcssclass="iGridView1_SetCSSClass"  DefaultColumnWidth="240"
                            onrowdatabound="iGridView3_RowDataBound" oncustomcelloutput="iGridView1_CustomCellOutput"  AutoGenerateColumns="False" 
                            CssClass="Gridview"  >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                             <asp:BoundField DataField="Sales" HeaderText="Sales/Client" />
                             <asp:BoundField DataField="Client" HeaderText="Sales/Client" />
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                         </Columns>
-                    </cc1:iGridView>
-                                <cc1:iGridView ID="iGridView4" runat="server" Height="300px" 
+                    </cc1:iRowSpanGridView>
+                                <cc1:iRowSpanGridView ID="iGridView4" runat="server" Height="300px" 
                            Width="920px" 
-                        DefaultColumnWidth="120px" AutoGenerateColumns="False" CssClass="Gridview" 
+                         AutoGenerateColumns="False" CssClass="Gridview" 
                            onsetcssclass="iGridView1_SetCSSClass" 
                            onrowdatabound="iGridView4_RowDataBound" 
                           >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                             <asp:BoundField DataField="Client" HeaderText="Sales/Client" />
                             <asp:BoundField DataField="Month01USD" HeaderText="Jan" />
@@ -679,13 +678,13 @@
                             <asp:BoundField DataField="Month12USD" HeaderText="Dec" /> 
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" /> 
                        </Columns>
-                    </cc1:iGridView>
+                    </cc1:iRowSpanGridView>
                     
-                    <cc1:iGridView ID="iGridView5" runat="server" Height="300px" Width="920px"  onsetcssclass="iGridView1_SetCSSClass" 
+                    <cc1:iRowSpanGridView ID="iGridView5" runat="server"  Width="100%"  onsetcssclass="iGridView1_SetCSSClass" 
                            onrowdatabound="iGridView5_RowDataBound" 
-                        DefaultColumnWidth="120px" AutoGenerateColumns="False" CssClass="Gridview" 
+                         AutoGenerateColumns="False" CssClass="Gridview" 
                           >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                         
                             <asp:BoundField DataField="Client" HeaderText="Sales/Client" />
@@ -696,21 +695,21 @@
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
    
                         </Columns>
-                    </cc1:iGridView>
-                    <cc1:iGridView ID="iGridView6" runat="server" Height="300px" 
+                    </cc1:iRowSpanGridView>
+                    <cc1:iRowSpanGridView ID="iGridView6" runat="server" Height="300px" 
                            Width="920px"   onrowdatabound="iGridView6_RowDataBound" 
                            AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
                           >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                             <asp:BoundField DataField="Client" HeaderText="Sales/Client" />
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                         </Columns>
-                    </cc1:iGridView>
-                     <cc1:iGridView ID="iGridView7" runat="server" Height="300px" Width="920px" isMergedHeader="True" 
-                        DefaultColumnWidth="120px" AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
+                    </cc1:iRowSpanGridView>
+                     <cc1:iRowSpanGridView ID="iGridView7" runat="server"  Width="100%" isMergedHeader="True" 
+                         AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
                           >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                             <asp:BoundField DataField="Country" HeaderText="T Description" />
                             <asp:BoundField DataField="Month01USD" HeaderText="US$" />
@@ -740,11 +739,11 @@
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
-                    </cc1:iGridView>
-                     <cc1:iGridView ID="iGridView8" runat="server" Height="300px" Width="920px" isMergedHeader="True"
+                    </cc1:iRowSpanGridView>
+                     <cc1:iRowSpanGridView ID="iGridView8" runat="server"  Width="100%" isMergedHeader="True"
                         DefaultColumnWidth="80px" AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
                           >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                             <asp:BoundField DataField="Country" HeaderText="T Description" />
                             <asp:BoundField DataField="Season01USD" HeaderText="US$" />
@@ -758,21 +757,21 @@
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
-                    </cc1:iGridView>
-                    <cc1:iGridView ID="iGridView9" runat="server" Height="300px" Width="920px" 
+                    </cc1:iRowSpanGridView>
+                    <cc1:iRowSpanGridView ID="iGridView9" runat="server"  Width="100%" 
                            isMergedHeader="True" CssClass="Gridview"  AutoGenerateColumns="False" 
                            onsetcssclass="iGridView1_SetCSSClass"  >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
  <Columns>
                             <asp:BoundField DataField="Country" HeaderText="T Description" />
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
-                    </cc1:iGridView>
-                      <cc1:iGridView ID="iGridView10" runat="server" Height="300px" Width="920px" isMergedHeader="True"  isHeaderColMerged="true"
-                        DefaultColumnWidth="120px" AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
+                    </cc1:iRowSpanGridView>
+                      <cc1:iRowSpanGridView ID="iGridView10" runat="server"  Width="100%" isMergedHeader="True"  isHeaderColMerged="true"
+                         AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
                          useCustomCelloutput="true"   oncustomcelloutput="iGridView1_CustomCellOutput" >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                             <asp:BoundField DataField="Country" HeaderText="T Description./Month" />
                             <asp:BoundField DataField="Client" HeaderText="T Description./Month" />
@@ -803,11 +802,11 @@
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
-                    </cc1:iGridView>
-                     <cc1:iGridView ID="iGridView11" runat="server" Height="300px" Width="920px" isMergedHeader="True" isHeaderColMerged="true"
+                    </cc1:iRowSpanGridView>
+                     <cc1:iRowSpanGridView ID="iGridView11" runat="server"  Width="100%" isMergedHeader="True" isHeaderColMerged="true"
                         DefaultColumnWidth="80px" AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
                           useCustomCelloutput="true"   oncustomcelloutput="iGridView1_CustomCellOutput" >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                             <asp:BoundField DataField="Country" HeaderText="T Description./Month" />
                             <asp:BoundField DataField="Client" HeaderText="T Description./Month" />
@@ -822,22 +821,22 @@
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
-                    </cc1:iGridView>
-                    <cc1:iGridView ID="iGridView12" runat="server" Height="300px" Width="920px" isMergedHeader="True"  isHeaderColMerged="true"
+                    </cc1:iRowSpanGridView>
+                    <cc1:iRowSpanGridView ID="iGridView12" runat="server"  Width="100%" isMergedHeader="True"  isHeaderColMerged="true"
                            CssClass="Gridview"  AutoGenerateColumns="False" 
                            onsetcssclass="iGridView1_SetCSSClass"  useCustomCelloutput="true"   oncustomcelloutput="iGridView1_CustomCellOutput" >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                     <Columns>
                             <asp:BoundField DataField="Country" HeaderText="T Description./Month" />
                             <asp:BoundField DataField="Client" HeaderText="T Description./Month" />
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
-                    </cc1:iGridView>
-                     <cc1:iGridView ID="iGridView13" runat="server" Height="300px" Width="920px" isMergedHeader="True" 
-                        DefaultColumnWidth="120px" AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
+                    </cc1:iRowSpanGridView>
+                     <cc1:iRowSpanGridView ID="iGridView13" runat="server"  Width="100%" isMergedHeader="True" 
+                         AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
                           >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                             <asp:BoundField DataField="Country" HeaderText="T Description" />
                             <asp:BoundField DataField="Month01USD" HeaderText="US$" />
@@ -867,11 +866,11 @@
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
-                    </cc1:iGridView>
-                     <cc1:iGridView ID="iGridView14" runat="server" Height="300px" Width="920px" isMergedHeader="true"
+                    </cc1:iRowSpanGridView>
+                     <cc1:iRowSpanGridView ID="iGridView14" runat="server"  Width="100%" isMergedHeader="true"
                         DefaultColumnWidth="80px" AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
                           >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                             <asp:BoundField DataField="Country" HeaderText="T Description" />
                             <asp:BoundField DataField="Season01USD" HeaderText="US$" />
@@ -885,11 +884,11 @@
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
-                    </cc1:iGridView>
-                    <cc1:iGridView ID="iGridView15" runat="server" Height="300px" Width="920px" 
+                    </cc1:iRowSpanGridView>
+                    <cc1:iRowSpanGridView ID="iGridView15" runat="server"  Width="100%" 
                            isMergedHeader="True" CssClass="Gridview"  AutoGenerateColumns="False" 
                            onsetcssclass="iGridView1_SetCSSClass"  >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
  <Columns>
                             <asp:BoundField DataField="Country" HeaderText="T Description" />
                             <asp:BoundField DataField="Season01USD" HeaderText="US$" />
@@ -903,11 +902,11 @@
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
-                    </cc1:iGridView>
-                           <cc1:iGridView ID="iGridView16" runat="server" Height="300px" Width="920px" isMergedHeader="True"  isHeaderColMerged="true"
-                        DefaultColumnWidth="120px" AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
+                    </cc1:iRowSpanGridView>
+                           <cc1:iRowSpanGridView ID="iGridView16" runat="server"  Width="100%" isMergedHeader="True"  isHeaderColMerged="true"
+                         AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
                          useCustomCelloutput="true"   oncustomcelloutput="iGridView1_CustomCellOutput" >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                             <asp:BoundField DataField="Country" HeaderText="T Description./Month" />
                             <asp:BoundField DataField="Client" HeaderText="T Description./Month" />
@@ -938,11 +937,11 @@
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
-                    </cc1:iGridView>
-                     <cc1:iGridView ID="iGridView17" runat="server" Height="300px" Width="920px" isMergedHeader="True" isHeaderColMerged="true"
+                    </cc1:iRowSpanGridView>
+                     <cc1:iRowSpanGridView ID="iGridView17" runat="server"  Width="100%" isMergedHeader="True" isHeaderColMerged="true"
                         DefaultColumnWidth="80px" AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" isFirstRowSpan="true"
                           useCustomCelloutput="true"   oncustomcelloutput="iGridView1_CustomCellOutput" >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                         <Columns>
                             <asp:BoundField DataField="Country" HeaderText="T Description./Month" />
                             <asp:BoundField DataField="Client" HeaderText="T Description./Month" />
@@ -957,11 +956,11 @@
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
-                    </cc1:iGridView>
-                    <cc1:iGridView ID="iGridView18" runat="server" Height="300px" Width="920px" isMergedHeader="True"  isHeaderColMerged="true"
+                    </cc1:iRowSpanGridView>
+                    <cc1:iRowSpanGridView ID="iGridView18" runat="server"  Width="100%" isMergedHeader="True"  isHeaderColMerged="true"
                            CssClass="Gridview"  AutoGenerateColumns="False" isFirstRowSpan="true"
                            onsetcssclass="iGridView1_SetCSSClass"  useCustomCelloutput="true"   oncustomcelloutput="iGridView1_CustomCellOutput" >
-<BoundaryStyle BorderColor="Gray" BorderWidth="1px" BorderStyle="Solid"></BoundaryStyle>
+
                     <Columns>
                             <asp:BoundField DataField="Country" HeaderText="T Description./Month" />
                             <asp:BoundField DataField="Client" HeaderText="T Description./Month" />
@@ -976,7 +975,7 @@
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
-                    </cc1:iGridView>
+                    </cc1:iRowSpanGridView>
                     </td>
                   </tr>
                     </table>

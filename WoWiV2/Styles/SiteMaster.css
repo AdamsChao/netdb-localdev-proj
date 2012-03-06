@@ -297,3 +297,29 @@ div.accountInfo
 {
     display:none;
 }
+
+th
+    {
+         font-size : 12px;
+    }
+    .Gridview
+    {
+        font-size : 12px;
+    }
+    .Currency
+    {
+        color:blue;
+    }
+    .HighLight
+    {
+        background-color:yellow;
+    }
+    .HighLight1
+    {
+        background-color:orange;
+    }
+    
+    .hidden
+{
+    display:none;
+}

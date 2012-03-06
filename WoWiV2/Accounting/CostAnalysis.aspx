@@ -420,30 +420,7 @@
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
-    <style type="text/css">
-    th
-    {
-         font-size : 12px;
-    }
-    .Gridview
-    {
-        text-align : right;
-        font-size : 12px;
-    }
-    .Currency
-    {
-        color:blue;
-    }
-    .HighLight
-    {
-        background-color:yellow;
-    }
-    .HighLight1
-    {
-        background-color:orange;
-    }
-
-    </style>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <asp:UpdatePanel runat="server">
