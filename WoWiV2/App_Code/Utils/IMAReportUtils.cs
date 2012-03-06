@@ -106,7 +106,7 @@ public class IMAReportUtils
                         imaM2D += venM2D;
                         imaM2Q += venM2Q;
                         imaM3D += venM3D;
-                        imaM4Q += venM3Q;
+                        imaM3Q += venM3Q;
                         imaM4D += venM4D;
                         imaM4Q += venM4Q;
                         imaM5D += venM5D;
@@ -173,7 +173,7 @@ public class IMAReportUtils
                     M2D += imaM2D;
                     M2Q += imaM2Q;
                     M3D += imaM3D;
-                    M4Q += imaM3Q;
+                    M3Q += imaM3Q;
                     M4D += imaM4D;
                     M4Q += imaM4Q;
                     M5D += imaM5D;
@@ -344,7 +344,7 @@ public class IMAReportUtils
                         imaM2D += venM2D;
                         imaM2Q += venM2Q;
                         imaM3D += venM3D;
-                        imaM4Q += venM3Q;
+                        imaM3Q += venM3Q;
                         imaM4D += venM4D;
                         imaM4Q += venM4Q;
 
@@ -382,7 +382,7 @@ public class IMAReportUtils
                     M2D += imaM2D;
                     M2Q += imaM2Q;
                     M3D += imaM3D;
-                    M4Q += imaM3Q;
+                    M3Q += imaM3Q;
                     M4D += imaM4D;
                     M4Q += imaM4Q;
 
@@ -613,6 +613,30 @@ public class IMAReportUtils
                     }//Single vender ends
                     venTotD = venM1D + venM2D + venM3D + venM4D + venM5D + venM6D + venM7D + venM8D + venM9D + venM10D + venM11D + venM12D;
                     venTotQ = venM1Q + venM2Q + venM3Q + venM4Q + venM5Q + venM6Q + venM7Q + venM8Q + venM9Q + venM10Q + venM11Q + venM12Q;
+                    M1D += venM1D;
+                    M1Q += venM1Q;
+                    M2D += venM2D;
+                    M2Q += venM2Q;
+                    M3D += venM3D;
+                    M3Q += venM3Q;
+                    M4D += venM4D;
+                    M4Q += venM4Q;
+                    M5D += venM5D;
+                    M5Q += venM5Q;
+                    M6D += venM6D;
+                    M6Q += venM6Q;
+                    M7D += venM7D;
+                    M7Q += venM7Q;
+                    M8D += venM8D;
+                    M8Q += venM8Q;
+                    M9D += venM9D;
+                    M9Q += venM9Q;
+                    M10D += venM10D;
+                    M10Q += venM10Q;
+                    M11D += venM11D;
+                    M11Q += venM11Q;
+                    M12D += venM12D;
+                    M12Q += venM12Q;
                     TotD += venTotD;
                     TotQ += venTotQ;
                     temp.Month01USD = venM1D.ToString("F2");
@@ -760,6 +784,14 @@ public class IMAReportUtils
                     }//Single vender ends
                     venTotD = venM1D + venM2D + venM3D + venM4D;
                     venTotQ = venM1Q + venM2Q + venM3Q + venM4Q;
+                    M1D += venM1D;
+                    M1Q += venM1Q;
+                    M2D += venM2D;
+                    M2Q += venM2Q;
+                    M3D += venM3D;
+                    M3Q += venM3Q;
+                    M4D += venM4D;
+                    M4Q += venM4Q;
                     TotD += venTotD;
                     TotQ += venTotQ;
                     temp.Season01USD = venM1D.ToString("F2");
@@ -939,75 +971,50 @@ public class IMAReportUtils
                             switch (month)
                             {
                                 case 1:
-                                    venM1D += (decimal)pri.amount;
-                                    venM1Q += (decimal)pri.quantity;
                                     avenM1D = (decimal)pri.amount;
                                     avenM1Q = (decimal)pri.quantity;
-                                   
                                     break;
                                 case 2:
-                                    venM2D += (decimal)pri.amount;
-                                    venM2Q += (decimal)pri.quantity;
                                     avenM2D = (decimal)pri.amount;
                                     avenM2Q = (decimal)pri.quantity;
                                     break;
                                 case 3:
-                                    venM3D += (decimal)pri.amount;
-                                    venM3Q += (decimal)pri.quantity;
-                                   avenM3D = (decimal)pri.amount;
+                                    avenM3D = (decimal)pri.amount;
                                     avenM3Q = (decimal)pri.quantity;
                                     break;
                                 case 4:
-                                    venM4D += (decimal)pri.amount;
-                                    venM4Q += (decimal)pri.quantity;
                                     avenM4D = (decimal)pri.amount;
                                     avenM4Q = (decimal)pri.quantity;
                                     break;
                                 case 5:
-                                    venM5D += (decimal)pri.amount;
-                                    venM5Q += (decimal)pri.quantity;
                                     avenM5D = (decimal)pri.amount;
                                     avenM5Q = (decimal)pri.quantity;
                                     break;
                                 case 6:
-                                    venM6D += (decimal)pri.amount;
-                                    venM6Q += (decimal)pri.quantity;
                                     avenM4D = (decimal)pri.amount;
                                     avenM4Q = (decimal)pri.quantity;
                                     break;
                                 case 7:
-                                    venM7D += (decimal)pri.amount;
-                                    venM7Q += (decimal)pri.quantity;
                                     avenM4D = (decimal)pri.amount;
                                     avenM4Q = (decimal)pri.quantity;
                                     break;
                                 case 8:
-                                    venM8D += (decimal)pri.amount;
-                                    venM8Q += (decimal)pri.quantity;
                                     avenM8D = (decimal)pri.amount;
                                     avenM8Q = (decimal)pri.quantity;
                                     break;
                                 case 9:
-                                    venM9D += (decimal)pri.amount;
-                                    venM9Q += (decimal)pri.quantity;
                                     avenM9D = (decimal)pri.amount;
                                     avenM9Q = (decimal)pri.quantity;
                                     break;
                                 case 10:
-                                    venM10D += (decimal)pri.amount;
-                                    venM10Q += (decimal)pri.quantity;
                                     avenM10D = (decimal)pri.amount;
                                     avenM10Q = (decimal)pri.quantity;
                                     break;
                                 case 11:
-                                    venM11D += (decimal)pri.amount;
-                                    venM11Q += (decimal)pri.quantity;
                                     avenM11D = (decimal)pri.amount;
                                     avenM11Q = (decimal)pri.quantity;
                                     break;
                                 case 12:
-                                    venM12D += (decimal)pri.amount;
-                                    venM12Q += (decimal)pri.quantity;
                                     avenM12D = (decimal)pri.amount;
                                     avenM12Q = (decimal)pri.quantity;
                                     break;
@@ -1015,6 +1022,32 @@ public class IMAReportUtils
                             
                             avenTotD = avenM1D + avenM2D + avenM3D + avenM4D + avenM5D + avenM6D + avenM7D + avenM8D + avenM9D + avenM10D + avenM11D + avenM12D;
                             avenTotQ = avenM1Q + avenM2Q + avenM3Q + avenM4Q + avenM5Q + avenM6Q + avenM7Q + avenM8Q + avenM9Q + avenM10Q + avenM11Q + avenM12Q;
+                            venM1D += avenM1D;
+                            venM1Q += avenM1Q;
+                            venM2D += avenM2D;
+                            venM2Q += avenM2Q;
+                            venM3D += avenM3D;
+                            venM3Q += avenM3Q;
+                            venM4D += avenM4D;
+                            venM4Q += avenM4Q;
+                            venM5D += avenM5D;
+                            venM5Q += avenM5Q;
+                            venM6D += avenM6D;
+                            venM6Q += avenM6Q;
+                            venM7D += avenM7D;
+                            venM7Q += avenM7Q;
+                            venM8D += avenM8D;
+                            venM8Q += avenM8Q;
+                            venM9D += avenM9D;
+                            venM9Q += avenM9Q;
+                            venM10D += avenM10D;
+                            venM10Q += avenM10Q;
+                            venM11D += avenM11D;
+                            venM11Q += avenM11Q;
+                            venM12D += avenM12D;
+                            venM12Q += avenM12Q;
+                            venTotD += avenTotD;
+                            venTotQ += avenTotQ;
                             temp.Month01USD = avenM1D.ToString("F2");
                             temp.Month02USD = avenM2D.ToString("F2");
                             temp.Month03USD = avenM3D.ToString("F2");
@@ -1042,8 +1075,6 @@ public class IMAReportUtils
                             temp.Month11QTY = avenM11Q.ToString("F0");
                             temp.Month12QTY = avenM12Q.ToString("F0");
                             temp.TotalQTY = avenTotQ.ToString("F0");
-                            venTotD += avenTotD;
-                            venTotQ += avenTotQ;
                             list.Add(temp);
                             
                         }
@@ -1054,6 +1085,30 @@ public class IMAReportUtils
                         }
                    
                     }//Single vender ends
+                    M1D += venM1D;
+                    M1Q += venM1Q;
+                    M2D += venM2D;
+                    M2Q += venM2Q;
+                    M3D += venM3D;
+                    M3Q += venM3Q;
+                    M4D += venM4D;
+                    M4Q += venM4Q;
+                    M5D += venM5D;
+                    M5Q += venM5Q;
+                    M6D += venM6D;
+                    M6Q += venM6Q;
+                    M7D += venM7D;
+                    M7Q += venM7Q;
+                    M8D += venM8D;
+                    M8Q += venM8Q;
+                    M9D += venM9D;
+                    M9Q += venM9Q;
+                    M10D += venM10D;
+                    M10Q += venM10Q;
+                    M11D += venM11D;
+                    M11Q += venM11Q;
+                    M12D += venM12D;
+                    M12Q += venM12Q;
                     TotD += venTotD;
                     TotQ += venTotQ;
                     if (venTotD != 0)
@@ -1062,6 +1117,8 @@ public class IMAReportUtils
                         {
                             VenderName = " Total : "
                         };
+                        
+                        
                         temp.Month01USD = venM1D.ToString("F2");
                         temp.Month02USD = venM2D.ToString("F2");
                         temp.Month03USD = venM3D.ToString("F2");
@@ -1202,32 +1259,24 @@ public class IMAReportUtils
                                 case 1:
                                 case 2:
                                 case 3:
-                                    venM1D += (decimal)pri.amount;
-                                    venM1Q += (decimal)pri.quantity;
                                     avenM1D = (decimal)pri.amount;
                                     avenM1Q = (decimal)pri.quantity;
                                     break;
                                 case 4:
                                 case 5:
                                 case 6:
-                                    venM2D += (decimal)pri.amount;
-                                    venM2Q += (decimal)pri.quantity;
                                     avenM2D = (decimal)pri.amount;
                                     avenM2Q = (decimal)pri.quantity;
                                     break;
                                 case 7:
                                 case 8:
                                 case 9:
-                                    venM3D += (decimal)pri.amount;
-                                    venM3Q += (decimal)pri.quantity;
                                     avenM3D = (decimal)pri.amount;
                                     avenM3Q = (decimal)pri.quantity;
                                     break;
                                 case 10:
                                 case 11:
                                 case 12:
-                                    venM4D += (decimal)pri.amount;
-                                    venM4Q += (decimal)pri.quantity;
                                     avenM4D = (decimal)pri.amount;
                                     avenM4Q = (decimal)pri.quantity;
                                     break;
@@ -1236,6 +1285,14 @@ public class IMAReportUtils
                             avenTotD = avenM1D + avenM2D + avenM3D + avenM4D ;
                             avenTotQ = avenM1Q + avenM2Q + avenM3Q + avenM4Q ;
 
+                            venM1D += avenM1D;
+                            venM1Q += avenM1Q;
+                            venM2D += avenM2D;
+                            venM2Q += avenM2Q;
+                            venM3D += avenM3D;
+                            venM3Q += avenM3Q;
+                            venM4D += avenM4D;
+                            venM4Q += avenM4Q;
                             venTotD += avenTotD;
                             venTotQ += avenTotQ;
                             temp.Season01USD = M1D.ToString("F2");
@@ -1258,6 +1315,14 @@ public class IMAReportUtils
                         }
 
                     }//Single vender ends
+                    M1D += venM1D;
+                    M1Q += venM1Q;
+                    M2D += venM2D;
+                    M2Q += venM2Q;
+                    M3D += venM3D;
+                    M3Q += venM3Q;
+                    M4D += venM4D;
+                    M4Q += venM4Q;
                     TotD += venTotD;
                     TotQ += venTotQ;
                     if (venTotD != 0)
@@ -1276,7 +1341,6 @@ public class IMAReportUtils
                         temp.Season02QTY = M2Q.ToString("F0");
                         temp.Season03QTY = M3Q.ToString("F0");
                         temp.Season04QTY = M4Q.ToString("F0");
-                        temp.TotalQTY = TotQ.ToString("F0");
                         temp.TotalQTY = venTotQ.ToString("F0");
                         list.Add(temp);
                     }
