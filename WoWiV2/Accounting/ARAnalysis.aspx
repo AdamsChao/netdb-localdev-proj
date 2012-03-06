@@ -633,7 +633,7 @@
                        
                    <tr><td colspan="6">
                     <cc1:iRowSpanGridView ID="iGridView1" runat="server" Height="300px" Width="100%" isMergedHeader="true" SkinID="GridView"
-                        DefaultColumnWidth="80px" AutoGenerateColumns="false" CssClass="Gridview" Visible="false"
+                        AutoGenerateColumns="false" CssClass="Gridview" Visible="false"
                            onrowdatabound="iGridView1_RowDataBound" >
                         <Columns>
                             <asp:BoundField DataField="InvoiceNo" HeaderText="Invoice No" />
@@ -661,7 +661,7 @@
                         </Columns>
                     </cc1:iRowSpanGridView>
                     <cc1:iRowSpanGridView ID="iGridView2" runat="server" Height="300px" Width="100%" isMergedHeader="true"
-                        DefaultColumnWidth="80px" AutoGenerateColumns="false" CssClass="Gridview" Visible="false"
+                        AutoGenerateColumns="false" CssClass="Gridview" Visible="false"
                            onrowdatabound="iGridView1_RowDataBound" >
                         <Columns>
                             <asp:BoundField DataField="Client" HeaderText="Client" />

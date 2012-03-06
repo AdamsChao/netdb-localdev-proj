@@ -345,7 +345,7 @@
                       
                         <tr>
                              <th align="left" width="13%">
-                                 Report&nbsp; :&nbsp;</th>
+                                 Report Type&nbsp; :&nbsp;</th>
                             <td width="20%">
                                 <asp:DropDownList ID="ddlReport" runat="server"   
                                     AppendDataBoundItems="True">

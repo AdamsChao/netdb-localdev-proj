@@ -542,7 +542,7 @@
                       
                         <tr>
                              <th align="left" width="13%">
-                                 Report&nbsp; :&nbsp;</th>
+                                 Report&nbsp; Type :&nbsp;</th>
                             <td width="20%">
                                 <asp:DropDownList ID="ddlReport" runat="server" AppendDataBoundItems="True" AutoPostBack="True" 
                                     onselectedindexchanged="ddlReport_SelectedIndexChanged">
@@ -645,7 +645,7 @@
                     </cc1:iRowSpanGridView>
                     <cc1:iRowSpanGridView ID="iGridView3" runat="server"  Width="100%" 
                           useCustomCelloutput="true"   isHeaderColMerged="true"
-                           onsetcssclass="iGridView1_SetCSSClass"  DefaultColumnWidth="240"
+                           onsetcssclass="iGridView1_SetCSSClass" 
                            onrowdatabound="iGridView3_RowDataBound" oncustomcelloutput="iGridView1_CustomCellOutput"  AutoGenerateColumns="False" 
                            CssClass="Gridview"  >
 
@@ -655,8 +655,8 @@
                             <asp:BoundField DataField="TotalUSD" HeaderText="US$" />
                         </Columns>
                     </cc1:iRowSpanGridView>
-                                <cc1:iRowSpanGridView ID="iGridView4" runat="server" Height="300px" 
-                           Width="920px" 
+                                <cc1:iRowSpanGridView ID="iGridView4" runat="server" 
+                           Width="100%" 
                          AutoGenerateColumns="False" CssClass="Gridview" 
                            onsetcssclass="iGridView1_SetCSSClass" 
                            onrowdatabound="iGridView4_RowDataBound" 
@@ -696,8 +696,8 @@
    
                         </Columns>
                     </cc1:iRowSpanGridView>
-                    <cc1:iRowSpanGridView ID="iGridView6" runat="server" Height="300px" 
-                           Width="920px"   onrowdatabound="iGridView6_RowDataBound" 
+                    <cc1:iRowSpanGridView ID="iGridView6" runat="server"
+                           Width="100%"   onrowdatabound="iGridView6_RowDataBound" 
                            AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
                           >
 
@@ -741,7 +741,7 @@
                         </Columns>
                     </cc1:iRowSpanGridView>
                      <cc1:iRowSpanGridView ID="iGridView8" runat="server"  Width="100%" isMergedHeader="True"
-                        DefaultColumnWidth="80px" AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
+                        AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
                           >
 
                         <Columns>
@@ -804,7 +804,7 @@
                         </Columns>
                     </cc1:iRowSpanGridView>
                      <cc1:iRowSpanGridView ID="iGridView11" runat="server"  Width="100%" isMergedHeader="True" isHeaderColMerged="true"
-                        DefaultColumnWidth="80px" AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
+                        AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
                           useCustomCelloutput="true"   oncustomcelloutput="iGridView1_CustomCellOutput" >
 
                         <Columns>
@@ -868,7 +868,7 @@
                         </Columns>
                     </cc1:iRowSpanGridView>
                      <cc1:iRowSpanGridView ID="iGridView14" runat="server"  Width="100%" isMergedHeader="true"
-                        DefaultColumnWidth="80px" AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
+                        AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" 
                           >
 
                         <Columns>
@@ -939,7 +939,7 @@
                         </Columns>
                     </cc1:iRowSpanGridView>
                      <cc1:iRowSpanGridView ID="iGridView17" runat="server"  Width="100%" isMergedHeader="True" isHeaderColMerged="true"
-                        DefaultColumnWidth="80px" AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" isFirstRowSpan="true"
+                        AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" isFirstRowSpan="true"
                           useCustomCelloutput="true"   oncustomcelloutput="iGridView1_CustomCellOutput" >
 
                         <Columns>
