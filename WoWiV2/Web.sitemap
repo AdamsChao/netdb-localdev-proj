@@ -47,10 +47,10 @@
     <siteMapNode url="" title="Report"  description=""  roles="System Admin,Management,Accounting" >
       <!--<siteMapNode url="" title="Forecast"  description="" />-->
       <siteMapNode url="~/Report/SalesReport.aspx" title="Sales Report"  description="" >
-        <!--<siteMapNode url="~/Report/SalesAnalysisReport.aspx" title="分析報表"  description="" />-->
+        <siteMapNode url="~/Report/SalesAnalysisReport.aspx" title="分析報表"  description="" />
       </siteMapNode>
       <siteMapNode url="~/Report/IMAReport.aspx" title="IMA Report"  description="" >
-        <!--<siteMapNode url="~/Report/IMAAnalysisReport.aspx" title="分析報表"  description="" />-->
+        <siteMapNode url="~/Report/IMAAnalysisReport.aspx" title="分析報表"  description="" />
       </siteMapNode>
       <!--<siteMapNode url="" title="Project Summary"  description="" />-->
     </siteMapNode>
