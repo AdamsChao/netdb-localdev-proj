@@ -896,17 +896,20 @@ public class IMAReportUtils
 
             foreach (var ven in venders)
             {
-                decimal venM1D = 0, venM1Q = 0, venM2D = 0, venM2Q = 0, venM3D = 0, venM3Q = 0, venM4D = 0, venM4Q = 0, venM5D = 0, venM5Q = 0, venM6D = 0, venM6Q = 0, venM7D = 0, venM7Q = 0, venM8D = 0, venM8Q = 0, venM9D = 0, venM9Q = 0, venM10D = 0, venM10Q = 0, venM11D = 0, venM11Q = 0, venM12D = 0, venM12Q = 0, venTotD = 0, venTotQ = 0;
+                
                 try
                 {
+                    String vName = "";
                     var prs = from pr in wowidb.PRs where pr.vendor_id == ven select pr;
-                    temp = new IMAVenderCostMonthReportData();
-                    var v = (from i in wowidb.vendors where i.id == ven select i).First();
-                    temp.VenderName = String.IsNullOrEmpty(v.c_name) ? v.name : v.c_name;
+                    decimal venM1D = 0, venM1Q = 0, venM2D = 0, venM2Q = 0, venM3D = 0, venM3Q = 0, venM4D = 0, venM4Q = 0, venM5D = 0, venM5Q = 0, venM6D = 0, venM6Q = 0, venM7D = 0, venM7Q = 0, venM8D = 0, venM8Q = 0, venM9D = 0, venM9Q = 0, venM10D = 0, venM10Q = 0, venM11D = 0, venM11Q = 0, venM12D = 0, venM12Q = 0, venTotD = 0, venTotQ = 0;
                     foreach (var p in prs)
                     {
                         try
                         {
+                            temp = new IMAVenderCostMonthReportData();
+                            var v = (from i in wowidb.vendors where i.id == ven select i).First();
+                            temp.VenderName = String.IsNullOrEmpty(v.c_name) ? v.name : v.c_name;
+                            vName = temp.VenderName;
                             var pj = (from proj in wowidb.Projects where proj.Project_Id == p.project_id select proj).First();
                             int month = pj.Create_Date.Month;
                             var quo = (from q in wowidb.Quotation_Version where q.Quotation_Version_Id == pj.Quotation_Id select q).First();
@@ -932,97 +935,162 @@ public class IMAReportUtils
                             catch (Exception)
                             {
                             }
+                            decimal avenM1D = 0, avenM1Q = 0, avenM2D = 0, avenM2Q = 0, avenM3D = 0, avenM3Q = 0, avenM4D = 0, avenM4Q = 0, avenM5D = 0, avenM5Q = 0, avenM6D = 0, avenM6Q = 0, avenM7D = 0, avenM7Q = 0, avenM8D = 0, avenM8Q = 0, avenM9D = 0, avenM9Q = 0, avenM10D = 0, avenM10Q = 0, avenM11D = 0, avenM11Q = 0, avenM12D = 0, avenM12Q = 0, avenTotD = 0, avenTotQ = 0;
                             switch (month)
                             {
                                 case 1:
                                     venM1D += (decimal)pri.amount;
                                     venM1Q += (decimal)pri.quantity;
+                                    avenM1D = (decimal)pri.amount;
+                                    avenM1Q = (decimal)pri.quantity;
+                                   
                                     break;
                                 case 2:
                                     venM2D += (decimal)pri.amount;
                                     venM2Q += (decimal)pri.quantity;
+                                    avenM2D = (decimal)pri.amount;
+                                    avenM2Q = (decimal)pri.quantity;
                                     break;
                                 case 3:
                                     venM3D += (decimal)pri.amount;
                                     venM3Q += (decimal)pri.quantity;
+                                   avenM3D = (decimal)pri.amount;
+                                    avenM3Q = (decimal)pri.quantity;
                                     break;
                                 case 4:
                                     venM4D += (decimal)pri.amount;
                                     venM4Q += (decimal)pri.quantity;
+                                    avenM4D = (decimal)pri.amount;
+                                    avenM4Q = (decimal)pri.quantity;
                                     break;
                                 case 5:
                                     venM5D += (decimal)pri.amount;
                                     venM5Q += (decimal)pri.quantity;
+                                    avenM5D = (decimal)pri.amount;
+                                    avenM5Q = (decimal)pri.quantity;
                                     break;
                                 case 6:
                                     venM6D += (decimal)pri.amount;
                                     venM6Q += (decimal)pri.quantity;
+                                    avenM4D = (decimal)pri.amount;
+                                    avenM4Q = (decimal)pri.quantity;
                                     break;
                                 case 7:
                                     venM7D += (decimal)pri.amount;
                                     venM7Q += (decimal)pri.quantity;
+                                    avenM4D = (decimal)pri.amount;
+                                    avenM4Q = (decimal)pri.quantity;
                                     break;
                                 case 8:
                                     venM8D += (decimal)pri.amount;
                                     venM8Q += (decimal)pri.quantity;
+                                    avenM8D = (decimal)pri.amount;
+                                    avenM8Q = (decimal)pri.quantity;
                                     break;
                                 case 9:
                                     venM9D += (decimal)pri.amount;
                                     venM9Q += (decimal)pri.quantity;
+                                    avenM9D = (decimal)pri.amount;
+                                    avenM9Q = (decimal)pri.quantity;
                                     break;
                                 case 10:
                                     venM10D += (decimal)pri.amount;
                                     venM10Q += (decimal)pri.quantity;
+                                    avenM10D = (decimal)pri.amount;
+                                    avenM10Q = (decimal)pri.quantity;
                                     break;
                                 case 11:
                                     venM11D += (decimal)pri.amount;
                                     venM11Q += (decimal)pri.quantity;
+                                    avenM11D = (decimal)pri.amount;
+                                    avenM11Q = (decimal)pri.quantity;
                                     break;
                                 case 12:
                                     venM12D += (decimal)pri.amount;
                                     venM12Q += (decimal)pri.quantity;
+                                    avenM12D = (decimal)pri.amount;
+                                    avenM12Q = (decimal)pri.quantity;
                                     break;
                             }
+                            
+                            avenTotD = avenM1D + avenM2D + avenM3D + avenM4D + avenM5D + avenM6D + avenM7D + avenM8D + avenM9D + avenM10D + avenM11D + avenM12D;
+                            avenTotQ = avenM1Q + avenM2Q + avenM3Q + avenM4Q + avenM5Q + avenM6Q + avenM7Q + avenM8Q + avenM9Q + avenM10Q + avenM11Q + avenM12Q;
+                            temp.Month01USD = avenM1D.ToString("F2");
+                            temp.Month02USD = avenM2D.ToString("F2");
+                            temp.Month03USD = avenM3D.ToString("F2");
+                            temp.Month04USD = avenM4D.ToString("F2");
+                            temp.Month05USD = avenM5D.ToString("F2");
+                            temp.Month06USD = avenM6D.ToString("F2");
+                            temp.Month07USD = avenM7D.ToString("F2");
+                            temp.Month08USD = avenM8D.ToString("F2");
+                            temp.Month09USD = avenM9D.ToString("F2");
+                            temp.Month10USD = avenM10D.ToString("F2");
+                            temp.Month11USD = avenM11D.ToString("F2");
+                            temp.Month12USD = avenM12D.ToString("F2");
+                            temp.TotalUSD = avenTotD.ToString("F2");
+
+                            temp.Month01QTY = avenM1Q.ToString("F0");
+                            temp.Month02QTY = avenM2Q.ToString("F0");
+                            temp.Month03QTY = avenM3Q.ToString("F0");
+                            temp.Month04QTY = avenM4Q.ToString("F0");
+                            temp.Month05QTY = avenM5Q.ToString("F0");
+                            temp.Month06QTY = avenM6Q.ToString("F0");
+                            temp.Month07QTY = avenM7Q.ToString("F0");
+                            temp.Month08QTY = avenM8Q.ToString("F0");
+                            temp.Month09QTY = avenM9Q.ToString("F0");
+                            temp.Month10QTY = avenM10Q.ToString("F0");
+                            temp.Month11QTY = avenM11Q.ToString("F0");
+                            temp.Month12QTY = avenM12Q.ToString("F0");
+                            temp.TotalQTY = avenTotQ.ToString("F0");
+                            venTotD += avenTotD;
+                            venTotQ += avenTotQ;
+                            list.Add(temp);
+                            
                         }
                         catch (Exception)
                         {
 
                             //throw;
                         }
-
+                   
                     }//Single vender ends
-                    venTotD = venM1D + venM2D + venM3D + venM4D + venM5D + venM6D + venM7D + venM8D + venM9D + venM10D + venM11D + venM12D;
-                    venTotQ = venM1Q + venM2Q + venM3Q + venM4Q + venM5Q + venM6Q + venM7Q + venM8Q + venM9Q + venM10Q + venM11Q + venM12Q;
                     TotD += venTotD;
                     TotQ += venTotQ;
-                    temp.Month01USD = venM1D.ToString("F2");
-                    temp.Month02USD = venM2D.ToString("F2");
-                    temp.Month03USD = venM3D.ToString("F2");
-                    temp.Month04USD = venM4D.ToString("F2");
-                    temp.Month05USD = venM5D.ToString("F2");
-                    temp.Month06USD = venM6D.ToString("F2");
-                    temp.Month07USD = venM7D.ToString("F2");
-                    temp.Month08USD = venM8D.ToString("F2");
-                    temp.Month09USD = venM9D.ToString("F2");
-                    temp.Month10USD = venM10D.ToString("F2");
-                    temp.Month11USD = venM11D.ToString("F2");
-                    temp.Month12USD = venM12D.ToString("F2");
-                    temp.TotalUSD = venTotD.ToString("F2");
+                    if (venTotD != 0)
+                    {
+                        temp = new IMAVenderCostMonthReportData()
+                        {
+                            VenderName = " Total : "
+                        };
+                        temp.Month01USD = venM1D.ToString("F2");
+                        temp.Month02USD = venM2D.ToString("F2");
+                        temp.Month03USD = venM3D.ToString("F2");
+                        temp.Month04USD = venM4D.ToString("F2");
+                        temp.Month05USD = venM5D.ToString("F2");
+                        temp.Month06USD = venM6D.ToString("F2");
+                        temp.Month07USD = venM7D.ToString("F2");
+                        temp.Month08USD = venM8D.ToString("F2");
+                        temp.Month09USD = venM9D.ToString("F2");
+                        temp.Month10USD = venM10D.ToString("F2");
+                        temp.Month11USD = venM11D.ToString("F2");
+                        temp.Month12USD = venM12D.ToString("F2");
+                        temp.TotalUSD = venTotD.ToString("F2");
 
-                    temp.Month01QTY = venM1Q.ToString("F0");
-                    temp.Month02QTY = venM2Q.ToString("F0");
-                    temp.Month03QTY = venM3Q.ToString("F0");
-                    temp.Month04QTY = venM4Q.ToString("F0");
-                    temp.Month05QTY = venM5Q.ToString("F0");
-                    temp.Month06QTY = venM6Q.ToString("F0");
-                    temp.Month07QTY = venM7Q.ToString("F0");
-                    temp.Month08QTY = venM8Q.ToString("F0");
-                    temp.Month09QTY = venM9Q.ToString("F0");
-                    temp.Month10QTY = venM10Q.ToString("F0");
-                    temp.Month11QTY = venM11Q.ToString("F0");
-                    temp.Month12QTY = venM12Q.ToString("F0");
-                    temp.TotalQTY = venTotQ.ToString("F0");
-                    list.Add(temp);
+                        temp.Month01QTY = venM1Q.ToString("F0");
+                        temp.Month02QTY = venM2Q.ToString("F0");
+                        temp.Month03QTY = venM3Q.ToString("F0");
+                        temp.Month04QTY = venM4Q.ToString("F0");
+                        temp.Month05QTY = venM5Q.ToString("F0");
+                        temp.Month06QTY = venM6Q.ToString("F0");
+                        temp.Month07QTY = venM7Q.ToString("F0");
+                        temp.Month08QTY = venM8Q.ToString("F0");
+                        temp.Month09QTY = venM9Q.ToString("F0");
+                        temp.Month10QTY = venM10Q.ToString("F0");
+                        temp.Month11QTY = venM11Q.ToString("F0");
+                        temp.Month12QTY = venM12Q.ToString("F0");
+                        temp.TotalQTY = venTotQ.ToString("F0");
+                        list.Add(temp);
+                    }
                 }
                 catch (Exception)
                 {
@@ -1035,7 +1103,7 @@ public class IMAReportUtils
             {
                 temp = new IMAVenderCostMonthReportData()
                 {
-                    Country = "Balance Total : "
+                    VenderName = "Balance Total : "
                 };
                 temp.Month01USD = M1D.ToString("F2");
                 temp.Month02USD = M2D.ToString("F2");
@@ -1089,13 +1157,15 @@ public class IMAReportUtils
 
             foreach (var ven in venders)
             {
-                decimal venM1D = 0, venM1Q = 0, venM2D = 0, venM2Q = 0, venM3D = 0, venM3Q = 0, venM4D = 0, venM4Q = 0, venTotD = 0, venTotQ = 0;
                 try
                 {
+                    String vName = "";
                     var prs = from pr in wowidb.PRs where pr.vendor_id == ven select pr;
                     temp = new IMAVenderCostSeasonReportData();
                     var v = (from i in wowidb.vendors where i.id == ven select i).First();
                     temp.VenderName = String.IsNullOrEmpty(v.c_name) ? v.name : v.c_name;
+                    vName = temp.VenderName;
+                    decimal venM1D = 0, venM1Q = 0, venM2D = 0, venM2Q = 0, venM3D = 0, venM3Q = 0, venM4D = 0, venM4Q = 0, venTotD = 0, venTotQ = 0;
                     foreach (var p in prs)
                     {
                         try
@@ -1125,6 +1195,8 @@ public class IMAReportUtils
                             catch (Exception)
                             {
                             }
+                            decimal avenM1D = 0, avenM1Q = 0, avenM2D = 0, avenM2Q = 0, avenM3D = 0, avenM3Q = 0, avenM4D = 0, avenM4Q = 0,  avenTotD = 0, avenTotQ = 0;
+                              
                             switch (month)
                             {
                                 case 1:
@@ -1132,27 +1204,52 @@ public class IMAReportUtils
                                 case 3:
                                     venM1D += (decimal)pri.amount;
                                     venM1Q += (decimal)pri.quantity;
+                                    avenM1D = (decimal)pri.amount;
+                                    avenM1Q = (decimal)pri.quantity;
                                     break;
                                 case 4:
                                 case 5:
                                 case 6:
                                     venM2D += (decimal)pri.amount;
                                     venM2Q += (decimal)pri.quantity;
+                                    avenM2D = (decimal)pri.amount;
+                                    avenM2Q = (decimal)pri.quantity;
                                     break;
                                 case 7:
                                 case 8:
                                 case 9:
                                     venM3D += (decimal)pri.amount;
                                     venM3Q += (decimal)pri.quantity;
+                                    avenM3D = (decimal)pri.amount;
+                                    avenM3Q = (decimal)pri.quantity;
                                     break;
                                 case 10:
                                 case 11:
                                 case 12:
                                     venM4D += (decimal)pri.amount;
                                     venM4Q += (decimal)pri.quantity;
+                                    avenM4D = (decimal)pri.amount;
+                                    avenM4Q = (decimal)pri.quantity;
                                     break;
 
                             }
+                            avenTotD = avenM1D + avenM2D + avenM3D + avenM4D ;
+                            avenTotQ = avenM1Q + avenM2Q + avenM3Q + avenM4Q ;
+
+                            venTotD += avenTotD;
+                            venTotQ += avenTotQ;
+                            temp.Season01USD = M1D.ToString("F2");
+                            temp.Season02USD = M2D.ToString("F2");
+                            temp.Season03USD = M3D.ToString("F2");
+                            temp.Season04USD = M4D.ToString("F2");
+                            temp.TotalUSD = avenTotD.ToString("F2");
+
+                            temp.Season01QTY = M1Q.ToString("F0");
+                            temp.Season02QTY = M2Q.ToString("F0");
+                            temp.Season03QTY = M3Q.ToString("F0");
+                            temp.Season04QTY = M4Q.ToString("F0");
+                            temp.TotalQTY = avenTotQ.ToString("F0");
+                            list.Add(temp);
                         }
                         catch (Exception)
                         {
@@ -1161,22 +1258,28 @@ public class IMAReportUtils
                         }
 
                     }//Single vender ends
-                    venTotD = venM1D + venM2D + venM3D + venM4D;
-                    venTotQ = venM1Q + venM2Q + venM3Q + venM4Q;
                     TotD += venTotD;
                     TotQ += venTotQ;
-                    temp.Season01USD = venM1D.ToString("F2");
-                    temp.Season02USD = venM2D.ToString("F2");
-                    temp.Season03USD = venM3D.ToString("F2");
-                    temp.Season04USD = venM4D.ToString("F2");
-                    temp.TotalUSD = venTotD.ToString("F2");
+                    if (venTotD != 0)
+                    {
+                        temp = new IMAVenderCostSeasonReportData()
+                        {
+                            VenderName = " Total : "
+                        };
+                        temp.Season01USD = M1D.ToString("F2");
+                        temp.Season02USD = M2D.ToString("F2");
+                        temp.Season03USD = M3D.ToString("F2");
+                        temp.Season04USD = M4D.ToString("F2");
+                        temp.TotalUSD = venTotD.ToString("F2");
 
-                    temp.Season01QTY = venM1Q.ToString("F0");
-                    temp.Season02QTY = venM2Q.ToString("F0");
-                    temp.Season03QTY = venM3Q.ToString("F0");
-                    temp.Season04QTY = venM4Q.ToString("F0");
-                    temp.TotalQTY = venTotQ.ToString("F0");
-                    list.Add(temp);
+                        temp.Season01QTY = M1Q.ToString("F0");
+                        temp.Season02QTY = M2Q.ToString("F0");
+                        temp.Season03QTY = M3Q.ToString("F0");
+                        temp.Season04QTY = M4Q.ToString("F0");
+                        temp.TotalQTY = TotQ.ToString("F0");
+                        temp.TotalQTY = venTotQ.ToString("F0");
+                        list.Add(temp);
+                    }
                 }
                 catch (Exception)
                 {
@@ -1189,7 +1292,7 @@ public class IMAReportUtils
             {
                 temp = new IMAVenderCostSeasonReportData()
                 {
-                    Country = "Balance Total : "
+                    VenderName = "Balance Total : "
                 };
                 temp.Season01USD = M1D.ToString("F2");
                 temp.Season02USD = M2D.ToString("F2");
@@ -1230,10 +1333,12 @@ public class IMAReportUtils
                 decimal venTotD = 0, venTotQ = 0;
                 try
                 {
+                    String vName = "";
                     var prs = from pr in wowidb.PRs where pr.vendor_id == ven select pr;
                     temp = new IMAVenderCostIntervalReportData();
                     var v = (from i in wowidb.vendors where i.id == ven select i).First();
                     temp.VenderName = String.IsNullOrEmpty(v.c_name) ? v.name : v.c_name;
+                    vName = temp.VenderName;
                     foreach (var p in prs)
                     {
                         try
@@ -1263,9 +1368,11 @@ public class IMAReportUtils
                             catch (Exception)
                             {
                             }
+                            temp.TotalUSD = ((decimal)pri.amount).ToString("F2");
+                            temp.TotalQTY = ((decimal)pri.quantity).ToString("F0");
+                            list.Add(temp);
                             venTotD += (decimal)pri.amount;
-                            venTotD += (decimal)pri.quantity;
-
+                            venTotQ += (decimal)pri.quantity;
                         }
                         catch (Exception)
                         {
@@ -1277,9 +1384,17 @@ public class IMAReportUtils
 
                     TotD += venTotD;
                     TotQ += venTotQ;
-                    temp.TotalUSD = venTotD.ToString("F2");
-                    temp.TotalQTY = venTotQ.ToString("F0");
-                    list.Add(temp);
+                    if (venTotD!=0)
+                    {
+                        temp = new IMAVenderCostIntervalReportData()
+                        {
+                            VenderName = " Total : "
+                        };
+                        temp.TotalUSD = venTotD.ToString("F2");
+                        temp.TotalQTY = venTotQ.ToString("F0");
+                        list.Add(temp);
+                    }
+
                 }
                 catch (Exception)
                 {
@@ -1292,7 +1407,7 @@ public class IMAReportUtils
             {
                 temp = new IMAVenderCostIntervalReportData()
                 {
-                    Country = "Balance Total : "
+                    VenderName = "Balance Total : "
                 };
                 temp.TotalUSD = TotD.ToString("F2");
                 temp.TotalQTY = TotQ.ToString("F0");
