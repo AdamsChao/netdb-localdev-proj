@@ -761,7 +761,7 @@
                 }
                 //(FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
                 //(FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
-                Response.Redirect("~/Accounting/PRDetails.aspx?id=" + id);
+                Response.Redirect("~/Accounting/PRDetails.aspx?id=" + id,false);
             }
             catch (Exception ex)
             {
