@@ -9,7 +9,7 @@
  
     protected void ddlVenderList_Load(object sender, EventArgs e)
     {
-
+        if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["type"]) && Request.QueryString["type"]=="payment")
         {
             (sender as DropDownList).Enabled = false;
@@ -442,6 +442,7 @@
 
     protected void AuthLabel_Load(object sender, EventArgs e)
     {
+        if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             int id = int.Parse(Request.QueryString["id"]);
@@ -557,6 +558,7 @@
 
     protected void btn_Load(object sender, EventArgs e)
     {
+        if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             int id = int.Parse(Request.QueryString["id"]);
@@ -759,7 +761,7 @@
                 }
                 //(FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
                 //(FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
-                //Server.Transfer("PRDetails.aspx?id=" + id);
+                Response.Redirect("~/Accounting/PRDetails.aspx?id=" + id);
             }
             catch (Exception ex)
             {
