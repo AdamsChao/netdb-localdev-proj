@@ -523,66 +523,76 @@
     protected void AuthLabel_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+        try
         {
-            int id = int.Parse(Request.QueryString["id"]);
-            WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
-            if (obj.pr_auth_id == null) return;
-            int authid = (int)obj.pr_auth_id;
-            WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid select au).First();
-            Label lbl = sender as Label;
-            TextBox tb = sender as TextBox;
-            String text = "";
-            if (lbl != null)
+
+
+            if (!String.IsNullOrEmpty(Request.QueryString["id"]))
             {
-                text = lbl.ID;
+                int id = int.Parse(Request.QueryString["id"]);
+                WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
+                if (obj.pr_auth_id == null) return;
+                int authid = (int)obj.pr_auth_id;
+                WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid select au).First();
+                Label lbl = sender as Label;
+                TextBox tb = sender as TextBox;
+                String text = "";
+                if (lbl != null)
+                {
+                    text = lbl.ID;
+                }
+                else
+                {
+                    text = tb.ID;
+                }
+                switch (text)
+                {
+                    case "lblRequisitioner":
+                        lbl.Text = auth.requisitioner;
+                        break;
+                    case "lblRequisitionerDate":
+                        lbl.Text = auth.requisitioner_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.requisitioner_date);
+                        break;
+                    case "lblFinance":
+                        lbl.Text = auth.finance;
+                        break;
+                    case "lblFinanceDate":
+                        lbl.Text = auth.finance_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.finance_date);
+                        break;
+                    case "lblPresident":
+                        lbl.Text = auth.president;
+                        break;
+                    case "lblPresidentDate":
+                        lbl.Text = auth.president_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.president_date);
+                        break;
+                    case "lblVP":
+                        lbl.Text = auth.vp;
+                        break;
+                    case "lblVPDate":
+                        lbl.Text = auth.vp_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.vp_date);
+                        break;
+                    case "lblSupervisor":
+                        lbl.Text = auth.supervisor;
+                        break;
+                    case "lblSupervisorDate":
+                        lbl.Text = auth.supervisor_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.supervisor_date);
+                        break;
+                    case "lblStatus":
+                        lbl.Text = ((PRStatus)auth.status).ToString();
+                        break;
+                    case "tbInternalMarksHis":
+                        tb.Text = auth.remark;
+                        break;
+                    case "tbInstructionHis":
+                        tb.Text = auth.instruction;
+                        break;
+                }
             }
-            else
-            {
-                text = tb.ID;
-            }
-            switch (text)
-            {
-                case "lblRequisitioner":
-                    lbl.Text = auth.requisitioner;
-                    break;
-                case "lblRequisitionerDate":
-                    lbl.Text = auth.requisitioner_date == null ? "" : String.Format("{0:yyyy/MM/dd}",(DateTime)auth.requisitioner_date);
-                    break;
-                case "lblFinance":
-                    lbl.Text = auth.finance;
-                    break;
-                case "lblFinanceDate":
-                    lbl.Text = auth.finance_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.finance_date);
-                    break;
-                case "lblPresident":
-                    lbl.Text = auth.president;
-                    break;
-                case "lblPresidentDate":
-                    lbl.Text = auth.president_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.president_date);
-                    break;
-                case "lblVP":
-                    lbl.Text = auth.vp;
-                    break;
-                case "lblVPDate":
-                    lbl.Text = auth.vp_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.vp_date);
-                    break;
-                case "lblSupervisor":
-                    lbl.Text = auth.supervisor;
-                    break;
-                case "lblSupervisorDate":
-                    lbl.Text = auth.supervisor_date == null ? "" : String.Format("{0:yyyy/MM/dd}", (DateTime)auth.supervisor_date);
-                    break;
-                case "lblStatus":
-                    lbl.Text = ((PRStatus)auth.status).ToString();
-                    break;
-                case "tbInternalMarksHis":
-                    tb.Text = auth.remark;
-                    break;
-                case "tbInstructionHis":
-                    tb.Text = auth.instruction;
-                    break;
-            }
+        }
+        catch (Exception)
+        {
+
+            throw;
         }
     }
 
