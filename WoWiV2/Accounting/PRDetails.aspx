@@ -135,26 +135,33 @@
         var ids = from c in wowidb.m_vender_contact where c.vender_id == id select c.contact_id;
         if (ids.Count() != 0)
         {
-           
-            lbl.Visible = true;
-            ddl.Visible = true;
-            gv.Visible = true;
-            var data = from v in wowidb.contact_info
-                       from idx in ids
-                       where v.id == idx
-                       select new
-                       {
-                           text = String.IsNullOrEmpty(v.fname) ? v.c_lname
-                               + " " + v.c_fname : v.fname + " " + v.lname,
-                           id = v.id
-                       };
-            ddl.DataSource = data;
-            ddl.DataTextField = "text";
-            ddl.DataValueField = "id";
-            ddl.DataBind();
-            int i = data.First().id;
-            gv.DataSource = from v in wowidb.contact_info where v.id== i select v;
-            gv.DataBind();
+
+            try
+            {
+                gv.Visible = true;
+                var data = from v in wowidb.contact_info
+                           from idx in ids
+                           where v.id == idx
+                           select new
+                           {
+                               text = String.IsNullOrEmpty(v.fname) ? v.c_lname
+                                   + " " + v.c_fname : v.fname + " " + v.lname,
+                               id = v.id
+                           };
+                ddl.DataSource = data;
+                ddl.DataTextField = "text";
+                ddl.DataValueField = "id";
+                ddl.DataBind();
+                ddl.Visible = true;
+                int i = data.First().id;
+                gv.DataSource = from v in wowidb.contact_info where v.id == i select v;
+                gv.DataBind();
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
         }
         else
         {

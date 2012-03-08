@@ -162,16 +162,25 @@
             (FormView1.FindControl("lbAddress") as Label).Text = data.address;
             (FormView1.FindControl("lbcAddress") as Label).Text = data.c_address;
             (FormView1.FindControl("lbLU") as Label).Text = data.ub_license_number;
-            (FormView1.FindControl("ddlCountry") as DropDownList).SelectedValue = data.country.ToString();
-            (FormView1.FindControl("ddlQualification") as DropDownList).SelectedValue = data.qualification;
-            (FormView1.FindControl("ddlContractType") as DropDownList).SelectedValue = data.contract_type;
-            (FormView1.FindControl("ddlBankCharge") as DropDownList).SelectedValue = data.bank_charge.ToString();
-            (FormView1.FindControl("ddlPaymentType") as DropDownList).SelectedValue = data.payment_type.ToString();
-            (FormView1.FindControl("ddlPaymentDays") as DropDownList).SelectedValue = data.paymentdays;
-            (FormView1.FindControl("ddlPaymentTerm1") as DropDownList).SelectedValue = data.payment_term1.ToString();
-            (FormView1.FindControl("ddlPaymentTerm2") as DropDownList).SelectedValue = data.payment_term2.ToString();
-            (FormView1.FindControl("ddlPaymentTerm3") as DropDownList).SelectedValue = data.payment_term3.ToString();
-            (FormView1.FindControl("ddlPaymentTermF") as DropDownList).SelectedValue = data.payment_term_final.ToString();
+            try
+            {
+                (FormView1.FindControl("ddlPaymentDays") as DropDownList).SelectedValue = data.paymentdays;
+                (FormView1.FindControl("ddlCountry") as DropDownList).SelectedValue = data.country.ToString();
+                (FormView1.FindControl("ddlQualification") as DropDownList).SelectedValue = data.qualification;
+                (FormView1.FindControl("ddlContractType") as DropDownList).SelectedValue = data.contract_type;
+                (FormView1.FindControl("ddlBankCharge") as DropDownList).SelectedValue = data.bank_charge.ToString();
+                (FormView1.FindControl("ddlPaymentType") as DropDownList).SelectedValue = data.payment_type.ToString();
+                (FormView1.FindControl("ddlPaymentTerm1") as DropDownList).SelectedValue = data.payment_term1.ToString();
+                (FormView1.FindControl("ddlPaymentTerm2") as DropDownList).SelectedValue = data.payment_term2.ToString();
+                (FormView1.FindControl("ddlPaymentTerm3") as DropDownList).SelectedValue = data.payment_term3.ToString();
+                (FormView1.FindControl("ddlPaymentTermF") as DropDownList).SelectedValue = data.payment_term_final.ToString();
+            }
+            catch (Exception ex)
+            {
+                
+                //throw;
+            }
+            
             (FormView1.FindControl("lbPaymentBal") as Label).Text = data.payment_balance.ToString();
             initContact(vid);
             initBankingAccount(vid);
@@ -191,24 +200,33 @@
         {
            
             lbl.Visible = true;
-            ddl.Visible = true;
-            gv.Visible = true;
-            var data = from v in wowidb.contact_info
-                       from idx in ids
-                       where v.id == idx
-                       select new
-                       {
-                           text = String.IsNullOrEmpty(v.fname) ? v.c_lname
-                               + " " + v.c_fname : v.fname + " " + v.lname,
-                           id = v.id
-                       };
-            ddl.DataSource = data;
-            ddl.DataTextField = "text";
-            ddl.DataValueField = "id";
-            ddl.DataBind();
-            int i = data.First().id;
-            gv.DataSource = from v in wowidb.contact_info where v.id== i select v;
-            gv.DataBind();
+            try
+            {
+                gv.Visible = true;
+                var data = from v in wowidb.contact_info
+                           from idx in ids
+                           where v.id == idx
+                           select new
+                           {
+                               text = String.IsNullOrEmpty(v.fname) ? v.c_lname
+                                   + " " + v.c_fname : v.fname + " " + v.lname,
+                               id = v.id
+                           };
+                ddl.DataSource = data;
+                ddl.DataTextField = "text";
+                ddl.DataValueField = "id";
+                ddl.DataBind();
+                ddl.Visible = true;
+                int i = data.First().id;
+                gv.DataSource = from v in wowidb.contact_info where v.id == i select v;
+                gv.DataBind();
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+           
         }
         else
         {
