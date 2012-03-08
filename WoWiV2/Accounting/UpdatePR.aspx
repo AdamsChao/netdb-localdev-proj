@@ -14,7 +14,6 @@
         {
             (sender as DropDownList).Enabled = false;
         }
-        if (Page.IsPostBack) return;
         var list = (from c in wowidb.vendors from country in wowidb.countries where c.country == country.country_id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name+" ]" : c.name + " - [ " + country.country_name+" ]" });
 
         (sender as DropDownList).DataSource = list;
