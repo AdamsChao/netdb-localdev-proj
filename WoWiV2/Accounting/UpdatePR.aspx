@@ -32,40 +32,59 @@
                 //init contact
                 if (obj.vendor_contact_id != null && obj.vendor_contact_id != -1)
                 {
-                    int ci = (int)obj.vendor_contact_id;
-                    (FormView1.FindControl("ddlContact") as DropDownList).SelectedValue = ci.ToString();
-                    GridView gv = (FormView1.FindControl("GridView1") as GridView);
-                    gv.DataSource = from v in wowidb.contact_info where v.id == ci select v;
-                    gv.DataBind();
+                    try
+                    {
+                        int ci = (int)obj.vendor_contact_id;
+                        (FormView1.FindControl("ddlContact") as DropDownList).SelectedValue = ci.ToString();
+                        GridView gv = (FormView1.FindControl("GridView1") as GridView);
+                        gv.DataSource = from v in wowidb.contact_info where v.id == ci select v;
+                        gv.DataBind();
+                    }
+                    catch (Exception)
+                    {
+
+                        //throw;
+
+                    }
+                    
                 }
                 //init banking
                 if (obj.vendor_banking_id != null && obj.vendor_banking_id != -1)
                 {
-                    int bi = (int)obj.vendor_banking_id;
-                    (FormView1.FindControl("ddlBankAccount") as DropDownList).SelectedValue = bi.ToString();
-                    var bankAcct = (from c in wowidb.venderbankings where c.bank_id == bi select c);
-                    Label lblWUB = FormView1.FindControl("lblWUB") as Label;
-                    Label lblB = FormView1.FindControl("lblB") as Label;
-                    GridView bgv = (FormView1.FindControl("GridView2") as GridView);
-                    GridView wgv = (FormView1.FindControl("GridView3") as GridView);
-                    if ((bool)bankAcct.First().isWestUnit)
+                    try
                     {
-                        lblWUB.Visible = true;
-                        wgv.Visible = true;
-                        lblB.Visible = false;
-                        bgv.Visible = false;
-                        wgv.DataSource = bankAcct;
-                        wgv.DataBind();
+                        int bi = (int)obj.vendor_banking_id;
+                        (FormView1.FindControl("ddlBankAccount") as DropDownList).SelectedValue = bi.ToString();
+                        var bankAcct = (from c in wowidb.venderbankings where c.bank_id == bi select c);
+                        Label lblWUB = FormView1.FindControl("lblWUB") as Label;
+                        Label lblB = FormView1.FindControl("lblB") as Label;
+                        GridView bgv = (FormView1.FindControl("GridView2") as GridView);
+                        GridView wgv = (FormView1.FindControl("GridView3") as GridView);
+                        if ((bool)bankAcct.First().isWestUnit)
+                        {
+                            lblWUB.Visible = true;
+                            wgv.Visible = true;
+                            lblB.Visible = false;
+                            bgv.Visible = false;
+                            wgv.DataSource = bankAcct;
+                            wgv.DataBind();
+                        }
+                        else
+                        {
+                            lblWUB.Visible = false;
+                            wgv.Visible = false;
+                            lblB.Visible = true;
+                            bgv.Visible = true;
+                            bgv.DataSource = bankAcct;
+                            bgv.DataBind();
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        lblWUB.Visible = false;
-                        wgv.Visible = false;
-                        lblB.Visible = true;
-                        bgv.Visible = true;
-                        bgv.DataSource = bankAcct;
-                        bgv.DataBind();
+                        
+                        //throw;
                     }
+                    
                 }
                 (FormView1.FindControl("VenderPanel") as Panel).Visible = false;
             }
@@ -238,55 +257,71 @@
 
     protected void initBankingAccount(int id)
     {
-        DropDownList ddl = (FormView1.FindControl("ddlBankAccount") as DropDownList);
-        Label lblWUB = FormView1.FindControl("lblWUB") as Label;
-        Label lblAccount = FormView1.FindControl("lblAccount") as Label;
-        Label lblB = FormView1.FindControl("lblB") as Label;
-        GridView bgv = (FormView1.FindControl("GridView2") as GridView);
-        GridView wgv = (FormView1.FindControl("GridView3") as GridView);
-        var ids = from c in wowidb.venderbankings where c.vender_id == id select new {id=c.bank_id,text= (bool
-            )c.isWestUnit?c.wu_first_name+ " "+c.wu_last_name:c.bank_name+" "+c.bank_branch_name};
-        if (ids.Count() != 0)
+        try
         {
-            lblAccount.Visible = true;
-            ddl.DataSource = ids;
-            ddl.DataTextField = "text";
-            ddl.DataValueField = "id";
-            ddl.DataBind();
-            ddl.Visible = true;
-        
-            var bankAcct =  (from c in wowidb.venderbankings where c.vender_id == id select c);
-            int ii= bankAcct.First().bank_id;
-            bankAcct = bankAcct.Where(n => n.bank_id == ii);
-            if ((bool)bankAcct.First().isWestUnit)
+            DropDownList ddl = (FormView1.FindControl("ddlBankAccount") as DropDownList);
+            Label lblWUB = FormView1.FindControl("lblWUB") as Label;
+            Label lblAccount = FormView1.FindControl("lblAccount") as Label;
+            Label lblB = FormView1.FindControl("lblB") as Label;
+            GridView bgv = (FormView1.FindControl("GridView2") as GridView);
+            GridView wgv = (FormView1.FindControl("GridView3") as GridView);
+            var ids = from c in wowidb.venderbankings
+                      where c.vender_id == id
+                      select new
+                      {
+                          id = c.bank_id,
+                          text = (bool
+                              )c.isWestUnit ? c.wu_first_name + " " + c.wu_last_name : c.bank_name + " " + c.bank_branch_name
+                      };
+            if (ids.Count() != 0)
             {
-                lblWUB.Visible = true;
-                wgv.Visible = true;
-                lblB.Visible = false;
-                bgv.Visible = false;
-                wgv.DataSource = bankAcct;
-                wgv.DataBind();
+                lblAccount.Visible = true;
+                ddl.DataSource = ids;
+                ddl.DataTextField = "text";
+                ddl.DataValueField = "id";
+                ddl.DataBind();
+                ddl.Visible = true;
+
+                var bankAcct = (from c in wowidb.venderbankings where c.vender_id == id select c);
+                int ii = bankAcct.First().bank_id;
+                bankAcct = bankAcct.Where(n => n.bank_id == ii);
+                if ((bool)bankAcct.First().isWestUnit)
+                {
+                    lblWUB.Visible = true;
+                    wgv.Visible = true;
+                    lblB.Visible = false;
+                    bgv.Visible = false;
+                    wgv.DataSource = bankAcct;
+                    wgv.DataBind();
+                }
+                else
+                {
+                    lblWUB.Visible = false;
+                    wgv.Visible = false;
+                    lblB.Visible = true;
+                    bgv.Visible = true;
+                    bgv.DataSource = bankAcct;
+                    bgv.DataBind();
+                }
+
             }
             else
             {
+                lblAccount.Visible = false;
+                ddl.Visible = false;
                 lblWUB.Visible = false;
+                lblB.Visible = false;
+                bgv.Visible = false;
                 wgv.Visible = false;
-                lblB.Visible = true;
-                bgv.Visible = true;
-                bgv.DataSource = bankAcct;
-                bgv.DataBind();
             }
-            
         }
-        else
+        catch (Exception)
         {
-            lblAccount.Visible = false;
-            ddl.Visible = false;
-            lblWUB.Visible = false;
-            lblB.Visible = false;
-            bgv.Visible = false;
-            wgv.Visible = false;
+            
+            //throw;
         }
+         
+        
     }
 
     protected void DropDownList1_Load(object sender, EventArgs e)
