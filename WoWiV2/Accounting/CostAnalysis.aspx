@@ -89,16 +89,19 @@
                 {
                     temp.IMACost = ((decimal)item.total_cost).ToString("F2");
                     imausd += (decimal)item.total_cost;
-
-                    if (item.currency == "USD")
-                    {
-                        temp.SubCostUSD = ((decimal)item.total_cost).ToString("F2");
-                    }
-                    else
-                    {
-                        //Temp need to modify!
-                        temp.SubCostUSD = ((decimal)item.total_cost).ToString("F2");
-                    }
+                    temp.IMACostCurrency = item.currency;
+                    //if (item.currency == "USD")
+                    //{
+                    //    temp.SubCostUSD = ((decimal)item.total_cost).ToString("F2");
+                    //}
+                    //else
+                    //{
+                    //    //Temp need to modify!
+                    //    temp.SubCostUSD = ((decimal)item.total_cost).ToString("F2");
+                    //}
+                    WoWiModel.PR_Payment p = (from pa in wowidb.PR_Payment where pa.pr_id == item.pr_id && pa.status != (byte)PRStatus.History select pa).First();
+                    temp.SubCostUSD = ((decimal)p.total_amount).ToString("F2");
+                    
                 }
 
                 if (item.vendor_id != -1)
