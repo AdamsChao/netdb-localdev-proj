@@ -592,7 +592,7 @@
         catch (Exception)
         {
 
-            throw;
+            //throw;
         }
     }
 
