@@ -639,6 +639,7 @@
                         if (emp.pr_authorize_amt >= obj.total_cost)
                         {
                             auth.status = (byte)PRStatus.Done;
+                            
                         }
                         else
                         {
@@ -665,11 +666,13 @@
                         {
                             PRUtils.PRStatusDone(auth);
                         }
+                        SetValue("btnSupervisorApprove", "btnSupervisorDisapprove", (byte)auth.status);
                         break;
                     case "btnSupervisorDisapprove":
                         disapprove(obj, auth, "lblSupervisorDate", auth.supervisor);
                         //Send Email To Requisitioner
                         PRUtils.SupervisorDisapprove(auth);//Not Yet
+                        SetValue("btnSupervisorApprove", "btnSupervisorDisapprove", (byte)PRStatus.Init);
                         break;
                     case "btnVPApprove":
                         if (emp.pr_authorize_amt >= obj.total_cost)
@@ -701,11 +704,13 @@
                         {
                             PRUtils.PRStatusDone(auth);
                         }
+                        SetValue("btnVPApprove", "btnVPDisapprove", (byte)auth.status);
                         break;
                     case "btnVPDisapprove":
                         disapprove(obj, auth, "lblVPDate", auth.vp);
                         //Send Email To Requisitioner
                         PRUtils.VPDisapprove(auth);//Not Yet
+                        SetValue("btnVPApprove", "btnVPDisapprove", (byte)PRStatus.Init);
                         break;
                     case "btnPresidentApprove":
                         auth.status = (byte)PRStatus.Done;
@@ -722,6 +727,7 @@
                         }
                         wowidb.SaveChanges();
                         PRUtils.PRStatusDone(auth);
+                        SetValue("btnPresidentApprove", "btnPresidentApprove", (byte)PRStatus.Done);
                         break;
                     case "btnPresidentDisapprove":
                         disapprove(obj, auth, "lblPresidentDate", auth.president);
@@ -734,14 +740,46 @@
                 }
                 //(FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
                 //(FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
-                Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
+                //Server.Transfer("PRDetails.aspx?id=" + id);
             }
-            catch
+            catch (Exception ex)
             {
+                
             }
         }
     }
 
+    private void SetValue(String label1, String label2, byte status)
+    {
+        try
+        {
+            (FormView1.FindControl(label1) as Button).Enabled = false;
+            (FormView1.FindControl(label2) as Button).Enabled = false;
+            String s = "Done";
+            if( status == (byte)PRStatus.Init){
+                s = "Init";
+            } else if ( status == (byte)PRStatus.Requisitioner){
+                s = "Requisitioner";
+            }else if ( status == (byte)PRStatus.Supervisor){
+                s = "Supervisor";
+            }
+            else if ( status == (byte)PRStatus.VicePresident){
+                s = "VicePresident";
+            }
+            else if (status == (byte)PRStatus.Done)
+            {
+                s = "Done";
+            }
+            (FormView1.FindControl("lblStatus") as Label).Text = s;
+        }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
+        
+    }
+    
     public void disapprove(WoWiModel.PR obj,WoWiModel.PR_authority_history auth, String labelId,String owner)
     {
         (FormView1.FindControl(labelId) as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);

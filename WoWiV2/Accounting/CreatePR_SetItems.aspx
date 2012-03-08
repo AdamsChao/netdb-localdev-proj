@@ -67,17 +67,27 @@
             (FormView1.FindControl("lbAddress") as Label).Text = data.address;
             (FormView1.FindControl("lbcAddress") as Label).Text = data.c_address;
             (FormView1.FindControl("lbLU") as Label).Text = data.ub_license_number;
-            (FormView1.FindControl("ddlCountry") as DropDownList).SelectedValue = data.country.ToString();
-            (FormView1.FindControl("ddlQualification") as DropDownList).SelectedValue = data.qualification;
-            (FormView1.FindControl("ddlContractType") as DropDownList).SelectedValue = data.contract_type;
-            (FormView1.FindControl("ddlBankCharge") as DropDownList).SelectedValue = data.bank_charge.ToString();
-            (FormView1.FindControl("ddlPaymentType") as DropDownList).SelectedValue = data.payment_type.ToString();
-            (FormView1.FindControl("ddlPaymentDays") as DropDownList).SelectedValue = data.paymentdays;
-            (FormView1.FindControl("ddlPaymentTerm1") as DropDownList).SelectedValue = data.payment_term1.ToString();
-            (FormView1.FindControl("ddlPaymentTerm2") as DropDownList).SelectedValue = data.payment_term2.ToString();
-            (FormView1.FindControl("ddlPaymentTerm3") as DropDownList).SelectedValue = data.payment_term3.ToString();
-            (FormView1.FindControl("ddlPaymentTermF") as DropDownList).SelectedValue = data.payment_term_final.ToString();
-            (FormView1.FindControl("lbPaymentBal") as Label).Text = data.payment_balance.ToString();
+
+            try
+            {
+                (FormView1.FindControl("ddlCountry") as DropDownList).SelectedValue = data.country.ToString();
+                (FormView1.FindControl("ddlQualification") as DropDownList).SelectedValue = data.qualification;
+                (FormView1.FindControl("ddlContractType") as DropDownList).SelectedValue = data.contract_type;
+                (FormView1.FindControl("ddlBankCharge") as DropDownList).SelectedValue = data.bank_charge.ToString();
+                (FormView1.FindControl("ddlPaymentType") as DropDownList).SelectedValue = data.payment_type.ToString();
+                (FormView1.FindControl("ddlPaymentDays") as DropDownList).SelectedValue = data.paymentdays;
+                (FormView1.FindControl("ddlPaymentTerm1") as DropDownList).SelectedValue = data.payment_term1.ToString();
+                (FormView1.FindControl("ddlPaymentTerm2") as DropDownList).SelectedValue = data.payment_term2.ToString();
+                (FormView1.FindControl("ddlPaymentTerm3") as DropDownList).SelectedValue = data.payment_term3.ToString();
+                (FormView1.FindControl("ddlPaymentTermF") as DropDownList).SelectedValue = data.payment_term_final.ToString();
+                (FormView1.FindControl("lbPaymentBal") as Label).Text = data.payment_balance.ToString();
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+           
             initContact(vid);
             initBankingAccount(vid);
         }
