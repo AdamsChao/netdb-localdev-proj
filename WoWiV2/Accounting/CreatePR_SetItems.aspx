@@ -94,39 +94,48 @@
     }
     protected void initContact(int id)
     {
-        DropDownList ddl = (FormView1.FindControl("ddlContact") as DropDownList);
-        Label lbl = FormView1.FindControl("lblC") as Label;
-        GridView gv = (FormView1.FindControl("GridView1") as GridView);
-        var ids = from c in wowidb.m_vender_contact where c.vender_id == id select c.contact_id;
-        if (ids.Count() != 0)
+        try
         {
-           
-            lbl.Visible = true;
-            ddl.Visible = true;
-            gv.Visible = true;
-            var data = from v in wowidb.contact_info
-                       from idx in ids
-                       where v.id == idx
-                       select new
-                       {
-                           text = String.IsNullOrEmpty(v.fname) ? v.c_lname
-                               + " " + v.c_fname : v.fname + " " + v.lname,
-                           id = v.id
-                       };
-            ddl.DataSource = data;
-            ddl.DataTextField = "text";
-            ddl.DataValueField = "id";
-            ddl.DataBind();
-            int i = data.First().id;
-            gv.DataSource = from v in wowidb.contact_info where v.id== i select v;
-            gv.DataBind();
+            DropDownList ddl = (FormView1.FindControl("ddlContact") as DropDownList);
+            Label lbl = FormView1.FindControl("lblC") as Label;
+            GridView gv = (FormView1.FindControl("GridView1") as GridView);
+            var ids = from c in wowidb.m_vender_contact where c.vender_id == id select c.contact_id;
+            if (ids.Count() != 0)
+            {
+
+                lbl.Visible = true;
+                ddl.Visible = true;
+                gv.Visible = true;
+                var data = from v in wowidb.contact_info
+                           from idx in ids
+                           where v.id == idx
+                           select new
+                           {
+                               text = String.IsNullOrEmpty(v.fname) ? v.c_lname
+                                   + " " + v.c_fname : v.fname + " " + v.lname,
+                               id = v.id
+                           };
+                ddl.DataSource = data;
+                ddl.DataTextField = "text";
+                ddl.DataValueField = "id";
+                ddl.DataBind();
+                int i = data.First().id;
+                gv.DataSource = from v in wowidb.contact_info where v.id == i select v;
+                gv.DataBind();
+            }
+            else
+            {
+                ddl.Visible = false;
+                lbl.Visible = false;
+                gv.Visible = false;
+            }
         }
-        else
+        catch (Exception)
         {
-            ddl.Visible = false;
-            lbl.Visible = false;
-            gv.Visible = false;
+            
+            //throw;
         }
+        
         
     }
 
@@ -210,38 +219,56 @@
     }
     protected void ddlContact_SelectedIndexChanged(object sender, EventArgs e)
     {
-        int i =  int.Parse((sender as DropDownList).SelectedValue);
-        GridView gv = (FormView1.FindControl("GridView1") as GridView);
-        gv.DataSource = from v in wowidb.contact_info where v.id == i select v;
-        gv.DataBind();
+        try
+        {
+            int i = int.Parse((sender as DropDownList).SelectedValue);
+            GridView gv = (FormView1.FindControl("GridView1") as GridView);
+            gv.DataSource = from v in wowidb.contact_info where v.id == i select v;
+            gv.DataBind();
+        }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
+       
     }
 
     protected void ddlBankAccount_SelectedIndexChanged(object sender, EventArgs e)
     {
-        int i = int.Parse((sender as DropDownList).SelectedValue);
-        var bankAcct = (from c in wowidb.venderbankings where c.bank_id == i select c);
-        Label lblWUB = FormView1.FindControl("lblWUB") as Label;
-        Label lblB = FormView1.FindControl("lblB") as Label;
-        GridView bgv = (FormView1.FindControl("GridView2") as GridView);
-        GridView wgv = (FormView1.FindControl("GridView3") as GridView);
-        if ((bool)bankAcct.First().isWestUnit)
+        try
         {
-            lblWUB.Visible = true;
-            wgv.Visible = true;
-            lblB.Visible = false;
-            bgv.Visible = false;
-            wgv.DataSource = bankAcct;
-            wgv.DataBind();
+            int i = int.Parse((sender as DropDownList).SelectedValue);
+            var bankAcct = (from c in wowidb.venderbankings where c.bank_id == i select c);
+            Label lblWUB = FormView1.FindControl("lblWUB") as Label;
+            Label lblB = FormView1.FindControl("lblB") as Label;
+            GridView bgv = (FormView1.FindControl("GridView2") as GridView);
+            GridView wgv = (FormView1.FindControl("GridView3") as GridView);
+            if ((bool)bankAcct.First().isWestUnit)
+            {
+                lblWUB.Visible = true;
+                wgv.Visible = true;
+                lblB.Visible = false;
+                bgv.Visible = false;
+                wgv.DataSource = bankAcct;
+                wgv.DataBind();
+            }
+            else
+            {
+                lblWUB.Visible = false;
+                wgv.Visible = false;
+                lblB.Visible = true;
+                bgv.Visible = true;
+                bgv.DataSource = bankAcct;
+                bgv.DataBind();
+            }
         }
-        else
+        catch (Exception)
         {
-            lblWUB.Visible = false;
-            wgv.Visible = false;
-            lblB.Visible = true;
-            bgv.Visible = true;
-            bgv.DataSource = bankAcct;
-            bgv.DataBind();
+
+            //throw;
         }
+        
     }
 
     protected void Page_Load(object sender, EventArgs e)
@@ -440,16 +467,29 @@
                 try
                 {
                     String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-                    var data = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency , Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
+                    var data = from t in db.Target from q in db.Quotation_Version  from qt in db.Quotation_Target  where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id && q.Quotation_Version_Id == obj.quotaion_id  select new {QuotataionNo=q.Quotation_No ,QuotataionID = q.Quotation_Version_Id, TargetName = t.target_code, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency , Qty = qt.unit };
                     GridView gv = (FormView1.FindControl("GridView4") as GridView);
                     gv.DataSource = data;
                     gv.DataBind();
                     var d = data.First();
-                    obj.total_cost = d.FinalPrice;
-                    obj.currency = currency;
-                    (FormView1.FindControl("tbCurrency") as TextBox).Text = obj.currency;
-                    (FormView1.FindControl("tbTotalAmount") as TextBox).Text = obj.total_cost.ToString();
-                    WoWiModel.PR_item item = new WoWiModel.PR_item() { pr_id = id, model_no = d.ModelNo, item_desc = d.ItemDescription, quantity = (int)d.Qty, unit_price = d.Price, quotation_id = (int)d.QuotataionID, quotation_target_id = (int)d.Quotation_Target_Id, amount = d.FinalPrice };
+                    //obj.total_cost = d.FinalPrice;
+                    //obj.currency = currency;
+                    //(FormView1.FindControl("tbCurrency") as TextBox).Text = obj.currency;
+                    //(FormView1.FindControl("tbTotalAmount") as TextBox).Text = obj.total_cost.ToString();
+                    try
+                    {
+                        var delList = from del in wowidb.PR_item where del.pr_id == obj.pr_id select del;
+                        foreach (var deli in delList)
+                        {
+                            wowidb.PR_item.DeleteObject(deli);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        
+                        //throw;
+                    }
+                    WoWiModel.PR_item item = new WoWiModel.PR_item() { pr_id = id, model_no = d.ModelNo, item_desc = d.ItemDescription, quantity = (int)d.Qty, quotation_id = (int)d.QuotataionID, quotation_target_id = (int)d.Quotation_Target_Id };
                     wowidb.PR_item.AddObject(item);
                     wowidb.SaveChanges();
                 }
@@ -545,7 +585,22 @@
                             </td></tr>
                             <tr><td colspan="4">
                                 
-                                <asp:GridView ID="GridView4" runat="server" Width="100%">
+                                <asp:GridView ID="GridView4" runat="server" Width="100%" AutoGenerateColumns="False">
+                                  <Columns>
+      <asp:BoundField DataField="QuotataionNo" HeaderText="Quotataion No" 
+                SortExpression="QuotataionNo" />
+            <asp:BoundField DataField="TargetName" HeaderText="Target Name" 
+                SortExpression="TargetName" />
+                <asp:BoundField DataField="ItemDescription" HeaderText="Item Description" 
+                SortExpression="ItemDescription" />
+                  <asp:BoundField DataField="ModelNo" HeaderText="Mode lNo" 
+                SortExpression="ModelNo" />
+                  <asp:BoundField DataField="Currency" HeaderText="Currency" 
+                SortExpression="Currency" />
+                  <asp:BoundField DataField="Qty" HeaderText="Qty" 
+                SortExpression="Qty" />
+        </Columns>
+       
                                 </asp:GridView>
                                 
                             </td></tr>
@@ -808,128 +863,7 @@
                                     </asp:GridView>
               </td>
               </tr>              </asp:Panel>
-              <%-- <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
-                            <th colspan="4">
-                                Authority Owner</th>
-                        </tr>
-                            <tr><td colspan="4">
-                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
-                          <tr >
-                                 <td>
-                                    Requisitioner
-                                 </td>
-                                 <td>
-                                     <asp:Button ID="btnSendReq" runat="server" Text="SendRequest"  Enabled="false"
-                                         onclick="btnSendReq_Click" />
-                                 </td>
-                                 <td>
-                                 </td>
-                                 <td>
-                                     <asp:Label ID="lblRequisitioner" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
-                                 </td>
-                                 <td>
-                                    Date : <asp:Label ID="lblRequisitionerDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
-                                 </td>
-                                 <td rowspan="3">
-                                     Internal Remarks:<br/>
-                                     <asp:TextBox ID="tbInternalMarks" runat="server" TextMode="MultiLine" Width="200" Height="100"></asp:TextBox>
-                                 </td>
-                          </tr>
-                           <tr >
-                                 <td>
-                                    Supervisor
-                                 </td>
-                                 <td>
-                                     <asp:Button ID="btnSupervisorApprove" runat="server" Text="Approve" Enabled ="false" />
-                                 </td>
-                                 <td>
-                                    <asp:Button ID="btnSupervisorDisapprove" runat="server" Text="Disapprove" Enabled ="false" />
-                                 </td>
-                                 <td>
-                                     <asp:Label ID="Label5" runat="server" Text=""> </asp:Label>
-                                     <asp:Label ID="lblSupervisor" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
-                                 </td>
-                                 <td>
-                                    Date : <asp:Label ID="lblSupervisorDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
-                                 </td>
-                          </tr>
-                           <tr >
-                                 <td>
-                                    VP
-                                 </td>
-                                 <td>
-                                     <asp:Button ID="btnVPApprove" runat="server" Text="Approve" Enabled ="false" />
-                                 </td>
-                                 <td>
-                                    <asp:Button ID="btnVPDisapprove" runat="server" Text="Disapprove" Enabled ="false" />
-                                 </td>
-                                 <td>
-                                     <asp:Label ID="lblVP" runat="server" Text=""  OnLoad="AuthLabel_Load"></asp:Label>
-                                 </td>
-                                 <td>
-                                    Date : <asp:Label ID="lblVPDate" runat="server" Text=""  OnLoad="AuthLabel_Load"></asp:Label>
-                                 </td>
-                          </tr>
-                          <tr >
-                                 <td>
-                                    President
-                                 </td>
-                                 <td>
-                                     <asp:Button ID="btnPresidentApprove" runat="server" Text="Approve" Enabled ="false" />
-                                 </td>
-                                 <td>
-                                    <asp:Button ID="btnPresidentDisapprove" runat="server" Text="Disapprove" Enabled ="false"  />
-                                 </td>
-                                 <td>
-                                     <asp:Label ID="lblPresident" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
-                                 </td>
-                                 <td>
-                                    Date : <asp:Label ID="lblPresidentDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
-                                 </td>
-                                 <td rowspan="3">
-                                 Instruction:<br/>
-                                     <asp:TextBox ID="tbInstruction" runat="server" TextMode="MultiLine" Width="200" Height="100"></asp:TextBox>
-                                 </td>
-                          </tr>
-                          <tr >
-                                 <td>
-                                    Finance Dept:
-                                 </td>
-                                 <td>
-                                     
-                                 </td>
-                                 <td>
-                                    
-                                 </td>
-                                 <td>
-                                     <asp:Label ID="lblFinance" runat="server" Text=""  OnLoad="AuthLabel_Load"></asp:Label>
-                                 </td>
-                                 <td>
-                                    Date : <asp:Label ID="lblFinanceDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
-                                 </td>
-                          </tr>
-                          <tr >
-                                 <td>
-                                    Cancel:
-                                 </td>
-                                 <td>
-                                     <asp:Button ID="btnCancel" runat="server" Text="Withdraw" 
-                                         onclick="btnCancel_Click" Enabled="false" />
-                                 </td>
-                                 <td>
-                                    
-                                 </td>
-                                 <td>
-                                    
-                                 </td>
-                                 <td>
-                                   
-                                 </td>
-                          </tr>
-                      </table>
-
-                            </td></tr>--%>
-
+          
                                 <tr align="center"><td class="style4" colspan="4">
                       <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
                           <tr align="center">

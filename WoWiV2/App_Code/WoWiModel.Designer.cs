@@ -548,22 +548,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<PR_Payment> PR_Payment
-        {
-            get
-            {
-                if ((_PR_Payment == null))
-                {
-                    _PR_Payment = base.CreateObjectSet<PR_Payment>("PR_Payment");
-                }
-                return _PR_Payment;
-            }
-        }
-        private ObjectSet<PR_Payment> _PR_Payment;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<invoice_target> invoice_target
         {
             get
@@ -672,6 +656,22 @@ namespace WoWiModel
             }
         }
         private ObjectSet<Target> _Targets;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PR_Payment> PR_Payment
+        {
+            get
+            {
+                if ((_PR_Payment == null))
+                {
+                    _PR_Payment = base.CreateObjectSet<PR_Payment>("PR_Payment");
+                }
+                return _PR_Payment;
+            }
+        }
+        private ObjectSet<PR_Payment> _PR_Payment;
 
         #endregion
         #region AddTo Methods
@@ -917,14 +917,6 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the PR_Payment EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPR_Payment(PR_Payment pR_Payment)
-        {
-            base.AddObject("PR_Payment", pR_Payment);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the invoice_target EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToinvoice_target(invoice_target invoice_target)
@@ -978,6 +970,14 @@ namespace WoWiModel
         public void AddToTargets(Target target)
         {
             base.AddObject("Targets", target);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PR_Payment EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPR_Payment(PR_Payment pR_Payment)
+        {
+            base.AddObject("PR_Payment", pR_Payment);
         }
 
         #endregion
@@ -9198,6 +9198,54 @@ namespace WoWiModel
         private Nullable<global::System.DateTime> _pay_date;
         partial void Onpay_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onpay_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String reason
+        {
+            get
+            {
+                return _reason;
+            }
+            set
+            {
+                OnreasonChanging(value);
+                ReportPropertyChanging("reason");
+                _reason = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("reason");
+                OnreasonChanged();
+            }
+        }
+        private global::System.String _reason;
+        partial void OnreasonChanging(global::System.String value);
+        partial void OnreasonChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String reasontype
+        {
+            get
+            {
+                return _reasontype;
+            }
+            set
+            {
+                OnreasontypeChanging(value);
+                ReportPropertyChanging("reasontype");
+                _reasontype = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("reasontype");
+                OnreasontypeChanged();
+            }
+        }
+        private global::System.String _reasontype;
+        partial void OnreasontypeChanging(global::System.String value);
+        partial void OnreasontypeChanged();
 
         #endregion
     

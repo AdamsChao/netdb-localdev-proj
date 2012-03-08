@@ -14,7 +14,8 @@
                 int id = int.Parse(Request.QueryString["id"]);
                 WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
                 lblPRNo.Text = obj.pr_id.ToString();
-                
+                lblOCurrency.Text = obj.currency;
+                lblOtotal.Text = ((decimal)obj.total_cost).ToString("F2");
                 QuotationModel.Project proj = (from pj in db.Project where  pj.Project_Id == obj.project_id select pj).First();
                 lblProjNo.Text = proj.Project_No;
                 int vender_id = (int)obj.vendor_id;
@@ -47,52 +48,75 @@
                 catch
                 {
                 }
-                int contact_id = (int)obj.vendor_contact_id;
-                WoWiModel.contact_info contact = (from con in wowidb.contact_info where con.id == contact_id select con).First();
-                lblContact.Text = String.IsNullOrEmpty(contact.fname) ? "" : contact.fname + "" + contact.lname;
-                if (String.IsNullOrEmpty(lblContact.Text))
+                if (obj.vendor_contact_id.HasValue)
                 {
-                    lblContact.Text = String.IsNullOrEmpty(contact.c_fname) ? "" : contact.c_lname+contact.c_fname;
-                }
-                else
-                {
-                    lblContact.Text += String.IsNullOrEmpty(contact.c_fname) ? "" : " / " + contact.c_lname + contact.c_fname;
-                }
+                    int contact_id = (int)obj.vendor_contact_id;
+                    WoWiModel.contact_info contact = (from con in wowidb.contact_info where con.id == contact_id select con).First();
+                    lblContact.Text = String.IsNullOrEmpty(contact.fname) ? "" : contact.fname + "" + contact.lname;
+                    if (String.IsNullOrEmpty(lblContact.Text))
+                    {
+                        lblContact.Text = String.IsNullOrEmpty(contact.c_fname) ? "" : contact.c_lname + contact.c_fname;
+                    }
+                    else
+                    {
+                        lblContact.Text += String.IsNullOrEmpty(contact.c_fname) ? "" : " / " + contact.c_lname + contact.c_fname;
+                    }
 
-                lblClientEmail.Text = contact.email;
-                lblClientPhone.Text = contact.workphone;
-
+                    lblClientEmail.Text = contact.email;
+                    lblClientPhone.Text = contact.workphone;
+                }
                 int auth_id = (int)obj.pr_auth_id;
                 WoWiModel.PR_authority_history auth = (from a in wowidb.PR_authority_history where a.pr_auth_id == auth_id select a).First();
                 tbInstruction.Text = auth.instruction;
-                if (auth.president_date != null)
+                if (auth.president_date.HasValue)
                 {
-                    lblApprove.Text = ((DateTime)auth.president_date).ToString("yyyy/MM/dd");
-                    int idx = auth.president.IndexOf(" ");
+                    try
+                    {
+                        lblApprove.Text = ((DateTime)auth.president_date).ToString("yyyy/MM/dd");
+                    }
+                    catch (Exception)
+                    {
+                        
+                        //throw;
+                    }
+                    
                     imgApprove.ImageUrl = "../Images/sign/" + GetNameById((int)auth.president_id) + ".bmp";
+                    imgApprove.Visible = true;
+                    lblApprove.Visible = true;
                 }
-                else
+
+                if (auth.vp_date.HasValue)
                 {
-                    imgApprove.Visible = false;
-                    lblApprove.Visible = false;
-                }
-                if (auth.vp_date != null)
-                {
-                    lblReview.Text = ((DateTime)auth.vp_date).ToString("yyyy/MM/dd");
-                    int idx = auth.vp.IndexOf(" ");
+                    try
+                    {
+                        lblReview.Text = ((DateTime)auth.vp_date).ToString("yyyy/MM/dd");
+                    }
+                    catch (Exception)
+                    {
+
+                        //throw;
+                    }
+                    
+      
                     imgReview.ImageUrl = "../Images/sign/" + GetNameById((int)auth.vp_id) + ".bmp";
+                    imgReview.Visible = true;
+                    lblReview.Visible = true;
                 }
-                else
+               
+                if (auth.supervisor_date.HasValue)
                 {
-                    imgReview.Visible = false;
-                    lblReview.Visible = false;
-                }
-                if (auth.supervisor_date != null)
-                {
-                    lblPreview.Text = ((DateTime)auth.supervisor_date).ToString("yyyy/MM/dd");
+                    try
+                    {
+                        lblPreview.Text = ((DateTime)auth.supervisor_date).ToString("yyyy/MM/dd");
+                    }
+                    catch (Exception)
+                    {
+
+                        //throw;
+                    }
                     imgPreview.ImageUrl = "../Images/sign/" + GetNameById((int)auth.supervisor_id) + ".bmp";
                 }
-                if (auth.requisitioner_date != null)
+                if (auth.requisitioner_date.HasValue)
                 {
                     lblRequisite.Text = ((DateTime)auth.requisitioner_date).ToString("yyyy/MM/dd");
                     imgRequisite.ImageUrl = "../Images/sign/" + GetNameById((int)auth.requisitioner_id) + ".bmp";
@@ -102,9 +126,8 @@
                 try
                 {
                     String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-                    var idata = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { /*QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id,*/ ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
-                    lblOCurrency.Text = idata.First().Currency;
-                    lblOtotal.Text = (decimal)idata.First().FinalPrice +"";
+                    var idata = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { /*QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id,*/ ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Qty = qt.unit};
+                    
                     lblTotal.Text = lblOtotal.Text;
                     TargetList.DataSource = idata;
                     TargetList.DataBind();
@@ -113,11 +136,26 @@
                 catch (Exception ex)
                 {
                     //throw ex;//Show Message In Javascript
+                }
+
+
+                try
+                {
+                    WoWiModel.PR_Payment pay = (from p in wowidb.PR_Payment where p.pr_id == obj.pr_id select p).First();
+                    ddlAdjustOperate.SelectedValue = pay.adjust_operator;
+                    ddlOperate.SelectedValue = pay.adjust_operator;
+                    tbAdjustAmount.Text = ((decimal)pay.adjust_amount).ToString("F2");
+                    tbRate.Text = ((decimal)pay.exchange_rate).ToString("F2");
+                    tbReason.Text = pay.reason;
+                }
+                catch (Exception ex)
+                {
+                    //throw ex;//Show Message In Javascript
                 }   
-                
             }
-            catch
+            catch (Exception ex)
             {
+                
             }
             if (Page.IsPostBack)
             {
@@ -138,7 +176,6 @@
     protected void tbCurrency_TextChanged(object sender, EventArgs e)
     {
         TextBox curr = sender as TextBox;
-        lblFinalCurrency.Text = curr.Text;
     }
 
     protected void ddlOperate_SelectedIndexChanged(object sender, EventArgs e)
@@ -217,17 +254,26 @@
             int id = int.Parse(Request.QueryString["id"]);
             try
             {
+                
+                try{
+                    var list = (from p in wowidb.PR_Payment where p.pr_id == id select p).First();
+                    wowidb.PR_Payment.DeleteObject(list);
+                    wowidb.SaveChanges();
+                }catch{
+                
+                }
                 WoWiModel.PR_Payment payment = new WoWiModel.PR_Payment()
                 {
                     pr_id = id,
                     fromcurrency = lblOCurrency.Text,
-                    tocurrency = tbCurrency.Text,
+                    tocurrency = tbReason.Text,
                     rate_operator = ddlOperate.SelectedValue,
                     adjust_operator = ddlAdjustOperate.SelectedValue,
                     modify_date = DateTime.Now,
                     status = (byte)PRStatus.Paid,
                     original_amount = decimal.Parse(lblOtotal.Text)
                 };
+                
                 decimal rate = 1;
                 if (!String.IsNullOrEmpty(tbRate.Text))
                 {
@@ -280,7 +326,9 @@
                     total -= adj;
                 }
                 payment.total_amount = total;
-                
+                payment.modify_date = DateTime.Now;
+                payment.pay_date = DateTime.Now;
+                payment.reason = tbReason.Text;
                 wowidb.PR_Payment.AddObject(payment);
                 wowidb.SaveChanges();
                 int payid = payment.pr_pay_id;
@@ -430,7 +478,7 @@
                         </td>
                         <td align="left" class="ccstextboxh">
                             <nobr>
-                            <asp:Label ID="lblContact" runat="server" Text="lblContact"></asp:Label></nobr>
+                            <asp:Label ID="lblContact" runat="server"></asp:Label></nobr>
                         </td>
                     </tr>
                     <tr>
@@ -439,7 +487,7 @@
                         </td>
                         <td align="left" class="ccstextboxh">
                             <nobr>
-                            <asp:Label ID="lblClientPhone" runat="server" Text="lblClientPhone"></asp:Label></nobr>
+                            <asp:Label ID="lblClientPhone" runat="server"></asp:Label></nobr>
                         </td>
                     </tr>
                     <tr>
@@ -447,7 +495,7 @@
                             Email:
                         </td>
                         <td align="left" class="ccstextboxh">
-                            <asp:Label ID="lblClientEmail" runat="server" Text="lblClientEmail"></asp:Label>
+                            <asp:Label ID="lblClientEmail" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <caption>
@@ -491,7 +539,7 @@
                 <br />
             </td>
             <td align="right" class="ccstextboxh">
-                <table border="0" cellpadding="0" cellspacing="0" Width="100%">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
                  <tr>
                         <td align="right" class="ccstextboxh" >
                 Original Currency :
@@ -508,19 +556,16 @@
                     </tr>
                    <tr>
                         <td align="right" class="ccstextboxh" >
-                Exchange Currency :
-                    </td>
+                &nbsp;</td>
                     <td align="left" class="ccstextboxh" >
-                    <asp:TextBox ID="tbCurrency" runat="server" ontextchanged="tbCurrency_TextChanged" 
-                            AutoPostBack="True" Enabled="False"></asp:TextBox>
-                    </td>
+                        &nbsp;</td>
                     <td align="right" class="ccstextboxh" >
                 Exchange Rate :
                     </td>
                     <td align="left" class="ccstextboxh" >
                         <asp:DropDownList ID="ddlOperate" runat="server" 
                             onselectedindexchanged="ddlOperate_SelectedIndexChanged" 
-                            AutoPostBack="True" Enabled="False">
+                            AutoPostBack="True">
                             <asp:ListItem>*</asp:ListItem>
                             <asp:ListItem>/</asp:ListItem>
                         </asp:DropDownList>
@@ -531,8 +576,13 @@
                      <tr>
                         <td align="right" class="ccstextboxh" >
                
+                            Adjust&nbsp; Reason :
+               
                     </td>
                     <td align="left" class="ccstextboxh" >
+                  
+                    <asp:TextBox ID="tbReason" runat="server" ontextchanged="tbCurrency_TextChanged" 
+                            AutoPostBack="True" Enabled="False"></asp:TextBox>
                   
                     </td>
                     <td align="right" class="ccstextboxh" >
@@ -541,7 +591,7 @@
                     <td align="left" class="ccstextboxh" >
                         <asp:DropDownList ID="ddlAdjustOperate" runat="server" 
                             onselectedindexchanged="ddlAdjustOperate_SelectedIndexChanged" 
-                            AutoPostBack="True" Enabled="False">
+                            AutoPostBack="True">
                             <asp:ListItem>+</asp:ListItem>
                             <asp:ListItem>-</asp:ListItem>
                         </asp:DropDownList>
@@ -554,25 +604,26 @@
                 Final Currency :
                     </td>
                     <td align="left" class="ccstextboxh" >
-                    <asp:Label ID="lblFinalCurrency" runat="server"></asp:Label>
-                    </td>
+                        USD</td>
                     <td align="right" class="ccstextboxh" >
                         Balance Total :
                     </td>
                     <td align="left" class="ccstextboxh" >
-               $ <asp:Label ID="lblTotal" runat="server" Text="lblTotal"></asp:Label>
+               $ <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label>
                     </td>
                     </tr>
                     <tr>
                     <td align="right" class="ccstextboxh" colspan="4" >
-                        &nbsp;</td>
+                        <asp:Button ID="btnSave" runat="server" Text="Save" onclick="btnSave_Click" 
+                            Visible="False" />
+                    </td>
                     </tr>
                 </table>
             </td>
         </tr>
         <!-- end cost summary service -->
     </table>
-    <p style="page-break-before: always">
+ 
         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <td class="ccstextboxh" colspan="2" width="100%">
@@ -590,13 +641,13 @@
                     <table border="1" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                              <th class="ccstexth" width="25%">
-                               Approve /  Date
+                               Approve / Date
                             </th>
                             <th class="ccstexth" width="25%">
-                               Review /  Date
+                               Review / Date
                             </th>
                              <th class="ccstexth" width="25%">
-                               Preview /  Date
+                               Preview / Date
                             </th>
                              <th class="ccstexth" width="25%">
                                Requisite / Date
@@ -605,23 +656,23 @@
                         <tr>
                             <td class="ccstextboxh" align="center">
                                 By <br><asp:Image 
-                                    ID="imgApprove" runat="server" Height="31" Width="114" /> <asp:Label ID="lblApprove" runat="server"
-                                        Text="lblApprove"></asp:Label>
+                                    ID="imgApprove" runat="server" Height="31" Width="114" Visible="false" /> <asp:Label ID="lblApprove" runat="server"
+                                        Text=""></asp:Label>
 &nbsp;</td>
  <td class="ccstextboxh" align="center">
                                 By <br><asp:Image 
-                                    ID="imgReview" runat="server" Height="31" Width="114" /> <asp:Label ID="lblReview" runat="server"
-                                        Text="lblReview"></asp:Label>
+                                    ID="imgReview" runat="server" Height="31" Width="114" Visible="false"/> <asp:Label ID="lblReview" runat="server"
+                                        Text=""></asp:Label>
 &nbsp;</td>
  <td class="ccstextboxh" align="center">
                                 By <br><asp:Image 
-                                    ID="imgPreview" runat="server" Height="31" Width="114" /> <asp:Label ID="lblPreview" runat="server"
-                                        Text="lblPreview"></asp:Label>
+                                    ID="imgPreview" runat="server" Height="31" Width="114"  /> <asp:Label ID="lblPreview" runat="server"
+                                        Text=""></asp:Label>
 &nbsp;</td>
  <td class="ccstextboxh" align="center">
                                 By <br><asp:Image 
-                                    ID="imgRequisite" runat="server" Height="31" Width="114" /> <asp:Label ID="lblRequisite" runat="server"
-                                        Text="lblRequisite"></asp:Label>
+                                    ID="imgRequisite" runat="server" Height="31" Width="114"  /> <asp:Label ID="lblRequisite" runat="server"
+                                        Text=""></asp:Label>
 &nbsp;</td>
                         </tr>
                      
@@ -637,7 +688,7 @@
            
         </table>
         <!-- end body -->
-    </p>
+
    
    
      </form>
