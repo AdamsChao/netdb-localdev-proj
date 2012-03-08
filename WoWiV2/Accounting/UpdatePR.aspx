@@ -396,22 +396,50 @@
     protected void EntityDataSource1_Updating(object sender, EntityDataSourceChangingEventArgs e)
     {
         WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
-        DropDownList ddlContact = (FormView1.FindControl("ddlContact") as DropDownList);
-        if (!String.IsNullOrEmpty(ddlContact.SelectedValue))
+        try
         {
-            obj.vendor_contact_id = int.Parse(ddlContact.SelectedValue);
+            DropDownList ddlContact = (FormView1.FindControl("ddlContact") as DropDownList);
+            if (!String.IsNullOrEmpty(ddlContact.SelectedValue))
+            {
+                obj.vendor_contact_id = int.Parse(ddlContact.SelectedValue);
+            }
         }
-        DropDownList ddlVenderList = (FormView1.FindControl("ddlVenderList") as DropDownList);
-        if (!String.IsNullOrEmpty(ddlVenderList.SelectedValue))
+        catch (Exception)
         {
-            obj.vendor_id = int.Parse(ddlVenderList.SelectedValue);
-        }
-        DropDownList ddlBankAccount = (FormView1.FindControl("ddlBankAccount") as DropDownList);
-        if (!String.IsNullOrEmpty(ddlBankAccount.SelectedValue))
-        {
-            obj.vendor_banking_id = int.Parse(ddlBankAccount.SelectedValue);
+            
+            //throw;
         }
 
+        try
+        {
+            DropDownList ddlVenderList = (FormView1.FindControl("ddlVenderList") as DropDownList);
+            if (!String.IsNullOrEmpty(ddlVenderList.SelectedValue))
+            {
+                obj.vendor_id = int.Parse(ddlVenderList.SelectedValue);
+            }
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+
+        try
+        {
+            DropDownList ddlBankAccount = (FormView1.FindControl("ddlBankAccount") as DropDownList);
+            if (!String.IsNullOrEmpty(ddlBankAccount.SelectedValue))
+            {
+                obj.vendor_banking_id = int.Parse(ddlBankAccount.SelectedValue);
+            }
+
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+        
+        
         obj.create_date = DateTime.Now;
         obj.create_user = User.Identity.Name;
     }
@@ -1114,6 +1142,7 @@
                       <tr><td align="left" colspan="4">
                                  <asp:Label runat="server" ID="lblC" Text="Contact :"></asp:Label><asp:DropDownList AutoPostBack="True"
                                      ID="ddlContact" runat="server" onselectedindexchanged="ddlContact_SelectedIndexChanged">
+
                                  </asp:DropDownList>
                                     <asp:GridView ID="GridView1" runat="server" Width="100%" AutoGenerateColumns="False" >
                                         <Columns>
