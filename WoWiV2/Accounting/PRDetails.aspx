@@ -140,7 +140,9 @@
                 int tid = (from c in wowidb.PR_item where c.pr_id == id select c.quotation_target_id).First();
                 (sender as DropDownList).SelectedValue = tid.ToString();
                 String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-                var data2 = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
+                //var data2 = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
+                var data2 = from t in db.Target from q in db.Quotation_Version from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id && q.Quotation_Version_Id == obj.quotaion_id select new { QuotataionNo = q.Quotation_No, QuotataionID = q.Quotation_Version_Id, TargetName = t.target_code, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Qty = qt.unit };
+                    
                 GridView gv = (FormView1.FindControl("GridView4") as GridView);
                 gv.DataSource = data2;
                 gv.DataBind();
@@ -603,8 +605,21 @@
                             </td></tr>
                             <tr><td colspan="4">
                                 
-                                <asp:GridView ID="GridView4" runat="server" Width="100%">
-                                </asp:GridView>
+                                  <asp:GridView ID="GridView4" runat="server" Width="100%" AutoGenerateColumns="False">
+                                  <Columns>
+      <asp:BoundField DataField="QuotataionNo" HeaderText="Quotataion No" 
+                SortExpression="QuotataionNo" />
+            <asp:BoundField DataField="TargetName" HeaderText="Target Name" 
+                SortExpression="TargetName" />
+                <asp:BoundField DataField="ItemDescription" HeaderText="Item Description" 
+                SortExpression="ItemDescription" />
+                  <asp:BoundField DataField="ModelNo" HeaderText="Mode lNo" 
+                SortExpression="ModelNo" />
+                  <asp:BoundField DataField="Currency" HeaderText="Currency" 
+                SortExpression="Currency" />
+                  <asp:BoundField DataField="Qty" HeaderText="Qty" 
+                SortExpression="Qty" />
+        </Columns>
                                 
                             </td></tr>
                              <tr><th 
