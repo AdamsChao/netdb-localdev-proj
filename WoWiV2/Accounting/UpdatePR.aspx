@@ -645,75 +645,85 @@
             WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
             if (obj.pr_auth_id == null) return;
             int authid = (int)obj.pr_auth_id;
-            const byte hisStatus= (byte)PRStatus.History;
-            WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid & ((byte)au.status) != hisStatus select au).First();
-            PRStatus st = (PRStatus) auth.status;
-            Button btn = (Button)sender;
-            btn.Enabled = false;
-            String btnID = btn.ID;
-            string username = User.Identity.Name;
+            const byte hisStatus = (byte)PRStatus.History;
             try
             {
-                int empid = (from emp in wowidb.employees where emp.username == username select emp.id).First();
-                switch (st)
-                {
-                    case PRStatus.Init:
-                        if (btnID == "btnSendReq" || btnID == "btnCancel")
-                        {
-                            if (empid == auth.requisitioner_id)
-                            {
-                                btn.Enabled = true;
-                            }
-                        }
+                WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid & ((byte)au.status) != hisStatus select au).First();
+                PRStatus st = (PRStatus)auth.status;
+                Button btn = (Button)sender;
+                btn.Enabled = false;
 
-                        break;
-                    case PRStatus.Requisitioner:
-                        if (btnID == "btnSupervisorApprove" || btnID == "btnSupervisorDisapprove")
-                        {
-                            if (empid == auth.supervisor_id)
+
+                String btnID = btn.ID;
+                string username = User.Identity.Name;
+                try
+                {
+                    int empid = (from emp in wowidb.employees where emp.username == username select emp.id).First();
+                    switch (st)
+                    {
+                        case PRStatus.Init:
+                            if (btnID == "btnSendReq" || btnID == "btnCancel")
                             {
-                                btn.Enabled = true;
-                            }
-                        }
-                        break;
-                    case PRStatus.Supervisor:
-                        if (btnID == "btnVPApprove" || btnID == "btnVPDisapprove")
-                        {
-                            if (empid == auth.vp_id)
-                            {
-                                btn.Enabled = true;
-                            }
-                        }
-                        break;
-                    case PRStatus.VicePresident:
-                        if (btnID == "btnPresidentApprove" || btnID == "btnPresidentDisapprove")
-                        {
-                            if (empid == auth.president_id)
-                            {
-                                btn.Enabled = true;
-                            }
-                        }
-                        break;
-                    case PRStatus.Done:
-                        if (Request.QueryString["type"] == "payment")
-                        {
-                            if (btnID == "btnPay")
-                            {
-                                if (empid == auth.finance_id)
+                                if (empid == auth.requisitioner_id)
                                 {
                                     btn.Enabled = true;
                                 }
                             }
-                        }
-                        break;
-                }
-            }
-            catch
-            {
-            }
-            
-        }
 
+                            break;
+                        case PRStatus.Requisitioner:
+                            if (btnID == "btnSupervisorApprove" || btnID == "btnSupervisorDisapprove")
+                            {
+                                if (empid == auth.supervisor_id)
+                                {
+                                    btn.Enabled = true;
+                                }
+                            }
+                            break;
+                        case PRStatus.Supervisor:
+                            if (btnID == "btnVPApprove" || btnID == "btnVPDisapprove")
+                            {
+                                if (empid == auth.vp_id)
+                                {
+                                    btn.Enabled = true;
+                                }
+                            }
+                            break;
+                        case PRStatus.VicePresident:
+                            if (btnID == "btnPresidentApprove" || btnID == "btnPresidentDisapprove")
+                            {
+                                if (empid == auth.president_id)
+                                {
+                                    btn.Enabled = true;
+                                }
+                            }
+                            break;
+                        case PRStatus.Done:
+                            if (Request.QueryString["type"] == "payment")
+                            {
+                                if (btnID == "btnPay")
+                                {
+                                    if (empid == auth.finance_id)
+                                    {
+                                        btn.Enabled = true;
+                                    }
+                                }
+                            }
+                            break;
+                    }
+                }
+                catch
+                {
+                }
+
+            }
+
+            catch (Exception)
+            {
+
+                //throw;
+            }
+        }
     }
 
     protected void btn_Click(object sender, EventArgs e)
