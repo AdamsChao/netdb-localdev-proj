@@ -620,7 +620,7 @@
                   <asp:BoundField DataField="Qty" HeaderText="Qty" 
                 SortExpression="Qty" />
         </Columns>
-                                
+            </asp:GridView>              
                             </td></tr>
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp;Currency:&nbsp;&nbsp;</th><td 
