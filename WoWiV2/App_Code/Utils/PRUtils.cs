@@ -58,62 +58,106 @@ public class PRUtils
 
     public static void WaitingForSupervisorApprove(WoWiModel.PR_authority_history auth)
     {
-
-        string mailSubject = GetPRMailSubject(auth);
-        string sender = auth.requisitioner + "<br />" + PRApproval_URL + auth.pr_id;
-        string mailContent = GetPRMailContent(mailSubject,sender);
-        string to = GetEmail((int)auth.supervisor_id);
-        if (to != null)
+        try
         {
-            string cc = GetEmail((int)auth.requisitioner_id);
-            Mail(new String[]{to},new String[]{cc},mailSubject,mailContent);
+            string mailSubject = GetPRMailSubject(auth);
+            string sender = auth.requisitioner + "<br />" + PRApproval_URL + auth.pr_id;
+            string mailContent = GetPRMailContent(mailSubject, sender);
+            string to = GetEmail((int)auth.supervisor_id);
+            if (to != null)
+            {
+                string cc = GetEmail((int)auth.requisitioner_id);
+                Mail(new String[] { to }, new String[] { cc }, mailSubject, mailContent);
+            }
         }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+        
     }
 
     public static void WaitingForVPApprove(WoWiModel.PR_authority_history auth)
     {
-        string mailSubject = GetPRMailSubject(auth);
-        string sender = auth.supervisor + "<br />" + PRApproval_URL + auth.pr_id;
-        string mailContent = GetPRMailContent(mailSubject, sender);
-        string to = GetEmail((int)auth.vp_id);
-        if (to != null)
+        try
         {
-            string cc1 = GetEmail((int)auth.requisitioner_id);
-            string cc2 = GetEmail((int)auth.supervisor_id);
-            Mail(new String[] { to }, new String[] { cc1,cc2 }, mailSubject, mailContent);
+            string mailSubject = GetPRMailSubject(auth);
+            string sender = auth.supervisor + "<br />" + PRApproval_URL + auth.pr_id;
+            string mailContent = GetPRMailContent(mailSubject, sender);
+            string to = GetEmail((int)auth.vp_id);
+            if (to != null)
+            {
+                string cc1 = GetEmail((int)auth.requisitioner_id);
+                string cc2 = GetEmail((int)auth.supervisor_id);
+                Mail(new String[] { to }, new String[] { cc1, cc2 }, mailSubject, mailContent);
+            }
         }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+       
     }
 
     public static void WaitingForPresidentApprove(WoWiModel.PR_authority_history auth)
     {
-        string mailSubject = GetPRMailSubject(auth);
-        string sender = auth.vp + "<br />" + PRApproval_URL + auth.pr_id;
-        string mailContent = GetPRMailContent(mailSubject, sender);
-        string to = GetEmail((int)auth.president_id);
-        if (to != null)
+        try
         {
-            string cc1 = GetEmail((int)auth.requisitioner_id);
-            string cc2 = GetEmail((int)auth.supervisor_id);
-            string cc3 = GetEmail((int)auth.vp_id);
-            Mail(new String[] { to }, new String[] { cc1, cc2, cc3 }, mailSubject, mailContent);
+            string mailSubject = GetPRMailSubject(auth);
+            string sender = auth.vp + "<br />" + PRApproval_URL + auth.pr_id;
+            string mailContent = GetPRMailContent(mailSubject, sender);
+            string to = GetEmail((int)auth.president_id);
+            if (to != null)
+            {
+                string cc1 = GetEmail((int)auth.requisitioner_id);
+                string cc2 = GetEmail((int)auth.supervisor_id);
+                string cc3 = GetEmail((int)auth.vp_id);
+                Mail(new String[] { to }, new String[] { cc1, cc2, cc3 }, mailSubject, mailContent);
+            }
         }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+        
     }
 
     public static void SupervisorDisapprove(WoWiModel.PR_authority_history auth)
     {
-        string mailSubject = GetPRMailSubject(auth,"disapprove");
-        string sender = auth.supervisor_id + "<br />" + PRApproval_URL + auth.pr_id;
-        string mailContent = GetPRMailContent(mailSubject, sender);
-        string to = GetEmail((int)auth.requisitioner_id);
-        if (to != null)
+        try
         {
-            string cc = GetEmail((int)auth.supervisor_id);
-            Mail(new String[] { to }, new String[] { cc }, mailSubject, mailContent);
+            string mailSubject = GetPRMailSubject(auth, "disapprove");
+            string sender = auth.supervisor_id + "<br />" + PRApproval_URL + auth.pr_id;
+            string mailContent = GetPRMailContent(mailSubject, sender);
+            string to = GetEmail((int)auth.requisitioner_id);
+            if (to != null)
+            {
+                string cc = GetEmail((int)auth.supervisor_id);
+                Mail(new String[] { to }, new String[] { cc }, mailSubject, mailContent);
+            }
         }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+       
     }
 
     public static void VPDisapprove(WoWiModel.PR_authority_history auth)
     {
+        try
+        {
+
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
         string mailSubject = GetPRMailSubject(auth, "disapprove");
         string sender = auth.vp + "<br />" + PRApproval_URL + auth.pr_id;
         string mailContent = GetPRMailContent(mailSubject, sender);
@@ -131,6 +175,15 @@ public class PRUtils
 
     public static void PresidentDisapprove(WoWiModel.PR_authority_history auth)
     {
+        try
+        {
+
+        }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
         string mailSubject = GetPRMailSubject(auth, "disapprove");
         string sender = auth.vp + "<br />" + PRApproval_URL + auth.pr_id;
         string mailContent = GetPRMailContent(mailSubject, sender);
@@ -148,15 +201,24 @@ public class PRUtils
 
     public static void PRStatusDone(WoWiModel.PR_authority_history auth)
     {
-        string mailSubject = GetPRMailSubject(auth, "approved");
-        string sender = "Approver <br />" + PRApproval_URL + auth.pr_id;
-        string mailContent = GetPRMailContent(mailSubject, sender);
-        string to = GetEmail((int)auth.requisitioner_id);
-        if (to != null)
+        try
         {
-            string cc = GetEmail((int)auth.finance_id);
-            Mail(new String[] { to }, new String[] { cc }, mailSubject, mailContent);
+            string mailSubject = GetPRMailSubject(auth, "approved");
+            string sender = "Approver <br />" + PRApproval_URL + auth.pr_id;
+            string mailContent = GetPRMailContent(mailSubject, sender);
+            string to = GetEmail((int)auth.requisitioner_id);
+            if (to != null)
+            {
+                string cc = GetEmail((int)auth.finance_id);
+                Mail(new String[] { to }, new String[] { cc }, mailSubject, mailContent);
+            }
         }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
+       
 
     }
 }
