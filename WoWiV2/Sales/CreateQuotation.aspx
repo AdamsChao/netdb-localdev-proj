@@ -42,11 +42,18 @@
         }
 
         function printchineseform(qid) {
-            var windowUrl = 'print.aspx?q=' + qid;
+            //var printContent = document.getElementById("<%= TabContainer1.ClientID %>");
+            var windowUrl = 'QuotationViewPrintChinese.aspx?q=' + qid;
             var uniqueName = new Date();
             var windowName = 'Print' + uniqueName.getTime();
             var printWindow = window.open(windowUrl, windowName);
+
+            //            printWindow.document.write(printContent.innerHTML);
+            //            printWindow.document.close();
             printWindow.focus();
+            //printWindow.print();
+            //printWindow.close();
+
             return false;
         } 
     </script>
@@ -118,6 +125,7 @@
 
 
 
+
                 
 
                 
@@ -131,6 +139,7 @@
             
             
         
+
 
 
 
@@ -168,6 +177,7 @@
 
 
 
+
 </asp:TabPanel>
         <asp:TabPanel ID="TabPanel3" runat="server" HeaderText="Remark/Payment">
             <ContentTemplate>
@@ -196,6 +206,7 @@
 
 
 
+
 </asp:TabPanel>
         <asp:TabPanel ID="TabPanel4" runat="server" HeaderText="History">
             <ContentTemplate>
@@ -215,6 +226,7 @@
             
             
         
+
 
 
 

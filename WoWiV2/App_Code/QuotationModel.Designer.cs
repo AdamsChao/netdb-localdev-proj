@@ -116,22 +116,6 @@ namespace QuotationModel
         /// <summary>
         /// 沒有可用的中繼資料文件。
         /// </summary>
-        public ObjectSet<Target> Target
-        {
-            get
-            {
-                if ((_Target == null))
-                {
-                    _Target = base.CreateObjectSet<Target>("Target");
-                }
-                return _Target;
-            }
-        }
-        private ObjectSet<Target> _Target;
-    
-        /// <summary>
-        /// 沒有可用的中繼資料文件。
-        /// </summary>
         public ObjectSet<wowi_tech> wowi_tech
         {
             get
@@ -308,6 +292,22 @@ namespace QuotationModel
         /// <summary>
         /// 沒有可用的中繼資料文件。
         /// </summary>
+        public ObjectSet<Target> Target
+        {
+            get
+            {
+                if ((_Target == null))
+                {
+                    _Target = base.CreateObjectSet<Target>("Target");
+                }
+                return _Target;
+            }
+        }
+        private ObjectSet<Target> _Target;
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
         public ObjectSet<vw_Quotation_Print_Chinese> vw_Quotation_Print_Chinese
         {
             get
@@ -346,14 +346,6 @@ namespace QuotationModel
         public void AddToAuthority(Authority authority)
         {
             base.AddObject("Authority", authority);
-        }
-    
-        /// <summary>
-        /// 將新物件加入 Target EntitySet 的方法已被取代。請考慮改為使用關聯的 ObjectSet&lt;T&gt; 屬性的 .Add 方法。
-        /// </summary>
-        public void AddToTarget(Target target)
-        {
-            base.AddObject("Target", target);
         }
     
         /// <summary>
@@ -442,6 +434,14 @@ namespace QuotationModel
         public void AddTovw_Test_Target_List(vw_Test_Target_List vw_Test_Target_List)
         {
             base.AddObject("vw_Test_Target_List", vw_Test_Target_List);
+        }
+    
+        /// <summary>
+        /// 將新物件加入 Target EntitySet 的方法已被取代。請考慮改為使用關聯的 ObjectSet&lt;T&gt; 屬性的 .Add 方法。
+        /// </summary>
+        public void AddToTarget(Target target)
+        {
+            base.AddObject("Target", target);
         }
     
         /// <summary>
@@ -685,6 +685,30 @@ namespace QuotationModel
         private Nullable<global::System.DateTime> _modify_date;
         partial void Onmodify_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onmodify_dateChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String authority_fullname
+        {
+            get
+            {
+                return _authority_fullname;
+            }
+            set
+            {
+                Onauthority_fullnameChanging(value);
+                ReportPropertyChanging("authority_fullname");
+                _authority_fullname = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("authority_fullname");
+                Onauthority_fullnameChanged();
+            }
+        }
+        private global::System.String _authority_fullname;
+        partial void Onauthority_fullnameChanging(global::System.String value);
+        partial void Onauthority_fullnameChanged();
 
         #endregion
     
@@ -2422,6 +2446,54 @@ namespace QuotationModel
         private Nullable<global::System.DateTime> _modify_date;
         partial void Onmodify_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onmodify_dateChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String country_telephone_code
+        {
+            get
+            {
+                return _country_telephone_code;
+            }
+            set
+            {
+                Oncountry_telephone_codeChanging(value);
+                ReportPropertyChanging("country_telephone_code");
+                _country_telephone_code = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("country_telephone_code");
+                Oncountry_telephone_codeChanged();
+            }
+        }
+        private global::System.String _country_telephone_code;
+        partial void Oncountry_telephone_codeChanging(global::System.String value);
+        partial void Oncountry_telephone_codeChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String country_currency_type
+        {
+            get
+            {
+                return _country_currency_type;
+            }
+            set
+            {
+                Oncountry_currency_typeChanging(value);
+                ReportPropertyChanging("country_currency_type");
+                _country_currency_type = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("country_currency_type");
+                Oncountry_currency_typeChanged();
+            }
+        }
+        private global::System.String _country_currency_type;
+        partial void Oncountry_currency_typeChanging(global::System.String value);
+        partial void Oncountry_currency_typeChanged();
 
         #endregion
     
@@ -3173,6 +3245,30 @@ namespace QuotationModel
         private global::System.String _pr_authorize_currency;
         partial void Onpr_authorize_currencyChanging(global::System.String value);
         partial void Onpr_authorize_currencyChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> jobtitle_id
+        {
+            get
+            {
+                return _jobtitle_id;
+            }
+            set
+            {
+                Onjobtitle_idChanging(value);
+                ReportPropertyChanging("jobtitle_id");
+                _jobtitle_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("jobtitle_id");
+                Onjobtitle_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _jobtitle_id;
+        partial void Onjobtitle_idChanging(Nullable<global::System.Int32> value);
+        partial void Onjobtitle_idChanged();
 
         #endregion
     
@@ -4230,6 +4326,30 @@ namespace QuotationModel
         private Nullable<global::System.Int32> _Agent;
         partial void OnAgentChanging(Nullable<global::System.Int32> value);
         partial void OnAgentChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Country_Manager
+        {
+            get
+            {
+                return _Country_Manager;
+            }
+            set
+            {
+                OnCountry_ManagerChanging(value);
+                ReportPropertyChanging("Country_Manager");
+                _Country_Manager = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Country_Manager");
+                OnCountry_ManagerChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Country_Manager;
+        partial void OnCountry_ManagerChanging(Nullable<global::System.Int32> value);
+        partial void OnCountry_ManagerChanged();
 
         #endregion
     
@@ -6128,12 +6248,16 @@ namespace QuotationModel
         /// 建立新 Target 物件。
         /// </summary>
         /// <param name="target_id">target_id 屬性的初始值。</param>
-        /// <param name="target_code">target_code 屬性的初始值。</param>
-        public static Target CreateTarget(global::System.Int32 target_id, global::System.String target_code)
+        /// <param name="country_id">country_id 屬性的初始值。</param>
+        /// <param name="product_type_id">product_type_id 屬性的初始值。</param>
+        /// <param name="technology_id">technology_id 屬性的初始值。</param>
+        public static Target CreateTarget(global::System.Int32 target_id, global::System.Int32 country_id, global::System.Int32 product_type_id, global::System.Int32 technology_id)
         {
             Target target = new Target();
             target.target_id = target_id;
-            target.target_code = target_code;
+            target.country_id = country_id;
+            target.product_type_id = product_type_id;
+            target.technology_id = technology_id;
             return target;
         }
 
@@ -6170,9 +6294,9 @@ namespace QuotationModel
         /// <summary>
         /// 沒有可用的中繼資料文件。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> country_id
+        public global::System.Int32 country_id
         {
             get
             {
@@ -6187,16 +6311,16 @@ namespace QuotationModel
                 Oncountry_idChanged();
             }
         }
-        private Nullable<global::System.Int32> _country_id;
-        partial void Oncountry_idChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _country_id;
+        partial void Oncountry_idChanging(global::System.Int32 value);
         partial void Oncountry_idChanged();
     
         /// <summary>
         /// 沒有可用的中繼資料文件。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> product_type_id
+        public global::System.Int32 product_type_id
         {
             get
             {
@@ -6211,8 +6335,8 @@ namespace QuotationModel
                 Onproduct_type_idChanged();
             }
         }
-        private Nullable<global::System.Int32> _product_type_id;
-        partial void Onproduct_type_idChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _product_type_id;
+        partial void Onproduct_type_idChanging(global::System.Int32 value);
         partial void Onproduct_type_idChanged();
     
         /// <summary>
@@ -6242,9 +6366,9 @@ namespace QuotationModel
         /// <summary>
         /// 沒有可用的中繼資料文件。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> technology_id
+        public global::System.Int32 technology_id
         {
             get
             {
@@ -6259,14 +6383,14 @@ namespace QuotationModel
                 Ontechnology_idChanged();
             }
         }
-        private Nullable<global::System.Int32> _technology_id;
-        partial void Ontechnology_idChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _technology_id;
+        partial void Ontechnology_idChanging(global::System.Int32 value);
         partial void Ontechnology_idChanged();
     
         /// <summary>
         /// 沒有可用的中繼資料文件。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String target_code
         {
@@ -6278,7 +6402,7 @@ namespace QuotationModel
             {
                 Ontarget_codeChanging(value);
                 ReportPropertyChanging("target_code");
-                _target_code = StructuralObject.SetValidValue(value, false);
+                _target_code = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("target_code");
                 Ontarget_codeChanged();
             }
@@ -6334,6 +6458,30 @@ namespace QuotationModel
         private Nullable<global::System.Decimal> _target_cost;
         partial void Ontarget_costChanging(Nullable<global::System.Decimal> value);
         partial void Ontarget_costChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String target_cost_currency
+        {
+            get
+            {
+                return _target_cost_currency;
+            }
+            set
+            {
+                Ontarget_cost_currencyChanging(value);
+                ReportPropertyChanging("target_cost_currency");
+                _target_cost_currency = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("target_cost_currency");
+                Ontarget_cost_currencyChanged();
+            }
+        }
+        private global::System.String _target_cost_currency;
+        partial void Ontarget_cost_currencyChanging(global::System.String value);
+        partial void Ontarget_cost_currencyChanged();
 
         #endregion
     
@@ -7592,6 +7740,78 @@ namespace QuotationModel
         private Nullable<global::System.Decimal> _Total_disc_amt;
         partial void OnTotal_disc_amtChanging(Nullable<global::System.Decimal> value);
         partial void OnTotal_disc_amtChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String fname
+        {
+            get
+            {
+                return _fname;
+            }
+            set
+            {
+                OnfnameChanging(value);
+                ReportPropertyChanging("fname");
+                _fname = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("fname");
+                OnfnameChanged();
+            }
+        }
+        private global::System.String _fname;
+        partial void OnfnameChanging(global::System.String value);
+        partial void OnfnameChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String lname
+        {
+            get
+            {
+                return _lname;
+            }
+            set
+            {
+                OnlnameChanging(value);
+                ReportPropertyChanging("lname");
+                _lname = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("lname");
+                OnlnameChanged();
+            }
+        }
+        private global::System.String _lname;
+        partial void OnlnameChanging(global::System.String value);
+        partial void OnlnameChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String c_companyname
+        {
+            get
+            {
+                return _c_companyname;
+            }
+            set
+            {
+                Onc_companynameChanging(value);
+                ReportPropertyChanging("c_companyname");
+                _c_companyname = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("c_companyname");
+                Onc_companynameChanged();
+            }
+        }
+        private global::System.String _c_companyname;
+        partial void Onc_companynameChanging(global::System.String value);
+        partial void Onc_companynameChanged();
 
         #endregion
     

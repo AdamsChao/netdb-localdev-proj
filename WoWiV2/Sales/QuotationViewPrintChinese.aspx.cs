@@ -14,109 +14,110 @@ public partial class Sales_QuotationViewPrintChinese : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
         int QuotationID;
         string q = Request.QueryString["q"];
         if (q != null && Int32.TryParse(q, out QuotationID))
         {
+            hidQuotationID.Text = QuotationID.ToString();
             vw_Quotation_Print_Chinese quo = Quotation_Controller.GetQuotationPrintChinese(QuotationID);
-
             if (quo != null)
             {
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    StreamReader sr = new StreamReader("c:/ch_Quotation.xml");
-                    string xml = sr.ReadToEnd();
-                    sr.Close();
 
-                    StreamReader sr2 = new StreamReader("c:/target.xml");
-                    string xmlTarget = sr2.ReadToEnd();
-                    sr2.Close();
+                hidQuotation_No.Text = quo.Quotation_No;
+                lblQuotationNo.Text = quo.Quotation_No;
+                lblRepresentative.Text = quo.c_lname + quo.c_fname;
+                lblRepresentative1.Text = quo.c_lname + quo.c_fname;
+                lblTel.Text = quo.workphone;
+                lblEmail.Text = quo.email;
+                lblDate.Text = DateTime.Now.ToString("MM/dd/yyyy");
+                lblDate1.Text = DateTime.Now.ToString("MM/dd/yyyy");
+                lblBill_Phone.Text = quo.Bill_Phone;
+                lblClientAddress.Text = quo.Bill_Address;
+                lblCleintCountry.Text = quo.Bill_Country;
+                lblBill_Email.Text = quo.Bill_Email;
 
-                    xml = xml.Replace("#Quotation_No#", quo.Quotation_No);
-                    xml = xml.Replace("#Sales_Name#", quo.c_fname + " " + quo.c_lname);
-                    xml = xml.Replace("#Sales_Phone#", quo.workphone);
-                    xml = xml.Replace("#Date#", DateTime.Now.ToString("MM/dd/yyyy"));
-                    xml = xml.Replace("#Sales_Email#", quo.email);
-                    xml = xml.Replace("#Payment_Days#", quo.Payment_Days);
-                    //string Payment_Term = "";
-                    //if (quo.Payment_Term == "Net 30")
-                    //    Payment_Term = "電匯";
-                    ////else if (quo.Payment_Term == "Cache")
-                    ////    Payment_Term = "即期支票";
-                    //else
-                    //    Payment_Term = quo.Payment_Term;
-
-                    xml = xml.Replace("#CProduct_Name#", quo.CProduct_Name);
-                    xml = xml.Replace("#CBrand_Name#", quo.CBrand_Name);
-                    xml = xml.Replace("#CModel_No#", quo.CModel_No);
-                    xml = xml.Replace("#Bill_Companyname#", quo.Bill_Companyname);
-                    xml = xml.Replace("#Bill_CName#", quo.Bill_CName);
-                    xml = xml.Replace("#Bill_Phone#", quo.Bill_Phone);
-                    xml = xml.Replace("#Bill_Country#", quo.Bill_Country);
-                    xml = xml.Replace("#Bill_Address#", quo.Bill_Address);
-                    xml = xml.Replace("#Bill_Email#", quo.Bill_Email);
-
-
-                    //xml = xml.Replace("#Payment_Term#", Payment_Term);
-                    xml = xml.Replace("#Sales_Phone#", quo.workphone);
-
-                    IEnumerable<vw_Test_Target_List> TargetList = Quotation_Target_Controller.SelectView(quo.Quotation_No);
-
-                    StringBuilder xmlTargetList = new StringBuilder();
-                    int i = 1;
-
-                    foreach (vw_Test_Target_List item in TargetList)
-                    {
-                        string tempXml = xmlTarget;
-                        tempXml = tempXml.Replace("#no#", i.ToString());
-                        i++;
-                        tempXml = tempXml.Replace("#app_country#", item.country_name);
-                        tempXml = tempXml.Replace("#Authority#", item.authority_name);
-
-                        tempXml = tempXml.Replace("#target_sub_total#", item.FinalPrice.ToString());
-                        tempXml = tempXml.Replace("#target_description#", item.target_description);
-                        xmlTargetList.Append(tempXml);
-                    }
-                    xml = xml.Replace("#target#", xmlTargetList.ToString());
-
-                    byte[] Img_byte = ReadFile(Server.MapPath("../") + "\\Images\\sign\\Rose.ke.bmp");
-                    //將圖檔轉成Base64Code後置換
-                    //object ImgObj = Img_byte;
-                    //string picBase64 =     Convert.ToBase64String(ms.GetBuffer(), Base64FormattingOptions.InsertLineBreaks);
-                    string Base64Str = Convert.ToBase64String(Img_byte, Base64FormattingOptions.InsertLineBreaks);
-                    //xml = xml.Replace("#sign#", xmlTargetList.ToString());
-
+                //Replacement(MyDoc, "Payment_days", quo.Payment_Term);
+                //IEnumerable<vw_Test_Target_List> TargetList = Quotation_Target_Controller.SelectView(quo.Quotation_No);
+                //foreach (vw_Test_Target_List item in TargetList)
+                //{
+                //    targetI++;
+                //    MyDoc.Tables[4].Rows.Add();
+                //    MyDoc.Tables[4].Cell(targetI, 1).Range.InsertAfter((targetI - 1).ToString());
+                //    MyDoc.Tables[4].Cell(targetI, 2).Range.InsertAfter(item.country_name);
+                //    MyDoc.Tables[4].Cell(targetI, 3).Range.InsertAfter(item.authority_name);
+                //    Total += (Decimal)item.FinalPrice;
+                //    MyDoc.Tables[4].Cell(targetI, 4).Range.InsertAfter(item.FinalPrice.ToString());
+                //    MyDoc.Tables[4].Cell(targetI, 5).Range.InsertAfter(item.target_description);
+                //}
+                Decimal Total = 0;
+                //todo 計算Total
                
-
-                    StreamWriter sw = new StreamWriter(stream);
-                    sw.Write(xml);
-                    sw.Flush();
-                    sw.Close();
-
-                    // Convert the memory stream to an array of bytes.
-                    byte[] byteArray = stream.ToArray();
-
-                    // Send the  file to the web browser for download.
-                    Response.Clear();
-                    Response.AppendHeader("Content-Disposition", "attachment; filename=ExportedFile.doc");
-                    Response.AppendHeader("Content-Length", byteArray.Length.ToString());
-                    Response.ContentType = "application/octet-stream";
-                    Response.BinaryWrite(byteArray);
-
+                foreach (GridViewRow row in gvTestTargetList.Rows)
+                {
+                    Decimal c = 0;
+                    Decimal.TryParse(row.Cells[3].Text, out c);
+                    Total = Total + c;
                 }
+
+                ltlsub_total.Text = Total.ToString();
+
+                //Replacement(MyDoc, "#sub_total#", Total.ToString());
+                ltldiscount.Text = quo.Total_disc_amt.ToString();
+                ltltotal.Text = (Total - quo.Total_disc_amt).ToString();
+                ltl5persert.Text = ((double)(Total - quo.Total_disc_amt) * 0.05).ToString();
+                ltlsum.Text = ((double)(Total - quo.Total_disc_amt) * 1.05).ToString();
+
+                lblCProduct_Name.Text = quo.CProduct_Name;
+                lblCBrand_Name.Text = quo.CBrand_Name;
+                lblCModel_No.Text = quo.CModel_No;
+                lblBill_Companyname.Text = quo.c_companyname;
+                lblbusiness_registration_number.Text = quo.business_registration_number;
+                lblBill_CName.Text = quo.Bill_CName;
+                lblClientAddress.Text = quo.Bill_Address;
+                lblCleintCountry.Text = quo.Bill_Country;
+                imgSign.ImageUrl = "../Images/sign/" + quo.fname + "." + quo.lname + ".bmp";
+                lblTitle.Text = quo.title;
+
+
 
             }
         }
 
     }
 
-    private byte[] ReadFile(string filename)
+    private List<string> LoadData(int quotation_id)
     {
-        FileStream fs = new FileStream(filename, FileMode.Open);
-        byte[] buffer = new byte[fs.Length];
-        fs.Read(buffer, 0, buffer.Length);
-        fs.Close();
-        return buffer;
+        Quotation_Version quo = Quotation_Controller.Get_Quotation(quotation_id);
+        string Discount = Quotation_Controller.GetTotalVersionTotal_disc_amt(quo.Quotation_No);
+        string Total = (SubTotal - Decimal.Parse(Discount)).ToString();
+
+        List<string> list = new List<string>();
+        list.Add(SubTotal.ToString("N2"));
+        list.Add(Discount);
+        list.Add(Total);
+        return list;
+    }
+
+    public string GetNumber()
+    {
+        int QuotationID = Int32.Parse(hidQuotationID.Text);
+        List<string> list = LoadData(QuotationID);
+        StringBuilder sb = new StringBuilder();
+        sb.Append("<table><tr><td>SubTotal</td></tr><tr><td>Discount</td></tr><tr><td>Total</td></tr></table>");
+
+        sb.Replace("SubTotal", list[0]);
+        sb.Replace("Discount", list[1]);
+        sb.Replace("Total", list[2]);
+
+        //lblTotalCost.Text = list[2];
+        //lblTotalCost2.Text = list[2];
+        return sb.ToString();
+    }
+
+    decimal SubTotal;
+    public decimal GetUnitPrice(decimal Price)
+    {
+        SubTotal += Price;
+        return Price;
     }
 }
