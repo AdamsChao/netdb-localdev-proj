@@ -320,6 +320,22 @@ namespace QuotationModel
             }
         }
         private ObjectSet<vw_Quotation_Print_Chinese> _vw_Quotation_Print_Chinese;
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        public ObjectSet<invoice_target> invoice_target
+        {
+            get
+            {
+                if ((_invoice_target == null))
+                {
+                    _invoice_target = base.CreateObjectSet<invoice_target>("invoice_target");
+                }
+                return _invoice_target;
+            }
+        }
+        private ObjectSet<invoice_target> _invoice_target;
 
         #endregion
         #region AddTo 方法
@@ -450,6 +466,14 @@ namespace QuotationModel
         public void AddTovw_Quotation_Print_Chinese(vw_Quotation_Print_Chinese vw_Quotation_Print_Chinese)
         {
             base.AddObject("vw_Quotation_Print_Chinese", vw_Quotation_Print_Chinese);
+        }
+    
+        /// <summary>
+        /// 將新物件加入 invoice_target EntitySet 的方法已被取代。請考慮改為使用關聯的 ObjectSet&lt;T&gt; 屬性的 .Add 方法。
+        /// </summary>
+        public void AddToinvoice_target(invoice_target invoice_target)
+        {
+            base.AddObject("invoice_target", invoice_target);
         }
 
         #endregion
@@ -3269,6 +3293,295 @@ namespace QuotationModel
         private Nullable<global::System.Int32> _jobtitle_id;
         partial void Onjobtitle_idChanging(Nullable<global::System.Int32> value);
         partial void Onjobtitle_idChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// 沒有可用的中繼資料文件。
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="QuotationModel", Name="invoice_target")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class invoice_target : EntityObject
+    {
+        #region Factory 方法
+    
+        /// <summary>
+        /// 建立新 invoice_target 物件。
+        /// </summary>
+        /// <param name="invoice_target_id">invoice_target_id 屬性的初始值。</param>
+        /// <param name="quotation_target_id">quotation_target_id 屬性的初始值。</param>
+        /// <param name="quotation_id">quotation_id 屬性的初始值。</param>
+        /// <param name="target_id">target_id 屬性的初始值。</param>
+        /// <param name="bill_status">bill_status 屬性的初始值。</param>
+        /// <param name="percentage">percentage 屬性的初始值。</param>
+        /// <param name="modify_date">modify_date 屬性的初始值。</param>
+        /// <param name="amount">amount 屬性的初始值。</param>
+        /// <param name="invoice_id">invoice_id 屬性的初始值。</param>
+        /// <param name="invoice_no">invoice_no 屬性的初始值。</param>
+        public static invoice_target Createinvoice_target(global::System.Int32 invoice_target_id, global::System.Int32 quotation_target_id, global::System.Int32 quotation_id, global::System.Int32 target_id, global::System.Byte bill_status, global::System.Int32 percentage, global::System.DateTime modify_date, global::System.Decimal amount, global::System.Int32 invoice_id, global::System.String invoice_no)
+        {
+            invoice_target invoice_target = new invoice_target();
+            invoice_target.invoice_target_id = invoice_target_id;
+            invoice_target.quotation_target_id = quotation_target_id;
+            invoice_target.quotation_id = quotation_id;
+            invoice_target.target_id = target_id;
+            invoice_target.bill_status = bill_status;
+            invoice_target.percentage = percentage;
+            invoice_target.modify_date = modify_date;
+            invoice_target.amount = amount;
+            invoice_target.invoice_id = invoice_id;
+            invoice_target.invoice_no = invoice_no;
+            return invoice_target;
+        }
+
+        #endregion
+        #region 基本屬性
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 invoice_target_id
+        {
+            get
+            {
+                return _invoice_target_id;
+            }
+            set
+            {
+                if (_invoice_target_id != value)
+                {
+                    Oninvoice_target_idChanging(value);
+                    ReportPropertyChanging("invoice_target_id");
+                    _invoice_target_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("invoice_target_id");
+                    Oninvoice_target_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _invoice_target_id;
+        partial void Oninvoice_target_idChanging(global::System.Int32 value);
+        partial void Oninvoice_target_idChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 quotation_target_id
+        {
+            get
+            {
+                return _quotation_target_id;
+            }
+            set
+            {
+                Onquotation_target_idChanging(value);
+                ReportPropertyChanging("quotation_target_id");
+                _quotation_target_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("quotation_target_id");
+                Onquotation_target_idChanged();
+            }
+        }
+        private global::System.Int32 _quotation_target_id;
+        partial void Onquotation_target_idChanging(global::System.Int32 value);
+        partial void Onquotation_target_idChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 quotation_id
+        {
+            get
+            {
+                return _quotation_id;
+            }
+            set
+            {
+                Onquotation_idChanging(value);
+                ReportPropertyChanging("quotation_id");
+                _quotation_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("quotation_id");
+                Onquotation_idChanged();
+            }
+        }
+        private global::System.Int32 _quotation_id;
+        partial void Onquotation_idChanging(global::System.Int32 value);
+        partial void Onquotation_idChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 target_id
+        {
+            get
+            {
+                return _target_id;
+            }
+            set
+            {
+                Ontarget_idChanging(value);
+                ReportPropertyChanging("target_id");
+                _target_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("target_id");
+                Ontarget_idChanged();
+            }
+        }
+        private global::System.Int32 _target_id;
+        partial void Ontarget_idChanging(global::System.Int32 value);
+        partial void Ontarget_idChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte bill_status
+        {
+            get
+            {
+                return _bill_status;
+            }
+            set
+            {
+                Onbill_statusChanging(value);
+                ReportPropertyChanging("bill_status");
+                _bill_status = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("bill_status");
+                Onbill_statusChanged();
+            }
+        }
+        private global::System.Byte _bill_status;
+        partial void Onbill_statusChanging(global::System.Byte value);
+        partial void Onbill_statusChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 percentage
+        {
+            get
+            {
+                return _percentage;
+            }
+            set
+            {
+                OnpercentageChanging(value);
+                ReportPropertyChanging("percentage");
+                _percentage = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("percentage");
+                OnpercentageChanged();
+            }
+        }
+        private global::System.Int32 _percentage;
+        partial void OnpercentageChanging(global::System.Int32 value);
+        partial void OnpercentageChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime modify_date
+        {
+            get
+            {
+                return _modify_date;
+            }
+            set
+            {
+                Onmodify_dateChanging(value);
+                ReportPropertyChanging("modify_date");
+                _modify_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("modify_date");
+                Onmodify_dateChanged();
+            }
+        }
+        private global::System.DateTime _modify_date;
+        partial void Onmodify_dateChanging(global::System.DateTime value);
+        partial void Onmodify_dateChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal amount
+        {
+            get
+            {
+                return _amount;
+            }
+            set
+            {
+                OnamountChanging(value);
+                ReportPropertyChanging("amount");
+                _amount = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("amount");
+                OnamountChanged();
+            }
+        }
+        private global::System.Decimal _amount;
+        partial void OnamountChanging(global::System.Decimal value);
+        partial void OnamountChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 invoice_id
+        {
+            get
+            {
+                return _invoice_id;
+            }
+            set
+            {
+                Oninvoice_idChanging(value);
+                ReportPropertyChanging("invoice_id");
+                _invoice_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("invoice_id");
+                Oninvoice_idChanged();
+            }
+        }
+        private global::System.Int32 _invoice_id;
+        partial void Oninvoice_idChanging(global::System.Int32 value);
+        partial void Oninvoice_idChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String invoice_no
+        {
+            get
+            {
+                return _invoice_no;
+            }
+            set
+            {
+                Oninvoice_noChanging(value);
+                ReportPropertyChanging("invoice_no");
+                _invoice_no = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("invoice_no");
+                Oninvoice_noChanged();
+            }
+        }
+        private global::System.String _invoice_no;
+        partial void Oninvoice_noChanging(global::System.String value);
+        partial void Oninvoice_noChanged();
 
         #endregion
     

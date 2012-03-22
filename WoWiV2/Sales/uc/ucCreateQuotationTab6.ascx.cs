@@ -117,6 +117,13 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             Label lblOption1 = (Label)e.Row.FindControl("lblOption1");
             Label lblOption2 = (Label)e.Row.FindControl("lblOption2");
 
+            Label lblInvoice0 = (Label)e.Row.FindControl("lblInvoice0");
+            Label lblInvoice3 = (Label)e.Row.FindControl("lblInvoice3");
+
+            int quotation_Id =  Int32.Parse( hidQuotationID.Text);
+            lblInvoice0.Text = Quotation_Controller.GetInvoice(quotation_Id, 0);
+            lblInvoice3.Text = Quotation_Controller.GetInvoice(quotation_Id, 0);
+
             if (!String.IsNullOrEmpty(lblOption1.Text))
                 Radio1.Checked = Boolean.Parse(lblOption1.Text);
             if (!String.IsNullOrEmpty(lblOption2.Text))

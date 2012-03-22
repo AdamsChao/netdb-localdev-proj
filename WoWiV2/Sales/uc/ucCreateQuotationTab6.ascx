@@ -186,7 +186,7 @@
                                             ID="RegularExpressionValidator2" runat="server" ControlToValidate="txtAdv2" 
                                             Display="Dynamic" ErrorMessage="Only number allowed" ForeColor="Red" 
                                             SetFocusOnError="True" ValidationExpression="^([-+]?[0-9]*\.?[0-9]+)$"></asp:RegularExpressionValidator>
-                                        &nbsp;Invoice No:<asp:Label ID="Label2" runat="server" Text=""></asp:Label><input id="hidA1" type="hidden" runat="server" value='<%# Eval("advance1")%>' /><input id="hidA2" type="hidden" runat="server" value='<%# Eval("advance2")%>'  />
+                                        &nbsp;Invoice No:<asp:Label ID="lblInvoice0" runat="server" Text=""></asp:Label><input id="hidA1" type="hidden" runat="server" value='<%# Eval("advance1")%>' /><input id="hidA2" type="hidden" runat="server" value='<%# Eval("advance2")%>'  />
                                     </td>
                                 </tr>
                                 <tr>
@@ -194,7 +194,7 @@
                                         尾款:
                                         <asp:TextBox ID="txtB1" runat="server" Width="50px" Text='<%# Eval("balance1") %>' ReadOnly="true" CssClass="CCSTextBoxRD"></asp:TextBox>
                                         <input id="hidB1" type="hidden" runat="server" />
-                                        &nbsp;&nbsp;&nbsp; <asp:TextBox ID="txtB2" runat="server" Width="100px" Text='<%# Eval("balance2") %>' ReadOnly="true" CssClass="CCSTextBoxRD"></asp:TextBox><input id="hidB2" type="hidden" runat="server" /> Invoice No:<asp:Label ID="Label1"
+                                        &nbsp;&nbsp;&nbsp; <asp:TextBox ID="txtB2" runat="server" Width="100px" Text='<%# Eval("balance2") %>' ReadOnly="true" CssClass="CCSTextBoxRD"></asp:TextBox><input id="hidB2" type="hidden" runat="server" /> Invoice No:<asp:Label ID="lblInvoice3"
                                                 runat="server" Text=""></asp:Label>
                                     </td>
                                 </tr>

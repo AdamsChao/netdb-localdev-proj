@@ -11,6 +11,7 @@
           <EntitySet Name="clientapplicant_technology" EntityType="QuotationModel.Store.clientapplicant_technology" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="country" EntityType="QuotationModel.Store.country" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="employee" EntityType="QuotationModel.Store.employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="invoice_target" EntityType="QuotationModel.Store.invoice_target" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Project" EntityType="QuotationModel.Store.Project" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Quotation_Status" EntityType="QuotationModel.Store.Quotation_Status" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Quotation_Target" EntityType="QuotationModel.Store.Quotation_Target" store:Type="Tables" Schema="dbo" />
@@ -232,6 +233,21 @@
           <Property Name="pr_authorize_amt" Type="int" />
           <Property Name="pr_authorize_currency" Type="nvarchar" MaxLength="10" />
           <Property Name="jobtitle_id" Type="int" />
+        </EntityType>
+        <EntityType Name="invoice_target">
+          <Key>
+            <PropertyRef Name="invoice_target_id" />
+          </Key>
+          <Property Name="invoice_target_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="quotation_target_id" Type="int" Nullable="false" />
+          <Property Name="quotation_id" Type="int" Nullable="false" />
+          <Property Name="target_id" Type="int" Nullable="false" />
+          <Property Name="bill_status" Type="tinyint" Nullable="false" />
+          <Property Name="percentage" Type="int" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
+          <Property Name="amount" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="invoice_id" Type="int" Nullable="false" />
+          <Property Name="invoice_no" Type="nvarchar" Nullable="false" MaxLength="20" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -524,6 +540,7 @@
           <EntitySet Name="vw_Test_Target_List" EntityType="QuotationModel.vw_Test_Target_List" />
           <EntitySet Name="Target" EntityType="QuotationModel.Target" />
           <EntitySet Name="vw_Quotation_Print_Chinese" EntityType="QuotationModel.vw_Quotation_Print_Chinese" />
+          <EntitySet Name="invoice_target" EntityType="QuotationModel.invoice_target" />
         </EntityContainer>
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -918,6 +935,21 @@
           <Property Type="String" Name="fname" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="lname" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="c_companyname" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="invoice_target">
+          <Key>
+            <PropertyRef Name="invoice_target_id" />
+          </Key>
+          <Property Type="Int32" Name="invoice_target_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="quotation_target_id" Nullable="false" />
+          <Property Type="Int32" Name="quotation_id" Nullable="false" />
+          <Property Type="Int32" Name="target_id" Nullable="false" />
+          <Property Type="Byte" Name="bill_status" Nullable="false" />
+          <Property Type="Int32" Name="percentage" Nullable="false" />
+          <Property Type="DateTime" Name="modify_date" Nullable="false" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="invoice_id" Nullable="false" />
+          <Property Type="String" Name="invoice_no" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1334,6 +1366,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="invoice_target">
+            <EntityTypeMapping TypeName="QuotationModel.invoice_target">
+              <MappingFragment StoreEntitySet="invoice_target">
+                <ScalarProperty Name="invoice_no" ColumnName="invoice_no" />
+                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="percentage" ColumnName="percentage" />
+                <ScalarProperty Name="bill_status" ColumnName="bill_status" />
+                <ScalarProperty Name="target_id" ColumnName="target_id" />
+                <ScalarProperty Name="quotation_id" ColumnName="quotation_id" />
+                <ScalarProperty Name="quotation_target_id" ColumnName="quotation_target_id" />
+                <ScalarProperty Name="invoice_target_id" ColumnName="invoice_target_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1371,6 +1419,7 @@
         <EntityTypeShape EntityType="QuotationModel.vw_Test_Target_List" Width="1.5" PointX="12.75" PointY="5.5" Height="4.4802050781250031" />
         <EntityTypeShape EntityType="QuotationModel.Target" Width="1.5" PointX="0.625" PointY="4.75" Height="2.7494921875000031" />
         <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print_Chinese" Width="1.5" PointX="3.375" PointY="12.75" Height="5.6340136718750031" />
+        <EntityTypeShape EntityType="QuotationModel.invoice_target" Width="1.5" PointX="13.375" PointY="10.75" Height="2.9417936197916674" />
       </Diagram>
     </Diagrams>
   </Designer>
