@@ -337,13 +337,14 @@ public class Quotation_Controller
     }
 
 
-    public static string GetInvoice(int Quotation_ID, int bill_status)
+    public static string GetInvoice(int Quotation_ID, int Quotation_Target_Id, int bill_status)
     {
         QuotationEntities entity = new QuotationEntities();
         entity = new QuotationEntities();
         var result = from n in entity.invoice_target
                      where n.quotation_id == Quotation_ID   &&
-                       n.bill_status == bill_status
+                        n.quotation_target_id == Quotation_Target_Id  &&
+                        n.bill_status == bill_status 
                      select n;
         if ((result.ToList()).Count > 0)
             return result.First().invoice_no;
