@@ -77,8 +77,7 @@
                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("fname") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    &nbsp;<asp:Label ID="Label3" runat="server" Text='<%# Eval("fname") %>'></asp:Label>
-                    &nbsp;<asp:Label ID="Label1" runat="server" Text='<%# Eval("lname") %>'></asp:Label>
+                    <asp:Label ID="Label3" runat="server" Text='<%# Eval("fname") %>'></asp:Label>&nbsp;<asp:Label ID="Label1" runat="server" Text='<%# Eval("lname") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="姓名" SortExpression="lname">
@@ -86,8 +85,7 @@
                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("lname") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("c_lname") %>'></asp:Label>
-                    &nbsp;<asp:Label ID="Label4" runat="server" Text='<%# Eval("c_fname") %>'></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("c_lname") %>'></asp:Label><asp:Label ID="Label4" runat="server" Text='<%# Eval("c_fname") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:BoundField DataField="title" SortExpression="title" HeaderText="Title" />

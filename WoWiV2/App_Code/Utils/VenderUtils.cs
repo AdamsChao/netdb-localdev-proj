@@ -21,6 +21,36 @@ public class VenderUtils
     public static String Key_Session_InsertContacts = "Vender_Insert_Contact";
     public static String Key_ViewState_InsertContacts = "Vender_Insert_Contact";
     public static String Key_Session_VenderState = "Vender_State";
+
+    public static String GetPaymentType(String pID)
+    {
+        String ret = "Not set yet";
+        switch (pID)
+        {
+            case "0":
+                ret = "支票";
+                break;
+            case "1":
+                ret = "國內匯款";
+                break;
+            case "2":
+                ret = "匯票";
+                break;
+            case "3":
+                ret = "信用卡";
+                break;
+            case "4":
+                ret = "現金";
+                break;
+            case "5":
+                ret = "西聯匯款";
+                break;
+            case "6":
+                ret = "國外匯款";
+                break;
+        }
+        return ret;
+    }
     public static void InitVenderTypes(int id, FormView FormView1,String dlID)
     {
         try

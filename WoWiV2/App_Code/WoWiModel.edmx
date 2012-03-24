@@ -687,6 +687,8 @@
           <Property Name="wu_first_name" Type="nvarchar" MaxLength="50" />
           <Property Name="wu_last_name" Type="nvarchar" MaxLength="50" />
           <Property Name="wu_destination" Type="nvarchar" MaxLength="100" />
+          <Property Name="bank_telephone" Type="nvarchar" MaxLength="50" />
+          <Property Name="payment_type" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="vendor">
           <Key>
@@ -974,6 +976,8 @@
           <Property Type="String" Name="wu_first_name" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="wu_last_name" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="wu_destination" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bank_telephone" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="payment_type" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vendor_type">
           <Key>
@@ -1691,6 +1695,8 @@
           <EntitySetMapping Name="venderbankings">
             <EntityTypeMapping TypeName="WoWiModel.venderbanking">
               <MappingFragment StoreEntitySet="venderbanking">
+                <ScalarProperty Name="payment_type" ColumnName="payment_type" />
+                <ScalarProperty Name="bank_telephone" ColumnName="bank_telephone" />
                 <ScalarProperty Name="wu_destination" ColumnName="wu_destination" />
                 <ScalarProperty Name="wu_last_name" ColumnName="wu_last_name" />
                 <ScalarProperty Name="wu_first_name" ColumnName="wu_first_name" />

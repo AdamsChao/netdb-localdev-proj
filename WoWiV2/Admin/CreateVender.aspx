@@ -39,6 +39,7 @@
             {
                 WestUintQueryString = "&iswu=1";
             }
+            WestUintQueryString += "&paymenttype=" + obj.payment_type;
             Response.Redirect("~/Admin/CreateVenderBankAccount.aspx?id=" + obj.id+WestUintQueryString);
             //Response.Redirect("~/Common/SelectExistContact.aspx?id="+obj.id+"&type=vender");
         }

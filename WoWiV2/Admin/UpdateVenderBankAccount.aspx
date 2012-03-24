@@ -2,7 +2,7 @@
 
 <script runat="server">
 
-    
+    WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     protected void EntityDataSource1_Inserted(object sender, EntityDataSourceChangedEventArgs e)
     {
         if (e.Exception == null)
@@ -39,6 +39,7 @@
     int bid;
     bool isWestUnit;
     String isWestUnitStr;
+    String paymentType;
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -101,6 +102,17 @@
                 FormView2.Visible = false;
                 FormView3.Visible = false;
             }
+            try
+            {
+                paymentType = (wowidb.vendors.First(c => c.id == id)).payment_type.ToString();
+                isWUStr += "&paymenttype=" + paymentType;
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+            
             //GridView1.Visible = true;
             if (mode == "select")
             {
@@ -172,7 +184,7 @@
         if (e.CommandName == "MySelect")
         {
             GridViewRow row = GridView1.Rows[int.Parse(e.CommandArgument.ToString())];
-            int bankid = int.Parse(row.Cells[8].Text);
+            int bankid = int.Parse(row.Cells[9].Text);
             //FormView1.Visible = true;
             Response.Redirect("~/Admin/UpdateVenderBankAccount.aspx?id=" + id + "&mode=select" + "&bid=" + bankid + isWestUnitStr);
         }
@@ -202,6 +214,39 @@
         {
             TableCell cell = (TableCell)container.Controls[i];
             cell.RenderControl(output);
+        }
+    }
+
+    protected void GridView1_PreRender(object sender, EventArgs e)
+    {
+        foreach (GridViewRow row in GridView1.Rows)
+        {
+
+            String paymentType = row.Cells[1].Text;
+            try
+            {
+                row.Cells[1].Text = VenderUtils.GetPaymentType(paymentType);
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+
+        }
+    }
+
+    protected void ddlPaymentType_PreRender(object sender, EventArgs e)
+    {
+        if (Page.IsPostBack) return;
+        try
+        {
+            (sender as DropDownList).SelectedValue = Request["paymenttype"];
+        }
+        catch (Exception)
+        {
+
+            //throw;
         }
     }
 </script>
@@ -359,16 +404,17 @@
             </InsertItemTemplate>
         </asp:FormView>
  <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"  Width="100%"
-            DataSourceID="SqlDataSource1" AllowPaging="True" PageSize="5" 
+            DataSourceID="SqlDataSource1" AllowPaging="True" PageSize="5" onprerender="GridView1_PreRender"
         onrowcommand="GridView1_RowCommand" onrowcreated="GridView1_RowCreated" >                           
         <Columns>
             <asp:TemplateField ShowHeader="False">
-                <ItemTemplate>
+                <ItemTemplate >
                     <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
                         CommandName="MySelect" Text="Select" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>'></asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
-           
+           <asp:BoundField DataField="payment_type" HeaderText="Payment Type" 
+                SortExpression="payment_type" />
             <asp:BoundField DataField="bank_name" HeaderText="Bank Name" 
                 SortExpression="bank_name" />
             <asp:BoundField DataField="bank_branch_name" HeaderText="Branch Name" 
@@ -391,7 +437,7 @@
     <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" Width="100%"
            AllowPaging="True" PageSize="5" DataSourceID="SqlDataSource2" onrowcommand="GridView2_RowCommand" onrowcreated="GridView1_RowCreated" >                             
         <Columns>
-        <asp:TemplateField ShowHeader="False">
+        <asp:TemplateField ShowHeader="False" HeaderText="西聯">
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
                         CommandName="MySelect" Text="Select" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>'></asp:LinkButton>
@@ -405,7 +451,9 @@
                 <asp:BoundField DataField="wu_destination" HeaderText="Destination" 
                 SortExpression="wu_destination" />
                 <asp:BoundField DataField="bank_id" HeaderText="Bank ID" ControlStyle-CssClass="Hidden"
-                SortExpression="bank_id" />
+                SortExpression="bank_id" >
+<ControlStyle CssClass="Hidden"></ControlStyle>
+            </asp:BoundField>
         </Columns>
     </asp:GridView>
       <asp:EntityDataSource ID="EntityDataSource2" runat="server" 
@@ -425,65 +473,115 @@
            
             <EditItemTemplate>
               <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional"><ContentTemplate>
+           <%-- <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional"><ContentTemplate>--%>
               <table align="left" border="0" cellpadding="2" cellspacing="0"  style="width:100%">
-             
-                           <tr><td><table 
-                               align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
-            <tr><th 
-                                   align="left" class="style9">&#160;&#160; Bank Name:&#160;</th><td width="30%"><asp:TextBox 
-                                       ID="tbBankName" runat="server" Text='<%# Bind("bank_name") %>'></asp:TextBox></td><th 
-                                   align="left" class="style7">&#160; Branch Name:&#160;</th><td width="30%"><asp:TextBox 
-                                       ID="tbBranchName" runat="server" 
-                                Text='<%# Bind("bank_branch_name") %>'></asp:TextBox></td></tr><tr><th 
-                                   align="left" class="style9">&nbsp;&nbsp; Address:&nbsp;</th><td width="30%">
-                            <asp:TextBox ID="tbBankAddress" runat="server" 
-                                Text='<%# Bind("bank_address") %>' Width="211px"></asp:TextBox>
-                        </td><th 
-                                   align="left" class="style7">&#160; Account No.(IBAN):&#160;&#160;</th><td width="30%"><asp:TextBox 
-                                       ID="tbBankAccountNo" runat="server" 
-                                Text='<%# Bind("bank_account_no") %>' MaxLength="31"  Width="211px"></asp:TextBox></td></tr>
+             <tr><td><table 
+                               align="center" border="1" cellpadding="0" cellspacing="0" width="100%"><%--<tr><td 
+                                   align="left" colspan="4">Load from : <asp:DropDownList ID="dlVenderList" 
+                                   runat="server" AppendDataBoundItems="False" AutoPostBack="True" 
+                                   onload="dlVenderList_Load"></asp:DropDownList><asp:Button ID="btnLoad" 
+                                   runat="server" onclick="btnLoad_Click" Text="Load" /></td></tr>--%>
                                 <tr><th 
-                                   align="left" class="style2">&#160;&#160; Swif Code:&#160;</th><td class="style3" 
-                                   width="30%">
-                            <asp:TextBox ID="tbSwif" runat="server" 
-                                       Text='<%# Bind("bank_swifcode") %>'></asp:TextBox></td>
-                        <th align="left" 
-                                   class="style7">&nbsp;&nbsp;Beneficiary Name:</th><td class="style3" width="30%">
-                            <asp:TextBox ID="tbBeneficiaryName" runat="server" 
-                                Text='<%# Bind("bank_beneficiary_name") %>'></asp:TextBox>
-                        </td></tr>
-                        <tr><th 
-                                   align="left" class="style2">&#160;&#160; Routing No:&#160;</th><td colspan="3">
-                            <asp:TextBox ID="TextBox2" runat="server" 
-                                       Text='<%# Bind("bank_routing_no") %>'></asp:TextBox></td>
-                       </tr>
-                            <tr><th 
-                                   align="left" class="style2">&#160;&#160; Comments:&#160;</th><td class="style3" colspan="3"
-                                   width="30%">
-                          
-                                  <asp:TextBox ID="TextBox1" runat="server" Width="600px" Text='<%# Bind("bank_comments") %>' TextMode="MultiLine" Height="100"></asp:TextBox>
-                          
-                        </td></tr>
-                                            
-                                            
-                                            </table></td>
-                    <tr>
-                        <td class="style4">
-                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr align="center">
-                                    <td>
-                                        <asp:LinkButton ID="UpdateButton2" runat="server" CausesValidation="True" 
-                                            CommandName="Update" Text="Update" />
-                                        &nbsp;
-                                        <asp:LinkButton ID="UpdateCancelButton2" runat="server" CausesValidation="False" 
-                                            CommandName="Cancel" Text="Cancel" />
-                                        &nbsp;<asp:LinkButton ID="LinkButton12" runat="server" CausesValidation="False" 
-                                           Text="Next" onclick="LinkButton1_Click" /></td>
-                                </tr>
-                </table>
-            </td>
-        </tr>
-                                            </table>
+                                   align="left" class="style9">&nbsp&nbsp Payment Type:&#160;</th><td width="30%" colspan="3">
+                                   <asp:DropDownList ID="ddlPaymentType" runat="server"
+                                            onprerender="ddlPaymentType_PreRender" >
+                                                   <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                                   <asp:ListItem Value="0">支票</asp:ListItem>
+                                                   <asp:ListItem Value="1">國內匯款</asp:ListItem>
+                                                   <asp:ListItem Value="6">國外匯款</asp:ListItem>
+                                                   <asp:ListItem Value="2">匯票</asp:ListItem>
+                                                   <asp:ListItem Value="3">信用卡</asp:ListItem>
+                                                   <asp:ListItem Value="4">現金</asp:ListItem>
+                                                   <asp:ListItem Value="5">西聯匯款</asp:ListItem>
+                                               </asp:DropDownList> &nbsp;<font color="red"><b>*</b></font>國內匯款 不需輸入&nbsp;<font color="red">Swif Code</font>&nbsp;，支票 或是 匯票 &nbsp;<font color="red">Beneficiary Name</font>&nbsp;一定要輸入，空白欄位一律填入&nbsp;<font color="red">N/A</font>&nbsp;
+                                       <asp:Label ID="lblPaymentType" runat="server" Text='<%# Bind("payment_type") %>' CssClass="hidden"></asp:Label>
+                                    </td></tr>
+                                <tr>
+                                    <th align="left" class="style9">
+                                        <font color="red">*&nbsp;</font> Bank Name:&nbsp;</th>
+                                    <td width="30%">
+                                        <asp:TextBox ID="tbBankName" runat="server" Text='<%# Bind("bank_name") %>'></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                                            ControlToValidate="tbBankName" ErrorMessage="Have to provide Bank Name " 
+                                            ForeColor="Red">*</asp:RequiredFieldValidator>
+                                    </td>
+                                    <th align="left" class="style7">
+                                        &nbsp;&nbsp; Branch Name:&nbsp;</th>
+                                    <td width="30%">
+                                        <asp:TextBox ID="tbBranchName" runat="server" 
+                                            Text='<%# Bind("bank_branch_name") %>'></asp:TextBox>
+                                    </td>
+                      <tr>
+                          <th align="left" class="style2">
+                              <font color="red">*&nbsp;</font> Swif Code:&nbsp;</th>
+                          <td class="style3" width="30%">
+                              <asp:TextBox ID="tbSwif" runat="server" Text='<%# Bind("bank_swifcode") %>'></asp:TextBox>
+                              <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                                  ControlToValidate="tbSwif" ErrorMessage="Have to provide Swift Code" 
+                                  ForeColor="Red">*</asp:RequiredFieldValidator>
+                          </td>
+                          <th align="left" class="style9">
+                              &nbsp;&nbsp; Bank Address:&nbsp;</th>
+                          <td width="30%">
+                              <asp:TextBox ID="tbBankAddress" runat="server" 
+                                  Text='<%# Bind("bank_address") %>' Width="211px"></asp:TextBox>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th align="left" class="style7">
+                              <font color="red">*&nbsp;</font> Account No.(IBAN):&nbsp;&nbsp;</th>
+                          <td width="30%">
+                              <asp:TextBox ID="tbBankAccountNo" runat="server" MaxLength="31" 
+                                  Text='<%# Bind("bank_account_no") %>' Width="211px"></asp:TextBox>
+                              <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
+                                  ControlToValidate="tbBankAccountNo" ErrorMessage="Have to provide Account No." 
+                                  ForeColor="Red">*</asp:RequiredFieldValidator>
+                          </td>
+                          <th align="left" class="style7">
+                              &nbsp;&nbsp; Bank Telephone:</th>
+                          <td class="style3" width="30%">
+                              <asp:TextBox ID="tbBankTel" runat="server" Text='<%# Bind("bank_telephone") %>'></asp:TextBox>
+                              <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
+                                            ControlToValidate="tbBankTel" 
+                                            ErrorMessage="Have to provide Bank Telephone" ForeColor="Red">*</asp:RequiredFieldValidator>--%>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th align="left" class="style7">
+                              &nbsp;&nbsp;&nbsp;Routing No.:&nbsp;&nbsp;</th>
+                          <td>
+                              <asp:TextBox ID="tbBankRoutingNo" runat="server" MaxLength="50" 
+                                  Text='<%# Bind("bank_routing_no") %>' Width="211px"></asp:TextBox>
+                          </td>
+                          <th align="left" class="style7">
+                              <font color="red">*&nbsp;</font> Beneficiary Name:</th>
+                          <td class="style3" width="30%">
+                              <asp:TextBox ID="tbBeneficiaryName" runat="server" 
+                                  Text='<%# Bind("bank_beneficiary_name") %>'></asp:TextBox>
+                              <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
+                                  ControlToValidate="tbBeneficiaryName" 
+                                  ErrorMessage="Have to provide Beneficiary Name" ForeColor="Red">*</asp:RequiredFieldValidator>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th align="left" class="style2">
+                              &nbsp;&nbsp; Comments:&nbsp;</th>
+                          <td class="style3" colspan="3" width="30%">
+                              <asp:TextBox ID="TextBox1" runat="server" Height="100" 
+                                  Text='<%# Bind("bank_comments") %>' TextMode="MultiLine" Width="600px"></asp:TextBox>
+                          </td>
+                      </tr>
+                            </table></td></tr><tr><td class="style4"><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"><tr align="center"><td><asp:LinkButton ID="UpdateButton2" runat="server" CausesValidation="True" 
+                                            CommandName="Update" Text="Update" />&#160;&nbsp;<asp:LinkButton ID="UCancelButton" runat="server" CausesValidation="False" 
+                                            CommandName="Cancel" Text="Cancel" />&#160;
+                                            &nbsp;<asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
+                                           Text="Next" onclick="LinkButton1_Click" />
+                      <asp:ValidationSummary ID="ValidationSummary1" runat="server" 
+                          ShowMessageBox="True" ShowSummary="False" />
+                      </td></tr></table></td></tr>
+             
+    </table>    
+                
                 </ContentTemplate>
                   <Triggers>
                       <asp:PostBackTrigger ControlID="UpdateButton2" />
@@ -506,7 +604,7 @@
                         <tr><th 
                                    align="left" class="style9"><font color="red">*&nbsp;</font> First Name:&#160;</th><td width="30%"><asp:TextBox 
                                        ID="tbWuFirstName" runat="server" Text='<%# Bind("wu_first_name") %>'></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" 
                                             ControlToValidate="tbWuFirstName" ErrorMessage="Have to provide First Name " 
                                             ForeColor="Red">*</asp:RequiredFieldValidator>
                                     </td>
@@ -514,7 +612,7 @@
                                     <th 
                                    align="left" class="style9"><font color="red">*&nbsp;</font> Last Name:&#160;</th><td width="30%"><asp:TextBox 
                                        ID="tbWuLastName" runat="server" Text='<%# Bind("wu_last_name") %>'></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" 
                                             ControlToValidate="tbWuLastName" ErrorMessage="Have to provide Last Name " 
                                             ForeColor="Red">*</asp:RequiredFieldValidator>
                                     </td>
@@ -522,7 +620,7 @@
                                 <tr><th 
                                    align="left" class="style9"><font color="red">*&nbsp;</font> Destination:&#160;</th><td colspan="3"><asp:TextBox 
                                        ID="tbWuDestination" runat="server" Text='<%# Bind("wu_destination") %>'></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" 
                                             ControlToValidate="tbWuDestination" ErrorMessage="Have to provide Destination " 
                                             ForeColor="Red">*</asp:RequiredFieldValidator>
                                     </td>
@@ -536,10 +634,10 @@
                                         <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" 
                                             CommandName="Update" Text="Update" />
                                         &nbsp;
-                                        <asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" 
+                                        <asp:LinkButton ID="UpdateCancelButton1" runat="server" CausesValidation="False" 
                                             CommandName="Cancel" Text="Cancel" />
-                                        &nbsp;<asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
-                                           Text="Next" onclick="LinkButton1_Click" /> <asp:ValidationSummary ID="ValidationSummary1" runat="server" 
+                                        &nbsp;<asp:LinkButton ID="LinkButton11" runat="server" CausesValidation="False" 
+                                           Text="Next" onclick="LinkButton1_Click" /> <asp:ValidationSummary ID="ValidationSummary11" runat="server" 
                           ShowMessageBox="True" ShowSummary="False" /></td>
                                 </tr>
                                           </table>

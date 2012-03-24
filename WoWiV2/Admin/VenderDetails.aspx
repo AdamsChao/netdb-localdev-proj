@@ -100,6 +100,25 @@
         (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataTextField = "name";
         (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataValueField = "id";
     }
+
+    protected void GridView2_PreRender(object sender, EventArgs e)
+    {
+        foreach (GridViewRow row in (sender as GridView).Rows)
+        {
+
+            String paymentType = row.Cells[0].Text;
+            try
+            {
+                row.Cells[0].Text = VenderUtils.GetPaymentType(paymentType);
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -346,9 +365,11 @@
               </tr>
                <tr><td align="left" colspan="4">
                <asp:Label runat="server" ID="lblB" Text="Banking Information :"></asp:Label>
-                                    <asp:GridView ID="GridView2" runat="server" Width="100%"
+                                    <asp:GridView ID="GridView2" runat="server" Width="100%" OnPreRender="GridView2_PreRender"
                                         onload="GridView2_Load" AutoGenerateColumns="False" >
                                        <Columns>
+             <asp:BoundField DataField="payment_type" HeaderText="Payment Type" 
+                SortExpression="payment_type" />
             <asp:BoundField DataField="bank_name" HeaderText="Bank Name" 
                 SortExpression="bank_name" />
             <asp:BoundField DataField="bank_branch_name" HeaderText="Branch Name" 

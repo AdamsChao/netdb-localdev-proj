@@ -13395,6 +13395,54 @@ namespace WoWiModel
         private global::System.String _wu_destination;
         partial void Onwu_destinationChanging(global::System.String value);
         partial void Onwu_destinationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String bank_telephone
+        {
+            get
+            {
+                return _bank_telephone;
+            }
+            set
+            {
+                Onbank_telephoneChanging(value);
+                ReportPropertyChanging("bank_telephone");
+                _bank_telephone = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("bank_telephone");
+                Onbank_telephoneChanged();
+            }
+        }
+        private global::System.String _bank_telephone;
+        partial void Onbank_telephoneChanging(global::System.String value);
+        partial void Onbank_telephoneChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String payment_type
+        {
+            get
+            {
+                return _payment_type;
+            }
+            set
+            {
+                Onpayment_typeChanging(value);
+                ReportPropertyChanging("payment_type");
+                _payment_type = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("payment_type");
+                Onpayment_typeChanged();
+            }
+        }
+        private global::System.String _payment_type;
+        partial void Onpayment_typeChanging(global::System.String value);
+        partial void Onpayment_typeChanged();
 
         #endregion
     
