@@ -577,7 +577,7 @@
           <Property Name="Quotation_Statusdate" Type="datetime" />
           <Property Name="Quotation_Statusby" Type="nvarchar" MaxLength="26" />
           <Property Name="Quotation_StatusbyID" Type="int" />
-          <Property Name="Max_Q_Authorize_Amt" Type="int" Nullable="false" />
+          <Property Name="Max_Q_Authorize_Amt" Type="int" />
           <Property Name="Waiting_Approve_UserID" Type="int" />
           <Property Name="Payment_Method_Id" Type="int" />
           <Property Name="pocheckno" Type="nvarchar" MaxLength="16" />
@@ -718,6 +718,8 @@
           <Property Name="payment_term_final" Type="smallint" />
           <Property Name="payment_balance" Type="smallint" />
           <Property Name="paymentdays" Type="nvarchar" MaxLength="10" />
+          <Property Name="department_id" Type="int" />
+          <Property Name="employee_id" Type="int" />
         </EntityType>
         <EntityType Name="vendor_type">
           <Key>
@@ -1176,6 +1178,8 @@
           <Property Type="Int16" Name="payment_term_final" />
           <Property Type="Int16" Name="payment_balance" />
           <Property Type="String" Name="paymentdays" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="department_id" />
+          <Property Type="Int32" Name="employee_id" />
         </EntityType>
         <EntityType Name="PR">
           <Key>
@@ -1892,6 +1896,8 @@
           <EntitySetMapping Name="vendors">
             <EntityTypeMapping TypeName="WoWiModel.vendor">
               <MappingFragment StoreEntitySet="vendor">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
                 <ScalarProperty Name="paymentdays" ColumnName="paymentdays" />
                 <ScalarProperty Name="payment_balance" ColumnName="payment_balance" />
                 <ScalarProperty Name="payment_term_final" ColumnName="payment_term_final" />

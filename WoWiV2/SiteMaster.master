@@ -9,6 +9,7 @@
     <title></title>
     <link href="~/Styles/SiteMaster.css" rel="stylesheet" type="text/css" />
         <script src="../Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+        <script src="../Scripts/common.js" type="text/javascript"></script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
