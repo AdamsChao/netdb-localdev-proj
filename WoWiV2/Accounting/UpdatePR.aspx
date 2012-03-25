@@ -614,6 +614,10 @@
                         break;
                     case "lblStatus":
                         lbl.Text = ((PRStatus)auth.status).ToString();
+                        if (auth.status == (byte)PRStatus.Done)
+                        {
+                            lbl.Text = "Ready to Pay";
+                        }
                         break;
                     case "tbInternalMarksHis":
                         tb.Text = auth.remark;

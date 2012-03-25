@@ -459,7 +459,7 @@
                         break;
                     case "lblStatus":
                         lbl.Text = ((PRStatus)auth.status).ToString();
-                        if ((PRStatus)auth.status == PRStatus.Done)
+                        if (auth.status == (byte)PRStatus.Done)
                         {
                             lbl.Text = "Ready to Pay";
                         }
