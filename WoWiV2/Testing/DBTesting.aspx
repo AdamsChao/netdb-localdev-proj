@@ -45,6 +45,17 @@
         db.SaveChanges();
 
     }
+
+    protected void Button2_Click(object sender, EventArgs ea)
+    {
+        WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities();
+
+        foreach (var e in db.vendors)
+        {
+            e.contract_type = "-1";   
+        }
+        db.SaveChanges();
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -52,5 +63,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <asp:Button ID="Button1" runat="server" onclick="Button1_Click" 
         Text="Set Department / Employee ID = -1" />
+    <br />
+    <asp:Button ID="Button2" runat="server" onclick="Button2_Click" 
+        Text="Vender Authority" />
+    <br />
 </asp:Content>
 
