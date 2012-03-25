@@ -249,6 +249,20 @@
             //throw;
         }
     }
+
+    protected void ddlPaymentType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            (FormView1.FindControl("lblPaymentType") as Label).Text = (sender as DropDownList).SelectedValue;
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+        
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -483,8 +497,9 @@
                                    runat="server" onclick="btnLoad_Click" Text="Load" /></td></tr>--%>
                                 <tr><th 
                                    align="left" class="style9">&nbsp&nbsp Payment Type:&#160;</th><td width="30%" colspan="3">
-                                   <asp:DropDownList ID="ddlPaymentType" runat="server"
-                                            onprerender="ddlPaymentType_PreRender" >
+                                   <asp:DropDownList ID="ddlPaymentType" runat="server" 
+                                            onprerender="ddlPaymentType_PreRender" 
+                                            onselectedindexchanged="ddlPaymentType_SelectedIndexChanged" >
                                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                                    <asp:ListItem Value="0">支票</asp:ListItem>
                                                    <asp:ListItem Value="1">國內匯款</asp:ListItem>

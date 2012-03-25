@@ -59,6 +59,7 @@
         }
 
         (FormView1.FindControl("lblPaymentType") as Label).Text = Request["paymenttype"];
+        //(FormView1.FindControl("ddlPaymentType") as Label).Text = Request["paymenttype"];
     }
 
     
