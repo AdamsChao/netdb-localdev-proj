@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" ClassName="CreateContact" %>
 
 <script runat="server">
-
+    WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     public void SetContactList(bool visible)
     {
         HyperLink hl = (HyperLink)MyContactCreateFormView1.FindControl("hlContactList");
@@ -103,13 +103,14 @@
         obj.create_user = HttpContext.Current.User.Identity.Name;
     }
 
-    protected void MyBtnLoad_Click(object sender, EventArgs e)
+    protected void MyBtnLoad_Click(object sender, EventArgs ea)
     {
         FormView fv = this.MyContactCreateFormView1;
         DropDownList list = (DropDownList)fv.FindControl(ContactUtils.Name_DropdownList_RoleList);
         int id = int.Parse(list.SelectedValue);
         using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
         {
+            FormView FormView1 = MyContactCreateFormView1;
             var data = db.contact_info.Where(c => c.id == id).First();
             Utils.SetTextBoxValue(fv, "tbFirstName", data.fname);
             Utils.SetTextBoxValue(fv, "tbLastName", data.lname);
@@ -126,6 +127,31 @@
             Utils.SetTextBoxValue(fv, "tbAddress", data.address);
             Utils.SetTextBoxValue(fv, "tbcAddress", data.c_address);
             Utils.SetDropDownListValue(fv, "dlCountry", data.country_id+"");
+            (FormView1.FindControl("lblDept") as Label).Text = data.department_id.HasValue ? data.department_id + "" : "-1";
+            (FormView1.FindControl("lblEmp") as Label).Text = data.employee_id.HasValue ? data.employee_id + "" : "-1";
+            int depid = data.department_id.HasValue ? (int)data.department_id : -1;
+            try
+            {
+                var elist = from e in wowidb.employees where e.department_id == depid select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
+                cleanEmployeeList();
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).Items.Clear();
+                ListItem item = new ListItem("- Select -", "-1");
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).Items.Add(item);
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).AppendDataBoundItems = true;
+                if (elist.Count() == 0) return;
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataSource = elist;
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataTextField = "name";
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataValueField = "id";
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataBind();
+            }
+            catch (Exception)
+            {
+                (FormView1.FindControl("lblDept") as Label).Text = "-1";
+
+            }
+
+            Utils.SetDropDownListValue(fv, "ddlEmployeeList", data.employee_id.HasValue ? data.employee_id + "" : "-1");
+            Utils.SetDropDownListValue(fv, "ddlDeptList", data.department_id.HasValue ? data.department_id + "" : "-1");
         }
         ContactUtils.InitRoles(id, MyContactCreateFormView1, ContactUtils.Name_CheckBox_RoleList);
     }
@@ -158,12 +184,78 @@
             }
         }
     }
+   
+    protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
+    {
+        DropDownList ddl = sender as DropDownList;
+        FormView FormView1 = MyContactCreateFormView1;
+        if (ddl.SelectedValue != "-1")
+        {
+            int depid = int.Parse(ddl.SelectedValue);
+            try
+            {
+                var list = from e in wowidb.employees where e.department_id == depid select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
+                cleanEmployeeList();
+                if (list.Count() == 0) return;
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataSource = list;
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataTextField = "name";
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataValueField = "id";
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataBind();
+                (FormView1.FindControl("lblDept") as Label).Text = depid + "";
+            }
+            catch (Exception)
+            {
+                (FormView1.FindControl("lblDept") as Label).Text = "-1";
+
+            }
+        }
+        else
+        {
+            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
+        }
+
+    }
+
+    private void cleanEmployeeList()
+    {
+        FormView FormView1 = MyContactCreateFormView1;
+        try
+        {
+            (FormView1.FindControl("ddlEmployeeList") as DropDownList).Items.Clear();
+            ListItem item = new ListItem("- Select -", "-1");
+            (FormView1.FindControl("ddlEmployeeList") as DropDownList).Items.Add(item);
+            (FormView1.FindControl("ddlEmployeeList") as DropDownList).AppendDataBoundItems = true;
+            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+    }
+
+    protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FormView FormView1 = MyContactCreateFormView1;
+        try
+        {
+            DropDownList ddl = sender as DropDownList;
+            (FormView1.FindControl("lblEmp") as Label).Text = ddl.SelectedValue;
+        }
+        catch (Exception)
+        {
+
+            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
+        }
+
+
+    }
 </script>
 
 <asp:FormView ID="MyContactCreateFormView1" runat="server" DataKeyNames="id" SkinID="FormView"
     DataSourceID="MyContactCreateFormEnttityDataSource1" DefaultMode="Insert" 
     oniteminserted="MyContactCreateFormView1_ItemInserted" 
-    oniteminserting="MyContactCreateFormView1_ItemInserting" Width="900px">
+    oniteminserting="MyContactCreateFormView1_ItemInserting" Width="100%" >
     <InsertItemTemplate>
         <table align="left" border="0" cellpadding="2" cellspacing="0" 
             style="width:95%">
@@ -188,6 +280,27 @@
                                 <asp:Button ID="MyBtnLoad" runat="server" onclick="MyBtnLoad_Click" Text="Load" />
                             </td>
                         </tr>
+                         <tr><th 
+                                   align="left" class="style9"><font color="red">*&#160;</font>Department:</th><td 
+                                   width="30%">
+                                            <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
+                                                DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
+                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" AppendDataBoundItems="True"><%--SelectedValue='<%# Bind("department_id") %>'>--%>
+                                                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                            </asp:DropDownList>
+
+                                            <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+                                                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                SelectCommand="SELECT [id], [name] FROM [department]"></asp:SqlDataSource>
+                                            <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
+                                        </td><th align="left" 
+                                   class="style7"><font color="red">*&#160;</font>Employee:</th><td width="30%">
+                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
+                                                onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged" >
+                                                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                            </asp:DropDownList>
+                                            <asp:Label ID="lblEmp" runat="server" Text='<%# Bind("employee_id") %>'  CssClass="hidden"></asp:Label>
+                                        </td></tr>
                         <tr>
                             <th align="left" class="style9">
                                 <font color="red">*&nbsp;</font>First Name:&nbsp;</th>
@@ -304,7 +417,7 @@
                         </tr>
                         <tr>
                             <td align="left" colspan="4">
-                                <b>&nbsp; Role: </b>
+                                <b>&nbsp; Title: </b>
                             <br />
                             
                                         <asp:CheckBoxList ID="clRoleList" runat="server" AutoPostBack="False" 

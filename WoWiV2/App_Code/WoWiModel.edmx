@@ -116,6 +116,8 @@
           <Property Name="publish" Type="bit" Nullable="false" />
           <Property Name="paymentdays" Type="int" />
           <Property Name="business_registration_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="department_id" Type="int" />
+          <Property Name="employee_id" Type="int" />
         </EntityType>
         <EntityType Name="clientapplicant_industry">
           <Key>
@@ -167,6 +169,8 @@
           <Property Name="modify_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="26" />
           <Property Name="publish" Type="bit" Nullable="false" />
+          <Property Name="employee_id" Type="int" />
+          <Property Name="department_id" Type="int" />
         </EntityType>
         <EntityType Name="contact_role">
           <Key>
@@ -865,6 +869,8 @@
           <Property Type="DateTime" Name="modify_date" />
           <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="publish" Nullable="false" />
+          <Property Type="Int32" Name="employee_id" />
+          <Property Type="Int32" Name="department_id" />
         </EntityType>
         <EntityType Name="contact_role">
           <Key>
@@ -1083,6 +1089,8 @@
           <Property Type="Boolean" Name="publish" Nullable="false" />
           <Property Type="Int32" Name="paymentdays" />
           <Property Type="String" Name="business_registration_number" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="department_id" />
+          <Property Type="Int32" Name="employee_id" />
         </EntityType>
         <EntityType Name="Authority">
           <Key>
@@ -1576,6 +1584,8 @@
           <EntitySetMapping Name="contact_info">
             <EntityTypeMapping TypeName="WoWiModel.contact_info">
               <MappingFragment StoreEntitySet="contact_info">
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
                 <ScalarProperty Name="publish" ColumnName="publish" />
                 <ScalarProperty Name="modify_user" ColumnName="modify_user" />
                 <ScalarProperty Name="modify_date" ColumnName="modify_date" />
@@ -1773,6 +1783,8 @@
           <EntitySetMapping Name="clientapplicants">
             <EntityTypeMapping TypeName="WoWiModel.clientapplicant">
               <MappingFragment StoreEntitySet="clientapplicant">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
                 <ScalarProperty Name="business_registration_number" ColumnName="business_registration_number" />
                 <ScalarProperty Name="paymentdays" ColumnName="paymentdays" />
                 <ScalarProperty Name="publish" ColumnName="publish" />

@@ -2,7 +2,7 @@
 
 <script runat="server">
 
-    
+    WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     protected void FormView1_ItemUpdating(object sender, FormViewUpdateEventArgs e)
     {
         ContactUtils.StoreRolesInViewState((FormView)sender, ContactUtils.Name_CheckBox_RoleList, ViewState, ContactUtils.Key_ViewState_Roles); 
@@ -101,6 +101,109 @@
         obj.modify_date = DateTime.Now;
         obj.modify_user = User.Identity.Name;
     }
+
+    protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
+    {
+        if (!Page.IsPostBack) return;
+        DropDownList ddl = sender as DropDownList;
+        cleanEmployeeList();
+        if (ddl.SelectedValue != "-1")
+        {
+
+            try
+            {
+                int depid = int.Parse(ddl.SelectedValue);
+                var list = from e in wowidb.employees where e.department_id == depid select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
+                if (list.Count() == 0) return;
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataSource = list;
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataTextField = "name";
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataValueField = "id";
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataBind();
+                (FormView1.FindControl("lblDept") as Label).Text = depid + "";
+            }
+            catch (Exception)
+            {
+                (FormView1.FindControl("lblDept") as Label).Text = "-1";
+
+            }
+        }
+        else
+        {
+            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
+        }
+
+    }
+
+    private void cleanEmployeeList()
+    {
+        try
+        {
+            (FormView1.FindControl("ddlEmployeeList") as DropDownList).Items.Clear();
+            ListItem item = new ListItem("- Select -", "-1");
+            (FormView1.FindControl("ddlEmployeeList") as DropDownList).Items.Add(item);
+            (FormView1.FindControl("ddlEmployeeList") as DropDownList).AppendDataBoundItems = true;
+            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+    }
+
+    protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (!Page.IsPostBack) return;
+        try
+        {
+            DropDownList ddl = sender as DropDownList;
+            (FormView1.FindControl("lblEmp") as Label).Text = ddl.SelectedValue;
+        }
+        catch (Exception)
+        {
+
+            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
+        }
+
+
+    }
+
+    protected void ddlDeptList_Load(object sender, EventArgs e)
+    {
+        if (Page.IsPostBack) return;
+        (sender as DropDownList).SelectedValue = (FormView1.FindControl("lblDept") as Label).Text;
+    }
+
+    protected void ddlEmployeeList_Load(object sender, EventArgs ea)
+    {
+        if (Page.IsPostBack) return;
+        String depidStr = (FormView1.FindControl("lblDept") as Label).Text;
+
+        try
+        {
+            int depid = int.Parse(depidStr);
+            if (depid != -1)
+            {
+                var list = from e in wowidb.employees where e.department_id == depid select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
+
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).Items.Clear();
+                ListItem item = new ListItem("- Select -", "-1");
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).Items.Add(item);
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).AppendDataBoundItems = true;
+                if (list.Count() == 0) return;
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataSource = list;
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataTextField = "name";
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataValueField = "id";
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataBind();
+                (FormView1.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = (FormView1.FindControl("lblEmp") as Label).Text;
+            }
+        }
+        catch (Exception)
+        {
+
+
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -140,7 +243,7 @@
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
         <asp:FormView ID="FormView1" runat="server" DataKeyNames="id" SkinID="FormView"
-            DataSourceID="EntityDataSource1" DefaultMode="Edit" Width="900px" onitemupdating="FormView1_ItemUpdating"
+            DataSourceID="EntityDataSource1" DefaultMode="Edit" Width="100%" onitemupdating="FormView1_ItemUpdating"
             >
             <EditItemTemplate>
                 <table align="left" border="0" cellpadding="2" cellspacing="0" 
@@ -157,6 +260,29 @@
                     <tr>
                         <td>
                             <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
+                            <tr><th 
+                                   align="left" class="style9"><font color="red">*&#160;</font>Department:</th><td 
+                                   width="30%">
+                                            <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
+                                                DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
+                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" 
+                                                AppendDataBoundItems="True" OnPreRender="ddlDeptList_Load"><%--SelectedValue='<%# Bind("department_id") %>'>--%>
+                                                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                            </asp:DropDownList>
+
+                                            <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+                                                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                SelectCommand="SELECT [id], [name] FROM [department]"></asp:SqlDataSource>
+                                            <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
+                                        </td><th align="left" 
+                                   class="style7"><font color="red">*&#160;</font>Employee:</th><td width="30%">
+                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
+                                                onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged" 
+                                                OnPreRender="ddlEmployeeList_Load" >
+                                                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                            </asp:DropDownList>
+                                            <asp:Label ID="lblEmp" runat="server" Text='<%# Bind("employee_id") %>' CssClass="hidden"></asp:Label>
+                                        </td></tr>
                                 <tr>
                                     <th align="left" class="style9">
                                         <font color="red">*&nbsp;</font>First Name:&nbsp;</th>

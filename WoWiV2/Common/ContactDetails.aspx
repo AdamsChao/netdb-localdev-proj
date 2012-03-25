@@ -3,7 +3,7 @@
 <script runat="server">
 
     
-   
+    WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities();
     protected void Pag_Completed(object sender, EventArgs e)
     {
 
@@ -31,7 +31,13 @@
         InitRoles();
     }
 
-    
+    protected void ddlEmployeeList_Load(object sender, EventArgs ea)
+    {
+        var list = from e in db.employees select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
+        (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataSource = list;
+        (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataTextField = "name";
+        (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataValueField = "id";
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -67,7 +73,7 @@
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
         <asp:FormView ID="FormView1" runat="server" DataKeyNames="id" SkinID="FormView"
-            DataSourceID="EntityDataSource1" Width="900px" >
+            DataSourceID="EntityDataSource1" Width="100%" >
             <ItemTemplate>
                 <table align="left" border="0" cellpadding="2" cellspacing="0" 
                     style="width:95%">
@@ -81,6 +87,27 @@
                     <tr>
                         <td>
                             <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
+                            <tr><th 
+                                   align="left" class="style9"><font color="red">*&#160;</font>Department:</th><td 
+                                   width="30%">
+                                            <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
+                                                DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
+                                                AppendDataBoundItems="True" Enabled="false" SelectedValue='<%# Bind("department_id") %>'>
+                                                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                            </asp:DropDownList>
+
+                                            <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+                                                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                SelectCommand="SELECT [id], [name] FROM [department]"></asp:SqlDataSource>
+                                        </td><th align="left" 
+                                   class="style7"><font color="red">*&#160;</font>Employee:</th><td width="30%">
+                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
+                                                Enabled="false" AppendDataBoundItems="True" onload="ddlEmployeeList_Load" SelectedValue='<%# Bind("employee_id") %>'>
+                                                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                            </asp:DropDownList>
+
+                                        </td></tr>
+
                                 <tr>
                                     <th align="left" class="style9">
                                         &nbsp;&nbsp; First Name:&nbsp;</th>

@@ -2524,6 +2524,54 @@ namespace WoWiModel
         private global::System.String _business_registration_number;
         partial void Onbusiness_registration_numberChanging(global::System.String value);
         partial void Onbusiness_registration_numberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> department_id
+        {
+            get
+            {
+                return _department_id;
+            }
+            set
+            {
+                Ondepartment_idChanging(value);
+                ReportPropertyChanging("department_id");
+                _department_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("department_id");
+                Ondepartment_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _department_id;
+        partial void Ondepartment_idChanging(Nullable<global::System.Int32> value);
+        partial void Ondepartment_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> employee_id
+        {
+            get
+            {
+                return _employee_id;
+            }
+            set
+            {
+                Onemployee_idChanging(value);
+                ReportPropertyChanging("employee_id");
+                _employee_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("employee_id");
+                Onemployee_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _employee_id;
+        partial void Onemployee_idChanging(Nullable<global::System.Int32> value);
+        partial void Onemployee_idChanged();
 
         #endregion
     
@@ -3491,6 +3539,54 @@ namespace WoWiModel
         private global::System.Boolean _publish;
         partial void OnpublishChanging(global::System.Boolean value);
         partial void OnpublishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> employee_id
+        {
+            get
+            {
+                return _employee_id;
+            }
+            set
+            {
+                Onemployee_idChanging(value);
+                ReportPropertyChanging("employee_id");
+                _employee_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("employee_id");
+                Onemployee_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _employee_id;
+        partial void Onemployee_idChanging(Nullable<global::System.Int32> value);
+        partial void Onemployee_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> department_id
+        {
+            get
+            {
+                return _department_id;
+            }
+            set
+            {
+                Ondepartment_idChanging(value);
+                ReportPropertyChanging("department_id");
+                _department_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("department_id");
+                Ondepartment_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _department_id;
+        partial void Ondepartment_idChanging(Nullable<global::System.Int32> value);
+        partial void Ondepartment_idChanged();
 
         #endregion
     

@@ -35,6 +35,33 @@
 
         
     }
+
+    protected void GridView1_PreRender(object sender, EventArgs e)
+    {
+        foreach (GridViewRow row in GridView1.Rows)
+        {
+
+            String depidStr = row.Cells[10].Text;
+            try
+            {
+                int depid = int.Parse(depidStr);
+                if (depid == -1)
+                {
+                    row.Cells[10].Text = "Not set yet";
+                }
+                else
+                {
+                    row.Cells[10].Text = db.departments.First(c => c.id == depid).name;
+                }
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -56,7 +83,7 @@
 
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" SkinID="GridView"  Width="100%"
         AutoGenerateColumns="False" DataKeyNames="id" AllowSorting="True"
-        DataSourceID="SqlDataSource1" PageSize="50" >
+        DataSourceID="SqlDataSource1" PageSize="50" onprerender="GridView1_PreRender" >
         <Columns>
             <asp:TemplateField InsertVisible="False" SortExpression="id">
                 <EditItemTemplate>
@@ -101,16 +128,18 @@
                 SortExpression="ext" />
             <asp:BoundField DataField="cellphone" HeaderText="Cellphone" 
                 SortExpression="cellphone" />
+                 <asp:BoundField DataField="department_id" HeaderText="Department" 
+                SortExpression="department_id" />
         </Columns>
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
         
-        SelectCommand="SELECT [id], [fname], [lname], [title], [companyname], [c_companyname], [workphone], [ext], [cellphone], [email], [c_fname], [c_lname] FROM [contact_info]">
+        SelectCommand="SELECT [id], [fname], [lname], [title], [companyname], [c_companyname], [workphone], [ext], [cellphone], [email], [c_fname], [c_lname], [department_id] FROM [contact_info]">
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-            SelectCommand="SELECT [id], [fname], [lname], [title], [companyname], [c_companyname], [workphone], [ext], [cellphone], [email], [c_fname], [c_lname] FROM [contact_info] WHERE ( (([c_companyname] LIKE '%' + @c_companyname + '%') OR ([companyname] LIKE '%' + @companyname + '%')) AND (([c_fname] LIKE '%' + @c_fname + '%') OR ([c_lname] LIKE '%' + @c_lname + '%') OR ([fname] LIKE '%' + @fname + '%') OR ([lname] LIKE '%' + @lname + '%')))">
+            SelectCommand="SELECT [id], [fname], [lname], [title], [companyname], [c_companyname], [workphone], [ext], [cellphone], [email], [c_fname], [c_lname], [department_id] FROM [contact_info] WHERE ( (([c_companyname] LIKE '%' + @c_companyname + '%') OR ([companyname] LIKE '%' + @companyname + '%')) AND (([c_fname] LIKE '%' + @c_fname + '%') OR ([c_lname] LIKE '%' + @c_lname + '%') OR ([fname] LIKE '%' + @fname + '%') OR ([lname] LIKE '%' + @lname + '%')))">
         <SelectParameters>
             <asp:ControlParameter ControlID="tbCompanyName" Name="c_companyname" 
                 PropertyName="Text" Type="String" />
@@ -130,7 +159,7 @@
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
         
         
-            SelectCommand="SELECT [id], [fname], [lname], [title], [companyname], [c_companyname], [workphone], [ext], [cellphone], [email], [c_fname], [c_lname] FROM [contact_info] WHERE ( ([c_fname] LIKE '%' + @c_fname + '%') OR ([c_lname] LIKE '%' + @c_lname + '%') OR ([fname] LIKE '%' + @fname + '%') OR ([lname] LIKE '%' + @lname + '%'))">
+            SelectCommand="SELECT [id], [fname], [lname], [title], [companyname], [c_companyname], [workphone], [ext], [cellphone], [email], [c_fname], [c_lname], [department_id] FROM [contact_info] WHERE ( ([c_fname] LIKE '%' + @c_fname + '%') OR ([c_lname] LIKE '%' + @c_lname + '%') OR ([fname] LIKE '%' + @fname + '%') OR ([lname] LIKE '%' + @lname + '%'))">
         <SelectParameters>
            
             <asp:ControlParameter ControlID="tbName" Name="c_fname" PropertyName="Text" 
@@ -147,7 +176,7 @@
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
         
         
-            SelectCommand="SELECT [id], [fname], [lname], [title], [companyname], [c_companyname], [workphone], [ext], [cellphone], [email], [c_fname], [c_lname] FROM [contact_info] WHERE (([c_companyname] LIKE '%' + @c_companyname + '%') OR ([companyname] LIKE '%' + @companyname + '%') )">
+            SelectCommand="SELECT [id], [fname], [lname], [title], [companyname], [c_companyname], [workphone], [ext], [cellphone], [email], [c_fname], [c_lname], [department_id] FROM [contact_info] WHERE (([c_companyname] LIKE '%' + @c_companyname + '%') OR ([companyname] LIKE '%' + @companyname + '%') )">
         <SelectParameters>
             <asp:ControlParameter ControlID="tbCompanyName" Name="c_companyname" 
                 PropertyName="Text" Type="String" />
