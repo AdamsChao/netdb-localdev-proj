@@ -376,6 +376,8 @@
                 SortExpression="bank_branch_name" />
             <asp:BoundField DataField="bank_address" HeaderText="Bank Address" 
                 SortExpression="bank_address" />
+            <asp:BoundField DataField="bank_telephone" HeaderText="Bank Telephone" 
+                SortExpression="bank_telephone" />
             <asp:BoundField DataField="bank_account_no" HeaderText="Account No.(IBAN)" 
                 SortExpression="bank_account_no" />
             <asp:BoundField DataField="bank_swifcode" HeaderText="Swif Code" 

@@ -7745,6 +7745,78 @@ namespace WoWiModel
         private Nullable<global::System.Int32> _vendor_banking_id;
         partial void Onvendor_banking_idChanging(Nullable<global::System.Int32> value);
         partial void Onvendor_banking_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String vendor_quotation_no
+        {
+            get
+            {
+                return _vendor_quotation_no;
+            }
+            set
+            {
+                Onvendor_quotation_noChanging(value);
+                ReportPropertyChanging("vendor_quotation_no");
+                _vendor_quotation_no = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("vendor_quotation_no");
+                Onvendor_quotation_noChanged();
+            }
+        }
+        private global::System.String _vendor_quotation_no;
+        partial void Onvendor_quotation_noChanging(global::System.String value);
+        partial void Onvendor_quotation_noChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String vendor_invoice_no
+        {
+            get
+            {
+                return _vendor_invoice_no;
+            }
+            set
+            {
+                Onvendor_invoice_noChanging(value);
+                ReportPropertyChanging("vendor_invoice_no");
+                _vendor_invoice_no = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("vendor_invoice_no");
+                Onvendor_invoice_noChanged();
+            }
+        }
+        private global::System.String _vendor_invoice_no;
+        partial void Onvendor_invoice_noChanging(global::System.String value);
+        partial void Onvendor_invoice_noChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> target_payment_date
+        {
+            get
+            {
+                return _target_payment_date;
+            }
+            set
+            {
+                Ontarget_payment_dateChanging(value);
+                ReportPropertyChanging("target_payment_date");
+                _target_payment_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("target_payment_date");
+                Ontarget_payment_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _target_payment_date;
+        partial void Ontarget_payment_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Ontarget_payment_dateChanged();
 
         #endregion
     

@@ -221,4 +221,40 @@ public class PRUtils
        
 
     }
+
+    public static void PRInfoLabel_Load(object sender, EventArgs e)
+    {
+        Label lbl = sender as Label;
+        try
+        {
+            if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["id"]))
+            {
+                int id = int.Parse(HttpContext.Current.Request.QueryString["id"]);
+                WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
+                WoWiModel.PR_authority_history Auth = wowidb.PR_authority_history.First(c => c.pr_auth_id == obj.pr_auth_id);
+
+                String Name = Auth.requisitioner;
+                WoWiModel.employee emp = wowidb.employees.First(c => c.id == Auth.requisitioner_id);
+                if (lbl.ID == "lblDept")
+                {
+                    lbl.Text = (from d in wowidb.departments where d.id == emp.department_id select d.name).First();
+                }
+                else if (lbl.ID == "lblEmp")
+                {
+                    lbl.Text = emp.fname + " " + emp.lname;
+                }
+                else if (lbl.ID == "lblCDate")
+                {
+                    lbl.Text = ((DateTime)obj.create_date).ToString("yyyy/MM/dd");
+
+                }
+            }
+
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+    }
 }

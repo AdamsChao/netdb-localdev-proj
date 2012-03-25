@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
 
 <%@ Register src="../UserControls/CreateContact.ascx" tagname="CreateContact" tagprefix="uc1" %>
+<%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
+<%@ Register src="../UserControls/UploadFileView.ascx" tagname="UploadFileView" tagprefix="uc2" %>
 
 <script runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
@@ -24,6 +26,16 @@
         {
             id = int.Parse(Request.QueryString["id"]);
             WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
+            try
+            {
+                (FormView1.FindControl("dcPaymentDate") as usercontrols_datechooser_ascx).setText(((DateTime)obj.target_payment_date).ToString("yyyy/MM/dd"));
+            
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
             if (obj.vendor_id != null && obj.vendor_id != -1)
             {
                 int vid = (int)obj.vendor_id;
@@ -419,19 +431,8 @@
         UpPath = UpPath + "/PR/" + prid;
         if (System.IO.Directory.Exists(UpPath))
         {
-            String[] list = System.IO.Directory.GetFiles(UpPath);
-            foreach (String item in list)
-            {
-                HyperLink link = new HyperLink();
-                int idx = item.LastIndexOf("\\");
-                String fileName = item.Substring(idx + 1);
-                link.NavigateUrl = "~/Accounting/FileListHandler.ashx?id=" + prid + "&fn=" + fileName;
-                link.Text = fileName;
-                (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Add(link);
-                Label lb = new Label();
-                lb.Text = "<br>";
-                (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Add(lb);
-            }
+            Control con = Page.LoadControl("~/UserControls/UploadFileView.ascx");
+            (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Add(con);
             (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Visible = true;
         }
     }
@@ -485,6 +486,40 @@
                 obj.vendor_banking_id = int.Parse(ddlBankAccount.SelectedValue);
             }
 
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+
+        try
+        {
+            usercontrols_datechooser_ascx con = (FormView1.FindControl("dcPaymentDate") as usercontrols_datechooser_ascx);
+            obj.target_payment_date = con.GetDate();
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+        try
+        {
+            int auid = (int)obj.pr_auth_id;
+            WoWiModel.PR_authority_history  auth = wowidb.PR_authority_history.First(a => a.pr_auth_id == auid);
+            String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
+            String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
+            WoWiModel.employee emp = wowidb.employees.First(c => c.username == User.Identity.Name);
+            String owner = emp.fname + emp.lname;
+            if (remark.Trim() != "")
+            {
+                auth.remark += remark + " by " + owner + " \n";
+            }
+            if (inst.Trim() != "")
+            {
+                auth.instruction += inst + " by " + owner + " \n";
+            }
+            wowidb.SaveChanges();
         }
         catch (Exception)
         {
@@ -899,7 +934,7 @@
             }
             else if (status == (byte)PRStatus.Done)
             {
-                s = "Done";
+                s = "Ready to Pay";
             }
             (FormView1.FindControl("lblStatus") as Label).Text = s;
         }
@@ -948,7 +983,30 @@
         wowidb.SaveChanges();
         Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
     }
-    
+    protected void lbl_Load(object sender, EventArgs e)
+    {
+        PRUtils.PRInfoLabel_Load(sender, e);
+    }
+
+    protected void GridView1_PreRender(object sender, EventArgs e)
+    {
+        GridView GridView1 = sender as GridView;
+        foreach (GridViewRow row in GridView1.Rows)
+        {
+
+            String paymentType = row.Cells[0].Text;
+            try
+            {
+                row.Cells[0].Text = VenderUtils.GetPaymentType(paymentType);
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -974,7 +1032,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
  
         <asp:FormView ID="FormView1" runat="server" DataKeyNames="pr_id"  
-           SkinID="FormView"  DataSourceID="EntityDataSource1" DefaultMode="Edit" Width="900px"  >
+           SkinID="FormView"  DataSourceID="EntityDataSource1" DefaultMode="Edit" Width="100%"  >
            
             <EditItemTemplate>
              <%-- <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional"><ContentTemplate>--%>
@@ -990,7 +1048,14 @@
                                    align="left" colspan="4">
                           </td></tr>
                           
-                          
+                              <tr><td align="right" 
+                                   class="style11" colspan="4">Department : <asp:Label ID="lblDept" runat="server" Text="" 
+                                         onload="lbl_Load" />&nbsp;&nbsp;&nbsp;&nbsp;Employee : 
+                                     <asp:Label ID="lblEmp" runat="server" Text="" 
+                                         onload="lbl_Load"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;Create Date : 
+                                     <asp:Label ID="lblCDate" runat="server" Text="" 
+                                         onload="lbl_Load"></asp:Label>
+                            </td></tr>
                           <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
                             <th colspan="4">
                                 PR&nbsp; Information</th>
@@ -1005,7 +1070,16 @@
                                      <asp:Label ID="lblQuotationNo" runat="server" Text="Label" 
                                          onload="lblQuotationNo_Load"></asp:Label>
                             </td></tr>
-                            
+                             <tr><th 
+                                   align="left" class="style11">&nbsp;&nbsp;&nbsp; Vender Quotaiton No.:&nbsp;&nbsp;</th><td 
+                                   class="style12" width="30%">
+                                   <asp:TextBox ID="tbVenderQuoNo" runat="server" Text='<%# Bind("vendor_quotation_no")%>'
+                                         ></asp:TextBox>
+                            </td><th align="left" 
+                                   class="style11">&nbsp; Vender Invoice No.:&nbsp;</th><td class="style12" width="30%">
+                                     <asp:TextBox ID="tbVenderInvoNo" runat="server" Text='<%# Bind("vendor_invoice_no")%>'
+                                         ></asp:TextBox>
+                            </td></tr>
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Attachments:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
@@ -1022,7 +1096,7 @@
                                </asp:DropDownList>&nbsp;</td></tr>
                             <tr><td colspan="4">
                                 
-                             <asp:GridView ID="GridView4" runat="server" Width="100%" AutoGenerateColumns="False">
+                            <asp:GridView ID="GridView4" runat="server" Width="100%" AutoGenerateColumns="False">
                                   <Columns>
       <asp:BoundField DataField="QuotataionNo" HeaderText="Quotataion No" 
                 SortExpression="QuotataionNo" />
@@ -1030,20 +1104,19 @@
                 SortExpression="TargetName" />
                 <asp:BoundField DataField="ItemDescription" HeaderText="Item Description" 
                 SortExpression="ItemDescription" />
-                  <asp:BoundField DataField="ModelNo" HeaderText="Mode lNo" 
+                 <%-- <asp:BoundField DataField="ModelNo" HeaderText="Mode lNo" 
                 SortExpression="ModelNo" />
                   <asp:BoundField DataField="Currency" HeaderText="Currency" 
-                SortExpression="Currency" />
+                SortExpression="Currency" />--%>
                   <asp:BoundField DataField="Qty" HeaderText="Qty" 
                 SortExpression="Qty" />
         </Columns>
        
                                 </asp:GridView>
                                 
-                                
                             </td></tr>
                              <tr><th 
-                                   align="left" class="style11">&nbsp;&nbsp;&nbsp;Currency:&nbsp;&nbsp;</th><td 
+                                   align="left" class="style11">&nbsp;&nbsp;&nbsp;Original Currency:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
                                      <asp:TextBox ID="tbCurrency" runat="server" Text='<%# Bind("currency")%>' Enabled="False"
                                          ></asp:TextBox>
@@ -1111,30 +1184,36 @@
                                   ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                   SelectCommand="SELECT [country_id], [country_name] FROM [country]">
                               </asp:SqlDataSource>
-                          </td><th align="left" 
-                                   class="style7">&nbsp; Unified Business License Number:</th><td width="30%">
+                          </td>
+                          <th align="left" 
+                                   class="style7">&nbsp; 統一編號:</th><td width="30%">
                               <asp:Label ID="lbLU" 
                                        runat="server" ></asp:Label></td></tr><tr><th 
                                    align="left" class="style9">&#160;&#160; Qualification:&#160;</th><td width="30%"><asp:DropDownList 
                                        ID="ddlQualification" runat="server" Enabled="false"
                                       ><asp:ListItem>Qualified</asp:ListItem><asp:ListItem>General</asp:ListItem></asp:DropDownList></td><th 
-                                   align="left" class="style7">&#160; Contract Type:&#160;</th><td width="30%"><asp:DropDownList 
-                                       ID="ddlContractType"  Enabled="false" runat="server" ><asp:ListItem>- Select Contract Type</asp:ListItem><asp:ListItem>Sub-Contractor</asp:ListItem><asp:ListItem>Contracted Employee</asp:ListItem></asp:DropDownList></td></tr>
+                                   align="left" class="style7">&nbsp; Authority / Local Agent:&nbsp;</th><td width="30%"><asp:DropDownList 
+                                       ID="dlContractType" runat="server" Enabled="false">
+                                       <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                       <asp:ListItem Value="0">Authroity</asp:ListItem>
+                                       <asp:ListItem Value="1">Local Agent</asp:ListItem></asp:DropDownList></td></tr>
                                        <tr><th 
                                    align="left" class="style9">&nbsp;&nbsp; Bank Charge:&nbsp;</th><td width="30%">
                                                <asp:DropDownList ID="ddlBankCharge" runat="server"  Enabled="false"
                                                    >
-                                                   <asp:ListItem Value="-1">- Select Charge Type</asp:ListItem>
+                                                   <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                                    <asp:ListItem Value="0">OUR</asp:ListItem>
                                                    <asp:ListItem Value="1">SHA</asp:ListItem>
+                                                   <asp:ListItem Value="2">BEN</asp:ListItem>
                                                </asp:DropDownList>
                                            </td><th 
                                    align="left" class="style7">&nbsp; Payment Type:&nbsp;</th><td width="30%">
                                                <asp:DropDownList ID="ddlPaymentType" runat="server"  Enabled="false"
                                                   >
-                                                   <asp:ListItem Value="-1">- Select&nbsp; Payment Type</asp:ListItem>
+                                                   <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                                    <asp:ListItem Value="0">支票</asp:ListItem>
-                                                   <asp:ListItem Value="1">匯款</asp:ListItem>
+                                                   <asp:ListItem Value="1">國內匯款</asp:ListItem>
+                                                   <asp:ListItem Value="6">國外匯款</asp:ListItem>
                                                    <asp:ListItem Value="2">匯票</asp:ListItem>
                                                    <asp:ListItem Value="3">信用卡</asp:ListItem>
                                                    <asp:ListItem Value="4">現金</asp:ListItem>
@@ -1143,8 +1222,8 @@
                                            </td>
                                    </tr>
                                    <tr><th 
-                                   align="left" class="style9">&nbsp;&nbsp; Payment Days:&nbsp;</th>
-                                   <td colspan="3">
+                                   align="left" class="style9">&nbsp;&nbsp; Payment Term:&nbsp;</th>
+                                   <td >
                                              <asp:DropDownList ID="ddlPaymentDays" runat="server" Enabled="false"
                                                >
                                                  <asp:ListItem Value="0">Please select</asp:ListItem>
@@ -1158,9 +1237,14 @@
                                                  <asp:ListItem>120 days</asp:ListItem>
                                              </asp:DropDownList>
                                            </td>
+                                           <th 
+                                   align="left" class="style11">&nbsp; Target Payment Day:&nbsp;&nbsp;</th><td 
+                                   class="style12" width="30%">
+                                   <uc1:DateChooser ID="dcPaymentDate" runat="server" />
+                            </td>
                                    </tr>
                                    <tr><td
-                                   align="left" class="style2" colspan="4"><b>&nbsp;&nbsp; Payment Term: </b><br>
+                                   align="left" class="style2" colspan="4">
                                   
                                    <table  border="0" cellpadding="2" cellspacing="0"  style="width:100%">
                                    <tr>
@@ -1268,14 +1352,18 @@
               </td></tr>
                <tr><td align="left" colspan="4">
                <asp:Label runat="server" ID="lblB" Text="Banking Information :" Visible="false"></asp:Label>
-                                    <asp:GridView ID="GridView2" runat="server" Width="100%" AutoGenerateColumns="False"  Visible="false">
+                                     <asp:GridView ID="GridView2" runat="server" Width="100%" AutoGenerateColumns="False"  Visible="false" onprerender="GridView1_PreRender">
                                        <Columns>
+           <asp:BoundField DataField="payment_type" HeaderText="Payment Type" 
+                SortExpression="payment_type" />
             <asp:BoundField DataField="bank_name" HeaderText="Bank Name" 
                 SortExpression="bank_name" />
             <asp:BoundField DataField="bank_branch_name" HeaderText="Branch Name" 
                 SortExpression="bank_branch_name" />
             <asp:BoundField DataField="bank_address" HeaderText="Bank Address" 
                 SortExpression="bank_address" />
+            <asp:BoundField DataField="bank_telephone" HeaderText="Bank Telephone" 
+                SortExpression="bank_telephone" />
             <asp:BoundField DataField="bank_account_no" HeaderText="Account No.(IBAN)" 
                 SortExpression="bank_account_no" />
             <asp:BoundField DataField="bank_swifcode" HeaderText="Swif Code" 
@@ -1383,7 +1471,7 @@
                                     Date : <asp:Label ID="lblPresidentDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
                                  <td rowspan="3">
-                                 Instruction:<br/>
+                                 External Instruction:<br/>
                                      <asp:TextBox ID="tbInstructionHis" runat="server" TextMode="MultiLine" Width="200" Enabled="false"
                                          Height="55px" OnLoad="AuthLabel_Load" ></asp:TextBox><br/>
                                      <asp:TextBox ID="tbInstruction" runat="server" Height="36px" 

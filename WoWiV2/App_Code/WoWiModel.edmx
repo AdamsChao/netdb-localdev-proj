@@ -416,6 +416,9 @@
           <Property Name="create_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
+          <Property Name="vendor_quotation_no" Type="nvarchar" MaxLength="20" />
+          <Property Name="vendor_invoice_no" Type="nvarchar" MaxLength="20" />
+          <Property Name="target_payment_date" Type="datetime" />
         </EntityType>
         <EntityType Name="PR_authority_history">
           <Key>
@@ -1219,6 +1222,9 @@
           <Property Type="DateTime" Name="modify_date" />
           <Property Type="Int32" Name="vendor_contact_id" />
           <Property Type="Int32" Name="vendor_banking_id" />
+          <Property Type="String" Name="vendor_quotation_no" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="vendor_invoice_no" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="target_payment_date" />
         </EntityType>
         <EntityType Name="PR_item">
           <Key>
@@ -1948,6 +1954,9 @@
           <EntitySetMapping Name="PRs">
             <EntityTypeMapping TypeName="WoWiModel.PR">
               <MappingFragment StoreEntitySet="PR">
+                <ScalarProperty Name="target_payment_date" ColumnName="target_payment_date" />
+                <ScalarProperty Name="vendor_invoice_no" ColumnName="vendor_invoice_no" />
+                <ScalarProperty Name="vendor_quotation_no" ColumnName="vendor_quotation_no" />
                 <ScalarProperty Name="vendor_banking_id" ColumnName="vendor_banking_id" />
                 <ScalarProperty Name="vendor_contact_id" ColumnName="vendor_contact_id" />
                 <ScalarProperty Name="modify_date" ColumnName="modify_date" />

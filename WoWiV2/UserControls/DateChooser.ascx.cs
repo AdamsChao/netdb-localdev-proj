@@ -21,4 +21,13 @@ public partial class UserControls_DateChooser : System.Web.UI.UserControl
         TextBox1.Text = "";
         return "";
     }
+    public void setText(String date)
+    {
+        TextBox1.Text = date;
+    }
+
+    public void isEnabled(bool en)
+    {
+        TextBox1.Enabled = en;
+    }
 }

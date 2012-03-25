@@ -184,7 +184,7 @@
         if (e.CommandName == "MySelect")
         {
             GridViewRow row = GridView1.Rows[int.Parse(e.CommandArgument.ToString())];
-            int bankid = int.Parse(row.Cells[9].Text);
+            int bankid = int.Parse(row.Cells[10].Text);
             //FormView1.Visible = true;
             Response.Redirect("~/Admin/UpdateVenderBankAccount.aspx?id=" + id + "&mode=select" + "&bid=" + bankid + isWestUnitStr);
         }
@@ -325,30 +325,44 @@
                                    align="left" class="style9">&nbsp;&nbsp; Bank Address:&nbsp;</th><td width="30%">
                             <asp:TextBox ID="tbBankAddress" runat="server" 
                                 Text='<%# Bind("bank_address") %>' Width="211px"></asp:TextBox>
-                        </td></tr>
+                        </td>
+                        </tr>
                                 <tr>
-                                <th 
-                                   align="left" class="style7"><font color="red">*&nbsp;</font> Account No.(IBAN):&#160;&#160;</th><td width="30%"><asp:TextBox 
-                                       ID="tbBankAccountNo" runat="server" 
-                                Text='<%# Bind("bank_account_no") %>' MaxLength="31"  Width="211px"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
-                                            ControlToValidate="tbBankAccountNo" ErrorMessage="Have to provide Account No." 
-                                            ForeColor="Red">*</asp:RequiredFieldValidator>
-                                    </td>
-                        <th align="left" 
-                                   class="style7"><font color="red">*&nbsp;</font> Beneficiary Name:</th><td class="style3" width="30%">
-                            <asp:TextBox ID="tbBeneficiaryName" runat="server" 
-                                Text='<%# Bind("bank_beneficiary_name") %>'></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
-                                            ControlToValidate="tbBeneficiaryName" 
-                                            ErrorMessage="Have to provide Beneficiary Name" ForeColor="Red">*</asp:RequiredFieldValidator>
-                        </td></tr>
-                        <tr>
-                                <th 
-                                   align="left" class="style7">&#160;&nbsp;&nbsp;Routing No.:&#160;&#160;</th><td  colspan="3"><asp:TextBox 
-                                       ID="tbBankRoutingNo" runat="server" 
-                                Text='<%# Bind("bank_routing_no") %>' MaxLength="50"  Width="211px"></asp:TextBox>
-                                    </td></tr>
+                          <th align="left" class="style7">
+                              <font color="red">*&nbsp;</font> Account No.(IBAN):&nbsp;&nbsp;</th>
+                          <td width="30%">
+                              <asp:TextBox ID="tbBankAccountNo" runat="server" MaxLength="31" 
+                                  Text='<%# Bind("bank_account_no") %>' Width="211px"></asp:TextBox>
+                              <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
+                                  ControlToValidate="tbBankAccountNo" ErrorMessage="Have to provide Account No." 
+                                  ForeColor="Red">*</asp:RequiredFieldValidator>
+                          </td>
+                          <th align="left" class="style7">
+                              &nbsp;&nbsp; Bank Telephone:</th>
+                          <td class="style3" width="30%">
+                              <asp:TextBox ID="tbBankTel" runat="server" Text='<%# Bind("bank_telephone") %>'></asp:TextBox>
+                              <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
+                                            ControlToValidate="tbBankTel" 
+                                            ErrorMessage="Have to provide Bank Telephone" ForeColor="Red">*</asp:RequiredFieldValidator>--%>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th align="left" class="style7">
+                              &nbsp;&nbsp;&nbsp;Routing No.:&nbsp;&nbsp;</th>
+                          <td>
+                              <asp:TextBox ID="tbBankRoutingNo" runat="server" MaxLength="50" 
+                                  Text='<%# Bind("bank_routing_no") %>' Width="211px"></asp:TextBox>
+                          </td>
+                          <th align="left" class="style7">
+                              <font color="red">*&nbsp;</font> Beneficiary Name:</th>
+                          <td class="style3" width="30%">
+                              <asp:TextBox ID="tbBeneficiaryName" runat="server" 
+                                  Text='<%# Bind("bank_beneficiary_name") %>'></asp:TextBox>
+                              <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
+                                  ControlToValidate="tbBeneficiaryName" 
+                                  ErrorMessage="Have to provide Beneficiary Name" ForeColor="Red">*</asp:RequiredFieldValidator>
+                          </td>
+                      </tr>
                             <tr><th 
                                    align="left" class="style2">&nbsp;&nbsp; Comments:&#160;</th><td class="style3" colspan="3"
                                    width="30%">
@@ -435,6 +449,8 @@
                 SortExpression="bank_branch_name" />
             <asp:BoundField DataField="bank_address" HeaderText="Bank Address" 
                 SortExpression="bank_address" />
+            <asp:BoundField DataField="bank_telephone" HeaderText="Bank Telephone" 
+                SortExpression="bank_telephone" />
             <asp:BoundField DataField="bank_account_no" HeaderText="Account No.(IBAN)" 
                 SortExpression="bank_account_no" />
             <asp:BoundField DataField="bank_swifcode" HeaderText="Swif Code" 
@@ -588,8 +604,8 @@
                       </tr>
                             </table></td></tr><tr><td class="style4"><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"><tr align="center"><td><asp:LinkButton ID="UpdateButton2" runat="server" CausesValidation="True" 
                                             CommandName="Update" Text="Update" />&#160;&nbsp;<asp:LinkButton ID="UCancelButton" runat="server" CausesValidation="False" 
-                                            CommandName="Cancel" Text="Cancel" />&#160;
-                                            &nbsp;<asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
+                                            CommandName="Cancel" Text="Cancel" Visible="false" />
+                                            <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
                                            Text="Next" onclick="LinkButton1_Click" />
                       <asp:ValidationSummary ID="ValidationSummary1" runat="server" 
                           ShowMessageBox="True" ShowSummary="False" />
@@ -650,8 +666,8 @@
                                             CommandName="Update" Text="Update" />
                                         &nbsp;
                                         <asp:LinkButton ID="UpdateCancelButton1" runat="server" CausesValidation="False" 
-                                            CommandName="Cancel" Text="Cancel" />
-                                        &nbsp;<asp:LinkButton ID="LinkButton11" runat="server" CausesValidation="False" 
+                                            CommandName="Cancel" Text="Cancel" Visible="false" />
+                                   <asp:LinkButton ID="LinkButton11" runat="server" CausesValidation="False" 
                                            Text="Next" onclick="LinkButton1_Click" /> <asp:ValidationSummary ID="ValidationSummary11" runat="server" 
                           ShowMessageBox="True" ShowSummary="False" /></td>
                                 </tr>
