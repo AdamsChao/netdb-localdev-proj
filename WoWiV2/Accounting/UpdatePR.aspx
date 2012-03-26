@@ -538,7 +538,8 @@
         }
         try
         {
-            int auid = (int)obj.pr_auth_id;
+            WoWiModel.PR pr = wowidb.PRs.First(p => p.pr_id == obj.pr_id);
+            int auid = (int)pr.pr_auth_id;
             WoWiModel.PR_authority_history  auth = wowidb.PR_authority_history.First(a => a.pr_auth_id == auid);
             String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
             String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
