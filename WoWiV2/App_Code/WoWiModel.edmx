@@ -497,6 +497,7 @@
           <Property Name="reason" Type="nvarchar" MaxLength="100" />
           <Property Name="reasontype" Type="nvarchar" MaxLength="20" />
           <Property Name="adjust_total" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -1556,6 +1557,7 @@
           <Property Type="String" Name="reason" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="reasontype" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="Decimal" Name="adjust_total" Precision="20" Scale="5" />
+          <Property Type="String" Name="remarks" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2306,6 +2308,7 @@
           <EntitySetMapping Name="PR_Payment">
             <EntityTypeMapping TypeName="WoWiModel.PR_Payment">
               <MappingFragment StoreEntitySet="PR_Payment">
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
                 <ScalarProperty Name="adjust_total" ColumnName="adjust_total" />
                 <ScalarProperty Name="reasontype" ColumnName="reasontype" />
                 <ScalarProperty Name="reason" ColumnName="reason" />

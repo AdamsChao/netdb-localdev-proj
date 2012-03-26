@@ -8,5 +8,5 @@ using System.Web;
 /// </summary>
 public enum PRStatus:byte
 {
-    Init, Requisitioner, Supervisor,VicePresident, President, Cancel, Done, History , Paid, PayHistory
+    Init, Requisitioner, Supervisor,VicePresident, President, Cancel, Done, History , Paid, PayHistory , ClosePaid 
 }

@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" %>
-<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+<%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
 <script  runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
@@ -17,11 +18,49 @@
             {
                 int id = int.Parse(Request.QueryString["id"]);
                 WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
+                try
+                {
+                    lblToday.Text = DateTime.Now.ToString("yyyy/MM/dd");
+                    lblTargetPDate.Text = ((DateTime)obj.target_payment_date).ToString("yyyy/MM/dd");
+                }
+                catch (Exception)
+                {
+
+                    lblTargetPDate.Text = "Not set yet";
+                }
+                try
+                {
+                    WoWiModel.PR_Payment pay = wowidb.PR_Payment.First(c => c.pr_id == obj.pr_id);
+                    ddlAdjustOperate.SelectedValue = pay.adjust_operator;
+                    ddlOperate.SelectedValue = pay.adjust_operator;
+                    tbAdjustAmount.Text = ((decimal)pay.adjust_amount).ToString("F2");
+                    tbRate.Text = ((decimal)pay.exchange_rate).ToString("F2");
+                    tbReason.Text = pay.reason;
+                    tbPayRemarks.Text = pay.remarks;
+                    tbToCurrency.Text = pay.tocurrency;
+                    tbTotal.Text = ((decimal)pay.total_amount).ToString("F2");
+                    lblTotal.Text = ((decimal)pay.adjust_total).ToString("F2");
+                    dcPaidDate.setText(((DateTime)pay.pay_date).ToString("yyyy/MM/dd"));
+                    if (pay.status == (byte)PRStatus.ClosePaid)
+                    {
+                        Response.Redirect("~/Accounting/PRPaymentDetails.aspx?id=" + id,false);
+                        return;
+                    }
+                }
+                catch (Exception)
+                {
+                    
+                    //throw;
+                }
+                
+                
                 lblPRNo.Text = obj.pr_id.ToString();
                 lblOCurrency.Text = obj.currency;
                 lblOtotal.Text = ((decimal)obj.total_cost).ToString("F2");
                 QuotationModel.Project proj = (from pj in db.Project where  pj.Project_Id == obj.project_id select pj).First();
                 lblProjNo.Text = proj.Project_No;
+                QuotationModel.Quotation_Version quo = db.Quotation_Version.First(c => c.Quotation_Version_Id == proj.Quotation_Id);
+                lblQuoNo.Text = quo.Quotation_No;
                 int vender_id = (int)obj.vendor_id;
                 WoWiModel.vendor vendor = (from v in wowidb.vendors where v.id == vender_id select v).First();
                 lblName.Text = String.IsNullOrEmpty(vendor.name) ? "" : vendor.name;
@@ -46,10 +85,28 @@
                 try
                 {
                     int bank_id = (int)obj.vendor_banking_id;
-                    WoWiModel.venderbanking bank = (from b in wowidb.venderbankings where b.bank_id == bank_id select b).First();
-                    lblAcctNo.Text = bank.bank_account_no;
+                    var bank = (from b in wowidb.venderbankings where b.bank_id == bank_id select b);
+                    //lblAcctNo.Text = bank.bank_account_no;
+                    GridView bgv = BankGridView ;
+                    GridView wgv = WUBGridView;
+                    if ((bool)bank.First().isWestUnit)
+                    {
+                        lblWUB.Visible = true;
+                        wgv.Visible = true;
+                        bgv.Visible = false;
+                        wgv.DataSource = bank;
+                        wgv.DataBind();
+                    }
+                    else
+                    {
+                        lblWUB.Visible = false;
+                        wgv.Visible = false;
+                        bgv.Visible = true;
+                        bgv.DataSource = bank;
+                        bgv.DataBind();
+                    }
                 }
-                catch
+                catch(Exception ex)
                 {
                 }
                 if (obj.vendor_contact_id.HasValue)
@@ -72,6 +129,7 @@
                 int auth_id = (int)obj.pr_auth_id;
                 WoWiModel.PR_authority_history auth = (from a in wowidb.PR_authority_history where a.pr_auth_id == auth_id select a).First();
                 tbInstruction.Text = auth.instruction;
+                tbRemarks.Text = auth.remark;
                 if (auth.president_date.HasValue)
                 {
                     try
@@ -130,7 +188,7 @@
                 try
                 {
                     String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-                    var idata = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { /*QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id,*/ ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency,  Qty = qt.unit };
+                    var idata = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { /*QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id,*/ ItemDescription = t.target_description, ModelNo = t.target_code, /*Currency = currency,*/  Qty = qt.unit };
                     
                     lblTotal.Text = lblOtotal.Text;
                     TargetList.DataSource = idata;
@@ -241,26 +299,49 @@
             int id = int.Parse(Request.QueryString["id"]);
             try
             {
-                
-                try{
+
+                try
+                {
                     var list = (from p in wowidb.PR_Payment where p.pr_id == id select p).First();
                     wowidb.PR_Payment.DeleteObject(list);
                     wowidb.SaveChanges();
-                }catch{
-                
+                }
+                catch
+                {
+
                 }
                 WoWiModel.PR_Payment payment = new WoWiModel.PR_Payment()
                 {
                     pr_id = id,
                     fromcurrency = lblOCurrency.Text,
-                    tocurrency = tbReason.Text,
+                    tocurrency = tbToCurrency.Text,
                     rate_operator = ddlOperate.SelectedValue,
                     adjust_operator = ddlAdjustOperate.SelectedValue,
+                    //adjust_amount = decimal.Parse(lblTotal.Text),
                     modify_date = DateTime.Now,
                     status = (byte)PRStatus.Paid,
                     original_amount = decimal.Parse(lblOtotal.Text)
                 };
-                
+
+                try
+                {
+                    payment.adjust_amount = decimal.Parse(lblTotal.Text);
+                }
+                catch (Exception)
+                {
+                    
+                    //throw;
+                }
+
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
                 decimal rate = 1;
                 if (!String.IsNullOrEmpty(tbRate.Text))
                 {
@@ -312,39 +393,70 @@
                 {
                     total -= adj;
                 }
-                payment.total_amount = total;
-                payment.modify_date = DateTime.Now;
-                payment.pay_date = DateTime.Now;
-                payment.reason = tbReason.Text;
-                wowidb.PR_Payment.AddObject(payment);
-                wowidb.SaveChanges();
-                int payid = payment.pr_pay_id;
                 try
                 {
-                    var list = from p in wowidb.PR_Payment where p.pr_id == id & p.pr_pay_id != payid select p;
-                    foreach (var pitem in list)
-                    {
-                        if (pitem.status != (byte)PRStatus.PayHistory)
-                        {
-                            pitem.status = (byte)PRStatus.PayHistory;
-                        }
-                        
-                    }
-                    wowidb.SaveChanges();
+                    payment.adjust_total = decimal.Parse(lblTotal.Text);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     
                     //throw;
                 }
+               
+                payment.modify_date = DateTime.Now;
+                payment.pay_date = dcPaidDate.GetDate();
+                payment.reason = tbReason.Text;//adjust reason
+                payment.remarks = tbPayRemarks.Text;//pay remarks
+                payment.total_amount = decimal.Parse(tbTotal.Text);
+                wowidb.PR_Payment.AddObject(payment);
+                wowidb.SaveChanges();
+                int payid = payment.pr_pay_id;
+                //try
+                //{
+                //    var list = from p in wowidb.PR_Payment where p.pr_id == id & p.pr_pay_id != payid select p;
+                //    foreach (var pitem in list)
+                //    {
+                //        if (pitem.status != (byte)PRStatus.PayHistory)
+                //        {
+                //            pitem.status = (byte)PRStatus.PayHistory;
+                //        }
 
-                Response.Redirect("~/Accounting/PRPaymentDetails.aspx?id=" + id);
+                //    }
+                //    wowidb.SaveChanges();
+                //}
+                //catch (Exception ex)
+                //{
+
+                //    //throw;
+                //}
+
+                Response.Redirect("~/Accounting/PRPaymentDetails.aspx?id=" + id+"&payid="+payid);
             }
             catch (Exception)
             {
                 
                 //throw;
             }
+        }
+    }
+
+    protected void GridView1_PreRender(object sender, EventArgs e)
+    {
+        GridView GridView1 = sender as GridView;
+        foreach (GridViewRow row in GridView1.Rows)
+        {
+
+            String paymentType = row.Cells[0].Text;
+            try
+            {
+                row.Cells[0].Text = VenderUtils.GetPaymentType(paymentType);
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+
         }
     }
 </script>
@@ -404,7 +516,9 @@
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td align="right" class="ccstextboxh" colspan="3" height="15" valign="top">
-                &nbsp;</td>
+                <asp:ScriptManager ID="ScriptManager1" runat="server">
+                </asp:ScriptManager>
+            </td>
         </tr>
         <tr>
             <td align="left">
@@ -421,7 +535,7 @@
             <p>
         <asp:LinkButton ID="Button2"
             runat="server" Text="PR Payment List" 
-                    PostBackUrl="~/Accounting/Payment4Vender.aspx" />
+                    PostBackUrl="~/Accounting/Payment4Vender.aspx" CausesValidation="False" />
     </p>
                 <img border="0" height="56" src="../Images/Quotation/transparent.gif" width="168" />
             </td>
@@ -432,72 +546,51 @@
                 <asp:Label ID="lblPRNo" runat="server"></asp:Label>
             </td>
         </tr>
+        <tr>
+                        <td colspan="3" >
+                            <hr color="#003300" noshade size="1" />
+                        </td>
+                    </tr>
     </table>
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td class="ccstextboxh" valign="top">
-                <u>Vender Infomation </u><br />
+            <p>
+                    Today:
+                    <asp:Label ID="lblToday" runat="server" Text="lblToday"></asp:Label></p>
+                <p>
+                    Project No.:
+                    <asp:Label ID="lblProjNo" runat="server" Text="lblProjNo"></asp:Label></p>
+                    <u>Vender Infomation </u><br />
                 Name:
                 <asp:Label ID="lblName" runat="server" Text="lblName"></asp:Label>
                 <p>
                     Address:
                     <asp:Label ID="lblAddress" runat="server" Text="lblAddress"></asp:Label></p>
-                <p>
-                    Project No.:
-                    <asp:Label ID="lblProjNo" runat="server" Text="lblProjNo"></asp:Label></p>
+            </td>  <td align="left" class="ccstextboxh"  valign="top" style="width:20%">
             </td>
-            <td align="right" class="ccstextboxh">
-                <table border="0" cellpadding="0" cellspacing="0">
-                 <tr>
-                        <td align="left" class="ccstextboxh" colspan="2">
-                Account No.:
-                    <asp:Label ID="lblAcctNo" runat="server"></asp:Label>
-                    </td></tr>
-                    <tr>
-                        <td align="left" class="ccstextboxh" colspan="2">
-                            <nobr>
-                            <u>Contact Information</u></nobr>
+            <td align="left" class="ccstextboxh"  valign="top">
+             <p>
+                    Target Payment Date:
+                    <asp:Label ID="lblTargetPDate" runat="server" Text="lblTargetPDate"></asp:Label></p>
+                            <p>
+                    Qutation No.:
+                    <asp:Label ID="lblQuoNo" runat="server" Text="lblQuoNo"></asp:Label></p>
+                    <p><u>Vender Infomation </u><br />Contact:
+                    
+                            <asp:Label ID="lblContact" runat="server"></asp:Label><%--/nobr>--%></p>
+                  
+                             <p>Phone:
+                     
+                            <asp:Label ID="lblClientPhone" runat="server"></asp:Label><%--</nobr>--%></p>
+                    
+                             <p>Email:
+             
+                            <asp:Label ID="lblClientEmail" runat="server"></asp:Label></p>
                         </td>
                     </tr>
-                    <tr>
-                        <td align="left" class="ccstextboxh">
-                            Contact:
-                        </td>
-                        <td align="left" class="ccstextboxh">
-                            <nobr>
-                            <asp:Label ID="lblContact" runat="server"></asp:Label></nobr>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="ccstextboxh">
-                            Phone:
-                        </td>
-                        <td align="left" class="ccstextboxh">
-                            <nobr>
-                            <asp:Label ID="lblClientPhone" runat="server"></asp:Label></nobr>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="ccstextboxh">
-                            Email:
-                        </td>
-                        <td align="left" class="ccstextboxh">
-                            <asp:Label ID="lblClientEmail" runat="server"></asp:Label>
-                        </td>
-                    </tr>
-                    <caption>
-                        &nbsp;</caption>
-            </td>
-                        <tr>
-                            <td align="left" class="ccstextboxh">
-                                <br />
-                            </td>
-            </tr>
-                </table>
-            </td>
-        </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="3">
                 <!-- start target -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
@@ -506,6 +599,47 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>
+                     <asp:GridView ID="BankGridView" runat="server" Width="100%" AutoGenerateColumns="False"  onprerender="GridView1_PreRender">
+                                       <Columns>
+           <asp:BoundField DataField="payment_type" HeaderText="Payment Type" 
+                SortExpression="payment_type" />
+            <asp:BoundField DataField="bank_name" HeaderText="Bank Name" 
+                SortExpression="bank_name" />
+            <asp:BoundField DataField="bank_branch_name" HeaderText="Branch Name" 
+                SortExpression="bank_branch_name" />
+            <asp:BoundField DataField="bank_address" HeaderText="Bank Address" 
+                SortExpression="bank_address" />
+            <asp:BoundField DataField="bank_telephone" HeaderText="Bank Telephone" 
+                SortExpression="bank_telephone" />
+            <asp:BoundField DataField="bank_account_no" HeaderText="Account No.(IBAN)" 
+                SortExpression="bank_account_no" />
+            <asp:BoundField DataField="bank_swifcode" HeaderText="Swif Code" 
+                SortExpression="bank_swifcode" />
+            <asp:BoundField DataField="bank_beneficiary_name" 
+                HeaderText="Beneficiary Name" SortExpression="bank_beneficiary_name" />
+            <asp:BoundField DataField="bank_routing_no" HeaderText="Routing No." 
+                SortExpression="bank_routing_no" />
+        </Columns>
+                                    </asp:GridView>
+              <asp:Label runat="server" ID="lblWUB" Text="Western Union Banking Information :"  Visible="false"></asp:Label>
+                                    <asp:GridView ID="WUBGridView" runat="server" Width="100%" AutoGenerateColumns="False"  >
+                                       <Columns>
+      <asp:BoundField DataField="wu_first_name" HeaderText="First Name" 
+                SortExpression="wu_first_name" />
+            <asp:BoundField DataField="wu_last_name" HeaderText="Last Name" 
+                SortExpression="wu_last_name" />
+                <asp:BoundField DataField="wu_destination" HeaderText="Destination" 
+                SortExpression="wu_destination" />
+        </Columns>
+                                    </asp:GridView>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <hr color="#003300" noshade size="1" />
+                        </td>
+                    </tr>
                         <td>
                             <asp:GridView ID="TargetList" runat="server" AutoGenerateColumns="true" width="100%">
                              
@@ -518,26 +652,35 @@
             </td>
         </tr>
        <tr>
-            <td class="ccstextboxh" valign="top">
-                <u>Instruction</u><br />
+            <td class="ccstextboxh" valign="top"colspan="2" >
+                <u>Internal Remarks</u><br />
+                <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px" 
+                    Enabled="False"></asp:TextBox>
+            </td>
+            <td class="ccstextboxh" valign="top"colspan="2" >
+                <u>External Instruction</u><br />
                 <asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px" 
                     Enabled="False"></asp:TextBox>
-                <br />
             </td>
-            <td align="right" class="ccstextboxh">
+             </tr>
+             <td class="ccstextboxh" colspan="4" width="100%">
+                    <hr />
+                </td>
+             <tr>
+            <td align="right" class="ccstextboxh" colspan="4" valign="top">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                  <tr>
                         <td align="right" class="ccstextboxh" >
                 Original Currency :
                     </td>
                     <td align="left" class="ccstextboxh" >
-                    <asp:Label ID="lblOCurrency" runat="server" Text="lblOCurrency"></asp:Label>
+                     &nbsp;&nbsp;&nbsp;<asp:Label ID="lblOCurrency" runat="server" Text="lblOCurrency"></asp:Label>
                     </td>
                     <td align="right" class="ccstextboxh" >
                 Original Total :
                     </td>
                     <td align="left" class="ccstextboxh" >
-               $ <asp:Label ID="lblOtotal" runat="server" Text="lblOtotal"></asp:Label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ <asp:Label ID="lblOtotal" runat="server" Text="lblOtotal"></asp:Label>
                     </td>
                     </tr>
                    <tr>
@@ -549,7 +692,7 @@
                 Exchange Rate :
                     </td>
                     <td align="left" class="ccstextboxh" >
-                        <asp:DropDownList ID="ddlOperate" runat="server" 
+                        &nbsp;&nbsp;<asp:DropDownList ID="ddlOperate" runat="server" 
                             onselectedindexchanged="ddlOperate_SelectedIndexChanged" 
                             AutoPostBack="True">
                             <asp:ListItem>*</asp:ListItem>
@@ -562,20 +705,19 @@
                      <tr>
                         <td align="right" class="ccstextboxh" >
                
-                            Adjust&nbsp; Reason :
+                            Adjust&nbsp;Reason :
                
                     </td>
                     <td align="left" class="ccstextboxh" >
-                  
-                    <asp:TextBox ID="tbReason" runat="server" ontextchanged="tbCurrency_TextChanged" 
-                            AutoPostBack="True"></asp:TextBox>
+                   &nbsp;&nbsp;&nbsp; <asp:TextBox ID="tbReason" runat="server"
+                            AutoPostBack="True" Width="300"></asp:TextBox>
                   
                     </td>
                     <td align="right" class="ccstextboxh" >
                 Adjust Amount :
                     </td>
                     <td align="left" class="ccstextboxh" >
-                        <asp:DropDownList ID="ddlAdjustOperate" runat="server" 
+                        &nbsp;<asp:DropDownList ID="ddlAdjustOperate" runat="server" 
                             onselectedindexchanged="ddlAdjustOperate_SelectedIndexChanged" 
                             AutoPostBack="True">
                             <asp:ListItem>+</asp:ListItem>
@@ -587,19 +729,46 @@
                     </tr>
                     <tr>
                         <td align="right" class="ccstextboxh" >
-                Final Currency :
+                            Pay Currency :
                     </td>
                     <td align="left" class="ccstextboxh" >
-                        USD</td>
+                        &nbsp;&nbsp; &nbsp;<asp:TextBox ID="tbToCurrency" runat="server" Text=""></asp:TextBox></td>
                     <td align="right" class="ccstextboxh" >
                         Balance Total :
                     </td>
                     <td align="left" class="ccstextboxh" >
-               $ <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label>
                     </td>
                     </tr>
                     <tr>
-                    <td align="right" class="ccstextboxh" colspan="4" >
+                    <td align="right" class="ccstextboxh" >
+                         Paid Date : 
+                    </td>
+                    <td align="left" class="ccstextboxh" >
+                        &nbsp;&nbsp;&nbsp;
+                        <%-- <uc1:DateChooser ID="DateChooser1" runat="server" />--%>
+                        <uc1:DateChooser ID="dcPaidDate" runat="server" />
+                </td>
+                <td align="right" class="ccstextboxh" >
+                       Convert To USD : 
+                    </td>
+                    <td align="left" class="ccstextboxh" >
+                &nbsp;$ <asp:TextBox ID="tbTotal" runat="server" Text=""></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                            ControlToValidate="tbTotal" ErrorMessage="Have to provide Concert to USD!" 
+                            ForeColor="Red">*</asp:RequiredFieldValidator>
+                        <asp:ValidationSummary ID="ValidationSummary1" runat="server" 
+                            ShowMessageBox="True" ShowSummary="False" />
+                        </td>
+                    
+                    </tr>
+                    <tr>
+                    <td align="right" class="ccstextboxh" >
+                       Remarks : 
+                    </td>
+                    <td align="left" class="ccstextboxh" >
+                &nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbPayRemarks" runat="server" Text=""></asp:TextBox></td>
+                    <td align="right" class="ccstextboxh" colspan="2" >
                         <asp:Button ID="btnSave" runat="server" Text="Save" onclick="btnSave_Click" />
                     </td>
                     </tr>
