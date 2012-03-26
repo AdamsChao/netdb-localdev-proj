@@ -2,6 +2,8 @@
 
 <script runat="server">
     
+    public bool Enabled { set {  FileGV.Enabled = value; } }
+
     protected void delBtn_Click(object sender, EventArgs e)
     {
 

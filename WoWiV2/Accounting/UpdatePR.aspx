@@ -417,12 +417,34 @@
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             id = int.Parse(Request.QueryString["id"]);
+            try
+            {
+                WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
+                WoWiModel.PR_authority_history auth = wowidb.PR_authority_history.First(c => c.pr_auth_id == obj.pr_auth_id);
+                if (auth.status == (byte)PRStatus.Done)
+                {
+                    Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
+                }
+                (FormView1.FindControl("dcPaymentDate") as usercontrols_datechooser_ascx).isEnabled(false);
+                if (auth.status == (byte)PRStatus.Init)
+                {
+                    en = true;
+                    Load();
+                }
+                else
+                {
+                    en = false;
+                }
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+            
         }
-        
-  
-       
-    }
 
+    }
     protected void PlaceHolder1_Load(object sender, EventArgs e)
     {
         (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Clear();
@@ -432,6 +454,7 @@
         if (System.IO.Directory.Exists(UpPath))
         {
             Control con = Page.LoadControl("~/UserControls/UploadFileView.ascx");
+            (con as usercontrols_datechooser_ascx).isEnabled(false);
             (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Add(con);
             (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Visible = true;
         }
@@ -457,6 +480,7 @@
             {
                 obj.vendor_contact_id = int.Parse(ddlContact.SelectedValue);
             }
+            
         }
         catch (Exception)
         {
@@ -580,6 +604,7 @@
                 {
                     text = tb.ID;
                 }
+                bool init = false;
                 switch (text)
                 {
                     case "lblRequisitioner":
@@ -620,11 +645,55 @@
                         }
                         break;
                     case "tbInternalMarksHis":
+                        init = true;
                         tb.Text = auth.remark;
                         break;
                     case "tbInstructionHis":
+                        init = true;
                         tb.Text = auth.instruction;
                         break;
+                }
+                 PRStatus st = (PRStatus)auth.status;
+                string username = User.Identity.Name;
+                try
+                {
+
+                    int empid = (from emp in wowidb.employees where emp.username == username select emp.id).First();
+                    switch (st)
+                    {
+
+                        case PRStatus.Requisitioner:
+
+                            if (empid == auth.supervisor_id)
+                            {
+                                tb.Enabled = true;
+
+                            }
+
+                            break;
+                        case PRStatus.Supervisor:
+
+                            if (empid == auth.vp_id)
+                            {
+                                tb.Enabled = true;
+
+                            }
+
+                            break;
+                        case PRStatus.VicePresident:
+
+                            if (empid == auth.president_id)
+                            {
+                                tb.Enabled = true;
+                            }
+
+                            break;
+
+                    }
+
+                }
+                catch
+                {
                 }
             }
         }
@@ -684,7 +753,22 @@
             Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
         }
     }
-
+    private void EnableInput(bool en1)
+    {
+        try
+        {
+            (FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = en1;
+            (FormView1.FindControl("tbInstruction") as TextBox).Enabled = en1;
+        }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
+               
+            
+        
+    }
     protected void btn_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
@@ -697,6 +781,7 @@
             const byte hisStatus = (byte)PRStatus.History;
             try
             {
+                //EnableInput(false);
                 WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid & ((byte)au.status) != hisStatus select au).First();
                 PRStatus st = (PRStatus)auth.status;
                 Button btn = (Button)sender;
@@ -707,6 +792,7 @@
                 string username = User.Identity.Name;
                 try
                 {
+                   
                     int empid = (from emp in wowidb.employees where emp.username == username select emp.id).First();
                     switch (st)
                     {
@@ -716,6 +802,7 @@
                                 if (empid == auth.requisitioner_id)
                                 {
                                     btn.Enabled = true;
+                                    EnableInput(true);
                                 }
                             }
 
@@ -726,6 +813,7 @@
                                 if (empid == auth.supervisor_id)
                                 {
                                     btn.Enabled = true;
+                                    EnableInput(true);
                                 }
                             }
                             break;
@@ -735,6 +823,7 @@
                                 if (empid == auth.vp_id)
                                 {
                                     btn.Enabled = true;
+                                    EnableInput(true);
                                 }
                             }
                             break;
@@ -744,6 +833,7 @@
                                 if (empid == auth.president_id)
                                 {
                                     btn.Enabled = true;
+                                    EnableInput(true);
                                 }
                             }
                             break;
@@ -755,6 +845,7 @@
                                     if (empid == auth.finance_id)
                                     {
                                         btn.Enabled = true;
+                                        EnableInput(true);
                                     }
                                 }
                             }
@@ -1011,6 +1102,118 @@
 
         }
     }
+    bool en = true;
+    protected void Load()
+    {
+
+        (FormView1.FindControl("Button1") as Button).Enabled = en;
+        (FormView1.FindControl("btnShow") as Button).Enabled = en;
+        (FormView1.FindControl("btnAddItem") as Button).Enabled = en;
+        (FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = en;
+        (FormView1.FindControl("tbInstruction") as TextBox).Enabled = en;
+        try
+        {
+            ((FormView1.FindControl("PlaceHolder1") as PlaceHolder).FindControl("FileGV") as usercontrols_datechooser_ascx).isEnabled(true);
+        }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
+       
+        (FormView1.FindControl("ddlTarget") as DropDownList).Enabled = en;
+        (FormView1.FindControl("tbVenderQuoNo") as TextBox).Enabled = en;
+        (FormView1.FindControl("tbVenderInvoNo") as TextBox).Enabled = en;
+        (FormView1.FindControl("tbCurrency") as TextBox).Enabled = en;
+        (FormView1.FindControl("tbTotalAmount") as TextBox).Enabled = en;
+        (FormView1.FindControl("ddlVenderList") as DropDownList).Enabled = en;
+        try
+        {
+            (FormView1.FindControl("dcPaymentDate") as usercontrols_datechooser_ascx).isEnabled(true);
+        }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
+        
+        try
+        {
+            (FormView1.FindControl("ddlContact") as DropDownList).Enabled = en;
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+        try
+        {
+            (FormView1.FindControl("ddlBankAccount") as DropDownList).Enabled = en;
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+
+
+    }
+    protected void ddlTarget_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void AddItem_Click(object sender, EventArgs e)
+    {
+        DropDownList ddlTarget = (FormView1.FindControl("ddlTarget") as DropDownList);
+        if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+        {
+
+            int id = int.Parse(Request.QueryString["id"]);
+            WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
+            if (!String.IsNullOrEmpty(ddlTarget.SelectedValue))
+            {
+                int tid = int.Parse(ddlTarget.SelectedValue);
+                if (tid == -1) return;
+                try
+                {
+                    String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
+                    var data = from t in db.Target from q in db.Quotation_Version from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id && q.Quotation_Version_Id == obj.quotaion_id select new { QuotataionNo = q.Quotation_No, QuotataionID = q.Quotation_Version_Id, TargetName = t.target_code, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Qty = qt.unit };
+                    GridView gv = (FormView1.FindControl("GridView4") as GridView);
+                    gv.DataSource = data;
+                    gv.DataBind();
+                    var d = data.First();
+                    //obj.total_cost = d.FinalPrice;
+                    //obj.currency = currency;
+                    //(FormView1.FindControl("tbCurrency") as TextBox).Text = obj.currency;
+                    //(FormView1.FindControl("tbTotalAmount") as TextBox).Text = obj.total_cost.ToString();
+                    try
+                    {
+                        var delList = from del in wowidb.PR_item where del.pr_id == obj.pr_id select del;
+                        foreach (var deli in delList)
+                        {
+                            wowidb.PR_item.DeleteObject(deli);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        //throw;
+                    }
+                    WoWiModel.PR_item item = new WoWiModel.PR_item() { pr_id = id, model_no = d.ModelNo, item_desc = d.ItemDescription, quantity = (int)d.Qty, quotation_id = (int)d.QuotataionID, quotation_target_id = (int)d.Quotation_Target_Id };
+                    wowidb.PR_item.AddObject(item);
+                    wowidb.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;//Show Message In Javascript
+                }
+
+            }
+        }
+    }
+
+   
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -1056,7 +1259,7 @@
                                    class="style11" colspan="4">Department : <asp:Label ID="lblDept" runat="server" Text="" 
                                          onload="lbl_Load" />&nbsp;&nbsp;&nbsp;&nbsp;Employee : 
                                      <asp:Label ID="lblEmp" runat="server" Text="" 
-                                         onload="lbl_Load"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;Create Date : 
+                                         onload="lbl_Load" ></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;Create Date : 
                                      <asp:Label ID="lblCDate" runat="server" Text="" 
                                          onload="lbl_Load"></asp:Label>
                             </td></tr>
@@ -1068,36 +1271,44 @@
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp; Project No.:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
                                      <asp:Label ID="lblProjectNo" runat="server" Text="Label" 
-                                         onload="lblProjectNo_Load"></asp:Label>
+                                         onload="lblProjectNo_Load" ></asp:Label>
                             </td><th align="left" 
                                    class="style11">&nbsp; Qutation No.:&nbsp;</th><td class="style12" width="30%">
                                      <asp:Label ID="lblQuotationNo" runat="server" Text="Label" 
-                                         onload="lblQuotationNo_Load"></asp:Label>
+                                         onload="lblQuotationNo_Load" ></asp:Label>
                             </td></tr>
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp; Vender Quotaiton No.:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
                                    <asp:TextBox ID="tbVenderQuoNo" runat="server" Text='<%# Bind("vendor_quotation_no")%>'
-                                         ></asp:TextBox>
+                                        Enabled="false"  ></asp:TextBox>
                             </td><th align="left" 
                                    class="style11">&nbsp; Vender Invoice No.:&nbsp;</th><td class="style12" width="30%">
                                      <asp:TextBox ID="tbVenderInvoNo" runat="server" Text='<%# Bind("vendor_invoice_no")%>'
-                                         ></asp:TextBox>
+                                         Enabled="false" ></asp:TextBox>
                             </td></tr>
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Attachments:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
-                                       <asp:Button ID="Button1" runat="server" Text="Attach Files" OnClientClick="openAttachWin()" /><br>
+                                       <asp:Button ID="Button1" runat="server" Text="Attach Files" OnClientClick="openAttachWin()" Enabled="false" /><br>
                                        <asp:PlaceHolder ID="PlaceHolder1" runat="server" OnLoad="PlaceHolder1_Load"></asp:PlaceHolder>
                             </td></tr>
                             <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Target:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
-                                <asp:DropDownList ID="ddlTarget" runat="server" 
+                               <asp:DropDownList ID="ddlTarget" runat="server" 
                                     AutoPostBack="True"  OnLoad="ddlTarget_Load" AppendDataBoundItems="true"
-                                        ValidationGroup="VenderGroupT" Enabled="False">
+                                        onselectedindexchanged="ddlTarget_SelectedIndexChanged" Enabled="false"
+                                        ValidationGroup="VenderGroupT">
                                     <asp:ListItem Value="-1">Select one</asp:ListItem>
-                               </asp:DropDownList>&nbsp;</td></tr>
+                               </asp:DropDownList>&nbsp;<asp:Button ID="btnAddItem" runat="server" Text="Add" 
+                                        onclick="AddItem_Click" CausesValidation="False" Enabled="false"
+                                        ValidationGroup="VenderGroupT" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                                        ControlToValidate="ddlTarget" ErrorMessage="Please select vender!" 
+                                        ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroupT">*</asp:RequiredFieldValidator>
+                                    <asp:ValidationSummary ID="ValidationSummary2" runat="server" 
+                                        ShowMessageBox="True" ShowSummary="False" ValidationGroup="VenderGroupT" /></td></tr>
                             <tr><td colspan="4">
                                 
                             <asp:GridView ID="GridView4" runat="server" Width="100%" AutoGenerateColumns="False">
@@ -1134,11 +1345,11 @@
                                    class="style12" colspan="3">
                                 <asp:DropDownList ID="ddlVenderList" runat="server" 
                                     AppendDataBoundItems="True" AutoPostBack="True" onload="ddlVenderList_Load" 
-                                        onselectedindexchanged="ddlVenderList_SelectedIndexChanged" 
+                                        onselectedindexchanged="ddlVenderList_SelectedIndexChanged" Enabled="false"
                                         ValidationGroup="VenderGroup">
                                     <asp:ListItem Value="-1">Select one</asp:ListItem>
                                 </asp:DropDownList>&nbsp;<asp:Button ID="btnShow" runat="server" Text="Show" 
-                                        Visible="true" onclick="btnShow_Click" ValidationGroup="VenderGroup" />
+                                        Visible="true" onclick="btnShow_Click" ValidationGroup="VenderGroup" CausesValidation="false" Enabled="false" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                                         ControlToValidate="ddlVenderList" ErrorMessage="Please select vender!" 
                                         ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroup">*</asp:RequiredFieldValidator>
@@ -1312,7 +1523,7 @@
                       </td></tr>     
                       <tr><td align="left" colspan="4">
                                  <asp:Label runat="server" ID="lblC" Text="Contact :"></asp:Label><asp:DropDownList AutoPostBack="True"
-                                     ID="ddlContact" runat="server" onselectedindexchanged="ddlContact_SelectedIndexChanged">
+                                     ID="ddlContact" runat="server" onselectedindexchanged="ddlContact_SelectedIndexChanged" Enabled="false">
 
                                  </asp:DropDownList>
                                     <asp:GridView ID="GridView1" runat="server" Width="100%" AutoGenerateColumns="False" >
@@ -1350,7 +1561,7 @@
               </td>
               </tr> <tr><td align="left" colspan="4">
                <asp:Label runat="server" ID="lblAccount" Text="Banking Account :"></asp:Label>
-                                    <asp:DropDownList AutoPostBack="True"
+                                    <asp:DropDownList AutoPostBack="True" Enabled="false"
                                      ID="ddlBankAccount" runat="server" onselectedindexchanged="ddlBankAccount_SelectedIndexChanged">
                                  </asp:DropDownList>
               </td></tr>
