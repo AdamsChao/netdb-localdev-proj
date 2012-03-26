@@ -144,7 +144,7 @@
  
         <asp:FormView ID="FormView1" runat="server" DataKeyNames="id"  
            SkinID="FormView"
-            DataSourceID="EntityDataSource1" DefaultMode="Insert" Width="900px" >
+            DataSourceID="EntityDataSource1" DefaultMode="Insert" Width="100%" >
            
             <InsertItemTemplate>
               <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional"><ContentTemplate>
