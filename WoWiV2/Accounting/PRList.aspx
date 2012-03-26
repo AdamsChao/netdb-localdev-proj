@@ -69,15 +69,103 @@
             }
         }
     }
+
+    protected void DropDownList1_Load(object sender, EventArgs e)
+    {
+        if (Page.IsPostBack) return;
+        ddlProjectNo.DataSource = db.Project;
+        ddlProjectNo.DataTextField = "Project_No";
+        ddlProjectNo.DataValueField = "Project_Id";
+        ddlProjectNo.DataBind();
+    }
+
+    protected void ddlVenderList_Load(object sender, EventArgs e)
+    {
+        if (Page.IsPostBack) return;
+        var list = (from c in wowidb.vendors from country in wowidb.countries where c.country == country.country_id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name + " ]" : c.name + " - [ " + country.country_name + " ]" });
+        (sender as DropDownList).DataSource = list;
+        (sender as DropDownList).DataTextField = "Text";
+        (sender as DropDownList).DataValueField = "Id";
+        (sender as DropDownList).DataBind();
+    }
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        //String newCriteria = "";
+        //if (ddlProjectNo.SelectedValue != "-1")
+        //{
+        //    newCriteria += " and P.project_id = " + ddlProjectNo.SelectedValue ;
+        //}
+
+        //if (ddlVenderList.SelectedValue != "-1")
+        //{
+        //    newCriteria += " and P.vendor_id = " + ddlVenderList.SelectedValue;
+        //}
+
+        //if (ddlStatus.SelectedValue != "-1")
+        //{
+        //    newCriteria += " and R.status = " + ddlStatus.SelectedValue;
+        //}
+        
+        //SqlDataSourceClient.SelectCommand += newCriteria;
+        //GridView1.DataBind();
+        
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        String newCriteria = "";
+        if (ddlProjectNo.SelectedValue != "-1")
+        {
+            newCriteria += " and P.project_id = " + ddlProjectNo.SelectedValue;
+        }
+
+        if (ddlVenderList.SelectedValue != "-1")
+        {
+            newCriteria += " and P.vendor_id = " + ddlVenderList.SelectedValue;
+        }
+
+        if (ddlStatus.SelectedValue != "-1")
+        {
+            newCriteria += " and R.status = " + ddlStatus.SelectedValue;
+        }
+
+        SqlDataSourceClient.SelectCommand += newCriteria;
+        GridView1.DataBind();
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-    <p>
-        PR Lists : <asp:Button ID="Button1"
+   PR Lists : <br />
+    Project :
+    <asp:DropDownList ID="ddlProjectNo" runat="server" AppendDataBoundItems="True" 
+        onload="DropDownList1_Load">
+        <asp:ListItem Value="-1">- All -</asp:ListItem>
+    </asp:DropDownList>
+&nbsp;Vender :
+    <asp:DropDownList ID="ddlVenderList" runat="server" AppendDataBoundItems="True" 
+        onload="ddlVenderList_Load">
+        <asp:ListItem Value="-1">- All -</asp:ListItem>
+    </asp:DropDownList>
+&nbsp;Status :
+    <asp:DropDownList ID="ddlStatus" runat="server" AppendDataBoundItems="True">
+        <asp:ListItem Value="-1">- All -</asp:ListItem>
+        <asp:ListItem Value="0">Init</asp:ListItem>
+        <asp:ListItem Value="1">Requisitioner</asp:ListItem>
+        <asp:ListItem Value="2">Supervisor</asp:ListItem>
+        <asp:ListItem Value="3">VicePresident</asp:ListItem>
+        <asp:ListItem Value="4">President</asp:ListItem>
+        <asp:ListItem Value="5">Cancel</asp:ListItem>
+        <asp:ListItem Value="6">Ready to Pay</asp:ListItem>
+    </asp:DropDownList>
+&nbsp;
+    <asp:Button ID="btnSearch" runat="server" Text="Search" 
+        onclick="btnSearch_Click" />
+   <br /><asp:Button ID="Button1"
             runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" />
-    </p>
+
     <p>
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             SkinID="GridView" Width="100%"

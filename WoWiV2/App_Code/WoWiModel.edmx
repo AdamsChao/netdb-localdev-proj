@@ -496,6 +496,7 @@
           <Property Name="pay_date" Type="datetime" />
           <Property Name="reason" Type="nvarchar" MaxLength="100" />
           <Property Name="reasontype" Type="nvarchar" MaxLength="20" />
+          <Property Name="adjust_total" Type="decimal" Precision="20" Scale="5" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -1554,6 +1555,7 @@
           <Property Type="DateTime" Name="pay_date" />
           <Property Type="String" Name="reason" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="reasontype" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="adjust_total" Precision="20" Scale="5" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2304,6 +2306,7 @@
           <EntitySetMapping Name="PR_Payment">
             <EntityTypeMapping TypeName="WoWiModel.PR_Payment">
               <MappingFragment StoreEntitySet="PR_Payment">
+                <ScalarProperty Name="adjust_total" ColumnName="adjust_total" />
                 <ScalarProperty Name="reasontype" ColumnName="reasontype" />
                 <ScalarProperty Name="reason" ColumnName="reason" />
                 <ScalarProperty Name="pay_date" ColumnName="pay_date" />

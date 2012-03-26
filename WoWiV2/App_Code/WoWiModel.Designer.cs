@@ -9414,6 +9414,30 @@ namespace WoWiModel
         private global::System.String _reasontype;
         partial void OnreasontypeChanging(global::System.String value);
         partial void OnreasontypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> adjust_total
+        {
+            get
+            {
+                return _adjust_total;
+            }
+            set
+            {
+                Onadjust_totalChanging(value);
+                ReportPropertyChanging("adjust_total");
+                _adjust_total = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("adjust_total");
+                Onadjust_totalChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _adjust_total;
+        partial void Onadjust_totalChanging(Nullable<global::System.Decimal> value);
+        partial void Onadjust_totalChanged();
 
         #endregion
     
