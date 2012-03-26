@@ -11,6 +11,68 @@
         //var list = from p in wowidb.PRs from au in wowidb.PR_authority_history where p.pr_auth_id == au.pr_auth_id & au.status == (byte)PRStatus.Done select p;
         //GridView1.DataSource = list;
         //GridView1.DataBind();
+        String newCriteria = "";
+        try
+        {
+            DateTime fromDate = dcFrom.GetDate();
+            newCriteria += " and P.target_payment_date >= '" + dcFrom.GetText()+"' ";
+        }
+        catch (Exception)
+        {
+
+
+        }
+
+        try
+        {
+            DateTime toDate = dcTo.GetDate();
+            newCriteria += " and P.target_payment_date <= '" + dcTo.GetText() + "' ";
+        }
+        catch (Exception)
+        {
+            //throw;
+        }
+        bool append = false;
+        try
+        {
+            DateTime fromDate = dcPFrom.GetDate();
+            append = true;
+            newCriteria = "select * from (" + SqlDataSource1.SelectCommand+  newCriteria + ") AS u where u.pay_date >= '" + dcPFrom.GetText() + "' ";
+        }
+        catch (Exception)
+        {
+
+
+        }
+
+        try
+        {
+            
+            DateTime toDate = dcPTo.GetDate();
+            if (append)
+            {
+                newCriteria += " and u.pay_date <= '" + dcPTo.GetText() + "' ";
+            }
+            else
+            {
+                append = true;
+                newCriteria = " select * from ( " + SqlDataSource1.SelectCommand + newCriteria + " ) AS u where u.pay_date <= '" + dcPTo.GetText() + "' ";
+            }
+        }
+        catch (Exception)
+        {
+            //throw;
+        }
+        if (append)
+        {
+            SqlDataSource1.SelectCommand = newCriteria;
+        }
+        else
+        {
+            SqlDataSource1.SelectCommand += newCriteria;
+        }
+        
+        GridView1.DataBind();
     }
 
     protected void GridView1_PreRender(object sender, EventArgs e)
