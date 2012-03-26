@@ -55,16 +55,12 @@
                 //throw;
             }
 
-            String authIDStr = row.Cells[7].Text;
+            String Str = row.Cells[8].Text;
             try
             {
-                int authid = int.Parse(authIDStr);
-                WoWiModel.PR_authority_history auth = wowidb.PR_authority_history.First(a=>a.pr_auth_id==authid);
-                row.Cells[7].Text = ((PRStatus)auth.status).ToString();
-                if (auth.status == (byte)PRStatus.Done)
-                {
-                    row.Cells[7].Text = "Ready to Pay";
-                }
+                byte status = byte.Parse(Str);
+                row.Cells[8].Text = PRUtils.statusByteToString(status);
+                
             }
             catch (Exception)
             {
@@ -112,6 +108,8 @@
                     SortExpression="quotaion_id" />
                 <asp:BoundField DataField="create_date" HeaderText="Createtion Date" 
                     SortExpression="create_date" DataFormatString="{0:yyyy/MM/dd}" />
+                     <asp:BoundField DataField="target_payment_date" HeaderText="Target Payment Date" 
+                    SortExpression="target_payment_date" DataFormatString="{0:yyyy/MM/dd}" />
                 <asp:BoundField DataField="pr_auth_id" HeaderText="Status" 
                     SortExpression="pr_auth_id" />
                
@@ -123,7 +121,7 @@
         <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             
-            SelectCommand="SELECT [pr_id], [project_id], [quotaion_id], [vendor_id], [total_cost],[create_date],[pr_auth_id] FROM [PR]">
+            SelectCommand="SELECT P.pr_id, P.project_id, P.quotaion_id, P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id FROM PR AS P , PR_authority_history AS R WHERE P.pr_auth_id = R.pr_auth_id">
         </asp:SqlDataSource>
     </p>
 </asp:Content>

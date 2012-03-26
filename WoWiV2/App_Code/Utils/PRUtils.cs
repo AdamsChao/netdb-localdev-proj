@@ -199,6 +199,55 @@ public class PRUtils
 
     }
 
+    public static String statusByteToString(byte b)
+    {
+
+        String ret = "";
+
+        if (b == (byte)PRStatus.Init)
+        {
+            ret = PRStatus.Init.ToString();
+        }
+        else if (b == (byte)PRStatus.Done)
+        {
+            ret = "Ready to Pay";
+        }
+        else if (b == (byte)PRStatus.Cancel)
+        {
+            ret = PRStatus.Cancel.ToString();
+        }
+        else if (b == (byte)PRStatus.History)
+        {
+            ret = PRStatus.History.ToString();
+        }
+        else if (b == (byte)PRStatus.Paid)
+        {
+            ret = PRStatus.Paid.ToString();
+        }
+        else if (b == (byte)PRStatus.PayHistory)
+        {
+            ret = PRStatus.PayHistory.ToString();
+        }
+        else if (b == (byte)PRStatus.President)
+        {
+            ret = PRStatus.President.ToString();
+        }
+        else if (b == (byte)PRStatus.Requisitioner)
+        {
+            ret = PRStatus.Requisitioner.ToString();
+        }
+        else if (b == (byte)PRStatus.Supervisor)
+        {
+            ret = PRStatus.Supervisor.ToString();
+        }
+        else if (b == (byte)PRStatus.VicePresident)
+        {
+            ret = PRStatus.VicePresident.ToString();
+        }
+        
+        return ret;
+    }
+
     public static void PRStatusDone(WoWiModel.PR_authority_history auth)
     {
         try
