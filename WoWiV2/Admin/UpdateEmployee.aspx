@@ -277,18 +277,18 @@
                      </td>
                  </tr>
                  <tr>
-                     <td>
+                     <td align="center">
                          <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" 
                              CommandName="Update" Text="Update" />
                          &nbsp;
                          <asp:LinkButton ID="UpdateDeleteButton" runat="server" Visible="false"
                              CausesValidation="False" CommandName="Delete" Text="Delete" />
-                         &nbsp;
+                        <%-- &nbsp;
                          <asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" 
                              CommandName="Cancel" Text="Cancel" />
                               &nbsp;
                               <asp:HyperLink ID="HyperLink2" runat="server" 
-            NavigateUrl="~/Admin/EmployeeList.aspx">Back to list</asp:HyperLink>
+            NavigateUrl="~/Admin/EmployeeList.aspx">Back to list</asp:HyperLink>--%>
                      </td>
                  </tr>
                  </table>

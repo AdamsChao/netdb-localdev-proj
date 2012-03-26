@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
 
+<%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
+
 <script runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
@@ -68,11 +70,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-    <p>
-        PR Payment Lists : 
-    </p>
-    <p>
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
+    PR Payment Lists 
+    <br />
+    PayDate From :
+    <uc1:DateChooser ID="dcFrom" runat="server" />
+&nbsp; To:&nbsp;
+    <uc1:DateChooser ID="dcTo" runat="server" />
+&nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
+    <br>
+    
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             SkinID="GridView" Width="100%"
             DataKeyNames="pr_id"  
             AllowSorting="True" onprerender="GridView1_PreRender" >
