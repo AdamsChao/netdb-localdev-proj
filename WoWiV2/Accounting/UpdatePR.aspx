@@ -453,10 +453,19 @@
         UpPath = UpPath + "/PR/" + prid;
         if (System.IO.Directory.Exists(UpPath))
         {
-            Control con = Page.LoadControl("~/UserControls/UploadFileView.ascx");
-            (con as usercontrols_datechooser_ascx).isEnabled(false);
-            (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Add(con);
-            (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Visible = true;
+            try
+            {
+                Control con = Page.LoadControl("~/UserControls/UploadFileView.ascx");
+                (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Add(con);
+                (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Visible = true;
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+            
+
         }
     }
 
