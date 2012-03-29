@@ -37,12 +37,16 @@
                     temp.Client = String.IsNullOrEmpty(client.c_companyname) ? client.companyname : client.c_companyname;
                     temp.PlanDueDate = ((DateTime)item.due_date).ToString("yyyy/MM/dd");
                     int days = 0;
-                    if (client.paymentterm.HasValue)
+                    //if (client.paymentterm.HasValue)
+                    //{
+                    //    temp.PaymentTerms = ((byte)client.paymentterm).ToString();
+                    //    days = (int) ((DateTime)item.due_date - DateTime.Now).TotalDays;
+                    //}
+                    if (client.paymentdays.HasValue)
                     {
-                        temp.PaymentTerms = ((byte)client.paymentterm).ToString();
-                        days = (int) ((DateTime)item.due_date - DateTime.Now).TotalDays;
+                        temp.PaymentTerms = client.paymentdays + "";
+                        days = (int)((DateTime)item.due_date - DateTime.Now).TotalDays;
                     }
-
                     temp.OverDueDays = days.ToString();
                     temp.OverDueInterval = ARUtils.GetARInterval(-1*days);
                     int countryid = (int)client.country_id;
@@ -97,9 +101,9 @@
                 usdtotal += temp.USD;
             }
 
-            if (item.due_date.HasValue)
+            if (item.invoice_date.HasValue)
             {
-                temp.IVDate = ((DateTime)item.due_date).ToString("yyyy/MM/dd");
+                temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
             }
             temp.IVNo = item.invoice_no;
             
@@ -165,7 +169,7 @@
     {
         foreach (GridViewRow row in iGridView1.Rows)
         {
-            if ((row.FindControl("lblCurrency") as Label).Text == "USD")
+            if (row.Cells[17].Text == "USD")
             {
                 row.Cells[5].CssClass = "HighLight";
             }
@@ -173,6 +177,7 @@
             {
                 row.Cells[6].CssClass = "HighLight";
             }
+           row.Cells[18].Text = "$" + row.Cells[18].Text;
         }
     }
     double usdtotal = 0;
@@ -229,7 +234,11 @@
             //throw;
         }
 
-        if (!cbARBalance0.Checked || !cbARBalance1.Checked)
+        if (cbARBalance0.Checked && cbARBalance1.Checked || !cbARBalance0.Checked && !cbARBalance1.Checked)
+        {
+
+        }
+        else
         {
             if (cbARBalance0.Checked)
             {
@@ -278,12 +287,16 @@
                     temp.Client = String.IsNullOrEmpty(client.c_companyname) ? client.companyname : client.c_companyname;
                     temp.PlanDueDate = ((DateTime)item.due_date).ToString("yyyy/MM/dd");
                     int days = 0;
-                    if (client.paymentterm.HasValue)
+                    //if (client.paymentterm.HasValue)
+                    //{
+                    //    temp.PaymentTerms = ((byte)client.paymentterm).ToString();
+                    //    days = (int)((DateTime)item.due_date - DateTime.Now).TotalDays;
+                    //}
+                    if (client.paymentdays.HasValue)
                     {
-                        temp.PaymentTerms = ((byte)client.paymentterm).ToString();
+                        temp.PaymentTerms = client.paymentdays + "";
                         days = (int)((DateTime)item.due_date - DateTime.Now).TotalDays;
                     }
-
                     temp.OverDueDays = days.ToString();
                     temp.OverDueInterval = ARUtils.GetARInterval(-1 * days);
                     int countryid = (int)client.country_id;
@@ -346,9 +359,9 @@
                 usdtotal += temp.USD;
             }
 
-            if (item.due_date.HasValue)
+            if (item.invoice_date.HasValue)
             {
-                temp.IVDate = ((DateTime)item.due_date).ToString("yyyy/MM/dd");
+                temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
             }
             temp.IVNo = item.invoice_no;
 
@@ -457,7 +470,7 @@
                                 <ItemTemplate>
                                     <asp:HyperLink ID="HyperLink1" runat="server" 
                                         NavigateUrl='<%# Bind("id","~/Accounting/ReceivedAdd.aspx?id={0}") %>' Text='<%# Bind("InvoiceNo") %>'></asp:HyperLink>
-                                    <asp:Label ID="lblCurrency" runat="server" Text='<%# Bind("Currency") %>' CssClass="hidden"></asp:Label>
+                                 <%--   <asp:Label ID="lblCurrency" runat="server" Text='<%# Bind("Currency") %>' CssClass="hidden"></asp:Label>--%>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             
@@ -519,6 +532,7 @@
                             <asp:BoundField DataField="PlanDueDate" HeaderText="預計收款日" />
                             <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" />
                             <asp:BoundField DataField="OverDueInterval" HeaderText="逾期區間" />
+                            <asp:BoundField DataField="Currency" HeaderText="Currency" />
                             <asp:BoundField DataField="ARBalance" HeaderText="AR Balance" />
                         </Columns>
                     </asp:GridView>
