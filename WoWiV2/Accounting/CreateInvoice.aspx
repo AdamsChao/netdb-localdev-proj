@@ -311,15 +311,33 @@
                 ocurrency = (iGridView2.FooterRow.FindControl("lblOCurrency") as Label).Text,
                 ototal = decimal.Parse((iGridView2.FooterRow.FindControl("lblOTotal") as Label).Text),
                 exchange_operate = (iGridView2.FooterRow.FindControl("ddloperate") as DropDownList).SelectedValue,
-                invoice_date = DateTime.Now,
-                issue_invoice_date = DateTime.Now,
+                //invoice_date = DateTime.Now,
+                //issue_invoice_date = DateTime.Now,
                 create_date= DateTime.Now,
                 create_user = User.Identity.Name,
                 status = (byte)InvoicePaymentStatus.Init
             };
             try
             {
+                invoice.invoice_date = DateTime.ParseExact(tbivdate.Text, "yyyy/MM/dd", null);
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+            try
+            {
                 invoice.issue_invoice_date = DateTime.ParseExact(tbIssueInvoiceDate.Text, "yyyy/MM/dd", null);
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+            try
+            {
+                
                 invoice.total = decimal.Parse((iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text);
                 invoice.final_total = decimal.Parse((iGridView2.FooterRow.FindControl("tbTotal") as TextBox).Text);
                 invoice.ar_balance = invoice.final_total;
@@ -463,16 +481,15 @@
                                    <asp:ListItem Value="-1">Select one</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
-                           <%--<th align="left" width="13%">
-                                 Exchange Rate :&nbsp;</th>
-                            <td width="20%">
-                                <asp:TextBox ID="tbExchangeRate" runat="server"></asp:TextBox>
+                           
+                            <td colspan="2">
+                              
                             </td>
                              <th align="left" width="13%">
-                                 Total $ :&nbsp;</th>
+                                 I/V Date :&nbsp;</th>
                             <td width="20%">
-                                <asp:TextBox ID="tbTotal" runat="server"></asp:TextBox>
-                            </td>--%>
+                                 <asp:TextBox ID="tbivdate" runat="server" MaxLength="10"></asp:TextBox>
+                            </td>
                         </tr>
                          <tr>
                             <th align="left" width="13%">
@@ -528,7 +545,7 @@
                             
                             <asp:BoundField DataField="TDescription" HeaderText="TDescription" />
                             <asp:BoundField DataField="Qty" HeaderText="Qty" />
-                            <asp:BoundField DataField="UOM" HeaderText="UOM" />
+                            <asp:BoundField DataField="UOM" HeaderText="Unit" />
                             <asp:TemplateField HeaderText="UnitPrice">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:TextBox>
@@ -625,7 +642,8 @@
                         <tr align="center">
                             <td align="center"colspan="6"  >
                                 
-                                <asp:Button ID="BtnAdd" runat="server" Text="Add" onclick="BtnAdd_Click" />
+                                <asp:Button ID="BtnAdd" runat="server" Text="Add" onclick="BtnAdd_Click" 
+                                    style="width: 37px" />
                                 
                              </td>
                         </tr>

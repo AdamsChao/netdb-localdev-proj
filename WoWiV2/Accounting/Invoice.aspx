@@ -20,6 +20,17 @@
             {
                 temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
             }
+            try
+            {
+                String username = item.create_user;
+                WoWiModel.employee emp = wowidb.employees.First(c => c.username == username);
+                temp.Owner = emp.fname + " " + emp.lname;
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
             temp.ProjectNo = item.project_no;
             try
             {
@@ -84,9 +95,9 @@
                 usdtotal += temp.USD;
             }
 
-            if (item.due_date.HasValue)
+            if (item.invoice_date.HasValue)
             {
-                temp.IVDate = ((DateTime)item.due_date).ToString("yyyy/MM/dd");
+                temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
             }
             temp.IVNo = item.invoice_no;
             
@@ -160,11 +171,11 @@
         {
             if ((row.FindControl("lblCurrency") as Label).Text == "USD")
             {
-                row.Cells[5].CssClass = "HighLight";
+                row.Cells[6].CssClass = "HighLight";
             }
             else
             {
-                row.Cells[6].CssClass = "HighLight";
+                row.Cells[7].CssClass = "HighLight";
             }
         }
     }
@@ -243,6 +254,18 @@
             temp = new InvoiceData();
             temp.id = item.invoice_id + "";
             temp.InvoiceNo = item.issue_invoice_no;
+            try
+            {
+                String username = item.create_user;
+                WoWiModel.employee emp = wowidb.employees.First(c => c.username == username);
+                temp.Owner = emp.fname + " " + emp.lname;
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+           
             if (item.issue_invoice_date.HasValue)
             {
                 temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
@@ -327,9 +350,9 @@
                 usdtotal += temp.USD;
             }
 
-            if (item.due_date.HasValue)
+            if (item.invoice_date.HasValue)
             {
-                temp.IVDate = ((DateTime)item.due_date).ToString("yyyy/MM/dd");
+                temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
             }
             temp.IVNo = item.invoice_no;
 
@@ -496,7 +519,7 @@
                             <asp:BoundField DataField="Model" HeaderText="Model" />
                             <asp:BoundField DataField="Country" HeaderText="Country" />
                             <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" />
-                            
+                            <asp:BoundField DataField="Owner" HeaderText="Owner" />
                         </Columns>
                     </asp:GridView>
       

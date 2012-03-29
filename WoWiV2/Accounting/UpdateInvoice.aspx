@@ -226,6 +226,16 @@
                 
                 //throw;
             }
+            try
+            {
+                invoice.invoice_no = tbivno.Text;
+                invoice.invoice_date = DateTime.ParseExact(tbivdate.Text, "yyyy/MM/dd", null);
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
             String exchangeRate = (iGridView2.FooterRow.FindControl("tbExchangeRate") as TextBox).Text;
             if (String.IsNullOrEmpty(exchangeRate))
             {
@@ -380,16 +390,14 @@
                                    <asp:ListItem Value="-1">Select one</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
-                           <%--<th align="left" width="13%">
-                                 Exchange Rate :&nbsp;</th>
-                            <td width="20%">
-                                <asp:TextBox ID="tbExchangeRate" runat="server"></asp:TextBox>
+                           <td colspan="2">
+                              
                             </td>
                              <th align="left" width="13%">
-                                 Total $ :&nbsp;</th>
+                                 I/V Date :&nbsp;</th>
                             <td width="20%">
-                                <asp:TextBox ID="tbTotal" runat="server"></asp:TextBox>
-                            </td>--%>
+                                 <asp:TextBox ID="tbivdate" runat="server" MaxLength="10"></asp:TextBox>
+                            </td>
                         </tr>
                          <tr>
                             <th align="left" width="13%">

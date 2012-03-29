@@ -30,4 +30,5 @@ public class InvoiceData
     public String Country { get; set; }
     public String QutationNo { get; set; }
     public String Currency { get; set; }
+    public String Owner { get; set; }
 }
