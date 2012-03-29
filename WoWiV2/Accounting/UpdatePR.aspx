@@ -904,7 +904,7 @@
                             if (emp.pr_authorize_amt >= obj.total_cost)
                             {
                                 auth.status = (byte)PRStatus.Done;
-
+                                auth.modify_date = DateTime.Now;
                             }
                             else
                             {
@@ -943,6 +943,7 @@
                             if (emp.pr_authorize_amt >= obj.total_cost)
                             {
                                 auth.status = (byte)PRStatus.Done;
+                                auth.modify_date = DateTime.Now;
                             }
                             else
                             {
@@ -979,6 +980,7 @@
                             break;
                         case "btnPresidentApprove":
                             auth.status = (byte)PRStatus.Done;
+                            auth.modify_date = DateTime.Now;
                             auth.president_date = DateTime.Now;
                             (FormView1.FindControl("lblPresidentDate") as Label).Text = String.Format("{0:yyyy/MM/dd}", DateTime.Now);
                             auth.president_approval = "y";

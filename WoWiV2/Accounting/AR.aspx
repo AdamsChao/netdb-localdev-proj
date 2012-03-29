@@ -514,7 +514,7 @@
                             <asp:BoundField DataField="Sales" HeaderText="Sales" />
                             <asp:BoundField DataField="Model" HeaderText="Model" />
                             <asp:BoundField DataField="Country" HeaderText="Country" />
-                            <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" />
+                            <asp:BoundField DataField="QutationNo" HeaderText="Quotation No" />
                             <asp:BoundField DataField="PaymentTerms" HeaderText="收款天數" />
                             <asp:BoundField DataField="PlanDueDate" HeaderText="預計收款日" />
                             <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" />

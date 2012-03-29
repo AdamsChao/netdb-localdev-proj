@@ -241,7 +241,23 @@
         if (Page.IsPostBack) return;
         try
         {
-            (sender as DropDownList).SelectedValue = Request["paymenttype"];
+
+            (sender as DropDownList).SelectedValue = ((short)wowidb.vendors.First(c => c.id == id).payment_type).ToString() ;
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+    }
+
+    protected void ddlPaymentType_PreRender2(object sender, EventArgs e)
+    {
+        if (Page.IsPostBack) return;
+        try
+        {
+            int bid = int.Parse(Request.QueryString["bid"]);
+            (sender as DropDownList).SelectedValue = (wowidb.venderbankings.First(c => c.bank_id == bid).payment_type);
         }
         catch (Exception)
         {
@@ -293,7 +309,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 <font size="+1">Vender Bank Account Information Modification&#160; </font><asp:HyperLink 
                            ID="HyperLink1" runat="server" NavigateUrl="~/Admin/VenderList.aspx">Vender List</asp:HyperLink>&#160;
-                           <asp:Button ID="Button1" runat="server" Text="Create Bank Info" onclick="Button1_Click" /> <asp:Button ID="LinkButton3" runat="server" Text="Contact Modification" onclick="LinkButton1_Click" /> 
+                           <asp:Button ID="Button1" runat="server" 
+        Text="Create Bank Info" onclick="Button1_Click" CausesValidation="False" /> 
+    <asp:Button ID="LinkButton3" runat="server" Text="Contact Modification" 
+        onclick="LinkButton1_Click" CausesValidation="False" /> 
   <asp:FormView ID="FormView2" runat="server" DataKeyNames="id" SkinID="FormView" Visible="false"
             DataSourceID="EntityDataSource3" DefaultMode="Insert" Width="100%" >
            
@@ -302,6 +321,23 @@
                 
               <table align="left" border="0" cellpadding="2" cellspacing="0"  style="width:100%">
               <tr><td><table  align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
+               <tr><th 
+                                   align="left" class="style9">&nbsp&nbsp Payment Type:&#160;</th><td width="30%" colspan="3">
+                                   <asp:DropDownList ID="ddlPaymentType2" runat="server" 
+                                            onprerender="ddlPaymentType_PreRender" selectedValue='<%# Bind("payment_type") %>'
+                                            onselectedindexchanged="ddlPaymentType_SelectedIndexChanged" >
+                                                   <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                                   <asp:ListItem Value="0">支票</asp:ListItem>
+                                                   <asp:ListItem Value="1">國內匯款</asp:ListItem>
+                                                   <asp:ListItem Value="6">國外匯款</asp:ListItem>
+                                                   <asp:ListItem Value="2">匯票</asp:ListItem>
+                                                   <asp:ListItem Value="3">信用卡</asp:ListItem>
+                                                   <asp:ListItem Value="4">現金</asp:ListItem>
+                                                   <asp:ListItem Value="5">西聯匯款</asp:ListItem>
+                                               </asp:DropDownList> &nbsp;<font color="red"><b>*</b></font>國內匯款 不需輸入&nbsp;<font color="red">Swif Code</font>&nbsp;，支票 或是 匯票 &nbsp;<font color="red">Beneficiary Name</font>&nbsp;一定要輸入，空白欄位一律填入&nbsp;<font color="red">N/A</font>&nbsp;
+                                       <asp:Label ID="lblPaymentType" runat="server" Text='<%# Bind("payment_type") %>' CssClass="hidden"></asp:Label>
+                                    </td></tr>
+                                <tr>
                                <tr><th 
                                    align="left" class="style9"><font color="red">*&nbsp;</font> Bank Name:&#160;</th><td width="30%"><asp:TextBox 
                                        ID="tbBankName" runat="server" Text='<%# Bind("bank_name") %>'></asp:TextBox>
@@ -514,7 +550,7 @@
                                 <tr><th 
                                    align="left" class="style9">&nbsp&nbsp Payment Type:&#160;</th><td width="30%" colspan="3">
                                    <asp:DropDownList ID="ddlPaymentType" runat="server" 
-                                            onprerender="ddlPaymentType_PreRender" 
+                                            onprerender="ddlPaymentType_PreRender2" 
                                             onselectedindexchanged="ddlPaymentType_SelectedIndexChanged" >
                                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                                    <asp:ListItem Value="0">支票</asp:ListItem>

@@ -404,10 +404,26 @@
                 }
                
                 payment.modify_date = DateTime.Now;
-                payment.pay_date = dcPaidDate.GetDate();
+                try
+                {
+                    payment.pay_date = dcPaidDate.GetDate();
+                }
+                catch (Exception)
+                {
+                    
+                    //throw;
+                }
                 payment.reason = tbReason.Text;//adjust reason
                 payment.remarks = tbPayRemarks.Text;//pay remarks
-                payment.total_amount = decimal.Parse(tbTotal.Text);
+                try
+                {
+                    payment.total_amount = decimal.Parse(tbTotal.Text);
+                }
+                catch (Exception)
+                {
+                    
+                    //throw;
+                }
                 wowidb.PR_Payment.AddObject(payment);
                 wowidb.SaveChanges();
                 int payid = payment.pr_pay_id;
@@ -651,21 +667,8 @@
                 <!-- end target -->
             </td>
         </tr>
-       <tr>
-            <td class="ccstextboxh" valign="top"colspan="2" >
-                <u>Internal Remarks</u><br />
-                <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px" 
-                    Enabled="False"></asp:TextBox>
-            </td>
-            <td class="ccstextboxh" valign="top"colspan="2" >
-                <u>External Instruction</u><br />
-                <asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px" 
-                    Enabled="False"></asp:TextBox>
-            </td>
-             </tr>
-             <td class="ccstextboxh" colspan="4" width="100%">
-                    <hr />
-                </td>
+      
+            
              <tr>
             <td align="right" class="ccstextboxh" colspan="4" valign="top">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -763,15 +766,33 @@
                     
                     </tr>
                     <tr>
-                    <td align="right" class="ccstextboxh" >
+                    <td align="right" class="ccstextboxh" align="left" >
                        Remarks : 
                     </td>
                     <td align="left" class="ccstextboxh" >
-                &nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbPayRemarks" runat="server" Text=""></asp:TextBox></td>
+                &nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbPayRemarks" runat="server" Text=""  Width="300"></asp:TextBox></td>
                     <td align="right" class="ccstextboxh" colspan="2" >
                         <asp:Button ID="btnSave" runat="server" Text="Save" onclick="btnSave_Click" />
                     </td>
                     </tr>
+                     <tr>
+             <td class="ccstextboxh" colspan="4" width="100%">
+                    <hr />
+                </td>
+                </tr>
+                     <tr>
+            <td class="ccstextboxh" valign="top"colspan="2" align="left"  >
+                <u>Internal Remarks</u><br />
+                <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px" 
+                    Enabled="False"></asp:TextBox>
+            </td>
+            <td class="ccstextboxh" valign="top"colspan="2" align="left" >
+                <u>External Instruction</u><br />
+                <asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px" 
+                    Enabled="False"></asp:TextBox>
+            </td>
+             </tr>
+                    
                 </table>
             </td>
         </tr>

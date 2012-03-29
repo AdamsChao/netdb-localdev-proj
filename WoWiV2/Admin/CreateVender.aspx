@@ -91,6 +91,7 @@
 
     private void SetValueFromVenderEntity(FormView fv, WoWiModel.vendor data)
     {
+        (FormView1.FindControl("tbPaymentBal") as Label).Text = "";
         Utils.SetTextBoxValue(fv, "tbCompany", data.name);
         Utils.SetTextBoxValue(fv, "tbcCompany", data.c_name);
         Utils.SetTextBoxValue(fv, "tbFax1", data.fax1);
@@ -137,7 +138,15 @@
         Utils.SetDropDownListValue(fv, "ddlEmployeeList", data.employee_id.HasValue ? data.employee_id + "" : "-1");
         Utils.SetDropDownListValue(fv, "ddlDeptList", data.department_id.HasValue ? data.department_id + "" : "-1");
 
-        (FormView1.FindControl("tbPaymentBal") as Label).Text = data.payment_balance.ToString();
+        if (data.payment_balance!=null)
+        {
+            (FormView1.FindControl("tbPaymentBal") as Label).Text = data.payment_balance.ToString();
+        }
+        else
+        {
+            Label lbl = FormView1.FindControl("tbPaymentBal") as Label;
+            lbl.Text = data.payment_term1+data.payment_term2+data.payment_term3+data.payment_term_final + "";
+        }
     }
 
     protected void dlVenderList_Load(object sender, EventArgs e)

@@ -472,22 +472,9 @@
                 <!-- end target -->
             </td>
         </tr>
-       <tr>
-            <td class="ccstextboxh" valign="top"colspan="2" >
-                <u>Internal Remarks</u><br />
-                <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px" 
-                    Enabled="False"></asp:TextBox>
-            </td>
-            <td class="ccstextboxh" valign="top"colspan="2" >
-                <u>External Instruction</u><br />
-                <asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px" 
-                    Enabled="False"></asp:TextBox>
-            </td>
-             </tr>
-             <td class="ccstextboxh" colspan="4" width="100%">
-                    <hr />
-                </td>
+
              <tr>
+             
             <td align="right" class="ccstextboxh" colspan="4" valign="top">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                  <tr>
@@ -588,6 +575,24 @@
 &nbsp;<asp:Button ID="btnSave" runat="server" Text="Paid" onclick="btnSave_Click" />
                     </td>
                     </tr>
+                    <tr>
+             <td class="ccstextboxh" colspan="4" width="100%">
+                    <hr />
+                </td>
+                </tr>
+                           <tr>
+            <td class="ccstextboxh" valign="top"colspan="2" align="left" >
+                <u>Internal Remarks</u><br />
+                <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px" 
+                    Enabled="False"></asp:TextBox>
+            </td>
+            <td class="ccstextboxh" valign="top"colspan="2" align="left"  >
+                <u>External Instruction</u><br />
+                <asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px" 
+                    Enabled="False"></asp:TextBox>
+            </td>
+             </tr>
+             
                 </table>
             </td>
         </tr>

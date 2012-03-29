@@ -39,15 +39,15 @@
                     //throw;
                 }
             }
-            if (row.Cells[4].Text.Trim() != "&nbsp;")
+            if (row.Cells[5].Text.Trim() != "&nbsp;")
             {
-                row.Cells[4].Text = "$" + row.Cells[4].Text;
+                row.Cells[5].Text = "$" + row.Cells[5].Text;
             }
-            String quoIDStr = row.Cells[5].Text;
+            String quoIDStr = row.Cells[6].Text;
             try
             {
                 int qid = int.Parse(quoIDStr);
-                row.Cells[5].Text = (from q in db.Quotation_Version where q.Quotation_Version_Id == qid select q.Quotation_No).First();
+                row.Cells[6].Text = (from q in db.Quotation_Version where q.Quotation_Version_Id == qid select q.Quotation_No).First();
             }
             catch (Exception)
             {
@@ -55,11 +55,11 @@
                 //throw;
             }
 
-            String Str = row.Cells[8].Text;
+            String Str = row.Cells[9].Text;
             try
             {
                 byte status = byte.Parse(Str);
-                row.Cells[8].Text = PRUtils.statusByteToString(status);
+                row.Cells[9].Text = PRUtils.statusByteToString(status);
                 
             }
             catch (Exception)
@@ -190,6 +190,8 @@
                     SortExpression="project_id" ReadOnly="True" />
                 <asp:BoundField DataField="vendor_id" HeaderText="Vendor Id" 
                     SortExpression="vendor_id" />
+                <asp:BoundField DataField="currency" HeaderText="Currency" 
+                    SortExpression="currency" />
                 <asp:BoundField DataField="total_cost" HeaderText="Total Cost" 
                     SortExpression="total_cost" />
                 <asp:BoundField DataField="quotaion_id" HeaderText="Quotation Id" 
@@ -200,6 +202,8 @@
                     SortExpression="target_payment_date" DataFormatString="{0:yyyy/MM/dd}" />
                 <asp:BoundField DataField="pr_auth_id" HeaderText="Status" 
                     SortExpression="pr_auth_id" />
+                <asp:BoundField DataField="status_date" HeaderText="Status Date" 
+                    SortExpression="status_date"  DataFormatString="{0:yyyy/MM/dd}" />
                
             </Columns>
         </asp:GridView>
@@ -209,7 +213,7 @@
         <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             
-            SelectCommand="SELECT P.pr_id, P.project_id, P.quotaion_id, P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id FROM PR AS P , PR_authority_history AS R WHERE P.pr_auth_id = R.pr_auth_id">
+            SelectCommand="SELECT P.currency, P.pr_id, P.project_id, P.quotaion_id, P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id , (CASE R.status WHEN 0 THEN R.create_date WHEN 1 THEN  R.requisitioner_date WHEN 2 THEN supervisor_date WHEN 3 THEN  R.vp_date WHEN 4 THEN  R.president_date  WHEN 6 THEN R.modify_date END) as status_date FROM PR AS P , PR_authority_history AS R WHERE P.pr_auth_id = R.pr_auth_id">
         </asp:SqlDataSource>
     </p>
 </asp:Content>

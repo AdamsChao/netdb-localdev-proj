@@ -431,7 +431,7 @@
           onprerender="iGridView1_PreRender" ShowFooter="True" 
                        >
                         <Columns>
-                            <asp:TemplateField HeaderText="Invoice No">
+                            <asp:TemplateField HeaderText="">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("InvoiceNo") %>'></asp:TextBox>
                                 </EditItemTemplate>
