@@ -418,7 +418,7 @@
                             <asp:BoundField DataField="IMA" HeaderText="IMA" />
                             <asp:BoundField DataField="VenderNo" HeaderText="No" />
                             <asp:BoundField DataField="VenderName" HeaderText="Name" />
-                            <asp:TemplateField HeaderText="IMACost">
+                            <asp:TemplateField HeaderText="IMACost" ItemStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
                                 <asp:Label ID="lblCurrency" runat="server" Text='<%# Bind("IMACostCurrency") %>'></asp:Label>$
                                     <asp:Label ID="Label1" runat="server" Text='<%# Bind("IMACost") %>'></asp:Label>
@@ -440,7 +440,7 @@
                                     </table>
                                 </FooterTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Cost NTD">
+                            <asp:TemplateField HeaderText="Cost NTD" ItemStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
                                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("SubCostNTD") %>'></asp:Label>
                                 </ItemTemplate>
@@ -451,7 +451,7 @@
                                     <asp:Literal ID="Literal1" runat="server" Text="<%# GetNTD()%>"></asp:Literal>
                                 </FooterTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Cost USD">
+                            <asp:TemplateField HeaderText="Cost USD" ItemStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
                                     <asp:Label ID="Label3" runat="server" Text='<%# Bind("SubCostUSD") %>'></asp:Label>
                                 </ItemTemplate>

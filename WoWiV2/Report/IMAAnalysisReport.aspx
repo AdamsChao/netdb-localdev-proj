@@ -424,6 +424,7 @@
 
     protected void iGridView1_PreRender(object sender, EventArgs e)
     {
+        
         foreach (GridViewRow item in (sender as GridView).Rows)
         {
             System.Drawing.Color c = System.Drawing.Color.White;
@@ -439,8 +440,10 @@
             {
                 item.Cells[i].BackColor = c;
             }
+            
         }
     }
+    
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -492,7 +495,7 @@
                         </tr>
                     <tr><td colspan="4">
                     <cc1:iRowSpanGridView ID="iGridView1" runat="server" Width="100%" 
-                            isMergedHeader="True" isHeaderColMerged="true" 
+                            isMergedHeader="True" isHeaderColMerged="true" isFirstRowSpan="true"
                         AutoGenerateColumns="False" CssClass="Gridview" 
                             onsetcssclass="iGridView1_SetCSSClass" onprerender="iGridView1_PreRender" >
                         
@@ -527,7 +530,7 @@
                             <asp:BoundField DataField="TotalQTY" HeaderText="Qty" />
                         </Columns>
                     </cc1:iRowSpanGridView>
-                     <cc1:iRowSpanGridView ID="iGridView2" runat="server" Width="100%" isMergedHeader="True" isHeaderColMerged="true"
+                     <cc1:iRowSpanGridView ID="iGridView2" runat="server" Width="100%" isMergedHeader="True" isHeaderColMerged="true" isFirstRowSpan="true"
                        AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" onprerender="iGridView1_PreRender" >
                         <Columns>
                             <asp:BoundField DataField="IMA" HeaderText="IMA/Vender" />
@@ -545,7 +548,7 @@
                         </Columns>
                     </cc1:iRowSpanGridView>
                     <cc1:iRowSpanGridView ID="iGridView3" runat="server" Width="100%"
-                           isMergedHeader="true" isHeaderColMerged="true" AutoGenerateColumns="False" 
+                           isMergedHeader="true" isHeaderColMerged="true" AutoGenerateColumns="False" isFirstRowSpan="true"
                            CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass" onprerender="iGridView1_PreRender"  >
                         <Columns>
                             <asp:BoundField DataField="IMA" HeaderText="IMA/Vender" />

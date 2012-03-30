@@ -192,7 +192,7 @@
                     SortExpression="vendor_id" />
                 <asp:BoundField DataField="currency" HeaderText="Currency" 
                     SortExpression="currency" />
-                <asp:BoundField DataField="total_cost" HeaderText="Total Cost" 
+                <asp:BoundField DataField="total_cost" HeaderText="Total Cost" ItemStyle-HorizontalAlign="Right"
                     SortExpression="total_cost" />
                 <asp:BoundField DataField="quotaion_id" HeaderText="Quotation Id" 
                     SortExpression="quotaion_id" />
