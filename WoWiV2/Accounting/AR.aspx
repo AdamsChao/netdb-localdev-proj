@@ -498,7 +498,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Attn" HeaderText="Attn" />
-                            <asp:TemplateField HeaderText="AR Inv USD$">
+                            <asp:TemplateField HeaderText="AR Inv USD$" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("USD") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -510,7 +510,7 @@
                                 </FooterTemplate>
                                 <ControlStyle CssClass="Currency" />
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="AR Inv NT$">
+                            <asp:TemplateField HeaderText="AR Inv NT$" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("NTD") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -533,7 +533,7 @@
                             <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" />
                             <asp:BoundField DataField="OverDueInterval" HeaderText="逾期區間" />
                             <asp:BoundField DataField="Currency" HeaderText="Currency" />
-                            <asp:BoundField DataField="ARBalance" HeaderText="AR Balance" />
+                            <asp:BoundField DataField="ARBalance" HeaderText="AR Balance" ItemStyle-HorizontalAlign="Right"/>
                         </Columns>
                     </asp:GridView>
       

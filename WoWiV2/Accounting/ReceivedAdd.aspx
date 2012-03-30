@@ -19,10 +19,6 @@
             lblProjNo.Text = invoice.project_no;
             SetData(lblProjNo.Text);
             decimal rate = (decimal)invoice.exchange_rate;
-            if (rate == 1)
-            {
-                rate = 30;
-            }
             currency = invoice.currency;
             lblCurrency.Text = currency;
             if (invoice.currency == "USD")
@@ -141,6 +137,7 @@
             {
                 temp = new ReceivedData()
                 {
+                    InvoiceID = item.id.ToString(),
                     ReceivedDate = (DateTime)item.received_date,
                     Amount = ((decimal)item.amount).ToString("F2"),
                     IVNo = item.iv_no,
@@ -151,6 +148,8 @@
                 temp.Balance = btotal.ToString("F2");
                 data.Add(temp);
             }
+            invoice.ar_balance = btotal;
+            wowidb.SaveChanges();
             iGridView2.DataSource = data;
             iGridView2.DataBind();
         }
@@ -160,7 +159,10 @@
             //throw;
         }
     }
-
+    protected void btndel_Click(object sender, EventArgs e)
+    { 
+    
+    }
     protected void Button1_Click(object sender, EventArgs e)
     {
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
@@ -193,6 +195,32 @@
                 //throw;
             }
             GetAllItems(id);
+        }
+    }
+
+    protected void iGridView2_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "MyDelete")
+        {
+            try
+            {
+                int rid = int.Parse(e.CommandArgument.ToString());
+                WoWiModel.invoice_received re = wowidb.invoice_received.First(c => c.id == rid);
+                wowidb.invoice_received.DeleteObject(re);
+                wowidb.SaveChanges();
+                if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+                {
+                    int id = int.Parse(Request.QueryString["id"]);//invoiceid
+                    GetAllItems(id);
+                }
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+           
+            
         }
     }
 </script>
@@ -304,10 +332,21 @@
                             <td colspan="6"  >
                             Received History
                             <asp:Gridview ID="iGridView2" runat="server"  Width="100%" 
-                         AutoGenerateColumns="False" CssClass="Gridview"  ShowFooter="True"  >
+                         AutoGenerateColumns="False" CssClass="Gridview"  ShowFooter="True" 
+                                    onrowcommand="iGridView2_RowCommand"  >
                         <Columns>
                        
-                            
+                            <asp:TemplateField HeaderText="">
+                            <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("ReceivedDate") %>'></asp:TextBox>
+                                </EditItemTemplate>
+
+                                <ItemTemplate>
+                                <asp:Button ID="btndel" runat="server" Text="-" CommandName="MyDelete"  CommandArgument='<%# Eval("InvoiceID") %>' />
+                                    <asp:Label ID="lblinvid" runat="server" CssClass="hidden"
+                                        Text='<%# Bind("InvoiceID") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Received Date">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("ReceivedDate") %>'></asp:TextBox>

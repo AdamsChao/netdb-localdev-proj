@@ -20,4 +20,6 @@ public class ReceivedData
     public String Balance { get; set; }
     public String IVNo { get; set; }
     public String Note { get; set; }
+    public String InvoiceID { get; set; }
+
 }

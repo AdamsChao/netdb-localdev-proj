@@ -90,6 +90,18 @@
                     temp.IMACost = ((decimal)item.total_cost).ToString("F2");
                     imausd += (decimal)item.total_cost;
                     temp.IMACostCurrency = item.currency;
+                    try
+                    {
+                        WoWiModel.PR_Payment p = (from pa in wowidb.PR_Payment where pa.pr_id == item.pr_id select pa).First();
+                        temp.SubCostUSD = ((decimal)p.total_amount).ToString("F2");
+                    }
+                    catch (Exception)
+                    {
+                        
+                        //throw;
+                    }
+                    
+                    //temp.SubCostUSD
                     //if (item.currency == "USD")
                     //{
                     //    temp.SubCostUSD = ((decimal)item.total_cost).ToString("F2");
@@ -99,8 +111,7 @@
                     //    //Temp need to modify!
                     //    temp.SubCostUSD = ((decimal)item.total_cost).ToString("F2");
                     //}
-                    WoWiModel.PR_Payment p = (from pa in wowidb.PR_Payment where pa.pr_id == item.pr_id && pa.status != (byte)PRStatus.History select pa).First();
-                    temp.SubCostUSD = ((decimal)p.total_amount).ToString("F2");
+                    
                     
                 }
 
@@ -175,6 +186,9 @@
                         WoWiModel.Quotation_Version quo = (from q in wowidb.Quotation_Version where q.Quotation_Version_Id == qid select q).First();
                         temp.QutationNo = quo.Quotation_No;
                         temp.QutationId = qid;
+                        if(quo.modify_date.HasValue){
+                            temp.StatusDate = ((DateTime)quo.modify_date).ToString("yyyy/MM/dd");
+                        }
                         temp.Model = quo.Model_No;
                         int cid = (int)quo.Client_Id;
                         WoWiModel.clientapplicant cli = (from c in wowidb.clientapplicants where c.id == cid select c).First();
@@ -258,8 +272,20 @@
                             }
                             temp.InvUSD = tempTot.ToString("F2");
                             invusd += tempTot;
-                            temp.GrossProfitUS = (tempTot - decimal.Parse(temp.SubCostUSD)).ToString("F2");
-                            profit += (tempTot - decimal.Parse(temp.SubCostUSD));
+                            try
+                            {
+                                WoWiModel.PR_item pritem = wowidb.PR_item.First(c => c.pr_id == item.pr_id);
+                                WoWiModel.Quotation_Target qti = wowidb.Quotation_Target.First(d => d.Quotation_Target_Id == pritem.quotation_target_id);
+                                profit += ((decimal)qti.unit_price * (decimal)qti.unit - decimal.Parse(temp.SubCostUSD));
+                                temp.GrossProfitUS = ((decimal)qti.unit_price * (decimal)qti.unit-decimal.Parse(temp.SubCostUSD)).ToString("F2");
+                            }
+                            catch (Exception)
+                            {
+                                
+                                //throw;
+                            }
+                            
+                           
                             try
                             {
                                 WoWiModel.PR_Payment pay = (from pr in wowidb.PR_Payment where pr.pr_id == prid select pr).First();
