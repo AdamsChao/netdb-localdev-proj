@@ -178,7 +178,7 @@
                     {
                         btnSave.Enabled = false;
                         tbPayRemarks.Enabled = false;
-                        Button3.Visible = false;
+                        btnModify.Visible = false;
                     }
                     ddlAdjustOperate.SelectedValue = pay.adjust_operator;
                     ddlOperate.SelectedValue = pay.adjust_operator;
@@ -242,6 +242,7 @@
                 pay.status = (byte)PRStatus.ClosePaid;
                 (sender as Button).Enabled = false;
                 tbPayRemarks.Enabled = false;
+                btnModify.Visible = false;
                 wowidb.SaveChanges();
             }
             catch (Exception)
@@ -570,7 +571,7 @@
                     <td align="left" class="ccstextboxh" >
                 &nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbPayRemarks" runat="server" Text="" ></asp:TextBox></td>
                     <td align="right" class="ccstextboxh" colspan="2" >
-                        <asp:Button ID="Button3" runat="server" onclick="Button3_Click" 
+                        <asp:Button ID="btnModify" runat="server" onclick="Button3_Click" 
                             Text="Back to Modify" />
 &nbsp;<asp:Button ID="btnSave" runat="server" Text="Paid" onclick="btnSave_Click" />
                     </td>

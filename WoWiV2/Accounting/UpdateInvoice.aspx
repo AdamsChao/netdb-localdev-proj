@@ -15,6 +15,9 @@
             lblInvoiceID.Text = id.ToString();
             tbIssueInvoice.Text = invoice.issue_invoice_no;
             tbIssueInvoiceDate.Text = ((DateTime)invoice.issue_invoice_date).ToString("yyyy/MM/dd");
+            if(invoice.invoice_date.HasValue){
+                dcinvdate.setText(((DateTime)invoice.invoice_date).ToString("yyyy/MM/dd"));
+            }
             tbivno.Text = invoice.invoice_no;
             InvoicePaymentStatus status;
             if (invoice.status.HasValue)
@@ -82,10 +85,11 @@
                 (iGridView2.FooterRow.FindControl("tbTax") as TextBox).Text = ((decimal)invoice.tax).ToString("F2");
                 (iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text = ((decimal)invoice.total).ToString("F2");
                 (iGridView2.FooterRow.FindControl("ddloperate") as DropDownList).SelectedValue = invoice.exchange_operate;
-                (iGridView2.FooterRow.FindControl("tbCurrency") as TextBox).Text = invoice.currency;
+                (iGridView2.FooterRow.FindControl("ddlCurrency") as DropDownList).SelectedValue = invoice.currency;
                 (iGridView2.FooterRow.FindControl("tbTotal") as TextBox).Text = ((decimal)invoice.final_total).ToString("F2");
                 (iGridView2.FooterRow.FindControl("tbRemarks") as TextBox).Text = invoice.remarks;
                 (iGridView2.FooterRow.FindControl("tbExchangeRate") as TextBox).Text = ((decimal)invoice.exchange_rate).ToString("F2");
+                (iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = InvoiceUtils.WoWi_Bank_Info1;
             }
             catch (Exception)
             {
@@ -169,11 +173,13 @@
                     {
                         No = qno,
                         FPrice = (decimal)i.amount,
-                        PayAmount = i.amount+""
+                        PayAmount = i.amount+"",
+                        
                     };
                     int tid = i.quotation_target_id;
                     var quoTarget = (from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid select qt).First();
                     temp.Bill = quoTarget.Bill;
+                    temp.UOM = ((double)quoTarget.unit).ToString("F0");
                     temp.Status = quoTarget.Status;
                     temp.TDescription = quoTarget.target_description;
                     temp.Qty = (double)quoTarget.unit;
@@ -229,7 +235,16 @@
             try
             {
                 invoice.invoice_no = tbivno.Text;
-                invoice.invoice_date = DateTime.ParseExact(tbivdate.Text, "yyyy/MM/dd", null);
+                invoice.invoice_date = dcinvdate.GetDate();
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+            try
+            {
+                invoice.bankacct_info_id = int.Parse(ddlwowibankinfo.SelectedValue);
             }
             catch (Exception)
             {
@@ -246,7 +261,7 @@
                 invoice.exchange_rate = decimal.Parse(exchangeRate);
             }
 
-            String currency = (iGridView2.FooterRow.FindControl("tbCurrency") as TextBox).Text;
+            String currency = (iGridView2.FooterRow.FindControl("ddlCurrency") as DropDownList).SelectedValue;
             if (String.IsNullOrEmpty(currency))
             {
                 invoice.currency = invoice.ocurrency;
@@ -257,7 +272,7 @@
             }
 
             String tax = (iGridView2.FooterRow.FindControl("tbtax") as TextBox).Text;
-            if (String.IsNullOrEmpty(currency))
+            if (String.IsNullOrEmpty(tax))
             {
                 invoice.tax = 0;
             }
@@ -267,6 +282,7 @@
             }
             invoice.invoice_no = tbivno.Text;
             invoice.remarks = (iGridView2.FooterRow.FindControl("tbRemarks") as TextBox).Text;
+            invoice.bankacct_info_id = int.Parse(ddlwowibankinfo.SelectedValue);
             wowidb.SaveChanges();
             Response.Redirect("~/Accounting/InvoiceDetails.aspx?id=" + id);
         }
@@ -354,6 +370,10 @@
         }
         tbTotal.Text = tot.ToString("F2");
     }
+    protected void ddlwowibankinfo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -380,7 +400,7 @@
                                 <asp:TextBox ID="tbivno" runat="server" MaxLength="10"></asp:TextBox>
                             </td>
                         </tr>
-                        <tr>
+                       <tr>
                             <th align="left" width="13%">
                                 Project No. :&nbsp;</th>
                             <td width="20%">
@@ -390,13 +410,20 @@
                                    <asp:ListItem Value="-1">Select one</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
-                           <td colspan="2">
-                              
+                           
+                            <th align="left" width="13%">
+                                WoWi Bank Info :&nbsp;</th>
+                            <td width="20%">
+                                <asp:DropDownList ID="ddlwowibankinfo" runat="server" AppendDataBoundItems="True" 
+                                    AutoPostBack="true" 
+                                    onselectedindexchanged="ddlwowibankinfo_SelectedIndexChanged" >
+                                   <asp:ListItem Value="-1">default(Chang Hwa - 9790-22-028891-00)</asp:ListItem>
+                                </asp:DropDownList>
                             </td>
                              <th align="left" width="13%">
                                  I/V Date :&nbsp;</th>
                             <td width="20%">
-                                 <asp:TextBox ID="tbivdate" runat="server" MaxLength="10"></asp:TextBox>
+                                 <uc1:DateChooser ID="dcinvdate" runat="server" />
                             </td>
                         </tr>
                          <tr>
@@ -441,7 +468,20 @@
                             <asp:BoundField DataField="Date" HeaderText="Date" 
                                 DataFormatString="{0:yyyy/MM/dd}" />
                             
-                            <asp:BoundField DataField="TDescription" HeaderText="TDescription" />
+                            <asp:TemplateField HeaderText="TDescription">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("TDescription") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="tbbankAccount" runat="server" Height="180" Width="480" TextMode="MultiLine" Enabled="false" ></asp:TextBox>
+                                  <%--  <br>
+                                    <asp:Label ID="lblmsg" runat="server" Text="Label"></asp:Label>
+                                    <br />--%>
+                                </FooterTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("TDescription") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:BoundField DataField="Qty" HeaderText="Qty" />
                             <asp:BoundField DataField="UOM" HeaderText="UOM" />
                             <asp:TemplateField HeaderText="UnitPrice">
@@ -457,7 +497,7 @@
                                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("FPrice") %>'></asp:TextBox>
                                 </EditItemTemplate>
                                 <FooterTemplate  >
-                                    <table align="right">
+                                   <table align="right">
                                         <tr>
                                             <td align="right">
                                                 Original Currency : 
@@ -468,27 +508,30 @@
                                         </tr>
                                         <tr>
                                              <td align="right">
-                                                Total : </td>
+                                                Subtotal before taxes : </td>
                                                 <td>$ <asp:Label ID="lblOTotal" runat="server" Text=""></asp:Label>
                                             </td>
                                         </tr>
                                         <tr>
                                              <td align="right">
-                                                Tax : </td>
+                                                Total taxes : </td>
                                                 <td>$ <asp:TextBox ID="tbTax" runat="server" ontextchanged="tbTax_TextChanged" 
                                                         AutoPostBack="True" ></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="right">
-                                                Amount Due : </td>
+                                                Amount Due: </td>
                                                 <td>$ <asp:Label ID="lblAmountDue" runat="server" Text=""></asp:Label>
                                             </td>
                                         </tr>
                                         <tr>
                                              <td align="right">
-                                                Pay Currency :</td>
-                                                <td>&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbCurrency" runat="server" ></asp:TextBox>
+                                                Currency :</td>
+                                                <td>&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlCurrency" runat="server">
+                                    <asp:ListItem>USD</asp:ListItem>
+                                    <asp:ListItem>NTD</asp:ListItem>
+                                </asp:DropDownList>
                                             </td>
                                         </tr>
                                         <tr>
@@ -523,7 +566,7 @@
                                 <FooterTemplate>
                                     <asp:Label ID="Label6" runat="server" Text="Remarks"></asp:Label>
                                     <br />
-                                    <asp:TextBox ID="tbRemarks" runat="server" Height="100px" TextMode="MultiLine" 
+                                    <asp:TextBox ID="tbRemarks" runat="server" Height="170px" TextMode="MultiLine" 
                                         Width="100px"></asp:TextBox>
                                 </FooterTemplate>
                                 <ItemTemplate>

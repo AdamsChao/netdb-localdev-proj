@@ -288,6 +288,7 @@
           <Property Name="adjust" Type="decimal" Precision="10" Scale="2" />
           <Property Name="due_date" Type="datetime" />
           <Property Name="ar_balance" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="bankacct_info_id" Type="int" />
         </EntityType>
         <EntityType Name="invoice_received">
           <Key>
@@ -1375,6 +1376,7 @@
           <Property Type="Decimal" Name="adjust" Precision="10" Scale="2" />
           <Property Type="DateTime" Name="due_date" />
           <Property Type="Decimal" Name="ar_balance" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="bankacct_info_id" />
         </EntityType>
         <EntityType Name="invoice_received">
           <Key>
@@ -2113,6 +2115,7 @@
           <EntitySetMapping Name="invoices">
             <EntityTypeMapping TypeName="WoWiModel.invoice">
               <MappingFragment StoreEntitySet="invoice">
+                <ScalarProperty Name="bankacct_info_id" ColumnName="bankacct_info_id" />
                 <ScalarProperty Name="ar_balance" ColumnName="ar_balance" />
                 <ScalarProperty Name="due_date" ColumnName="due_date" />
                 <ScalarProperty Name="adjust" ColumnName="adjust" />

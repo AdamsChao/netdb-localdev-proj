@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
 
+<%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
+
 <script runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
@@ -18,7 +20,7 @@
             
         }
         tbIssueInvoice.Text = String.Format("W{0}{1}", DateTime.Now.ToString("yyyyMM"), sid.ToString().PadLeft(3,'0'));
-        tbIssueInvoiceDate.Text = DateTime.Now.ToString("yyyy/MM/dd");
+        dcissueinvdate.setText( DateTime.Now.ToString("yyyy/MM/dd"));
     }
 
     protected void ddlProj_Load(object sender, EventArgs e)
@@ -107,6 +109,7 @@
                            UnitPrice = (decimal)qt.unit_price,
                            FPrice = (decimal)qt.FinalPrice,
                            Bill = qt.Bill,
+                           Unit = qt.unit,
                            PrePayment = qt.advance2,
                            FinalPayment = qt.balance2,
                            Qutation_Target_Id = qt.Quotation_Target_Id
@@ -131,6 +134,7 @@
                         FPrice = (decimal)i.Qty * i.UnitPrice,
                         Bill = i.Bill,
                         PayType = "PrePayment",
+                        UOM= ((double)i.Unit).ToString("F0"),
                         PayAmount = i.PrePayment.ToString(),
                         Qutation_Target_Id = i.Qutation_Target_Id,
                         Qutation_Id = i.qId         
@@ -189,6 +193,8 @@
             (iGridView2.FooterRow.FindControl("lblOTotal") as Label).Text = total.ToString("F2");
             (iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text = total.ToString("F2");
             (iGridView2.FooterRow.FindControl("tbTotal") as TextBox).Text = total.ToString("F2");
+            (iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = InvoiceUtils.WoWi_Bank_Info1;
+            //(iGridView2.FooterRow.FindControl("lblmsg") as Label).Text = InvoiceUtils.WoWi_Bank_Info_Message;
         }
         catch (Exception ex)
         {
@@ -319,7 +325,16 @@
             };
             try
             {
-                invoice.invoice_date = DateTime.ParseExact(tbivdate.Text, "yyyy/MM/dd", null);
+                invoice.bankacct_info_id = int.Parse(ddlwowibankinfo.SelectedValue);
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+            try
+            {
+                invoice.invoice_date = dcinvdate.GetDate();
             }
             catch (Exception)
             {
@@ -328,7 +343,7 @@
             }
             try
             {
-                invoice.issue_invoice_date = DateTime.ParseExact(tbIssueInvoiceDate.Text, "yyyy/MM/dd", null);
+                invoice.issue_invoice_date = dcissueinvdate.GetDate();
             }
             catch (Exception)
             {
@@ -358,7 +373,7 @@
                 invoice.exchange_rate = decimal.Parse(exchangeRate);
             }
 
-            String currency = (iGridView2.FooterRow.FindControl("tbCurrency") as TextBox).Text;
+            String currency = (iGridView2.FooterRow.FindControl("ddlCurrency") as DropDownList).SelectedValue;
             if (String.IsNullOrEmpty(currency))
             {
                 invoice.currency = invoice.ocurrency;
@@ -369,7 +384,7 @@
             }
 
             String tax = (iGridView2.FooterRow.FindControl("tbtax") as TextBox).Text;
-            if (String.IsNullOrEmpty(currency))
+            if (String.IsNullOrEmpty(tax))
             {
                 invoice.tax = 0;
             }
@@ -446,12 +461,17 @@
         }
     }
 
+
+    protected void ddlwowibankinfo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
- Issued New&nbsp;&nbsp;<asp:HyperLink 
+    Issued New&nbsp;&nbsp;<asp:HyperLink 
                            ID="HyperLink1" runat="server" NavigateUrl="~/Accounting/Invoice.aspx">Invoice List</asp:HyperLink>
                      <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
@@ -463,7 +483,7 @@
                             <th align="left" width="13%">
                                 Issue Invoice Date : </th>
                             <td width="20%">
-                                <asp:TextBox ID="tbIssueInvoiceDate" runat="server"></asp:TextBox>
+                                <uc1:DateChooser ID="dcissueinvdate" runat="server" />
                             </td>
                              <th align="left" width="13%">
                                  I/V No. :&nbsp;</th>
@@ -482,13 +502,19 @@
                                 </asp:DropDownList>
                             </td>
                            
-                            <td colspan="2">
-                              
+                            <th align="left" width="13%">
+                                WoWi Bank Info :&nbsp;</th>
+                            <td width="20%">
+                                <asp:DropDownList ID="ddlwowibankinfo" runat="server" AppendDataBoundItems="True" 
+                                    AutoPostBack="true" 
+                                    onselectedindexchanged="ddlwowibankinfo_SelectedIndexChanged" >
+                                   <asp:ListItem Value="-1">default(Chang Hwa - 9790-22-028891-00)</asp:ListItem>
+                                </asp:DropDownList>
                             </td>
                              <th align="left" width="13%">
                                  I/V Date :&nbsp;</th>
                             <td width="20%">
-                                 <asp:TextBox ID="tbivdate" runat="server" MaxLength="10"></asp:TextBox>
+                                 <uc1:DateChooser ID="dcinvdate" runat="server" />
                             </td>
                         </tr>
                          <tr>
@@ -518,6 +544,7 @@
                                 Address : </th>
                             <td colspan="3">
                                 <asp:Label ID="lblAddress" runat="server" Text=""></asp:Label>
+                             
                              </td>
                         </tr>
                  
@@ -543,7 +570,20 @@
                             <asp:BoundField DataField="Date" HeaderText="Date" 
                                 DataFormatString="{0:yyyy/MM/dd}" />
                             
-                            <asp:BoundField DataField="TDescription" HeaderText="TDescription" />
+                            <asp:TemplateField HeaderText="TDescription">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("TDescription") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="tbbankAccount" runat="server" Height="180" Width="480" TextMode="MultiLine" Enabled="false" ></asp:TextBox>
+                                  <%--  <br>
+                                    <asp:Label ID="lblmsg" runat="server" Text="Label"></asp:Label>
+                                    <br />--%>
+                                </FooterTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("TDescription") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:BoundField DataField="Qty" HeaderText="Qty" />
                             <asp:BoundField DataField="UOM" HeaderText="Unit" />
                             <asp:TemplateField HeaderText="UnitPrice">
@@ -571,27 +611,30 @@
                                         </tr>
                                         <tr>
                                              <td align="right">
-                                                Total : </td>
+                                                Subtotal before taxes : </td>
                                                 <td>$ <asp:Label ID="lblOTotal" runat="server" Text=""></asp:Label>
                                             </td>
                                         </tr>
                                         <tr>
                                              <td align="right">
-                                                Tax : </td>
+                                                Total taxes : </td>
                                                 <td>$ <asp:TextBox ID="tbTax" runat="server" ontextchanged="tbTax_TextChanged" 
                                                         AutoPostBack="True" ></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="right">
-                                                Amount Due : </td>
+                                                Amount Due: </td>
                                                 <td>$ <asp:Label ID="lblAmountDue" runat="server" Text=""></asp:Label>
                                             </td>
                                         </tr>
                                         <tr>
                                              <td align="right">
-                                                Pay Currency :</td>
-                                                <td>&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbCurrency" runat="server" ></asp:TextBox>
+                                                Currency :</td>
+                                                <td>&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlCurrency" runat="server">
+                                    <asp:ListItem>USD</asp:ListItem>
+                                    <asp:ListItem>NTD</asp:ListItem>
+                                </asp:DropDownList>
                                             </td>
                                         </tr>
                                         <tr>
@@ -626,7 +669,7 @@
                                 <FooterTemplate>
                                     <asp:Label ID="Label6" runat="server" Text="Remarks"></asp:Label>
                                     <br />
-                                    <asp:TextBox ID="tbRemarks" runat="server" Height="100px" TextMode="MultiLine" 
+                                    <asp:TextBox ID="tbRemarks" runat="server" Height="170px" TextMode="MultiLine" 
                                         Width="100px"></asp:TextBox>
                                 </FooterTemplate>
                                 <ItemTemplate>

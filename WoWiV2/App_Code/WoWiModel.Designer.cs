@@ -5873,6 +5873,30 @@ namespace WoWiModel
         private Nullable<global::System.Decimal> _ar_balance;
         partial void Onar_balanceChanging(Nullable<global::System.Decimal> value);
         partial void Onar_balanceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> bankacct_info_id
+        {
+            get
+            {
+                return _bankacct_info_id;
+            }
+            set
+            {
+                Onbankacct_info_idChanging(value);
+                ReportPropertyChanging("bankacct_info_id");
+                _bankacct_info_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("bankacct_info_id");
+                Onbankacct_info_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _bankacct_info_id;
+        partial void Onbankacct_info_idChanging(Nullable<global::System.Int32> value);
+        partial void Onbankacct_info_idChanged();
 
         #endregion
     
