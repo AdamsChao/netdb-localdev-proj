@@ -317,7 +317,7 @@
                                     <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("TDescription") %>'></asp:TextBox>
                                 </EditItemTemplate>
                                 <FooterTemplate>
-                                    <asp:TextBox ID="tbbankAccount" runat="server" Height="180" Width="480" TextMode="MultiLine" Enabled="false" ></asp:TextBox>
+                                    <asp:TextBox ID="tbbankAccount" runat="server" Height="180" Width="480" TextMode="MultiLine" Enabled="false"  ></asp:TextBox>
                                   <%--  <br>
                                     <asp:Label ID="lblmsg" runat="server" Text="Label"></asp:Label>
                                     <br />--%>
