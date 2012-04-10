@@ -42,6 +42,7 @@
           <EntitySet Name="vendor" EntityType="WoWiModel.Store.vendor" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="vendor_type" EntityType="WoWiModel.Store.vendor_type" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="world_region" EntityType="WoWiModel.Store.world_region" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="wowi_bankinfo" EntityType="WoWiModel.Store.wowi_bankinfo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="wowi_product_type" EntityType="WoWiModel.Store.wowi_product_type" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="wowi_tech" EntityType="WoWiModel.Store.wowi_tech" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
@@ -756,6 +757,18 @@
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
         </EntityType>
+        <EntityType Name="wowi_bankinfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="display_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="info" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="create_date" Type="datetime" />
+          <Property Name="create_user" Type="nvarchar" MaxLength="26" />
+          <Property Name="modify_date" Type="datetime" />
+          <Property Name="modify_user" Type="nvarchar" MaxLength="26" />
+        </EntityType>
         <EntityType Name="wowi_product_type">
           <Key>
             <PropertyRef Name="wowi_product_type_id" />
@@ -824,6 +837,7 @@
           <EntitySet Name="Quotation_Target" EntityType="WoWiModel.Quotation_Target" />
           <EntitySet Name="Targets" EntityType="WoWiModel.Target" />
           <EntitySet Name="PR_Payment" EntityType="WoWiModel.PR_Payment" />
+          <EntitySet Name="wowi_bankinfo" EntityType="WoWiModel.wowi_bankinfo" />
         </EntityContainer>
         <EntityType Name="clientapplicant_industry">
           <Key>
@@ -1560,6 +1574,18 @@
           <Property Type="String" Name="reasontype" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="Decimal" Name="adjust_total" Precision="20" Scale="5" />
           <Property Type="String" Name="remarks" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="wowi_bankinfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="display_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="info" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2332,6 +2358,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="wowi_bankinfo">
+            <EntityTypeMapping TypeName="WoWiModel.wowi_bankinfo">
+              <MappingFragment StoreEntitySet="wowi_bankinfo">
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="info" ColumnName="info" />
+                <ScalarProperty Name="display_name" ColumnName="display_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2391,6 +2430,7 @@
         <EntityTypeShape EntityType="WoWiModel.Quotation_Target" Width="1.5" PointX="19.375" PointY="0.75" Height="6.77585937500001" />
         <EntityTypeShape EntityType="WoWiModel.Target" Width="1.5" PointX="19.375" PointY="8.75" Height="2.5532031250000102" />
         <EntityTypeShape EntityType="WoWiModel.PR_Payment" Width="1.5" PointX="19.375" PointY="12.75" Height="3.7848111979166674" />
+        <EntityTypeShape EntityType="WoWiModel.wowi_bankinfo" Width="1.5" PointX="19.375" PointY="17.75" Height="2.2013151041666674" />
       </Diagram>
     </Diagrams>
   </Designer>
