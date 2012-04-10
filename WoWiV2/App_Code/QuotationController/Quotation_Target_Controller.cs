@@ -94,6 +94,7 @@ public class Quotation_Target_Controller
         result.advance2 = target.advance2;
         result.balance1 = target.balance1;
         result.balance2 = target.balance2;
+        result.PR_Flag = target.PR_Flag;
         entities.SaveChanges();
 
         Quotation_Controller.TargetChange((int)result.quotation_id);

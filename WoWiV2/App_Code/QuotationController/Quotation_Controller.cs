@@ -347,7 +347,13 @@ public class Quotation_Controller
                         n.bill_status == bill_status 
                      select n;
         if ((result.ToList()).Count > 0)
-            return result.First().invoice_no;
+        {
+            String invoice_id = result.First().invoice_id.ToString();
+            String invoice_no = result.First().invoice_no;
+            String hLink = string.Format("<a href='../Accounting/InvoiceDetails.aspx?id={0}' target='_blank'>{1}</a>", invoice_id, invoice_no);
+            return hLink;
+            //return result.First().invoice_no;
+        }
         else
             return "";
 

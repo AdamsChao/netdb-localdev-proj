@@ -76,7 +76,8 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             HtmlInputRadioButton Radio2 = (HtmlInputRadioButton)Row.FindControl("Radio2");
             DropDownList ddlAdv = (DropDownList)Row.FindControl("ddlAdv");
             DropDownList ddlBill = (DropDownList)Row.FindControl("ddlBill");
-            
+            CheckBox chkPR_Flag = (CheckBox)Row.FindControl("chkPR_Flag");
+
             TextBox txtAdv2 = (TextBox)Row.FindControl("txtAdv2");
 
             int id = Int32.Parse(lblQuotation_Target_Id.Text);
@@ -85,6 +86,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             target.option1 = Radio1.Checked;
             target.option2 = Radio2.Checked;
             target.advance1 = hidA1.Value;
+            target.PR_Flag = chkPR_Flag.Checked;
             Decimal advance2;
             if (Decimal.TryParse(hidA2.Value, out advance2))
                 target.advance2 = advance2;
@@ -119,7 +121,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
 
 
             Label lblQuotation_Target_Id = (Label)e.Row.FindControl("lblQuotation_Target_Id");
-            Label lblInvoice0 = (Label)e.Row.FindControl("lblInvoice0");
+            Literal lblInvoice0 = (Literal)e.Row.FindControl("lblInvoice0");
             Label lblInvoice3 = (Label)e.Row.FindControl("lblInvoice3");
 
             int quotation_Id =  Int32.Parse( hidQuotationID.Text);
@@ -186,4 +188,19 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
         } 
     }
 
+    public bool CheckPR_Flag(object PR_Flag)
+    {
+        bool boolPR_Flag;
+        try
+        {
+            bool.TryParse(PR_Flag.ToString(),out boolPR_Flag);
+            return boolPR_Flag;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+
+        
+    }
 }

@@ -149,7 +149,7 @@
                 <Columns>
                     <asp:BoundField DataField="Vername" HeaderText="Version" SortExpression="Vername" />
                     <asp:BoundField DataField="target_description" HeaderText="T. Description" SortExpression="target_description" />
-                    <asp:BoundField DataField="Status" HeaderText="Status" ReadOnly="True" SortExpression="Status" />
+                    <%--<asp:BoundField DataField="Status" HeaderText="Status" ReadOnly="True" SortExpression="Status" />--%>
                     <asp:BoundField DataField="unit" HeaderText="Unit" SortExpression="unit" />
                     <asp:BoundField DataField="unit_price" HeaderText="Unit Price" SortExpression="unit_price" />
                     <asp:BoundField DataField="FinalPrice" HeaderText="FinalPrice" SortExpression="FinalPrice" />
@@ -186,7 +186,7 @@
                                             ID="RegularExpressionValidator2" runat="server" ControlToValidate="txtAdv2" 
                                             Display="Dynamic" ErrorMessage="Only number allowed" ForeColor="Red" 
                                             SetFocusOnError="True" ValidationExpression="^([-+]?[0-9]*\.?[0-9]+)$"></asp:RegularExpressionValidator>
-                                        &nbsp;Invoice No:<asp:Label ID="lblInvoice0" runat="server" Text=""></asp:Label><input id="hidA1" type="hidden" runat="server" value='<%# Eval("advance1")%>' /><input id="hidA2" type="hidden" runat="server" value='<%# Eval("advance2")%>'  />
+                                        &nbsp;Invoice No:<asp:Literal ID="lblInvoice0" runat="server"></asp:Literal><input id="hidA1" type="hidden" runat="server" value='<%# Eval("advance1")%>' /><input id="hidA2" type="hidden" runat="server" value='<%# Eval("advance2")%>'  />
                                     </td>
                                 </tr>
                                 <tr>
@@ -201,6 +201,12 @@
                             </table>
                         </ItemTemplate>
                     </asp:TemplateField>                    
+                    <asp:TemplateField HeaderText="PR_Flag">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkPR_Flag" runat="server" Checked='<%# CheckPR_Flag(Eval("PR_Flag")) %>' 
+                                Enabled="true" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -216,7 +222,7 @@
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 
                 
-                SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id FROM vw_Test_Target_List WHERE (Quotation_No = @Quotation_No) ORDER BY Quotation_Version_Id">
+                SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id, PR_Flag FROM vw_Test_Target_List WHERE (Quotation_No = @Quotation_No) ORDER BY Quotation_Version_Id">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="hidQuotation_No" Name="Quotation_No" PropertyName="Text"
                         Type="String" />
