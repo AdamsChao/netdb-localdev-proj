@@ -76,7 +76,8 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             HtmlInputRadioButton Radio2 = (HtmlInputRadioButton)Row.FindControl("Radio2");
             DropDownList ddlAdv = (DropDownList)Row.FindControl("ddlAdv");
             DropDownList ddlBill = (DropDownList)Row.FindControl("ddlBill");
-            CheckBox chkPR_Flag = (CheckBox)Row.FindControl("chkPR_Flag");
+            //CheckBox chkPR_Flag = (CheckBox)Row.FindControl("chkPR_Flag");
+            DropDownList ddlPR_Flag = (DropDownList)Row.FindControl("ddlPR_Flag");
 
             TextBox txtAdv2 = (TextBox)Row.FindControl("txtAdv2");
 
@@ -86,7 +87,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             target.option1 = Radio1.Checked;
             target.option2 = Radio2.Checked;
             target.advance1 = hidA1.Value;
-            target.PR_Flag = chkPR_Flag.Checked;
+            target.PR_Flag = ddlPR_Flag.SelectedValue;
             Decimal advance2;
             if (Decimal.TryParse(hidA2.Value, out advance2))
                 target.advance2 = advance2;
@@ -123,6 +124,12 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             Label lblQuotation_Target_Id = (Label)e.Row.FindControl("lblQuotation_Target_Id");
             Literal lblInvoice0 = (Literal)e.Row.FindControl("lblInvoice0");
             Label lblInvoice3 = (Label)e.Row.FindControl("lblInvoice3");
+
+            DropDownList ddlPR_Flag = (DropDownList)e.Row.FindControl("ddlPR_Flag");
+            int PR_Flag;
+            int.TryParse(ddlPR_Flag.ToolTip, out PR_Flag);
+            ddlPR_Flag.SelectedIndex = PR_Flag;
+            ddlPR_Flag.ToolTip = "";
 
             int quotation_Id =  Int32.Parse( hidQuotationID.Text);
             int target_Id = Int32.Parse(lblQuotation_Target_Id.Text);
@@ -170,6 +177,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             ddlAdv.Items.Insert(0, new ListItem("--select--", ""));
             ddlAdv.Text = hidA1.Value.Replace("%", "");
 
+            
 
             ddlAdv.Attributes.Add("OnClick", "cmdDDL('" +
                 ddlAdv.ClientID + "','" + txtAdv2.ClientID + "','" +
@@ -188,19 +196,17 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
         } 
     }
 
-    public bool CheckPR_Flag(object PR_Flag)
-    {
-        bool boolPR_Flag;
-        try
-        {
-            bool.TryParse(PR_Flag.ToString(),out boolPR_Flag);
-            return boolPR_Flag;
-        }
-        catch (Exception)
-        {
-            return false;
-        }
-
-        
-    }
+    //public int CheckPR_Flag(object PR_Flag, int ID)
+    //{
+    //    int boolPR_Flag;
+    //    try
+    //    {
+    //        int.TryParse(PR_Flag.ToString(), out boolPR_Flag);
+    //        return boolPR_Flag;
+    //    }
+    //    catch (Exception)
+    //    {
+    //        return 0;
+    //    }
+    //}
 }

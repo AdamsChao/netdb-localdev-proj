@@ -57,7 +57,7 @@
             $("#" + ddlAdv).removeClass("CCSTextBoxRD");
             $("#" + txtAdv2).addClass("CCSTextBoxRD");
         } else {
-            $("#" + ddlAdv ).val("");
+            $("#" + ddlAdv).val("");
             $("#" + ddlAdv).attr("disabled", "disabled");
             $("#" + txtAdv2).removeAttr("disabled");
             $("#" + ddlAdv).addClass("CCSTextBoxRD");
@@ -76,9 +76,9 @@
 
     function cmdDDL(ddlAdv, txtAdv2, txtB1, txtB2, hidA1, hidA2, hidB1, hidB2, fPrice) {
         var t = $("#" + ddlAdv + " option:selected").val();
-        $("#" + hidA1).val(t);       
+        $("#" + hidA1).val(t);
         var first = t * fPrice * 0.01;
-        var end =  fPrice - (t * fPrice * 0.01)
+        var end = fPrice - (t * fPrice * 0.01)
         $("#" + txtAdv2).val(t * fPrice * 0.01);
         $("#" + hidA2).val(t * fPrice * 0.01);
         $("#" + txtB1).val((100 - t) + '%');
@@ -143,8 +143,7 @@
         <td colspan="6">
             <asp:GridView ID="gvTestTargetList" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1"
                 CellPadding="4" ForeColor="#333333" Width="100%" GridLines="None" Caption='<table border="1" width="100%" cellpadding="0" cellspacing="0" bgcolor="yellow"><tr bgcolor="#bbbbbb"><th colspan="7"><font color="red">Test Target List</font></th></tr></table>'
-                CaptionAlign="Top" OnRowDataBound="gvTestTargetList_RowDataBound" 
-                style="text-align: left" >
+                CaptionAlign="Top" OnRowDataBound="gvTestTargetList_RowDataBound" Style="text-align: left">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:BoundField DataField="Vername" HeaderText="Version" SortExpression="Vername" />
@@ -153,7 +152,7 @@
                     <asp:BoundField DataField="unit" HeaderText="Unit" SortExpression="unit" />
                     <asp:BoundField DataField="unit_price" HeaderText="Unit Price" SortExpression="unit_price" />
                     <asp:BoundField DataField="FinalPrice" HeaderText="FinalPrice" SortExpression="FinalPrice" />
-                    <asp:TemplateField >                     
+                    <asp:TemplateField>
                         <FooterTemplate>
                             <asp:Literal ID="Literal1" runat="server"></asp:Literal>
                         </FooterTemplate>
@@ -169,42 +168,51 @@
                                             <asp:ListItem>VD</asp:ListItem>
                                         </asp:DropDownList>
                                         Invoice No:<asp:Label ID="Label3" runat="server" Text=""></asp:Label><asp:Label ID="lblFPrice"
-                                            Visible="false" runat="server" Text='<%# Eval("FinalPrice") %>'></asp:Label><asp:Label ID="lblOption1"
-                                            Visible="false" runat="server" Text='<%# Eval("option1") %>'></asp:Label><asp:Label ID="lblOption2"
-                                            Visible="false" runat="server" Text='<%# Eval("option2") %>'></asp:Label>
-                                            <asp:Label ID="lblQuotation_Target_Id"
-                                            Visible="false" runat="server" Text='<%# Eval("Quotation_Target_Id") %>'></asp:Label>
+                                            Visible="false" runat="server" Text='<%# Eval("FinalPrice") %>'></asp:Label><asp:Label
+                                                ID="lblOption1" Visible="false" runat="server" Text='<%# Eval("option1") %>'></asp:Label><asp:Label
+                                                    ID="lblOption2" Visible="false" runat="server" Text='<%# Eval("option2") %>'></asp:Label>
+                                        <asp:Label ID="lblQuotation_Target_Id" Visible="false" runat="server" Text='<%# Eval("Quotation_Target_Id") %>'></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        預收:<input id="Radio1" type="radio" name="rdAdv" runat="server"  />
+                                        預收:<input id="Radio1" type="radio" name="rdAdv" runat="server" />
                                         <asp:DropDownList ID="ddlAdv" Width="80px" runat="server">
                                         </asp:DropDownList>
-                                        <input id="Radio2" name="rdAdv" type="radio" runat="server" /><asp:TextBox ID="txtAdv2" Text='<%# Eval("advance2") %>' 
-                                            runat="server" Width="50px" ></asp:TextBox>元<asp:RegularExpressionValidator 
-                                            ID="RegularExpressionValidator2" runat="server" ControlToValidate="txtAdv2" 
-                                            Display="Dynamic" ErrorMessage="Only number allowed" ForeColor="Red" 
-                                            SetFocusOnError="True" ValidationExpression="^([-+]?[0-9]*\.?[0-9]+)$"></asp:RegularExpressionValidator>
-                                        &nbsp;Invoice No:<asp:Literal ID="lblInvoice0" runat="server"></asp:Literal><input id="hidA1" type="hidden" runat="server" value='<%# Eval("advance1")%>' /><input id="hidA2" type="hidden" runat="server" value='<%# Eval("advance2")%>'  />
+                                        <input id="Radio2" name="rdAdv" type="radio" runat="server" /><asp:TextBox ID="txtAdv2"
+                                            Text='<%# Eval("advance2") %>' runat="server" Width="50px"></asp:TextBox>元<asp:RegularExpressionValidator
+                                                ID="RegularExpressionValidator2" runat="server" ControlToValidate="txtAdv2" Display="Dynamic"
+                                                ErrorMessage="Only number allowed" ForeColor="Red" SetFocusOnError="True" ValidationExpression="^([-+]?[0-9]*\.?[0-9]+)$"></asp:RegularExpressionValidator>
+                                        &nbsp;Invoice No:<asp:Literal ID="lblInvoice0" runat="server"></asp:Literal><input
+                                            id="hidA1" type="hidden" runat="server" value='<%# Eval("advance1")%>' /><input id="hidA2"
+                                                type="hidden" runat="server" value='<%# Eval("advance2")%>' />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         尾款:
-                                        <asp:TextBox ID="txtB1" runat="server" Width="50px" Text='<%# Eval("balance1") %>' ReadOnly="true" CssClass="CCSTextBoxRD"></asp:TextBox>
+                                        <asp:TextBox ID="txtB1" runat="server" Width="50px" Text='<%# Eval("balance1") %>'
+                                            ReadOnly="true" CssClass="CCSTextBoxRD"></asp:TextBox>
                                         <input id="hidB1" type="hidden" runat="server" />
-                                        &nbsp;&nbsp;&nbsp; <asp:TextBox ID="txtB2" runat="server" Width="100px" Text='<%# Eval("balance2") %>' ReadOnly="true" CssClass="CCSTextBoxRD"></asp:TextBox><input id="hidB2" type="hidden" runat="server" /> Invoice No:<asp:Label ID="lblInvoice3"
-                                                runat="server" Text=""></asp:Label>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <asp:TextBox ID="txtB2" runat="server" Width="100px" Text='<%# Eval("balance2") %>'
+                                            ReadOnly="true" CssClass="CCSTextBoxRD"></asp:TextBox><input id="hidB2" type="hidden"
+                                                runat="server" />
+                                        Invoice No:<asp:Label ID="lblInvoice3" runat="server" Text=""></asp:Label>
                                     </td>
                                 </tr>
                             </table>
                         </ItemTemplate>
-                    </asp:TemplateField>                    
-                    <asp:TemplateField HeaderText="PR_Flag">
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Invoice Flag">
                         <ItemTemplate>
-                            <asp:CheckBox ID="chkPR_Flag" runat="server" Checked='<%# CheckPR_Flag(Eval("PR_Flag")) %>' 
-                                Enabled="true" />
+                            <asp:DropDownList ID="ddlPR_Flag" ToolTip='<%# Eval("PR_Flag")  %>' runat="server">
+                                <asp:ListItem Text="無" Value="0" ></asp:ListItem>
+                                <asp:ListItem Text="預付" Value="1" ></asp:ListItem>
+                                <asp:ListItem Text="尾款" Value="2"  ></asp:ListItem>
+                            </asp:DropDownList>
+                            <%-- <asp:CheckBox ID="chkPR_Flag" runat="server" Checked='<%# CheckPR_Flag(Eval("PR_Flag")) %>' 
+                                Enabled="true" />--%>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -220,8 +228,6 @@
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                
-                
                 SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id, PR_Flag FROM vw_Test_Target_List WHERE (Quotation_No = @Quotation_No) ORDER BY Quotation_Version_Id">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="hidQuotation_No" Name="Quotation_No" PropertyName="Text"

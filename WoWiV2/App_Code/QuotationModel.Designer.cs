@@ -308,22 +308,6 @@ namespace QuotationModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<vw_Test_Target_List> vw_Test_Target_List
-        {
-            get
-            {
-                if ((_vw_Test_Target_List == null))
-                {
-                    _vw_Test_Target_List = base.CreateObjectSet<vw_Test_Target_List>("vw_Test_Target_List");
-                }
-                return _vw_Test_Target_List;
-            }
-        }
-        private ObjectSet<vw_Test_Target_List> _vw_Test_Target_List;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Quotation_Target> Quotation_Target
         {
             get
@@ -336,6 +320,22 @@ namespace QuotationModel
             }
         }
         private ObjectSet<Quotation_Target> _Quotation_Target;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<vw_Test_Target_List> vw_Test_Target_List
+        {
+            get
+            {
+                if ((_vw_Test_Target_List == null))
+                {
+                    _vw_Test_Target_List = base.CreateObjectSet<vw_Test_Target_List>("vw_Test_Target_List");
+                }
+                return _vw_Test_Target_List;
+            }
+        }
+        private ObjectSet<vw_Test_Target_List> _vw_Test_Target_List;
 
         #endregion
         #region AddTo Methods
@@ -461,19 +461,19 @@ namespace QuotationModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the vw_Test_Target_List EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTovw_Test_Target_List(vw_Test_Target_List vw_Test_Target_List)
-        {
-            base.AddObject("vw_Test_Target_List", vw_Test_Target_List);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Quotation_Target EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToQuotation_Target(Quotation_Target quotation_Target)
         {
             base.AddObject("Quotation_Target", quotation_Target);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the vw_Test_Target_List EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTovw_Test_Target_List(vw_Test_Target_List vw_Test_Target_List)
+        {
+            base.AddObject("vw_Test_Target_List", vw_Test_Target_List);
         }
 
         #endregion
@@ -4717,7 +4717,7 @@ namespace QuotationModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> PR_Flag
+        public global::System.String PR_Flag
         {
             get
             {
@@ -4727,13 +4727,13 @@ namespace QuotationModel
             {
                 OnPR_FlagChanging(value);
                 ReportPropertyChanging("PR_Flag");
-                _PR_Flag = StructuralObject.SetValidValue(value);
+                _PR_Flag = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("PR_Flag");
                 OnPR_FlagChanged();
             }
         }
-        private Nullable<global::System.Boolean> _PR_Flag;
-        partial void OnPR_FlagChanging(Nullable<global::System.Boolean> value);
+        private global::System.String _PR_Flag;
+        partial void OnPR_FlagChanging(global::System.String value);
         partial void OnPR_FlagChanged();
 
         #endregion

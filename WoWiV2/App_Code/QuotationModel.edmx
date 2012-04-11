@@ -307,7 +307,7 @@
           <Property Name="Actual_Lead_time" Type="nvarchar" MaxLength="50" />
           <Property Name="Agent" Type="int" />
           <Property Name="Country_Manager" Type="int" />
-          <Property Name="PR_Flag" Type="bit" />
+          <Property Name="PR_Flag" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="Quotation_Version">
           <Key>
@@ -544,8 +544,8 @@
           <EntitySet Name="Target" EntityType="QuotationModel.Target" />
           <EntitySet Name="vw_Quotation_Print_Chinese" EntityType="QuotationModel.vw_Quotation_Print_Chinese" />
           <EntitySet Name="invoice_target" EntityType="QuotationModel.invoice_target" />
-          <EntitySet Name="vw_Test_Target_List" EntityType="QuotationModel.vw_Test_Target_List" />
           <EntitySet Name="Quotation_Target" EntityType="QuotationModel.Quotation_Target" />
+          <EntitySet Name="vw_Test_Target_List" EntityType="QuotationModel.vw_Test_Target_List" />
         </EntityContainer>
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -897,30 +897,6 @@
           <Property Type="Int32" Name="invoice_id" Nullable="false" />
           <Property Type="String" Name="invoice_no" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="vw_Test_Target_List">
-          <Key>
-            <PropertyRef Name="Quotation_Target_Id" />
-          </Key>
-          <Property Type="String" Name="Quotation_No" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="Vername" />
-          <Property Type="String" Name="target_description" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Double" Name="unit" />
-          <Property Type="Decimal" Name="unit_price" Precision="20" Scale="2" />
-          <Property Type="Int32" Name="Quotation_Version_Id" />
-          <Property Type="Decimal" Name="FinalPrice" Precision="20" Scale="2" />
-          <Property Type="String" Name="Status" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Bill" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="option1" />
-          <Property Type="Boolean" Name="option2" />
-          <Property Type="String" Name="advance1" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="advance2" Precision="20" Scale="2" />
-          <Property Type="String" Name="balance1" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="balance2" Precision="20" Scale="2" />
-          <Property Type="Int32" Name="Quotation_Target_Id" Nullable="false" />
-          <Property Type="String" Name="country_name" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="authority_name" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="PR_Flag" />
-        </EntityType>
         <EntityType Name="Quotation_Target">
           <Key>
             <PropertyRef Name="Quotation_Target_Id" />
@@ -958,6 +934,30 @@
           <Property Type="String" Name="Actual_Lead_time" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Agent" />
           <Property Type="Int32" Name="Country_Manager" />
+          <Property Type="String" Name="PR_Flag" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vw_Test_Target_List">
+          <Key>
+            <PropertyRef Name="Quotation_Target_Id" />
+          </Key>
+          <Property Type="String" Name="Quotation_No" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Vername" />
+          <Property Type="String" Name="target_description" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="unit" />
+          <Property Type="Decimal" Name="unit_price" Precision="20" Scale="2" />
+          <Property Type="Int32" Name="Quotation_Version_Id" />
+          <Property Type="Decimal" Name="FinalPrice" Precision="20" Scale="2" />
+          <Property Type="String" Name="Status" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Bill" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="option1" />
+          <Property Type="Boolean" Name="option2" />
+          <Property Type="String" Name="advance1" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="advance2" Precision="20" Scale="2" />
+          <Property Type="String" Name="balance1" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="balance2" Precision="20" Scale="2" />
+          <Property Type="Int32" Name="Quotation_Target_Id" Nullable="false" />
+          <Property Type="String" Name="country_name" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="authority_name" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="PR_Flag" />
         </EntityType>
       </Schema>
@@ -1330,31 +1330,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vw_Test_Target_List">
-            <EntityTypeMapping TypeName="QuotationModel.vw_Test_Target_List">
-              <MappingFragment StoreEntitySet="vw_Test_Target_List">
-                <ScalarProperty Name="PR_Flag" ColumnName="PR_Flag" />
-                <ScalarProperty Name="authority_name" ColumnName="authority_name" />
-                <ScalarProperty Name="country_name" ColumnName="country_name" />
-                <ScalarProperty Name="Quotation_Target_Id" ColumnName="Quotation_Target_Id" />
-                <ScalarProperty Name="balance2" ColumnName="balance2" />
-                <ScalarProperty Name="balance1" ColumnName="balance1" />
-                <ScalarProperty Name="advance2" ColumnName="advance2" />
-                <ScalarProperty Name="advance1" ColumnName="advance1" />
-                <ScalarProperty Name="option2" ColumnName="option2" />
-                <ScalarProperty Name="option1" ColumnName="option1" />
-                <ScalarProperty Name="Bill" ColumnName="Bill" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
-                <ScalarProperty Name="Quotation_Version_Id" ColumnName="Quotation_Version_Id" />
-                <ScalarProperty Name="unit_price" ColumnName="unit_price" />
-                <ScalarProperty Name="unit" ColumnName="unit" />
-                <ScalarProperty Name="target_description" ColumnName="target_description" />
-                <ScalarProperty Name="Vername" ColumnName="Vername" />
-                <ScalarProperty Name="Quotation_No" ColumnName="Quotation_No" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Quotation_Target">
             <EntityTypeMapping TypeName="QuotationModel.Quotation_Target">
               <MappingFragment StoreEntitySet="Quotation_Target">
@@ -1395,6 +1370,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="vw_Test_Target_List">
+            <EntityTypeMapping TypeName="QuotationModel.vw_Test_Target_List">
+              <MappingFragment StoreEntitySet="vw_Test_Target_List">
+                <ScalarProperty Name="PR_Flag" ColumnName="PR_Flag" />
+                <ScalarProperty Name="authority_name" ColumnName="authority_name" />
+                <ScalarProperty Name="country_name" ColumnName="country_name" />
+                <ScalarProperty Name="Quotation_Target_Id" ColumnName="Quotation_Target_Id" />
+                <ScalarProperty Name="balance2" ColumnName="balance2" />
+                <ScalarProperty Name="balance1" ColumnName="balance1" />
+                <ScalarProperty Name="advance2" ColumnName="advance2" />
+                <ScalarProperty Name="advance1" ColumnName="advance1" />
+                <ScalarProperty Name="option2" ColumnName="option2" />
+                <ScalarProperty Name="option1" ColumnName="option1" />
+                <ScalarProperty Name="Bill" ColumnName="Bill" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
+                <ScalarProperty Name="Quotation_Version_Id" ColumnName="Quotation_Version_Id" />
+                <ScalarProperty Name="unit_price" ColumnName="unit_price" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="target_description" ColumnName="target_description" />
+                <ScalarProperty Name="Vername" ColumnName="Vername" />
+                <ScalarProperty Name="Quotation_No" ColumnName="Quotation_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1431,8 +1431,8 @@
         <EntityTypeShape EntityType="QuotationModel.Target" Width="1.5" PointX="0.625" PointY="4.75" Height="2.7494921875000031" />
         <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print_Chinese" Width="1.5" PointX="3.375" PointY="12.75" Height="5.6340136718750031" />
         <EntityTypeShape EntityType="QuotationModel.invoice_target" Width="1.5" PointX="13.375" PointY="10.75" Height="2.9417936197916674" />
-        <EntityTypeShape EntityType="QuotationModel.vw_Test_Target_List" Width="1.5" PointX="13.375" PointY="14.75" Height="4.3126432291666674" />
-        <EntityTypeShape EntityType="QuotationModel.Quotation_Target" Width="1.5" PointX="15.375" PointY="0.75" Height="6.9518033854166674" />
+        <EntityTypeShape EntityType="QuotationModel.Quotation_Target" Width="1.5" PointX="13.375" PointY="14.75" Height="6.9518033854166674" />
+        <EntityTypeShape EntityType="QuotationModel.vw_Test_Target_List" Width="1.5" PointX="15.375" PointY="0.75" Height="4.3126432291666674" />
       </Diagram>
     </Diagrams>
   </Designer>
