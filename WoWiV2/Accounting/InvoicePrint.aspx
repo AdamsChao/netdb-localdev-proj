@@ -137,9 +137,21 @@
 
                 iGridView.DataSource = items;
                 iGridView.DataBind();
-                (iGridView.FooterRow.FindControl("tbbankAccount") as Label).Text = InvoiceUtils.WoWi_Bank_Info2;
-                tbbankAcct.Text = InvoiceUtils.WoWi_Bank_Info1;
-                
+                //(iGridView.FooterRow.FindControl("tbbankAccount") as Label).Text = InvoiceUtils.WoWi_Bank_Info2;
+                //tbbankAcct.Text = InvoiceUtils.WoWi_Bank_Info1;
+                try
+                {
+                    
+                    int bid = (int)invoice.bankacct_info_id;
+                    
+                    WoWiModel.wowi_bankinfo b = wowidb.wowi_bankinfo.First(c => c.id == bid);
+                    tbbankAcct.Text = b.info;
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
             }
             catch
             {

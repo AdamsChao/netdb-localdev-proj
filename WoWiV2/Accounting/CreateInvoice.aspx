@@ -193,7 +193,7 @@
             (iGridView2.FooterRow.FindControl("lblOTotal") as Label).Text = total.ToString("F2");
             (iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text = total.ToString("F2");
             (iGridView2.FooterRow.FindControl("tbTotal") as TextBox).Text = total.ToString("F2");
-            (iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = InvoiceUtils.WoWi_Bank_Info1;
+            //(iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = InvoiceUtils.WoWi_Bank_Info1;
             //(iGridView2.FooterRow.FindControl("lblmsg") as Label).Text = InvoiceUtils.WoWi_Bank_Info_Message;
         }
         catch (Exception ex)
@@ -464,7 +464,27 @@
 
     protected void ddlwowibankinfo_SelectedIndexChanged(object sender, EventArgs e)
     {
+        try
+        {
+            (iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = "";
+            int id = int.Parse(ddlwowibankinfo.SelectedValue);
+            WoWiModel.wowi_bankinfo b = wowidb.wowi_bankinfo.First(c => c.id == id);
+            (iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = b.info;
+        }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
+    }
 
+    protected void ddlwowibankinfo_Load(object sender, EventArgs e)
+    {
+        if (Page.IsPostBack) return;
+        ddlwowibankinfo.DataSource = wowidb.wowi_bankinfo;
+        ddlwowibankinfo.DataValueField = "id";
+        ddlwowibankinfo.DataTextField = "display_name";
+        ddlwowibankinfo.DataBind();
     }
 </script>
 
@@ -507,8 +527,9 @@
                             <td width="20%">
                                 <asp:DropDownList ID="ddlwowibankinfo" runat="server" AppendDataBoundItems="True" 
                                     AutoPostBack="true" 
-                                    onselectedindexchanged="ddlwowibankinfo_SelectedIndexChanged" >
-                                   <asp:ListItem Value="-1">default(Chang Hwa - 9790-22-028891-00)</asp:ListItem>
+                                    onselectedindexchanged="ddlwowibankinfo_SelectedIndexChanged" 
+                                    onload="ddlwowibankinfo_Load" >
+                                <asp:ListItem Value="-1">Select one</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                              <th align="left" width="13%">
