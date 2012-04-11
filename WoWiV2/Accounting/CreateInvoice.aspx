@@ -112,7 +112,8 @@
                            Unit = qt.unit,
                            PrePayment = qt.advance2,
                            FinalPayment = qt.balance2,
-                           Qutation_Target_Id = qt.Quotation_Target_Id
+                           Qutation_Target_Id = qt.Quotation_Target_Id,
+                           PR_Flag = qt.PR_Flag
                        };
             List<ProjectInvoiceData> items = new List<ProjectInvoiceData>();
             ProjectInvoiceData temp;
@@ -120,70 +121,75 @@
             foreach (var i in item)
             {
 
-                if (i.PrePayment.HasValue && (decimal)i.PrePayment != 0)
+                if (i.PR_Flag == "1")
                 {
-                    temp = new ProjectInvoiceData()
+                    if (i.PrePayment.HasValue && (decimal)i.PrePayment != 0)
                     {
-                        No = no,
-                        VersionNo = i.VersionNo,
-                        Status = i.Status,
-                        Date = i.Date,
-                        TDescription = i.TDescription,
-                        Qty = i.Qty,
-                        UnitPrice = i.UnitPrice,
-                        FPrice = (decimal)i.Qty * i.UnitPrice,
-                        Bill = i.Bill,
-                        PayType = "PrePayment",
-                        UOM= ((double)i.Unit).ToString("F0"),
-                        PayAmount = i.PrePayment.ToString(),
-                        Qutation_Target_Id = i.Qutation_Target_Id,
-                        Qutation_Id = i.qId         
-                    };
-                    total += (decimal)i.PrePayment;
-                    items.Add(temp);
+                        temp = new ProjectInvoiceData()
+                        {
+                            No = no,
+                            VersionNo = i.VersionNo,
+                            Status = i.Status,
+                            Date = i.Date,
+                            TDescription = i.TDescription,
+                            Qty = i.Qty,
+                            UnitPrice = i.UnitPrice,
+                            FPrice = (decimal)i.Qty * i.UnitPrice,
+                            Bill = i.Bill,
+                            PayType = "PrePayment",
+                            UOM = ((double)i.Unit).ToString("F0"),
+                            PayAmount = i.PrePayment.ToString(),
+                            Qutation_Target_Id = i.Qutation_Target_Id,
+                            Qutation_Id = i.qId
+                        };
+                        total += (decimal)i.PrePayment;
+                        items.Add(temp);
+                    }
                 }
-
-                if (i.FinalPayment.HasValue && (decimal)i.FinalPayment != 0)
+                if (i.PR_Flag == "2")
                 {
-                    temp = new ProjectInvoiceData()
+                    if (i.FinalPayment.HasValue && (decimal)i.FinalPayment != 0)
                     {
-                        No = no,
-                        VersionNo = i.VersionNo,
-                        Status = i.Status,
-                        Date = i.Date,
-                        TDescription = i.TDescription,
-                        Qty = i.Qty,
-                        UnitPrice = i.UnitPrice,
-                        FPrice = (decimal)i.Qty * i.UnitPrice,
-                        Bill = i.Bill,
-                        PayType = "FinalPayment",
-                        PayAmount = i.FinalPayment.ToString(),
-                        Qutation_Target_Id = i.Qutation_Target_Id,
-                        Qutation_Id = i.qId       
-                    };
-                    total += (decimal)i.FinalPayment;
-                    items.Add(temp);
-                }
-                else
-                {
-                    temp = new ProjectInvoiceData()
+                        temp = new ProjectInvoiceData()
+                        {
+                            No = no,
+                            VersionNo = i.VersionNo,
+                            Status = i.Status,
+                            Date = i.Date,
+                            TDescription = i.TDescription,
+                            Qty = i.Qty,
+                            UnitPrice = i.UnitPrice,
+                            FPrice = (decimal)i.Qty * i.UnitPrice,
+                            Bill = i.Bill,
+                            PayType = "FinalPayment",
+                            PayAmount = i.FinalPayment.ToString(),
+                            Qutation_Target_Id = i.Qutation_Target_Id,
+                            Qutation_Id = i.qId
+                        };
+                        total += (decimal)i.FinalPayment;
+                        items.Add(temp);
+                    }
+                    else
                     {
-                        No = no,
-                        VersionNo = i.VersionNo,
-                        Status = i.Status,
-                        Date = i.Date,
-                        TDescription = i.TDescription,
-                        Qty = i.Qty,
-                        UnitPrice = i.UnitPrice,
-                        FPrice = (decimal)i.Qty * i.UnitPrice,
-                        Bill = i.Bill,
-                        PayType = "FinalPayment",
-                        PayAmount = i.FPrice.ToString(),
-                        Qutation_Target_Id = i.Qutation_Target_Id,
-                        Qutation_Id = i.qId         
-                    };
-                    total += decimal.Parse(temp.PayAmount);
-                    items.Add(temp);
+                        temp = new ProjectInvoiceData()
+                        {
+                            No = no,
+                            VersionNo = i.VersionNo,
+                            Status = i.Status,
+                            Date = i.Date,
+                            TDescription = i.TDescription,
+                            Qty = i.Qty,
+                            UnitPrice = i.UnitPrice,
+                            FPrice = (decimal)i.Qty * i.UnitPrice,
+                            Bill = i.Bill,
+                            PayType = "FinalPayment",
+                            PayAmount = i.FPrice.ToString(),
+                            Qutation_Target_Id = i.Qutation_Target_Id,
+                            Qutation_Id = i.qId
+                        };
+                        total += decimal.Parse(temp.PayAmount);
+                        items.Add(temp);
+                    }
                 }
             }
             
@@ -195,6 +201,18 @@
             (iGridView2.FooterRow.FindControl("tbTotal") as TextBox).Text = total.ToString("F2");
             //(iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = InvoiceUtils.WoWi_Bank_Info1;
             //(iGridView2.FooterRow.FindControl("lblmsg") as Label).Text = InvoiceUtils.WoWi_Bank_Info_Message;
+            try
+            {
+                (iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = "";
+                int id = int.Parse(ddlwowibankinfo.SelectedValue);
+                WoWiModel.wowi_bankinfo b = wowidb.wowi_bankinfo.First(c => c.id == id);
+                (iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = b.info;
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
         }
         catch (Exception ex)
         {
