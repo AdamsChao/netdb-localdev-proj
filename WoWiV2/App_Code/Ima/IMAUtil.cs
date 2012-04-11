@@ -53,6 +53,16 @@ public class IMAUtil
         return SQLUtil.ExecuteScalar(cmd).ToString();
     }
 
+    //依國別編號取得國別資料
+    static public DataTable GetCountryByID(string strcountry_id)
+    {
+        string strTsql = "select * from country where country_id=@country_id";
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = strTsql;
+        cmd.Parameters.AddWithValue("@country_id", strcountry_id);
+        return SQLUtil.QueryDS(cmd).Tables[0];
+    }
+
     //判斷檔案上傳路徑是否存在，若不存在則建立
     static public void CheckURL(string strPaht)
     {
