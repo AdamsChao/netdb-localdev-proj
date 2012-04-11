@@ -1,6 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true"
-    CodeFile="ImaCertificationBodies.aspx.cs" Inherits="Ima_ImaCertificationBodies"
-    StylesheetTheme="IMA" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true" CodeFile="AccreditedTestLab.aspx.cs" Inherits="Ima_AccreditedTestLab" StylesheetTheme="IMA" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="act" %>
 <%@ Register Src="../UserControls/ImaTree.ascx" TagName="ImaTree" TagPrefix="uc1" %>
@@ -43,49 +41,14 @@
                     </tr>
                     <tr>
                         <td class="tdRowName">
-                            <span style="color: Red; font-size: 10pt;">*</span>Name：
+                            <span style="color: Red; font-size: 10pt;">*</span>Accredited Lab：
                         </td>
                         <td class="tdRowValue">
-                            <asp:TextBox ID="tbName" runat="server" Rows="3" TextMode="MultiLine" 
-                                Width="500px"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvName" runat="server" ControlToValidate="tbName"
-                                ErrorMessage="Input Name" Display="None" SetFocusOnError="true"></asp:RequiredFieldValidator>
-                            <act:ValidatorCalloutExtender ID="cveName" runat="server" TargetControlID="rfvName">
+                            <asp:TextBox ID="tbAccreditedLab" runat="server" Rows="5" TextMode="MultiLine" Width="500px"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvAccreditedLab" runat="server" ControlToValidate="tbAccreditedLab"
+                                ErrorMessage="Input Accredited Lab" Display="None" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                            <act:ValidatorCalloutExtender ID="cveAccreditedLab" runat="server" TargetControlID="rfvAccreditedLab">
                             </act:ValidatorCalloutExtender>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tdRowName">
-                            Also Authority：
-                        </td>
-                        <td class="tdRowValue">
-                            <asp:RadioButtonList ID="rblAuthority" runat="server" 
-                                RepeatDirection="Horizontal">
-                                <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
-                                <asp:ListItem Text="NO" Value="0"></asp:ListItem>
-                            </asp:RadioButtonList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tdRowName">
-                            Also accredited test lab：
-                        </td>
-                        <td class="tdRowValue">
-                            <asp:RadioButtonList ID="rblAccreditedTest" runat="server" RepeatDirection="Horizontal">
-                                <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                <asp:ListItem Text="No" Value="No" Selected="True"></asp:ListItem>
-                            </asp:RadioButtonList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tdRowName">
-                            Certification Body：
-                        </td>
-                        <td class="tdRowValue">
-                            <asp:RadioButtonList ID="rblCB" runat="server" RepeatDirection="Horizontal">
-                                <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
-                                <asp:ListItem Text="NO" Value="0"></asp:ListItem>
-                            </asp:RadioButtonList>
                         </td>
                     </tr>
                     <tr>
@@ -109,35 +72,6 @@
                             &nbsp;&nbsp;
                             Website：
                             <asp:TextBox ID="tbWebsite" runat="server" Width="450px"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr runat="server" id="tr1" visible="false">
-                        <td class="tdRowName">
-                            Accredided Lab：
-                        </td>
-                        <td class="tdRowValue">
-                            <asp:TextBox ID="tbAccredidedLab" runat="server" Rows="3" TextMode="MultiLine" Width="90%"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr runat="server" id="tr2" visible="false">
-                        <td class="tdRowName">
-                            Volume Pre Year：
-                        </td>
-                        <td class="tdRowValue">
-                            <asp:TextBox ID="tbVolumePerYear1" runat="server" Rows="3" TextMode="MultiLine" Width="90%"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr runat="server" id="tr3" visible="false">
-                        <td class="tdRowName" valign="top">
-                            Publish：
-                        </td>
-                        <td class="tdRowValue">
-                            <asp:RadioButtonList ID="rblPublish1" runat="server" RepeatDirection="Horizontal">
-                                <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
-                                <asp:ListItem Text="NO" Value="0"></asp:ListItem>
-                            </asp:RadioButtonList>
-                            &nbsp;&nbsp; Website：
-                            <asp:TextBox ID="tbWebsite1" runat="server" Width="450px"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -210,7 +144,7 @@
                     </tr>
                     <tr>
                         <td class="tdRowName">
-                            Certification Body Fee：
+                            Test Fee：
                         </td>
                         <td class="tdRowValue">
                             <asp:TextBox ID="tbFee" runat="server"></asp:TextBox>

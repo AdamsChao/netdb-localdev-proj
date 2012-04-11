@@ -81,6 +81,12 @@ public partial class Ima_SampleShipping : System.Web.UI.Page
         {
             btnSave.Visible = true;
             //lblProTypeName.Text = IMAUtil.GetProductType(Request.Params["pt"]);
+            trProductType.Visible = true;
+            foreach (string str in Request["pt"].Split(','))
+            {
+                if (str.Length > 0) { lblProTypeName.Text += "," + IMAUtil.GetProductType(str); }
+            }
+            if (lblProTypeName.Text.Trim().Length > 0) { lblProTypeName.Text = lblProTypeName.Text.Remove(0, 1); }
         }
     }
 

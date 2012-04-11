@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -14,7 +15,59 @@ public partial class Ima_ImaNationalGoverned : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
+            BindItem();
             LoadData();
+            SetControlVisible();
+        }
+    }
+
+    //載入選項
+    protected void BindItem()
+    {
+        //Tech_RF
+        cbTechRF.DataBind();
+        foreach (ListItem li in cbTechRF.Items)
+        {
+            li.Attributes.Add("onclick", "Tech(this);");
+        }
+        if (cbTechRF.Items.Count > 0) { cbTechRF.Items.Insert(0, new ListItem("All", "0")); cbTechRF.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        //Tech_EMC
+        cbTechEMC.DataBind();
+        foreach (ListItem li in cbTechEMC.Items)
+        {
+            li.Attributes.Add("onclick", "Tech(this);");
+        }
+        if (cbTechEMC.Items.Count > 0) { cbTechEMC.Items.Insert(0, new ListItem("All", "0")); cbTechEMC.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        //Tech_Safety
+        cbTechSafety.DataBind();
+        foreach (ListItem li in cbTechSafety.Items)
+        {
+            li.Attributes.Add("onclick", "Tech(this);");
+        }
+        if (cbTechSafety.Items.Count > 0) { cbTechSafety.Items.Insert(0, new ListItem("All", "0")); cbTechSafety.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        //Tech_Telecom
+        cbTechTelecom.DataBind();
+        foreach (ListItem li in cbTechTelecom.Items)
+        {
+            li.Attributes.Add("onclick", "Tech(this);");
+        }
+        if (cbTechTelecom.Items.Count > 0) { cbTechTelecom.Items.Insert(0, new ListItem("All", "0")); cbTechTelecom.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+    }
+
+    //設定顯示的控制項
+    protected void SetControlVisible()
+    {
+        HtmlTableRow trTech;
+        foreach (string strCT in lblProTypeName.Text.Trim().Split(','))
+        {
+            if (strCT.Length > 0) 
+            {
+                if (strCT == "RF") { trTech = trTechRF; }
+                else if (strCT == "EMC") { trTech = trTechEMC; }
+                else if (strCT == "Safety") { trTech=trTechSafety; }
+                else { trTech = trTechTelecom; }
+                trTech.Style.Value = "display:'';";
+            }
         }
     }
 
@@ -41,7 +94,7 @@ public partial class Ima_ImaNationalGoverned : System.Web.UI.Page
             {
                 tbDescription.Text = dt.Rows[0]["Description"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
-                trProductType.Visible = true;
+                //trProductType.Visible = true;
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 if (Request.Params["copy"] != null)
@@ -58,10 +111,40 @@ public partial class Ima_ImaNationalGoverned : System.Web.UI.Page
                     gvImaFiles.Columns[0].Visible = true;
                 }
             }
+
+            //Technology
+            cmd = new SqlCommand();
+            cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
+            cmd.Parameters.AddWithValue("@DID", strID);
+            cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+            DataSet ds = SQLUtil.QueryDS(cmd);
+            DataTable dtTechnology = ds.Tables[0];
+            if (dtTechnology.Rows.Count > 0)
+            {
+                CheckBoxList cbl;
+                if (lblProTypeName.Text.Trim() == "RF") { cbl = cbTechRF; }
+                else if (lblProTypeName.Text.Trim() == "EMC") { cbl = cbTechEMC; }
+                else if (lblProTypeName.Text.Trim() == "Safety") { cbl = cbTechSafety; }
+                else { cbl = cbTechTelecom; }
+                foreach (DataRow dr in dtTechnology.Rows)
+                {
+                    foreach (ListItem li in cbl.Items)
+                    {
+                        if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
+                    }
+                }
+                if (dtTechnology.Rows.Count == cbl.Items.Count - 1) { cbl.Items[0].Selected = true; }
+            }
         }
         else
         {
             btnSave.Visible = true;
+            trProductType.Visible = true;
+            foreach (string str in Request["pt"].Split(',')) 
+            {
+                if (str.Length > 0) { lblProTypeName.Text += "," + IMAUtil.GetProductType(str); }                
+            }
+            if (lblProTypeName.Text.Trim().Length > 0) { lblProTypeName.Text = lblProTypeName.Text.Remove(0, 1); }
         }
     }
 
@@ -109,6 +192,8 @@ public partial class Ima_ImaNationalGoverned : System.Web.UI.Page
             {
                 CopyDocData(gvImaFiles, intGeneralID);
             }
+            //新增Technology
+            AddUpdTechnology(intGeneralID);
         }
         BackURL();
     }
@@ -201,6 +286,42 @@ public partial class Ima_ImaNationalGoverned : System.Web.UI.Page
         }
     }
 
+    //新增及修改Technology
+    protected void AddUpdTechnology(int intID)
+    {
+        SqlCommand cmd;
+        string strTsql = "";
+        //刪除Technology
+        cmd = new SqlCommand();
+        strTsql = "delete from Ima_Technology where DID=@DID and Categroy=@Categroy";
+        cmd.CommandText = strTsql;
+        cmd.Parameters.AddWithValue("@DID", intID);
+        cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+        SQLUtil.ExecuteSql(cmd);
+        //新增Technology
+        strTsql = "if (not exists(select DID from Ima_Technology where DID=@DID and Categroy=@Categroy and wowi_tech_id=@wowi_tech_id)) ";
+        strTsql += "insert into Ima_Technology (DID,Categroy,wowi_tech_id) values(@DID,@Categroy,@wowi_tech_id)";
+        cmd = new SqlCommand();
+        cmd.CommandText = strTsql;
+        cmd.Parameters.AddWithValue("@DID", intID);
+        cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+        cmd.Parameters.Add("wowi_tech_id", SqlDbType.Int);
+        CheckBoxList cbl;
+        string strProType = IMAUtil.GetProductType(lblProType.Text.Trim());
+        if (strProType == "RF") { cbl = cbTechRF; }
+        else if (strProType == "EMC") { cbl = cbTechEMC; }
+        else if (strProType == "Safety") { cbl = cbTechSafety; }
+        else { cbl = cbTechTelecom; }
+        foreach (ListItem li in cbl.Items)
+        {
+            if (li.Selected && li.Value != "0")
+            {
+                cmd.Parameters["wowi_tech_id"].Value = li.Value;
+                SQLUtil.ExecuteSql(cmd);
+            }
+        }
+    }
+
     //修改
     protected void btnUpd_Click(object sender, EventArgs e)
     {
@@ -214,6 +335,8 @@ public partial class Ima_ImaNationalGoverned : System.Web.UI.Page
         SQLUtil.ExecuteSql(cmd);
         //文件上傳
         GeneralFileUpload(Convert.ToInt32(Request["ngid"]));
+        //修改Technology
+        AddUpdTechnology(Convert.ToInt32(Request["ngid"]));
         BackURL();
     }
     protected void btnCancel_Click(object sender, EventArgs e)

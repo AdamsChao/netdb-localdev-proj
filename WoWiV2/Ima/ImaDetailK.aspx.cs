@@ -59,6 +59,16 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
                 cbPayment.Checked = Convert.ToBoolean(dt.Rows[0]["Payment"]);
                 cbAuthor.Checked = Convert.ToBoolean(dt.Rows[0]["Author"]);
                 lblOtherDocRequest.Text = dt.Rows[0]["OtherDocRequest"].ToString();
+                if (dt.Rows[0]["Radiated"].ToString().Trim() != "") { lblRadiated.Text = dt.Rows[0]["Radiated"].ToString() + "  pieces"; }
+                if (dt.Rows[0]["Conducted"].ToString().Trim() != "") { lblConducted.Text = dt.Rows[0]["Conducted"].ToString() + "  pieces"; }
+                if (dt.Rows[0]["NormalLink"].ToString().Trim() != "") { lblNormalLink.Text = dt.Rows[0]["NormalLink"].ToString() + "  pieces"; }
+                if (dt.Rows[0]["ReviewOnly"].ToString().Trim() != "") { lblReviewOnly.Text = dt.Rows[0]["ReviewOnly"].ToString() + "  pieces"; }
+                if (dt.Rows[0]["PreInstalled"] != DBNull.Value) { cbPreInstalled.Checked = Convert.ToBoolean(dt.Rows[0]["PreInstalled"]); }
+                if (dt.Rows[0]["CD"] != DBNull.Value) { cbCD.Checked = Convert.ToBoolean(dt.Rows[0]["CD"]); }
+                if (dt.Rows[0]["Email"] != DBNull.Value) { cbEmail.Checked = Convert.ToBoolean(dt.Rows[0]["Email"]); }
+                if (dt.Rows[0]["FTP"] != DBNull.Value) { cbFTP.Checked = Convert.ToBoolean(dt.Rows[0]["FTP"]); }
+                if (dt.Rows[0]["TestNote"].ToString().Trim() != "") { lblTestNote.Text = "<br>Note："+dt.Rows[0]["TestNote"].ToString(); }
+                
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
@@ -70,6 +80,29 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
                 else
                 {
                     trProductType.Visible = true;
+                }
+            }
+            //Technology
+            cmd = new SqlCommand();
+            cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
+            cmd.Parameters.AddWithValue("@DID", strID);
+            cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+            DataSet ds = SQLUtil.QueryDS(cmd);
+            DataTable dtTechnology = ds.Tables[0];
+            if (dtTechnology.Rows.Count > 0)
+            {
+                CheckBoxList cbl;
+                if (lblProTypeName.Text.Trim() == "RF") { cbTechRF.DataBind(); cbl = cbTechRF; trTechRF.Visible = true; }
+                else if (lblProTypeName.Text.Trim() == "EMC") { cbTechEMC.DataBind(); cbl = cbTechEMC; trTechEMC.Visible = true; }
+                else if (lblProTypeName.Text.Trim() == "Safety") { cbTechSafety.DataBind(); cbl = cbTechSafety; trTechSafety.Visible = true; }
+                else { cbTechTelecom.DataBind(); cbl = cbTechTelecom; trTechTelecom.Visible = true; }
+
+                foreach (DataRow dr in dtTechnology.Rows)
+                {
+                    foreach (ListItem li in cbl.Items)
+                    {
+                        if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
+                    }
                 }
             }
         }

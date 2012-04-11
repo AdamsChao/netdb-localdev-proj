@@ -19,7 +19,7 @@
                     </tr>
                     <tr id="trProductType" runat="server">
                         <td class="tdRowName" valign="top">
-                            Product Type：
+                            Certification Type：
                         </td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblProTypeName" runat="server"></asp:Label>
@@ -138,7 +138,9 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            How much value to declare to prevent from local customs’ auditing sample：
+                            How much value to declare to prevent 
+                            <br />
+                            from local customs’ auditing sample：
                         </td>
                         <td class="tdRowValue">
                             A value of under
@@ -148,7 +150,10 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Mark sample for testing without commercial value on the invoice and packing list
+                            Mark sample for testing without commercial 
+                            <br />
+                            value on the invoice and packing list
+                            <br />
                             OR declare actual commercial value ：
                         </td>
                         <td class="tdRowValue">
@@ -157,9 +162,11 @@
                             Note：<asp:TextBox ID="tbNote" runat="server" Width="350px"></asp:TextBox>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="tr1" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
-                            Pre-install test software or send by CD, email, or FTP：
+                            Pre-install test software or 
+                            <br />
+                            send by CD, email, or FTP：
                         </td>
                         <td class="tdRowValue">
                             <asp:CheckBox ID="cbPreInstalled" runat="server" Text="Pre-installed" />

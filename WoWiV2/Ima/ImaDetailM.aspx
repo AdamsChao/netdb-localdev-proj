@@ -19,7 +19,7 @@
                     </tr>
                     <tr id="trProductType" runat="server">
                         <td class="tdRowName" valign="top">
-                            Product Type：
+                            Certification Type：
                         </td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblProTypeName" runat="server"></asp:Label>
@@ -117,7 +117,9 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            How much value to declare to prevent from local customs’ auditing sample：
+                            How much value to declare to prevent 
+                            <br />
+                            from local customs’ auditing sample：
                         </td>
                         <td class="tdRowValue">
                             A value of under
@@ -127,7 +129,9 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Mark sample for testing without commercial value on the invoice and packing list
+                            Mark sample for testing without commercial value on the 
+                            <br />
+                            invoice and packing list
                             OR declare actual commercial value ：
                         </td>
                         <td class="tdRowValue">
@@ -136,7 +140,7 @@
                             Note：<asp:Label ID="lblNote" runat="server"></asp:Label>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="tr1" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             Pre-install test software or send by CD, email, or FTP：
                         </td>

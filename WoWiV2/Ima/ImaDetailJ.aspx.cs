@@ -46,15 +46,16 @@ public partial class Ima_ImaDetailJ : System.Web.UI.Page
                 cbCETest.Checked = Convert.ToBoolean(dt.Rows[0]["CETest"]);
                 cbCETest.Checked = Convert.ToBoolean(dt.Rows[0]["CETest"]);
                 cbLocalTest.Checked = Convert.ToBoolean(dt.Rows[0]["LocalTest"]);
-                cbSamplesRequired.Checked = Convert.ToBoolean(dt.Rows[0]["SamplesRequired"]);
-                if (cbSamplesRequired.Checked) 
-                {
-                    trSamplesRequired.Visible = false;
-                    trSamplesRequired1.Visible = false;
-                    trSamplesRequired2.Visible = false;
-                    trSamplesRequired3.Visible = false;
-                    trSamplesRequired4.Visible = false;
-                }
+                rbtnlSamplesRequired.SelectedValue = dt.Rows[0]["SamplesRequired"].ToString().ToLower();
+                //cbSamplesRequired.Checked = Convert.ToBoolean(dt.Rows[0]["SamplesRequired"]);
+                //if (cbSamplesRequired.Checked) 
+                //{
+                //    trSamplesRequired.Visible = false;
+                //    trSamplesRequired1.Visible = false;
+                //    trSamplesRequired2.Visible = false;
+                //    trSamplesRequired3.Visible = false;
+                //    trSamplesRequired4.Visible = false;
+                //}
                 lblRadiated.Text = dt.Rows[0]["Radiated"].ToString();
                 lblConducted.Text = dt.Rows[0]["Conducted"].ToString();
                 lblNormalLink.Text = dt.Rows[0]["NormalLink"].ToString();
@@ -89,6 +90,22 @@ public partial class Ima_ImaDetailJ : System.Web.UI.Page
                 rblGetCertificateNumber.SelectedValue = dt.Rows[0]["GetCertificateNumber"].ToString();
                 rblValidity.SelectedValue = dt.Rows[0]["Validity"].ToString();
                 lblValidityDesc.Text = dt.Rows[0]["ValidityDesc"].ToString();
+                if (dt.Rows[0]["Years"].ToString() != "") 
+                {
+                    lblYearsMonths.Text = "；" + dt.Rows[0]["Years"].ToString() + "&nbsp;&nbsp;years";
+                }
+                if (lblYearsMonths.Text.Trim() == "")
+                {
+                    if (dt.Rows[0]["Months"].ToString() != "") { lblYearsMonths.Text = "；" + dt.Rows[0]["Months"].ToString() + "&nbsp;&nbsp;months"; }
+                }
+                else { if (dt.Rows[0]["Months"].ToString() != "") { lblYearsMonths.Text += "，" + dt.Rows[0]["Months"].ToString() + "&nbsp;&nbsp;months"; } }
+                if (dt.Rows[0]["TypeApproval"] != DBNull.Value) { cbTypeApproval.Checked = Convert.ToBoolean(dt.Rows[0]["TypeApproval"]); }
+                if (dt.Rows[0]["Registration"] != DBNull.Value) { cbRegistration.Checked = Convert.ToBoolean(dt.Rows[0]["Registration"]); }
+                if (dt.Rows[0]["DispensationLitter"] != DBNull.Value) { cbDispensationLitter.Checked = Convert.ToBoolean(dt.Rows[0]["DispensationLitter"]); }
+                if (dt.Rows[0]["Homologation"] != DBNull.Value) { cbHomologation.Checked = Convert.ToBoolean(dt.Rows[0]["Homologation"]); }
+                if (dt.Rows[0]["OtherApprovalMethod"].ToString() != "") { lblOtherApprovalMethod.Text = "<br>Other：" + dt.Rows[0]["OtherApprovalMethod"].ToString(); }
+                
+
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
@@ -116,6 +133,29 @@ public partial class Ima_ImaDetailJ : System.Web.UI.Page
                     gvFile6.Columns[0].Visible = true;
                     gvFile7.Columns[0].Visible = true;
                     gvFile8.Columns[0].Visible = true;
+                }
+            }
+            //Technology
+            cmd = new SqlCommand();
+            cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
+            cmd.Parameters.AddWithValue("@DID", strID);
+            cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+            DataSet ds = SQLUtil.QueryDS(cmd);
+            DataTable dtTechnology = ds.Tables[0];
+            if (dtTechnology.Rows.Count > 0)
+            {
+                CheckBoxList cbl;
+                if (lblProTypeName.Text.Trim() == "RF") { cbTechRF.DataBind(); cbl = cbTechRF; trTechRF.Visible = true; }
+                else if (lblProTypeName.Text.Trim() == "EMC") { cbTechEMC.DataBind(); cbl = cbTechEMC; trTechEMC.Visible = true; }
+                else if (lblProTypeName.Text.Trim() == "Safety") { cbTechSafety.DataBind(); cbl = cbTechSafety; trTechSafety.Visible = true; }
+                else { cbTechTelecom.DataBind(); cbl = cbTechTelecom; trTechTelecom.Visible = true; }
+
+                foreach (DataRow dr in dtTechnology.Rows)
+                {
+                    foreach (ListItem li in cbl.Items)
+                    {
+                        if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
+                    }
                 }
             }
         }

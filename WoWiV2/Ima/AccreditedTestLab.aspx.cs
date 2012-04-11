@@ -8,7 +8,7 @@ using System.Web.UI.HtmlControls;
 using System.Data;
 using System.Data.SqlClient;
 
-public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
+public partial class Ima_AccreditedTestLab : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -76,8 +76,8 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
     //取得General資料
     protected void LoadData()
     {
-        lblTitle.Text = "Certification bodies Edit";
-        string strID = Request["cbwid"];
+        lblTitle.Text = "Accredited Test Lab Edit";
+        string strID = Request["atid"];
         trProductType.Visible = false;
         trCopyTo.Visible = false;
         btnSave.Visible = false;
@@ -86,23 +86,16 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
         if (strID != null)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * from Ima_CertificationBodies where CertificationBodiesID=@CertificationBodiesID";
-            cmd.Parameters.AddWithValue("@CertificationBodiesID", strID);
+            cmd.CommandText = "select * from Ima_AccreditedTestLab where AccreditedTestID=@AccreditedTestID";
+            cmd.Parameters.AddWithValue("@AccreditedTestID", strID);
             DataTable dt = new DataTable();
             dt = SQLUtil.QueryDS(cmd).Tables[0];
             if (dt.Rows.Count > 0)
             {
-                tbName.Text = dt.Rows[0]["Name"].ToString();
-                rblAuthority.SelectedValue = Convert.ToInt32(dt.Rows[0]["Authority"]).ToString();
-                rblAccreditedTest.SelectedValue = dt.Rows[0]["AccreditedTest"].ToString();
-                rblCB.SelectedValue = Convert.ToInt32(dt.Rows[0]["CertificationBody"]).ToString();
+                tbAccreditedLab.Text = dt.Rows[0]["AccreditedLab"].ToString();
                 tbVolumePerYear.Text = dt.Rows[0]["VolumePerYear"].ToString();
                 rblPublish.SelectedValue = Convert.ToInt32(dt.Rows[0]["Publish"]).ToString();
-                tbAccredidedLab.Text = dt.Rows[0]["AccredidedLab"].ToString();
-                tbVolumePerYear1.Text = dt.Rows[0]["VolumePerYear1"].ToString();
-                rblPublish1.SelectedValue = Convert.ToInt32(dt.Rows[0]["Publish1"]).ToString();
                 tbWebsite.Text = dt.Rows[0]["Website"].ToString();
-                tbWebsite1.Text = dt.Rows[0]["Website1"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
@@ -110,7 +103,7 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
                 {
                     trCopyTo.Visible = true;
                     btnSaveCopy.Visible = true;
-                    lblTitle.Text = "Certification bodies Copy";
+                    lblTitle.Text = "Accredited Test Lab Copy";
                 }
                 else
                 {
@@ -176,27 +169,20 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_CertificationBodies (world_region_id,country_id,wowi_product_type_id,Name,Authority,CertificationBody,VolumePerYear,Publish,AccredidedLab,VolumePerYear1,Publish1,Website,Website1,CreateUser,LasterUpdateUser,AccreditedTest) ";
-        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Name,@Authority,@CertificationBody,@VolumePerYear,@Publish,@AccredidedLab,@VolumePerYear1,@Publish1,@Website,@Website1,@CreateUser,@LasterUpdateUser,@AccreditedTest)";
+        string strTsql = "insert into Ima_AccreditedTestLab (world_region_id,country_id,wowi_product_type_id,AccreditedLab,VolumePerYear,Publish,Website,CreateUser,LasterUpdateUser) ";
+        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@AccreditedLab,@VolumePerYear,@Publish,@Website,@CreateUser,@LasterUpdateUser)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
         cmd.Parameters.Add("@world_region_id", SqlDbType.TinyInt);
         cmd.Parameters.Add("@country_id", SqlDbType.Int);
         cmd.Parameters.Add("@wowi_product_type_id", SqlDbType.Int);
-        cmd.Parameters.Add("@Name", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@Authority", SqlDbType.Bit);
-        cmd.Parameters.Add("@CertificationBody", SqlDbType.Bit);
+        cmd.Parameters.Add("@AccreditedLab", SqlDbType.NVarChar);
         cmd.Parameters.Add("@VolumePerYear", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Publish", SqlDbType.Bit);
-        cmd.Parameters.Add("@AccredidedLab", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@VolumePerYear1", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@Publish1", SqlDbType.Bit);
         cmd.Parameters.Add("@Website", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@Website1", SqlDbType.NVarChar); 
         cmd.Parameters.Add("@CreateUser", SqlDbType.NVarChar);
         cmd.Parameters.Add("@LasterUpdateUser", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@AccreditedTest", SqlDbType.NVarChar);
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null)
         {
@@ -217,19 +203,12 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
                 cmd.Parameters["@world_region_id"].Value = Request["rid"];
                 cmd.Parameters["@country_id"].Value = Request["cid"];
                 cmd.Parameters["@wowi_product_type_id"].Value = str;
-                cmd.Parameters["@Name"].Value = tbName.Text.Trim();
-                cmd.Parameters["@Authority"].Value = rblAuthority.SelectedValue == "1";
-                cmd.Parameters["@CertificationBody"].Value = rblCB.SelectedValue == "1";
+                cmd.Parameters["@AccreditedLab"].Value = tbAccreditedLab.Text.Trim();
                 cmd.Parameters["@VolumePerYear"].Value = tbVolumePerYear.Text.Trim();
                 cmd.Parameters["@Publish"].Value = rblPublish.SelectedValue == "1";
-                cmd.Parameters["@AccredidedLab"].Value = tbAccredidedLab.Text.Trim();
-                cmd.Parameters["@VolumePerYear1"].Value = tbVolumePerYear1.Text.Trim();
-                cmd.Parameters["@Publish1"].Value = rblPublish1.SelectedValue == "1";
                 cmd.Parameters["@Website"].Value = tbWebsite.Text.Trim();
-                cmd.Parameters["@Website1"].Value = tbWebsite1.Text.Trim();
                 cmd.Parameters["@CreateUser"].Value = IMAUtil.GetUser();
                 cmd.Parameters["@LasterUpdateUser"].Value = IMAUtil.GetUser();
-                cmd.Parameters["@AccreditedTest"].Value = rblAccreditedTest.SelectedValue;
                 int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
                 //Ima_Contact
                 AddContact(intGeneralID);
@@ -305,27 +284,20 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_CertificationBodies set Name=@Name,Authority=@Authority,CertificationBody=@CertificationBody,VolumePerYear=@VolumePerYear,Publish=@Publish,AccredidedLab=@AccredidedLab,VolumePerYear1=@VolumePerYear1,Publish1=@Publish1,Website=@Website,Website1=@Website1,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),AccreditedTest=@AccreditedTest ";
-        strTsql += "where CertificationBodiesID=@CertificationBodiesID ";
+        string strTsql = "Update Ima_AccreditedTestLab set AccreditedLab=@AccreditedLab,VolumePerYear=@VolumePerYear,Publish=@Publish,Website=@Website,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate() ";
+        strTsql += "where AccreditedTestID=@AccreditedTestID ";
         if (lblContactID.Text.Trim().Length > 0)
         {
             strTsql += "Update Ima_Contact set FirstName=@FirstName,LastName=@LastName,Title=@Title,WorkPhone=@WorkPhone,Ext=@Ext,CellPhone=@CellPhone,Adress=@Adress,CountryID=@CountryID,DID=@DID,Categroy=@Categroy,Fee=@Fee,FeeUnit=@FeeUnit,LeadTime=@LeadTime,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate() where ContactID=@ContactID ";
         }
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
-        cmd.Parameters.AddWithValue("@CertificationBodiesID", Request["cbwid"]);
-        cmd.Parameters.AddWithValue("@Name", tbName.Text.Trim());
-        cmd.Parameters.AddWithValue("@Authority", rblAuthority.SelectedValue == "1");
-        cmd.Parameters.AddWithValue("@CertificationBody", rblCB.SelectedValue == "1");
+        cmd.Parameters.AddWithValue("@AccreditedTestID", Request["atid"]);
+        cmd.Parameters.AddWithValue("@AccreditedLab", tbAccreditedLab.Text.Trim());
         cmd.Parameters.AddWithValue("@VolumePerYear", tbVolumePerYear.Text.Trim());
         cmd.Parameters.AddWithValue("@Publish", rblPublish.SelectedValue == "1");
-        cmd.Parameters.AddWithValue("@AccredidedLab", tbAccredidedLab.Text.Trim());
-        cmd.Parameters.AddWithValue("@VolumePerYear1", tbVolumePerYear1.Text.Trim());
-        cmd.Parameters.AddWithValue("@Publish1", rblPublish1.SelectedValue == "1");
         cmd.Parameters.AddWithValue("@Website", tbWebsite.Text.Trim());
-        cmd.Parameters.AddWithValue("@Website1", tbWebsite1.Text.Trim());
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
-        cmd.Parameters.AddWithValue("@AccreditedTest", rblAccreditedTest.SelectedValue);
         if (lblContactID.Text.Trim().Length > 0)
         {
             cmd.Parameters.AddWithValue("@FirstName", tbFirstName.Text.Trim());
@@ -336,7 +308,7 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
             cmd.Parameters.AddWithValue("@CellPhone", tbCellPhone.Text.Trim());
             cmd.Parameters.AddWithValue("@Adress", tbAdress.Text.Trim());
             cmd.Parameters.AddWithValue("@CountryID", ddlCountry.SelectedValue);
-            cmd.Parameters.AddWithValue("@DID", Request["cbwid"]);
+            cmd.Parameters.AddWithValue("@DID", Request["atid"]);
             cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
             if (tbFee.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@Fee", tbFee.Text.Trim()); }
             else { cmd.Parameters.AddWithValue("@Fee", DBNull.Value); }
@@ -349,10 +321,10 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
         //新增Contact
         if (lblContactID.Text.Trim().Length == 0)
         {
-            AddContact(Convert.ToInt32(Request["cbwid"]));
+            AddContact(Convert.ToInt32(Request["atid"]));
         }
         //修改Technology
-        AddUpdTechnology(Convert.ToInt32(Request["cbwid"]));
+        AddUpdTechnology(Convert.ToInt32(Request["atid"]));
         BackURL();
 
     }
@@ -363,7 +335,7 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
 
     protected void BackURL()
     {
-        Response.Redirect("ImaList.aspx" + GetQueryString(false, null, new string[] { "pt", "cbwid", "copy" }));
+        Response.Redirect("ImaList.aspx" + GetQueryString(false, null, new string[] { "pt", "atid", "copy" }));
     }
 
     /// <summary>

@@ -18,7 +18,7 @@
                     </tr>
                     <tr id="trProductType" runat="server">
                         <td class="tdRowName" valign="top">
-                            Product Type：
+                            Certification Type：
                         </td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblProTypeName" runat="server"></asp:Label>

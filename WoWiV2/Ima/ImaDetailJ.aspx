@@ -19,7 +19,7 @@
                     </tr>
                     <tr id="trProductType" runat="server">
                         <td class="tdRowName" valign="top">
-                            Product Type：
+                            Certification Type：
                         </td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblProTypeName" runat="server"></asp:Label>
@@ -44,7 +44,11 @@
                             Name of approval method：
                         </td>
                         <td class="tdRowValue">
-                            <asp:Label ID="lblApprovalMethod" runat="server"></asp:Label>
+                            <asp:CheckBox ID="cbTypeApproval" runat="server" Text="Type Approval" Enabled="false" />
+                            <asp:CheckBox ID="cbRegistration" runat="server" Text="Registration" Enabled="false" />
+                            <asp:CheckBox ID="cbDispensationLitter" runat="server" Text="Dispensation Litter" Enabled="false" />
+                            <asp:CheckBox ID="cbHomologation" runat="server" Text="Homologation" Enabled="false" /><asp:Label ID="lblOtherApprovalMethod" runat="server"></asp:Label>
+                            <asp:Label ID="lblApprovalMethod" runat="server" Visible="false"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -106,17 +110,15 @@
                             Submission w/ CD：
                         </td>
                         <td class="tdRowValue" align="left">
-                            <asp:RadioButtonList ID="rblCD" runat="server" RepeatDirection="Horizontal" Enabled="false">
-                                <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
-                                <asp:ListItem Value="No" Text="No"></asp:ListItem>
-                            </asp:RadioButtonList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tdRowName" valign="top">
-                        </td>
-                        <td class="tdRowValue" align="left">
                             <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <asp:RadioButtonList ID="rblCD" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                                            <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                        </asp:RadioButtonList>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>
                                         <asp:Label ID="lblSubmissionDesc" runat="server"></asp:Label>
@@ -181,10 +183,14 @@
                             Samples required：
                         </td>
                         <td class="tdRowValue">
-                            <asp:CheckBox ID="cbSamplesRequired" runat="server" Text="No Samples required" Enabled="false"/>
+                            <asp:RadioButtonList ID="rbtnlSamplesRequired" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                                <asp:ListItem Text="No Samples required" Value="false" Selected="True"></asp:ListItem>
+                                <asp:ListItem Text="Samples required(See Testing and Submission Preparation)" Value="true"></asp:ListItem>
+                            </asp:RadioButtonList>
+                            <asp:CheckBox ID="cbSamplesRequired" runat="server" Text="No Samples required" Enabled="false" Visible="false"/>
                         </td>
                     </tr>
-                    <tr id="trSamplesRequired" runat="server">
+                    <tr id="trSamplesRequired" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             Radiated Sample for testing：
                         </td>
@@ -192,7 +198,7 @@
                             <asp:Label ID="lblRadiated" runat="server"></asp:Label>pieces
                         </td>
                     </tr>
-                    <tr id="trSamplesRequired1" runat="server">
+                    <tr id="trSamplesRequired1" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             Conducted Sample for testing：
                         </td>
@@ -200,7 +206,7 @@
                             <asp:Label ID="lblConducted" runat="server"></asp:Label>pieces
                         </td>
                     </tr>
-                    <tr id="trSamplesRequired2" runat="server">
+                    <tr id="trSamplesRequired2" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             Normal-Link Sample for testing：
                         </td>
@@ -208,7 +214,7 @@
                             <asp:Label ID="lblNormalLink" runat="server"></asp:Label>pieces
                         </td>
                     </tr>
-                    <tr id="trSamplesRequired3" runat="server">
+                    <tr id="trSamplesRequired3" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             Testing Sample for review only：
                         </td>
@@ -358,7 +364,7 @@
                             </table>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="tr1" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             Test Lab Lead-Time：
                         </td>
@@ -366,7 +372,7 @@
                             <asp:Label ID="lblLabLeadTime" runat="server"></asp:Label>week(s)
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="tr2" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             Certification Body Lead-Time：
                         </td>
@@ -374,7 +380,7 @@
                             <asp:Label ID="lblBodyLeadTime" runat="server"></asp:Label>week(s)
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="tr3" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             Authority Lead-Time：
                         </td>
@@ -768,10 +774,20 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:RadioButtonList ID="rblValidity" runat="server" RepeatDirection="Horizontal" Enabled="false">
-                                            <asp:ListItem Value="Life-time" Text="Life-time" Selected="True"></asp:ListItem>
-                                            <asp:ListItem Value="Non-Life time" Text="Non-Life time"></asp:ListItem>
-                                        </asp:RadioButtonList>
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td>
+                                                    <asp:RadioButtonList ID="rblValidity" runat="server" RepeatDirection="Horizontal"
+                                                        Enabled="false">
+                                                        <asp:ListItem Value="Non-Life time" Text="Non-Life time"></asp:ListItem>
+                                                        <asp:ListItem Value="Life-time" Text="Life-time" Selected="True"></asp:ListItem>
+                                                    </asp:RadioButtonList>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblYearsMonths" runat="server"></asp:Label>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                 </tr>
                                 <tr>
@@ -821,6 +837,67 @@
                                     </td>
                                 </tr>
                             </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="tdHeader1">
+                            Technologies
+                        </td>
+                    </tr>
+                    <tr id="trTechRF" runat="server" visible="false">
+                        <td class="tdRowName">
+                            RF：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:CheckBoxList ID="cbTechRF" runat="server" RepeatDirection="Horizontal" RepeatColumns="5"
+                                DataSourceID="sdsTechRF" DataTextField="wowi_tech_name" DataValueField="wowi_tech_id"
+                                Enabled="false">
+                            </asp:CheckBoxList>
+                            <asp:SqlDataSource ID="sdsTechRF" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish='Y' and b.wowi_product_type_name='RF'">
+                            </asp:SqlDataSource>
+                        </td>
+                    </tr>
+                    <tr id="trTechEMC" runat="server" visible="false">
+                        <td class="tdRowName">
+                            EMC：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:CheckBoxList ID="cbTechEMC" runat="server" RepeatDirection="Horizontal" RepeatColumns="5"
+                                DataSourceID="sdsTechEMC" DataTextField="wowi_tech_name" DataValueField="wowi_tech_id"
+                                Enabled="false">
+                            </asp:CheckBoxList>
+                            <asp:SqlDataSource ID="sdsTechEMC" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish='Y' and b.wowi_product_type_name='EMC'">
+                            </asp:SqlDataSource>
+                        </td>
+                    </tr>
+                    <tr id="trTechSafety" runat="server" visible="false">
+                        <td class="tdRowName">
+                            Safety：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:CheckBoxList ID="cbTechSafety" runat="server" RepeatDirection="Horizontal" RepeatColumns="5"
+                                DataSourceID="sdsTechSafety" DataTextField="wowi_tech_name" DataValueField="wowi_tech_id"
+                                Enabled="false">
+                            </asp:CheckBoxList>
+                            <asp:SqlDataSource ID="sdsTechSafety" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish='Y' and b.wowi_product_type_name='Safety'">
+                            </asp:SqlDataSource>
+                        </td>
+                    </tr>
+                    <tr id="trTechTelecom" runat="server" visible="false">
+                        <td class="tdRowName">
+                            Telecom：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:CheckBoxList ID="cbTechTelecom" runat="server" RepeatDirection="Horizontal"
+                                RepeatColumns="5" DataSourceID="sdsTechTelecom" DataTextField="wowi_tech_name"
+                                DataValueField="wowi_tech_id" Enabled="false">
+                            </asp:CheckBoxList>
+                            <asp:SqlDataSource ID="sdsTechTelecom" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish='Y' and b.wowi_product_type_name='Telecom'">
+                            </asp:SqlDataSource>
                         </td>
                     </tr>
                     <tr>

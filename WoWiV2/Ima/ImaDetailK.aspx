@@ -19,7 +19,7 @@
                     </tr>
                     <tr id="trProductType" runat="server">
                         <td class="tdRowName" valign="top">
-                            Product Type：
+                            Certification Type：
                         </td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblProTypeName" runat="server"></asp:Label>
@@ -288,6 +288,112 @@
                                     </td>
                                 </tr>
                             </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Radiated Sample for testing：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblRadiated" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Conducted Sample for testing：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblConducted" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Normal-Link Sample for testing：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblNormalLink" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Testing Sample for review only：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblReviewOnly" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Pre-install test software
+                            <br />
+                            or send by CD, email, or FTP：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:CheckBox ID="cbPreInstalled" runat="server" Text="Pre-installed" Enabled="false" />
+                            <asp:CheckBox ID="cbCD" runat="server" Text="CD" Enabled="false" />
+                            <asp:CheckBox ID="cbEmail" runat="server" Text="Email" Enabled="false" />
+                            <asp:CheckBox ID="cbFTP" runat="server" Text="FTP" Enabled="false" /><asp:Label ID="lblTestNote" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="tdHeader1">
+                            Technologies
+                        </td>
+                    </tr>
+                    <tr id="trTechRF" runat="server" visible="false">
+                        <td class="tdRowName">
+                            RF：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:CheckBoxList ID="cbTechRF" runat="server" RepeatDirection="Horizontal" RepeatColumns="5"
+                                DataSourceID="sdsTechRF" DataTextField="wowi_tech_name" DataValueField="wowi_tech_id"
+                                Enabled="false">
+                            </asp:CheckBoxList>
+                            <asp:SqlDataSource ID="sdsTechRF" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish='Y' and b.wowi_product_type_name='RF'">
+                            </asp:SqlDataSource>
+                        </td>
+                    </tr>
+                    <tr id="trTechEMC" runat="server" visible="false">
+                        <td class="tdRowName">
+                            EMC：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:CheckBoxList ID="cbTechEMC" runat="server" RepeatDirection="Horizontal" RepeatColumns="5"
+                                DataSourceID="sdsTechEMC" DataTextField="wowi_tech_name" DataValueField="wowi_tech_id"
+                                Enabled="false">
+                            </asp:CheckBoxList>
+                            <asp:SqlDataSource ID="sdsTechEMC" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish='Y' and b.wowi_product_type_name='EMC'">
+                            </asp:SqlDataSource>
+                        </td>
+                    </tr>
+                    <tr id="trTechSafety" runat="server" visible="false">
+                        <td class="tdRowName">
+                            Safety：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:CheckBoxList ID="cbTechSafety" runat="server" RepeatDirection="Horizontal" RepeatColumns="5"
+                                DataSourceID="sdsTechSafety" DataTextField="wowi_tech_name" DataValueField="wowi_tech_id"
+                                Enabled="false">
+                            </asp:CheckBoxList>
+                            <asp:SqlDataSource ID="sdsTechSafety" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish='Y' and b.wowi_product_type_name='Safety'">
+                            </asp:SqlDataSource>
+                        </td>
+                    </tr>
+                    <tr id="trTechTelecom" runat="server" visible="false">
+                        <td class="tdRowName">
+                            Telecom：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:CheckBoxList ID="cbTechTelecom" runat="server" RepeatDirection="Horizontal"
+                                RepeatColumns="5" DataSourceID="sdsTechTelecom" DataTextField="wowi_tech_name"
+                                DataValueField="wowi_tech_id" Enabled="false">
+                            </asp:CheckBoxList>
+                            <asp:SqlDataSource ID="sdsTechTelecom" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish='Y' and b.wowi_product_type_name='Telecom'">
+                            </asp:SqlDataSource>
                         </td>
                     </tr>
                     <tr>

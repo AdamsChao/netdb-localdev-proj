@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ImaDetailD.aspx.cs" Inherits="Ima_ImaDetailD" StylesheetTheme="IMA" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ImaDetailF.aspx.cs" Inherits="Ima_ImaDetailF" StylesheetTheme="IMA" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,29 +15,20 @@
                     <table cellpadding="1" cellspacing="1" border="0" class="tbEditItem">
                         <tr>
                             <td colspan="2" class="tdHeader">
-                                <asp:Label ID="lblTitle" runat="server"></asp:Label>
+                                <asp:Label ID="lblTitle" runat="server" Text="Local Agent Detail"></asp:Label>
                             </td>
                         </tr>
-                        <tr id="trProductType" runat="server">
+                        <tr>
                             <td class="tdRowName" valign="top">
                                 Certification Type：
                             </td>
                             <td class="tdRowValue">
-                                <asp:Label ID="lblProTypeName" runat="server"></asp:Label>
-                                <asp:Label ID="lblProType" runat="server" Visible="false"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr id="trCopyTo" runat="server" visible="false">
-                            <td class="tdRowName" valign="top">
-                                Coyp to：
-                            </td>
-                            <td class="tdRowValue" align="left">
-                                <asp:CheckBoxList ID="cbProductType" runat="server" RepeatDirection="Horizontal"
-                                    DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" DataValueField="wowi_product_type_id">
+                                <asp:CheckBoxList ID="cbProductType" runat="server" RepeatDirection="Horizontal" DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" DataValueField="wowi_product_type_id" Enabled="false">
                                 </asp:CheckBoxList>
                                 <asp:SqlDataSource ID="sdsProductType" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                     SelectCommand="select wowi_product_type_id,wowi_product_type_name from wowi_product_type where publish='Y'">
                                 </asp:SqlDataSource>
+                                <asp:Label ID="lblProTypeName" runat="server" Visible="false"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -50,85 +41,40 @@
                         </tr>
                         <tr>
                             <td class="tdRowName">
-                                Authority：
-                            </td>
-                            <td class="tdRowValue" align="left">
-                                <asp:RadioButtonList ID="rblAuthority" runat="server" RepeatDirection="Horizontal" Enabled="false">
-                                    <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
-                                    <asp:ListItem Text="NO" Value="0"></asp:ListItem>
-                                </asp:RadioButtonList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdRowName">
-                                Also accredited test lab：
-                            </td>
-                            <td class="tdRowValue" align="left">
-                                <asp:RadioButtonList ID="rblAccreditedTest" runat="server" RepeatDirection="Horizontal" Enabled="false">
-                                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                    <asp:ListItem Text="No" Value="No" Selected="True"></asp:ListItem>
-                                </asp:RadioButtonList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdRowName">
-                                Certification Body：
-                            </td>
-                            <td class="tdRowValue" align="left">
-                                <asp:RadioButtonList ID="rblCB" runat="server" RepeatDirection="Horizontal" Enabled="false">
-                                    <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
-                                    <asp:ListItem Text="NO" Value="0"></asp:ListItem>
-                                </asp:RadioButtonList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdRowName">
-                                Volume Pre Year：
+                                Local Angent Type：
                             </td>
                             <td class="tdRowValue">
-                                <asp:Label ID="lblVolumePerYear" runat="server"></asp:Label>
+                                <asp:CheckBox ID="cbProfessional" runat="server" Text="Professional" Enabled="false" />
+                                <asp:CheckBox ID="cbIndividual" runat="server" Text="Individual" Enabled="false" />
+                                <asp:CheckBox ID="cbOtherBusiness" runat="server" Text="Other Business" Enabled="false" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="tdRowName" valign="top">
-                                Publish：
-                            </td>
-                            <td class="tdRowValue" align="left">
-                                <asp:RadioButtonList ID="rblPublish" runat="server" RepeatDirection="Horizontal" Enabled="false">
-                                    <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
-                                    <asp:ListItem Text="NO" Value="0"></asp:ListItem>
-                                </asp:RadioButtonList>
-                                &nbsp;&nbsp; Website：
-                                <asp:Label ID="lblWebsite" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr id="tr1" runat="server" visible="false">
                             <td class="tdRowName">
-                                Accredided Lab：
-                            </td>
-                            <td class="tdRowValue" align="left">
-                                <asp:Label ID="lblAccredidedLab" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr id="tr2" runat="server" visible="false">
-                            <td class="tdRowName">
-                                Volume Pre Year：
+                                Credit：
                             </td>
                             <td class="tdRowValue">
-                                <asp:Label ID="lblVolumePerYear1" runat="server"></asp:Label>
+                                <asp:CheckBox ID="cbResponsive" runat="server" Text="Responsive" Enabled="false" />
+                                <asp:CheckBox ID="cbKnowledgeable" runat="server" Text="Knowledgeable" Enabled="false" />
+                                <asp:CheckBox ID="cbSlow" runat="server" Text="Slow" Enabled="false" />
                             </td>
                         </tr>
-                        <tr id="tr3" runat="server" visible="false">
-                            <td class="tdRowName" valign="top">
-                                Publish：
+                        <tr>
+                            <td class="tdRowName">
+                                Signed NDA：
                             </td>
-                            <td class="tdRowValue" align="left">
-                                <asp:RadioButtonList ID="rblPublish1" runat="server" RepeatDirection="Horizontal" Enabled="false">
-                                    <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
-                                    <asp:ListItem Text="NO" Value="0"></asp:ListItem>
-                                </asp:RadioButtonList>
-                                &nbsp;&nbsp; Website：
-                                <asp:Label ID="lblWebsite1" runat="server"></asp:Label>
+                            <td class="tdRowValue">
+                                <asp:CheckBox ID="cbNDAYes" runat="server" Text="Yes" Enabled="false" />
+                                <asp:CheckBox ID="cbNDAChoose" runat="server" Text="Choose File" Enabled="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdRowName">
+                                Signed MOU：
+                            </td>
+                            <td class="tdRowValue">
+                                <asp:CheckBox ID="cbMOUYes" runat="server" Text="Yes" Enabled="false" />
+                                <asp:CheckBox ID="cbMOUChoose" runat="server" Text="Choose File" Enabled="false" />
                             </td>
                         </tr>
                         <tr>
@@ -200,7 +146,7 @@
                         </tr>
                         <tr>
                             <td class="tdRowName">
-                                Certification Body Fee：
+                                Local Agent Fee：
                             </td>
                             <td class="tdRowValue">
                                 <asp:Label ID="lblFee" runat="server"></asp:Label>
@@ -280,8 +226,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" align="center" class="tdFooter">                               
-                            </td>
+                            <td colspan="2" align="center" class="tdFooter"></td>
                         </tr>
                     </table>
                 </td>

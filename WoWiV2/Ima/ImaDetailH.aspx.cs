@@ -40,11 +40,13 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
                 lblOthers.Text = dt.Rows[0]["Others"].ToString();
                 rblRequired.SelectedValue = dt.Rows[0]["Required"].ToString();
                 lblStandardDesc.Text = dt.Rows[0]["StandardDesc"].ToString();
+                lblLocalStandards.Text = dt.Rows[0]["LocalStandards"].ToString();
                 cbFCC.Checked = Convert.ToBoolean(dt.Rows[0]["FCC"]);
                 cbIEC.Checked = Convert.ToBoolean(dt.Rows[0]["FCC"]);
                 cbCE.Checked = Convert.ToBoolean(dt.Rows[0]["CE"]);
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 rblProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
+                lblCountry.Text = IMAUtil.GetCountryName(Request.Params["cid"]);
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
 
                 if (Request.Params["copy"] != null)
@@ -55,6 +57,29 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
                 else
                 {
                     trProductType.Visible = true;
+                }
+            }
+            //Technology
+            cmd = new SqlCommand();
+            cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
+            cmd.Parameters.AddWithValue("@DID", strID);
+            cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+            DataSet ds = SQLUtil.QueryDS(cmd);
+            DataTable dtTechnology = ds.Tables[0];
+            if (dtTechnology.Rows.Count > 0)
+            {
+                CheckBoxList cbl;
+                if (lblProTypeName.Text.Trim() == "RF") { cbTechRF.DataBind(); cbl = cbTechRF; trTechRF.Visible = true; }
+                else if (lblProTypeName.Text.Trim() == "EMC") { cbTechEMC.DataBind(); cbl = cbTechEMC; trTechEMC.Visible = true; }
+                else if (lblProTypeName.Text.Trim() == "Safety") { cbTechSafety.DataBind(); cbl = cbTechSafety; trTechSafety.Visible = true; }
+                else { cbTechTelecom.DataBind(); cbl = cbTechTelecom; trTechTelecom.Visible = true; }
+
+                foreach (DataRow dr in dtTechnology.Rows)
+                {
+                    foreach (ListItem li in cbl.Items)
+                    {
+                        if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
+                    }
                 }
             }
         }

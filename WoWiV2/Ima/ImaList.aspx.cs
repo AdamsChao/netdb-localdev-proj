@@ -153,6 +153,10 @@ public partial class Ima_ImaList : System.Web.UI.Page
         {
             strURL = "ImaCertificationBodies.aspx";
         }
+        else if (ddlDocCategory.SelectedValue == "Q")
+        {
+            strURL = "AccreditedTestLab.aspx";
+        }
         else if (ddlDocCategory.SelectedValue == "G")
         {
             strURL = "ImaProductControl.aspx";
@@ -305,6 +309,15 @@ public partial class Ima_ImaList : System.Web.UI.Page
                 dic.Add("copy", "1");
                 strURL = "ImaCertificationBodies.aspx";
                 break;
+            case "GoEditQ":
+                dic.Add("atid", lbtn.CommandArgument);
+                strURL = "AccreditedTestLab.aspx";
+                break;
+            case "GoCopyQ":
+                dic.Add("atid", lbtn.CommandArgument);
+                dic.Add("copy", "1");
+                strURL = "AccreditedTestLab.aspx";
+                break;
             case "GoEditG":
                 dic.Add("pcid", lbtn.CommandArgument);
                 strURL = "ImaProductControl.aspx";
@@ -415,7 +428,7 @@ public partial class Ima_ImaList : System.Web.UI.Page
     /// <param name="dicAdd">新增參數</param>
     /// <param name="strRemove">移除參數</param>
     /// <returns>組成QuseryString</returns>
-    private string GetQueryString(bool isClear, Dictionary<string, string> dicAdd, string[] strRemove)
+    protected string GetQueryString(bool isClear, Dictionary<string, string> dicAdd, string[] strRemove)
     {
         //預設參數
         Dictionary<string, string> dic = new Dictionary<string, string>();

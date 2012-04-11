@@ -20,7 +20,7 @@ public partial class Ima_ImaCertificate : System.Web.UI.Page
     //取得General資料
     protected void LoadData()
     {
-        lblTitle.Text = "Certificate Edit";
+        lblTitle.Text = "Certificate Deliver Edit";
         string strID = Request["cfid"];
         trProductType.Visible = false;
         trCopyTo.Visible = false;
@@ -47,7 +47,7 @@ public partial class Ima_ImaCertificate : System.Web.UI.Page
                 {
                     trCopyTo.Visible = true;
                     btnSaveCopy.Visible = true;
-                    lblTitle.Text = "Certificate Copy";
+                    lblTitle.Text = "Certificate Deliver Copy";
                 }
                 else
                 {
@@ -59,6 +59,12 @@ public partial class Ima_ImaCertificate : System.Web.UI.Page
         else
         {
             btnSave.Visible = true;
+            trProductType.Visible = true;
+            foreach (string str in Request["pt"].Split(','))
+            {
+                if (str.Length > 0) { lblProTypeName.Text += "," + IMAUtil.GetProductType(str); }
+            }
+            if (lblProTypeName.Text.Trim().Length > 0) { lblProTypeName.Text = lblProTypeName.Text.Remove(0, 1); }
         }
     }
 
