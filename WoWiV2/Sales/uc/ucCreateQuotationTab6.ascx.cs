@@ -77,7 +77,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             DropDownList ddlAdv = (DropDownList)Row.FindControl("ddlAdv");
             DropDownList ddlBill = (DropDownList)Row.FindControl("ddlBill");
             //CheckBox chkPR_Flag = (CheckBox)Row.FindControl("chkPR_Flag");
-            DropDownList ddlPR_Flag = (DropDownList)Row.FindControl("ddlPR_Flag");
+            
 
             TextBox txtAdv2 = (TextBox)Row.FindControl("txtAdv2");
 
@@ -87,7 +87,15 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             target.option1 = Radio1.Checked;
             target.option2 = Radio2.Checked;
             target.advance1 = hidA1.Value;
-            target.PR_Flag = ddlPR_Flag.SelectedValue;
+            try
+            {
+                DropDownList ddlPR_Flag = (DropDownList)Row.FindControl("ddlPR_Flag");
+                target.PR_Flag = ddlPR_Flag.SelectedValue;
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
             Decimal advance2;
             if (Decimal.TryParse(hidA2.Value, out advance2))
                 target.advance2 = advance2;
