@@ -31,7 +31,9 @@
     <siteMapNode url="" title="Accounting"  description=""  roles="System Admin,Management,Accounting" >
       <siteMapNode url="~/Accounting/PRList.aspx" title="PR"  description="" />
       <siteMapNode url="~/Accounting/Payment4Vender.aspx" title="Payment for Vender"  description="" />
-      <siteMapNode url="~/Accounting/Invoice.aspx" title="Invoice"  description="" />
+      <siteMapNode url="~/Accounting/Invoice.aspx" title="Invoice"  description="" >
+        <siteMapNode url="~/Accounting/WoWiBankInfoList.aspx" title="WoWi Bank Info"  description="" />
+      </siteMapNode>
       <siteMapNode url="~/Accounting/AR.aspx" title="AR"  description="" >
         <siteMapNode url="~/Accounting/ARAnalysis.aspx" title="AR Analysis"  description="" />
       </siteMapNode>
