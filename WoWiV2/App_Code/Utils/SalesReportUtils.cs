@@ -673,14 +673,16 @@ public class SalesUtils
 
                         //throw;
                     }
-                
+
+
+                }//ima ends
                 if (imaTotD != 0)
                 {
                     temp = new SalesClientMonthReportData()
                     {
                         Client = "Balance Total : "
                     };
-                    
+
                     temp.Month01USD = imaM1D.ToString("F2");
                     temp.Month02USD = imaM2D.ToString("F2");
                     temp.Month03USD = imaM3D.ToString("F2");
@@ -710,8 +712,6 @@ public class SalesUtils
                     //temp.TotalQTY = imaTotQ.ToString("F0");
                     list.Add(temp);
                 }
-            }//ima ends
-
         }
         catch (Exception)
         {
