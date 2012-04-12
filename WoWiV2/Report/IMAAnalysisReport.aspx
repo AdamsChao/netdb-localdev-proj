@@ -134,7 +134,7 @@
              }
          }
          gv.Visible = true;
-         Utils.ExportExcel(gv, "IMAAnalysisReport");
+         Utils.ExportExcel(gv, String.Format("IMAAnalysisReport",ddlReport.SelectedItem.Text,ddlType.SelectedItem.Text));
      }
      private List<IMAVenderCostMonthReportData> GetIMACostByMonth(int year)
      {

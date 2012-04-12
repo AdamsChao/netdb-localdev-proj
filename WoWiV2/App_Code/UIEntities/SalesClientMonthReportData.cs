@@ -6,7 +6,7 @@ using System.Web;
 /// <summary>
 /// Summary description for ReceivedData
 /// </summary>
-public class SalesClientMothReportData : AmountMonthBalanceReportData
+public class SalesClientMonthReportData : AmountMonthBalanceReportData
 {
     public String Sales { get; set; }
     public String Client { get; set; }

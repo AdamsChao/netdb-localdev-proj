@@ -111,49 +111,95 @@
     {
 
         String report = ddlReport.SelectedValue;
+        String reportType = ddlReportType.SelectedValue;
         String year = ddlYear.SelectedValue;
         String type = ddlType.SelectedValue;
-     
+        bool isEnable = false;  
         if (report == "1")//業務銷售分析
         {                   
                             
             if (type == "1")//月
             {
-                List<SalesClientMothReportData> list = new List<SalesClientMothReportData>()
+
+                List<SalesClientMonthReportData> list = null ;
+                if (reportType == "1")//Open Project Date
                 {
-                   new SalesClientMothReportData(){ Sales="Sandy",Client="NetDB"},
-                   new SalesClientMothReportData(){ Sales="Sandy",Client="Oracle"},
-                   new SalesClientMothReportData(){ Sales="Total : ",Client="Total : "},
-                   new SalesClientMothReportData(){ Sales="Balance Total : ",Client="Balance Total : "}
-                };
+                    list = SalesUtils.GetSalesClientByMonth_OpenProjDate(wowidb, int.Parse(year));
+                }
+                else
+                {
+                    //Need to modify
+                    list = SalesUtils.GetSalesClientByMonth_OpenProjDate(wowidb, int.Parse(year));
+                }
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView1.Visible = true;
                 iGridView1.DataSource = list;
                 iGridView1.DataBind();
             }
             else if (type == "2")//季
             {
-                List<SalesClientSeasonReportData> list = new List<SalesClientSeasonReportData>()
+                List<SalesClientSeasonReportData> list = null ;
+                if (reportType == "1")//Open Project Date
                 {
-                   new SalesClientSeasonReportData(){ Sales="Sandy",Client="NetDB"},
-                   new SalesClientSeasonReportData(){ Sales="Sandy",Client="Oracle"},
-                   new SalesClientSeasonReportData(){ Sales="Total : ",Client="Total : "},
-                   new SalesClientSeasonReportData(){ Sales="Balance Total : ",Client="Balance Total : "}
-                };
+                    list = SalesUtils.GetSalesClientBySeason_OpenProjDate(wowidb, int.Parse(year));
+                }
+                else
+                {
+                    //Need to modify
+                    list = SalesUtils.GetSalesClientBySeason_OpenProjDate(wowidb, int.Parse(year));
+                }
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView2.Visible = true;
                 iGridView2.DataSource = list;
                 iGridView2.DataBind();
             }
             else//區間
             {
-                List<SalesClientIntervalReportData> list = new List<SalesClientIntervalReportData>()
+
+                DateTime from = DateTime.MinValue;
+                try
                 {
-                   new SalesClientIntervalReportData(){ Sales="Sandy",Client="NetDB"},
-                   new SalesClientIntervalReportData(){ Sales="Sandy",Client="Oracle"},
-                   new SalesClientIntervalReportData(){ Sales="Total : ",Client="Total : "},
-                   new SalesClientIntervalReportData(){ Sales="Balance Total : ",Client="Balance Total : "}
-                };
+                    from = dcFrom.GetDate();
+
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
+                DateTime to = DateTime.MaxValue;
+                try
+                {
+                    to = dcTo.GetDate();
+
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
+                List<SalesClientIntervalReportData> list = null;
+                if (reportType == "1")//Open Project Date
+                {
+                    list = SalesUtils.GetSalesClientByInterval_OpenProjDate(wowidb, from, to);
+                }
+                else
+                {
+                    //Need to modify
+                    list = SalesUtils.GetSalesClientByInterval_OpenProjDate(wowidb, from, to);
+                }
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView3.Visible = true;
-                //iGridView3.SetHeaderText(2, String.Format("{0} To {1}",dcFrom.GetText(),dcTo.GetText()));
+                iGridView3.SetHeaderText(2, String.Format("{0} To {1}",dcFrom.GetText(),dcTo.GetText()));
                 iGridView3.DataSource = list;
                 iGridView3.DataBind();
             }
@@ -163,40 +209,83 @@
                                  
             if (type == "1")//月 
             {
-                List<SalesClientMothReportData> list = new List<SalesClientMothReportData>()
+                
+                List<SalesClientMonthReportData> list = null;
+                if (reportType == "1")//Open Project Date
                 {
-                   new SalesClientMothReportData(){ Sales="Sandy",Client="NetDB"},
-                   new SalesClientMothReportData(){ Sales="Sandy",Client="Oracle"},
-                   new SalesClientMothReportData(){ Sales="Total : ",Client="Total : "},
-                   new SalesClientMothReportData(){ Sales="Balance Total : ",Client="Balance Total : "}
-                };
+                    list = SalesUtils.GetClientByMonth_OpenProjDate(wowidb, int.Parse(year));
+                }
+                else
+                {
+                    //Need to modify
+                    list = SalesUtils.GetClientByMonth_OpenProjDate(wowidb, int.Parse(year));
+                }
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView4.Visible = true;
                 iGridView4.DataSource = list;
                 iGridView4.DataBind();
             }
             else if (type == "2")//季
             {
-                List<SalesClientSeasonReportData> list = new List<SalesClientSeasonReportData>()
+                List<SalesClientSeasonReportData> list = null;
+                if (reportType == "1")//Open Project Date
                 {
-                   new SalesClientSeasonReportData(){ Sales="Sandy",Client="NetDB"},
-                   new SalesClientSeasonReportData(){ Sales="Sandy",Client="Oracle"},
-                   new SalesClientSeasonReportData(){ Sales="Total : ",Client="Total : "},
-                   new SalesClientSeasonReportData(){ Sales="Balance Total : ",Client="Balance Total : "}
-                };
+                    list = SalesUtils.GetClientBySeason_OpenProjDate(wowidb, int.Parse(year));
+                }
+                else
+                {
+                    //Need to modify
+                    list = SalesUtils.GetClientBySeason_OpenProjDate(wowidb, int.Parse(year));
+                }
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView5.Visible = true;
                 iGridView5.DataSource = list;
                 iGridView5.DataBind();
             }
             else//區間
             {
-
-                List<SalesClientIntervalReportData> list = new List<SalesClientIntervalReportData>()
+                DateTime from = DateTime.MinValue;
+                try
                 {
-                   new SalesClientIntervalReportData(){ Sales="Sandy",Client="NetDB"},
-                   new SalesClientIntervalReportData(){ Sales="Sandy",Client="Oracle"},
-                   new SalesClientIntervalReportData(){ Sales="Total : ",Client="Total : "},
-                   new SalesClientIntervalReportData(){ Sales="Balance Total : ",Client="Balance Total : "}
-                };
+                    from = dcFrom.GetDate();
+
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
+                DateTime to = DateTime.MaxValue;
+                try
+                {
+                    to = dcTo.GetDate();
+
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
+                List<SalesClientIntervalReportData> list = null;
+                if (reportType == "1")//Open Project Date
+                {
+                    list = SalesUtils.GetClientByInterval_OpenProjDate(wowidb, from, to);
+                }
+                else
+                {
+                    //Need to modify
+                    list = SalesUtils.GetClientByInterval_OpenProjDate(wowidb, from, to);
+                }
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView6.Visible = true;
                 iGridView6.DataSource = list;
                 iGridView6.DataBind();
@@ -214,6 +303,10 @@
                    new CountryVenderCostMonthReportData(){ Country="Total : ",Client="Total : "},
                    new CountryVenderCostMonthReportData(){ Country="Balance Total : ",Client="Balance Total : "}
                 };
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView7.Visible = true;
                 iGridView7.SetHeaderText(25, int.Parse(year) - 1911 + "年度 Total Balance");
                 iGridView7.DataSource = list;
@@ -228,6 +321,10 @@
                    new CountryVenderCostSeasonReportData(){ Country="Total : ",Client="Total : "},
                    new CountryVenderCostSeasonReportData(){ Country="Balance Total : ",Client="Balance Total : "}
                 };
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView8.Visible = true;
                 iGridView8.SetHeaderText(9, int.Parse(year) - 1911 + "年度 Total Balance");
                 iGridView8.DataSource = list;
@@ -243,6 +340,10 @@
                    new CountryVenderCostIntervalReportData(){ Country="Total : ",Client="Total : "},
                    new CountryVenderCostIntervalReportData(){ Country="Balance Total : ",Client="Balance Total : "}
                 };
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView9.Visible = true;
                 iGridView9.SetHeaderText(1, String.Format("{0} To {1}", dcFrom.GetText(), dcTo.GetText()));
                 iGridView9.DataSource = list;
@@ -261,6 +362,10 @@
                    new CountryVenderCostMonthReportData(){ Country="Total : ",Client="Total : "},
                    new CountryVenderCostMonthReportData(){ Country="Balance Total : ",Client="Balance Total : "}
                 };
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView10.Visible = true;
                 iGridView10.SetHeaderText(26, int.Parse(year) - 1911 + "年度 Total Balance");
                 iGridView10.DataSource = list;
@@ -275,6 +380,10 @@
                    new CountryVenderCostSeasonReportData(){ Country="Total : ",Client="Total : "},
                    new CountryVenderCostSeasonReportData(){ Country="Balance Total : ",Client="Balance Total : "}
                 };
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView11.Visible = true;
                 iGridView11.SetHeaderText(10, int.Parse(year) - 1911 + "年度 Total Balance");
                 iGridView11.DataSource = list;
@@ -290,6 +399,10 @@
                    new CountryVenderCostIntervalReportData(){ Country="Total : ",Client="Total : "},
                    new CountryVenderCostIntervalReportData(){ Country="Balance Total : ",Client="Balance Total : "}
                 };
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView12.Visible = true;
                 iGridView12.SetHeaderText(2, String.Format("{0} To {1}", dcFrom.GetText(), dcTo.GetText()));
                 iGridView12.DataSource = list;
@@ -322,6 +435,10 @@
                    new CountryVenderCostSeasonReportData(){ Country="Total : ",Client="Total : "},
                    new CountryVenderCostSeasonReportData(){ Country="Balance Total : ",Client="Balance Total : "}
                 };
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView14.Visible = true;
                 iGridView14.SetHeaderText(9, int.Parse(year) - 1911 + "年度 Total Balance");
                 iGridView14.DataSource = list;
@@ -337,6 +454,10 @@
                    new CountryVenderCostSeasonReportData(){ Country="Total : ",Client="Total : "},
                    new CountryVenderCostSeasonReportData(){ Country="Balance Total : ",Client="Balance Total : "}
                 };
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView15.Visible = true;
                 iGridView15.SetHeaderText(9, String.Format("{0} To {1}", dcFrom.GetText(), dcTo.GetText()));
                 iGridView15.DataSource = list;
@@ -369,6 +490,10 @@
                    new CountryVenderCostSeasonReportData(){ Country="Total : ",Client="Total : "},
                    new CountryVenderCostSeasonReportData(){ Country="Balance Total : ",Client="Balance Total : "}
                 };
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView17.Visible = true;
                 iGridView17.SetHeaderText(10, int.Parse(year) - 1911 + "年度 Total Balance");
                 iGridView17.DataSource = list;
@@ -384,11 +509,24 @@
                    new CountryVenderCostSeasonReportData(){ Country="Total : ",Client="Total : "},
                    new CountryVenderCostSeasonReportData(){ Country="Balance Total : ",Client="Balance Total : "}
                 };
+                if (list.Count != 0)
+                {
+                    isEnable = true;
+                }
                 iGridView18.Visible = true;
                 iGridView18.SetHeaderText(10, String.Format("{0} To {1}", dcFrom.GetText(), dcTo.GetText()));
                 iGridView18.DataSource = list;
                 iGridView18.DataBind();
             }
+        }
+
+        if (isEnable)
+        {
+            btnExport.Enabled = true;
+        }
+        else
+        {
+            btnExport.Enabled = false;
         }
     }
 
@@ -506,9 +644,7 @@
     {
         
     }
-    protected void btnExport_Click(object sender, EventArgs e)
-    {
-    }
+ 
     
     protected void ddlYear_Load(object sender, EventArgs e)
     {
@@ -529,6 +665,116 @@
         {
             IntervalPanel.Visible = false;
         }
+    }
+
+    protected void btnExport_Click1(object sender, EventArgs e)
+    {
+        String report = ddlReport.SelectedValue;
+        String year = ddlYear.SelectedValue;
+        String type = ddlType.SelectedValue;
+        GridView gv = iGridView9;
+        if (report == "1")//業務銷售分析
+        {
+
+            if (type == "1")//月
+            {
+                gv = iGridView1;
+            }
+            else if (type == "2")//季
+            {
+                gv = iGridView2;
+            }
+            else//區間
+            {
+                gv = iGridView3;
+            }
+        }
+        else if (report == "2")//客戶期間分析
+        {
+
+            if (type == "1")//月
+            {
+                gv = iGridView4;
+            }
+            else if (type == "2")//季
+            {
+                gv = iGridView5;
+            }
+            else//區間
+            {
+
+                gv = iGridView6;
+            }
+        }
+        else if (report == "3")//案件期間分析總表
+        {
+
+            if (type == "1")//月
+            {
+                gv = iGridView7;
+            }
+            else if (type == "2")//季
+            {
+                gv = iGridView8;
+            }
+            else//區間
+            {
+
+                gv = iGridView9;
+            }
+        }
+        else if (report == "4")//案件期間分析明細
+        {
+
+            if (type == "1")//月
+            {
+                gv = iGridView10;
+            }
+            else if (type == "2")//季
+            {
+                gv = iGridView11;
+            }
+            else//區間
+            {
+
+                gv = iGridView12;
+            }
+        }
+        else if (report == "5")//客戶期間分析總表
+        {
+
+            if (type == "1")//月
+            {
+                gv = iGridView13;
+            }
+            else if (type == "2")//季
+            {
+                gv = iGridView14;
+            }
+            else//區間
+            {
+
+                gv = iGridView15;
+            }
+        }
+        else if (report == "6")//客戶期間分析明細
+        {
+
+            if (type == "1")//月
+            {
+                gv = iGridView16;
+            }
+            else if (type == "2")//季
+            {
+                gv = iGridView17;
+            }
+            else//區間
+            {
+                gv = iGridView18;
+            }
+        }
+        gv.Visible = true;
+        Utils.ExportExcel(gv, String.Format("SalesAnalysisReport",ddlReport.SelectedItem.Text,ddlReportType.SelectedItem.Text));
     }
 </script>
 
@@ -571,14 +817,15 @@
                             <td  align="center" colspan="2">
                                    <asp:Button ID="btnSearch" runat="server" Text="Search" onclick="Button1_Click" />
                                 &nbsp;&nbsp;
-                                <asp:Button ID="btnExport" runat="server" Text="Excel" Enabled="False" />
+                                <asp:Button ID="btnExport" runat="server" Text="Excel" Enabled="False" 
+                                       onclick="btnExport_Click1" />
                             </td>
                         </tr>
                         <tr>
                         <th align="left" width="13%">
                                  Report&nbsp; :&nbsp;</th>
                             <td width="20%">
-                                <asp:DropDownList ID="DropDownList1" runat="server" DataTextField='fname'  
+                                <asp:DropDownList ID="ddlReportType" runat="server" DataTextField='fname'  
                                     DataValueField="id" AppendDataBoundItems="True">
                                     <asp:ListItem Value="1">Open Project Date</asp:ListItem>
                                     <asp:ListItem Value="2">Issued Invoce Date</asp:ListItem>
@@ -980,6 +1227,9 @@
                   </tr>
                     </table>
       </ContentTemplate>
+      <Triggers>
+          <asp:PostBackTrigger ControlID="btnExport" />
+      </Triggers>
    </asp:UpdatePanel>
 </asp:Content>
 
