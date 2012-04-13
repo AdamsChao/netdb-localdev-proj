@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-<center><a href="ProjectWorkingStatus.aspx">Setting Working Status</a></center>
+    <center><a href="ProjectWorkingStatus.aspx">Setting Working Status</a></center>
     <p>
         Project No:
         <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" 
@@ -26,24 +26,24 @@
                 <asp:CommandField SelectText="Details" ShowSelectButton="True" />
                 <asp:BoundField DataField="Quotation_Target_Id" 
                     HeaderText="Id" InsertVisible="False" ReadOnly="True" />
-                <asp:BoundField DataField="country_name" HeaderText="country_name" 
+                <asp:BoundField DataField="country_name" HeaderText="Country" 
                     SortExpression="country_name" />
-                <asp:BoundField DataField="authority_name" HeaderText="authority_name" 
+                <asp:BoundField DataField="authority_name" HeaderText="Authority" 
                     SortExpression="authority_name" />
-                <asp:BoundField DataField="test_started" HeaderText="test_started" 
+                <asp:BoundField DataField="test_started" HeaderText="Test Started" 
                     SortExpression="test_started" DataFormatString="{0:d}" />
-                <asp:BoundField DataField="test_completed" HeaderText="test_completed" 
+                <asp:BoundField DataField="test_completed" HeaderText="Test Completed" 
                     SortExpression="test_completed" DataFormatString="{0:d}" />
                 <asp:BoundField DataField="certification_submit_to_authority" 
-                    HeaderText="certification_submit_to_authority" 
+                    HeaderText="Certification Submit To Authority" 
                     SortExpression="certification_submit_to_authority" 
                     DataFormatString="{0:d}" />
                 <asp:BoundField DataField="certification_completed" 
-                    HeaderText="certification_completed" 
+                    HeaderText="Certification Completed" 
                     SortExpression="certification_completed" DataFormatString="{0:d}" />
-                <asp:BoundField DataField="Estimated_Lead_time" HeaderText="Estimated_Lead_time" 
+                <asp:BoundField DataField="Estimated_Lead_time" HeaderText="Estimated Lead Time" 
                     SortExpression="Estimated_Lead_time" Visible="False" />
-                    <asp:BoundField DataField="Actual_Lead_time" HeaderText="Actual_Lead_time" 
+                    <asp:BoundField DataField="Actual_Lead_time" HeaderText="Actual Lead Time" 
                     SortExpression="Actual_Lead_time" Visible="False" />
                      <asp:TemplateField HeaderText="Agent" SortExpression="Agent" 
                     Visible="False">
@@ -54,17 +54,26 @@
                              <asp:Label ID="LabelAgent" runat="server" Text='<%# Bind("Agent") %>'></asp:Label>
                          </ItemTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="Country Manager">
+                    <EditItemTemplate>
+                        <asp:Label ID="LabelCM" runat="server" Text='<%# Eval("CountryManager") %>'></asp:Label>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="LabelCM" runat="server" Text='<%# Bind("CountryManager") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
             </Columns>
         </asp:GridView>
         <asp:SqlDataSource ID="SqlDataSourceTarget" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [Quotation_Target] WHERE [Quotation_Target_Id] = @Quotation_Target_Id" 
             InsertCommand="INSERT INTO [Quotation_Target] ([quotation_id], [target_id], [target_description], [country_id], [product_type_id], [authority_id], [technology_id], [target_rate], [unit], [unit_price], [discount_type], [discValue1], [discValue2], [discPrice], [FinalPrice], [PayTo], [Status], [Bill], [option1], [option2], [advance1], [advance2], [balance1], [balance2], [test_started], [test_completed], [certification_submit_to_authority], [certification_completed], [Estimated_Lead_time], [Actual_Lead_time], [Agent]) VALUES (@quotation_id, @target_id, @target_description, @country_id, @product_type_id, @authority_id, @technology_id, @target_rate, @unit, @unit_price, @discount_type, @discValue1, @discValue2, @discPrice, @FinalPrice, @PayTo, @Status, @Bill, @option1, @option2, @advance1, @advance2, @balance1, @balance2, @test_started, @test_completed, @certification_submit_to_authority, @certification_completed, @Estimated_Lead_time, @Actual_Lead_time, @Agent)" 
-            SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Quotation_Target.quotation_id, Quotation_Target.target_id, Quotation_Target.target_description, Quotation_Target.country_id, Quotation_Target.product_type_id, Quotation_Target.authority_id, Quotation_Target.technology_id, Quotation_Target.target_rate, Quotation_Target.unit, Quotation_Target.unit_price, Quotation_Target.discount_type, Quotation_Target.discValue1, Quotation_Target.discValue2, Quotation_Target.discPrice, Quotation_Target.FinalPrice, Quotation_Target.PayTo, Quotation_Target.Status, Quotation_Target.Bill, Quotation_Target.option1, Quotation_Target.option2, Quotation_Target.advance1, Quotation_Target.advance2, Quotation_Target.balance1, Quotation_Target.balance2, Quotation_Target.test_started, Quotation_Target.test_completed, Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed, Quotation_Target.Estimated_Lead_time, Quotation_Target.Actual_Lead_time, Quotation_Target.Agent, country.country_name,authority_name 
+            SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Quotation_Target.quotation_id, Quotation_Target.target_id, Quotation_Target.target_description, Quotation_Target.country_id, Quotation_Target.product_type_id, Quotation_Target.authority_id, Quotation_Target.technology_id, Quotation_Target.target_rate, Quotation_Target.unit, Quotation_Target.unit_price, Quotation_Target.discount_type, Quotation_Target.discValue1, Quotation_Target.discValue2, Quotation_Target.discPrice, Quotation_Target.FinalPrice, Quotation_Target.PayTo, Quotation_Target.Status, Quotation_Target.Bill, Quotation_Target.option1, Quotation_Target.option2, Quotation_Target.advance1, Quotation_Target.advance2, Quotation_Target.balance1, Quotation_Target.balance2, Quotation_Target.test_started, Quotation_Target.test_completed, Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed, Quotation_Target.Estimated_Lead_time, Quotation_Target.Actual_Lead_time, Quotation_Target.Agent, country.country_name,authority_name , (Select fname from employee where id = Country_Manager ) as CountryManager
 FROM Quotation_Target 
 INNER JOIN country ON Quotation_Target.country_id = country.country_id 
 INNER JOIN Authority ON Quotation_Target.authority_id = Authority.authority_id 
 WHERE (Quotation_Target.quotation_id = @quotation_id)" 
+            
             UpdateCommand="UPDATE [Quotation_Target] SET [quotation_id] = @quotation_id, [target_id] = @target_id, [target_description] = @target_description, [country_id] = @country_id, [product_type_id] = @product_type_id, [authority_id] = @authority_id, [technology_id] = @technology_id, [target_rate] = @target_rate, [unit] = @unit, [unit_price] = @unit_price, [discount_type] = @discount_type, [discValue1] = @discValue1, [discValue2] = @discValue2, [discPrice] = @discPrice, [FinalPrice] = @FinalPrice, [PayTo] = @PayTo, [Status] = @Status, [Bill] = @Bill, [option1] = @option1, [option2] = @option2, [advance1] = @advance1, [advance2] = @advance2, [balance1] = @balance1, [balance2] = @balance2, [test_started] = @test_started, [test_completed] = @test_completed, [certification_submit_to_authority] = @certification_submit_to_authority, [certification_completed] = @certification_completed, [Estimated_Lead_time] = @Estimated_Lead_time, [Actual_Lead_time] = @Actual_Lead_time, [Agent] = @Agent WHERE [Quotation_Target_Id] = @Quotation_Target_Id">
             <DeleteParameters>
                 <asp:Parameter Name="Quotation_Target_Id" Type="Int32" />
@@ -148,9 +157,10 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
             onitemupdating="DetailsViewTarget_ItemUpdating">
             <Fields>
                 <asp:BoundField DataField="Quotation_Target_Id" 
-                    HeaderText="Quotation_Target_Id" InsertVisible="False" ReadOnly="True" 
+                    HeaderText="Id" InsertVisible="False" ReadOnly="True" 
                     SortExpression="Quotation_Target_Id" />
-                <asp:TemplateField HeaderText="authority_id" SortExpression="authority_id">
+                <asp:BoundField DataField="country_name" HeaderText="Country" ReadOnly="True" />
+                <asp:TemplateField HeaderText="Authority" SortExpression="authority_id">
                     <EditItemTemplate>                        
                         <asp:Label ID="Label2" runat="server" Text='<%# Bind("authority_name") %>'></asp:Label>
                         <asp:TextBox ID="TextBox1" runat="server" Visible="false" Text='<%# Bind("authority_id") %>'></asp:TextBox>
@@ -162,7 +172,7 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                         <asp:Label ID="Label1" runat="server" Text='<%# Bind("authority_id") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="test_started<br/>test_completed" SortExpression="test_started">
+                <asp:TemplateField HeaderText="Test Started<br/>Test Completed" SortExpression="test_started">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox3" runat="server" 
                             Text='<%# Bind("test_started","{0:d}") %>'></asp:TextBox>                        
@@ -211,7 +221,7 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                         <asp:Label ID="Label5" runat="server" Text='<%# Bind("test_completed") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>--%>
-                <asp:TemplateField HeaderText="certification_submit_to_authority<br/>certification_completed" 
+                <asp:TemplateField HeaderText="Certification Submit To Authority<br/>Certification Completed" 
                     SortExpression="certification_submit_to_authority">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox5" runat="server" 
@@ -265,7 +275,7 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                             Text='<%# Bind("certification_completed") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>--%>
-                <asp:TemplateField HeaderText="Estimated_Lead_time" 
+                <asp:TemplateField HeaderText="Estimated Lead Time" 
                     SortExpression="Estimated_Lead_time">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox7" runat="server" 
@@ -279,7 +289,7 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                         <asp:Label ID="Label8" runat="server" Text='<%# Bind("Estimated_Lead_time") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Actual_Lead_time" 
+                <asp:TemplateField HeaderText="Actual Lead Time" 
                     SortExpression="Actual_Lead_time">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox_Actual_Lead_time" runat="server" ReadOnly="true" Enabled="false"
@@ -313,6 +323,24 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                         <asp:Label ID="Label3" runat="server" Text='<%# Bind("Agent") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="Country Manager" 
+                    SortExpression="Country_Manager">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBoxCM" runat="server" Text='<%# Bind("Country_Manager") %>'></asp:TextBox>
+                        <asp:DropDownList ID="DropDownListEmp" runat="server" 
+                            DataSourceID="SqlDataSourceEmp" DataTextField="fname" DataValueField="id">
+                        </asp:DropDownList>
+                        <asp:SqlDataSource ID="SqlDataSourceEmp" runat="server" 
+                            ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                            SelectCommand="SELECT [id], [fname] FROM [employee]"></asp:SqlDataSource>
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Country_Manager") %>'></asp:TextBox>
+                    </InsertItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label5" runat="server" Text='<%# Bind("Country_Manager") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:CommandField ShowEditButton="True" />               
             </Fields>
         </asp:DetailsView>
@@ -320,8 +348,14 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [Quotation_Target] WHERE [Quotation_Target_Id] = @Quotation_Target_Id" 
             InsertCommand="INSERT INTO [Quotation_Target] ([authority_id], [test_started], [test_completed], [certification_submit_to_authority], [certification_completed], [Estimated_Lead_time], [Actual_Lead_time], [Agent]) VALUES (@authority_id, @test_started, @test_completed, @certification_submit_to_authority, @certification_completed, @Estimated_Lead_time, @Actual_Lead_time, @Agent)" 
-            SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Quotation_Target.authority_id, Quotation_Target.test_started, Quotation_Target.test_completed, Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed, Quotation_Target.Estimated_Lead_time, Quotation_Target.Actual_Lead_time, Quotation_Target.Agent, Authority.authority_name FROM Quotation_Target INNER JOIN Authority ON Quotation_Target.country_id = Authority.country_id WHERE (Quotation_Target.Quotation_Target_Id = @Quotation_Target_Id)"             
-            UpdateCommand="UPDATE [Quotation_Target] SET [authority_id] = @authority_id, [test_started] = @test_started, [test_completed] = @test_completed, [certification_submit_to_authority] = @certification_submit_to_authority, [certification_completed] = @certification_completed, [Estimated_Lead_time] = @Estimated_Lead_time, [Actual_Lead_time] = @Actual_Lead_time, [Agent] = @Agent WHERE [Quotation_Target_Id] = @Quotation_Target_Id">
+            SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Quotation_Target.authority_id, Quotation_Target.test_started, Quotation_Target.test_completed, Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed, Quotation_Target.Estimated_Lead_time, Quotation_Target.Actual_Lead_time, Quotation_Target.Agent, country.country_name , Authority.authority_name,Country_Manager
+FROM Quotation_Target 
+INNER JOIN country ON Quotation_Target.country_id = country.country_id 
+INNER JOIN Authority ON Quotation_Target.Authority_id = Authority.Authority_id 
+WHERE (Quotation_Target.Quotation_Target_Id = @Quotation_Target_Id)"             
+            
+            
+            UpdateCommand="UPDATE [Quotation_Target] SET [authority_id] = @authority_id, [test_started] = @test_started, [test_completed] = @test_completed, [certification_submit_to_authority] = @certification_submit_to_authority, [certification_completed] = @certification_completed, [Estimated_Lead_time] = @Estimated_Lead_time, [Actual_Lead_time] = @Actual_Lead_time, [Agent] = @Agent, [Country_Manager] =@Country_Manager WHERE [Quotation_Target_Id] = @Quotation_Target_Id">
             <DeleteParameters>
                 <asp:Parameter Name="Quotation_Target_Id" Type="Int32" />
             </DeleteParameters>
@@ -348,6 +382,7 @@ WHERE (Quotation_Target.quotation_id = @quotation_id)"
                 <asp:Parameter Name="Estimated_Lead_time" Type="String" />
                 <asp:Parameter Name="Actual_Lead_time" Type="String" />
                 <asp:Parameter Name="Agent" Type="Int32" />
+                <asp:Parameter Name="Country_Manager" />
                 <asp:Parameter Name="Quotation_Target_Id" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
