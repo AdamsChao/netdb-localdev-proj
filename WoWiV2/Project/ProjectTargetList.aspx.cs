@@ -56,5 +56,27 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
         {               
             Message.Text = e.Exception.Message;
         }
-    }   
+    }
+
+    
+    //protected void GridViewProjectTarget_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+    //{
+    //    TextBox cm = (TextBox)DetailsViewTarget.FindControl("TextBoxCM");
+    //    DropDownList ddl = (DropDownList)DetailsViewTarget.FindControl("DropDownListEmp");        
+    //    Response.Write("xxx" + cm.Text);
+    //    if (!string.IsNullOrEmpty(cm.Text))
+    //    {
+    //        ddl.SelectedValue = "5";
+    //        //ddl.DataBind();
+    //    }
+    //}
+    //protected void DetailsViewTarget_DataBound(object sender, EventArgs e)
+    //{
+    //    Label lblCM =  (Label)GridViewProjectTarget.SelectedRow.FindControl("LabelCM");
+    //    DropDownList ddl = (DropDownList)DetailsViewTarget.FindControl("DropDownListEmp");
+    //    if (!string.IsNullOrEmpty(lblCM.Text))
+    //    {
+    //        ddl.SelectedValue = lblCM.Text;
+    //    }
+    //}
 }
