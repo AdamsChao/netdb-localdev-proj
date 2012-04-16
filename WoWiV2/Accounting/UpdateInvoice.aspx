@@ -569,7 +569,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Qty" HeaderText="Qty" />
-                            <asp:BoundField DataField="UOM" HeaderText="UOM" />
+                            <asp:BoundField DataField="UOM" HeaderText="Unit" />
                             <asp:TemplateField HeaderText="UnitPrice">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:TextBox>

@@ -183,6 +183,7 @@
                     temp.Status = quoTarget.Status;
                     temp.TDescription = quoTarget.target_description;
                     temp.Qty = (double)quoTarget.unit;
+                    temp.UOM = ((double)quoTarget.unit).ToString("F0");
                     temp.UnitPrice = (decimal)quoTarget.unit_price;
                     int quoid = (int)quoTarget.quotation_id;
                     var quo = (from q in db.Quotation_Version where q.Quotation_Version_Id == quoid select q).First();
@@ -349,7 +350,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Qty" HeaderText="Qty" />
-                            <asp:BoundField DataField="UOM" HeaderText="UOM" />
+                            <asp:BoundField DataField="UOM" HeaderText="Unit" />
                             <asp:TemplateField HeaderText="UnitPrice">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:TextBox>

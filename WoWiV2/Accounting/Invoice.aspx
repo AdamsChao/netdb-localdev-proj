@@ -80,16 +80,20 @@
             temp.Currency = item.ocurrency;
             if (temp.Currency == "USD")
             {
-                temp.USD = ((double)item.final_total);
-                temp.NTD = temp.USD / (double)item.exchange_rate;
+                //temp.USD = ((double)item.final_total);
+                //temp.NTD = temp.USD / (double)item.exchange_rate;
+                temp.USD = ((double)item.total);
+                temp.NTD = ((double)item.final_total);
                 usdtotal += temp.USD;
                 usdissuetotal += temp.USD;
                 ntdtotal += temp.NTD;
             }
             else
             {
-                temp.NTD = ((double)item.final_total);
-                temp.USD = temp.NTD * (double)item.exchange_rate;
+                //temp.NTD = ((double)item.final_total);
+                //temp.USD = temp.NTD * (double)item.exchange_rate;
+                temp.USD = ((double)item.final_total);
+                temp.NTD = ((double)item.total);
                 ntdtotal += temp.NTD;
                 ntdissuetotal += temp.NTD;
                 usdtotal += temp.USD;
@@ -497,7 +501,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Attn" HeaderText="Attn" />
-                            <asp:TemplateField HeaderText="Inv USD$">
+                            <asp:TemplateField HeaderText="Inv USD$" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("USD") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -509,7 +513,7 @@
                                 </FooterTemplate>
                                 <ControlStyle CssClass="Currency" />
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Inv NT$">
+                            <asp:TemplateField HeaderText="Inv NT$" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("NTD") %>'></asp:TextBox>
                                 </EditItemTemplate>
