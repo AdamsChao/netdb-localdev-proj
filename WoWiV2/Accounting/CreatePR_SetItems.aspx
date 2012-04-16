@@ -74,7 +74,8 @@
             {
                 (FormView1.FindControl("ddlCountry") as DropDownList).SelectedValue = data.country.ToString();
                 (FormView1.FindControl("ddlQualification") as DropDownList).SelectedValue = data.qualification;
-                (FormView1.FindControl("ddlContractType") as DropDownList).SelectedValue = data.contract_type;
+                if (data.contract_type!=null)
+                    (FormView1.FindControl("ddlContractType") as DropDownList).SelectedValue = data.contract_type;
                 (FormView1.FindControl("ddlBankCharge") as DropDownList).SelectedValue = data.bank_charge.ToString();
                 (FormView1.FindControl("ddlPaymentType") as DropDownList).SelectedValue = data.payment_type.ToString();
                 (FormView1.FindControl("ddlPaymentDays") as DropDownList).SelectedValue = data.paymentdays;
@@ -84,7 +85,7 @@
                 (FormView1.FindControl("ddlPaymentTermF") as DropDownList).SelectedValue = data.payment_term_final.ToString();
                 (FormView1.FindControl("lbPaymentBal") as Label).Text = data.payment_balance.ToString();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 
                 //throw;
@@ -652,7 +653,7 @@
                                        ID="ddlQualification" runat="server" Enabled="false"
                                       ><asp:ListItem>Qualified</asp:ListItem><asp:ListItem>General</asp:ListItem></asp:DropDownList></td><th 
                                    align="left" class="style7">&nbsp; Authority / Local Agent:&nbsp;</th><td width="30%"><asp:DropDownList 
-                                       ID="dlContractType" runat="server" Enabled="false">
+                                       ID="ddlContractType" runat="server" Enabled="false">
                                        <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                        <asp:ListItem Value="0">Authroity</asp:ListItem>
                                        <asp:ListItem Value="1">Local Agent</asp:ListItem></asp:DropDownList></td></tr>
@@ -670,13 +671,13 @@
                                                <asp:DropDownList ID="ddlPaymentType" runat="server"  Enabled="false"
                                                   >
                                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                                   <asp:ListItem Value="0">支票</asp:ListItem>
-                                                   <asp:ListItem Value="1">國內匯款</asp:ListItem>
-                                                   <asp:ListItem Value="6">國外匯款</asp:ListItem>
-                                                   <asp:ListItem Value="2">匯票</asp:ListItem>
-                                                   <asp:ListItem Value="3">信用卡</asp:ListItem>
-                                                   <asp:ListItem Value="4">現金</asp:ListItem>
-                                                   <asp:ListItem Value="5">西聯匯款</asp:ListItem>
+                                                   <asp:ListItem Value="0">支票 Check</asp:ListItem>
+                                                   <asp:ListItem Value="1">國內匯款 Domestic Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="6">國外匯款 Foreign  Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="2">匯票 Cashier Check</asp:ListItem>
+                                                   <asp:ListItem Value="3">信用卡 Credit Card</asp:ListItem>
+                                                   <asp:ListItem Value="4">現金 Cash</asp:ListItem>
+                                                   <asp:ListItem Value="5">西聯匯款 Westerm Union</asp:ListItem>
                                                </asp:DropDownList>
                                            </td>
                                    </tr>

@@ -899,7 +899,7 @@
                         <Columns>
                             <asp:BoundField DataField="Sales" HeaderText="Sales/Client" />
                             <asp:BoundField DataField="Client" HeaderText="Sales/Client" />
-                            <asp:BoundField DataField="TotalUSD" HeaderText="US$"ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="TotalUSD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
                         </Columns>
                     </cc1:iRowSpanGridView>
                                 <cc1:iRowSpanGridView ID="iGridView4" runat="server" 
