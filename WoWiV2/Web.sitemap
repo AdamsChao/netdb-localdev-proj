@@ -10,6 +10,7 @@
 		<siteMapNode url="~/Admin/ContactRoleList.aspx" title="Contact Title"  description="" />
 	</siteMapNode>
     <siteMapNode url="" title="Admin"  description="" roles="System Admin,Management" >
+      <siteMapNode url="~/Admin/AccessLevelList.aspx" title="Access Level"  description="" />
       <siteMapNode url="~/Admin/DepartmentList.aspx" title="Department"  description="" />
       <siteMapNode url="~/Admin/EmployeeList.aspx" title="Employee"  description="" />
       <siteMapNode url="~/Admin/JobTitleList.aspx" title="Employee Job Title"  description="" />
