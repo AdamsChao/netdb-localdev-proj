@@ -258,7 +258,7 @@
                                    <td colspan="3">
                                                   <asp:DropDownList ID="ddlPaymentDays" runat="server" 
                                                  SelectedValue='<%# Bind("paymentdays") %>'>
-                                                 <asp:ListItem Value="-1">Please select</asp:ListItem>
+                                                  <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                                  <asp:ListItem Value="0">ASAP</asp:ListItem>
                                                  <asp:ListItem Value="7">  7 days</asp:ListItem>
                                                  <asp:ListItem Value="15"> 15 days</asp:ListItem>
