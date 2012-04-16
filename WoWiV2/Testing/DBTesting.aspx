@@ -56,6 +56,20 @@
         }
         db.SaveChanges();
     }
+
+    protected void Button3_Click(object sender, EventArgs ea)
+    {
+        WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities();
+
+        foreach (var e in db.venderbankings)
+        {
+            if (String.IsNullOrEmpty(e.payment_type))
+            {
+                e.payment_type = "-1";
+            }
+        }
+        db.SaveChanges();
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -66,6 +80,9 @@
     <br />
     <asp:Button ID="Button2" runat="server" onclick="Button2_Click" 
         Text="Vender Authority" />
+    <br />
+    <asp:Button ID="Button3" runat="server" 
+        Text="Bank Payment Type" onclick="Button3_Click" />
     <br />
 </asp:Content>
 
