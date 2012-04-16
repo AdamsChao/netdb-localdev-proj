@@ -76,37 +76,37 @@
     protected void ddlDeptList_Load(object sender, EventArgs e )
     {
         if(Page.IsPostBack) return;
-        (sender as DropDownList).SelectedValue = (FormView1.FindControl("lblDept") as Label).Text;
+        //(sender as DropDownList).SelectedValue = (FormView1.FindControl("lblDept") as Label).Text;
     }
 
     protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
     {
-        try
-        {
-            DropDownList ddl = sender as DropDownList;
-            (FormView1.FindControl("lblDept") as Label).Text = ddl.SelectedValue;
-        }
-        catch (Exception)
-        {
+        //try
+        //{
+        //    DropDownList ddl = sender as DropDownList;
+        //    (FormView1.FindControl("lblDept") as Label).Text = ddl.SelectedValue;
+        //}
+        //catch (Exception)
+        //{
 
-            (FormView1.FindControl("lblDept") as Label).Text = "-1";
-        }
+        //    (FormView1.FindControl("lblDept") as Label).Text = "-1";
+        //}
 
     }
 
 
     protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
     {
-        try
-        {
-            DropDownList ddl = sender as DropDownList;
-            (FormView1.FindControl("lblEmp") as Label).Text = ddl.SelectedValue;
-        }
-        catch (Exception)
-        {
+        //try
+        //{
+        //    DropDownList ddl = sender as DropDownList;
+        //    (FormView1.FindControl("lblEmp") as Label).Text = ddl.SelectedValue;
+        //}
+        //catch (Exception)
+        //{
 
-            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
-        }
+        //    (FormView1.FindControl("lblEmp") as Label).Text = "-1";
+        //}
 
 
     }
@@ -120,7 +120,7 @@
         (sender as DropDownList).DataSource = list;
         (sender as DropDownList).DataTextField = "name";
         (sender as DropDownList).DataValueField = "id";
-        (FormView1.FindControl("lblDept") as Label).Text = "-1";
+        //(FormView1.FindControl("lblDept") as Label).Text = "-1";
 
     }
 
@@ -167,22 +167,22 @@
                                    width="30%">
                                             <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
                                                 DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
-                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" AppendDataBoundItems="True"><%--SelectedValue='<%# Bind("department_id") %>'>--%>
+                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" AppendDataBoundItems="True" SelectedValue='<%# Bind("department_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
 
                                             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                                 SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
-                                            <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
+                                           <%-- <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>--%>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
                                             <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
-                                                onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged" 
-                                                OnPreRender="ddlEmployeeList_Load" >
+                                                onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged"  SelectedValue='<%# Bind("employee_id") %>'
+                                                onload="ddlEmployeeList_Load" >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
-                                            <asp:Label ID="lblEmp" runat="server" Text='<%# Bind("employee_id") %>' CssClass="hidden"></asp:Label>
+                                           <%-- <asp:Label ID="lblEmp" runat="server" Text='<%# Bind("employee_id") %>' CssClass="hidden"></asp:Label>--%>
                                         </td></tr>
                               <tr><th 
                                    align="left" class="style11"><font color="red">*&#160;</font>Company:&#160;&#160;</th><td 
