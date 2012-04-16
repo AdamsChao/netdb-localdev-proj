@@ -24,6 +24,7 @@
           <EntitySet Name="m_clientappliant_industry" EntityType="WoWiModel.Store.m_clientappliant_industry" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_clientappliant_technology" EntityType="WoWiModel.Store.m_clientappliant_technology" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_contact_role" EntityType="WoWiModel.Store.m_contact_role" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="m_employee_accesslevel" EntityType="WoWiModel.Store.m_employee_accesslevel" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_quotation_industry" EntityType="WoWiModel.Store.m_quotation_industry" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_quotation_technology" EntityType="WoWiModel.Store.m_quotation_technology" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_vender_contact" EntityType="WoWiModel.Store.m_vender_contact" store:Type="Tables" Schema="dbo" />
@@ -365,6 +366,14 @@
           </Key>
           <Property Name="contact_id" Type="int" Nullable="false" />
           <Property Name="role_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_employee_accesslevel">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="accesslevel_id" />
+          </Key>
+          <Property Name="employee_id" Type="int" Nullable="false" />
+          <Property Name="accesslevel_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="m_quotation_industry">
           <Key>
@@ -853,6 +862,7 @@
           <EntitySet Name="PR_Payment" EntityType="WoWiModel.PR_Payment" />
           <EntitySet Name="wowi_bankinfo" EntityType="WoWiModel.wowi_bankinfo" />
           <EntitySet Name="access_level" EntityType="WoWiModel.access_level" />
+          <EntitySet Name="m_employee_accesslevel" EntityType="WoWiModel.m_employee_accesslevel" />
         </EntityContainer>
         <EntityType Name="clientapplicant_industry">
           <Key>
@@ -1614,6 +1624,14 @@
           <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
           <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="m_employee_accesslevel">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="accesslevel_id" />
+          </Key>
+          <Property Type="Int32" Name="employee_id" Nullable="false" />
+          <Property Type="Int32" Name="accesslevel_id" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2413,6 +2431,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="m_employee_accesslevel">
+            <EntityTypeMapping TypeName="WoWiModel.m_employee_accesslevel">
+              <MappingFragment StoreEntitySet="m_employee_accesslevel">
+                <ScalarProperty Name="accesslevel_id" ColumnName="accesslevel_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2474,6 +2500,7 @@
         <EntityTypeShape EntityType="WoWiModel.PR_Payment" Width="1.5" PointX="19.375" PointY="12.75" Height="3.7848111979166674" />
         <EntityTypeShape EntityType="WoWiModel.wowi_bankinfo" Width="1.5" PointX="19.375" PointY="17.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.access_level" Width="1.5" PointX="13.375" PointY="20.75" Height="2.2013151041666674" />
+        <EntityTypeShape EntityType="WoWiModel.m_employee_accesslevel" Width="1.5" PointX="15.375" PointY="20.75" Height="1.3215950520833246" />
       </Diagram>
     </Diagrams>
   </Designer>

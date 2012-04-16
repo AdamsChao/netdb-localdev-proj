@@ -704,6 +704,22 @@ namespace WoWiModel
             }
         }
         private ObjectSet<access_level> _access_level;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<m_employee_accesslevel> m_employee_accesslevel
+        {
+            get
+            {
+                if ((_m_employee_accesslevel == null))
+                {
+                    _m_employee_accesslevel = base.CreateObjectSet<m_employee_accesslevel>("m_employee_accesslevel");
+                }
+                return _m_employee_accesslevel;
+            }
+        }
+        private ObjectSet<m_employee_accesslevel> _m_employee_accesslevel;
 
         #endregion
         #region AddTo Methods
@@ -1026,6 +1042,14 @@ namespace WoWiModel
         public void AddToaccess_level(access_level access_level)
         {
             base.AddObject("access_level", access_level);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the m_employee_accesslevel EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTom_employee_accesslevel(m_employee_accesslevel m_employee_accesslevel)
+        {
+            base.AddObject("m_employee_accesslevel", m_employee_accesslevel);
         }
 
         #endregion
@@ -7046,6 +7070,90 @@ namespace WoWiModel
         private global::System.Int32 _role_id;
         partial void Onrole_idChanging(global::System.Int32 value);
         partial void Onrole_idChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WoWiModel", Name="m_employee_accesslevel")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class m_employee_accesslevel : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new m_employee_accesslevel object.
+        /// </summary>
+        /// <param name="employee_id">Initial value of the employee_id property.</param>
+        /// <param name="accesslevel_id">Initial value of the accesslevel_id property.</param>
+        public static m_employee_accesslevel Createm_employee_accesslevel(global::System.Int32 employee_id, global::System.Int32 accesslevel_id)
+        {
+            m_employee_accesslevel m_employee_accesslevel = new m_employee_accesslevel();
+            m_employee_accesslevel.employee_id = employee_id;
+            m_employee_accesslevel.accesslevel_id = accesslevel_id;
+            return m_employee_accesslevel;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 employee_id
+        {
+            get
+            {
+                return _employee_id;
+            }
+            set
+            {
+                if (_employee_id != value)
+                {
+                    Onemployee_idChanging(value);
+                    ReportPropertyChanging("employee_id");
+                    _employee_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("employee_id");
+                    Onemployee_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _employee_id;
+        partial void Onemployee_idChanging(global::System.Int32 value);
+        partial void Onemployee_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 accesslevel_id
+        {
+            get
+            {
+                return _accesslevel_id;
+            }
+            set
+            {
+                if (_accesslevel_id != value)
+                {
+                    Onaccesslevel_idChanging(value);
+                    ReportPropertyChanging("accesslevel_id");
+                    _accesslevel_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("accesslevel_id");
+                    Onaccesslevel_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _accesslevel_id;
+        partial void Onaccesslevel_idChanging(global::System.Int32 value);
+        partial void Onaccesslevel_idChanged();
 
         #endregion
     
