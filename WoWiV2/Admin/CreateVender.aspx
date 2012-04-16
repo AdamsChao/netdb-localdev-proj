@@ -207,9 +207,7 @@
         {
 
             (FormView1.FindControl("lblEmp") as Label).Text = "-1";
-        }
-     
-        
+        } 
     }
 
     protected void ddlEmployeeList_Load(object sender, EventArgs ea)
