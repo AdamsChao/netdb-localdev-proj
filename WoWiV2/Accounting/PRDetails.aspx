@@ -740,12 +740,14 @@
                                        runat="server" ></asp:Label></td></tr><tr><th 
                                    align="left" class="style9">&#160;&#160; Qualification:&#160;</th><td width="30%"><asp:DropDownList 
                                        ID="ddlQualification" runat="server" Enabled="false"
-                                      ><asp:ListItem>Qualified</asp:ListItem><asp:ListItem>General</asp:ListItem></asp:DropDownList></td><th 
-                                   align="left" class="style7">&nbsp; Authority / Local Agent:&nbsp;</th><td width="30%"><asp:DropDownList 
-                                       ID="ddlContractType" runat="server" Enabled="false">
-                                       <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                       <asp:ListItem Value="0">Authroity</asp:ListItem>
-                                       <asp:ListItem Value="1">Local Agent</asp:ListItem></asp:DropDownList></td></tr>
+                                      ><asp:ListItem>Qualified</asp:ListItem><asp:ListItem>General</asp:ListItem></asp:DropDownList></td>
+                                       <th 
+                                   align="left" class="style7">&nbsp; Vender Type:&nbsp;</th><td width="30%"><asp:DropDownList DataSourceID="SqlDataSource3"   DataTextField="name" DataValueField="id" Enabled="false"
+                                       ID="ddlContractType" runat="server" AppendDataBoundItems="true">
+                                        <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                        </asp:DropDownList><asp:SqlDataSource ID="SqlDataSource3" runat="server" 
+                                                   ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                   SelectCommand="SELECT [id], [name] FROM [vendor_type] WHERE [publish] = 'true'" ></asp:SqlDataSource></td></tr>
                                        <tr><th 
                                    align="left" class="style9">&nbsp;&nbsp; Bank Charge:&nbsp;</th><td width="30%">
                                                <asp:DropDownList ID="ddlBankCharge" runat="server"  Enabled="false"
@@ -762,7 +764,7 @@
                                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                                     <asp:ListItem Value="0">支票 Check</asp:ListItem>
                                                    <asp:ListItem Value="1">國內匯款 Domestic Wire Transfer</asp:ListItem>
-                                                   <asp:ListItem Value="6">國外匯款 Foreign  Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="6">國外匯款 Foreign Wire Transfer</asp:ListItem>
                                                    <asp:ListItem Value="2">匯票 Cashier Check</asp:ListItem>
                                                    <asp:ListItem Value="3">信用卡 Credit Card</asp:ListItem>
                                                    <asp:ListItem Value="4">現金 Cash</asp:ListItem>
@@ -775,15 +777,15 @@
                                    <td >
                                              <asp:DropDownList ID="ddlPaymentDays" runat="server" Enabled="false"
                                                >
-                                                 <asp:ListItem Value="0">Please select</asp:ListItem>
-                                                 <asp:ListItem>ASAP</asp:ListItem>
-                                                 <asp:ListItem>  7 days</asp:ListItem>
-                                                 <asp:ListItem> 15 days</asp:ListItem>
-                                                 <asp:ListItem> 30 days</asp:ListItem>
-                                                 <asp:ListItem> 45 days</asp:ListItem>
-                                                 <asp:ListItem> 60 days</asp:ListItem>
-                                                 <asp:ListItem> 90 days</asp:ListItem>
-                                                 <asp:ListItem>120 days</asp:ListItem>
+                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                                 <asp:ListItem Value="0">ASAP</asp:ListItem>
+                                                 <asp:ListItem Value="7">  7 days</asp:ListItem>
+                                                 <asp:ListItem Value="15"> 15 days</asp:ListItem>
+                                                 <asp:ListItem Value="30"> 30 days</asp:ListItem>
+                                                 <asp:ListItem Value="45"> 45 days</asp:ListItem>
+                                                 <asp:ListItem Value="60"> 60 days</asp:ListItem>
+                                                 <asp:ListItem Value="90"> 90 days</asp:ListItem>
+                                                 <asp:ListItem Value="120">120 days</asp:ListItem>
                                              </asp:DropDownList>
                                            </td>
                                            <th 
