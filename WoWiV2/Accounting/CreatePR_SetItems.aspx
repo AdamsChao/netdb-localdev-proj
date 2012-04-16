@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
 
 <%@ Register src="../UserControls/CreateContact.ascx" tagname="CreateContact" tagprefix="uc1" %>
-<%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
+<%@ Register src="../UserControls/DateChooser2.ascx" tagname="DateChooser2" tagprefix="uc1" %>
 <%@ Register src="../UserControls/UploadFileView.ascx" tagname="UploadFileView" tagprefix="uc2" %>
 
 <script runat="server">
@@ -700,7 +700,7 @@
                                            <th 
                                    align="left" class="style11">&nbsp; Target Payment Day:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
-                                   <uc1:DateChooser ID="dcPaymentDate" runat="server" />
+                                   <uc1:DateChooser2 ID="dcPaymentDate" runat="server" />
                             </td>
                                    </tr>
                                    <tr><td

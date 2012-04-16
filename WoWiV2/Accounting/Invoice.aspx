@@ -8,7 +8,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        var data = from i in wowidb.invoices select i;
+        var data = from i in wowidb.invoices where ((DateTime)i.issue_invoice_date).Year == DateTime.Now.Year && ((DateTime)i.issue_invoice_date).Month == DateTime.Now.Month select i;
         List<InvoiceData> list = new List<InvoiceData>();
         InvoiceData temp;
         foreach (var item in data)
@@ -225,7 +225,7 @@
         try
         {
             DateTime fromDate = dcFromDate.GetDate();
-            data = data.Where(d => ((DateTime)d.invoice_date) >= fromDate);
+            data = data.Where(d => ((DateTime)d.issue_invoice_date) >= fromDate);
         }
         catch (Exception)
         {
@@ -236,7 +236,7 @@
         try
         {
             DateTime toDate = dcToDate.GetDate();
-            data = data.Where(d => ((DateTime)d.invoice_date) <=toDate);
+            data = data.Where(d => ((DateTime)d.issue_invoice_date) <= toDate);
         }
         catch (Exception)
         {
@@ -379,7 +379,15 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
   <asp:UpdatePanel runat="server">
   <ContentTemplate>
-  Invoice Management
+   <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+       <tr>
+           <td align="left" width="50%">
+               Invoice Management</td>
+           <td align="right" width="50%">
+               Date : <%= DateTime.Now.ToString("yyyy/MM/dd") %>
+           </td>
+       </tr>
+  </table>
                     <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <th align="left" width="13%">
@@ -519,7 +527,7 @@
                             <asp:BoundField DataField="Model" HeaderText="Model" />
                             <asp:BoundField DataField="Country" HeaderText="Country" />
                             <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" />
-                            <asp:BoundField DataField="Owner" HeaderText="Owner" />
+                            <asp:BoundField DataField="Owner" HeaderText="Issued By" />
                         </Columns>
                     </asp:GridView>
       

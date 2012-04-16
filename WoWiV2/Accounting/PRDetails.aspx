@@ -1019,7 +1019,7 @@
                                      <asp:TextBox ID="tbInstruction" runat="server" TextMode="MultiLine" Width="200" Height="100" Enabled ="false" OnLoad="AuthLabel_Load"></asp:TextBox>
                                  </td>
                           </tr>
-                          <tr >
+                          <%--<tr >
                                  <td>
                                     Finance Dept:
                                  </td>
@@ -1035,7 +1035,7 @@
                                  <td>
                                     Date : <asp:Label ID="lblFinanceDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
-                          </tr>
+                          </tr>--%>
                           <tr >
                                  <td>
                                     Cancel:

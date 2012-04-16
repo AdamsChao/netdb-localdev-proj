@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
-
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 <%@ Register src="../UserControls/CreateContact.ascx" tagname="CreateContact" tagprefix="uc1" %>
-<%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
+<%@ Register src="../UserControls/DateChooser2.ascx" tagname="DateChooser2" tagprefix="uc1" %>
 <%@ Register src="../UserControls/UploadFileView.ascx" tagname="UploadFileView" tagprefix="uc2" %>
 
 <script runat="server">
@@ -421,11 +421,11 @@
             {
                 WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
                 WoWiModel.PR_authority_history auth = wowidb.PR_authority_history.First(c => c.pr_auth_id == obj.pr_auth_id);
-                if (auth.status == (byte)PRStatus.Done)
-                {
-                    Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
-                }
-                (FormView1.FindControl("dcPaymentDate") as usercontrols_datechooser_ascx).isEnabled(false);
+                //if (auth.status == (byte)PRStatus.Done)
+                //{
+                //    Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
+                //}
+                //(FormView1.FindControl("dcPaymentDate") as usercontrols_datechooser_ascx).isEnabled(false);
                 if (auth.status == (byte)PRStatus.Init)
                 {
                     en = true;
@@ -1345,11 +1345,11 @@
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp;Original Currency:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
-                                     <asp:TextBox ID="tbCurrency" runat="server" Text='<%# Bind("currency")%>' Enabled="False"
+                                     <asp:TextBox ID="tbCurrency" runat="server" Text='<%# Bind("currency")%>' 
                                          ></asp:TextBox>
                             </td><th align="left" 
                                    class="style11">&nbsp; Total:&nbsp;</th><td class="style12" width="30%">
-                                    <asp:TextBox ID="tbTotalAmount" runat="server"  Text='<%# Bind("total_cost")%>' Enabled="False"
+                                    <asp:TextBox ID="tbTotalAmount" runat="server"  Text='<%# Bind("total_cost")%>' 
                                          ></asp:TextBox>
                             </td></tr>
                             <tr><th 
@@ -1361,7 +1361,7 @@
                                         ValidationGroup="VenderGroup">
                                     <asp:ListItem Value="-1">Select one</asp:ListItem>
                                 </asp:DropDownList>&nbsp;<asp:Button ID="btnShow" runat="server" Text="Show" 
-                                        Visible="true" onclick="btnShow_Click" ValidationGroup="VenderGroup" CausesValidation="false" Enabled="false" />
+                                        Visible="true" onclick="btnShow_Click" ValidationGroup="VenderGroup" CausesValidation="false"  />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                                         ControlToValidate="ddlVenderList" ErrorMessage="Please select vender!" 
                                         ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroup">*</asp:RequiredFieldValidator>
@@ -1467,7 +1467,7 @@
                                            <th 
                                    align="left" class="style11">&nbsp; Target Payment Day:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
-                                   <uc1:DateChooser ID="dcPaymentDate" runat="server" />
+                                  <uc1:DateChooser2 ID="dcPaymentDate" runat="server" />
                             </td>
                                    </tr>
                                    <tr><td
@@ -1705,7 +1705,7 @@
                                          TextMode="MultiLine" Width="200" OnLoad="AuthLabel_Load"></asp:TextBox>
                                  </td>
                           </tr>
-                          <tr >
+                        <%--  <tr >
                                  <td>
                                     Finance Dept:
                                  </td>
@@ -1721,7 +1721,7 @@
                                  <td>
                                     Date : <asp:Label ID="lblFinanceDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
-                          </tr>
+                          </tr>--%>
                           <tr >
                                  <td>
                                     Cancel:

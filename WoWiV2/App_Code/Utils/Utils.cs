@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI.WebControls;
 using System.Web.UI;
 using System.Web.SessionState;
+using System.IO;
 
 /// <summary>
 /// Summary description for Utils
@@ -119,7 +120,17 @@ public class Utils
         System.IO.StringWriter stringWrite = new System.IO.StringWriter();
         System.Web.UI.HtmlTextWriter htmlWrite = new HtmlTextWriter(stringWrite);
         iGridView1.RenderControl(htmlWrite);
-        HttpContext.Current.Response.Write(stringWrite.ToString());
+        //Appendg CSS file
+        FileInfo fi = new FileInfo(HttpContext.Current.Server.MapPath("~/styles/SiteMaster.css"));
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        StreamReader sr  = fi.OpenText();
+        while(sr.Peek()>=0){
+             sb.Append(sr.ReadLine());
+        }
+        sr.Close();
+
+        HttpContext.Current.Response.Write("<html><head><style type='text/css'>" + sb.ToString() + "</style><head>" + stringWrite.ToString() + "</html>");
+        //HttpContext.Current.Response.Write(stringWrite.ToString());
         HttpContext.Current.Response.End();
 
     }
