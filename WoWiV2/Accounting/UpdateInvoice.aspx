@@ -96,6 +96,7 @@
                 (iGridView2.FooterRow.FindControl("lblOCurrency") as Label).Text = invoice.ocurrency;
                 (iGridView2.FooterRow.FindControl("lblOTotal") as Label).Text = ((decimal)invoice.ototal).ToString("F2");
                 (iGridView2.FooterRow.FindControl("tbTax") as TextBox).Text = ((decimal)invoice.tax).ToString("F2");
+                (iGridView2.FooterRow.FindControl("tbdiscount") as TextBox).Text = ((decimal)invoice.adjust).ToString("F2");
                 (iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text = ((decimal)invoice.total).ToString("F2");
                 (iGridView2.FooterRow.FindControl("ddloperate") as DropDownList).SelectedValue = invoice.exchange_operate;
                 (iGridView2.FooterRow.FindControl("ddlCurrency") as DropDownList).SelectedValue = invoice.currency;
@@ -296,14 +297,41 @@
                 invoice.currency = currency;
             }
 
-            String tax = (iGridView2.FooterRow.FindControl("tbtax") as TextBox).Text;
+            String tax = (iGridView2.FooterRow.FindControl("tbTax") as TextBox).Text;
             if (String.IsNullOrEmpty(tax))
             {
                 invoice.tax = 0;
             }
             else
             {
-                invoice.tax = decimal.Parse(tax); ;
+                try
+                {
+                    invoice.tax = decimal.Parse(tax); ;
+                }
+                catch (Exception)
+                {
+
+                    invoice.tax = 0;
+                }
+               
+            }
+            String discount = (iGridView2.FooterRow.FindControl("tbdiscount") as TextBox).Text;
+            if (String.IsNullOrEmpty(discount))
+            {
+                invoice.adjust = 0;
+            }
+            else
+            {
+
+                try
+                {
+                    invoice.adjust = decimal.Parse(discount);
+                }
+                catch (Exception)
+                {
+
+                    invoice.adjust = 0;
+                }
             }
             invoice.invoice_no = tbivno.Text;
             invoice.remarks = (iGridView2.FooterRow.FindControl("tbRemarks") as TextBox).Text;
@@ -331,8 +359,20 @@
         decimal d = decimal.Parse(str);
         try
         {
-            TextBox tb = sender as TextBox;
+
+            TextBox tb = (iGridView2.FooterRow.FindControl("tbTax") as TextBox);
             d += decimal.Parse(tb.Text);
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+        try
+        {
+
+            TextBox tb = (iGridView2.FooterRow.FindControl("tbdiscount") as TextBox);
+            d -= decimal.Parse(tb.Text);
         }
         catch (Exception)
         {
@@ -546,29 +586,36 @@
                                    <table align="right">
                                         <tr>
                                             <td align="right">
-                                                Original Currency : 
+                                               <%-- Original Currency : --%> &nbsp;
                                                 </td>
                                                 <td>
-                                             &nbsp;&nbsp;&nbsp;<asp:Label ID="lblOCurrency" runat="server" Text=""></asp:Label>
+                                             &nbsp;&nbsp;&nbsp;
                                             </td>
                                         </tr>
                                         <tr>
                                              <td align="right">
                                                 Subtotal before taxes : </td>
-                                                <td>$ <asp:Label ID="lblOTotal" runat="server" Text=""></asp:Label>
+                                                <td><asp:Label ID="lblOCurrency" runat="server" Text=""></asp:Label>$ <asp:Label ID="lblOTotal" runat="server" Text=""></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                             <td align="right">
+                                                (-)Discount : </td>
+                                                <td><asp:Label ID="lblOCurrency1" runat="server" Text=""></asp:Label>$ <asp:TextBox ID="tbdiscount" runat="server" ontextchanged="tbTax_TextChanged" 
+                                                        AutoPostBack="True" ></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
                                              <td align="right">
                                                 Total taxes : </td>
-                                                <td>$ <asp:TextBox ID="tbTax" runat="server" ontextchanged="tbTax_TextChanged" 
+                                                <td><asp:Label ID="lblOCurrency2" runat="server" Text=""></asp:Label>$ <asp:TextBox ID="tbTax" runat="server" ontextchanged="tbTax_TextChanged" 
                                                         AutoPostBack="True" ></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="right">
-                                                Amount Due: </td>
-                                                <td>$ <asp:Label ID="lblAmountDue" runat="server" Text=""></asp:Label>
+                                                Amount due: </td>
+                                                <td><asp:Label ID="lblOCurrency3" runat="server" Text=""></asp:Label>$ <asp:Label ID="lblAmountDue" runat="server" Text=""></asp:Label>
                                             </td>
                                         </tr>
                                         <tr>

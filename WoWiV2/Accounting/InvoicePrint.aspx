@@ -31,17 +31,30 @@
                 Tax = Format(Tax);
                 AmountDue = Format(AmountDue);
                 lblOCurrency.Text = invoice.ocurrency ;
+                lblOCurrency1.Text = invoice.ocurrency;
+                lblOCurrency2.Text = invoice.ocurrency;
                 lblOTotal.Text = OTotal;
+                if (invoice.adjust != 0)
+                {
+                    DisPanel.Visible = true;
+                    lblOCurrency3.Text = invoice.ocurrency;
+                    lblDiscount.Text = ((decimal)invoice.adjust).ToString("F2");
+                }
+                else
+                {
+                    DisPanel.Visible = false;
+                }
                 tbTax.Text = ((decimal)invoice.tax).ToString("F2");
                 lblAmountDue.Text = ((decimal)invoice.total).ToString("F2");
-                ddloperate.SelectedValue = invoice.exchange_operate;
-                ddlCurrency.SelectedValue = invoice.currency;
-                tbTotal.Text = ((decimal)invoice.final_total).ToString("F2");
-                tbExchangeRate.Text = ((decimal)invoice.exchange_rate).ToString("F2");
+                //ddloperate.SelectedValue = invoice.exchange_operate;
+                //ddlCurrency.SelectedValue = invoice.currency;
+                //tbTotal.Text = ((decimal)invoice.final_total).ToString("F2");
+                //tbExchangeRate.Text = ((decimal)invoice.exchange_rate).ToString("F2");
                 tbbankAcct.Text = InvoiceUtils.WoWi_Bank_Info1;
                 Total = PayCurrency+Format(Total);
                
                 String pNo = invoice.project_no;
+                lblprojno.Text = pNo;
                 var pro = (from p in db.Project where p.Project_No == pNo select p).First();
                 try
                 {
@@ -152,6 +165,18 @@
 
                     //throw;
                 }
+                try
+                {
+                    String f;
+                    WoWiModel.employee emp = (from e1 in wowidb.employees from d in wowidb.employee_jobtitle where e1.jobtitle_id == d.jobtitle_id & d.jobtitle_name == "Finance" select e1).First();
+                    f = emp.fname.Trim() + "." + emp.lname.Trim();
+                    imgF.ImageUrl = "../Images/sign/" + f + ".bmp";
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
             }
             catch
             {
@@ -242,9 +267,7 @@
             <td align="left">
                 <img border="0" height="90" src="../Images/Quotation/WoWilogoname.jpg" />
             </td>
-            <td align="right" valign="top" width="40%"></td>
-            <p>
-                &nbsp;</p>
+            <td align="right" valign="top" width="35%"></td>
             <td align="right" class="ccsh1">
                 <font face="verdana" size="1">3F., No.79, Zhouzi St., Neihu Dist.,<br />
                     Taipei City 114, Taiwan (R.O.C.)<br />
@@ -252,11 +275,6 @@
                     Http://www.WoWiApproval.com</font>
             </td>
          </tr>
-         <tr>
-                        <td colspan="3">
-                            <hr color="#003300" noshade size="1" />
-                        </td>
-                    </tr>
         <tr>
          <td align="middle" class="ccsh1" colspan="1" valign="top">
              
@@ -285,11 +303,6 @@
                 </table>
             </td>
          </tr>
-         <tr>
-                        <td colspan="3">
-                            <hr color="#003300" noshade size="1" />
-                        </td>
-                    </tr>
     </table>
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
    
@@ -327,7 +340,7 @@
         <td colspan="2">
         <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-        <th width="25%">Reference - P.O. #</th> <th width="25%">Sales Person</th> <th width="25%">WoWi Quotation No.</th><th width="25%">Model No.</th>
+        <th width="20%">Reference - P.O. #</th> <th width="20%">Sales Person</th> <th width="20%">WoWi Quotation No.</th><th width="20%">WoWi Project No.</th><th width="20%">Model No.</th>
         </tr>
         <tr>
             <td align="center">
@@ -340,6 +353,9 @@
                 <asp:Label ID="lblquono" runat="server" Text="Label"></asp:Label>
             </td>
             <td align="center">
+                <asp:Label ID="lblprojno" runat="server" Text="Label"></asp:Label>
+            </td>
+            <td align="center">
                 <asp:Label ID="lblmodelno" runat="server" Text="Label"></asp:Label>
             </td>
         </tr>
@@ -350,11 +366,7 @@
             <td colspan="2">
                 <!-- start target -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                        <td colspan="2">
-                            <hr color="#003300" noshade size="1" />
-                        </td>
-                    </tr>
+                    
                     <tr>
                         <td colspan="2">
                              <asp:Gridview ID="iGridView" runat="server"  Width="100%" 
@@ -376,7 +388,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Qty" HeaderText="Qty" ItemStyle-HorizontalAlign="Right" />
-                            <asp:BoundField DataField="UOM" HeaderText="UOM" ItemStyle-HorizontalAlign="Right"  />
+                            <asp:BoundField DataField="UOM" HeaderText="Unit" ItemStyle-HorizontalAlign="Right"  />
                             <asp:TemplateField HeaderText="Unit Price"  ItemStyle-HorizontalAlign="Right" >
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:TextBox>
@@ -459,51 +471,74 @@
                          
                         </td>
                     </tr>
-                            <tr>
-                        <td colspan="3">
-                            <hr color="#003300" noshade size="1" />
-                        </td>
-                    </tr>
                     <tr>
-                    <td style="width:50%">
-                    <asp:TextBox ID="tbbankAcct" runat="server" Height="180" Width="320" 
-                            TextMode="MultiLine" Enabled="false" Font-Size="12px" ></asp:TextBox>
+                    <td style="width:70%">
+                    <asp:TextBox ID="tbbankAcct" runat="server" Height="150" Width="480" 
+                            TextMode="MultiLine" Font-Size="12px" ></asp:TextBox>
                   <%--  <asp:Label ID="tbbankAcct" runat="server" Height="180px" Width="480px" 
                             TextMode="MultiLine" Font-Size="Small" ></asp:Label>--%>
                     </td>
-                    <td style="width:50%">
+                    <td style="width:35%" valign="top">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
-                                            <td align="right">
-                                                Original Currency : 
-                                                </td>
-                                                <td>
-                                             &nbsp;&nbsp;&nbsp;<asp:Label ID="lblOCurrency" runat="server" Text=""></asp:Label>
+                                            <td align="right" colspan="3">
+                                              &nbsp
                                             </td>
                                         </tr>
                                         <tr>
                                              <td align="right">
                                                  Subtotal before taxes : </td>
-                                                <td>$ <asp:Label ID="lblOTotal" runat="server" Text="" ></asp:Label>
+                                                <td> <asp:Label ID="lblOCurrency" runat="server" Text=""/>$</td>
+                                                <td align="right"> <asp:Label ID="lblOTotal" runat="server" Text="" ></asp:Label>
                                             </td>
                                         </tr>
+                        <asp:Panel ID="DisPanel" runat="server">
+                        <tr>
+                                             <td align="right">
+                                                (-) Discount : </td>
+                                                <td> <asp:Label ID="lblOCurrency3" runat="server" Text=""/>$</td>
+                                                <td align="right"> <asp:Label ID="lblDiscount" runat="server"  ></asp:Label>
+                                            </td>
+                                        </tr>
+                        </asp:Panel>
                                         <tr>
                                              <td align="right">
                                                 Total taxes : </td>
-                                                <td>$ <asp:TextBox ID="tbTax" runat="server"  Enabled="false" 
-                                                        AutoPostBack="True" ></asp:TextBox>
+                                                <td> <asp:Label ID="lblOCurrency1" runat="server" Text=""/>$</td>
+                                                <td align="right"> <asp:Label ID="tbTax" runat="server"  ></asp:Label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="right">
-                                                Amount Due : </td>
-                                                <td>$ <asp:Label ID="lblAmountDue" runat="server" Text=""></asp:Label>
+                                                Amount due : </td>
+                                                <td> <asp:Label ID="lblOCurrency2" runat="server" Text=""/>$</td>
+                                                <td align="right"> <asp:Label ID="lblAmountDue" runat="server" Text=""></asp:Label>
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td align="right" colspan="3">
+                                              &nbsp
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" colspan="3">
+                                              &nbsp
+                                            </td>
+                                        </tr>
+                                         <tr>
+                                            <td align="right" colspan="3">
+                                              &nbsp
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ccstextboxh" align="center" colspan="2">
+                                                Issued by Accounting<br/><asp:Image ID="imgF" runat="server" Height="31" Width="114"  /> 
+                                            </td>
+                                        </tr>
+                                        <%--<tr>
                                              <td align="right">
                                                 Currency :</td>
-                                                <td>&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlCurrency" runat="server" Enabled="false">
+                                                <td>&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlCurrency" runat="server" >
                                     <asp:ListItem>USD</asp:ListItem>
                                     <asp:ListItem>NTD</asp:ListItem>
                                 </asp:DropDownList>
@@ -525,7 +560,7 @@
                                                 Total : </td>
                                                 <td>$ <asp:TextBox ID="tbTotal" runat="server"  Enabled="false" ></asp:TextBox>
                                             </td>
-                                        </tr>
+                                        </tr>--%>
                                     </table>
                     </td>
                     </tr>
@@ -533,12 +568,6 @@
                 <!-- end target -->
             </td>
         </tr>
-        <tr>
-                        <td colspan="3">
-                            <hr color="#003300" noshade size="1" />
-                        </td>
-                    </tr>
-
         <!-- end cost summary service -->
     </table>
     

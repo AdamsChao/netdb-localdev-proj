@@ -79,8 +79,12 @@
             try
             {
                 (iGridView2.FooterRow.FindControl("lblOCurrency") as Label).Text = invoice.ocurrency;
+                (iGridView2.FooterRow.FindControl("lblOCurrency1") as Label).Text = invoice.ocurrency;
+                (iGridView2.FooterRow.FindControl("lblOCurrency2") as Label).Text = invoice.ocurrency;
+                (iGridView2.FooterRow.FindControl("lblOCurrency3") as Label).Text = invoice.ocurrency;
                 (iGridView2.FooterRow.FindControl("lblOTotal") as Label).Text = ((decimal)invoice.ototal).ToString("F2");
                 (iGridView2.FooterRow.FindControl("tbTax") as TextBox).Text = ((decimal)invoice.tax).ToString("F2");
+                (iGridView2.FooterRow.FindControl("tbdiscount") as TextBox).Text = ((decimal)invoice.adjust).ToString("F2");
                 (iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text = ((decimal)invoice.total).ToString("F2");
                 (iGridView2.FooterRow.FindControl("ddloperate") as DropDownList).SelectedValue = invoice.exchange_operate;
                 (iGridView2.FooterRow.FindControl("ddlCurrency") as DropDownList).SelectedValue = invoice.currency;
@@ -362,29 +366,36 @@
                                     <table align="right">
                                         <tr>
                                             <td align="right">
-                                                Original Currency : 
+                                               <%-- Original Currency : --%> &nbsp;
                                                 </td>
                                                 <td>
-                                             &nbsp;&nbsp;&nbsp;<asp:Label ID="lblOCurrency" runat="server" Text=""></asp:Label>
+                                             &nbsp;&nbsp;&nbsp;
                                             </td>
                                         </tr>
                                         <tr>
                                              <td align="right">
-                                                 Subtotal before taxes : </td>
-                                                <td>$ <asp:Label ID="lblOTotal" runat="server" Text="" ></asp:Label>
+                                                Subtotal before taxes : </td>
+                                                <td><asp:Label ID="lblOCurrency" runat="server" Text=""></asp:Label>$ <asp:Label ID="lblOTotal" runat="server" Text=""></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                             <td align="right">
+                                                (-)Discount : </td>
+                                                <td><asp:Label ID="lblOCurrency1" runat="server" Text=""></asp:Label>$ <asp:TextBox ID="tbdiscount" runat="server" Enabled="false"
+                                                        AutoPostBack="True" ></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
                                              <td align="right">
                                                 Total taxes : </td>
-                                                <td>$ <asp:TextBox ID="tbTax" runat="server"  Enabled="false" 
+                                                <td><asp:Label ID="lblOCurrency2" runat="server" Text=""></asp:Label>$ <asp:TextBox ID="tbTax" runat="server" Enabled="false"
                                                         AutoPostBack="True" ></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="right">
-                                                Amount Due : </td>
-                                                <td>$ <asp:Label ID="lblAmountDue" runat="server" Text=""></asp:Label>
+                                                Amount due: </td>
+                                                <td><asp:Label ID="lblOCurrency3" runat="server" Text=""></asp:Label>$ <asp:Label ID="lblAmountDue" runat="server" Text=""></asp:Label>
                                             </td>
                                         </tr>
                                         <tr>

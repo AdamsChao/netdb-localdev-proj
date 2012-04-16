@@ -12,6 +12,10 @@
         //GridView1.DataSource = list;
         //GridView1.DataBind();
         String newCriteria = "";
+        if (ddlVenderList.SelectedValue != "-1")
+        {
+            newCriteria += " and P.vendor_id = " + ddlVenderList.SelectedValue;
+        }
         try
         {
             DateTime fromDate = dcFrom.GetDate();
@@ -63,13 +67,31 @@
         {
             //throw;
         }
+
+        if (cbNotPay.Checked)
+        {
+            
+        }
+        
         if (append)
         {
+            if (cbNotPay.Checked)
+            {
+                newCriteria += " and u.pay_date IS NULL";
+            }
             SqlDataSource1.SelectCommand = newCriteria;
         }
         else
         {
-            SqlDataSource1.SelectCommand += newCriteria;
+            if (cbNotPay.Checked)
+            {
+                newCriteria = "select * from (" + SqlDataSource1.SelectCommand + newCriteria + ") AS u where u.pay_date IS NULL";
+                SqlDataSource1.SelectCommand = newCriteria;
+            }
+            else
+            {
+                SqlDataSource1.SelectCommand += newCriteria;
+            }
         }
         
         GridView1.DataBind();
@@ -127,6 +149,16 @@
             }
         }
     }
+
+    protected void ddlVenderList_Load(object sender, EventArgs e)
+    {
+        if (Page.IsPostBack) return;
+        var list = (from c in wowidb.vendors from country in wowidb.countries where c.country == country.country_id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name + " ]" : c.name + " - [ " + country.country_name + " ]" });
+        (sender as DropDownList).DataSource = list;
+        (sender as DropDownList).DataTextField = "Text";
+        (sender as DropDownList).DataValueField = "Id";
+        (sender as DropDownList).DataBind();
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -134,14 +166,20 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     PR Payment Lists 
     <br />
-    Target Payment Date From :
+    Vender :
+    <asp:DropDownList ID="ddlVenderList" runat="server" AppendDataBoundItems="True" 
+        onload="ddlVenderList_Load">
+        <asp:ListItem Value="-1">- All -</asp:ListItem>
+    </asp:DropDownList>
+&nbsp;Target Payment Date From :
     <uc1:DateChooser ID="dcFrom" runat="server" />
 &nbsp; To:&nbsp;
     <uc1:DateChooser ID="dcTo" runat="server" />
-&nbsp;Pay Date From :
+&nbsp;<br>Pay Date From :
     <uc1:DateChooser ID="dcPFrom" runat="server" />
 &nbsp; To:&nbsp;
     <uc1:DateChooser ID="dcPTo" runat="server" />
+    <asp:CheckBox ID="cbNotPay" runat="server" Text="未付" />
 &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
     <br>
     
