@@ -5,7 +5,6 @@
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     protected void FormView1_ItemUpdating(object sender, FormViewUpdateEventArgs e)
     {
-        VenderUtils.StoreVenderTypesInViewState((FormView)sender, VenderUtils.Name_CheckBox_VenderTypeList, ViewState, VenderUtils.Key_ViewState_VenderTypes);
         
     }
 
@@ -15,42 +14,12 @@
         if (e.Exception == null)
         {
             WoWiModel.vendor obj = (WoWiModel.vendor)e.Entity;
-            List<int> types = (List<int>)ViewState[VenderUtils.Key_ViewState_VenderTypes];
-            using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
-            {
-                var data = db.m_vender_type;
-                try
-                {
-                    var delList = from c in data where c.vender_id == obj.id select c;
-                    foreach (WoWiModel.m_vender_type item in delList)
-                    {
-                        data.DeleteObject(item);
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-                if (types.Count != 0)
-                {
-                    foreach (int id in types)
-                    {
-                        var d = new WoWiModel.m_vender_type()
-                        {
-                            vender_id = obj.id,
-                            vender_type_id = id
-                        };
-                        data.AddObject(d);
-                    }
-                }
-                db.SaveChanges();
-            }
             String WestUintQueryString = "";
             if (obj.payment_type == 5)
             {
                 WestUintQueryString = "&iswu=1";
             }
-            //ViewState.Remove(VenderUtils.Key_ViewState_VenderTypes);
-            //Response.Redirect("~/Common/SelectExistContact.aspx?id=" + obj.id + "&type=vender&mode=update");
+
             Response.Redirect("~/Admin/UpdateVenderBankAccount.aspx?id=" + obj.id + WestUintQueryString);
         }
     }
@@ -59,20 +28,6 @@
     {
 
         
-    }
-
-
-    private void InitVenderTypes()
-    {
-        try
-        {
-            String str = Request.QueryString["id"];
-            int id = int.Parse(str);
-            VenderUtils.InitVenderTypes(id, FormView1, VenderUtils.Name_CheckBox_VenderTypeList);
-        }
-        catch
-        {
-        }
     }
    
 
@@ -92,14 +47,7 @@
         list.DataSource = data;//Enumerable.Range(0, 101);
     }
 
-    protected void Page_LoadComplete(object sender, EventArgs e)
-    {
-        if (Page.IsPostBack == false)
-        {
-            InitVenderTypes();
-        }
-    }
-
+   
     protected void dlPaymentTerm1_SelectedIndexChanged(object sender, EventArgs e)
     {
         DropDownList ddl1 = FormView1.FindControl("dlPaymentTerm1") as DropDownList;
@@ -123,58 +71,32 @@
       
     }
 
-    protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
+    
+
+    protected void ddlDeptList_Load(object sender, EventArgs e )
     {
-        if (!Page.IsPostBack) return;
-        DropDownList ddl = sender as DropDownList;
-        cleanEmployeeList();
-        if (ddl.SelectedValue != "-1")
-        {
-            
-            try
-            {
-                int depid = int.Parse(ddl.SelectedValue);
-                var list = from e in wowidb.employees where e.department_id == depid select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
-                if (list.Count() == 0) return;
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataSource = list;
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataTextField = "name";
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataValueField = "id";
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataBind();
-                (FormView1.FindControl("lblDept") as Label).Text = depid + "";
-            }
-            catch (Exception)
-            {
-                (FormView1.FindControl("lblDept") as Label).Text = "-1";
-
-            }
-        }
-        else
-        {
-            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
-        }
-
+        if(Page.IsPostBack) return;
+        (sender as DropDownList).SelectedValue = (FormView1.FindControl("lblDept") as Label).Text;
     }
 
-    private void cleanEmployeeList()
+    protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
     {
         try
         {
-            (FormView1.FindControl("ddlEmployeeList") as DropDownList).Items.Clear();
-            ListItem item = new ListItem("- Select -", "-1");
-            (FormView1.FindControl("ddlEmployeeList") as DropDownList).Items.Add(item);
-            (FormView1.FindControl("ddlEmployeeList") as DropDownList).AppendDataBoundItems = true;
-            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
+            DropDownList ddl = sender as DropDownList;
+            (FormView1.FindControl("lblDept") as Label).Text = ddl.SelectedValue;
         }
         catch (Exception)
         {
 
-            //throw;
+            (FormView1.FindControl("lblDept") as Label).Text = "-1";
         }
+
     }
+
 
     protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack) return;
         try
         {
             DropDownList ddl = sender as DropDownList;
@@ -189,42 +111,19 @@
 
     }
 
-    protected void ddlDeptList_Load(object sender, EventArgs e )
-    {
-        if(Page.IsPostBack) return;
-        (sender as DropDownList).SelectedValue = (FormView1.FindControl("lblDept") as Label).Text;
-    }
-
     protected void ddlEmployeeList_Load(object sender, EventArgs ea)
     {
-        if(Page.IsPostBack) return;
-        String depidStr = (FormView1.FindControl("lblDept") as Label).Text;
-        
-        try
-        {
-            int depid = int.Parse(depidStr);
-            if (depid != -1)
-            {
-                var list = from e in wowidb.employees where e.department_id == depid select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
-               
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).Items.Clear();
-                ListItem item = new ListItem("- Select -", "-1");
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).Items.Add(item);
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).AppendDataBoundItems = true;
-                if (list.Count() == 0) return;
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataSource = list;
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataTextField = "name";
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataValueField = "id";
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataBind();
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = (FormView1.FindControl("lblEmp") as Label).Text ;
-            }
-        }
-        catch (Exception)
-        {
-            
 
-        }
+        if (Page.IsPostBack) return;
+        var list = from e in wowidb.employees select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
+        if (list.Count() == 0) return;
+        (sender as DropDownList).DataSource = list;
+        (sender as DropDownList).DataTextField = "name";
+        (sender as DropDownList).DataValueField = "id";
+        (FormView1.FindControl("lblDept") as Label).Text = "-1";
+
     }
+
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -268,14 +167,13 @@
                                    width="30%">
                                             <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
                                                 DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
-                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" 
-                                                AppendDataBoundItems="True" OnPreRender="ddlDeptList_Load"><%--SelectedValue='<%# Bind("department_id") %>'>--%>
+                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" AppendDataBoundItems="True"><%--SelectedValue='<%# Bind("department_id") %>'>--%>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
 
                                             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                SelectCommand="SELECT [id], [name] FROM [department]"></asp:SqlDataSource>
+                                                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
                                             <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
@@ -325,11 +223,12 @@
                                        ID="dlQualification" runat="server" 
                                        SelectedValue='<%# Bind("qualification") %>'><asp:ListItem>Qualified</asp:ListItem><asp:ListItem>General</asp:ListItem></asp:DropDownList></td>
                                       <th 
-                                   align="left" class="style7">&nbsp; Authority / Local Agent:&nbsp;</th><td width="30%"><asp:DropDownList 
-                                       ID="dlContractType" runat="server" SelectedValue='<%# Bind("contract_type") %>'>
-                                       <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                       <asp:ListItem Value="0">Authroity</asp:ListItem>
-                                       <asp:ListItem Value="1">Local Agent</asp:ListItem></asp:DropDownList></td></tr>
+                                   align="left" class="style7">&nbsp; Vender Type:&nbsp;</th><td width="30%"><asp:DropDownList DataSourceID="SqlDataSource3"   DataTextField="name" DataValueField="id"
+                                       ID="dlContractType" runat="server" SelectedValue='<%# Bind("contract_type") %>' AppendDataBoundItems="true">
+                                        <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                        </asp:DropDownList><asp:SqlDataSource ID="SqlDataSource3" runat="server" 
+                                                   ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                   SelectCommand="SELECT [id], [name] FROM [vendor_type] WHERE [publish] = 'true'" ></asp:SqlDataSource></td></tr>
                                         <tr><th 
                                    align="left" class="style9">&nbsp;&nbsp; Bank Charge:&nbsp;</th><td width="30%">
                                                <asp:DropDownList ID="ddlBankCharge" runat="server" 
@@ -357,17 +256,18 @@
                                     <tr><th 
                                    align="left" class="style9">&nbsp;&nbsp; Payment Term:&nbsp;</th>
                                    <td colspan="3">
-                                             <asp:DropDownList ID="DropDownList1" runat="server" 
+                                                  <asp:DropDownList ID="ddlPaymentDays" runat="server" 
                                                  SelectedValue='<%# Bind("paymentdays") %>'>
-                                                 <asp:ListItem Value="0">Please select</asp:ListItem>
-                                                 <asp:ListItem>ASAP</asp:ListItem>
-                                                 <asp:ListItem>  7 days</asp:ListItem>
-                                                 <asp:ListItem> 15 days</asp:ListItem>
-                                                 <asp:ListItem> 30 days</asp:ListItem>
-                                                 <asp:ListItem> 45 days</asp:ListItem>
-                                                 <asp:ListItem> 60 days</asp:ListItem>
-                                                 <asp:ListItem> 90 days</asp:ListItem>
-                                                 <asp:ListItem>120 days</asp:ListItem>
+                                                 <asp:ListItem Value="-1">Please select</asp:ListItem>
+                                                 <asp:ListItem Value="0">ASAP</asp:ListItem>
+                                                 <asp:ListItem Value="7">  7 days</asp:ListItem>
+                                                 <asp:ListItem Value="15"> 15 days</asp:ListItem>
+                                                 <asp:ListItem Value="30"> 30 days</asp:ListItem>
+                                                 <asp:ListItem Value="45"> 45 days</asp:ListItem>
+                                                 <asp:ListItem Value="60"> 60 days</asp:ListItem>
+                                                 <asp:ListItem Value="90"> 90 days</asp:ListItem>
+                                                 <asp:ListItem Value="120">120 days</asp:ListItem>
+                                             </asp:DropDownList>
                                              </asp:DropDownList>
                                            </td>
                                    </tr>
@@ -431,14 +331,14 @@
                                    </td>
                                    </tr>
 
-                              <tr><td 
+                            <%--  <tr><td 
                                align="left" colspan="4"><b>&#160; Vender Type: </b><br /><asp:CheckBoxList 
                                ID="clVenderTypeList" runat="server" AutoPostBack="False" 
                                DataSourceID="EntityDataSource2" DataTextField="name" DataValueField="id" 
                                RepeatColumns="4" RepeatDirection="Horizontal"></asp:CheckBoxList><asp:EntityDataSource 
                                ID="EntityDataSource2" runat="server" ConnectionString="name=WoWiEntities" 
                                DefaultContainerName="WoWiEntities" EnableFlattening="False" 
-                               EntitySetName="vendor_type" Select="it.[id], it.[name]"></asp:EntityDataSource></td></tr></table></td></tr>
+                               EntitySetName="vendor_type" Select="it.[id], it.[name]"></asp:EntityDataSource></td></tr>--%></table></td></tr>
                                              <tr>
             <td>
                 <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">

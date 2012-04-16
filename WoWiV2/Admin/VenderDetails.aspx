@@ -149,15 +149,15 @@
                                <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
-                                            <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
-                                                DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
-                                                AppendDataBoundItems="True" Enabled="false" SelectedValue='<%# Bind("department_id") %>'>
+                                           <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" Enabled="false"
+                                                DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id"  AppendDataBoundItems="True"><%--SelectedValue='<%# Bind("department_id") %>'>--%>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
 
                                             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                SelectCommand="SELECT [id], [name] FROM [department]"></asp:SqlDataSource>
+                                                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
+                                            <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
                                             <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
@@ -205,11 +205,12 @@
                                        ID="dlQualification" runat="server" Enabled="false"
                                        SelectedValue='<%# Bind("qualification") %>'><asp:ListItem>Qualified</asp:ListItem><asp:ListItem>General</asp:ListItem></asp:DropDownList></td>
                                         <th 
-                                   align="left" class="style7">&nbsp; Authority / Local Agent:&nbsp;</th><td width="30%"><asp:DropDownList 
-                                       ID="dlContractType" runat="server" SelectedValue='<%# Bind("contract_type") %>' Enabled="false">
-                                       <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                       <asp:ListItem Value="0">Authroity</asp:ListItem>
-                                       <asp:ListItem Value="1">Local Agent</asp:ListItem></asp:DropDownList></td></tr>
+                                   align="left" class="style7">&nbsp; Vender Type:&nbsp;</th><td width="30%"><asp:DropDownList DataSourceID="SqlDataSource3"   DataTextField="name" DataValueField="id" Enabled="false"
+                                       ID="dlContractType" runat="server" SelectedValue='<%# Bind("contract_type") %>' AppendDataBoundItems="true">
+                                        <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                        </asp:DropDownList><asp:SqlDataSource ID="SqlDataSource3" runat="server" 
+                                                   ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                   SelectCommand="SELECT [id], [name] FROM [vendor_type] WHERE [publish] = 'true'" ></asp:SqlDataSource></td></tr>
                                        <tr><th 
                                    align="left" class="style9">&nbsp;&nbsp; Bank Charge:&nbsp;</th><td width="30%">
                                                <asp:DropDownList ID="ddlBankCharge" runat="server" Enabled="false"
@@ -222,32 +223,33 @@
                                            </td><th 
                                    align="left" class="style7">&nbsp; Payment Type:&nbsp;</th><td width="30%">
                                                <asp:DropDownList ID="ddlPaymentType" runat="server" Enabled="false"
-                                                   SelectedValue='<%# Bind("payment_type") %>'>
+                                                   SelectedValue='<%# Bind("payment_type") %>' >
                                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                                   <asp:ListItem Value="0">支票</asp:ListItem>
-                                                   <asp:ListItem Value="1">國內匯款</asp:ListItem>
-                                                   <asp:ListItem Value="6">國外匯款</asp:ListItem>
-                                                   <asp:ListItem Value="2">匯票</asp:ListItem>
-                                                   <asp:ListItem Value="3">信用卡</asp:ListItem>
-                                                   <asp:ListItem Value="4">現金</asp:ListItem>
-                                                   <asp:ListItem Value="5">西聯匯款</asp:ListItem>
+                                                    <asp:ListItem Value="0">支票 Check</asp:ListItem>
+                                                   <asp:ListItem Value="1">國內匯款 Domestic Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="6">國外匯款 Foreign Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="2">匯票 Cashier Check</asp:ListItem>
+                                                   <asp:ListItem Value="3">信用卡 Credit Card</asp:ListItem>
+                                                   <asp:ListItem Value="4">現金 Cash</asp:ListItem>
+                                                   <asp:ListItem Value="5">西聯匯款 Westerm Union</asp:ListItem>
                                                </asp:DropDownList>
+                                               
                                            </td>
                                    </tr>
                                    <tr><th 
                                    align="left" class="style9">&nbsp;&nbsp; Payment Term:&nbsp;</th>
                                    <td colspan="3">
-                                             <asp:DropDownList ID="DropDownList1" runat="server" Enabled="false"
+                                             <asp:DropDownList ID="ddlPaymentDays" runat="server" Enabled="false"
                                                  SelectedValue='<%# Bind("paymentdays") %>'>
-                                                 <asp:ListItem Value="0">Please select</asp:ListItem>
-                                                 <asp:ListItem>ASAP</asp:ListItem>
-                                                 <asp:ListItem>  7 days</asp:ListItem>
-                                                 <asp:ListItem> 15 days</asp:ListItem>
-                                                 <asp:ListItem> 30 days</asp:ListItem>
-                                                 <asp:ListItem> 45 days</asp:ListItem>
-                                                 <asp:ListItem> 60 days</asp:ListItem>
-                                                 <asp:ListItem> 90 days</asp:ListItem>
-                                                 <asp:ListItem>120 days</asp:ListItem>
+                                                 <asp:ListItem Value="-1">Please select</asp:ListItem>
+                                                 <asp:ListItem Value="0">ASAP</asp:ListItem>
+                                                 <asp:ListItem Value="7">  7 days</asp:ListItem>
+                                                 <asp:ListItem Value="15"> 15 days</asp:ListItem>
+                                                 <asp:ListItem Value="30"> 30 days</asp:ListItem>
+                                                 <asp:ListItem Value="45"> 45 days</asp:ListItem>
+                                                 <asp:ListItem Value="60"> 60 days</asp:ListItem>
+                                                 <asp:ListItem Value="90"> 90 days</asp:ListItem>
+                                                 <asp:ListItem Value="120">120 days</asp:ListItem>
                                              </asp:DropDownList>
                                            </td>
                                    </tr>
@@ -309,14 +311,14 @@
                                    
                                    </td>
                                    </tr>
-                                   <tr><td 
+                                   <%--<tr><td 
                                align="left" colspan="4"><b>&nbsp;&nbsp; Vender Type: </b><br /><asp:CheckBoxList 
                                ID="clVenderTypeList" runat="server" AutoPostBack="False"  Enabled="false"
                                DataSourceID="EntityDataSource2" DataTextField="name" DataValueField="id" 
                                RepeatColumns="4" RepeatDirection="Horizontal"></asp:CheckBoxList><asp:EntityDataSource 
                                ID="EntityDataSource2" runat="server" ConnectionString="name=WoWiEntities" 
                                DefaultContainerName="WoWiEntities" EnableFlattening="False" 
-                               EntitySetName="vendor_type" Select="it.[id], it.[name]"></asp:EntityDataSource></td></tr>
+                               EntitySetName="vendor_type" Select="it.[id], it.[name]"></asp:EntityDataSource></td></tr>--%>
                                 <tr><td align="left" colspan="4">
                                  <asp:Label runat="server" ID="lblC" Text="Contact :"></asp:Label>
                                     <asp:GridView ID="GridView1" runat="server" Width="100%"
