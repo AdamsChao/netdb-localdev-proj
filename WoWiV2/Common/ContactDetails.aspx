@@ -88,19 +88,19 @@
                         <td>
                             <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
                             <tr><th 
-                                   align="left" class="style9"><font color="red">*&#160;</font>Department:</th><td 
+                                   align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
-                                            <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
-                                                DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
-                                                AppendDataBoundItems="True" Enabled="false" SelectedValue='<%# Bind("department_id") %>'>
+                                           <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" Enabled="false"
+                                                DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id"  AppendDataBoundItems="True" SelectedValue='<%# Bind("department_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
 
                                             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                SelectCommand="SELECT [id], [name] FROM [department]"></asp:SqlDataSource>
+                                                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
+                                            <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
                                         </td><th align="left" 
-                                   class="style7"><font color="red">*&#160;</font>Employee:</th><td width="30%">
+                                   class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
                                             <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
                                                 Enabled="false" AppendDataBoundItems="True" onload="ddlEmployeeList_Load" SelectedValue='<%# Bind("employee_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
