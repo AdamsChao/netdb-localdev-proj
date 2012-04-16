@@ -9,8 +9,6 @@
         if (e.Exception == null)
         {
             WoWiModel.clientapplicant obj = (WoWiModel.clientapplicant)e.Entity;
-            
-            
             List<int> industry = (List<int>)ViewState[ClientApplicantUtils.Key_ViewState_Industry];
             if (industry.Count != 0)
             {

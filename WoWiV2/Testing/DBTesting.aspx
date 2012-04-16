@@ -70,6 +70,8 @@
         }
         db.SaveChanges();
     }
+
+    
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -84,5 +86,6 @@
     <asp:Button ID="Button3" runat="server" 
         Text="Bank Payment Type" onclick="Button3_Click" />
     <br />
+   
 </asp:Content>
 

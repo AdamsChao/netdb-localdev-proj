@@ -4,9 +4,83 @@
 
 <script runat="server">
 
-    protected void SqlDataSource1_Inserting(object sender, SqlDataSourceCommandEventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
-        
+        InitAccessLevel();
+    }
+
+
+    private void InitAccessLevel()
+    {
+        try
+        {
+            String str = Request.QueryString["id"];
+            int id = int.Parse(str);
+            EmployeeUtils.InitAccessLevel(id, FormView1, EmployeeUtils.Name_CheckBox_AccessLevel);
+            
+        }
+        catch
+        {
+        }
+    }
+   
+    protected void FormView1_ItemUpdating(object sender, FormViewUpdateEventArgs e)
+    {
+        EmployeeUtils.StoreDatasInViewState((FormView)sender, EmployeeUtils.Name_CheckBox_AccessLevel, ViewState, EmployeeUtils.Key_ViewState_AccessLevel);
+    }
+
+    protected void EntityDataSource1_Updated(object sender, EntityDataSourceChangedEventArgs e)
+    {
+        if (e.Exception == null)
+        {
+            WoWiModel.employee obj = (WoWiModel.employee)e.Entity;
+            List<int> asscesslevel = (List<int>)ViewState[EmployeeUtils.Key_ViewState_AccessLevel];
+            using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+            {
+                var data = db.m_employee_accesslevel;
+                try
+                {
+                    var delList = from c in db.m_employee_accesslevel where c.employee_id == obj.id select c;
+                    foreach (WoWiModel.m_employee_accesslevel item in delList)
+                    {
+                        data.DeleteObject(item);
+                    }
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+                if (asscesslevel.Count != 0)
+                {
+
+                    
+                    foreach (int id in asscesslevel)
+                    {
+                        var d = new WoWiModel.m_employee_accesslevel()
+                        {
+                            employee_id = obj.id,
+                            accesslevel_id = id
+                        };
+                        data.AddObject(d);
+                    }
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            ViewState.Remove(EmployeeUtils.Key_ViewState_AccessLevel);
+            Response.Redirect("~/Admin/EmployeeDetails.aspx?id=" + obj.id);
+        }
     }
 </script>
 
@@ -33,8 +107,8 @@
             NavigateUrl="~/Admin/EmployeeList.aspx">Employee List</asp:HyperLink>
     <br />
     <asp:FormView ID="FormView1" runat="server" CellPadding="4" DataKeyNames="id" SkinID="FormView"
-    DataSourceID="SqlDataSource1" DefaultMode="Edit" ForeColor="#333333" 
-       Width="100%">
+    DataSourceID="EntityDataSource1" DefaultMode="Edit" ForeColor="#333333" 
+       Width="100%" onitemupdating="FormView1_ItemUpdating">
         <EditItemTemplate>
         <table align="left" border="0" cellpadding="2" cellspacing="0" 
             style="width: 100%">
@@ -68,7 +142,7 @@
                              </asp:DropDownList>
                          </td>
                      </tr>
-                     <tr>
+                    <%-- <tr>
                          <th align="left" class="style4">
                              &nbsp; Confirm Password:&nbsp;</th>
                          <td class="style7">
@@ -85,15 +159,27 @@
                                  ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                  SelectCommand="SELECT DISTINCT [id], [name] FROM [department]">
                              </asp:SqlDataSource>
-                           <%--  &nbsp;&nbsp;<asp:CheckBox ID="CheckBox1" runat="server" 
-                                 Checked='<%# Bind("dotesting") %>' Text="Do Testing" />--%>
+                          
                          </td>
-                     </tr>
+                     </tr>--%>
                       <tr>
                             <th align="left" class="style4">
                                &nbsp; User Name:&nbsp;</th>
                             <td class="style7" colspan="3">
                                 <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("username") %>' Enabled="false"></asp:TextBox>(For Login)
+                            </td>                        
+                        </tr>
+                        <tr>
+                            <th align="left" class="style4">
+                                <font color="red">*&nbsp;</font>Access Level:&nbsp;</th>
+                            <td class="style7" colspan="3">
+                                <asp:CheckBoxList 
+                               ID="clAccessLevel" runat="server" 
+                               DataSourceID="SqlDataSource55" DataTextField="name" DataValueField="id" 
+                               RepeatColumns="4" RepeatDirection="Horizontal"></asp:CheckBoxList>
+                              <asp:SqlDataSource ID="SqlDataSource55" runat="server" 
+                                                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                     SelectCommand="SELECT * FROM [access_level] where [publish] = 'true'"></asp:SqlDataSource>
                             </td>                        
                         </tr>
                  </table>
@@ -164,6 +250,10 @@
                                          DataSourceID="SqlDataSource1" DataTextField="name" DataValueField="id" 
                                          SelectedValue='<%# Bind("department_id") %>'>
                                      </asp:DropDownList>
+                                      <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+                                    ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                    SelectCommand="SELECT [id], [name] FROM [department] WHERE [publish] = 'true'">
+                                </asp:SqlDataSource>
                                  </td>
                              </tr>
                              <tr>
@@ -300,80 +390,14 @@
         <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
         <RowStyle BackColor="#EFF3FB" />
     </asp:FormView>
-<asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-    ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-    DeleteCommand="DELETE FROM [employee] WHERE [id] = @id" 
-    InsertCommand="INSERT INTO [employee] ([username], [password], [fname], [lname],[c_fname], [c_lname], [title], [hiredate], [terminationdate], [workphone], [homephone], [cellphone], [email], [address], [country], [status], [department_id], [accessprivilege], [supervisor_id], [create_date], [create_user], [modify_date], [modify_user], [work_ext], [signature]) VALUES (@username, @password, @fname, @lname, @title, @hiredate, @terminationdate, @workphone, @homephone, @cellphone, @email, @address, @country, @status, @department_id, @accessprivilege, @supervisorid, @create_date, @create_user, @modify_date, @modify_user, @work_ext, @signature)" 
-    SelectCommand="SELECT * FROM [employee] WHERE ([id] = @id)" 
-    
-        UpdateCommand="UPDATE [employee] SET [username] = @username, [password] = @password, [fname] = @fname, [lname] = @lname, [c_fname] = @c_fname, [c_lname] = @c_lname, [title] = @title, [hiredate] = @hiredate, [terminationdate] = @terminationdate, [workphone] = @workphone, [homephone] = @homephone, [cellphone] = @cellphone, [email] = @email, [address] = @address, [country] = @country, [status] = @status, [department_id] = @department_id, [accessprivilege] = @accessprivilege, [supervisor_id] = @supervisor_id, [create_date] = @create_date, [create_user] = @create_user, [modify_date] = @modify_date, [modify_user] = @modify_user, [work_ext] = @work_ext, [signature] = @signature,[q_authorize_amt] = @q_authorize_amt, [q_authorize_currency]=  @q_authorize_currency,[pr_authorize_amt]=  @pr_authorize_amt, [pr_authorize_currency]=  @pr_authorize_currency , [jobtitle_id] = @jobtitle_id WHERE [id] = @id" 
-        oninserting="SqlDataSource1_Inserting">
-    <DeleteParameters>
-        <asp:Parameter Name="id" Type="Int32" />
-    </DeleteParameters>
-    <InsertParameters>
-        <asp:Parameter Name="username" Type="String" />
-        <asp:Parameter Name="password" Type="String" />
-        <asp:Parameter Name="fname" Type="String" />
-        <asp:Parameter Name="lname" Type="String" />
-        <asp:Parameter Name="title" Type="String" />
-        <asp:Parameter Name="hiredate" Type="DateTime" />
-        <asp:Parameter Name="terminationdate" Type="DateTime" />
-        <asp:Parameter Name="workphone" Type="String" />
-        <asp:Parameter Name="homephone" Type="String" />
-        <asp:Parameter Name="cellphone" Type="String" />
-        <asp:Parameter Name="email" Type="String" />
-        <asp:Parameter Name="address" Type="String" />
-        <asp:Parameter Name="country" Type="String" />
-        <asp:Parameter Name="status" Type="String" />
-        <asp:Parameter Name="department_id" Type="Byte" />
-        <asp:Parameter Name="accessprivilege" Type="String" />
-        <asp:Parameter Name="supervisorid" Type="Int32" />
-        <asp:Parameter Name="create_date" Type="DateTime" />
-        <asp:Parameter Name="create_user" Type="String" />
-        <asp:Parameter Name="modify_date" Type="DateTime" />
-        <asp:Parameter Name="modify_user" Type="String" />
-        <asp:Parameter Name="work_ext" Type="String" />
-        <asp:Parameter Name="signature" Type="String" />
-    </InsertParameters>
-    <UpdateParameters>
-        <asp:Parameter Name="username" Type="String" />
-        <asp:Parameter Name="password" Type="String" />
-        <asp:Parameter Name="fname" Type="String" />
-        <asp:Parameter Name="lname" Type="String" />
-         <asp:Parameter Name="c_fname" Type="String" />
-        <asp:Parameter Name="c_lname" Type="String" />
-        <asp:Parameter Name="title" Type="String" />
-        <asp:Parameter Name="jobtitle_id" Type="Int32" />
-        <asp:Parameter Name="hiredate" Type="DateTime" />
-        <asp:Parameter Name="terminationdate" Type="DateTime" />
-        <asp:Parameter Name="workphone" Type="String" />
-        <asp:Parameter Name="homephone" Type="String" />
-        <asp:Parameter Name="cellphone" Type="String" />
-        <asp:Parameter Name="email" Type="String" />
-        <asp:Parameter Name="address" Type="String" />
-        <asp:Parameter Name="country" Type="String" />
-        <asp:Parameter Name="status" Type="String" />
-        <asp:Parameter Name="department_id" Type="Byte" />
-        <asp:Parameter Name="accessprivilege" Type="String" />
-        <asp:Parameter Name="supervisor_id" Type="Int32" />
-        <asp:Parameter Name="create_date" Type="DateTime" />
-        <asp:Parameter Name="create_user" Type="String" />
-        <asp:Parameter Name="modify_date" Type="DateTime" />
-        <asp:Parameter Name="modify_user" Type="String" />
-        <asp:Parameter Name="work_ext" Type="String" />
-        <asp:Parameter Name="signature" Type="String" />
-        <asp:Parameter Name="id" Type="Int32" />
-        <asp:Parameter Name="q_authorize_amt" Type="Int32" />
-        <asp:Parameter Name="q_authorize_currency" Type="String" />
-        <asp:Parameter Name="pr_authorize_amt" Type="Int32" />
-        <asp:Parameter Name="pr_authorize_currency" Type="String" />
-    </UpdateParameters>
-    <SelectParameters>
-            <asp:QueryStringParameter DefaultValue="3" Name="id" QueryStringField="id" 
-                Type="Int32" />
-        </SelectParameters>
-</asp:SqlDataSource>
+    <asp:EntityDataSource ID="EntityDataSource1" runat="server" 
+        ConnectionString="name=WoWiEntities" DefaultContainerName="WoWiEntities" 
+        EnableFlattening="False" EnableUpdate="True" EntitySetName="employees"  Where="it.id == @id"
+        onupdated="EntityDataSource1_Updated">
+        <WhereParameters>
+         <asp:QueryStringParameter Name="id" QueryStringField="id" Type="Int32" />
+        </WhereParameters>
+    </asp:EntityDataSource>
     <br />
 </asp:Content>
 
