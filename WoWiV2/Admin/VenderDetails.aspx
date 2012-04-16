@@ -147,7 +147,7 @@
                            ID="HyperLink1" runat="server" NavigateUrl="~/Admin/VenderList.aspx">Vender List</asp:HyperLink>&#160;</th></tr><tr><td><table 
                                align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
                                <tr><th 
-                                   align="left" class="style9"><font color="red">*&#160;</font>Department:</th><td 
+                                   align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
                                             <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
                                                 DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
@@ -159,7 +159,7 @@
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                                 SelectCommand="SELECT [id], [name] FROM [department]"></asp:SqlDataSource>
                                         </td><th align="left" 
-                                   class="style7"><font color="red">*&#160;</font>Employee:</th><td width="30%">
+                                   class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
                                             <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
                                                 Enabled="false" AppendDataBoundItems="True" onload="ddlEmployeeList_Load" SelectedValue='<%# Bind("employee_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>

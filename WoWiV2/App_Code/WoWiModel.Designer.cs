@@ -688,6 +688,22 @@ namespace WoWiModel
             }
         }
         private ObjectSet<wowi_bankinfo> _wowi_bankinfo;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<access_level> access_level
+        {
+            get
+            {
+                if ((_access_level == null))
+                {
+                    _access_level = base.CreateObjectSet<access_level>("access_level");
+                }
+                return _access_level;
+            }
+        }
+        private ObjectSet<access_level> _access_level;
 
         #endregion
         #region AddTo Methods
@@ -1003,6 +1019,14 @@ namespace WoWiModel
         {
             base.AddObject("wowi_bankinfo", wowi_bankinfo);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the access_level EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToaccess_level(access_level access_level)
+        {
+            base.AddObject("access_level", access_level);
+        }
 
         #endregion
     }
@@ -1011,6 +1035,209 @@ namespace WoWiModel
     #endregion
     
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WoWiModel", Name="access_level")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class access_level : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new access_level object.
+        /// </summary>
+        /// <param name="id">Initial value of the id property.</param>
+        /// <param name="name">Initial value of the name property.</param>
+        /// <param name="publish">Initial value of the publish property.</param>
+        public static access_level Createaccess_level(global::System.Int32 id, global::System.String name, global::System.Boolean publish)
+        {
+            access_level access_level = new access_level();
+            access_level.id = id;
+            access_level.name = name;
+            access_level.publish = publish;
+            return access_level;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                OnnameChanging(value);
+                ReportPropertyChanging("name");
+                _name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("name");
+                OnnameChanged();
+            }
+        }
+        private global::System.String _name;
+        partial void OnnameChanging(global::System.String value);
+        partial void OnnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean publish
+        {
+            get
+            {
+                return _publish;
+            }
+            set
+            {
+                OnpublishChanging(value);
+                ReportPropertyChanging("publish");
+                _publish = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("publish");
+                OnpublishChanged();
+            }
+        }
+        private global::System.Boolean _publish;
+        partial void OnpublishChanging(global::System.Boolean value);
+        partial void OnpublishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> create_date
+        {
+            get
+            {
+                return _create_date;
+            }
+            set
+            {
+                Oncreate_dateChanging(value);
+                ReportPropertyChanging("create_date");
+                _create_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("create_date");
+                Oncreate_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _create_date;
+        partial void Oncreate_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Oncreate_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String create_user
+        {
+            get
+            {
+                return _create_user;
+            }
+            set
+            {
+                Oncreate_userChanging(value);
+                ReportPropertyChanging("create_user");
+                _create_user = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("create_user");
+                Oncreate_userChanged();
+            }
+        }
+        private global::System.String _create_user;
+        partial void Oncreate_userChanging(global::System.String value);
+        partial void Oncreate_userChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> modify_date
+        {
+            get
+            {
+                return _modify_date;
+            }
+            set
+            {
+                Onmodify_dateChanging(value);
+                ReportPropertyChanging("modify_date");
+                _modify_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("modify_date");
+                Onmodify_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _modify_date;
+        partial void Onmodify_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onmodify_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String modify_user
+        {
+            get
+            {
+                return _modify_user;
+            }
+            set
+            {
+                Onmodify_userChanging(value);
+                ReportPropertyChanging("modify_user");
+                _modify_user = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("modify_user");
+                Onmodify_userChanged();
+            }
+        }
+        private global::System.String _modify_user;
+        partial void Onmodify_userChanging(global::System.String value);
+        partial void Onmodify_userChanged();
+
+        #endregion
+    
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -10879,6 +11106,30 @@ namespace WoWiModel
         private Nullable<global::System.Int32> _Country_Manager;
         partial void OnCountry_ManagerChanging(Nullable<global::System.Int32> value);
         partial void OnCountry_ManagerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PR_Flag
+        {
+            get
+            {
+                return _PR_Flag;
+            }
+            set
+            {
+                OnPR_FlagChanging(value);
+                ReportPropertyChanging("PR_Flag");
+                _PR_Flag = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PR_Flag");
+                OnPR_FlagChanged();
+            }
+        }
+        private global::System.String _PR_Flag;
+        partial void OnPR_FlagChanging(global::System.String value);
+        partial void OnPR_FlagChanged();
 
         #endregion
     

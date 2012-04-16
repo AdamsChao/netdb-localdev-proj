@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="WoWiModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="WoWiModelStoreContainer">
+          <EntitySet Name="access_level" EntityType="WoWiModel.Store.access_level" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Authority" EntityType="WoWiModel.Store.Authority" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="clientapplicant" EntityType="WoWiModel.Store.clientapplicant" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="clientapplicant_industry" EntityType="WoWiModel.Store.clientapplicant_industry" store:Type="Tables" Schema="dbo" />
@@ -46,6 +47,18 @@
           <EntitySet Name="wowi_product_type" EntityType="WoWiModel.Store.wowi_product_type" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="wowi_tech" EntityType="WoWiModel.Store.wowi_tech" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
+        <EntityType Name="access_level">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="publish" Type="bit" Nullable="false" />
+          <Property Name="create_date" Type="datetime" />
+          <Property Name="create_user" Type="nvarchar" MaxLength="26" />
+          <Property Name="modify_date" Type="datetime" />
+          <Property Name="modify_user" Type="nvarchar" MaxLength="26" />
+        </EntityType>
         <EntityType Name="Authority">
           <Key>
             <PropertyRef Name="country_id" />
@@ -568,6 +581,7 @@
           <Property Name="Actual_Lead_time" Type="nvarchar" MaxLength="50" />
           <Property Name="Agent" Type="int" />
           <Property Name="Country_Manager" Type="int" />
+          <Property Name="PR_Flag" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="Quotation_Version">
           <Key>
@@ -838,6 +852,7 @@
           <EntitySet Name="Targets" EntityType="WoWiModel.Target" />
           <EntitySet Name="PR_Payment" EntityType="WoWiModel.PR_Payment" />
           <EntitySet Name="wowi_bankinfo" EntityType="WoWiModel.wowi_bankinfo" />
+          <EntitySet Name="access_level" EntityType="WoWiModel.access_level" />
         </EntityContainer>
         <EntityType Name="clientapplicant_industry">
           <Key>
@@ -1537,6 +1552,7 @@
           <Property Type="String" Name="Actual_Lead_time" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Agent" />
           <Property Type="Int32" Name="Country_Manager" />
+          <Property Type="String" Name="PR_Flag" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="Target">
           <Key>
@@ -1582,6 +1598,18 @@
           <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="display_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="info" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="access_level">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="publish" Nullable="false" />
           <Property Type="DateTime" Name="create_date" />
           <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
@@ -2283,6 +2311,7 @@
           <EntitySetMapping Name="Quotation_Target">
             <EntityTypeMapping TypeName="WoWiModel.Quotation_Target">
               <MappingFragment StoreEntitySet="Quotation_Target">
+                <ScalarProperty Name="PR_Flag" ColumnName="PR_Flag" />
                 <ScalarProperty Name="Country_Manager" ColumnName="Country_Manager" />
                 <ScalarProperty Name="Agent" ColumnName="Agent" />
                 <ScalarProperty Name="Actual_Lead_time" ColumnName="Actual_Lead_time" />
@@ -2371,6 +2400,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="access_level">
+            <EntityTypeMapping TypeName="WoWiModel.access_level">
+              <MappingFragment StoreEntitySet="access_level">
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="publish" ColumnName="publish" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2431,6 +2473,7 @@
         <EntityTypeShape EntityType="WoWiModel.Target" Width="1.5" PointX="19.375" PointY="8.75" Height="2.5532031250000102" />
         <EntityTypeShape EntityType="WoWiModel.PR_Payment" Width="1.5" PointX="19.375" PointY="12.75" Height="3.7848111979166674" />
         <EntityTypeShape EntityType="WoWiModel.wowi_bankinfo" Width="1.5" PointX="19.375" PointY="17.75" Height="2.2013151041666674" />
+        <EntityTypeShape EntityType="WoWiModel.access_level" Width="1.5" PointX="13.375" PointY="20.75" Height="2.2013151041666674" />
       </Diagram>
     </Diagrams>
   </Designer>

@@ -285,7 +285,7 @@
                                    onload="dlVenderList_Load"></asp:DropDownList><asp:Button ID="btnLoad" 
                                    runat="server" onclick="btnLoad_Click" Text="Load" /></td></tr>
                                     <tr><th 
-                                   align="left" class="style9"><font color="red">*&#160;</font>Department:</th><td 
+                                   align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
                                             <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
                                                 DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
@@ -298,7 +298,7 @@
                                                 SelectCommand="SELECT [id], [name] FROM [department]"></asp:SqlDataSource>
                                             <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
                                         </td><th align="left" 
-                                   class="style7"><font color="red">*&#160;</font>Employee:</th><td width="30%">
+                                   class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
                                             <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
                                                 onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged" >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
