@@ -42,6 +42,18 @@
             }
         }
 
+        foreach (var e in db.PRs)
+        {
+            if (!e.department_id.HasValue)
+            {
+                e.department_id = -1;
+            }
+            if (!e.employee_id.HasValue)
+            {
+                e.employee_id = -1;
+            }
+        }
+
         db.SaveChanges();
 
     }
