@@ -364,13 +364,13 @@
                                                <asp:DropDownList ID="ddlPaymentType" runat="server" 
                                                    SelectedValue='<%# Bind("payment_type") %>'>
                                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                                   <asp:ListItem Value="0">支票</asp:ListItem>
-                                                   <asp:ListItem Value="1">國內匯款</asp:ListItem>
-                                                   <asp:ListItem Value="6">國外匯款</asp:ListItem>
-                                                   <asp:ListItem Value="2">匯票</asp:ListItem>
-                                                   <asp:ListItem Value="3">信用卡</asp:ListItem>
-                                                   <asp:ListItem Value="4">現金</asp:ListItem>
-                                                   <asp:ListItem Value="5">西聯匯款</asp:ListItem>
+                                                    <asp:ListItem Value="0">支票 Check</asp:ListItem>
+                                                   <asp:ListItem Value="1">國內匯款 Domestic Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="6">國外匯款 Foreign  Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="2">匯票 Cashier Check</asp:ListItem>
+                                                   <asp:ListItem Value="3">信用卡 Credit Card</asp:ListItem>
+                                                   <asp:ListItem Value="4">現金 Cash</asp:ListItem>
+                                                   <asp:ListItem Value="5">西聯匯款 Westerm Union</asp:ListItem>
                                                </asp:DropDownList>
                                            </td>
                                    </tr>

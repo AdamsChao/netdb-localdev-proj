@@ -327,15 +327,14 @@
                                             onprerender="ddlPaymentType_PreRender" selectedValue='<%# Bind("payment_type") %>'
                                             onselectedindexchanged="ddlPaymentType_SelectedIndexChanged" >
                                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                                   <asp:ListItem Value="0">支票</asp:ListItem>
-                                                   <asp:ListItem Value="1">國內匯款</asp:ListItem>
-                                                   <asp:ListItem Value="6">國外匯款</asp:ListItem>
-                                                   <asp:ListItem Value="2">匯票</asp:ListItem>
-                                                   <asp:ListItem Value="3">信用卡</asp:ListItem>
-                                                   <asp:ListItem Value="4">現金</asp:ListItem>
-                                                   <asp:ListItem Value="5">西聯匯款</asp:ListItem>
+                                                   <asp:ListItem Value="0">支票 Check</asp:ListItem>
+                                                   <asp:ListItem Value="1">國內匯款 Domestic Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="6">國外匯款 Foreign  Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="2">匯票 Cashier Check</asp:ListItem>
+                                                   <asp:ListItem Value="3">信用卡 Credit Card</asp:ListItem>
+                                                   <asp:ListItem Value="4">現金 Cash</asp:ListItem>
+                                                   <asp:ListItem Value="5">西聯匯款 Westerm Union</asp:ListItem>
                                                </asp:DropDownList> &nbsp;<font color="red"><b>*</b></font>國內匯款 不需輸入&nbsp;<font color="red">Swif Code</font>&nbsp;，支票 或是 匯票 &nbsp;<font color="red">Beneficiary Name</font>&nbsp;一定要輸入，空白欄位一律填入&nbsp;<font color="red">N/A</font>&nbsp;
-                                       <asp:Label ID="lblPaymentType" runat="server" Text='<%# Bind("payment_type") %>' CssClass="hidden"></asp:Label>
                                     </td></tr>
                                 <tr>
                                <tr><th 
@@ -549,17 +548,17 @@
                                    runat="server" onclick="btnLoad_Click" Text="Load" /></td></tr>--%>
                                 <tr><th 
                                    align="left" class="style9">&nbsp&nbsp Payment Type:&#160;</th><td width="30%" colspan="3">
-                                   <asp:DropDownList ID="ddlPaymentType" runat="server" 
+                                   <asp:DropDownList ID="ddlPaymentType" runat="server" selectedValue='<%# Bind("payment_type") %>'
                                             onprerender="ddlPaymentType_PreRender2" 
                                             onselectedindexchanged="ddlPaymentType_SelectedIndexChanged" >
                                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                                   <asp:ListItem Value="0">支票</asp:ListItem>
-                                                   <asp:ListItem Value="1">國內匯款</asp:ListItem>
-                                                   <asp:ListItem Value="6">國外匯款</asp:ListItem>
-                                                   <asp:ListItem Value="2">匯票</asp:ListItem>
-                                                   <asp:ListItem Value="3">信用卡</asp:ListItem>
-                                                   <asp:ListItem Value="4">現金</asp:ListItem>
-                                                   <asp:ListItem Value="5">西聯匯款</asp:ListItem>
+                                                   <asp:ListItem Value="0">支票 Check</asp:ListItem>
+                                                   <asp:ListItem Value="1">國內匯款 Domestic Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="6">國外匯款 Foreign  Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="2">匯票 Cashier Check</asp:ListItem>
+                                                   <asp:ListItem Value="3">信用卡 Credit Card</asp:ListItem>
+                                                   <asp:ListItem Value="4">現金 Cash</asp:ListItem>
+                                                   <asp:ListItem Value="5">西聯匯款 Westerm Union</asp:ListItem>
                                                </asp:DropDownList> &nbsp;<font color="red"><b>*</b></font>國內匯款 不需輸入&nbsp;<font color="red">Swif Code</font>&nbsp;，支票 或是 匯票 &nbsp;<font color="red">Beneficiary Name</font>&nbsp;一定要輸入，空白欄位一律填入&nbsp;<font color="red">N/A</font>&nbsp;
                                        <asp:Label ID="lblPaymentType" runat="server" Text='<%# Bind("payment_type") %>' CssClass="hidden"></asp:Label>
                                     </td></tr>
