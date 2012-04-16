@@ -492,8 +492,8 @@
                           </td></tr>
                           
                           <tr><td align="right" 
-                                   class="style11" colspan="4">Department : <asp:Label ID="lblDept" runat="server" Text="" 
-                                         onload="lbl_Load" />&nbsp;&nbsp;&nbsp;&nbsp;Employee : 
+                                   class="style11" colspan="4">Access Level : <asp:Label ID="lblDept" runat="server" Text="" 
+                                         onload="lbl_Load" />&nbsp;&nbsp;&nbsp;&nbsp;Created by : 
                                      <asp:Label ID="lblEmp" runat="server" Text="" 
                                          onload="lbl_Load"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;Create Date : 
                                      <asp:Label ID="lblCDate" runat="server" Text="" 
