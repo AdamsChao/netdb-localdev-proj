@@ -134,6 +134,25 @@ public class Utils
         HttpContext.Current.Response.End();
 
     }
+
+    public static int GetEmployeeID(String username)
+    {
+        int id = -1;
+        try
+        {
+            using (WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities())
+            {
+                id = (from emp in wowidb.employees where emp.username == username select emp.id).First();
+            }
+        }
+        catch (Exception ex)
+        {
+            
+            //throw;
+        }
+
+        return id;
+    }
 }
 
 public delegate void CustomLogic();

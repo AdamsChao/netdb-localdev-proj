@@ -71,7 +71,17 @@
         db.SaveChanges();
     }
 
-    
+
+    protected void Button4_Click(object sender, EventArgs ea)
+    {
+        WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities();
+
+        foreach (var e in db.vendors)
+        {
+            e.paymentdays = "-1";
+        }
+        db.SaveChanges();
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -85,6 +95,10 @@
     <br />
     <asp:Button ID="Button3" runat="server" 
         Text="Bank Payment Type" onclick="Button3_Click" />
+    <br />
+
+    <asp:Button ID="Button4" runat="server" 
+        Text="Vender Payment Term" onclick="Button4_Click"  />
     <br />
    
 </asp:Content>

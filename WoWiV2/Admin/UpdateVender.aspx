@@ -268,7 +268,6 @@
                                                  <asp:ListItem Value="90"> 90 days</asp:ListItem>
                                                  <asp:ListItem Value="120">120 days</asp:ListItem>
                                              </asp:DropDownList>
-                                             </asp:DropDownList>
                                            </td>
                                    </tr>
                                    <tr><td

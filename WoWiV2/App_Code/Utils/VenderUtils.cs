@@ -28,25 +28,25 @@ public class VenderUtils
         switch (pID)
         {
             case "0":
-                ret = "支票";
+                ret = "支票 Check";
                 break;
             case "1":
-                ret = "國內匯款";
+                ret = "國內匯款 Domestic Wire Transfer";
                 break;
             case "2":
-                ret = "匯票";
+                ret = "匯票 Cashier Check";
                 break;
             case "3":
-                ret = "信用卡";
+                ret = "信用卡 Credit Card";
                 break;
             case "4":
-                ret = "現金";
+                ret = "現金 Cash";
                 break;
             case "5":
-                ret = "西聯匯款";
+                ret = "西聯匯款 Westerm Union";
                 break;
             case "6":
-                ret = "國外匯款";
+                ret = "國外匯款 Foreign Wire Transfer";
                 break;
         }
         return ret;
