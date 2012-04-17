@@ -65,4 +65,10 @@ public class EmployeeUtils
         ViewState[ViewStateKey] = roles;
 
     }
+
+    public static Object GetEmployeeList(WoWiModel.WoWiEntities db)
+    {
+        var list = from e in db.employees where e.status == "Active"  select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
+        return list;
+    }
 }

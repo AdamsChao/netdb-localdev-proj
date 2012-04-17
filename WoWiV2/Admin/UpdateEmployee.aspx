@@ -6,6 +6,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Page.IsPostBack) return;
         InitAccessLevel();
     }
 
@@ -79,7 +80,7 @@
                 }
             }
             ViewState.Remove(EmployeeUtils.Key_ViewState_AccessLevel);
-            Response.Redirect("~/Admin/EmployeeDetails.aspx?id=" + obj.id);
+            Response.Redirect("~/Admin/EmployeeDetails.aspx?id=" + obj.id,false);
         }
     }
 </script>
@@ -392,7 +393,7 @@
     </asp:FormView>
     <asp:EntityDataSource ID="EntityDataSource1" runat="server" 
         ConnectionString="name=WoWiEntities" DefaultContainerName="WoWiEntities" 
-        EnableFlattening="False" EnableUpdate="True" EntitySetName="employees"  Where="it.id == @id"
+        EnableUpdate="True" EntitySetName="employees"  Where="it.id == @id"
         onupdated="EntityDataSource1_Updated">
         <WhereParameters>
          <asp:QueryStringParameter Name="id" QueryStringField="id" Type="Int32" />

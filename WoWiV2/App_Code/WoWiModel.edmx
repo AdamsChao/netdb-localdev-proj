@@ -443,6 +443,8 @@
           <Property Name="vendor_quotation_no" Type="nvarchar" MaxLength="20" />
           <Property Name="vendor_invoice_no" Type="nvarchar" MaxLength="20" />
           <Property Name="target_payment_date" Type="datetime" />
+          <Property Name="department_id" Type="int" />
+          <Property Name="employee_id" Type="int" />
         </EntityType>
         <EntityType Name="PR_authority_history">
           <Key>
@@ -1267,6 +1269,8 @@
           <Property Type="String" Name="vendor_quotation_no" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="vendor_invoice_no" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="target_payment_date" />
+          <Property Type="Int32" Name="department_id" />
+          <Property Type="Int32" Name="employee_id" />
         </EntityType>
         <EntityType Name="PR_item">
           <Key>
@@ -2032,6 +2036,8 @@
           <EntitySetMapping Name="PRs">
             <EntityTypeMapping TypeName="WoWiModel.PR">
               <MappingFragment StoreEntitySet="PR">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
                 <ScalarProperty Name="target_payment_date" ColumnName="target_payment_date" />
                 <ScalarProperty Name="vendor_invoice_no" ColumnName="vendor_invoice_no" />
                 <ScalarProperty Name="vendor_quotation_no" ColumnName="vendor_quotation_no" />

@@ -214,8 +214,7 @@
     {
 
         if (Page.IsPostBack) return;
-        var list = from e in wowidb.employees select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
-        if (list.Count() == 0) return;
+        var list = EmployeeUtils.GetEmployeeList(wowidb);
         (sender as DropDownList).DataSource = list;
         (sender as DropDownList).DataTextField = "name";
         (sender as DropDownList).DataValueField = "id";
