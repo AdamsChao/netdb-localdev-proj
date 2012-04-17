@@ -9,7 +9,7 @@
 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
     ControlToValidate="TextBox1" ErrorMessage="Please choose target payment day." 
     ValidationGroup="VenderGroup" Font-Bold="True" ForeColor="Red">*</asp:RequiredFieldValidator>
-<asp:ValidationSummary ID="ValidationSummary1" runat="server" 
-    ShowMessageBox="True" ShowSummary="False" ValidationGroup="VenderGroup" />
+<%--<asp:ValidationSummary ID="ValidationSummary1" runat="server" 
+    ShowMessageBox="True" ShowSummary="False" ValidationGroup="VenderGroup" />--%>
 
 
