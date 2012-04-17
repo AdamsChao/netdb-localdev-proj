@@ -42,6 +42,13 @@
     {
         EmployeeUtils.StoreDatasInViewState((FormView)sender, EmployeeUtils.Name_CheckBox_AccessLevel, ViewState, EmployeeUtils.Key_ViewState_AccessLevel);
     }
+
+    protected void EntityDataSource1_Inserting(object sender, EntityDataSourceChangingEventArgs e)
+    {
+        WoWiModel.employee obj = (WoWiModel.employee)e.Entity;
+        obj.create_date = DateTime.Now;
+        obj.create_user = User.Identity.Name;
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -331,7 +338,8 @@
     <asp:EntityDataSource ID="EntityDataSource1" runat="server" 
         ConnectionString="name=WoWiEntities" DefaultContainerName="WoWiEntities" 
         EnableFlattening="False" EnableInsert="True" EnableUpdate="True" 
-        EntitySetName="employees" oninserted="EntityDataSource1_Inserted">
+        EntitySetName="employees" oninserted="EntityDataSource1_Inserted" 
+        oninserting="EntityDataSource1_Inserting">
     </asp:EntityDataSource>
 <br />
 </asp:Content>
