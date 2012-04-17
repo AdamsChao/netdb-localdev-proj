@@ -123,8 +123,7 @@
     {
 
         if (Page.IsPostBack) return;
-        var list = from e in wowidb.employees select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
-        if (list.Count() == 0) return;
+        var list = EmployeeUtils.GetEmployeeList(wowidb);
         (sender as DropDownList).DataSource = list;
         (sender as DropDownList).DataTextField = "name";
         (sender as DropDownList).DataValueField = "id";
@@ -203,7 +202,7 @@
                                                 SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
-                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
+                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" AppendDataBoundItems="true"
                                                 onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged"  SelectedValue='<%# Bind("employee_id") %>'
                                                 onload="ddlEmployeeList_Load" >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>

@@ -209,8 +209,7 @@
     {
 
         if (Page.IsPostBack) return;
-        var list = from e in wowidb.employees select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
-        if (list.Count() == 0) return;
+        var list = EmployeeUtils.GetEmployeeList(wowidb);
         (sender as DropDownList).DataSource = list;
         (sender as DropDownList).DataTextField = "name";
         (sender as DropDownList).DataValueField = "id";
@@ -262,7 +261,7 @@
                             </td>
                         </tr>
                          <tr><th 
-                                   align="left" class="style9"><font color="red">*&#160;</font>Department:</th><td 
+                                   align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
                                             <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
                                                 DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
@@ -275,8 +274,8 @@
                                                 SelectCommand="SELECT * FROM [access_level] where [publish] = 'true'"></asp:SqlDataSource>
                                             <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
                                         </td><th align="left" 
-                                   class="style7"><font color="red">*&#160;</font>Employee:</th><td width="30%">
-                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" onload="ddlEmployeeList_Load"
+                                   class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
+                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" onload="ddlEmployeeList_Load" AppendDataBoundItems="true"
                                                 onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged" >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>

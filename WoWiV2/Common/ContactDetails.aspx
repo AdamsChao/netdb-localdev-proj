@@ -33,7 +33,7 @@
 
     protected void ddlEmployeeList_Load(object sender, EventArgs ea)
     {
-        var list = from e in db.employees select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
+        var list = EmployeeUtils.GetEmployeeList(db);
         (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataSource = list;
         (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataTextField = "name";
         (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataValueField = "id";
