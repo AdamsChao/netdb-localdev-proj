@@ -320,7 +320,7 @@
         {
             WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
 
-            Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id,false);
+            Response.Redirect("~/Accounting/UpdatePR.aspx?id=" + obj.pr_id,false);
         }
     }
 
@@ -955,7 +955,7 @@
                           <tr align="center">
                               <td>
                                   <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" 
-                                            CommandName="Update" Text="Finish" ValidationGroup="VenderGroup" />
+                                            CommandName="Update" Text="Next" ValidationGroup="VenderGroup" />
                                         &nbsp;
                                         <asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" 
                                             CommandName="Cancel" Text="Cancel" />
