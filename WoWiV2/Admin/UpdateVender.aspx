@@ -99,7 +99,6 @@
         (sender as DropDownList).DataTextField = "name";
         (sender as DropDownList).DataValueField = "id";
         
-
     }
 
 </script>
