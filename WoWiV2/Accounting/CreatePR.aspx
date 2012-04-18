@@ -97,6 +97,7 @@
         int proj_id = (from p in db.Project where p.Project_No == ddlProjectNo.SelectedItem.Text select p).First().Project_Id;
         obj.project_id = proj_id;
         obj.vendor_id = -1;
+        obj.employee_id = Utils.GetEmployeeID(User.Identity.Name);
         obj.currency = "USD";
         obj.payment_term = (byte)PRPaymentTerms.PrePaid1;
         obj.create_date = DateTime.Now;

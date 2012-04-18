@@ -320,7 +320,7 @@
         {
             WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
 
-            Response.Redirect("~/Accounting/UpdatePR.aspx?id=" + obj.pr_id);
+            Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id,false);
         }
     }
 
@@ -498,19 +498,19 @@
         //(FormView1.FindControl("lblDept") as Label).Text = "-1";
 
     }
-    protected void Page_PreRender(object sender, EventArgs e)
-    {
-        if (Page.IsPostBack) return;
-        try
-        {
-            (FormView1.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = Utils.GetEmployeeID(User.Identity.Name) + "";
-        }
-        catch (Exception)
-        {
+    //protected void Page_PreRender(object sender, EventArgs e)
+    //{
+    //    if (Page.IsPostBack) return;
+    //    try
+    //    {
+    //        (FormView1.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = Utils.GetEmployeeID(User.Identity.Name) + "";
+    //    }
+    //    catch (Exception)
+    //    {
 
-            //throw;
-        }
-    }
+    //        //throw;
+    //    }
+    //}
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -587,7 +587,7 @@
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
                                             <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
-                                                onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged" 
+                                                onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged" SelectedValue='<%# Bind("employee_id") %>' 
                                                 onload="ddlEmployeeList_Load" AppendDataBoundItems="True" 
                                                 ValidationGroup="VenderGroup">
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
@@ -955,7 +955,7 @@
                           <tr align="center">
                               <td>
                                   <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" 
-                                            CommandName="Update" Text="Next" ValidationGroup="VenderGroup" />
+                                            CommandName="Update" Text="Finish" ValidationGroup="VenderGroup" />
                                         &nbsp;
                                         <asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" 
                                             CommandName="Cancel" Text="Cancel" />

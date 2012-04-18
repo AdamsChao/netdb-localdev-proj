@@ -166,8 +166,7 @@
    <br /><asp:Button ID="Button1"
             runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" />
 
-    <p>
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
+    <p><asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             SkinID="GridView" Width="100%"
             DataKeyNames="pr_id" DataSourceID="SqlDataSourceClient" AllowPaging="True" 
             AllowSorting="True" onprerender="GridView1_PreRender" >

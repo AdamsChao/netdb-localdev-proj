@@ -11,7 +11,7 @@
  
     protected void ddlVenderList_Load(object sender, EventArgs e)
     {
-        //if (Page.IsPostBack) return;
+        if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["type"]) && Request.QueryString["type"]=="payment")
         {
             (sender as DropDownList).Enabled = false;
@@ -152,11 +152,23 @@
                            Version = q.Vername,
                            Id = q.Quotation_Version_Id
                        };
-            var data = from t in db.Target from qt in db.Quotation_Target from q in list from c in db.country where qt.quotation_id == q.Id & qt.target_id == t.target_id & t.country_id == c.country_id select new { Text = t.target_code + "(" + q.No + ") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
-            (sender as DropDownList).DataSource = data;
-            (sender as DropDownList).DataTextField = "Text";
-            (sender as DropDownList).DataValueField = "Id";
-            (sender as DropDownList).DataBind();
+            try
+            {
+                var data = from t in db.Target from qt in db.Quotation_Target from q in list from c in db.country where qt.quotation_id == q.Id & qt.target_id == t.target_id & t.country_id == c.country_id select new { Text = t.target_code + "(" + q.No + ") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
+                if (data.Count() != 0)
+                {
+                    (sender as DropDownList).DataSource = data;
+                    (sender as DropDownList).DataTextField = "Text";
+                    (sender as DropDownList).DataValueField = "Id";
+                    (sender as DropDownList).DataBind();
+                }
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+            
             try
             {
                 WoWiModel.PR_item item = (from i in wowidb.PR_item where i.pr_id == id select i).First();
@@ -169,8 +181,11 @@
                     //var idata = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
                     var idata = from t in db.Target from q in db.Quotation_Version from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id && q.Quotation_Version_Id == obj.quotaion_id select new { QuotataionNo = q.Quotation_No, QuotataionID = q.Quotation_Version_Id, TargetName = t.target_code, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Qty = qt.unit };
                     GridView gv = (FormView1.FindControl("GridView4") as GridView);
-                    gv.DataSource = idata;
-                    gv.DataBind();
+                    if (idata.Count() != 0)
+                    {
+                        gv.DataSource = idata;
+                        gv.DataBind();
+                    }
 
                 }
                 catch (Exception ex)
@@ -259,46 +274,59 @@
         DropDownList ddl = (FormView1.FindControl("ddlContact") as DropDownList);
         Label lbl = FormView1.FindControl("lblC") as Label;
         GridView gv = (FormView1.FindControl("GridView1") as GridView);
-        var ids = from c in wowidb.m_vender_contact where c.vender_id == id select c.contact_id;
-        if (ids.Count() != 0)
+        try
         {
-           
-            lbl.Visible = true;
-            try
+
+
+            var ids = from c in wowidb.m_vender_contact where c.vender_id == id select c.contact_id;
+            if (ids.Count() != 0)
             {
-                gv.Visible = true;
-                var data = from v in wowidb.contact_info
-                           from idx in ids
-                           where v.id == idx
-                           select new
-                           {
-                               text = String.IsNullOrEmpty(v.fname) ? v.c_lname
-                                   + " " + v.c_fname : v.fname + " " + v.lname,
-                               id = v.id
-                           };
-                ddl.DataSource = data;
-                ddl.DataTextField = "text";
-                ddl.DataValueField = "id";
-                ddl.DataBind();
-                ddl.Visible = true;
-                int i = data.First().id;
-                gv.DataSource = from v in wowidb.contact_info where v.id == i select v;
-                gv.DataBind();
+
+                lbl.Visible = true;
+                try
+                {
+                    gv.Visible = true;
+                    var data = from v in wowidb.contact_info
+                               from idx in ids
+                               where v.id == idx
+                               select new
+                               {
+                                   text = String.IsNullOrEmpty(v.fname) ? v.c_lname
+                                       + " " + v.c_fname : v.fname + " " + v.lname,
+                                   id = v.id
+                               };
+                    if (data.Count() != 0)
+                    {
+                        ddl.DataSource = data;
+                        ddl.DataTextField = "text";
+                        ddl.DataValueField = "id";
+                        ddl.DataBind();
+                        ddl.Visible = true;
+                        int i = data.First().id;
+                        gv.DataSource = from v in wowidb.contact_info where v.id == i select v;
+                        gv.DataBind();
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
+
             }
-            catch (Exception)
+            else
             {
-                
-                //throw;
+                ddl.Visible = false;
+                lbl.Visible = false;
+                gv.Visible = false;
             }
-           
         }
-        else
+        catch (Exception)
         {
-            ddl.Visible = false;
-            lbl.Visible = false;
-            gv.Visible = false;
+
+            //throw;
         }
-        
     }
 
     protected void initBankingAccount(int id)
@@ -521,6 +549,8 @@
     protected void EntityDataSource1_Updating(object sender, EntityDataSourceChangingEventArgs e)
     {
         WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
+        obj.modify_date = DateTime.Now;
+        obj.modify_user = User.Identity.Name;
         try
         {
             DropDownList ddlContact = (FormView1.FindControl("ddlContact") as DropDownList);
@@ -1266,62 +1296,78 @@
             }
         }
     }
-    protected void ddlEmployeeList_Load(object sender, EventArgs ea)
+    protected void ddlDeptList_Load(object sender, EventArgs e)
     {
 
-        if(Page.IsPostBack) return;
-        var list = EmployeeUtils.GetEmployeeList(wowidb);
-        (sender as DropDownList).DataSource = list;
-        (sender as DropDownList).DataTextField = "name";
-        (sender as DropDownList).DataValueField = "id";
-
-        if (!String.IsNullOrEmpty(Request.QueryString["id"]))
-        {
-
-            int id = int.Parse(Request.QueryString["id"]);
-            WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
-            try
-            {
-                (sender as DropDownList).SelectedValue = (int)obj.employee_id + "";
-            }
-            catch (Exception)
-            {
-                
-                //throw;
-            }
-        }
     }
 
     protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
     {
-        try
-        {
-            DropDownList ddl = sender as DropDownList;
-            (FormView1.FindControl("lblDept") as Label).Text = ddl.SelectedValue;
-        }
-        catch (Exception)
-        {
-
-            (FormView1.FindControl("lblDept") as Label).Text = "-1";
-        }
 
     }
 
 
     protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
     {
-        try
-        {
-            DropDownList ddl = sender as DropDownList;
-            (FormView1.FindControl("lblEmp") as Label).Text = ddl.SelectedValue;
-        }
-        catch (Exception)
-        {
 
-            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
-        }
+
     }
 
+    protected void ddlEmployeeList_Load(object sender, EventArgs ea)
+    {
+
+        if (Page.IsPostBack) return;
+        var list = EmployeeUtils.GetEmployeeList(wowidb);
+        (sender as DropDownList).DataSource = list;
+        (sender as DropDownList).DataTextField = "name";
+        (sender as DropDownList).DataValueField = "id";
+        //(sender as DropDownList).DataBind();
+
+    }
+
+    //protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
+    //{
+    //    try
+    //    {
+    //        DropDownList ddl = sender as DropDownList;
+    //        (FormView1.FindControl("lblDept") as Label).Text = ddl.SelectedValue;
+    //    }
+    //    catch (Exception)
+    //    {
+
+    //        (FormView1.FindControl("lblDept") as Label).Text = "-1";
+    //    }
+
+    //}
+
+
+    //protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        DropDownList ddl = sender as DropDownList;
+    //        (FormView1.FindControl("lblEmp") as Label).Text = ddl.SelectedValue;
+    //    }
+    //    catch (Exception)
+    //    {
+
+    //        (FormView1.FindControl("lblEmp") as Label).Text = "-1";
+    //    }
+    //}
+
+
+    //protected void Form1_PreRender(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        (FormView1.FindControl("lblEmpList") as DropDownList).SelectedValue = (FormView1.FindControl("lblEmp") as Label).Text;
+    //    }
+    //    catch (Exception ex)
+    //    {
+
+           
+    //    }
+    //}
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -1347,7 +1393,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
  
         <asp:FormView ID="FormView1" runat="server" DataKeyNames="pr_id"  
-           SkinID="FormView"  DataSourceID="EntityDataSource1" DefaultMode="Edit" Width="100%"  >
+           SkinID="FormView"  DataSourceID="EntityDataSource1" DefaultMode="Edit" 
+            Width="100%" >
            
             <EditItemTemplate>
              <%-- <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional"><ContentTemplate>--%>
@@ -1380,7 +1427,7 @@
                                    width="30%">
                                             <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
                                                 DataSourceID="SqlDataSource4" DataTextField="name" DataValueField="id" 
-                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" 
+                                                
                                                 AppendDataBoundItems="True" ValidationGroup="VenderGroup" SelectedValue='<%# Bind("department_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
@@ -1396,17 +1443,18 @@
                                             <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
-                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
-                                                onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged" 
-                                                onload="ddlEmployeeList_Load" AppendDataBoundItems="True" 
-                                                ValidationGroup="VenderGroup">
+                                         <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" AppendDataBoundItems="true"
+                                                SelectedValue='<%# Bind("employee_id") %>'
+                                                onload="ddlEmployeeList_Load" >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
-                                            <asp:Label ID="lblEmp" runat="server" Text='<%# Bind("employee_id") %>'  CssClass="hidden"></asp:Label>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
                                                 ControlToValidate="ddlEmployeeList" 
                                                 ErrorMessage="Please select created by which user." Font-Bold="True" 
                                                 ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroup">*</asp:RequiredFieldValidator>
+                                                   <asp:SqlDataSource ID="SqlDataSource7" runat="server" 
+                                                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                SelectCommand="SELECT [id], [fname]+[lname] FROM [employee] WHERE [status] = 'Active'"></asp:SqlDataSource>
                                         </td></tr>
                         <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp; Project No.:&nbsp;&nbsp;</th><td 
@@ -1442,7 +1490,7 @@
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Attachments:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
-                                       <asp:Button ID="Button1" runat="server" Text="Attach Files" OnClientClick="openAttachWin()" Enabled="false" /><br>
+                                       <asp:Button ID="Button1" runat="server" Text="Attach Files" OnClientClick="openAttachWin()" Enabled="true" /><br>
                                        <asp:PlaceHolder ID="PlaceHolder1" runat="server" OnLoad="PlaceHolder1_Load"></asp:PlaceHolder>
                             </td></tr>
                             <tr><th 
@@ -1677,7 +1725,7 @@
                       </td></tr>     
                       <tr><td align="left" colspan="4">
                                  <asp:Label runat="server" ID="lblC" Text="Contact :"></asp:Label><asp:DropDownList AutoPostBack="True"
-                                     ID="ddlContact" runat="server" onselectedindexchanged="ddlContact_SelectedIndexChanged" Enabled="false">
+                                     ID="ddlContact" runat="server" onselectedindexchanged="ddlContact_SelectedIndexChanged" >
 
                                  </asp:DropDownList>
                                     <asp:GridView ID="GridView1" runat="server" Width="100%" AutoGenerateColumns="False" >
@@ -1715,7 +1763,7 @@
               </td>
               </tr> <tr><td align="left" colspan="4">
                <asp:Label runat="server" ID="lblAccount" Text="Banking Account :"></asp:Label>
-                                    <asp:DropDownList AutoPostBack="True" Enabled="false"
+                                    <asp:DropDownList AutoPostBack="True" 
                                      ID="ddlBankAccount" runat="server" onselectedindexchanged="ddlBankAccount_SelectedIndexChanged">
                                  </asp:DropDownList>
               </td></tr>
