@@ -297,8 +297,11 @@
                         temp.PaymentTerms = client.paymentdays + "";
                         days = (int)((DateTime)item.due_date - DateTime.Now).TotalDays;
                     }
-                    temp.OverDueDays = days.ToString();
-                    temp.OverDueInterval = ARUtils.GetARInterval(-1 * days);
+                    if (days != 0)
+                    {
+                        temp.OverDueDays = days.ToString();
+                        temp.OverDueInterval = ARUtils.GetARInterval(-1 * days);
+                    }
                     int countryid = (int)client.country_id;
                     var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
                     temp.Country = country.country_name;

@@ -321,67 +321,6 @@
         }
     }
 
-    //protected void EntityDataSource1_Updated(object sender, EntityDataSourceChangedEventArgs e)
-    //{
-    //    if (e.Exception == null)
-    //    {
-    //        WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
-
-    //        Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
-    //    }
-    //}
-
-    //protected void EntityDataSource1_Updating(object sender, EntityDataSourceChangingEventArgs e)
-    //{
-    //    WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
-    //    try
-    //    {
-    //        DropDownList ddlContact = (FormView1.FindControl("ddlContact") as DropDownList);
-    //        if (!String.IsNullOrEmpty(ddlContact.SelectedValue))
-    //        {
-    //            obj.vendor_contact_id = int.Parse(ddlContact.SelectedValue);
-    //        }
-       
-    //    }
-    //    catch (Exception)
-    //    {
-            
-    //        //throw;
-    //    }
-    //    try
-    //    {
-    //        DropDownList ddlVenderList = (FormView1.FindControl("ddlVenderList") as DropDownList);
-    //        if (!String.IsNullOrEmpty(ddlVenderList.SelectedValue))
-    //        {
-    //            obj.vendor_id = int.Parse(ddlVenderList.SelectedValue);
-    //        }
-    //    }
-    //    catch (Exception)
-    //    {
-
-    //        //throw;
-    //    }
-    //    try
-    //    {
-    //        DropDownList ddlBankAccount = (FormView1.FindControl("ddlBankAccount") as DropDownList);
-    //        if (!String.IsNullOrEmpty(ddlBankAccount.SelectedValue))
-    //        {
-    //            obj.vendor_banking_id = int.Parse(ddlBankAccount.SelectedValue);
-    //        }
-    //    }
-    //    catch (Exception)
-    //    {
-
-    //        //throw;
-    //    }
-        
-        
-        
-
-    //    obj.create_date = DateTime.Now;
-    //    obj.create_user = User.Identity.Name;
-    //}
-
     
     protected void lblProjectNo_Load(object sender, EventArgs e)
     {
@@ -568,6 +507,18 @@
 
         }
     }
+
+    protected void ddlEmployeeList_Load(object sender, EventArgs ea)
+    {
+
+        if (Page.IsPostBack) return;
+        var list = EmployeeUtils.GetEmployeeList(wowidb);
+        (sender as DropDownList).DataSource = list;
+        (sender as DropDownList).DataTextField = "name";
+        (sender as DropDownList).DataValueField = "id";
+
+    }
+   
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -610,10 +561,7 @@
                                    align="left" colspan="4">
                           </td></tr>
                           <tr><td align="right" 
-                                   class="style11" colspan="4">Access Level : <asp:Label ID="lblDept" runat="server" Text="" 
-                                         onload="lbl_Load" />&nbsp;&nbsp;&nbsp;&nbsp;Created by : 
-                                     <asp:Label ID="lblEmp" runat="server" Text="" 
-                                         onload="lbl_Load"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;Create Date : 
+                                   class="style11" colspan="4">Create Date : 
                                      <asp:Label ID="lblCDate" runat="server" Text="" 
                                          onload="lbl_Load"></asp:Label>
                             </td></tr>
@@ -622,6 +570,26 @@
                             <th colspan="4">
                                 PR&nbsp; Information</th>
                         </tr>
+                         <tr><th 
+                                   align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
+                                   width="30%">
+                                            <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" Enabled="false"
+                                                DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
+                                                 AppendDataBoundItems="True" SelectedValue='<%# Bind("department_id") %>'>
+                                                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                            </asp:DropDownList>
+
+                                            <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+                                                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
+                                        </td><th align="left" 
+                                   class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
+                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" AppendDataBoundItems="true"  Enabled="false"
+                                                SelectedValue='<%# Bind("employee_id") %>'
+                                                onload="ddlEmployeeList_Load" >
+                                                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                            </asp:DropDownList>
+                                        </td></tr>
                         <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp; Project No.:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
@@ -654,7 +622,7 @@
                                 <asp:DropDownList ID="ddlTarget" runat="server" 
                                     AutoPostBack="True"  OnLoad="ddlTarget_Load" Enabled="false"
                                        >
-                                    <asp:ListItem Value="-1">Select one</asp:ListItem>
+                                     <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                </asp:DropDownList>&nbsp;
                             </td></tr>
                             <tr><td colspan="4">

@@ -11,7 +11,7 @@
  
     protected void ddlVenderList_Load(object sender, EventArgs e)
     {
-        if (Page.IsPostBack) return;
+        //if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["type"]) && Request.QueryString["type"]=="payment")
         {
             (sender as DropDownList).Enabled = false;
@@ -36,7 +36,11 @@
                 
                 //throw;
             }
-            if (obj.vendor_id != null && obj.vendor_id != -1)
+            if (ViewState["INIT"] != null && (bool)ViewState["INIT"])
+            {
+                return;
+            }
+            if (obj.vendor_id.HasValue && (int)obj.vendor_id != -1)
             {
                 int vid = (int)obj.vendor_id;
                 (sender as DropDownList).SelectedValue = vid.ToString();
@@ -98,11 +102,30 @@
                     }
                     
                 }
-                (FormView1.FindControl("VenderPanel") as Panel).Visible = false;
+                ViewState["INIT"] = true;
+                //try
+                //{
+                //    (FormView1.FindControl("VenderPanel") as Panel).Visible = false;
+                //}
+                //catch (Exception)
+                //{
+                    
+                //    //throw;
+                //}
+                
             }
             else
             {
-                (FormView1.FindControl("VenderPanel") as Panel).Visible = false;
+                //try
+                //{
+                //    (FormView1.FindControl("VenderPanel") as Panel).Visible = false;
+                //}
+                //catch (Exception)
+                //{
+
+                //    //throw;
+                //}
+               
             }
         }
         
@@ -110,7 +133,7 @@
 
     protected void ddlTarget_Load(object sender, EventArgs e)
     {
-        if (Page.IsPostBack) return;
+        //if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["type"]) && Request.QueryString["type"] == "payment")
         {
             (sender as DropDownList).Enabled = false;
@@ -138,9 +161,10 @@
             {
                 WoWiModel.PR_item item = (from i in wowidb.PR_item where i.pr_id == id select i).First();
                 int tid = (item.quotation_target_id);
-                (sender as DropDownList).SelectedValue = tid.ToString();
+                
                 try
                 {
+                    (sender as DropDownList).SelectedValue = tid.ToString();
                     String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
                     //var idata = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
                     var idata = from t in db.Target from q in db.Quotation_Version from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id && q.Quotation_Version_Id == obj.quotaion_id select new { QuotataionNo = q.Quotation_No, QuotataionID = q.Quotation_Version_Id, TargetName = t.target_code, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Qty = qt.unit };
@@ -171,53 +195,63 @@
 
     public void SetVenderDetails(int vid)
     {
-        Panel VenderPanel = FormView1.FindControl("VenderPanel") as Panel;
-        if (vid == -1)
+        //if (Page.IsPostBack) return;
+        try
         {
-            VenderPanel.Visible = false;
-            (FormView1.FindControl("btnShow") as Button).Visible = false;
-            return;
+            Panel VenderPanel = FormView1.FindControl("VenderPanel") as Panel;
+            if (vid == -1)
+            {
+                VenderPanel.Visible = true;
+                (FormView1.FindControl("btnShow") as Button).Visible = false;
+                return;
+            }
+            else
+            {
+                VenderPanel.Visible = true;
+                (FormView1.FindControl("btnShow") as Button).Visible = false;
+                WoWiModel.vendor data = (from s in wowidb.vendors where s.id == vid select s).First();
+                (FormView1.FindControl("lbCompany") as Label).Text = data.name;
+                (FormView1.FindControl("lbcCompany") as Label).Text = data.c_name;
+                (FormView1.FindControl("lbFax1") as Label).Text = data.fax1;
+                (FormView1.FindControl("lbFax2") as Label).Text = data.fax2;
+                (FormView1.FindControl("lbTel1") as Label).Text = data.tel1;
+                (FormView1.FindControl("lbTel2") as Label).Text = data.tel2;
+                (FormView1.FindControl("lbAddress") as Label).Text = data.address;
+                (FormView1.FindControl("lbcAddress") as Label).Text = data.c_address;
+                (FormView1.FindControl("lbLU") as Label).Text = data.ub_license_number;
+                try
+                {
+                    (FormView1.FindControl("ddlPaymentDays") as DropDownList).SelectedValue = data.paymentdays;
+                    (FormView1.FindControl("ddlCountry") as DropDownList).SelectedValue = data.country.ToString();
+                    (FormView1.FindControl("ddlQualification") as DropDownList).SelectedValue = data.qualification;
+                    (FormView1.FindControl("ddlContractType") as DropDownList).SelectedValue = data.contract_type;
+                    (FormView1.FindControl("ddlBankCharge") as DropDownList).SelectedValue = data.bank_charge.ToString();
+                    (FormView1.FindControl("ddlPaymentType") as DropDownList).SelectedValue = data.payment_type.ToString();
+                    (FormView1.FindControl("ddlPaymentTerm1") as DropDownList).SelectedValue = data.payment_term1.ToString();
+                    (FormView1.FindControl("ddlPaymentTerm2") as DropDownList).SelectedValue = data.payment_term2.ToString();
+                    (FormView1.FindControl("ddlPaymentTerm3") as DropDownList).SelectedValue = data.payment_term3.ToString();
+                    (FormView1.FindControl("ddlPaymentTermF") as DropDownList).SelectedValue = data.payment_term_final.ToString();
+                }
+                catch (Exception ex)
+                {
+
+                    //throw;
+                }
+
+                (FormView1.FindControl("lbPaymentBal") as Label).Text = data.payment_balance.ToString();
+                initContact(vid);
+                initBankingAccount(vid);
+            }
         }
-        else
+        catch (Exception)
         {
-            VenderPanel.Visible = true;
-            (FormView1.FindControl("btnShow") as Button).Visible = true;
-            WoWiModel.vendor data = (from s in wowidb.vendors where s.id == vid select s).First();
-            (FormView1.FindControl("lbCompany") as Label).Text = data.name;
-            (FormView1.FindControl("lbcCompany") as Label).Text = data.c_name;
-            (FormView1.FindControl("lbFax1") as Label).Text = data.fax1;
-            (FormView1.FindControl("lbFax2") as Label).Text = data.fax2;
-            (FormView1.FindControl("lbTel1") as Label).Text = data.tel1;
-            (FormView1.FindControl("lbTel2") as Label).Text = data.tel2;
-            (FormView1.FindControl("lbAddress") as Label).Text = data.address;
-            (FormView1.FindControl("lbcAddress") as Label).Text = data.c_address;
-            (FormView1.FindControl("lbLU") as Label).Text = data.ub_license_number;
-            try
-            {
-                (FormView1.FindControl("ddlPaymentDays") as DropDownList).SelectedValue = data.paymentdays;
-                (FormView1.FindControl("ddlCountry") as DropDownList).SelectedValue = data.country.ToString();
-                (FormView1.FindControl("ddlQualification") as DropDownList).SelectedValue = data.qualification;
-                (FormView1.FindControl("ddlContractType") as DropDownList).SelectedValue = data.contract_type;
-                (FormView1.FindControl("ddlBankCharge") as DropDownList).SelectedValue = data.bank_charge.ToString();
-                (FormView1.FindControl("ddlPaymentType") as DropDownList).SelectedValue = data.payment_type.ToString();
-                (FormView1.FindControl("ddlPaymentTerm1") as DropDownList).SelectedValue = data.payment_term1.ToString();
-                (FormView1.FindControl("ddlPaymentTerm2") as DropDownList).SelectedValue = data.payment_term2.ToString();
-                (FormView1.FindControl("ddlPaymentTerm3") as DropDownList).SelectedValue = data.payment_term3.ToString();
-                (FormView1.FindControl("ddlPaymentTermF") as DropDownList).SelectedValue = data.payment_term_final.ToString();
-            }
-            catch (Exception ex)
-            {
-                
-                //throw;
-            }
-            
-            (FormView1.FindControl("lbPaymentBal") as Label).Text = data.payment_balance.ToString();
-            initContact(vid);
-            initBankingAccount(vid);
+
+            //throw;
         }
     }
     protected void initContact(int id)
     {
+        //if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["type"]) && Request.QueryString["type"] == "payment")
         {
             (FormView1.FindControl("ddlContact") as DropDownList).Enabled = false;
@@ -269,6 +303,7 @@
 
     protected void initBankingAccount(int id)
     {
+        //if (Page.IsPostBack) return;
         try
         {
             DropDownList ddl = (FormView1.FindControl("ddlBankAccount") as DropDownList);
@@ -338,9 +373,11 @@
 
     protected void DropDownList1_Load(object sender, EventArgs e)
     {
+        //if (Page.IsPostBack) return;
         DropDownList list = (DropDownList)sender;
         int[] data = { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
         list.DataSource = data;//Enumerable.Range(0, 101);
+        list.DataBind();
     }
     protected void btnShow_Click(object sender, EventArgs e)
     {
@@ -414,6 +451,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             id = int.Parse(Request.QueryString["id"]);
@@ -447,7 +485,8 @@
     }
     protected void PlaceHolder1_Load(object sender, EventArgs e)
     {
-        (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Clear();
+        //if (Page.IsPostBack) return;
+        //(FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Clear();
         String UpPath = ConfigurationManager.AppSettings["UploadFolderPath"];
         String prid = Request.QueryString["id"];
         UpPath = UpPath + "/PR/" + prid;
@@ -569,6 +608,7 @@
     
     protected void lblProjectNo_Load(object sender, EventArgs e)
     {
+        //if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             id = int.Parse(Request.QueryString["id"]);
@@ -580,6 +620,7 @@
 
     protected void lblQuotationNo_Load(object sender, EventArgs e)
     {
+        //if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             id = int.Parse(Request.QueryString["id"]);
@@ -591,7 +632,7 @@
 
     protected void AuthLabel_Load(object sender, EventArgs e)
     {
-        if (Page.IsPostBack) return;
+        //if (Page.IsPostBack) return;
         try
         {
 
@@ -760,7 +801,7 @@
             //Send Email
             PRUtils.WaitingForSupervisorApprove(auth);//Not Yet
             (sender as Button).Enabled = false;
-            Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
+            Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id,false);
         }
     }
     private void EnableInput(bool en1)
@@ -781,7 +822,7 @@
     }
     protected void btn_Load(object sender, EventArgs e)
     {
-        if (Page.IsPostBack) return;
+        //if (Page.IsPostBack) return;
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             int id = int.Parse(Request.QueryString["id"]);
@@ -1092,6 +1133,7 @@
     }
     protected void lbl_Load(object sender, EventArgs e)
     {
+        //if (Page.IsPostBack) return;
         PRUtils.PRInfoLabel_Load(sender, e);
     }
 
@@ -1125,7 +1167,7 @@
         (FormView1.FindControl("tbInstruction") as TextBox).Enabled = en;
         try
         {
-            ((FormView1.FindControl("PlaceHolder1") as PlaceHolder).FindControl("FileGV") as usercontrols_datechooser_ascx).isEnabled(true);
+            ((FormView1.FindControl("PlaceHolder1") as PlaceHolder).FindControl("FileGV") as usercontrols_datechooser2_ascx).isEnabled(true);
         }
         catch (Exception)
         {
@@ -1141,7 +1183,7 @@
         (FormView1.FindControl("ddlVenderList") as DropDownList).Enabled = en;
         try
         {
-            (FormView1.FindControl("dcPaymentDate") as usercontrols_datechooser_ascx).isEnabled(true);
+            (FormView1.FindControl("dcPaymentDate") as usercontrols_datechooser2_ascx).isEnabled(true);
         }
         catch (Exception)
         {
@@ -1224,8 +1266,62 @@
             }
         }
     }
+    protected void ddlEmployeeList_Load(object sender, EventArgs ea)
+    {
 
-   
+        if(Page.IsPostBack) return;
+        var list = EmployeeUtils.GetEmployeeList(wowidb);
+        (sender as DropDownList).DataSource = list;
+        (sender as DropDownList).DataTextField = "name";
+        (sender as DropDownList).DataValueField = "id";
+        (sender as DropDownList).DataBind();
+        if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+        {
+
+            int id = int.Parse(Request.QueryString["id"]);
+            WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
+            try
+            {
+                (sender as DropDownList).SelectedValue = (int)obj.employee_id + "";
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+        }
+    }
+
+    protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
+    {
+        try
+        {
+            DropDownList ddl = sender as DropDownList;
+            (FormView1.FindControl("lblDept") as Label).Text = ddl.SelectedValue;
+        }
+        catch (Exception)
+        {
+
+            (FormView1.FindControl("lblDept") as Label).Text = "-1";
+        }
+
+    }
+
+
+    protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            DropDownList ddl = sender as DropDownList;
+            (FormView1.FindControl("lblEmp") as Label).Text = ddl.SelectedValue;
+        }
+        catch (Exception)
+        {
+
+            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
+        }
+    }
+
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -1268,10 +1364,10 @@
                           </td></tr>
                           
                               <tr><td align="right" 
-                                   class="style11" colspan="4">Access Level : <asp:Label ID="lblDept" runat="server" Text="" 
+                                   class="style11" colspan="4"><%--Access Level : <asp:Label ID="lblDept" runat="server" Text="" 
                                          onload="lbl_Load" />&nbsp;&nbsp;&nbsp;&nbsp;Created by : 
                                      <asp:Label ID="lblEmp" runat="server" Text="" 
-                                         onload="lbl_Load" ></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;Create Date : 
+                                         onload="lbl_Load" ></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;--%>Create Date : 
                                      <asp:Label ID="lblCDate" runat="server" Text="" 
                                          onload="lbl_Load"></asp:Label>
                             </td></tr>
@@ -1279,6 +1375,31 @@
                             <th colspan="4">
                                 PR&nbsp; Information</th>
                         </tr>
+                        <tr><th 
+                                   align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
+                                   width="30%">
+                                            <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
+                                                DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
+                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" AppendDataBoundItems="True" SelectedValue='<%# Bind("department_id") %>'>
+                                                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                            </asp:DropDownList>
+
+                                            <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+                                                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
+                                            <asp:Label ID="lblDept" runat="server" Text='' CssClass="hidden"></asp:Label>
+                                        </td><th align="left" 
+                                   class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
+                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
+                                                onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged" 
+                                                onload="ddlEmployeeList_Load" AppendDataBoundItems="True">
+                                                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                            </asp:DropDownList>
+                                 <%--            <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
+                                                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                SelectCommand="SELECT [id], [fname]+[lname] FROM [employee] WHERE [status] = 'Active'"></asp:SqlDataSource>--%>
+                                            <asp:Label ID="lblEmp" runat="server" Text='<%# Bind("employee_id") %>'  CssClass="hidden"></asp:Label>
+                                        </td></tr>
                         <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp; Project No.:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
@@ -1293,11 +1414,11 @@
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp; Vender Quotaiton No.:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
                                    <asp:TextBox ID="tbVenderQuoNo" runat="server" Text='<%# Bind("vendor_quotation_no")%>'
-                                        Enabled="false"  ></asp:TextBox>
+                                         ></asp:TextBox>
                             </td><th align="left" 
                                    class="style11">&nbsp; Vender Invoice No.:&nbsp;</th><td class="style12" width="30%">
                                      <asp:TextBox ID="tbVenderInvoNo" runat="server" Text='<%# Bind("vendor_invoice_no")%>'
-                                         Enabled="false" ></asp:TextBox>
+                                         ></asp:TextBox>
                             </td></tr>
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Attachments:&nbsp;&nbsp;</th><td 
@@ -1312,7 +1433,7 @@
                                     AutoPostBack="True"  OnLoad="ddlTarget_Load" AppendDataBoundItems="true"
                                         onselectedindexchanged="ddlTarget_SelectedIndexChanged" Enabled="false"
                                         ValidationGroup="VenderGroupT">
-                                    <asp:ListItem Value="-1">Select one</asp:ListItem>
+                                     <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                </asp:DropDownList>&nbsp;<asp:Button ID="btnAddItem" runat="server" Text="Add" 
                                         onclick="AddItem_Click" CausesValidation="False" Enabled="false"
                                         ValidationGroup="VenderGroupT" />
@@ -1357,11 +1478,11 @@
                                    class="style12" colspan="3">
                                 <asp:DropDownList ID="ddlVenderList" runat="server" 
                                     AppendDataBoundItems="True" AutoPostBack="True" onload="ddlVenderList_Load" 
-                                        onselectedindexchanged="ddlVenderList_SelectedIndexChanged" Enabled="false"
+                                        onselectedindexchanged="ddlVenderList_SelectedIndexChanged"
                                         ValidationGroup="VenderGroup">
                                     <asp:ListItem Value="-1">Select one</asp:ListItem>
                                 </asp:DropDownList>&nbsp;<asp:Button ID="btnShow" runat="server" Text="Show" 
-                                        Visible="true" onclick="btnShow_Click" ValidationGroup="VenderGroup" CausesValidation="false"  />
+                                        Visible="false" onclick="btnShow_Click" ValidationGroup="VenderGroup" CausesValidation="false"  />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                                         ControlToValidate="ddlVenderList" ErrorMessage="Please select vender!" 
                                         ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroup">*</asp:RequiredFieldValidator>
