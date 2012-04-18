@@ -1425,7 +1425,7 @@
                                             <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
-                                            <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
+                                            <asp:DropDownList ID="ddlDeptList" runat="server" AppendDataBoundItems="true"
                                                 DataSourceID="SqlDataSource4" DataTextField="name" DataValueField="id"  ValidationGroup="VenderGroup" SelectedValue='<%# Bind("department_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
