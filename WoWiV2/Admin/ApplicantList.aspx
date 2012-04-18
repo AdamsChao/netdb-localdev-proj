@@ -30,7 +30,7 @@
                             NavigateUrl='<%# Bind("id","~/Admin/ApplicantDetails.aspx?id={0}") %>'>Details</asp:HyperLink>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:BoundField DataField="code" HeaderText="公司代碼" SortExpression="code" />
+               <%-- <asp:BoundField DataField="code" HeaderText="公司代碼" SortExpression="code" />--%>
                 <asp:BoundField DataField="companyname" HeaderText="Company Name" 
                     SortExpression="companyname" />
                 <asp:BoundField DataField="c_companyname" HeaderText="公司名稱" 

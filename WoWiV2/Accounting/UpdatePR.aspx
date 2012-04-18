@@ -1375,30 +1375,38 @@
                             <th colspan="4">
                                 PR&nbsp; Information</th>
                         </tr>
-                        <tr><th 
+                                         <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
                                             <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
-                                                DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
-                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" AppendDataBoundItems="True" SelectedValue='<%# Bind("department_id") %>'>
+                                                DataSourceID="SqlDataSource4" DataTextField="name" DataValueField="id" 
+                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" 
+                                                AppendDataBoundItems="True" ValidationGroup="VenderGroup"><%--SelectedValue='<%# Bind("department_id") %>'>--%>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
 
-                                            <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
+                                                ControlToValidate="ddlDeptList" ErrorMessage="Please select access level." 
+                                                Font-Bold="True" ForeColor="Red" InitialValue="-1" 
+                                                ValidationGroup="VenderGroup">*</asp:RequiredFieldValidator>
+
+                                            <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                                 SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
-                                            <asp:Label ID="lblDept" runat="server" Text='' CssClass="hidden"></asp:Label>
+                                            <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
                                             <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
                                                 onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged" 
-                                                onload="ddlEmployeeList_Load" AppendDataBoundItems="True">
+                                                onload="ddlEmployeeList_Load" AppendDataBoundItems="True" 
+                                                ValidationGroup="VenderGroup">
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
-                                 <%--            <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
-                                                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                SelectCommand="SELECT [id], [fname]+[lname] FROM [employee] WHERE [status] = 'Active'"></asp:SqlDataSource>--%>
                                             <asp:Label ID="lblEmp" runat="server" Text='<%# Bind("employee_id") %>'  CssClass="hidden"></asp:Label>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
+                                                ControlToValidate="ddlEmployeeList" 
+                                                ErrorMessage="Please select created by which user." Font-Bold="True" 
+                                                ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroup">*</asp:RequiredFieldValidator>
                                         </td></tr>
                         <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp; Project No.:&nbsp;&nbsp;</th><td 

@@ -214,7 +214,7 @@
                                 <td colspan = "4" align="left">
                            
                           
-                                     <b>&nbsp; Role: </b>
+                                     <b>&nbsp; Title: </b>
                             <br />
                                         <asp:CheckBoxList ID="clRoleList" runat="server" Enabled="False"
                                             DataSourceID="EntityDataSource2" DataTextField="contact_name" DataValueField="contact_id" 

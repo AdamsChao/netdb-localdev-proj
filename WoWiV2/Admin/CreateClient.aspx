@@ -70,6 +70,7 @@
     protected void EntityDataSource1_Inserting(object sender, EntityDataSourceChangingEventArgs e)
     {
         WoWiModel.clientapplicant obj = (WoWiModel.clientapplicant)e.Entity;
+        obj.code = "";
         if ((bool)ViewState["IsApplication"])
         {
             obj.clientapplicant_type = 3;
@@ -112,6 +113,65 @@
     {
         ViewState["IsApplication"] = cbApplican.Checked;
     }
+    WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
+
+    protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
+    {
+        try
+        {
+            DropDownList ddl = sender as DropDownList;
+            (FormView1.FindControl("lblDept") as Label).Text = ddl.SelectedValue;
+        }
+        catch (Exception)
+        {
+
+            (FormView1.FindControl("lblDept") as Label).Text = "-1";
+        }
+
+    }
+
+
+    protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            DropDownList ddl = sender as DropDownList;
+            (FormView1.FindControl("lblEmp") as Label).Text = ddl.SelectedValue;
+        }
+        catch (Exception)
+        {
+
+            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
+        }
+    }
+
+    protected void ddlEmployeeList_Load(object sender, EventArgs ea)
+    {
+
+        if (Page.IsPostBack) return;
+        var list = EmployeeUtils.GetEmployeeList(wowidb);
+        (sender as DropDownList).DataSource = list;
+        (sender as DropDownList).DataTextField = "name";
+        (sender as DropDownList).DataValueField = "id";
+        (FormView1.FindControl("lblDept") as Label).Text = "-1";
+
+    }
+
+    protected void Page_PreRender(object sender, EventArgs e)
+    {
+        if (Page.IsPostBack) return;
+        try
+        {
+            (FormView1.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = Utils.GetEmployeeID(User.Identity.Name) + "";
+            (FormView1.FindControl("lblEmp") as Label).Text = (FormView1.FindControl("ddlEmployeeList") as DropDownList).SelectedValue;
+        }
+        catch (Exception)
+        {
+            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
+            //throw;
+        }
+    }
+    
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -157,14 +217,14 @@
                                    runat="server" AppendDataBoundItems="False" AutoPostBack="True" 
                                    ></asp:DropDownList><asp:Button ID="btnLoad" 
                                    runat="server" onclick="btnLoad_Click" Text="Load" />&nbsp;--%>
-                                   Client Code :&nbsp;
+                                   <%--Client Code :&nbsp;
                                    <asp:TextBox ID="tbClientCode" runat="server" Text='<%# Bind("code") %>' 
-                                       Width="80px"></asp:TextBox>
+                                       Width="80px"></asp:TextBox>--%>
                                    <asp:CheckBox 
                               ID="cbApplican" runat="server" Text="Is Applicant Also" AutoPostBack="True" 
                                        oncheckedchanged="cbApplican_CheckedChanged" />
-                          <asp:CheckBox ID="cbpotential" runat="server" Text="Potential Client" 
-                                       Checked='<%# Bind("potential_client") %>' />
+                          <%--<asp:CheckBox ID="cbpotential" runat="server" Text="Potential Client" 
+                                       Checked='<%# Bind("potential_client") %>' />--%>
                           </td></tr>
                           
                           
@@ -172,6 +232,35 @@
                             <th colspan="4">
                                 Client Contact Information</th>
                         </tr>
+                         <tr><th 
+                                   align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
+                                   width="30%">
+                                            <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
+                                                DataSourceID="SqlDataSource4" DataTextField="name" DataValueField="id" 
+                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" AppendDataBoundItems="True"><%--SelectedValue='<%# Bind("department_id") %>'>--%>
+                                                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                            </asp:DropDownList>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
+                                                ControlToValidate="ddlDeptList" ErrorMessage="Please select access level." 
+                                                Font-Bold="True" ForeColor="Red" InitialValue="-1" >*</asp:RequiredFieldValidator><asp:ValidationSummary
+                                                  ShowMessageBox="True" ShowSummary="False"  ID="ValidationSummary1" runat="server" />
+                                            <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
+                                                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
+                                            <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
+                                        </td><th align="left" 
+                                   class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
+                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
+                                                onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged" 
+                                                onload="ddlEmployeeList_Load" AppendDataBoundItems="True">
+                                                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                            </asp:DropDownList>
+                                            <asp:Label ID="lblEmp" runat="server" Text='<%# Bind("employee_id") %>'  CssClass="hidden"></asp:Label>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
+                                                ControlToValidate="ddlEmployeeList" 
+                                                ErrorMessage="Please select created by which user." Font-Bold="True" 
+                                                ForeColor="Red" InitialValue="-1">*</asp:RequiredFieldValidator>
+                                        </td></tr>
                         <tr><th 
                                    align="left" class="style11"><font color="red">*&#160;</font>Company:&#160;&#160;</th><td 
                                    class="style12" width="30%">

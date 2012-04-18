@@ -278,7 +278,10 @@
                                                 onselectedindexchanged="ddlDeptList_SelectedIndexChanged" AppendDataBoundItems="True"><%--SelectedValue='<%# Bind("department_id") %>'>--%>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
-
+                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
+                                                ControlToValidate="ddlDeptList" ErrorMessage="Please select access level." 
+                                                Font-Bold="True" ForeColor="Red" InitialValue="-1" >*</asp:RequiredFieldValidator><asp:ValidationSummary
+                                                  ShowMessageBox="True" ShowSummary="False" ID="ValidationSummary1" runat="server" />
                                             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                                 SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
@@ -291,6 +294,10 @@
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
                                             <asp:Label ID="lblEmp" runat="server" Text='<%# Bind("employee_id") %>'  CssClass="hidden"></asp:Label>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
+                                                ControlToValidate="ddlEmployeeList" 
+                                                ErrorMessage="Please select created by which user." Font-Bold="True" 
+                                                ForeColor="Red" InitialValue="-1">*</asp:RequiredFieldValidator>
                                         </td></tr>
                                    <tr><th 
                                    align="left" class="style11"><font color="red">*&#160;</font>Company:&#160;&#160;</th><td 

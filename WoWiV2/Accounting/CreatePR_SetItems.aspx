@@ -595,7 +595,7 @@
                                             <asp:Label ID="lblEmp" runat="server" Text='<%# Bind("employee_id") %>'  CssClass="hidden"></asp:Label>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
                                                 ControlToValidate="ddlEmployeeList" 
-                                                ErrorMessage="Please select which user to create." Font-Bold="True" 
+                                                ErrorMessage="Please select created by which user." Font-Bold="True" 
                                                 ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroup">*</asp:RequiredFieldValidator>
                                         </td></tr>
                         <tr><th 
