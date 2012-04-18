@@ -8248,6 +8248,30 @@ namespace WoWiModel
         private Nullable<global::System.Int32> _employee_id;
         partial void Onemployee_idChanging(Nullable<global::System.Int32> value);
         partial void Onemployee_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Byte> payment_term
+        {
+            get
+            {
+                return _payment_term;
+            }
+            set
+            {
+                Onpayment_termChanging(value);
+                ReportPropertyChanging("payment_term");
+                _payment_term = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("payment_term");
+                Onpayment_termChanged();
+            }
+        }
+        private Nullable<global::System.Byte> _payment_term;
+        partial void Onpayment_termChanging(Nullable<global::System.Byte> value);
+        partial void Onpayment_termChanged();
 
         #endregion
     
@@ -9893,6 +9917,30 @@ namespace WoWiModel
         private global::System.String _remarks;
         partial void OnremarksChanging(global::System.String value);
         partial void OnremarksChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Byte> payment_term
+        {
+            get
+            {
+                return _payment_term;
+            }
+            set
+            {
+                Onpayment_termChanging(value);
+                ReportPropertyChanging("payment_term");
+                _payment_term = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("payment_term");
+                Onpayment_termChanged();
+            }
+        }
+        private Nullable<global::System.Byte> _payment_term;
+        partial void Onpayment_termChanging(Nullable<global::System.Byte> value);
+        partial void Onpayment_termChanged();
 
         #endregion
     

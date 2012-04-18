@@ -11,6 +11,7 @@
         {
             WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
             int id = obj.pr_id;
+            
             string username = User.Identity.Name;
             try
             {
@@ -97,6 +98,7 @@
         obj.project_id = proj_id;
         obj.vendor_id = -1;
         obj.currency = "USD";
+        obj.payment_term = (byte)PRPaymentTerms.PrePaid1;
         obj.create_date = DateTime.Now;
         obj.create_user = User.Identity.Name;
     }

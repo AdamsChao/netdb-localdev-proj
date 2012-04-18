@@ -611,6 +611,17 @@
                                          ></asp:Label>
                             </td></tr>
                              <tr><th 
+                                   align="left" class="style11">&nbsp;&nbsp; Payment Term:&nbsp;&nbsp;</th><td 
+                                   class="style12" colspan="3">
+                                       <asp:DropDownList ID="ddlPaymentTerm" runat="server" Enabled="false"
+                                                   SelectedValue='<%# Bind("payment_term") %>' >
+                                                   <asp:ListItem Value="0">Prepayment 1</asp:ListItem>
+                                                   <asp:ListItem Value="1">Prepayment 2</asp:ListItem>
+                                                   <asp:ListItem Value="2">Prepayment 3</asp:ListItem>
+                                                   <asp:ListItem Value="3">Final Payment</asp:ListItem>
+                                               </asp:DropDownList>
+                            </td></tr>
+                             <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Attachments:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
                                        <asp:Button ID="Button1" runat="server" Text="Attach Files" OnClientClick="openAttachWin()" Enabled="false" Visible="false" /><br>

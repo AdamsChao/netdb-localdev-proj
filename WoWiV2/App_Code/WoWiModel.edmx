@@ -445,6 +445,7 @@
           <Property Name="target_payment_date" Type="datetime" />
           <Property Name="department_id" Type="int" />
           <Property Name="employee_id" Type="int" />
+          <Property Name="payment_term" Type="tinyint" />
         </EntityType>
         <EntityType Name="PR_authority_history">
           <Key>
@@ -524,6 +525,7 @@
           <Property Name="reasontype" Type="nvarchar" MaxLength="20" />
           <Property Name="adjust_total" Type="decimal" Precision="20" Scale="5" />
           <Property Name="remarks" Type="nvarchar" MaxLength="200" />
+          <Property Name="payment_term" Type="tinyint" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -1271,6 +1273,7 @@
           <Property Type="DateTime" Name="target_payment_date" />
           <Property Type="Int32" Name="department_id" />
           <Property Type="Int32" Name="employee_id" />
+          <Property Type="Byte" Name="payment_term" />
         </EntityType>
         <EntityType Name="PR_item">
           <Key>
@@ -1604,6 +1607,7 @@
           <Property Type="String" Name="reasontype" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="Decimal" Name="adjust_total" Precision="20" Scale="5" />
           <Property Type="String" Name="remarks" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="payment_term" />
         </EntityType>
         <EntityType Name="wowi_bankinfo">
           <Key>
@@ -2036,6 +2040,7 @@
           <EntitySetMapping Name="PRs">
             <EntityTypeMapping TypeName="WoWiModel.PR">
               <MappingFragment StoreEntitySet="PR">
+                <ScalarProperty Name="payment_term" ColumnName="payment_term" />
                 <ScalarProperty Name="employee_id" ColumnName="employee_id" />
                 <ScalarProperty Name="department_id" ColumnName="department_id" />
                 <ScalarProperty Name="target_payment_date" ColumnName="target_payment_date" />
@@ -2390,6 +2395,7 @@
           <EntitySetMapping Name="PR_Payment">
             <EntityTypeMapping TypeName="WoWiModel.PR_Payment">
               <MappingFragment StoreEntitySet="PR_Payment">
+                <ScalarProperty Name="payment_term" ColumnName="payment_term" />
                 <ScalarProperty Name="remarks" ColumnName="remarks" />
                 <ScalarProperty Name="adjust_total" ColumnName="adjust_total" />
                 <ScalarProperty Name="reasontype" ColumnName="reasontype" />

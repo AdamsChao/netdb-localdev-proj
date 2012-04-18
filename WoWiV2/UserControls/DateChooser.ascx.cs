@@ -30,4 +30,8 @@ public partial class UserControls_DateChooser : System.Web.UI.UserControl
     {
         TextBox1.Enabled = en;
     }
+    public void isReadOnly(bool en)
+    {
+        TextBox1.ReadOnly = en;
+    }
 }

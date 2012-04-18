@@ -473,7 +473,7 @@
                     </tr>
                     <tr>
                     <td style="width:70%">
-                    <asp:TextBox ID="tbbankAcct" runat="server" Height="150" Width="480" 
+                    <asp:TextBox ID="tbbankAcct" runat="server" Height="150" Width="480" ReadOnly="true"
                             TextMode="MultiLine" Font-Size="12px" ></asp:TextBox>
                   <%--  <asp:Label ID="tbbankAcct" runat="server" Height="180px" Width="480px" 
                             TextMode="MultiLine" Font-Size="Small" ></asp:Label>--%>

@@ -1381,7 +1381,7 @@
                                             <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
                                                 DataSourceID="SqlDataSource4" DataTextField="name" DataValueField="id" 
                                                 onselectedindexchanged="ddlDeptList_SelectedIndexChanged" 
-                                                AppendDataBoundItems="True" ValidationGroup="VenderGroup"><%--SelectedValue='<%# Bind("department_id") %>'>--%>
+                                                AppendDataBoundItems="True" ValidationGroup="VenderGroup" SelectedValue='<%# Bind("department_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
 
@@ -1427,6 +1427,17 @@
                                    class="style11">&nbsp; Vender Invoice No.:&nbsp;</th><td class="style12" width="30%">
                                      <asp:TextBox ID="tbVenderInvoNo" runat="server" Text='<%# Bind("vendor_invoice_no")%>'
                                          ></asp:TextBox>
+                            </td></tr>
+                             <tr><th 
+                                   align="left" class="style11">&nbsp;&nbsp; Payment Term:&nbsp;&nbsp;</th><td 
+                                   class="style12" colspan="3">
+                                       <asp:DropDownList ID="ddlPaymentTerm" runat="server" 
+                                                   SelectedValue='<%# Bind("payment_term") %>' >
+                                                   <asp:ListItem Value="0">Prepayment 1</asp:ListItem>
+                                                   <asp:ListItem Value="1">Prepayment 2</asp:ListItem>
+                                                   <asp:ListItem Value="2">Prepayment 3</asp:ListItem>
+                                                   <asp:ListItem Value="3">Final Payment</asp:ListItem>
+                                               </asp:DropDownList>
                             </td></tr>
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Attachments:&nbsp;&nbsp;</th><td 

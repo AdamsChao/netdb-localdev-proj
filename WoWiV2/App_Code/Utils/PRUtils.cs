@@ -306,4 +306,25 @@ public class PRUtils
             //throw;
         }
     }
+
+    public static String GetString(byte pt)
+    {
+        String str = "";
+        switch (pt)
+        {
+            case (byte)PRPaymentTerms.PrePaid1:
+                str = "Prepayment 1";
+                break;
+            case (byte)PRPaymentTerms.PrePaid2:
+                str = "Prepayment 2";
+                break;
+            case (byte)PRPaymentTerms.PrePaid3:
+                str = "Prepayment 3";
+                break;
+            case (byte)PRPaymentTerms.FinalPaid:
+                str = "Final Payment";
+                break;
+        }
+        return str;
+    } 
 }

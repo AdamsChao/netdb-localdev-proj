@@ -51,6 +51,24 @@ public class VenderUtils
         }
         return ret;
     }
+
+    public static String GetBankCharge(int pID)
+    {
+        String ret = "Not set yet";
+        switch (pID)
+        {
+            case 0:
+                ret = "OUR";
+                break;
+            case 1:
+                ret = "SHA";
+                break;
+            case 2:
+                ret = "BEN";
+                break;
+        }
+        return ret;
+    }
     public static void InitVenderTypes(int id, FormView FormView1,String dlID)
     {
         try

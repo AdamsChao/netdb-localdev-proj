@@ -94,6 +94,22 @@
         }
         db.SaveChanges();
     }
+
+    protected void Button5_Click(object sender, EventArgs ea)
+    {
+        WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities();
+
+        foreach (var e in db.PRs)
+        {
+            e.payment_term = 0;
+        }
+        db.SaveChanges();
+        foreach (var e in db.PR_Payment)
+        {
+            e.payment_term = 0;
+        }
+        db.SaveChanges();
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -111,6 +127,10 @@
 
     <asp:Button ID="Button4" runat="server" 
         Text="Vender Payment Term" onclick="Button4_Click"  />
+    <br />
+
+    <asp:Button ID="Button5" runat="server" 
+        Text="PR Payment Term" onclick="Button5_Click" />
     <br />
    
 </asp:Content>
