@@ -1274,7 +1274,7 @@
         (sender as DropDownList).DataSource = list;
         (sender as DropDownList).DataTextField = "name";
         (sender as DropDownList).DataValueField = "id";
-        (sender as DropDownList).DataBind();
+
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
 
