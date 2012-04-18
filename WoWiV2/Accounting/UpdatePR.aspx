@@ -1422,13 +1422,11 @@
                             <th colspan="4">
                                 PR&nbsp; Information</th>
                         </tr>
-                                         <tr><th 
+                                            <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
                                             <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
-                                                DataSourceID="SqlDataSource4" DataTextField="name" DataValueField="id" 
-                                                
-                                                AppendDataBoundItems="True" ValidationGroup="VenderGroup" SelectedValue='<%# Bind("department_id") %>'>
+                                                DataSourceID="SqlDataSource4" DataTextField="name" DataValueField="id"  ValidationGroup="VenderGroup" SelectedValue='<%# Bind("department_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
 
@@ -1443,9 +1441,8 @@
                                             <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
-                                         <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" AppendDataBoundItems="true"
-                                                SelectedValue='<%# Bind("employee_id") %>'
-                                                onload="ddlEmployeeList_Load" >
+                                         <asp:DropDownList ID="ddlEmployeeList" runat="server" AppendDataBoundItems="true"
+                                                SelectedValue='<%# Bind("employee_id") %>'  DataSourceID="SqlDataSource7" DataTextField="name" DataValueField="id"  >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
@@ -1454,7 +1451,7 @@
                                                 ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroup">*</asp:RequiredFieldValidator>
                                                    <asp:SqlDataSource ID="SqlDataSource7" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                SelectCommand="SELECT [id], [fname]+[lname] FROM [employee] WHERE [status] = 'Active'"></asp:SqlDataSource>
+                                                SelectCommand="SELECT [id], ([fname]+[lname] )as name FROM [employee] WHERE [status] = 'Active'"></asp:SqlDataSource>
                                         </td></tr>
                         <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp;&nbsp; Project No.:&nbsp;&nbsp;</th><td 
