@@ -187,12 +187,12 @@
                                 <asp:DropDownList ID="DropDownList2" runat="server" 
                                     DataSourceID="SqlDataSource4" DataTextField="jobtitle_name" 
                                     DataValueField="jobtitle_id" SelectedValue='<%# Bind("jobtitle_id") %>' 
-                                    AppendDataBoundItems="True">
-                                    <asp:ListItem Value="-1">Select one</asp:ListItem>
+                                     AppendDataBoundItems="True">
+                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                 </asp:DropDownList>
                                 <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
                                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                    SelectCommand="SELECT [jobtitle_id], [jobtitle_name] FROM [employee_jobtitle]">
+                                    SelectCommand="SELECT [jobtitle_id], [jobtitle_name] FROM [employee_jobtitle] where [publish] = 'true'">
                                 </asp:SqlDataSource>
                             </td>
                             <th align="left" class="style4">
@@ -200,7 +200,8 @@
                             <td width="40%">
                                 <asp:DropDownList ID="dlDepartment" runat="server" 
                                     DataSourceID="SqlDataSource1" DataTextField="name" DataValueField="id"  
-                                    SelectedValue='<%# Bind("department_id") %>'>
+                                    SelectedValue='<%# Bind("department_id") %>' AppendDataBoundItems="True">
+                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                 </asp:DropDownList>
                                  <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 

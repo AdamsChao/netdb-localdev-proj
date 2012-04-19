@@ -17,7 +17,7 @@
             <ContentTemplate>
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" SkinID="GridView"
         AutoGenerateColumns="False" DataKeyNames="id" 
-        DataSourceID="SqlDataSource1" 
+        DataSourceID="SqlDataSource1" PageSize="50"
         AllowSorting="True"  Width="100%">
         <Columns>
             <asp:CommandField ShowEditButton="True" />

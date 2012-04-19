@@ -85,25 +85,6 @@
                              </asp:DropDownList>
                          </td>
                      </tr>
-                    <%-- <tr>
-                         <th align="left" class="style4">
-                             &nbsp; Confirm Password:&nbsp;</th>
-                         <td class="style7">
-                             <asp:Label ID="Label2" runat="server"></asp:Label>
-                         </td>
-                         <th align="left" class="style4">
-                             <font color="red">*&nbsp;</font>Access Level:&nbsp;</th>
-                         <td width="38%">
-                             <asp:DropDownList ID="dlAccessLevel" runat="server"  Enabled="false"
-                                 DataSourceID="SqlDataSource1" DataTextField="name" DataValueField="id" 
-                                 SelectedValue='<%# Bind("accessprivilege") %>'>
-                             </asp:DropDownList>
-                             <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                 SelectCommand="SELECT DISTINCT [id], [name] FROM [department]">
-                             </asp:SqlDataSource>
-                         </td>
-                     </tr>--%>
                        <tr>
                             <th align="left" class="style4">
                                 <font color="red">*&nbsp;</font>User Name:&nbsp;</th>
@@ -172,11 +153,12 @@
                                  <td class="style7">
                                      <asp:DropDownList ID="DropDownList2" runat="server" 
                                     DataSourceID="SqlDataSource4" DataTextField="jobtitle_name" Enabled="false"
-                                    DataValueField="jobtitle_id" SelectedValue='<%# Bind("jobtitle_id") %>'>
+                                    DataValueField="jobtitle_id" SelectedValue='<%# Bind("jobtitle_id") %>'  AppendDataBoundItems="True">
+                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                 </asp:DropDownList>
                                 <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
                                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                    SelectCommand="SELECT [jobtitle_id], [jobtitle_name] FROM [employee_jobtitle]">
+                                    SelectCommand="SELECT [jobtitle_id], [jobtitle_name] FROM [employee_jobtitle] where [publish] = 'true'">
                                 </asp:SqlDataSource>
                                  </td>
                                  <th align="left" class="style4">
@@ -184,7 +166,8 @@
                                  <td width="40%">
                                      <asp:DropDownList ID="dlDepartment" runat="server" Enabled="false"
                                          DataSourceID="SqlDataSource1" DataTextField="name" DataValueField="id" 
-                                         SelectedValue='<%# Bind("department_id") %>'>
+                                         SelectedValue='<%# Bind("department_id") %>'  AppendDataBoundItems="True">
+                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                      </asp:DropDownList>
                                       <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 

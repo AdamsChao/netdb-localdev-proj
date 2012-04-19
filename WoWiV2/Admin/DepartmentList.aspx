@@ -16,7 +16,7 @@
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" SkinID="GridView"
-        AutoGenerateColumns="False" DataKeyNames="id" 
+        AutoGenerateColumns="False" DataKeyNames="id" PageSize="50"
         DataSourceID="SqlDataSource1" 
         AllowSorting="True" Width="100%">
         <Columns>
