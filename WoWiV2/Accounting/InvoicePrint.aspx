@@ -27,7 +27,6 @@
                 Adjust = ((decimal)invoice.adjust).ToString("F2");
                 lblInvNo.Text = invoice.issue_invoice_no;
                 lblDate.Text = ((DateTime)invoice.issue_invoice_date).ToString("yyyy/MM/dd");
-                //OTotal = Format(OTotal);
                 Tax = Format(Tax);
                 AmountDue = Format(AmountDue);
                 lblOCurrency.Text = invoice.ocurrency ;
@@ -46,10 +45,6 @@
                 }
                 tbTax.Text = ((decimal)invoice.tax).ToString("F2");
                 lblAmountDue.Text = ((decimal)invoice.total).ToString("F2");
-                //ddloperate.SelectedValue = invoice.exchange_operate;
-                //ddlCurrency.SelectedValue = invoice.currency;
-                //tbTotal.Text = ((decimal)invoice.final_total).ToString("F2");
-                //tbExchangeRate.Text = ((decimal)invoice.exchange_rate).ToString("F2");
                 tbbankAcct.Text = InvoiceUtils.WoWi_Bank_Info1;
                 Total = PayCurrency+Format(Total);
                
@@ -150,8 +145,7 @@
 
                 iGridView.DataSource = items;
                 iGridView.DataBind();
-                //(iGridView.FooterRow.FindControl("tbbankAccount") as Label).Text = InvoiceUtils.WoWi_Bank_Info2;
-                //tbbankAcct.Text = InvoiceUtils.WoWi_Bank_Info1;
+
                 try
                 {
                     
@@ -535,32 +529,6 @@
                                                 Issued by Accounting<br/><asp:Image ID="imgF" runat="server" Height="31" Width="114"  /> 
                                             </td>
                                         </tr>
-                                        <%--<tr>
-                                             <td align="right">
-                                                Currency :</td>
-                                                <td>&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlCurrency" runat="server" >
-                                    <asp:ListItem>USD</asp:ListItem>
-                                    <asp:ListItem>NTD</asp:ListItem>
-                                </asp:DropDownList>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                             <td align="right">
-                                                Exchange Rate : </td>
-                                                <td>&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddloperate" runat="server" Enabled="false"
-                                                        AutoPostBack="True">
-                                                    <asp:ListItem>*</asp:ListItem>
-                                                    <asp:ListItem>/</asp:ListItem>
-                                                    </asp:DropDownList>
-                                                    <asp:TextBox ID="tbExchangeRate" runat="server" Width="100px" Enabled="false" ></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right">
-                                                Total : </td>
-                                                <td>$ <asp:TextBox ID="tbTotal" runat="server"  Enabled="false" ></asp:TextBox>
-                                            </td>
-                                        </tr>--%>
                                     </table>
                     </td>
                     </tr>

@@ -565,7 +565,7 @@
 
     public override void VerifyRenderingInServerForm(Control control)
     {
-        //base.VerifyRenderingInServerForm(control);
+
     }
 </script>
 

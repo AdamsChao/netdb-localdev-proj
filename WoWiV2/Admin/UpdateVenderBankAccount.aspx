@@ -151,6 +151,11 @@
         Response.Redirect("~/Common/SelectExistContact.aspx?id=" + id + "&type=vender&mode=update");
     }
 
+    protected void LinkButton2_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Admin/VenderDetails.aspx?id=" + id + "&type=vender&mode=update");
+    }
+
 
     protected void Button1_Click(object sender, EventArgs e)
     {
@@ -313,6 +318,8 @@
         Text="Create Bank Info" onclick="Button1_Click" CausesValidation="False" /> 
     <asp:Button ID="LinkButton3" runat="server" Text="Contact Modification" 
         onclick="LinkButton1_Click" CausesValidation="False" /> 
+    <asp:Button ID="LinkButton4" runat="server" Text="Finish" 
+        onclick="LinkButton2_Click" CausesValidation="False" /> 
   <asp:FormView ID="FormView2" runat="server" DataKeyNames="id" SkinID="FormView" Visible="false"
             DataSourceID="EntityDataSource3" DefaultMode="Insert" Width="100%" >
            

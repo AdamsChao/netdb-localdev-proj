@@ -148,33 +148,7 @@
         (fv.FindControl(toID) as TextBox).Text = (fv.FindControl(fromID) as TextBox).Text;
     } 
 
-      protected void ddlDeptList_Load(object sender, EventArgs e)
-    {
-
-    }
-
-    protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
-    {
-
-    }
-
-
-    protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-
-    }
-    WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
-    protected void ddlEmployeeList_Load(object sender, EventArgs ea)
-    {
-
-        //if (Page.IsPostBack) return;
-        var list = EmployeeUtils.GetEmployeeList(wowidb);
-        (sender as DropDownList).DataSource = list;
-        (sender as DropDownList).DataTextField = "name";
-        (sender as DropDownList).DataValueField = "id";
-        //(sender as DropDownList).DataBind();
-    }
+   
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -207,17 +181,10 @@
                                
                            <tr><td><table 
                                align="center" border="1" cellpadding="0" cellspacing="0" width="100%"><tr><td 
-                                   align="left" colspan="4"><%--Load from : <asp:DropDownList ID="dlClientList" 
-                                   runat="server" AppendDataBoundItems="False" AutoPostBack="True" 
-                                   ></asp:DropDownList><asp:Button ID="btnLoad" 
-                                   runat="server" onclick="btnLoad_Click" Text="Load" />&nbsp;--%>
-                                   <%--Client Code :&nbsp;
-                                   <asp:TextBox ID="tbClientCode" runat="server" Text='<%# Bind("code") %>' 
-                                       Width="80px"></asp:TextBox>--%>
+                                   align="left" colspan="4">
                                    <asp:CheckBox 
                               ID="cbApplican" runat="server" Text="Is Applicant Also" />
-                       <%--   <asp:CheckBox ID="cbpotential" runat="server" Text="Potential Client" 
-                                       Checked='<%# Bind("potential_client") %>' />--%>
+
                           </td></tr>
                           
                           
@@ -225,12 +192,12 @@
                             <th colspan="4">
                                 Client Contact Information</th>
                         </tr>
-                        <tr><th 
+                       <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
-                                            <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
+                                            <asp:DropDownList ID="ddlDeptList" runat="server" 
                                                 DataSourceID="SqlDataSource4" DataTextField="name" DataValueField="id" 
-                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" AppendDataBoundItems="True" SelectedValue='<%# Bind("department_id") %>'>
+                                                 AppendDataBoundItems="True" SelectedValue='<%# Bind("department_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
                                              <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
@@ -241,18 +208,17 @@
                                                 SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
-                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
-                                                 AppendDataBoundItems="True" onload="ddlEmployeeList_Load" SelectedValue='<%# Bind("employee_id") %>'>
+                                           <asp:DropDownList ID="ddlEmployeeList" runat="server" AppendDataBoundItems="true"
+                                                SelectedValue='<%# Bind("employee_id") %>'  DataSourceID="SqlDataSource7" DataTextField="name" DataValueField="id"  >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
-                                              <asp:SqlDataSource ID="SqlDataSource6" runat="server" 
-                                                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                SelectCommand="SELECT [id], [name] FROM [employee] WHERE [status] = 'Active'"></asp:SqlDataSource>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
                                                 ControlToValidate="ddlEmployeeList" 
                                                 ErrorMessage="Please select created by which user." Font-Bold="True" 
-                                                ForeColor="Red" InitialValue="-1" >*</asp:RequiredFieldValidator><asp:ValidationSummary
-                                                    ID="ValidationSummary1" ShowMessageBox="True" ShowSummary="False" runat="server" />
+                                                ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroup">*</asp:RequiredFieldValidator>
+                                                   <asp:SqlDataSource ID="SqlDataSource7" runat="server" 
+                                                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                SelectCommand="SELECT [id], ([fname]+[lname] )as name FROM [employee] WHERE [status] = 'Active'"></asp:SqlDataSource>
                                         </td></tr>
                         <tr><th 
                                    align="left" class="style11"><font color="red">*&#160;</font>Company:&#160;&#160;</th><td 
@@ -323,7 +289,7 @@
                                RepeatColumns="4" RepeatDirection="Horizontal"></asp:CheckBoxList>
                                                  <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                      ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                     SelectCommand="SELECT [id], [name] FROM [clientapplicant_industry]"></asp:SqlDataSource>
+                                                     SelectCommand="SELECT [id], [name] FROM [clientapplicant_industry] where [publish] = 'true'"></asp:SqlDataSource>
                                                  </td></tr>
                                <tr><td 
                                align="left" colspan="4"><b>&#160; Technologies: </b><br />
@@ -333,7 +299,7 @@
                                RepeatColumns="5" RepeatDirection="Horizontal"></asp:CheckBoxList>
                                    <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
                                        ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                       SelectCommand="SELECT [id], [name] FROM [clientapplicant_technology]"></asp:SqlDataSource>
+                                       SelectCommand="SELECT [id], [name] FROM [clientapplicant_technology] where [publish] = 'true'"></asp:SqlDataSource>
                                    </td></tr>
                                
 

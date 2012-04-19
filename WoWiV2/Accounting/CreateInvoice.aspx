@@ -41,7 +41,6 @@
             lblQuotationNo.Text = quotation.Quotation_No;
             lblModel.Text = quotation.Model_No;
             GetAllItems(quotation.Quotation_No);
-            //(iGridView2.FooterRow.FindControl("lblOTotal") as Label).Text = ((decimal)quotation.FinalTotalPrice).ToString();
             (iGridView2.FooterRow.FindControl("lblOCurrency") as Label).Text = quotation.Currency;
             (iGridView2.FooterRow.FindControl("lblOCurrency1") as Label).Text = quotation.Currency;
             (iGridView2.FooterRow.FindControl("lblOCurrency2") as Label).Text = quotation.Currency;
@@ -195,15 +194,12 @@
                     }
                 }
             }
-            
-            //Session["ProjectInvoiceData"] = items;
+
             iGridView2.DataSource = items;
             iGridView2.DataBind();
             (iGridView2.FooterRow.FindControl("lblOTotal") as Label).Text = total.ToString("F2");
             (iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text = total.ToString("F2");
             (iGridView2.FooterRow.FindControl("tbTotal") as TextBox).Text = total.ToString("F2");
-            //(iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = InvoiceUtils.WoWi_Bank_Info1;
-            //(iGridView2.FooterRow.FindControl("lblmsg") as Label).Text = InvoiceUtils.WoWi_Bank_Info_Message;
             try
             {
                 (iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = "";
@@ -352,8 +348,6 @@
                 ocurrency = (iGridView2.FooterRow.FindControl("lblOCurrency") as Label).Text,
                 ototal = decimal.Parse((iGridView2.FooterRow.FindControl("lblOTotal") as Label).Text),
                 exchange_operate = (iGridView2.FooterRow.FindControl("ddloperate") as DropDownList).SelectedValue,
-                //invoice_date = DateTime.Now,
-                //issue_invoice_date = DateTime.Now,
                 create_date= DateTime.Now,
                 create_user = User.Identity.Name,
                 status = (byte)InvoicePaymentStatus.Init
@@ -651,7 +645,6 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Version" HeaderText="Version" />
-                           <%-- <asp:BoundField DataField="Status" HeaderText="Status" />--%>
                             <asp:BoundField DataField="Date" HeaderText="Date" 
                                 DataFormatString="{0:yyyy/MM/dd}" />
                             
@@ -660,10 +653,7 @@
                                     <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("TDescription") %>'></asp:TextBox>
                                 </EditItemTemplate>
                                 <FooterTemplate>
-                                    <asp:TextBox ID="tbbankAccount" runat="server" Height="180" Width="480" TextMode="MultiLine" Enabled="false" ></asp:TextBox>
-                                  <%--  <br>
-                                    <asp:Label ID="lblmsg" runat="server" Text="Label"></asp:Label>
-                                    <br />--%>
+                                    <asp:TextBox ID="tbbankAccount" runat="server" Height="180" Width="480" TextMode="MultiLine" ReadOnly="true" ></asp:TextBox>
                                 </FooterTemplate>
                                 <ItemTemplate>
                                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("TDescription") %>'></asp:Label>
@@ -688,7 +678,7 @@
                                     <table align="right">
                                         <tr>
                                             <td align="right">
-                                               <%-- Original Currency : --%> &nbsp;
+                                               &nbsp;
                                                 </td>
                                                 <td>
                                              &nbsp;&nbsp;&nbsp;

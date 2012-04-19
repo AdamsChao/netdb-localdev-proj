@@ -326,5 +326,30 @@ public class PRUtils
                 break;
         }
         return str;
-    } 
+    }
+
+    public static void ddlVenderList_Load(object sender, EventArgs e)
+    {
+        try
+        {
+            (sender as DropDownList).AppendDataBoundItems = false;
+            (sender as DropDownList).Items.Clear();
+            (sender as DropDownList).Items.Add(new ListItem("- Select -", "-1"));
+            (sender as DropDownList).AppendDataBoundItems = true;
+            int eid = Utils.GetEmployeeID();
+            var data = from a in wowidb.m_employee_accesslevel where a.employee_id == eid select a.accesslevel_id;
+            if (data.Count() != 0)
+            {
+                var list = (from c in wowidb.vendors from country in wowidb.countries from a in wowidb.access_level where c.country == country.country_id && data.Contains((int)c.department_id) && c.department_id == a.id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name + " ]" : c.name + " - [ " + country.country_name + " ] - [ Access Level = " + a.name + " ]" });
+                (sender as DropDownList).DataSource = list;
+                (sender as DropDownList).DataTextField = "Text";
+                (sender as DropDownList).DataValueField = "Id";
+            }
+        }
+        catch (Exception)
+        {
+
+            //throw;
+        }
+    }
 }

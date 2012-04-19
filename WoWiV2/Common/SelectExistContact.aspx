@@ -6,47 +6,12 @@
   
     protected void lbSystemContacts_Load(object sender, EventArgs e)
     {
-        //ListBox lb = (ListBox)sender;
-        //using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
-        //{
-        //    foreach (WoWiModel.contact_info con in db.contact_info)
-        //    {
-        //        var item = new ListItem(String.Format("{0}", con.fname + " " + con.lname), con.id + "");
-        //        if (lbSelectedContacts.Items.Contains(item) == false)
-        //        {
-        //            lb.Items.Add(item);
-        //        }
-        //    }
-
-        //}
-
+        
     }
 
     protected void lbSelectedContacts_Load(object sender, EventArgs e)
     {
-        //String strId = Request.QueryString["id"];
-        //int id = int.Parse(strId);
-        //String type = Request.QueryString["type"];
-        //String mode = Request.QueryString["mode"];
         
-        //if (type!=null && type=="vender")
-        //{
-        //    if (mode != null && mode == "update")
-        //    {
-        //        using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
-        //        {
-        //            var data = db.m_vender_contact;
-        //            var list = from c in data  where c.vender_id == id select c.contact_id;
-        //            foreach (var i in list)
-        //            {
-        //                var con = (from k in db.contact_info where k.id == i select k).First();
-        //                lbSelectedContacts.Items.Add(new ListItem(String.Format("{0}", con.fname + " " + con.lname), con.id + ""));
-        //            }
-        //        }
-        //    }
-
-        //}
-
     }
     protected void btnSelect_Click(object sender, EventArgs e)
     {
@@ -161,53 +126,111 @@
         if (Page.IsPostBack == false)
         {
             ListBox lb = lbSystemContacts;
-            using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
-            {
-                foreach (WoWiModel.contact_info con in db.contact_info)
-                {
-                    String fname = con.c_fname;
-                    String lname = con.c_lname;
-                    bool flag = true;
-                    if (String.IsNullOrEmpty(fname))
-                    {
-                        fname = con.fname;
-                        flag = false;
-                    }
-                    if (String.IsNullOrEmpty(lname))
-                    {
-                        lname = con.lname;
-                    }
-                    String fullname;
-                    if (flag)
-                    {
-                        fullname = lname + " " + fname;
-                    }
-                    else
-                    {
-                        fullname = fname + " " + lname;
-                    }
-
-                    String companyName = con.companyname;
-                    if (String.IsNullOrEmpty(companyName))
-                    {
-                        fullname += " - " + con.c_companyname;
-                    }
-                    else
-                    {
-                        fullname += " - " + companyName;
-                    }
-                    var item = new ListItem(String.Format("{0}", fullname), con.id + "");
-                    if (lbSelectedContacts.Items.Contains(item) == false)
-                    {
-                        lb.Items.Add(item);
-                    }
-                }
-
-            }
             String strId = Request.QueryString["id"];
             int id = int.Parse(strId);
             String type = Request.QueryString["type"];
             String mode = Request.QueryString["mode"];
+            using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+            {
+                dynamic list  = null;
+                if (type != null && type == "vender")
+                {
+                    try
+                    {
+                        int vaid = (int)db.vendors.First(c => c.id == id).department_id;
+                        int eid = Utils.GetEmployeeID();
+                        var data = from a in db.m_employee_accesslevel where a.employee_id == eid && a.accesslevel_id == vaid select a;
+                        if (data.Count() != 0)
+                        {
+                            list = db.contact_info.Where(c => c.department_id == vaid);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        //throw;
+                    }
+
+
+                }
+                else if (type != null && (type == "client" || type == "applicant"))
+                {
+                    try
+                    {
+                        int vaid = (int)db.clientapplicants.First(c => c.id == id).department_id;
+                        int eid = Utils.GetEmployeeID();
+                        var data = from a in db.m_employee_accesslevel where a.employee_id == eid && a.accesslevel_id == vaid select a;
+                        if (data.Count() != 0)
+                        {
+                            list = db.contact_info.Where(c => c.department_id == vaid);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        //throw;
+                    }
+                }
+                else
+                {
+                    list = db.contact_info;
+                }
+                if (list != null)
+                {
+                    foreach (WoWiModel.contact_info con in list)
+                    {
+                        String fname = con.c_fname;
+                        String lname = con.c_lname;
+                        bool flag = true;
+                        if (String.IsNullOrEmpty(fname))
+                        {
+                            fname = con.fname;
+                            flag = false;
+                        }
+                        if (String.IsNullOrEmpty(lname))
+                        {
+                            lname = con.lname;
+                        }
+                        String fullname;
+                        if (flag)
+                        {
+                            fullname = lname + " " + fname;
+                        }
+                        else
+                        {
+                            fullname = fname + " " + lname;
+                        }
+
+                        String companyName = con.companyname;
+                        if (String.IsNullOrEmpty(companyName))
+                        {
+                            fullname += " - " + con.c_companyname;
+                        }
+                        else
+                        {
+                            fullname += " - " + companyName;
+                        }
+
+                        try
+                        {
+                            int aid = (int)con.department_id;
+                            fullname += "( Access Level = " + db.access_level.First(c => c.id == aid).name + ") ";
+                        }
+                        catch (Exception)
+                        {
+
+                            //throw;
+                        }
+                        var item = new ListItem(String.Format("{0}", fullname), con.id + "");
+                        if (lbSelectedContacts.Items.Contains(item) == false)
+                        {
+                            lb.Items.Add(item);
+                        }
+                    }
+                }
+
+            }
+           
 
             if (type != null && type == "vender")
             {
@@ -250,9 +273,28 @@
                             {
                                 fullname += " - " + companyName;
                             }
+                            try
+                            {
+                                int aid = (int)con.department_id;
+                                fullname += "( Access Level = " + db.access_level.First(c => c.id == aid).name + ")";
+                            }
+                            catch (Exception)
+                            {
+
+                                //throw;
+                            }
                             var item = new ListItem(String.Format("{0}", fullname), con.id + "");
-                            lbSelectedContacts.Items.Add(item);
-                            lbSystemContacts.Items.Remove(item);
+                            try
+                            {
+                                lbSelectedContacts.Items.Add(item);
+                                lbSystemContacts.Items.Remove(item);
+                            }
+                            catch (Exception)
+                            {
+                                
+                                //throw;
+                            }
+                           
                         }
                     }
                 }
@@ -298,13 +340,77 @@
                             {
                                 fullname += " - " + companyName;
                             }
+                            try
+                            {
+                                int aid = (int)con.department_id;
+                                fullname += "( Access Level = " + db.access_level.First(c => c.id == aid).name + " )";
+                            }
+                            catch (Exception)
+                            {
+
+                                //throw;
+                            }
                             var item = new ListItem(String.Format("{0}", fullname), con.id + "");
-                            lbSelectedContacts.Items.Add(item);
-                            lbSystemContacts.Items.Remove(item);
+                            try
+                            {
+                                lbSelectedContacts.Items.Add(item);
+                                lbSystemContacts.Items.Remove(item);
+                            }
+                            catch (Exception)
+                            {
+
+                                //throw;
+                            }
                         }
                     }
                 }
             }
+        }
+    }
+
+    protected void Label1_Load(object sender, EventArgs e)
+    {
+        String strId = Request.QueryString["id"];
+        if (String.IsNullOrEmpty(strId))
+        {
+            return;
+        }
+        int id = int.Parse(strId);
+        String type = Request.QueryString["type"];
+        if (type == "vender")
+        {
+            using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+            {
+                try
+                {
+                    int aid = (int)(db.vendors.First(c => c.id == id).department_id);
+                    (sender as Label).Text = db.access_level.First(c => c.id == aid).name;
+                }
+                catch (Exception)
+                {
+
+                    (sender as Label).Text = "Not set yet.";
+                }
+
+            }
+
+        }
+        else if (type == "client" || type == "applicant")
+        {
+            using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+            {
+                try
+                {
+                    int aid = (int)(db.clientapplicants.First(c => c.id == id).department_id);
+                    (sender as Label).Text = db.access_level.First(c => c.id == aid).name;
+                }
+                catch (Exception)
+                {
+
+                    (sender as Label).Text = "Not set yet.";
+                };
+            }
+
         }
     }
 </script>
@@ -333,7 +439,9 @@
                 <table align="left" border="0" cellpadding="2" cellspacing="0"  style="width:100%;hight:400px">
                     <tr>
                         <td class="style15">
-                            Selected :</td>
+                            Selected : ( Access Level =
+                            <asp:Label ID="Label1" runat="server" onload="Label1_Load" Text="Label"></asp:Label>
+                            &nbsp;)</td>
                         <td class="style17">
                             </td>
                         <td class="style83">

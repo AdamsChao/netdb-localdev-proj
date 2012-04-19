@@ -26,13 +26,13 @@
                 
                 lblUSD.Text = "$"+ ((decimal)invoice.final_total).ToString("F2");
                 lblUSD.ForeColor = System.Drawing.Color.Blue;
-                lblNTD.Text = "$" + ((decimal)invoice.final_total * rate).ToString("F2");
+                lblNTD.Text = "$" + ((decimal)invoice.total).ToString("F2");
             }
             else
             {
                 lblNTD.Text = "$" + ((decimal)invoice.final_total).ToString("F2");
                 lblNTD.ForeColor = System.Drawing.Color.Blue;
-                lblUSD.Text = "$" + ((decimal)invoice.final_total / rate).ToString("F2");
+                lblUSD.Text = "$" + ((decimal)invoice.total).ToString("F2");
             }
             GetAllItems(id);
         }
@@ -131,7 +131,7 @@
             WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == id select i).First();
             decimal btotal = (decimal)invoice.final_total;
             List<ReceivedData> data = new List<ReceivedData>();
-            var list = from rd in wowidb.invoice_received where rd.invoice_id == id select rd;
+            var list = from rd in wowidb.invoice_received orderby rd.received_date where rd.invoice_id == id select rd;
             ReceivedData temp;
             foreach (var item in list)
             {
@@ -365,7 +365,7 @@
                                         Text='<%# Bind("ReceivedDate", "{0:yyyy/MM/dd}") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Amount">
+                            <asp:TemplateField HeaderText="Amount" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Amount") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -382,7 +382,7 @@
                                     </table>
                                 </FooterTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField DataField="Balance" HeaderText="Balance" />
+                            <asp:BoundField DataField="Balance" HeaderText="Balance"  ItemStyle-HorizontalAlign="Right"/>
                             <asp:BoundField DataField="IVNo" HeaderText="IVNo" />
                             <asp:BoundField DataField="Note" HeaderText="Note" />
                            

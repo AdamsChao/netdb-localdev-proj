@@ -52,8 +52,6 @@
             {
                 int bid = (int)invoice.bankacct_info_id;
                 ddlwowibankinfo.SelectedValue = bid.ToString();
-                //WoWiModel.wowi_bankinfo b = wowidb.wowi_bankinfo.First(c => c.id == bid);
-                //(iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = b.info;
             }
             catch (Exception)
             {

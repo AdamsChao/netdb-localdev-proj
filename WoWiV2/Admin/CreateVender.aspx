@@ -10,30 +10,6 @@
         if (e.Exception == null)
         {
             WoWiModel.vendor obj = (WoWiModel.vendor)e.Entity;
-            //List<int> types = (List<int>)ViewState[VenderUtils.Key_ViewState_VenderTypes];
-            //if (types.Count != 0)
-            //{
-            //    using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
-            //    {
-            //        var data = db.m_vender_type;
-            //        foreach (int id in types)
-            //        {
-            //            var d = new WoWiModel.m_vender_type()
-            //            {
-            //               vender_id = obj.id,
-            //               vender_type_id = id
-            //            };
-            //            data.AddObject(d);
-            //        }
-            //        try
-            //        {
-            //            db.SaveChanges();
-            //        }
-            //        catch
-            //        {
-            //        }
-            //    }
-            //}
             String WestUintQueryString = "";
             if (obj.payment_type == 5)
             {
@@ -41,20 +17,13 @@
             }
             WestUintQueryString += "&paymenttype=" + obj.payment_type;
             Response.Redirect("~/Admin/CreateVenderBankAccount.aspx?id=" + obj.id+WestUintQueryString);
-            //Response.Redirect("~/Common/SelectExistContact.aspx?id="+obj.id+"&type=vender");
+           
         }
     }
 
     protected void FormView1_ItemInserting(object sender, FormViewInsertEventArgs e)
     {
-        //VenderUtils.StoreVenderTypesInViewState((FormView)sender, VenderUtils.Name_CheckBox_VenderTypeList, ViewState, VenderUtils.Key_ViewState_VenderTypes);
-    }
-
-    protected void Page_Load(object sender, EventArgs e)
-    {
         
-       
-
     }
 
     
@@ -86,7 +55,6 @@
             WoWiModel.vendor data = db.vendors.Where(c => c.id == id).First();
             SetValueFromVenderEntity(fv,data);
         }
-        //VenderUtils.InitVenderTypes(id, FormView1, VenderUtils.Name_CheckBox_VenderTypeList);
     }
 
     private void SetValueFromVenderEntity(FormView fv, WoWiModel.vendor data)
@@ -100,7 +68,6 @@
         Utils.SetTextBoxValue(fv, "tbTel2", data.tel2);
         Utils.SetTextBoxValue(fv, "tbAddress", data.address);
         Utils.SetTextBoxValue(fv, "tbcAddress", data.c_address);
-        //Utils.SetTextBoxValue(fv, "tbPaymentBal", data.payment_balance+"");
 
         Utils.SetDropDownListValue(fv, "dlQualification", data.qualification);
         Utils.SetDropDownListValue(fv, "dlContractType", data.contract_type);
@@ -144,17 +111,15 @@
     {
         if (Page.IsPostBack == false)
         {
-            DropDownList dl = (DropDownList)sender;
-            //dl.Items.Clear();
-            //dl.Items.Add(new ListItem("", "0"));
-            using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+            int eid = Utils.GetEmployeeID();
+            var data = from a in wowidb.m_employee_accesslevel where a.employee_id == eid select a.accesslevel_id;
+            if (data.Count() != 0)
             {
-                var data = db.vendors;
-                foreach (WoWiModel.vendor ven in data)
-                {
-                    dl.Items.Add(new ListItem(String.Format("{0,20}", String.IsNullOrEmpty(ven.name) ? ven.c_name : ven.name), ven.id + ""));
-                }
 
+                var list = (from c in wowidb.vendors from country in wowidb.countries from a in wowidb.access_level where c.country == country.country_id && data.Contains((int)c.department_id) && c.department_id == a.id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name + " ]" : c.name + " - [ " + country.country_name + " ] - [ Access Level = " + a.name + " ]" });
+                (sender as DropDownList).DataSource = list;
+                (sender as DropDownList).DataTextField = "Text";
+                (sender as DropDownList).DataValueField = "Id";
             }
         }
         

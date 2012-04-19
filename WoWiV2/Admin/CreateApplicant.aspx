@@ -337,7 +337,7 @@
                                RepeatColumns="4" RepeatDirection="Horizontal"></asp:CheckBoxList>
                                                  <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                      ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                     SelectCommand="SELECT [id], [name] FROM [clientapplicant_industry]"></asp:SqlDataSource>
+                                                     SelectCommand="SELECT [id], [name] FROM [clientapplicant_industry] where [publish] = 'true'"></asp:SqlDataSource>
                                                  </td></tr>
                                <tr><td 
                                align="left" colspan="4"><b>&#160; Technologies: </b><br />
@@ -347,7 +347,7 @@
                                RepeatColumns="5" RepeatDirection="Horizontal"></asp:CheckBoxList>
                                    <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
                                        ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                       SelectCommand="SELECT [id], [name] FROM [clientapplicant_technology]"></asp:SqlDataSource>
+                                       SelectCommand="SELECT [id], [name] FROM [clientapplicant_technology] where [publish] = 'true' "></asp:SqlDataSource>
                                    </td></tr>
                                
 

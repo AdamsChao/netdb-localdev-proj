@@ -154,7 +154,7 @@
         DropDownList dl = (DropDownList)sender;
         String val = dl.SelectedValue;
         dl.Items.Clear();
-        dl.Items.Add(new ListItem("", "0"));
+        dl.Items.Add(new ListItem("- Select -", "-1"));
         using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
         {
             var data = db.contact_info;
@@ -213,7 +213,7 @@
         (sender as DropDownList).DataSource = list;
         (sender as DropDownList).DataTextField = "name";
         (sender as DropDownList).DataValueField = "id";
-        (MyContactCreateFormView1.FindControl("lblDept") as Label).Text = "-1";
+        //(MyContactCreateFormView1.FindControl("lblDept") as Label).Text = "-1";
 
     }
 
@@ -230,6 +230,52 @@
             //throw;
         }
     }
+
+    protected void lblAccessLevel_Load(object sender, EventArgs e)
+    {
+        String strId = Request.QueryString["id"];
+        if (String.IsNullOrEmpty(strId))
+        {
+            return;
+        }
+        int id = int.Parse(strId);
+        String type = Request.QueryString["type"];
+        if (type == "vender")
+        {
+            using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+            {
+                try
+                {
+                    int aid = (int)(db.vendors.First(c => c.id == id).department_id);
+                    (sender as Label).Text = db.access_level.First(c => c.id == aid).name;
+                }
+                catch (Exception)
+                {
+
+                   
+                }
+                
+            }
+           
+        }
+        else if (type == "client" || type == "applicant")
+        {
+            using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+            {
+                try
+                {
+                    int aid = (int)(db.clientapplicants.First(c => c.id == id).department_id);
+                    (sender as Label).Text = db.access_level.First(c => c.id == aid).name;
+                }
+                catch (Exception)
+                {
+
+                    
+                };
+            }
+            
+        }
+    }
 </script>
 
 <asp:FormView ID="MyContactCreateFormView1" runat="server" DataKeyNames="id" SkinID="FormView"
@@ -241,7 +287,9 @@
             style="width:95%">
             <tr>
                 <th align="left">
-                    <font size="+1">Contact Information Creation&nbsp; </font>
+                    <font size="+1">Contact Information Creation&nbsp;(Access Level = <asp:Label 
+                        ID="lblAccessLevel" runat="server"
+                        Text="Label" onload="lblAccessLevel_Load"></asp:Label>) </font>
                     <asp:HyperLink ID="hlContactList" runat="server" 
                         NavigateUrl="~/Admin/ContactList.aspx">Contact List</asp:HyperLink>
                     &nbsp;<asp:Label ID="lbMessage" runat="server" ForeColor="Red" 

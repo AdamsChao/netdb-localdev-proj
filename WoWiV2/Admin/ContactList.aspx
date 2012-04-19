@@ -2,35 +2,51 @@
 
 <script runat="server">
     WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities();
-    protected void Button2_Click(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         String name = tbName.Text;
         String comapnyName = tbCompanyName.Text;
         GridView1.AllowSorting = true;
         GridView1.AllowPaging = true;
+        SqlDataSource sqlDataSource = SqlDataSource1;
         if (!String.IsNullOrEmpty(name) && !String.IsNullOrEmpty(comapnyName))
         {
-            //GridView1.DataSourceID = null;
-            //GridView1.DataSource = from c in db.contact_info where c.c_fname.Contains(name) || c.c_lname.Contains(name) || c.lname.Contains(name) || c.fname.Contains(name) || c.c_companyname.Contains(comapnyName) || c.companyname.Contains(comapnyName) select c;
             GridView1.DataSourceID = "SqlDataSource2";
-           
+            sqlDataSource = SqlDataSource2;
         }
         else if (!String.IsNullOrEmpty(name))
         {
-            //GridView1.DataSourceID = null;
-            //GridView1.DataSource = from c in db.contact_info where c.c_fname.Contains(name) || c.c_lname.Contains(name) || c.lname.Contains(name) || c.fname.Contains(name)  select c;
             GridView1.DataSourceID = "SqlDataSource3";
+            sqlDataSource = SqlDataSource3;
         }
         else if (!String.IsNullOrEmpty(comapnyName))
         {
-            //GridView1.DataSourceID = null;
-            //GridView1.DataSource = from c in db.contact_info where c.c_companyname.Contains(comapnyName) || c.companyname.Contains(comapnyName) select c;
             GridView1.DataSourceID = "SqlDataSource4";
+            sqlDataSource = SqlDataSource4;
         }
         else
         {
             GridView1.DataSourceID = "SqlDataSource1";
+            sqlDataSource = SqlDataSource1;
         }
+        String newCriteria = "";
+        int eid = Utils.GetEmployeeID(User.Identity.Name);
+        if (!Utils.isAdmin(eid))
+        {
+            newCriteria += " and department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
+            lblaccesslevel.Visible = false;
+            ddlAccessLevel.Visible = false;
+        }
+        else
+        {
+            lblaccesslevel.Visible = true;
+            ddlAccessLevel.Visible = true;
+            if (ddlAccessLevel.SelectedValue != "-1")
+            {
+                newCriteria += " and department_id  = " + ddlAccessLevel.SelectedValue;
+            }
+        }
+        sqlDataSource.SelectCommand += newCriteria;
         GridView1.DataBind();
 
         
@@ -51,7 +67,7 @@
                 }
                 else
                 {
-                    row.Cells[10].Text = db.departments.First(c => c.id == depid).name;
+                    row.Cells[10].Text = (from p in db.access_level where p.id == depid select p.name).First();
                 }
             }
             catch (Exception)
@@ -75,7 +91,17 @@
         <asp:TextBox ID="tbName" runat="server"></asp:TextBox>
 &nbsp;CompanyName :
         <asp:TextBox ID="tbCompanyName" runat="server"></asp:TextBox>
-        <asp:Button ID="Button2" runat="server" onclick="Button2_Click" Text="Search" />
+        &nbsp;<asp:Label ID="lblaccesslevel" runat="server" Text="Access Level :"></asp:Label>
+        &nbsp;<asp:DropDownList ID="ddlAccessLevel" runat="server" 
+            AppendDataBoundItems="True" datasourceid="SqlDataSource5" DataTextField="name" 
+            DataValueField="id">
+            <asp:ListItem Value="-1">- All -</asp:ListItem>
+        </asp:DropDownList>
+        <asp:SqlDataSource ID="SqlDataSource5" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+            SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'">
+        </asp:SqlDataSource>
+        &nbsp;<asp:Button ID="Button2" runat="server"  Text="Search" />
         <br />
         &nbsp;<%--<asp:HyperLink ID="HyperLink1" runat="server" 
         NavigateUrl="~/Common/CreateContact.aspx">Create</asp:HyperLink>--%><asp:Button ID="Button1"
@@ -128,14 +154,14 @@
                 SortExpression="ext" />
             <asp:BoundField DataField="cellphone" HeaderText="Cellphone" 
                 SortExpression="cellphone" />
-                 <asp:BoundField DataField="department_id" HeaderText="Department" 
+            <asp:BoundField DataField="department_id" HeaderText="Access Level" 
                 SortExpression="department_id" />
         </Columns>
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
         
-        SelectCommand="SELECT [id], [fname], [lname], [title], [companyname], [c_companyname], [workphone], [ext], [cellphone], [email], [c_fname], [c_lname], [department_id] FROM [contact_info]">
+        SelectCommand="SELECT [id], [fname], [lname], [title], [companyname], [c_companyname], [workphone], [ext], [cellphone], [email], [c_fname], [c_lname], [department_id] FROM [contact_info] WHERE 1 = 1">
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 

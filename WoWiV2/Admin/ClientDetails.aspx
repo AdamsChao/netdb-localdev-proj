@@ -43,15 +43,7 @@
         gv.DataSource = result;
         gv.DataBind();
     }
-    protected void ddlEmployeeList_Load(object sender, EventArgs ea)
-    {
-        if (Page.IsPostBack) return;
-        var list = EmployeeUtils.GetEmployeeList(db);
-        (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataSource = list;
-        (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataTextField = "name";
-        (FormView1.FindControl("ddlEmployeeList") as DropDownList).DataValueField = "id";
-
-    }
+   
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -113,7 +105,7 @@
                         <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
-                                           <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" Enabled="false"
+                                           <asp:DropDownList ID="ddlDeptList" runat="server" Enabled="false"
                                                 DataSourceID="SqlDataSource4" DataTextField="name" DataValueField="id"  AppendDataBoundItems="True" SelectedValue='<%# Bind("department_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
@@ -124,10 +116,13 @@
                                             <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
-                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
-                                                Enabled="false" AppendDataBoundItems="True" onload="ddlEmployeeList_Load" SelectedValue='<%# Bind("employee_id") %>'>
+                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AppendDataBoundItems="true"  Enabled="false"
+                                                SelectedValue='<%# Bind("employee_id") %>'  DataSourceID="SqlDataSource7" DataTextField="name" DataValueField="id"  >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
+                                                   <asp:SqlDataSource ID="SqlDataSource7" runat="server" 
+                                                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                                SelectCommand="SELECT [id], ([fname]+[lname] )as name FROM [employee] WHERE [status] = 'Active'"></asp:SqlDataSource>
 
                                         </td></tr>
                         <tr><th 
@@ -199,7 +194,7 @@
                                RepeatColumns="4" RepeatDirection="Horizontal"></asp:CheckBoxList>
                                                  <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                      ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                     SelectCommand="SELECT [id], [name] FROM [clientapplicant_industry]"></asp:SqlDataSource>
+                                                     SelectCommand="SELECT [id], [name] FROM [clientapplicant_industry] where [publish] = 'true'"></asp:SqlDataSource>
                                                  </td></tr>
                                <tr><td 
                                align="left" colspan="4"><b>&#160; Technologies: </b><br />
@@ -209,7 +204,7 @@
                                RepeatColumns="5" RepeatDirection="Horizontal"></asp:CheckBoxList>
                                    <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
                                        ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                       SelectCommand="SELECT [id], [name] FROM [clientapplicant_technology]"></asp:SqlDataSource>
+                                       SelectCommand="SELECT [id], [name] FROM [clientapplicant_technology] where [publish] = 'true'"></asp:SqlDataSource>
                                    </td></tr>
                                
 

@@ -3,11 +3,14 @@
   <siteMapNode url="~/Home.aspx" title="Home"  description="Home">
 	<siteMapNode url="" title="Basic Infomation"  description="" roles="*" >
 		<siteMapNode url="~/Admin/ContactList.aspx" title="Contact"  description="" />
-		<siteMapNode url="~/Admin/VenderTypeList.aspx" title="Vender Type"  description="" />
+		<!--<siteMapNode url="~/Admin/VenderTypeList.aspx" title="Vender Type"  description="" />-->
 		<siteMapNode url="~/Admin/VenderList.aspx" title="Vender"  description="" />
 		<siteMapNode url="~/Admin/ClientList.aspx" title="Client"  description="" />
 		<siteMapNode url="~/Admin/ApplicantList.aspx" title="Applicant"  description="" />
 		<siteMapNode url="~/Admin/ContactRoleList.aspx" title="Contact Title"  description="" />
+    <siteMapNode url="~/Admin/VenderTypeList.aspx" title="Vender Type"  description="" />
+    <siteMapNode url="~/Admin/IndustryList.aspx" title="Client/Applicant Industry"  description="" />
+    <siteMapNode url="~/Admin/TechnologyList.aspx" title="Client/Applicant Technology"  description="" />
 	</siteMapNode>
     <siteMapNode url="" title="Admin"  description="" roles="System Admin,Management" >
       <siteMapNode url="~/Admin/AccessLevelList.aspx" title="Access Level"  description="" />

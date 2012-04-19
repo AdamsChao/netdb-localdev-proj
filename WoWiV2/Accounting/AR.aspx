@@ -37,11 +37,6 @@
                     temp.Client = String.IsNullOrEmpty(client.c_companyname) ? client.companyname : client.c_companyname;
                     temp.PlanDueDate = ((DateTime)item.due_date).ToString("yyyy/MM/dd");
                     int days = 0;
-                    //if (client.paymentterm.HasValue)
-                    //{
-                    //    temp.PaymentTerms = ((byte)client.paymentterm).ToString();
-                    //    days = (int) ((DateTime)item.due_date - DateTime.Now).TotalDays;
-                    //}
                     if (client.paymentdays.HasValue)
                     {
                         temp.PaymentTerms = client.paymentdays + "";

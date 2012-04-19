@@ -3,42 +3,50 @@
 <script runat="server">
 
     WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities();
-    protected void btnSearch_Click(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
-        String newCriteria = "";
-        if (ddlDeptList.SelectedValue != "-1" && ddlEmpList.SelectedValue != "-1")
-        {
-            newCriteria = " and department_id = " + ddlDeptList.SelectedValue + " and employee_id = " + ddlEmpList.SelectedValue;
-        }
-        else if (ddlDeptList.SelectedValue != "-1" )
-        {
-            newCriteria = " and department_id = " + ddlDeptList.SelectedValue;
-        }
-        else if (ddlEmpList.SelectedValue != "-1")
-        {
-            newCriteria = " and employee_id = " + ddlEmpList.SelectedValue;
-        }
+       
+        GridView1.AllowSorting = true;
+        GridView1.AllowPaging = true;
+        SqlDataSource sqlDataSource = SqlDataSource1;
         if (String.IsNullOrEmpty(tbCName.Text.Trim()) && String.IsNullOrEmpty(tbName.Text.Trim()))
         {
-            GridView1.DataSourceID = "SqlDataSource1";
-            SqlDataSource1.SelectCommand += newCriteria;
-            GridView1.DataBind();
+            GridView1.DataSourceID = "SqlDataSource1";   
         }
         else if (String.IsNullOrEmpty(tbCName.Text.Trim()))
         {
             GridView1.DataSourceID = "SqlDataSource3";
-            GridView1.DataBind();
+            sqlDataSource = SqlDataSource3;
         }
         else if (String.IsNullOrEmpty(tbName.Text.Trim()))
         {
             GridView1.DataSourceID = "SqlDataSource4";
-            GridView1.DataBind();
+            sqlDataSource = SqlDataSource4;
         }
         else
         {
             GridView1.DataSourceID = "SqlDataSource2";
-            GridView1.DataBind();
+            sqlDataSource = SqlDataSource2;
         }
+        String newCriteria = "";
+        int eid = Utils.GetEmployeeID(User.Identity.Name);
+        if (!Utils.isAdmin(eid))
+        {
+            newCriteria += " and department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
+            lblaccesslevel.Visible = false;
+            ddlAccessLevel.Visible = false;
+        }
+        else
+        {
+            lblaccesslevel.Visible = true;
+            ddlAccessLevel.Visible = true;
+            if (ddlAccessLevel.SelectedValue != "-1")
+            {
+                newCriteria += " and department_id  = " + ddlAccessLevel.SelectedValue;
+            }
+        }
+        sqlDataSource.SelectCommand += newCriteria;
+        GridView1.DataBind();
     }
 
     protected void GridView1_PreRender(object sender, EventArgs e)
@@ -56,7 +64,7 @@
                 }
                 else
                 {
-                    row.Cells[8].Text = db.departments.First(c => c.id == depid).name;
+                    row.Cells[8].Text = (from p in db.access_level where p.id == depid select p.name).First();
                 }
             }
             catch (Exception)
@@ -68,47 +76,7 @@
         }
     }
 
-    protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
-    {
-        DropDownList ddl = sender as DropDownList;
-        int depid = int.Parse(ddl.SelectedValue);
-        try
-        {
-            var list = from e in db.employees where e.department_id == depid select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
-            cleanEmployeeList();
-            if (list.Count() == 0) return;
-            ddlEmpList.DataSource = list;
-            ddlEmpList.DataTextField = "name";
-            ddlEmpList.DataValueField = "id";
-            ddlEmpList.DataBind();
-
-        }
-        catch (Exception)
-        {
-
-
-        }
-        
-        
-
-    }
-
-    private void cleanEmployeeList()
-    {
-        try
-        {
-            ddlEmpList.Items.Clear();
-            ListItem item = new ListItem("- All -", "-1");
-            ddlEmpList.Items.Add(item);
-            ddlEmpList.AppendDataBoundItems = true;
-            
-        }
-        catch (Exception)
-        {
-
-            //throw;
-        }
-    }
+   
 
 </script>
 
@@ -126,20 +94,17 @@
          <asp:TextBox ID="tbName" runat="server"></asp:TextBox>
 &nbsp;or 名稱 :
          <asp:TextBox ID="tbCName" runat="server"></asp:TextBox>
-                &nbsp;Department : &nbsp;<asp:DropDownList ID="ddlDeptList" runat="server" 
-                    AppendDataBoundItems="True" AutoPostBack="True" 
-                    DataSourceID="SqlDataSource5" DataTextField="name" DataValueField="id" 
-                    onselectedindexchanged="ddlDeptList_SelectedIndexChanged">
-                    <asp:ListItem Value="-1">- All -</asp:ListItem>
-                </asp:DropDownList>
-                <asp:SqlDataSource ID="SqlDataSource5" runat="server" 
-                    ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                    SelectCommand="SELECT [id], [name] FROM [department]"></asp:SqlDataSource>
-                &nbsp;Employee :
-                <asp:DropDownList ID="ddlEmpList" runat="server" AppendDataBoundItems="True">
-                    <asp:ListItem Value="-1">- All -</asp:ListItem>
-                </asp:DropDownList>
-                &nbsp;<asp:Button ID="btnSearch" runat="server" onclick="btnSearch_Click" 
+                <asp:Label ID="lblaccesslevel" runat="server" Text="Access Level :"></asp:Label>
+                &nbsp;<asp:DropDownList ID="ddlAccessLevel" runat="server" 
+            AppendDataBoundItems="True" datasourceid="SqlDataSource5" DataTextField="name" 
+            DataValueField="id">
+            <asp:ListItem Value="-1">- All -</asp:ListItem>
+        </asp:DropDownList>
+        <asp:SqlDataSource ID="SqlDataSource5" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+            SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'">
+        </asp:SqlDataSource>
+                &nbsp;<asp:Button ID="btnSearch" runat="server" 
              Text="Search" />
      <br>
    <asp:Button ID="Button1"

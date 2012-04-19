@@ -8,9 +8,6 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //var list = from p in wowidb.PRs from au in wowidb.PR_authority_history where p.pr_auth_id == au.pr_auth_id & au.status == (byte)PRStatus.Done select p;
-        //GridView1.DataSource = list;
-        //GridView1.DataBind();
         String newCriteria = "";
         if (ddlVenderList.SelectedValue != "-1")
         {
@@ -134,7 +131,7 @@
             }
             if (row.Cells[6].Text.Trim() != "&nbsp;")
             {
-                row.Cells[6].Text = "$" + row.Cells[6].Text;
+                row.Cells[6].Text =  row.Cells[6].Text +"$";
             }
             String quoIDStr = row.Cells[3].Text;
             try
@@ -205,13 +202,13 @@
                     ReadOnly="True" />
                 <asp:BoundField DataField="project_id" HeaderText="Project Id" 
                     SortExpression="project_id" ReadOnly="True" />
-                <asp:BoundField DataField="quotaion_id" HeaderText="Quotation Id" 
+                <asp:BoundField DataField="quotaion_id" HeaderText="Quotation No" 
                     SortExpression="quotaion_id" />
-                <asp:BoundField DataField="vendor_id" HeaderText="Vendor Id" 
+                <asp:BoundField DataField="vendor_id" HeaderText="Vender" 
                     SortExpression="vendor_id" />
-                <asp:BoundField DataField="currency" HeaderText="Currency" 
+                <asp:BoundField DataField="currency" HeaderText="Currency" ItemStyle-HorizontalAlign="Right"
                     SortExpression="currency" />
-                <asp:BoundField DataField="total_cost" HeaderText="Total Cost" 
+                <asp:BoundField DataField="total_cost" HeaderText="Total Cost" ItemStyle-HorizontalAlign="Right"
                     SortExpression="total_cost" />
                <asp:BoundField DataField="target_payment_date" HeaderText="Target Payment Date" 
                     SortExpression="target_payment_date" DataFormatString="{0:yyyy/MM/dd}" />

@@ -20,10 +20,10 @@
                 
                 //throw;
             }
-            String venderIDStr = row.Cells[3].Text;
+            String venderIDStr = row.Cells[4].Text;
             if (venderIDStr == "-1")
             {
-                row.Cells[3].Text = "Not set yet";
+                row.Cells[4].Text = "Not set yet";
             }
             else
             {
@@ -31,7 +31,7 @@
                 {
                     int vid = int.Parse(venderIDStr);
                     var vender = (from v in wowidb.vendors where v.id == vid select v).First();
-                    row.Cells[3].Text = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
+                    row.Cells[4].Text = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
                 }
                 catch (Exception)
                 {
@@ -41,18 +41,26 @@
             }
             if (row.Cells[5].Text.Trim() != "&nbsp;")
             {
-                row.Cells[5].Text = "$" + row.Cells[5].Text;
+                row.Cells[5].Text = row.Cells[5].Text + "$";
             }
-            String quoIDStr = row.Cells[6].Text;
+            String quoIDStr = row.Cells[3].Text;
             try
             {
-                int qid = int.Parse(quoIDStr);
-                row.Cells[6].Text = (from q in db.Quotation_Version where q.Quotation_Version_Id == qid select q.Quotation_No).First();
+                
+                if (quoIDStr == "-1")
+                {
+                    row.Cells[3].Text = "Not set yet";
+                }
+                else
+                {
+                    int qid = int.Parse(quoIDStr);
+                    row.Cells[3].Text = (from q in db.Quotation_Version where q.Quotation_Version_Id == qid select q.Quotation_No).First();
+                }
             }
             catch (Exception)
             {
 
-                //throw;
+
             }
 
             String Str = row.Cells[9].Text;
@@ -61,6 +69,25 @@
                 byte status = byte.Parse(Str);
                 row.Cells[9].Text = PRUtils.statusByteToString(status);
                 
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+
+            Str = row.Cells[11].Text;
+            try
+            {
+                if (Str == "-1")
+                {
+                    row.Cells[11].Text = "Not set yet";
+                }
+                else
+                {
+                    int aid = int.Parse(Str);
+                    row.Cells[11].Text = (from p in wowidb.access_level where p.id == aid select p.name).First();
+                }
             }
             catch (Exception)
             {
@@ -82,39 +109,34 @@
     protected void ddlVenderList_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        var list = (from c in wowidb.vendors from country in wowidb.countries where c.country == country.country_id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name + " ]" : c.name + " - [ " + country.country_name + " ]" });
-        (sender as DropDownList).DataSource = list;
-        (sender as DropDownList).DataTextField = "Text";
-        (sender as DropDownList).DataValueField = "Id";
+        PRUtils.ddlVenderList_Load(sender, e);
         (sender as DropDownList).DataBind();
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        //String newCriteria = "";
-        //if (ddlProjectNo.SelectedValue != "-1")
-        //{
-        //    newCriteria += " and P.project_id = " + ddlProjectNo.SelectedValue ;
-        //}
-
-        //if (ddlVenderList.SelectedValue != "-1")
-        //{
-        //    newCriteria += " and P.vendor_id = " + ddlVenderList.SelectedValue;
-        //}
-
-        //if (ddlStatus.SelectedValue != "-1")
-        //{
-        //    newCriteria += " and R.status = " + ddlStatus.SelectedValue;
-        //}
-        
-        //SqlDataSourceClient.SelectCommand += newCriteria;
-        //GridView1.DataBind();
         
     }
 
     protected void Page_Load(object sender, EventArgs e)
     {
         String newCriteria = "";
+        int eid = Utils.GetEmployeeID(User.Identity.Name);
+        if (!Utils.isAdmin(eid))
+        {
+            newCriteria += " and P.department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
+            lblaccesslevel.Visible = false;
+            ddlAccessLevel.Visible = false;
+        }
+        else
+        {
+            lblaccesslevel.Visible = true;
+            ddlAccessLevel.Visible = true;
+            if (ddlAccessLevel.SelectedValue != "-1")
+            {
+                newCriteria += " and P.department_id  = " + ddlAccessLevel.SelectedValue ;
+            }
+        }
         if (ddlProjectNo.SelectedValue != "-1")
         {
             newCriteria += " and P.project_id = " + ddlProjectNo.SelectedValue;
@@ -138,7 +160,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-   PR Lists : <br />
+    PR Lists<br>
     Project :
     <asp:DropDownList ID="ddlProjectNo" runat="server" AppendDataBoundItems="True" 
         onload="DropDownList1_Load">
@@ -160,12 +182,20 @@
         <asp:ListItem Value="5">Cancel</asp:ListItem>
         <asp:ListItem Value="6">Ready to Pay</asp:ListItem>
     </asp:DropDownList>
-&nbsp;
-    <asp:Button ID="btnSearch" runat="server" Text="Search" 
-        onclick="btnSearch_Click" />
-   <br /><asp:Button ID="Button1"
+<asp:Label ID="lblaccesslevel" runat="server" Text="Access Level :"></asp:Label>
+            &nbsp;<asp:DropDownList ID="ddlAccessLevel" runat="server" 
+                AppendDataBoundItems="True" DataSourceID="SqlDataSource1" DataTextField="name" 
+                DataValueField="id">
+                <asp:ListItem Value="-1">- All -</asp:ListItem>
+            </asp:DropDownList>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'">
+            </asp:SqlDataSource>
+&nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" 
+        onclick="btnSearch_Click" /><br>
+<asp:Button ID="Button1"
             runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" />
-
     <p><asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             SkinID="GridView" Width="100%"
             DataKeyNames="pr_id" DataSourceID="SqlDataSourceClient" AllowPaging="True" 
@@ -187,15 +217,15 @@
                     ReadOnly="True" />
                 <asp:BoundField DataField="project_id" HeaderText="Project Id" 
                     SortExpression="project_id" ReadOnly="True" />
-                <asp:BoundField DataField="vendor_id" HeaderText="Vendor Id" 
+                <asp:BoundField DataField="quotaion_id" HeaderText="Quotation No" 
+                    SortExpression="quotaion_id" />
+                <asp:BoundField DataField="vendor_id" HeaderText="Vender" 
                     SortExpression="vendor_id" />
-                <asp:BoundField DataField="currency" HeaderText="Currency" 
+                <asp:BoundField DataField="currency" HeaderText="Currency" ItemStyle-HorizontalAlign="Right"
                     SortExpression="currency" />
                 <asp:BoundField DataField="total_cost" HeaderText="Total Cost" ItemStyle-HorizontalAlign="Right"
                     SortExpression="total_cost" />
-                <asp:BoundField DataField="quotaion_id" HeaderText="Quotation Id" 
-                    SortExpression="quotaion_id" />
-                <asp:BoundField DataField="create_date" HeaderText="Createtion Date" 
+                <asp:BoundField DataField="create_date" HeaderText="Creation Date" 
                     SortExpression="create_date" DataFormatString="{0:yyyy/MM/dd}" />
                      <asp:BoundField DataField="target_payment_date" HeaderText="Target Payment Date" 
                     SortExpression="target_payment_date" DataFormatString="{0:yyyy/MM/dd}" />
@@ -203,6 +233,8 @@
                     SortExpression="pr_auth_id" />
                 <asp:BoundField DataField="status_date" HeaderText="Status Date" 
                     SortExpression="status_date"  DataFormatString="{0:yyyy/MM/dd}" />
+                <asp:BoundField DataField="department_Id" HeaderText="Access Level" 
+                    SortExpression="department_Id" />
                
             </Columns>
         </asp:GridView>
@@ -212,7 +244,7 @@
         <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             
-            SelectCommand="SELECT P.currency, P.pr_id, P.project_id, P.quotaion_id, P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id , (CASE R.status WHEN 0 THEN R.create_date WHEN 1 THEN  R.requisitioner_date WHEN 2 THEN supervisor_date WHEN 3 THEN  R.vp_date WHEN 4 THEN  R.president_date  WHEN 6 THEN R.modify_date END) as status_date FROM PR AS P , PR_authority_history AS R WHERE P.pr_auth_id = R.pr_auth_id">
+            SelectCommand="SELECT P.currency, P.pr_id, P.project_id, P.quotaion_id, P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id , (CASE R.status WHEN 0 THEN R.create_date WHEN 1 THEN  R.requisitioner_date WHEN 2 THEN supervisor_date WHEN 3 THEN  R.vp_date WHEN 4 THEN  R.president_date  WHEN 6 THEN R.modify_date END) as status_date, P.department_id FROM PR AS P , PR_authority_history AS R WHERE P.pr_auth_id = R.pr_auth_id">
         </asp:SqlDataSource>
     </p>
 </asp:Content>

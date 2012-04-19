@@ -16,11 +16,7 @@
         {
             (sender as DropDownList).Enabled = false;
         }
-        var list = (from c in wowidb.vendors from country in wowidb.countries where c.country == country.country_id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name+" ]" : c.name + " - [ " + country.country_name+" ]" });
-
-        (sender as DropDownList).DataSource = list;
-        (sender as DropDownList).DataTextField = "Text";
-        (sender as DropDownList).DataValueField = "Id";
+        PRUtils.ddlVenderList_Load(sender, e);
         (sender as DropDownList).DataBind();
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
@@ -103,28 +99,12 @@
                     
                 }
                 ViewState["INIT"] = true;
-                //try
-                //{
-                //    (FormView1.FindControl("VenderPanel") as Panel).Visible = false;
-                //}
-                //catch (Exception)
-                //{
-                    
-                //    //throw;
-                //}
+               
                 
             }
             else
             {
-                //try
-                //{
-                //    (FormView1.FindControl("VenderPanel") as Panel).Visible = false;
-                //}
-                //catch (Exception)
-                //{
-
-                //    //throw;
-                //}
+               
                
             }
         }
@@ -513,8 +493,6 @@
     }
     protected void PlaceHolder1_Load(object sender, EventArgs e)
     {
-        //if (Page.IsPostBack) return;
-        //(FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Clear();
         String UpPath = ConfigurationManager.AppSettings["UploadFolderPath"];
         String prid = Request.QueryString["id"];
         UpPath = UpPath + "/PR/" + prid;
@@ -1076,8 +1054,6 @@
                             Response.Redirect("~/Accounting/PRPayment.aspx?id=" + obj.pr_id);
                             break;
                     }
-                    //(FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
-                    //(FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
                     Response.Redirect("~/Accounting/PRDetails.aspx?id=" + id, false);
                 }
                 catch (Exception ex)
@@ -1325,49 +1301,6 @@
 
     }
 
-    //protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
-    //{
-    //    try
-    //    {
-    //        DropDownList ddl = sender as DropDownList;
-    //        (FormView1.FindControl("lblDept") as Label).Text = ddl.SelectedValue;
-    //    }
-    //    catch (Exception)
-    //    {
-
-    //        (FormView1.FindControl("lblDept") as Label).Text = "-1";
-    //    }
-
-    //}
-
-
-    //protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
-    //{
-    //    try
-    //    {
-    //        DropDownList ddl = sender as DropDownList;
-    //        (FormView1.FindControl("lblEmp") as Label).Text = ddl.SelectedValue;
-    //    }
-    //    catch (Exception)
-    //    {
-
-    //        (FormView1.FindControl("lblEmp") as Label).Text = "-1";
-    //    }
-    //}
-
-
-    //protected void Form1_PreRender(object sender, EventArgs e)
-    //{
-    //    try
-    //    {
-    //        (FormView1.FindControl("lblEmpList") as DropDownList).SelectedValue = (FormView1.FindControl("lblEmp") as Label).Text;
-    //    }
-    //    catch (Exception ex)
-    //    {
-
-           
-    //    }
-    //}
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -1544,7 +1477,7 @@
                                     AppendDataBoundItems="True" AutoPostBack="True" onload="ddlVenderList_Load" 
                                         onselectedindexchanged="ddlVenderList_SelectedIndexChanged"
                                         ValidationGroup="VenderGroup">
-                                    <asp:ListItem Value="-1">Select one</asp:ListItem>
+                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                 </asp:DropDownList>&nbsp;<asp:Button ID="btnShow" runat="server" Text="Show" 
                                         Visible="false" onclick="btnShow_Click" ValidationGroup="VenderGroup" CausesValidation="false"  />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 

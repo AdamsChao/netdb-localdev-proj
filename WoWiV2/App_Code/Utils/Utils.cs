@@ -153,6 +153,31 @@ public class Utils
 
         return id;
     }
+
+    public static int GetEmployeeID()
+    {
+        return GetEmployeeID(HttpContext.Current.User.Identity.Name);
+    }
+
+    public static bool isAdmin(int id)
+    {
+        bool ret = false;
+        try
+        {
+            using (WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities())
+            {
+                var data = wowidb.m_employee_accesslevel.First(c=> c.employee_id == id && c.accesslevel_id == 1 );
+                ret = true;
+            }
+        }
+        catch (Exception ex)
+        {
+
+            //throw;
+        }
+
+        return ret;
+    }
 }
 
 public delegate void CustomLogic();

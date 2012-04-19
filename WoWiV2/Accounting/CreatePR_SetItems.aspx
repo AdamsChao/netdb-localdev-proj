@@ -11,12 +11,8 @@
  
     protected void ddlVenderList_Load(object sender, EventArgs e)
     {
-        //if (Page.IsPostBack) return;
-        var list = (from c in wowidb.vendors from country in wowidb.countries where c.country == country.country_id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name+" ]" : c.name + " - [ " + country.country_name+" ]" });
-
-        (sender as DropDownList).DataSource = list;
-        (sender as DropDownList).DataTextField = "Text";
-        (sender as DropDownList).DataValueField = "Id";
+        if (Page.IsPostBack) return;
+        PRUtils.ddlVenderList_Load(sender, e);
     }
 
     protected void ddlTarget_Load(object sender, EventArgs e)
@@ -295,19 +291,6 @@
         UpPath = UpPath + "/PR/" + prid;
         if (System.IO.Directory.Exists(UpPath))
         {
-            //String[] list = System.IO.Directory.GetFiles(UpPath);
-            //foreach (String item in list)
-            //{
-            //    HyperLink link = new HyperLink();
-            //    int idx = item.LastIndexOf("\\");
-            //    String fileName = item.Substring(idx + 1);
-            //    link.NavigateUrl = "~/Accounting/FileListHandler.ashx?id=" + prid + "&fn=" + fileName;
-            //    link.Text = fileName;
-            //    (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Add(link);
-            //    Label lb = new Label();
-            //    lb.Text = "<br>";
-            //    (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Add(lb);
-            //}
             Control con = Page.LoadControl("~/UserControls/UploadFileView.ascx");
             (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Add(con);
             (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Visible = true;
@@ -342,7 +325,7 @@
         {
             obj.vendor_banking_id = int.Parse(ddlBankAccount.SelectedValue);
         }
-        //DateTime fromDate = dcFromDate.GetDate();
+       
         try
         {
             usercontrols_datechooser2_ascx con = (FormView1.FindControl("dcPaymentDate") as usercontrols_datechooser2_ascx);
@@ -402,10 +385,6 @@
                     gv.DataSource = data;
                     gv.DataBind();
                     var d = data.First();
-                    //obj.total_cost = d.FinalPrice;
-                    //obj.currency = currency;
-                    //(FormView1.FindControl("tbCurrency") as TextBox).Text = obj.currency;
-                    //(FormView1.FindControl("tbTotalAmount") as TextBox).Text = obj.total_cost.ToString();
                     try
                     {
                         var delList = from del in wowidb.PR_item where del.pr_id == obj.pr_id select del;
@@ -498,19 +477,7 @@
         //(FormView1.FindControl("lblDept") as Label).Text = "-1";
 
     }
-    //protected void Page_PreRender(object sender, EventArgs e)
-    //{
-    //    if (Page.IsPostBack) return;
-    //    try
-    //    {
-    //        (FormView1.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = Utils.GetEmployeeID(User.Identity.Name) + "";
-    //    }
-    //    catch (Exception)
-    //    {
-
-    //        //throw;
-    //    }
-    //}
+  
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -554,10 +521,7 @@
                           </td></tr>
                           
                           <tr><td align="right" 
-                                   class="style11" colspan="4"><%--Access Level : <asp:Label ID="lblDept" runat="server" Text="" 
-                                         onload="lbl_Load" />&nbsp;&nbsp;&nbsp;&nbsp;Created by : 
-                                     <asp:Label ID="lblEmp" runat="server" Text="" 
-                                         onload="lbl_Load"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;--%>Create Date : 
+                                   class="style11" colspan="4">Create Date : 
                                      <asp:Label ID="lblCDate" runat="server" Text="" 
                                          onload="lbl_Load"></asp:Label>
                             </td></tr>
@@ -691,7 +655,7 @@
                                     AppendDataBoundItems="True" AutoPostBack="True" onload="ddlVenderList_Load" 
                                         onselectedindexchanged="ddlVenderList_SelectedIndexChanged" 
                                         ValidationGroup="VenderGroup">
-                                    <asp:ListItem Value="-1">Select one</asp:ListItem>
+                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                 </asp:DropDownList>&nbsp;<asp:Button ID="btnShow" runat="server" Text="Hide" 
                                         Visible="false" onclick="btnShow_Click" ValidationGroup="VenderGroup" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
