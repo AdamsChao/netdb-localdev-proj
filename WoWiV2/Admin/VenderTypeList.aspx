@@ -8,17 +8,16 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <p>
-    Vender Type List&nbsp;
-    <asp:HyperLink ID="HyperLink1" runat="server" 
-        NavigateUrl="~/Admin/CreateVenderType.aspx">Create</asp:HyperLink>
+    Vender Type List&nbsp;<asp:Button ID="Button1"
+            runat="server" Text="Create" PostBackUrl="~/Admin/CreateVenderType.aspx" />
  <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
         </asp:ScriptManagerProxy>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" SkinID="GridView"
-        AutoGenerateColumns="False" DataKeyNames="id" 
+        AutoGenerateColumns="False" DataKeyNames="id" PageSize="50"
         DataSourceID="SqlDataSource1" 
-        AllowSorting="True" Width="402px">
+        AllowSorting="True" Width="100%">
         <Columns>
             <asp:CommandField ShowEditButton="True" />
             <asp:TemplateField InsertVisible="False" SortExpression="id" Visible="False">

@@ -13,8 +13,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <p>
     Industry List&nbsp;
-    <asp:HyperLink ID="HyperLink1" runat="server" 
-        NavigateUrl="~/Admin/CreateTechnology.aspx">Create</asp:HyperLink>
+     <asp:Button ID="Button1"
+            runat="server" Text="Create" PostBackUrl="~/Admin/CreateTechnology.aspx" />
         <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
         </asp:ScriptManagerProxy>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">

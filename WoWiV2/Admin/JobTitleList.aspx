@@ -9,8 +9,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <p>
     JobTitle List&nbsp;
-    <asp:HyperLink ID="HyperLink1" runat="server" 
-        NavigateUrl="~/Admin/CreateJobTitle.aspx">Create</asp:HyperLink>
+    <asp:Button ID="Button1"
+            runat="server" Text="Create" PostBackUrl="~/Admin/CreateJobTitle.aspx" />
  <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
         </asp:ScriptManagerProxy>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
