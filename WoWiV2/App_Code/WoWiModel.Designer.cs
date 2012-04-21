@@ -2847,6 +2847,126 @@ namespace WoWiModel
         private Nullable<global::System.Int32> _employee_id;
         partial void Onemployee_idChanging(Nullable<global::System.Int32> value);
         partial void Onemployee_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ups_bankbranch
+        {
+            get
+            {
+                return _ups_bankbranch;
+            }
+            set
+            {
+                Onups_bankbranchChanging(value);
+                ReportPropertyChanging("ups_bankbranch");
+                _ups_bankbranch = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ups_bankbranch");
+                Onups_bankbranchChanged();
+            }
+        }
+        private global::System.String _ups_bankbranch;
+        partial void Onups_bankbranchChanging(global::System.String value);
+        partial void Onups_bankbranchChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String contact_name
+        {
+            get
+            {
+                return _contact_name;
+            }
+            set
+            {
+                Oncontact_nameChanging(value);
+                ReportPropertyChanging("contact_name");
+                _contact_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("contact_name");
+                Oncontact_nameChanged();
+            }
+        }
+        private global::System.String _contact_name;
+        partial void Oncontact_nameChanging(global::System.String value);
+        partial void Oncontact_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String contact_email
+        {
+            get
+            {
+                return _contact_email;
+            }
+            set
+            {
+                Oncontact_emailChanging(value);
+                ReportPropertyChanging("contact_email");
+                _contact_email = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("contact_email");
+                Oncontact_emailChanged();
+            }
+        }
+        private global::System.String _contact_email;
+        partial void Oncontact_emailChanging(global::System.String value);
+        partial void Oncontact_emailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String contact_tel
+        {
+            get
+            {
+                return _contact_tel;
+            }
+            set
+            {
+                Oncontact_telChanging(value);
+                ReportPropertyChanging("contact_tel");
+                _contact_tel = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("contact_tel");
+                Oncontact_telChanged();
+            }
+        }
+        private global::System.String _contact_tel;
+        partial void Oncontact_telChanging(global::System.String value);
+        partial void Oncontact_telChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String contact_ext
+        {
+            get
+            {
+                return _contact_ext;
+            }
+            set
+            {
+                Oncontact_extChanging(value);
+                ReportPropertyChanging("contact_ext");
+                _contact_ext = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("contact_ext");
+                Oncontact_extChanged();
+            }
+        }
+        private global::System.String _contact_ext;
+        partial void Oncontact_extChanging(global::System.String value);
+        partial void Oncontact_extChanged();
 
         #endregion
     

@@ -63,11 +63,11 @@
         }
         .style7
         {
-            width: 15%;
+            width: 20%;
         }
         .style9
         {
-            width: 15%;
+            width: 20%;
         }
     </style>
 </asp:Content>
@@ -140,7 +140,7 @@
                                    class="style7"><font color="red">*&#160;</font>Business Type:</th><td width="30%">
                               <asp:DropDownList ID="DropDownList1" runat="server"  Enabled="false"
                                            SelectedValue='<%# Bind("businesstype") %>'>
-                                  <asp:ListItem Value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          </asp:ListItem>
+                                 <asp:ListItem Value="0">Manufacturer</asp:ListItem>
                                   <asp:ListItem Value="1">Company</asp:ListItem>
                                   <asp:ListItem Value="2">Lab</asp:ListItem>
                                   <asp:ListItem Value="3">Consultant</asp:ListItem>
@@ -174,13 +174,14 @@
                                   SelectCommand="SELECT [country_id], [country_name] FROM [country]">
                               </asp:SqlDataSource>
                           </td><th align="left" 
-                                   class="style7">&nbsp; <b>Annual Number Grants</b>:</th><td width="30%">
+                                   class="style7">&nbsp; <b>Annual Number project</b>:</th><td width="30%">
                               <asp:DropDownList ID="DropDownList2" runat="server" SelectedValue='<%# Bind("grant_rank") %>' Enabled="false">
-                                  <asp:ListItem Value="0">&nbsp; 0 -&nbsp; 5 grants</asp:ListItem>
-                                  <asp:ListItem Value="1">&nbsp;  6 - 10 grants</asp:ListItem>
-                                  <asp:ListItem Value="2"> 11 - 15 grants</asp:ListItem>
-                                  <asp:ListItem Value="3"> 16 - 20 grants</asp:ListItem>
-                                  <asp:ListItem Value="4">&nbsp; &gt;&nbsp;&nbsp; 20 grants</asp:ListItem>
+                                 <asp:ListItem Value="0">&nbsp; 0 -&nbsp; 5 </asp:ListItem>
+                                  <asp:ListItem Value="1">&nbsp;  6 - 10</asp:ListItem>
+                                  <asp:ListItem Value="2"> 11 - 20</asp:ListItem>
+                                  <asp:ListItem Value="3"> 21 - 30</asp:ListItem>
+                                  <asp:ListItem Value="4"> 31 - 40</asp:ListItem>
+                                  <asp:ListItem Value="5"> 41 - 50</asp:ListItem>
 
                               </asp:DropDownList>
                           </td></tr>
@@ -235,7 +236,7 @@
                                    width="30%"><asp:Label ID="Label11" runat="server" 
                                        Text='<%# Bind("bill_lastname") %>'></asp:Label>&#160;&#160;&#160;&#160;&#160;</td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>名:</th><td width="30%">
-                                               <asp:Label 
+                                               <asp:Label
                                        ID="Label2" runat="server" Text='<%# Bind("c_bill_firstname") %>'></asp:Label></td></tr>
 
 
@@ -245,27 +246,27 @@
                                        Text='<%# Bind("bill_title") %>'></asp:Label>&#160;&#160;&#160;&#160;&#160;</td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Email:</th><td width="30%">
                                                 <asp:Label 
-                                       ID="tbBillEmail" runat="server" Text='<%# Bind("bill_email") %>'></asp:Label></td></tr>
+                                       ID="tbBillEmail" runat="server" Text='<%# Bind("bill_email") %>' Enabled="false"></asp:Label></td></tr>
                                        <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Tel:</th><td 
                                    width="30%"><asp:Label ID="tbBillTel" runat="server" 
-                                       Text='<%# Bind("bill_workphone") %>'></asp:Label>&nbsp;Ext : &nbsp;<asp:Label ID="tbBillExt" 
+                                       Text='<%# Bind("bill_workphone") %>'></asp:Label>&nbsp;Ext : &nbsp;<asp:Label ID="tbBillExt" Enabled="false"
                                                    runat="server" Height="21px" Text='<%# Bind("bill_ext") %>' Width="30px"></asp:Label>
                                                &nbsp;&nbsp;&nbsp;</td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Fax:</th><td width="30%">
                                                <asp:Label 
-                                       ID="tbBillFax" runat="server" Text='<%# Bind("bill_fax") %>'></asp:Label></td></tr>
+                                       ID="tbBillFax" runat="server" Text='<%# Bind("bill_fax") %>' Enabled="false"></asp:Label></td></tr>
                                <tr>
                                    <th align="left" class="style9">
                                        <font color="red">*&nbsp;</font>Address:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:Label ID="tbBillAddress" runat="server" Text='<%# Bind("bill_address") %>' 
+                                       <asp:Label ID="tbBillAddress" runat="server" Text='<%# Bind("bill_address") %>' Enabled="false"
                                            Width="211px"></asp:Label>
                                    </td>
                                    <th align="left" class="style7">
                                        &nbsp; 地址:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:Label ID="tbCBillAddress" runat="server" Text='<%# Bind("bill_caddress") %>' 
+                                       <asp:Label ID="tbCBillAddress" runat="server" Text='<%# Bind("bill_caddress") %>' Enabled="false"
                                            Width="211px"></asp:Label>
                                    </td>
                                </tr>
@@ -273,147 +274,186 @@
                                    <th align="left" class="style9">
                                        &nbsp; Country:&nbsp;</th>
                                    <td  width="30%">
-                                       <asp:DropDownList ID="dlBillCountry" runat="server" Enabled="false"
-                                           DataSourceID="SqlDataSource1" DataTextField="country_name" 
+                                       <asp:DropDownList ID="dlBillCountry" runat="server" Enabled="false"                                      DataSourceID="SqlDataSource1" DataTextField="country_name" 
                                            DataValueField="country_id">
                                        </asp:DropDownList>
                                    </td>
-                                   <th align="left" class="style7">
-                                       &nbsp; Payment days:&nbsp;</th>
-                                   <td width="30%">
-                                       <asp:Label ID="tbPaymentDays" runat="server" Text='<%# Bind("paymentdays") %>' 
-                                           Width="211px"></asp:Label>
-                                   </td>
+                                   <th 
+                                   align="left" class="style7">&nbsp; Payment Type:&nbsp;</th><td width="30%">
+                                               <asp:DropDownList ID="ddlPaymentType" runat="server" Enabled="false"
+                                                   SelectedValue='<%# Bind("paymentterm") %>' >
+                                                   <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                                    <asp:ListItem Value="0">支票 Check</asp:ListItem>
+                                                   <asp:ListItem Value="1">國內匯款 Domestic Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="6">國外匯款 Foreign Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="2">匯票 Cashier Check</asp:ListItem>
+                                                   <asp:ListItem Value="3">信用卡 Credit Card</asp:ListItem>
+                                                   <asp:ListItem Value="4">現金 Cash</asp:ListItem>
+                                                   <asp:ListItem Value="5">西聯匯款 Westerm Union</asp:ListItem>
+                                               </asp:DropDownList>
+                                               
+                                           </td>
                                  
                                </tr>
                                <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
                                  <th colspan="4">
                                        Client Accounting Information</th>
                                </tr>
-
-
-                               <tr>
-                                   <th align="left" class="style9">
-                                       &nbsp;&nbsp; Owner:</th>
-                                   <td width="30%">
-                                       <asp:DropDownList ID="dlOwner" runat="server" AppendDataBoundItems="True" Enabled="false"
-                                           datasourceid="SqlDataSource5" DataTextField="un" DataValueField="id" 
-                                           SelectedValue='<%# Bind("owner") %>'>
-                                           <asp:ListItem Value="-1">None</asp:ListItem>
-                                       </asp:DropDownList>
-                                       <asp:SqlDataSource ID="SqlDataSource5" runat="server" 
-                                           ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                           SelectCommand="SELECT [id], [fname]+[lname] As [un]  FROM [employee]">
-                                       </asp:SqlDataSource>
-                                   </td>
-                                   <th align="left" class="style7">
-                                       &nbsp;&nbsp; Acct Manager:&nbsp;</th>
-                                   <td width="30%">
-                                       <asp:DropDownList ID="dlAcctMgr" runat="server" AppendDataBoundItems="True" Enabled="false"
-                                           datasourceid="SqlDataSource5" DataTextField="un" DataValueField="id" 
-                                           SelectedValue='<%# Bind("acct_manager") %>'>
-                                           <asp:ListItem Value="-1">None</asp:ListItem>
-                                       </asp:DropDownList>
-                                   </td>
-                               </tr>
                                <tr>
                                    <th align="left" class="style9">
                                        &nbsp;&nbsp;&nbsp;Account No.:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:Label ID="tbAcctNo" runat="server" Text='<%# Bind("acctno") %>'></asp:Label>
+                                       <asp:TextBox ID="tbAcctNo" runat="server" Text='<%# Bind("acctno") %>' Enabled="false"></asp:TextBox>
                                    </td>
                                    <th align="left" class="style7">
-                                       &nbsp;&nbsp; Payment Term:&nbsp;</th>
+                                       &nbsp;&nbsp; AE:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:DropDownList ID="dlPaymentTerm" runat="server" Enabled="false"
-                                           SelectedValue='<%# Bind("paymentterm") %>'>
-                                           <asp:ListItem  Value="0" >Net 30</asp:ListItem>
-                                           <asp:ListItem  Value="1" >Cash</asp:ListItem>
-                                           <asp:ListItem Value="2">Advance payment</asp:ListItem>
-                                       </asp:DropDownList>
+                                       <asp:DropDownList ID="dlAcctMgr" runat="server" AppendDataBoundItems="True" 
+                                           datasourceid="SqlDataSource5" DataTextField="un" DataValueField="id" Enabled="false"
+                                           SelectedValue='<%# Bind("acct_manager") %>'>
+                                           <asp:ListItem Value="-1">None</asp:ListItem>
+                                       </asp:DropDownList><asp:SqlDataSource ID="SqlDataSource5" runat="server" 
+                                           ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                           SelectCommand="SELECT [id], [fname]+[lname] As [un]  FROM [employee]">
+                                       </asp:SqlDataSource>
                                    </td>
                                </tr>
                                <tr>
-                                   <th align="left" class="style10">
+                                  <th align="left" class="style10">
                                        &nbsp;&nbsp; Credit Limit:</th>
                                    <td class="style11" width="30%">
-                                       <asp:Label ID="tbCreditLimit" runat="server" 
-                                           Text='<%# Bind("creditlimit") %>'></asp:Label>
+                                       <asp:TextBox ID="tbCreditLimit" runat="server" Enabled="false"
+                                           Text='<%# Bind("creditlimit") %>'></asp:TextBox>
+                                   </td>
+                                   <th 
+                                   align="left" class="style9">&nbsp;&nbsp; Payment Term:&nbsp;</th>
+                                   <td colspan="3">
+                                             <asp:DropDownList ID="ddlPaymentDays" runat="server" Enabled="false"
+                                                 SelectedValue='<%# Bind("paymentdays") %>'>
+                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                                 <asp:ListItem Value="0">ASAP</asp:ListItem>
+                                                 <asp:ListItem Value="7">  7 days</asp:ListItem>
+                                                 <asp:ListItem Value="15"> 15 days</asp:ListItem>
+                                                 <asp:ListItem Value="30"> 30 days</asp:ListItem>
+                                                 <asp:ListItem Value="45"> 45 days</asp:ListItem>
+                                                 <asp:ListItem Value="60"> 60 days</asp:ListItem>
+                                                 <asp:ListItem Value="90"> 90 days</asp:ListItem>
+                                                 <asp:ListItem Value="120">120 days</asp:ListItem>
+                                             </asp:DropDownList>
+                                           </td>
+                               </tr>
+                               <tr>
+                                   <th align="left" class="style9">
+                                       &nbsp;&nbsp;&nbsp;Fedex Acct.:&nbsp;</th>
+                                   <td width="30%">
+                                       <asp:TextBox ID="tbFedexAcct" runat="server" Text='<%# Bind("fedex_acct") %>' Enabled="false"></asp:TextBox>
                                    </td>
                                    <th align="left" class="style10">
                                        &nbsp;&nbsp; Client Status:&nbsp;</th>
                                    <td class="style11" width="30%">
                                        <asp:DropDownList ID="dlClientStatus" runat="server" Enabled="false"
                                            SelectedValue='<%# Bind("clientstatus") %>'>
-                                           <asp:ListItem>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          </asp:ListItem>
-                                           <asp:ListItem>Active</asp:ListItem>
-                                           <asp:ListItem>In-Active</asp:ListItem>
-                                           <asp:ListItem>On Hold</asp:ListItem>
+                                          <asp:ListItem Value="0">- Select -</asp:ListItem>
+                                           <asp:ListItem Value="1">Active</asp:ListItem>
+                                           <asp:ListItem Value="2">In-Active</asp:ListItem>
+                                           <asp:ListItem Value="3">On Hold</asp:ListItem>
                                        </asp:DropDownList>
-                                   </td>
-                               </tr>
-                               <tr>
-                                   <th align="left" class="style9">
-                                       &nbsp;&nbsp;&nbsp;Fedex Acct.:&nbsp;</th>
-                                   <td width="30%">
-                                       <asp:Label ID="tbFedexAcct" runat="server" Text='<%# Bind("fedex_acct") %>'></asp:Label>
-                                   </td>
-                                   <th align="left" class="style7">
-                                       &nbsp;&nbsp; DHL Acct.:&nbsp;</th>
-                                   <td width="30%">
-                                       <asp:Label ID="tbDhlAcct" runat="server" Text='<%# Bind("dhl_acct") %>'></asp:Label>
-                                   </td>
-                               </tr>
-                               <tr >
-                                  
-                                        <th align="left" class="style7">
-                                       &nbsp; 統一編號:&nbsp;</th>
-                                   <td colspan="3">
-                                       <asp:Label ID="Label5" runat="server" Text='<%# Bind("business_registration_number") %>' 
-                                           Width="211px"></asp:Label>
                                    </td>
                                </tr>
                                <tr>
                                    <th align="left" class="style9">
                                        &nbsp;&nbsp;&nbsp;UPS Acct.:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:Label ID="Label8" runat="server" Text='<%# Bind("ups_accountno") %>'></asp:Label>
+                                       <asp:TextBox ID="TextBox8" runat="server" Text='<%# Bind("ups_accountno") %>' Enabled="false"></asp:TextBox>
                                    </td>
                                    <th align="left" class="style7">
-                                       &nbsp; Bank Name:&nbsp;</th>
+                                       &nbsp;&nbsp; DHL Acct.:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:Label ID="tbBankName" runat="server" Text='<%# Bind("ups_bankname") %>'></asp:Label>
+                                       <asp:TextBox ID="tbDhlAcct" runat="server" Text='<%# Bind("dhl_acct") %>' Enabled="false"></asp:TextBox>
+                                   </td>
+                               </tr>
+                               <tr>
+                                  <th align="left" class="style7">
+                                       &nbsp; 統一編號:&nbsp;</th>
+                                   <td colspan="3">
+                                       <asp:TextBox ID="tbBusinessRN" runat="server" Text='<%# Bind("business_registration_number") %>' Enabled="false"
+                                           Width="211px"></asp:TextBox>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   
+                                   <th align="left" class="style7">
+                                       &nbsp;&nbsp;&nbsp;Bank Name:&nbsp;</th>
+                                   <td width="30%">
+                                       <asp:TextBox ID="tbBankName" runat="server" Text='<%# Bind("ups_bankname") %>' Enabled="false"></asp:TextBox>
+                                   </td>
+                                   <th align="left" class="style7">
+                                       &nbsp; Bank Branch:&nbsp;</th>
+                                   <td width="30%">
+                                       <asp:TextBox ID="tbBankBranch" runat="server" Text='<%# Bind("ups_bankbranch") %>' Enabled="false"></asp:TextBox>
                                    </td>
                                </tr>
                                <tr>
                                    <th align="left" class="style9">
                                        &nbsp;&nbsp;&nbsp;Bank Address:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:Label ID="tbBankAddress" runat="server" 
-                                           Text='<%# Bind("ups_bankaddress") %>'></asp:Label>
+                                       <asp:TextBox ID="tbBankAddress" runat="server" Enabled="false"
+                                           Text='<%# Bind("ups_bankaddress") %>'></asp:TextBox>
                                    </td>
                                    <th align="left" class="style7">
                                        &nbsp; Swift Code:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:Label ID="tbSwiftCode" runat="server" 
-                                           Text='<%# Bind("ups_swiftcode") %>'></asp:Label>
+                                       <asp:TextBox ID="tbSwiftCode" runat="server" Enabled="false"
+                                           Text='<%# Bind("ups_swiftcode") %>'></asp:TextBox>
                                    </td>
                                </tr>
                                <tr>
                                    <th align="left" class="style9">
-                                       &nbsp;&nbsp;&nbsp;Banefucuany Name:&nbsp;</th>
+                                       &nbsp;&nbsp;&nbsp;Beneficiary Name:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:Label ID="tbBanefucuanyName" runat="server" 
-                                           Text='<%# Bind("ups_banefucuanyname") %>'></asp:Label>
+                                       <asp:TextBox ID="tbBanefucuanyName" runat="server" Enabled="false"
+                                           Text='<%# Bind("ups_banefucuanyname") %>'></asp:TextBox>
                                    </td>
                                    <th align="left" class="style7">
                                        &nbsp; Passby Bank:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:Label ID="tbPassbyBank" runat="server" 
-                                           Text='<%# Bind("ups_passbybank") %>'></asp:Label>
+                                       <asp:TextBox ID="tbPassbyBank" runat="server" Enabled="false"
+                                           Text='<%# Bind("ups_passbybank") %>'></asp:TextBox>
                                    </td>
                                </tr>
-                              
+                                  <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
+                                   <th colspan="4">
+                                       Accounting Contact Information</th>
+                               </tr>
+                                <tr><th 
+                                   align="left" class="style9"><font color="red">*&#160;</font>Name:</th><td 
+                                   width="30%"><asp:TextBox ID="tbcontactname" runat="server" Enabled="false"
+                                       Text='<%# Bind("contact_name") %>'></asp:TextBox>&#160;&#160;&#160;&#160;&#160;</td><th align="left" 
+                                   class="style7"><font color="red">*&#160;</font>Email:</th><td width="30%">
+                                                <asp:TextBox Enabled="false"
+                                       ID="TextBox5" runat="server" Text='<%# Bind("contact_email") %>'></asp:TextBox></td></tr>
+                                       <tr><th 
+                                   align="left" class="style9"><font color="red">*&#160;</font>Tel:</th><td 
+                                   colspan="3"><asp:TextBox ID="tbaccttel" runat="server" Enabled="false"
+                                       Text='<%# Bind("contact_tel") %>'></asp:TextBox>&nbsp;Ext : &nbsp;<asp:TextBox ID="TextBox7" Enabled="false"
+                                                   runat="server" Height="21px" Text='<%# Bind("contact_ext") %>' Width="30px"></asp:TextBox>
+                                               &nbsp;&nbsp;&nbsp;</td>
+                  </tr>
+                  <%-- <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
+                                   <th colspan="4">
+                                       Remark</th>
+                               </tr>
+                               
+                  <tr>
+                                   <td colspan="4">
+                                       <asp:TextBox ID="TextBox3" runat="server" Height="70" TextMode="MultiLine" Text='<%# Bind("remark") %>'
+                                           Width="100%"></asp:TextBox>
+                                   </td>
+                               </tr>
+--%>
+                                             <tr>
+
+                               
                                 <tr><td align="left" colspan="4">
                                 Contact :
                                     <asp:GridView ID="GridView1" runat="server" Width="100%"
@@ -466,7 +506,7 @@
                                </tr>
                                <tr>
                                    <td colspan="4">
-                                       <asp:Label ID="tbRemarks" runat="server" Height="70" TextMode="MultiLine" 
+                                       <asp:Label ID="tbRemarks" runat="server" Height="70" TextMode="MultiLine" Text='<%# Bind("remark") %>' Enabled="false"
                                            Width="100%"></asp:Label>
                                    </td>
                                </tr>

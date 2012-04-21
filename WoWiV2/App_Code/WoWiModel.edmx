@@ -133,6 +133,11 @@
           <Property Name="business_registration_number" Type="nvarchar" MaxLength="50" />
           <Property Name="department_id" Type="int" />
           <Property Name="employee_id" Type="int" />
+          <Property Name="ups_bankbranch" Type="nvarchar" MaxLength="100" />
+          <Property Name="contact_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="contact_email" Type="nvarchar" MaxLength="100" />
+          <Property Name="contact_tel" Type="nvarchar" MaxLength="100" />
+          <Property Name="contact_ext" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="clientapplicant_industry">
           <Key>
@@ -184,8 +189,8 @@
           <Property Name="modify_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="26" />
           <Property Name="publish" Type="bit" Nullable="false" />
-          <Property Name="employee_id" Type="int" />
           <Property Name="department_id" Type="int" />
+          <Property Name="employee_id" Type="int" />
         </EntityType>
         <EntityType Name="contact_role">
           <Key>
@@ -440,11 +445,11 @@
           <Property Name="create_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
-          <Property Name="vendor_quotation_no" Type="nvarchar" MaxLength="20" />
-          <Property Name="vendor_invoice_no" Type="nvarchar" MaxLength="20" />
           <Property Name="target_payment_date" Type="datetime" />
-          <Property Name="department_id" Type="int" />
+          <Property Name="vendor_invoice_no" Type="nvarchar" MaxLength="20" />
+          <Property Name="vendor_quotation_no" Type="nvarchar" MaxLength="50" />
           <Property Name="employee_id" Type="int" />
+          <Property Name="department_id" Type="int" />
           <Property Name="payment_term" Type="tinyint" />
         </EntityType>
         <EntityType Name="PR_authority_history">
@@ -1140,6 +1145,11 @@
           <Property Type="String" Name="business_registration_number" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="department_id" />
           <Property Type="Int32" Name="employee_id" />
+          <Property Type="String" Name="ups_bankbranch" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="contact_name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="contact_email" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="contact_tel" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="contact_ext" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Authority">
           <Key>
@@ -1875,6 +1885,11 @@
           <EntitySetMapping Name="clientapplicants">
             <EntityTypeMapping TypeName="WoWiModel.clientapplicant">
               <MappingFragment StoreEntitySet="clientapplicant">
+                <ScalarProperty Name="contact_ext" ColumnName="contact_ext" />
+                <ScalarProperty Name="contact_tel" ColumnName="contact_tel" />
+                <ScalarProperty Name="contact_email" ColumnName="contact_email" />
+                <ScalarProperty Name="contact_name" ColumnName="contact_name" />
+                <ScalarProperty Name="ups_bankbranch" ColumnName="ups_bankbranch" />
                 <ScalarProperty Name="employee_id" ColumnName="employee_id" />
                 <ScalarProperty Name="department_id" ColumnName="department_id" />
                 <ScalarProperty Name="business_registration_number" ColumnName="business_registration_number" />
