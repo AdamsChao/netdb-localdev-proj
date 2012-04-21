@@ -110,6 +110,18 @@
         }
         db.SaveChanges();
     }
+
+    protected void Button6_Click(object sender, EventArgs ea)
+    {
+        WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities();
+
+        foreach (var e in db.clientapplicants)
+        {
+            e.paymentdays = 0;
+            e.clientstatus = (byte)0;
+        }
+        db.SaveChanges();
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -133,5 +145,8 @@
         Text="PR Payment Term" onclick="Button5_Click" />
     <br />
    
+   <asp:Button ID="Button6" runat="server" 
+        Text="Client Payment days/Status" onclick="Button6_Click"  />
+    <br />
 </asp:Content>
 
