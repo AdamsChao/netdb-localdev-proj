@@ -145,7 +145,11 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                 btnViewPrintChinese.Visible = false;
             }
 
-            Project project = CodeTableController.GetProject(getQuotationID());
+            // Mark by Adams 2012/4/23 for Project Requirment Change Requirment
+            //Project project = CodeTableController.GetProject(getQuotationID()); 
+
+            // Modify by Adams 2012/4/23 for Project Requirment Change Requirment
+            Project project = CodeTableController.GetProject(quotation.Quotation_No); 
             if ((project == null) && (quotation.Quotation_Status == 5))
             {
                 cmdCreateProject.Enabled = true;
