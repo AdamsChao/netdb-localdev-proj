@@ -268,6 +268,7 @@
           <Property Name="Client_Action" Type="nvarchar" MaxLength="500" />
           <Property Name="Create_Date" Type="smalldatetime" Nullable="false" />
           <Property Name="Quotation_Id" Type="int" Nullable="false" />
+          <Property Name="Quotation_No" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Quotation_Status">
           <Key>
@@ -416,15 +417,16 @@
             <PropertyRef Name="Target_rate_id" />
           </Key>
           <Property Name="Target_rate_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="authority_id" Type="int" />
-          <Property Name="Technology_id" Type="int" Nullable="false" />
           <Property Name="country_id" Type="int" Nullable="false" />
           <Property Name="product_type_id" Type="int" Nullable="false" />
+          <Property Name="Technology_id" Type="int" Nullable="false" />
+          <Property Name="authority_id" Type="int" />
           <Property Name="authority_name" Type="nvarchar" MaxLength="100" />
           <Property Name="rate" Type="money" />
-          <Property Name="target_cost" Type="money" />
           <Property Name="target_cost_currency" Type="nvarchar" MaxLength="50" />
+          <Property Name="target_cost" Type="money" />
           <Property Name="local_agent_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Publish" Type="bit" />
         </EntityType>
         <EntityType Name="wowi_tech">
           <Key>
@@ -546,7 +548,6 @@
           <EntitySet Name="clientapplicant" EntityType="QuotationModel.clientapplicant" />
           <EntitySet Name="employee" EntityType="QuotationModel.employee" />
           <EntitySet Name="clientapplicant_technology" EntityType="QuotationModel.clientapplicant_technology" />
-          <EntitySet Name="Project" EntityType="QuotationModel.Project" />
           <EntitySet Name="Quotation_Version" EntityType="QuotationModel.Quotation_Version" />
           <EntitySet Name="vw_Quotation_Print" EntityType="QuotationModel.vw_Quotation_Print" />
           <EntitySet Name="Target" EntityType="QuotationModel.Target" />
@@ -556,6 +557,7 @@
           <EntitySet Name="vw_Test_Target_List" EntityType="QuotationModel.vw_Test_Target_List" />
           <EntitySet Name="Authority" EntityType="QuotationModel.Authority" />
           <EntitySet Name="wowi_tech" EntityType="QuotationModel.wowi_tech" />
+          <EntitySet Name="Project" EntityType="QuotationModel.Project" />
         </EntityContainer>
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -602,6 +604,7 @@
           <Property Type="Decimal" Name="target_cost" Precision="19" Scale="4" />
           <Property Type="String" Name="target_cost_currency" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="local_agent_name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Publish" />
         </EntityType>
         <EntityType Name="clientapplicant">
           <Key>
@@ -714,17 +717,6 @@
           <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
           <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Project">
-          <Key>
-            <PropertyRef Name="Project_Id" />
-          </Key>
-          <Property Type="Int32" Name="Project_Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Project_No" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Project_Status" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Client_Action" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="Create_Date" Nullable="false" />
-          <Property Type="Int32" Name="Quotation_Id" Nullable="false" />
         </EntityType>
         <EntityType Name="Quotation_Version">
           <Key>
@@ -980,6 +972,18 @@
           <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
         </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Project_Id" />
+          </Key>
+          <Property Type="Int32" Name="Project_Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Project_No" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Project_Status" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Client_Action" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Create_Date" Nullable="false" />
+          <Property Type="Int32" Name="Quotation_Id" Nullable="false" />
+          <Property Type="String" Name="Quotation_No" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1023,6 +1027,7 @@
           <EntitySetMapping Name="Target_Rates">
             <EntityTypeMapping TypeName="QuotationModel.Target_Rates">
               <MappingFragment StoreEntitySet="Target_Rates">
+                <ScalarProperty Name="Publish" ColumnName="Publish" />
                 <ScalarProperty Name="local_agent_name" ColumnName="local_agent_name" />
                 <ScalarProperty Name="target_cost_currency" ColumnName="target_cost_currency" />
                 <ScalarProperty Name="target_cost" ColumnName="target_cost" />
@@ -1148,18 +1153,6 @@
                 <ScalarProperty Name="publish" ColumnName="publish" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Project">
-            <EntityTypeMapping TypeName="QuotationModel.Project">
-              <MappingFragment StoreEntitySet="Project">
-                <ScalarProperty Name="Quotation_Id" ColumnName="Quotation_Id" />
-                <ScalarProperty Name="Create_Date" ColumnName="Create_Date" />
-                <ScalarProperty Name="Client_Action" ColumnName="Client_Action" />
-                <ScalarProperty Name="Project_Status" ColumnName="Project_Status" />
-                <ScalarProperty Name="Project_No" ColumnName="Project_No" />
-                <ScalarProperty Name="Project_Id" ColumnName="Project_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1426,6 +1419,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Project">
+            <EntityTypeMapping TypeName="QuotationModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Quotation_No" ColumnName="Quotation_No" />
+                <ScalarProperty Name="Quotation_Id" ColumnName="Quotation_Id" />
+                <ScalarProperty Name="Create_Date" ColumnName="Create_Date" />
+                <ScalarProperty Name="Client_Action" ColumnName="Client_Action" />
+                <ScalarProperty Name="Project_Status" ColumnName="Project_Status" />
+                <ScalarProperty Name="Project_No" ColumnName="Project_No" />
+                <ScalarProperty Name="Project_Id" ColumnName="Project_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1454,7 +1460,6 @@
         <EntityTypeShape EntityType="QuotationModel.clientapplicant" Width="1.5" PointX="6.75" PointY="3.75" Height="11.018453776041667" />
         <EntityTypeShape EntityType="QuotationModel.employee" Width="1.5" PointX="0.75" PointY="8.75" Height="6.7878222656250031" />
         <EntityTypeShape EntityType="QuotationModel.clientapplicant_technology" Width="1.5" PointX="2.75" PointY="8.75" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="QuotationModel.Project" Width="1.5" PointX="8.75" PointY="8.75" Height="2.1725878906250031" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Version" Width="1.5" PointX="10.75" PointY="0.75" Height="15.825989583333332" />
         <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print" Width="1.5" PointX="12.75" PointY="0.75" Height="4.2879036458333388" />
         <EntityTypeShape EntityType="QuotationModel.Target" Width="1.5" PointX="0.625" PointY="4.75" Height="2.7494921875000031" />
@@ -1464,6 +1469,7 @@
         <EntityTypeShape EntityType="QuotationModel.vw_Test_Target_List" Width="1.5" PointX="15.375" PointY="0.75" Height="4.3126432291666674" />
         <EntityTypeShape EntityType="QuotationModel.Authority" Width="1.5" PointX="13.375" PointY="6.75" Height="3.1340950520833388" />
         <EntityTypeShape EntityType="QuotationModel.wowi_tech" Width="1.5" PointX="15.375" PointY="6.75" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="QuotationModel.Project" Width="1.5" PointX="15.375" PointY="10.75" Height="2.3648893229166674" />
       </Diagram>
     </Diagrams>
   </Designer>

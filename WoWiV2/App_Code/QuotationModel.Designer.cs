@@ -180,22 +180,6 @@ namespace QuotationModel
         /// <summary>
         /// 沒有可用的中繼資料文件。
         /// </summary>
-        public ObjectSet<Project> Project
-        {
-            get
-            {
-                if ((_Project == null))
-                {
-                    _Project = base.CreateObjectSet<Project>("Project");
-                }
-                return _Project;
-            }
-        }
-        private ObjectSet<Project> _Project;
-    
-        /// <summary>
-        /// 沒有可用的中繼資料文件。
-        /// </summary>
         public ObjectSet<Quotation_Version> Quotation_Version
         {
             get
@@ -336,6 +320,22 @@ namespace QuotationModel
             }
         }
         private ObjectSet<wowi_tech> _wowi_tech;
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        public ObjectSet<Project> Project
+        {
+            get
+            {
+                if ((_Project == null))
+                {
+                    _Project = base.CreateObjectSet<Project>("Project");
+                }
+                return _Project;
+            }
+        }
+        private ObjectSet<Project> _Project;
 
         #endregion
         #region AddTo 方法
@@ -394,14 +394,6 @@ namespace QuotationModel
         public void AddToclientapplicant_technology(clientapplicant_technology clientapplicant_technology)
         {
             base.AddObject("clientapplicant_technology", clientapplicant_technology);
-        }
-    
-        /// <summary>
-        /// 將新物件加入 Project EntitySet 的方法已被取代。請考慮改為使用關聯的 ObjectSet&lt;T&gt; 屬性的 .Add 方法。
-        /// </summary>
-        public void AddToProject(Project project)
-        {
-            base.AddObject("Project", project);
         }
     
         /// <summary>
@@ -474,6 +466,14 @@ namespace QuotationModel
         public void AddTowowi_tech(wowi_tech wowi_tech)
         {
             base.AddObject("wowi_tech", wowi_tech);
+        }
+    
+        /// <summary>
+        /// 將新物件加入 Project EntitySet 的方法已被取代。請考慮改為使用關聯的 ObjectSet&lt;T&gt; 屬性的 .Add 方法。
+        /// </summary>
+        public void AddToProject(Project project)
+        {
+            base.AddObject("Project", project);
         }
 
         #endregion
@@ -3978,6 +3978,30 @@ namespace QuotationModel
         private global::System.Int32 _Quotation_Id;
         partial void OnQuotation_IdChanging(global::System.Int32 value);
         partial void OnQuotation_IdChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Quotation_No
+        {
+            get
+            {
+                return _Quotation_No;
+            }
+            set
+            {
+                OnQuotation_NoChanging(value);
+                ReportPropertyChanging("Quotation_No");
+                _Quotation_No = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Quotation_No");
+                OnQuotation_NoChanged();
+            }
+        }
+        private global::System.String _Quotation_No;
+        partial void OnQuotation_NoChanging(global::System.String value);
+        partial void OnQuotation_NoChanged();
 
         #endregion
     
@@ -7313,6 +7337,30 @@ namespace QuotationModel
         private global::System.String _local_agent_name;
         partial void Onlocal_agent_nameChanging(global::System.String value);
         partial void Onlocal_agent_nameChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> Publish
+        {
+            get
+            {
+                return _Publish;
+            }
+            set
+            {
+                OnPublishChanging(value);
+                ReportPropertyChanging("Publish");
+                _Publish = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Publish");
+                OnPublishChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _Publish;
+        partial void OnPublishChanging(Nullable<global::System.Boolean> value);
+        partial void OnPublishChanged();
 
         #endregion
     
