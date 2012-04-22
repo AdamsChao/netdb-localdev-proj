@@ -101,18 +101,19 @@
         </EntityContainer>
         <EntityType Name="Authority">
           <Key>
-            <PropertyRef Name="country_id" />
-            <PropertyRef Name="wowi_product_type_id" />
+            <PropertyRef Name="authority_id" />
           </Key>
           <Property Name="authority_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="country_id" Type="int" Nullable="false" />
           <Property Name="wowi_product_type_id" Type="int" Nullable="false" />
-          <Property Name="authority_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="authority_name" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="authority_fullname" Type="nvarchar" MaxLength="100" />
           <Property Name="create_user" Type="nvarchar" MaxLength="50" />
           <Property Name="create_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
+          <Property Name="Target_Description" Type="nvarchar(max)" />
+          <Property Name="Publish" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="clientapplicant">
           <Key>
@@ -172,6 +173,11 @@
           <Property Name="business_registration_number" Type="nvarchar" MaxLength="50" />
           <Property Name="department_id" Type="int" />
           <Property Name="employee_id" Type="int" />
+          <Property Name="ups_bankbranch" Type="nvarchar" MaxLength="100" />
+          <Property Name="contact_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="contact_email" Type="nvarchar" MaxLength="100" />
+          <Property Name="contact_tel" Type="nvarchar" MaxLength="100" />
+          <Property Name="contact_ext" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="clientapplicant_technology">
           <Key>
@@ -410,27 +416,31 @@
             <PropertyRef Name="Target_rate_id" />
           </Key>
           <Property Name="Target_rate_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="authority_id" Type="int" />
+          <Property Name="Technology_id" Type="int" Nullable="false" />
           <Property Name="country_id" Type="int" Nullable="false" />
           <Property Name="product_type_id" Type="int" Nullable="false" />
           <Property Name="authority_name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Technology_id" Type="int" Nullable="false" />
           <Property Name="rate" Type="money" />
+          <Property Name="target_cost" Type="money" />
+          <Property Name="target_cost_currency" Type="nvarchar" MaxLength="50" />
+          <Property Name="local_agent_name" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="wowi_tech">
           <Key>
             <PropertyRef Name="wowi_tech_id" />
           </Key>
           <Property Name="wowi_tech_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="wowi_tech_name" Type="varchar" MaxLength="50" />
-          <Property Name="wowi_product_type_id" Type="int" />
-          <Property Name="publish" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="wowi_tech_name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="wowi_product_type_id" Type="int" Nullable="false" />
+          <Property Name="publish" Type="bit" Nullable="false" />
           <Property Name="create_user" Type="nvarchar" MaxLength="50" />
           <Property Name="create_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Product_Type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Product_Type' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -440,8 +450,8 @@
           <Property Name="wowi_product_type_name" Type="varchar" MaxLength="50" />
           <Property Name="country_id" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Quotation_Print' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Quotation_Print' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Quotation_Print">
           <Key>
@@ -465,8 +475,8 @@
           <Property Name="Bill_Address" Type="nvarchar" MaxLength="100" />
           <Property Name="title" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Quotation_Print_Chinese' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Quotation_Print_Chinese' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Quotation_Print_Chinese">
           <Key>
@@ -497,8 +507,8 @@
           <Property Name="lname" Type="nvarchar" MaxLength="25" />
           <Property Name="c_companyname" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Test_Target_List' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Test_Target_List' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Test_Target_List">
           <Key>
@@ -531,8 +541,6 @@
         <EntityContainer Name="QuotationEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="vw_Product_Type" EntityType="QuotationModel.vw_Product_Type" />
           <EntitySet Name="country" EntityType="QuotationModel.country" />
-          <EntitySet Name="Authority" EntityType="QuotationModel.Authority" />
-          <EntitySet Name="wowi_tech" EntityType="QuotationModel.wowi_tech" />
           <EntitySet Name="Quotation_Status" EntityType="QuotationModel.Quotation_Status" />
           <EntitySet Name="Target_Rates" EntityType="QuotationModel.Target_Rates" />
           <EntitySet Name="clientapplicant" EntityType="QuotationModel.clientapplicant" />
@@ -546,6 +554,8 @@
           <EntitySet Name="invoice_target" EntityType="QuotationModel.invoice_target" />
           <EntitySet Name="Quotation_Target" EntityType="QuotationModel.Quotation_Target" />
           <EntitySet Name="vw_Test_Target_List" EntityType="QuotationModel.vw_Test_Target_List" />
+          <EntitySet Name="Authority" EntityType="QuotationModel.Authority" />
+          <EntitySet Name="wowi_tech" EntityType="QuotationModel.wowi_tech" />
         </EntityContainer>
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -571,34 +581,6 @@
           <Property Type="String" Name="country_telephone_code" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="country_currency_type" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Authority">
-          <Key>
-            <PropertyRef Name="country_id" />
-            <PropertyRef Name="wowi_product_type_id" />
-          </Key>
-          <Property Type="Int32" Name="authority_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="country_id" Nullable="false" />
-          <Property Type="Int32" Name="wowi_product_type_id" Nullable="false" />
-          <Property Type="String" Name="authority_name" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="String" Name="authority_fullname" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="wowi_tech">
-          <Key>
-            <PropertyRef Name="wowi_tech_id" />
-          </Key>
-          <Property Type="Int32" Name="wowi_tech_id" Nullable="false" />
-          <Property Type="String" Name="wowi_tech_name" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="wowi_product_type_id" />
-          <Property Type="String" Name="publish" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-        </EntityType>
         <EntityType Name="Quotation_Status">
           <Key>
             <PropertyRef Name="Quotation_Status_Id" />
@@ -616,6 +598,10 @@
           <Property Type="String" Name="authority_name" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Technology_id" Nullable="false" />
           <Property Type="Decimal" Name="rate" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="authority_id" />
+          <Property Type="Decimal" Name="target_cost" Precision="19" Scale="4" />
+          <Property Type="String" Name="target_cost_currency" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="local_agent_name" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="clientapplicant">
           <Key>
@@ -675,6 +661,11 @@
           <Property Type="String" Name="business_registration_number" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="department_id" />
           <Property Type="Int32" Name="employee_id" />
+          <Property Type="String" Name="ups_bankbranch" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="contact_name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="contact_email" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="contact_tel" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="contact_ext" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="employee">
           <Key>
@@ -960,6 +951,35 @@
           <Property Type="String" Name="authority_name" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="PR_Flag" />
         </EntityType>
+        <EntityType Name="Authority">
+          <Key>
+            <PropertyRef Name="authority_id" />
+          </Key>
+          <Property Type="Int32" Name="authority_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="country_id" Nullable="false" />
+          <Property Type="Int32" Name="wowi_product_type_id" Nullable="false" />
+          <Property Type="String" Name="authority_name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="authority_fullname" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="Target_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Publish" Nullable="false" />
+        </EntityType>
+        <EntityType Name="wowi_tech">
+          <Key>
+            <PropertyRef Name="wowi_tech_id" />
+          </Key>
+          <Property Type="Int32" Name="wowi_tech_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="wowi_tech_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="wowi_product_type_id" Nullable="false" />
+          <Property Type="Boolean" Name="publish" Nullable="false" />
+          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -992,35 +1012,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Authority">
-            <EntityTypeMapping TypeName="QuotationModel.Authority">
-              <MappingFragment StoreEntitySet="Authority">
-                <ScalarProperty Name="authority_fullname" ColumnName="authority_fullname" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="authority_name" ColumnName="authority_name" />
-                <ScalarProperty Name="wowi_product_type_id" ColumnName="wowi_product_type_id" />
-                <ScalarProperty Name="country_id" ColumnName="country_id" />
-                <ScalarProperty Name="authority_id" ColumnName="authority_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="wowi_tech">
-            <EntityTypeMapping TypeName="QuotationModel.wowi_tech">
-              <MappingFragment StoreEntitySet="wowi_tech">
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="publish" ColumnName="publish" />
-                <ScalarProperty Name="wowi_product_type_id" ColumnName="wowi_product_type_id" />
-                <ScalarProperty Name="wowi_tech_name" ColumnName="wowi_tech_name" />
-                <ScalarProperty Name="wowi_tech_id" ColumnName="wowi_tech_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Quotation_Status">
             <EntityTypeMapping TypeName="QuotationModel.Quotation_Status">
               <MappingFragment StoreEntitySet="Quotation_Status">
@@ -1032,6 +1023,10 @@
           <EntitySetMapping Name="Target_Rates">
             <EntityTypeMapping TypeName="QuotationModel.Target_Rates">
               <MappingFragment StoreEntitySet="Target_Rates">
+                <ScalarProperty Name="local_agent_name" ColumnName="local_agent_name" />
+                <ScalarProperty Name="target_cost_currency" ColumnName="target_cost_currency" />
+                <ScalarProperty Name="target_cost" ColumnName="target_cost" />
+                <ScalarProperty Name="authority_id" ColumnName="authority_id" />
                 <ScalarProperty Name="rate" ColumnName="rate" />
                 <ScalarProperty Name="Technology_id" ColumnName="Technology_id" />
                 <ScalarProperty Name="authority_name" ColumnName="authority_name" />
@@ -1044,6 +1039,11 @@
           <EntitySetMapping Name="clientapplicant">
             <EntityTypeMapping TypeName="QuotationModel.clientapplicant">
               <MappingFragment StoreEntitySet="clientapplicant">
+                <ScalarProperty Name="contact_ext" ColumnName="contact_ext" />
+                <ScalarProperty Name="contact_tel" ColumnName="contact_tel" />
+                <ScalarProperty Name="contact_email" ColumnName="contact_email" />
+                <ScalarProperty Name="contact_name" ColumnName="contact_name" />
+                <ScalarProperty Name="ups_bankbranch" ColumnName="ups_bankbranch" />
                 <ScalarProperty Name="employee_id" ColumnName="employee_id" />
                 <ScalarProperty Name="department_id" ColumnName="department_id" />
                 <ScalarProperty Name="business_registration_number" ColumnName="business_registration_number" />
@@ -1395,6 +1395,37 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Authority">
+            <EntityTypeMapping TypeName="QuotationModel.Authority">
+              <MappingFragment StoreEntitySet="Authority">
+                <ScalarProperty Name="Publish" ColumnName="Publish" />
+                <ScalarProperty Name="Target_Description" ColumnName="Target_Description" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="authority_fullname" ColumnName="authority_fullname" />
+                <ScalarProperty Name="authority_name" ColumnName="authority_name" />
+                <ScalarProperty Name="wowi_product_type_id" ColumnName="wowi_product_type_id" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="authority_id" ColumnName="authority_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="wowi_tech">
+            <EntityTypeMapping TypeName="QuotationModel.wowi_tech">
+              <MappingFragment StoreEntitySet="wowi_tech">
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="publish" ColumnName="publish" />
+                <ScalarProperty Name="wowi_product_type_id" ColumnName="wowi_product_type_id" />
+                <ScalarProperty Name="wowi_tech_name" ColumnName="wowi_tech_name" />
+                <ScalarProperty Name="wowi_tech_id" ColumnName="wowi_tech_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1415,11 +1446,9 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="QuotationModel" ZoomLevel="53">
+      <Diagram Name="QuotationModel" ZoomLevel="85">
         <EntityTypeShape EntityType="QuotationModel.vw_Product_Type" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="QuotationModel.country" Width="1.5" PointX="2.75" PointY="0.75" Height="2.7494921874999996" />
-        <EntityTypeShape EntityType="QuotationModel.Authority" Width="1.5" PointX="4.75" PointY="0.75" Height="2.5571907552083317" />
-        <EntityTypeShape EntityType="QuotationModel.wowi_tech" Width="1.5" PointX="2.75" PointY="4.75" Height="2.5571907552083317" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Status" Width="1.5" PointX="4.75" PointY="4.75" Height="1.4033821614583317" />
         <EntityTypeShape EntityType="QuotationModel.Target_Rates" Width="1.5" PointX="6.75" PointY="0.75" Height="2.1725878906249996" />
         <EntityTypeShape EntityType="QuotationModel.clientapplicant" Width="1.5" PointX="6.75" PointY="3.75" Height="11.018453776041667" />
@@ -1433,6 +1462,8 @@
         <EntityTypeShape EntityType="QuotationModel.invoice_target" Width="1.5" PointX="13.375" PointY="10.75" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Target" Width="1.5" PointX="13.375" PointY="14.75" Height="6.9518033854166674" />
         <EntityTypeShape EntityType="QuotationModel.vw_Test_Target_List" Width="1.5" PointX="15.375" PointY="0.75" Height="4.3126432291666674" />
+        <EntityTypeShape EntityType="QuotationModel.Authority" Width="1.5" PointX="13.375" PointY="6.75" Height="3.1340950520833388" />
+        <EntityTypeShape EntityType="QuotationModel.wowi_tech" Width="1.5" PointX="15.375" PointY="6.75" Height="2.5571907552083388" />
       </Diagram>
     </Diagrams>
   </Designer>
