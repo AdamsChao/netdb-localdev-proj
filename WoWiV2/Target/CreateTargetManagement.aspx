@@ -34,6 +34,15 @@
         TextBoxDes.Text = "";
         TextBoxCost.Text = "";
     }
+
+    protected void DropDownListCountry_DataBound(object sender, EventArgs e)
+    {
+      DropDownListCountry.Items.Insert(0, new ListItem()
+      {
+        Text = "Please select a Country...",
+        Value = "0"
+      });
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -51,7 +60,7 @@
                 <asp:DropDownList ID="DropDownListCountry" runat="server" 
                             DataSourceID="SqlDataSourceCountry" DataTextField="country_name" 
                             DataValueField="country_id" 
-                            AutoPostBack="True">
+                            AutoPostBack="True" ondatabound="DropDownListCountry_DataBound">
                 </asp:DropDownList>
             </td>
         </tr>
@@ -69,7 +78,7 @@
                         ErrorMessage="Can't be Empty"></asp:RequiredFieldValidator>
                 <asp:SqlDataSource ID="SqlDataSourcePT" runat="server" 
                             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                        SelectCommand="SELECT wowi_product_type.wowi_product_type_id, wowi_product_type.wowi_product_type_name, Authority.authority_name, Authority.country_id FROM wowi_product_type INNER JOIN Authority ON wowi_product_type.wowi_product_type_id = Authority.wowi_product_type_id WHERE (wowi_product_type.publish = @publish) AND (Authority.country_id = @country_id)">
+                        SelectCommand="SELECT wowi_product_type.wowi_product_type_id, wowi_product_type.wowi_product_type_name, Authority.authority_name, Authority.country_id FROM wowi_product_type INNER JOIN Authority ON wowi_product_type.wowi_product_type_id = Authority.wowi_product_type_id WHERE (wowi_product_type.publish = 1) AND (Authority.country_id = @country_id)">
                     <SelectParameters>
                         <asp:Parameter DefaultValue="Y" Name="publish" Type="String" />
                         <asp:ControlParameter ControlID="DropDownListCountry" DefaultValue="" 
@@ -113,7 +122,7 @@
                         ErrorMessage="Can't be Empty"></asp:RequiredFieldValidator>
                 <asp:SqlDataSource ID="SqlDataSourceTech" runat="server" 
                         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                        SelectCommand="SELECT [wowi_tech_id], [wowi_tech_name] FROM [wowi_tech] WHERE (([publish] = @publish) AND ([wowi_product_type_id] = @wowi_product_type_id))">
+                        SelectCommand="SELECT [wowi_tech_id], [wowi_tech_name] FROM [wowi_tech] WHERE (([publish] = 1) AND ([wowi_product_type_id] = @wowi_product_type_id))">
                     <SelectParameters>
                         <asp:Parameter DefaultValue="Y" Name="publish" Type="String" />
                         <asp:ControlParameter ControlID="DropDownListPT" Name="wowi_product_type_id" 

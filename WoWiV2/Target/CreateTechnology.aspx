@@ -26,88 +26,89 @@
         <br />
         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" 
             DataSourceID="SqlDataSourceTechnology" DefaultMode="Insert" 
-            oniteminserted="DetailsView1_ItemInserted" Width="100%">
+            oniteminserted="DetailsView1_ItemInserted" 
+          DataKeyNames="wowi_tech_id">
             <Fields>
-<asp:TemplateField HeaderText="Technology Name" SortExpression="wowi_tech_name">
-<ItemTemplate>
-                        <asp:Label ID="Label3" runat="server" 
-                            Text='<%# Bind("wowi_tech_name") %>'></asp:Label>
-                    
-</ItemTemplate>
-    <EditItemTemplate>
-        <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("wowi_tech_name") %>'></asp:TextBox>
-    </EditItemTemplate>
-    <InsertItemTemplate>
-        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("wowi_tech_name") %>' 
-            Width="400px"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-            ControlToValidate="TextBox1" Display="Dynamic" 
-            ErrorMessage="Technology Name Cant be Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
-    </InsertItemTemplate>
-</asp:TemplateField>
-                <asp:TemplateField HeaderText="Certification Type" 
-                    SortExpression="wowi_product_type_id">
-                    <EditItemTemplate>
-                        <asp:TextBox ID="TextBox1" runat="server" 
-                            Text='<%# Bind("wowi_product_type_id") %>'></asp:TextBox>
-                    </EditItemTemplate>
-                    <InsertItemTemplate>
-                        <asp:DropDownList ID="DropDownListPT" runat="server" 
-                            DataSourceID="SqlDataSourcePT" DataTextField="wowi_product_type_name" 
-                            DataValueField="wowi_product_type_id" 
-                            SelectedValue='<%# Bind("wowi_product_type_id") %>'>
-                        </asp:DropDownList>
-                        <asp:SqlDataSource ID="SqlDataSourcePT" runat="server" 
-                            ConnectionString="<%$ ConnectionStrings:ApplicationServices %>" 
-                            SelectCommand="SELECT [wowi_product_type_id], [wowi_product_type_name] FROM [wowi_product_type] WHERE ([publish] = @publish)">
-                            <SelectParameters>
-                                <asp:Parameter DefaultValue="Y" Name="publish" Type="String" />
-                            </SelectParameters>
-                        </asp:SqlDataSource>                     
-                    </InsertItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Publish" SortExpression="publish">
-                    <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" 
-                            Text='<%# Bind("wowi_product_type_id") %>'></asp:Label>
-                    </ItemTemplate>
-                    <ItemTemplate>
-                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("publish") %>'></asp:Label>
-                    </ItemTemplate>
-                    <EditItemTemplate>
-                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("publish") %>'></asp:TextBox>
-                    </EditItemTemplate>
-                    <InsertItemTemplate>
-                         <asp:DropDownList ID="DropDownListYN" runat="server" 
-                            SelectedValue='<%# Bind("publish") %>'>
-                            <asp:ListItem>Y</asp:ListItem>
-                            <asp:ListItem>N</asp:ListItem>
-                        </asp:DropDownList>
-                    </InsertItemTemplate>
-                </asp:TemplateField>
-                <asp:CommandField ShowInsertButton="True" />
+              <asp:BoundField DataField="wowi_tech_id" HeaderText="ID" InsertVisible="False" 
+                ReadOnly="True" SortExpression="wowi_tech_id" />
+              <asp:TemplateField HeaderText="Technology Name" SortExpression="wowi_tech_name">
+                <EditItemTemplate>
+                  <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("wowi_tech_name") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <InsertItemTemplate>
+                  <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("wowi_tech_name") %>'></asp:TextBox>
+                  <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                    ControlToValidate="TextBox1" Display="Dynamic" 
+                    ErrorMessage="Technology Name cant be Empty" ForeColor="Red"></asp:RequiredFieldValidator>
+                </InsertItemTemplate>
+                <ItemTemplate>
+                  <asp:Label ID="Label1" runat="server" Text='<%# Bind("wowi_tech_name") %>'></asp:Label>
+                </ItemTemplate>
+              </asp:TemplateField>
+              <asp:TemplateField HeaderText="Certification Type" 
+                SortExpression="wowi_product_type_id">
+                <EditItemTemplate>
+                  <asp:TextBox ID="TextBox2" runat="server" 
+                    Text='<%# Bind("wowi_product_type_id") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <InsertItemTemplate>
+                  <asp:DropDownList ID="DropDownList1" runat="server" 
+                  DataSourceID="SqlDataSource1" DataTextField="wowi_product_type_name" 
+                  DataValueField="wowi_product_type_id" 
+                  SelectedValue='<%# Bind("wowi_product_type_id") %>'>
+                </asp:DropDownList>
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+                  ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                  SelectCommand="SELECT [wowi_product_type_id], [wowi_product_type_name] FROM [wowi_product_type] Where Publish=1">
+                </asp:SqlDataSource>
+                </InsertItemTemplate>
+                <ItemTemplate>
+                  <asp:Label ID="Label2" runat="server" 
+                    Text='<%# Bind("wowi_product_type_id") %>'></asp:Label>
+                </ItemTemplate>
+              </asp:TemplateField>
+              <asp:CheckBoxField DataField="publish" HeaderText="Publish" 
+                SortExpression="publish" />
+              <asp:BoundField DataField="create_user" HeaderText="create_user" 
+                SortExpression="create_user" Visible="False" />
+              <asp:BoundField DataField="create_date" HeaderText="create_date" 
+                SortExpression="create_date" Visible="False" />
+              <asp:BoundField DataField="modify_user" HeaderText="modify_user" 
+                SortExpression="modify_user" Visible="False" />
+              <asp:BoundField DataField="modify_date" HeaderText="modify_date" 
+                SortExpression="modify_date" Visible="False" />
+              <asp:CommandField ShowInsertButton="True" />
             </Fields>
         </asp:DetailsView>
         <asp:SqlDataSource ID="SqlDataSourceTechnology" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [wowi_tech] WHERE [wowi_tech_id] = @wowi_tech_id" 
-            InsertCommand="INSERT INTO [wowi_tech] ([wowi_tech_name], [wowi_product_type_id], [publish]) VALUES (@wowi_tech_name, @wowi_product_type_id, @publish)" 
-            SelectCommand="SELECT wowi_tech.wowi_tech_id, wowi_tech.wowi_tech_name, wowi_tech.wowi_product_type_id, wowi_tech.publish, wowi_tech.create_user, wowi_tech.create_date, wowi_tech.modify_user, wowi_tech.modify_date, wowi_product_type.wowi_product_type_name FROM wowi_tech INNER JOIN wowi_product_type ON wowi_tech.wowi_product_type_id = wowi_product_type.wowi_product_type_id" 
+            InsertCommand="INSERT INTO [wowi_tech] ([wowi_tech_name], [wowi_product_type_id], [publish], [create_user], [create_date], [modify_user], [modify_date]) VALUES (@wowi_tech_name, @wowi_product_type_id, @publish, @create_user, @create_date, @modify_user, @modify_date)" 
+            SelectCommand="SELECT * FROM [wowi_tech]" 
             
             
-            UpdateCommand="UPDATE [wowi_tech] SET [wowi_tech_name] = @wowi_tech_name, [wowi_product_type_id] = @wowi_product_type_id, [publish] = @publish WHERE [wowi_tech_id] = @wowi_tech_id">
+            
+          UpdateCommand="UPDATE [wowi_tech] SET [wowi_tech_name] = @wowi_tech_name, [wowi_product_type_id] = @wowi_product_type_id, [publish] = @publish, [create_user] = @create_user, [create_date] = @create_date, [modify_user] = @modify_user, [modify_date] = @modify_date WHERE [wowi_tech_id] = @wowi_tech_id">
             <DeleteParameters>
                 <asp:Parameter Name="wowi_tech_id" Type="Int32" />
             </DeleteParameters>
             <InsertParameters>                
                 <asp:Parameter Name="wowi_tech_name" Type="String" />
                 <asp:Parameter Name="wowi_product_type_id" Type="Int32" />
-                <asp:Parameter Name="publish" Type="String" />
+                <asp:Parameter Name="publish" Type="Boolean" />
+                <asp:Parameter Name="create_user" Type="String" />
+                <asp:Parameter Name="create_date" Type="DateTime" />
+                <asp:Parameter Name="modify_user" Type="String" />
+                <asp:Parameter Name="modify_date" Type="DateTime" />
             </InsertParameters>
             <UpdateParameters>
                 <asp:Parameter Name="wowi_tech_name" Type="String" />
                 <asp:Parameter Name="wowi_product_type_id" Type="Int32" />
-                <asp:Parameter Name="publish" Type="String" />
+                <asp:Parameter Name="publish" Type="Boolean" />
+                <asp:Parameter Name="create_user" Type="String" />
+                <asp:Parameter Name="create_date" Type="DateTime" />
+                <asp:Parameter Name="modify_user" Type="String" />
+                <asp:Parameter Name="modify_date" Type="DateTime" />
                 <asp:Parameter Name="wowi_tech_id" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
