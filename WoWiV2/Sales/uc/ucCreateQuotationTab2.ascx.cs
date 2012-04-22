@@ -235,6 +235,7 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
         target.FinalPrice = Decimal.Parse(hidFprice.Value);
         target.PayTo = txtPayTo.Text;
         target.Agent = 0;
+        target.Country_Manager = 0; //Add By Adams 2012/4/23
         Quotation_Target_Controller.Add(target);
 
         Response.Redirect("CreateQuotation.aspx?q=" + quotation_id.ToString() + "&t=1");
