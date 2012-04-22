@@ -121,13 +121,24 @@ public class CodeTableController
         return result.First();
     }
 
-    public static Project GetProject(int QuotationID)
+    //Mark by Adams 2012/4/23 for Project Requirment Change Requirment
+    //public static Project GetProject(int QuotationID)
+    //{
+    //    QuotationEntities entities = new QuotationEntities();
+    //    var result = from n in entities.Project
+    //                 where n.Quotation_Id == QuotationID
+    //                 select n;
+    //    return result.FirstOrDefault();
+    //}
+
+    //Add by Adams 2012/4/23 for Project Requirment Change Requirment
+    public static Project GetProject(string QuotationNO)
     {
-        QuotationEntities entities = new QuotationEntities();
-        var result = from n in entities.Project
-                     where n.Quotation_Id == QuotationID
-                     select n;
-        return result.FirstOrDefault();
+      QuotationEntities entities = new QuotationEntities();
+      var result = from n in entities.Project
+                   where n.Quotation_No == QuotationNO
+                   select n;
+      return result.FirstOrDefault();
     }
 
     //Add Project
@@ -136,6 +147,10 @@ public class CodeTableController
         Project project = new Project();
         project.Project_No = DateTime.Now.ToString("yyyyMMdd-HHmmss");
         project.Quotation_Id = quot.Quotation_Version_Id;
+
+        //Add by Adams 2012/4/23 for Project Requirment Change Requirment
+        project.Quotation_No = quot.Quotation_No; 
+
         project.Create_Date = DateTime.Now;
         project.Project_Status = "Open";
 
