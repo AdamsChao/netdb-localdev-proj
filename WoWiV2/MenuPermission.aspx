@@ -17,23 +17,26 @@
 
     foreach (ListItem item in ListBoxUsers.Items)
     {
-      var deleteMenu = from menu in sm.Access_Menu
-                       where menu.Username == item.Text
-                       select menu;
-      foreach (SecurityModel.Access_Menu menu in deleteMenu)
+      if (item.Selected)
       {
-        sm.Access_Menu.DeleteObject(menu);
+        var deleteMenu = from menu in sm.Access_Menu
+                         where menu.Username == item.Text
+                         select menu;
+        foreach (SecurityModel.Access_Menu menu in deleteMenu)
+        {
+          sm.Access_Menu.DeleteObject(menu);
+        }
+
+        foreach (TreeNode node in TreeViewMenu.CheckedNodes)
+        {
+          SecurityModel.Access_Menu am = new SecurityModel.Access_Menu();
+          am.Username = item.Text;
+          am.MenuText = node.Text;
+          am.MenuValuePath = node.ValuePath;
+          sm.Access_Menu.AddObject(am);
+        }
+        sm.SaveChanges();      
       }
-      
-      foreach (TreeNode node in TreeViewMenu.CheckedNodes)
-      {
-        SecurityModel.Access_Menu am = new SecurityModel.Access_Menu();
-        am.Username = item.Text;
-        am.MenuText = node.Text;
-        am.MenuValuePath = node.ValuePath;
-        sm.Access_Menu.AddObject(am);
-      }
-      sm.SaveChanges();      
     }
   }
 
