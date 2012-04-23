@@ -190,10 +190,15 @@
                                      AppendDataBoundItems="True">
                                     <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                 </asp:DropDownList>
+                                <asp:ValidationSummary ID="ValidationSummary1" runat="server" 
+                                    ShowMessageBox="True" ShowSummary="False" />
                                 <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
                                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                     SelectCommand="SELECT [jobtitle_id], [jobtitle_name] FROM [employee_jobtitle] where [publish] = 'true'">
                                 </asp:SqlDataSource>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                                    ControlToValidate="DropDownList2" ErrorMessage="Please select title." 
+                                    Font-Bold="True" ForeColor="Red" InitialValue="-1">*</asp:RequiredFieldValidator>
                             </td>
                             <th align="left" class="style4">
                                 <font color="red">*&nbsp;</font>Department:&nbsp;</th>
@@ -203,6 +208,9 @@
                                     SelectedValue='<%# Bind("department_id") %>' AppendDataBoundItems="True">
                                     <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                 </asp:DropDownList>
+                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                                    ControlToValidate="dlDepartment" ErrorMessage="Please select department." 
+                                    Font-Bold="True" ForeColor="Red" InitialValue="-1">*</asp:RequiredFieldValidator>
                                  <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                     SelectCommand="SELECT [id], [name] FROM [department] WHERE [publish] = 'true'">
