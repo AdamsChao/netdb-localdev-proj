@@ -73,10 +73,10 @@
         }
 
         //string[] roles = new string[] { GetUserGroup() };
-        string[] roles = new string[] { User.Identity.Name };
-        System.Security.Principal.GenericPrincipal gp =
-          new System.Security.Principal.GenericPrincipal(User.Identity, roles);
-        Context.User = gp;
+        //string[] roles = new string[] { User.Identity.Name };
+        //System.Security.Principal.GenericPrincipal gp =
+        //  new System.Security.Principal.GenericPrincipal(User.Identity, roles);
+        //Context.User = gp;
     }
        
 </script>

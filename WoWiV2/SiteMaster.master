@@ -42,7 +42,8 @@
                 </asp:Menu>--%>
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" 
                     EnableViewState="False" IncludeStyleBlock="False" Orientation="Horizontal" 
-                    DataSourceID="webSiteMapDataSource" StaticDisplayLevels="2">                   
+                    DataSourceID="webSiteMapDataSource" StaticDisplayLevels="2" 
+                  onmenuitemdatabound="NavigationMenu_MenuItemDataBound">                   
                 </asp:Menu>
                 <asp:SiteMapDataSource ID="webSiteMapDataSource" runat="server" />
             </div>
