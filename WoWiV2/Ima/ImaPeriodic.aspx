@@ -13,9 +13,7 @@
             <td valign="top">
                 <table cellpadding="1" cellspacing="1" border="0" class="tbEditItem">
                     <tr>
-                        <td colspan="2" class="tdHeader">
-                            <asp:Label ID="lblTitle" runat="server"></asp:Label>
-                        </td>
+                        <td colspan="2" class="tdHeader"><asp:Label ID="lblTitle" runat="server"></asp:Label></td>
                     </tr>
                     <tr id="trProductType" runat="server">
                         <td class="tdRowName" valign="top">
