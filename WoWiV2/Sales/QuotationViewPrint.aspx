@@ -11,7 +11,7 @@
             font-style: normal;
             font-family: Verdana, Arial, Helvetica, sans-serif;
             color: rgb(0,0,0);
-            font-size: 7pt;
+            font-size: 8pt;
             font-weight: 600;
         }
         .CCSH1
@@ -19,7 +19,7 @@
             font-style: normal;
             font-family: Times New Roman;
             color: rgb(0,0,0);
-            font-size: 14pt;
+            font-size: 8pt;
             font-weight: 700;
         }
         .CCSTextH
@@ -47,6 +47,19 @@
             background: #dddddd;
             font-size: 9pt;
         }
+      .ccstextboxh
+      {
+        font-size: 8pt;
+      }
+      .ccstexth
+      {
+        font-size: x-small;
+      }
+      .style2
+      {
+        font-size: 8pt;
+        height: 13px;
+      }
     </style>
 </head>
 <body>
@@ -232,7 +245,8 @@
                     <tr>
                         <td>
                             <asp:GridView ID="gvTestTargetList" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1"
-                                Width="100%" CaptionAlign="Top" ShowFooter="True" Style="text-align: left">
+                                Width="100%" CaptionAlign="Top" ShowFooter="True" Style="text-align: left" 
+                              Font-Size="Smaller">
                                 <Columns>
                                     <asp:TemplateField HeaderText="No.">
                                         <ItemTemplate>
@@ -645,45 +659,45 @@
 &nbsp;</td>
                         </tr>
                         <tr>
-                            <td class="ccstextboxh" height="30">
+                            <td class="style2" height="30">
                                 Name:
                             </td>
-                            <td class="ccstextboxh" height="30">
+                            <td class="style2" height="30">
                                 Name:
                             <asp:Label ID="lblRepresentative1" runat="server" Text="lblRepresentative"></asp:Label>
                             </td>
                         </tr>
                         <tr>
-                            <td class="ccstextboxh" height="30">
+                            <td class="style2">
                                 Title:
                             </td>
-                            <td class="ccstextboxh" height="30">
+                            <td class="style2">
                                 Title:<asp:Label ID="lblTitle" 
                                     runat="server" Text="lblTitle"></asp:Label>
                             </td>
                         </tr>
                         <tr>
-                            <td class="ccstextboxh" height="30">
+                            <td class="style2">
                                 Date:
                             </td>
-                            <td class="ccstextboxh" height="30">
+                            <td class="style2">
                                 Date:<asp:Label ID="lblDate1" runat="server" 
                                     Text=""></asp:Label>
                             </td>
                         </tr>
                         <tr>
-                            <td class="ccstextboxh" height="30">
+                            <td class="style2">
                                 &nbsp;
                             </td>
-                            <td class="ccstextboxh" height="30">
+                            <td class="style2">
                                 Review:
                             </td>
                         </tr>
                         <tr>
-                            <td class="ccstextboxh" height="30">
+                            <td class="style2">
                                 &nbsp;
                             </td>
-                            <td class="ccstextboxh" height="30">
+                            <td class="style2">
                                 Approve:
                             </td>
                         </tr>
