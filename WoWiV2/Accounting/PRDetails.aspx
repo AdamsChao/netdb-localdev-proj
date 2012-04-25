@@ -410,7 +410,7 @@
                         lbl.Text = ((PRStatus)auth.status).ToString();
                         if (auth.status == (byte)PRStatus.Done)
                         {
-                            lbl.Text = "Ready to Pay";
+                            lbl.Text = "PR Approved";
                         }
                         break;
                 }

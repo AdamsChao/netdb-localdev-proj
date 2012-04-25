@@ -210,7 +210,7 @@ public class PRUtils
         }
         else if (b == (byte)PRStatus.Done)
         {
-            ret = "Ready to Pay";
+            ret = "PR Approved";
         }
         else if (b == (byte)PRStatus.Cancel)
         {

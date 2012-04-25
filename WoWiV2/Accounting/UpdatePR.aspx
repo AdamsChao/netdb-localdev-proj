@@ -700,7 +700,7 @@
                         lbl.Text = ((PRStatus)auth.status).ToString();
                         if (auth.status == (byte)PRStatus.Done)
                         {
-                            lbl.Text = "Ready to Pay";
+                            lbl.Text = "PR Approved";
                         }
                         break;
                     case "tbInternalMarksHis":
@@ -1088,7 +1088,7 @@
             }
             else if (status == (byte)PRStatus.Done)
             {
-                s = "Ready to Pay";
+                s = "PR Approved";
             }
             (FormView1.FindControl("lblStatus") as Label).Text = s;
         }
@@ -1585,7 +1585,7 @@
                                              </asp:DropDownList>
                                            </td>
                                            <th 
-                                   align="left" class="style11">&nbsp; Target Payment Day:&nbsp;&nbsp;</th><td 
+                                   align="left" class="style11"><font color="red">*&nbsp;</font>Target Payment Day:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
                                   <uc1:DateChooser2 ID="dcPaymentDate" runat="server" />
                             </td>

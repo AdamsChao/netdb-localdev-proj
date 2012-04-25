@@ -762,7 +762,7 @@
                                              </asp:DropDownList>
                                            </td>
                                            <th 
-                                   align="left" class="style11">&nbsp; Target Payment Day:&nbsp;&nbsp;</th><td 
+                                   align="left" class="style11"><font color="red">*&nbsp;</font>Target Payment Day:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
                                    <uc1:DateChooser2 ID="dcPaymentDate" runat="server" />
                             </td>

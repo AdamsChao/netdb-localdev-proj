@@ -100,7 +100,7 @@
     protected void DropDownList1_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        ddlProjectNo.DataSource = db.Project;
+        ddlProjectNo.DataSource = wowidb.Projects;
         ddlProjectNo.DataTextField = "Project_No";
         ddlProjectNo.DataValueField = "Project_Id";
         ddlProjectNo.DataBind();
@@ -180,7 +180,7 @@
         <asp:ListItem Value="3">VicePresident</asp:ListItem>
         <asp:ListItem Value="4">President</asp:ListItem>
         <asp:ListItem Value="5">Cancel</asp:ListItem>
-        <asp:ListItem Value="6">Ready to Pay</asp:ListItem>
+        <asp:ListItem Value="6">PR Approved</asp:ListItem>
     </asp:DropDownList>
 <asp:Label ID="lblaccesslevel" runat="server" Text="Access Level :"></asp:Label>
             &nbsp;<asp:DropDownList ID="ddlAccessLevel" runat="server" 

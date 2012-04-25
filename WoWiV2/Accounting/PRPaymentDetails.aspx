@@ -330,6 +330,25 @@
     {
         lblPayCurrency.Text = tbToCurrency.Text;
     }
+
+    protected void btnSave_Load(object sender, EventArgs ea)
+    {
+        try
+        {
+            //(sender as Button).Enabled = false;
+            //int eid = Utils.GetEmployeeID();
+            //var e = from emp in wowidb.employees from jt in wowidb.employee_jobtitle where emp.id == eid && emp.jobtitle_id == jt.jobtitle_id && jt.jobtitle_name == "Finance" select emp;
+            //if (e.Count() >= 1)
+            //{
+            //    (sender as Button).Enabled = true;
+            //}
+        }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
+    }
 </script>
 
 
@@ -657,7 +676,8 @@
                     <td align="right" class="ccstextboxh" colspan="2" >
                         <asp:Button ID="btnModify" runat="server" onclick="Button3_Click" 
                             Text="Back to Modify" />
-&nbsp;<asp:Button ID="btnSave" runat="server" Text="Paid" onclick="btnSave_Click" />
+&nbsp;<asp:Button ID="btnSave" runat="server" Text="Paid" onclick="btnSave_Click" 
+                            onload="btnSave_Load" />
                     </td>
                     </tr>
                     <tr>

@@ -903,9 +903,10 @@
             
             <!-- end cost summary service -->
             <tr>
-                <td colspan="2">
-                    <!-- Start Signature Section -->
+                <td colspan="2" class="ccstextboxh">
+                    <!-- Start Signature Section -->PR Approval : 
                     <table border="1" cellpadding="0" cellspacing="0" width="100%">
+
                         <tr>
                              <th class="ccstexth" width="25%">
                                President / Date
@@ -940,6 +941,56 @@
                                 By <br><asp:Image 
                                     ID="imgRequisite" runat="server" Height="31" Width="114"  /> <asp:Label ID="lblRequisite" runat="server"
                                         Text=""></asp:Label>
+&nbsp;</td>
+                        </tr>
+                     
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="ccstextboxh">
+                    <!-- Start Signature Section -->Payment Approval : 
+                    <table border="1" cellpadding="0" cellspacing="0" width="100%">
+
+                        <tr>
+                             <th class="ccstexth" width="20%">
+                               President / Date
+                            </th>
+                            <th class="ccstexth" width="20%">
+                               VP / Date
+                            </th>
+                            <th class="ccstexth" width="20%">
+                               Accounting / Date
+                            </th>
+                             <th class="ccstexth" width="20%">
+                               Supervisor / Date
+                            </th>
+                             <th class="ccstexth" width="20%">
+                               Requisite / Date
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="ccstextboxh" align="center">
+
+                               <br>
+                               <br>
+&nbsp;</td>
+ <td class="ccstextboxh" align="center">
+
+                               <br>
+                               <br>
+&nbsp;</td><td class="ccstextboxh" align="center">
+
+                               <br>
+                               <br>
+&nbsp;</td><td class="ccstextboxh" align="center">
+
+                               <br>
+                               <br>
+&nbsp;</td><td class="ccstextboxh" align="center">
+
+                               <br>
+                               <br>
 &nbsp;</td>
                         </tr>
                      
