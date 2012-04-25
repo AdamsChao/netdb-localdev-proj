@@ -1,45 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
   <siteMapNode url="~/Home.aspx" title="Home"  description="Home">
-    <siteMapNode url="" title="Basic Infomation"  description="" roles="*" >
+    <siteMapNode url="" title="Basic Infomation"  description="" >
       <siteMapNode url="~/Admin/ContactList.aspx" title="Contact"  description="" />
-      <siteMapNode url="~/Admin/VenderTypeList.aspx" title="Vender Type"  description="" roles="Scott,Shirley,Miranda,Meg,Kiki,Prosper,Cindy,Cecile,Amy H,Candy" />
-      <siteMapNode url="~/Admin/VenderList.aspx" title="Vender"  description="" roles="Scott,Shirley,Miranda,Meg,Kiki,Prosper,Cindy,Cecile,Amy H,Candy"/>
-      <siteMapNode url="~/Admin/ClientList.aspx" title="Client"  description="" roles="Scott,Shirley,Timur,Amy,Amy H" />
-      <siteMapNode url="~/Admin/ApplicantList.aspx" title="Applicant"  description="" roles="Scott,Shirley,Timur,Amy,Amy H"/>
-      <siteMapNode url="~/Admin/ContactRoleList.aspx" title="Contact Title"  description="" roles="Scott,Shirley,Timur,Amy,Amy H"/>
-      
-      <siteMapNode url="~/Admin/IndustryList.aspx" title="Client/Applicant Industry"  description="" roles="Scott,Shirley,Timur,Amy,Amy H"/>
-      <siteMapNode url="~/Admin/TechnologyList.aspx" title="Client/Applicant Technology"  description="" roles="Scott,Shirley,Timur,Amy,Amy H"/>
+      <siteMapNode url="~/Admin/VenderTypeList.aspx" title="Vender Type"  description=""/>
+      <siteMapNode url="~/Admin/VenderList.aspx" title="Vender"  description=""/>
+      <siteMapNode url="~/Admin/ClientList.aspx" title="Client"  description=""/>
+      <siteMapNode url="~/Admin/ApplicantList.aspx" title="Applicant"  description="" />
+      <siteMapNode url="~/Admin/ContactRoleList.aspx" title="Contact Title"  description="" />      
+      <siteMapNode url="~/Admin/IndustryList.aspx" title="Client/Applicant Industry"  description="" />
+      <siteMapNode url="~/Admin/TechnologyList.aspx" title="Client/Applicant Technology"  description="" />
     </siteMapNode>
-    <siteMapNode url="" title="Admin"  description="" roles="Scott,Shirley,Amy H" >
+    <siteMapNode url="" title="Admin"  description="" >
       <siteMapNode url="~/Admin/AccessLevelList.aspx" title="Access Level"  description="" />
       <siteMapNode url="~/Admin/DepartmentList.aspx" title="Department"  description="" />
       <siteMapNode url="~/Admin/EmployeeList.aspx" title="Employee"  description="" />
       <siteMapNode url="~/Admin/JobTitleList.aspx" title="Employee Job Title"  description="" />
     </siteMapNode>
-    <siteMapNode url="" title="Target"  description=""  roles="Scott,Shirley,Timur,Amy,Miranda,Meg,Kiki,Prosper,Cindy,Cecile" >
+    <siteMapNode url="" title="Target"  description="" >
       <siteMapNode url="~/Target/CountryRegion.aspx" title="Country Region"  description="" />
       <siteMapNode url="~/Target/Country.aspx" title="Country"  description="" />
       <siteMapNode url="~/Target/ProductType.aspx" title="Certification Type"  description="" />
       <siteMapNode url="~/Target/Authority.aspx" title="Authority"  description="" />
       <siteMapNode url="~/Target/Technology.aspx" title="Technology"  description="" />
-      <siteMapNode url="~/Target/TargetRate.aspx" title="Target Rate Management"  description="" roles="Scott,Shirley" />
+      <siteMapNode url="~/Target/TargetRate.aspx" title="Target Rate Management"  description="" />
     </siteMapNode>
-    <siteMapNode url="" title="Sales"  description=""  roles="Scott,Shirley,Timur,Amy,Amy H" >     
+    <siteMapNode url="" title="Sales"  description="" >     
       <siteMapNode url="~/Sales/Quotation.aspx" title="Quotation"  description="" />
     </siteMapNode>
-    <siteMapNode url="" title="Accounting"  description=""  roles="*" >
+    <siteMapNode url="" title="Accounting"  description=""  >
       <siteMapNode url="~/Accounting/PRList.aspx" title="PR"  description="" />
-      <siteMapNode url="~/Accounting/Payment4Vender.aspx" title="Payment for Vender"  description="" roles="Scott,Shirley,Miranda,Meg,Kiki,Prosper,Cindy,Cecile,Amy H" />
-      <siteMapNode url="~/Accounting/Invoice.aspx" title="Invoice"  description="" roles="Scott,Shirley,Timur,Amy,Amy H" >
+      <siteMapNode url="~/Accounting/Payment4Vender.aspx" title="Payment for Vender"  description=""  />
+      <siteMapNode url="~/Accounting/Invoice.aspx" title="Invoice"  description=""  >
         <siteMapNode url="~/Accounting/WoWiBankInfoList.aspx" title="WoWi Bank Info"  description="" />
       </siteMapNode>
-      <siteMapNode url="~/Accounting/AR.aspx" title="AR"  description="" roles="Scott,Shirley,Timur,Amy,Amy H" >
+      <siteMapNode url="~/Accounting/AR.aspx" title="AR"  description=""  >
         <siteMapNode url="~/Accounting/ARAnalysis.aspx" title="AR Analysis"  description="" />
       </siteMapNode>
       <!--<siteMapNode url="" title="Invoice Report"  description="" />-->
-      <siteMapNode url="" title="Analysis"  description=""  roles="Scott,Shirley,Amy H" >
+      <siteMapNode url="" title="Analysis"  description="" >
         <siteMapNode url="~/Accounting/CostAnalysis.aspx" title="Cost Analysis"  description="" />
         <siteMapNode url="~/Report/SalesReport.aspx" title="Sales Report"  description="" >
           <!--<siteMapNode url="~/Report/SalesAnalysisReport.aspx" title="分析報表"  description="" />-->
@@ -49,17 +48,17 @@
         </siteMapNode>
       </siteMapNode>
     </siteMapNode>
-    <siteMapNode url="" title="Project"  description=""  roles="*" >
+    <siteMapNode url="" title="Project"  description=""   >
       <siteMapNode url="~/Project/ProjectList.aspx" title="Project List"  description="" />
-      <siteMapNode url="~/Project/ProjectTargetList.aspx" title="Project Target List"  description="" />
+      <siteMapNode url="~/Project/ProjectTargetList.aspx" title="Project Target Estimate Date"  description="" />
       <siteMapNode url="~/Project/ProjectWorkingStatus.aspx" title="Working Status"  description="" />
-      <siteMapNode url="~/Project/ProjectWorkingStatusReport.aspx" title="Working Status Report"  description="" />
+      <siteMapNode url="~/Project/ProjectWorkingStatusReport.aspx" title="Internal Working Status Report"  description="" />
+      <siteMapNode url="~/Project/ProjectWorkingStatusReportExternal.aspx" title="External Working Status Report"  description="" />
     </siteMapNode>    
-    <siteMapNode url="" title="IMA System"  description=""  roles="Scott,Shirley,Timur,Amy,Miranda,Meg,Kiki,Prosper,Cindy,Cecile" >
+    <siteMapNode url="" title="IMA System"  description=""   >
       <siteMapNode url="~/Ima/ImaList.aspx" title="Documents Manage"  description="" />      
     </siteMapNode>
 
   </siteMapNode>
 </siteMap>
 
-<!--All Employees Lists :  Scott,Shirley,Timur,Amy,Miranda,Meg,Kiki,Prosper,Cindy,Cecile,Amy H,Candy  -->
