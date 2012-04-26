@@ -79,7 +79,7 @@ public partial class UserControls_ImaTree : System.Web.UI.UserControl
     protected void GetProductTypeNode(System.Web.UI.WebControls.TreeNodeCollection tnc, string strRegionID, string strContryID)
     {
         SqlCommand cmd = new SqlCommand();
-        cmd.CommandText = "select wowi_product_type_id,wowi_product_type_name from wowi_product_type where publish='Y'";
+        cmd.CommandText = "select wowi_product_type_id,wowi_product_type_name from wowi_product_type where publish=1";
         SqlDataReader sdr = SQLUtil.QueryDR(cmd);
         while (sdr.Read())
         {
