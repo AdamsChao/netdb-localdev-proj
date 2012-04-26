@@ -51,6 +51,7 @@
     <siteMapNode url="" title="Project"  description=""   >
       <siteMapNode url="~/Project/ProjectList.aspx" title="Project List"  description="" />
       <siteMapNode url="~/Project/ProjectTargetList.aspx" title="Project Target Estimate Date"  description="" />
+      <siteMapNode url="~/Project/ProjectWorkingStatusList.aspx" title="Project Target Lists"  description="" />
       <siteMapNode url="~/Project/ProjectWorkingStatus.aspx" title="Working Status"  description="" />
       <siteMapNode url="~/Project/ProjectWorkingStatusReport.aspx" title="Internal Working Status Report"  description="" />
       <siteMapNode url="~/Project/ProjectWorkingStatusReportExternal.aspx" title="External Working Status Report"  description="" />
@@ -58,7 +59,6 @@
     <siteMapNode url="" title="IMA System"  description=""   >
       <siteMapNode url="~/Ima/ImaList.aspx" title="Documents Manage"  description="" />      
     </siteMapNode>
-
   </siteMapNode>
 </siteMap>
 
