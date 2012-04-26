@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
 
-public partial class Project_ProjectWorkingStatusReport : System.Web.UI.Page
+public partial class Project_ProjectWorkingStatusReportExternal : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -66,20 +66,5 @@ public partial class Project_ProjectWorkingStatusReport : System.Web.UI.Page
     public override void VerifyRenderingInServerForm(Control control)
     {
 
-    }
-    protected void BulletedListStatus_DataBound(object sender, EventArgs e)
-    {
-      BulletedList bullStatus = (BulletedList)sender;
-      foreach (ListItem item in bullStatus.Items)
-      {
-        if (item.Value.ToLower()=="true")
-        {
-          Style VoidedStyle = new Style();
-          VoidedStyle.ForeColor = System.Drawing.Color.BurlyWood;
-          VoidedStyle.Font.Strikeout = true;
-          item.Attributes.Add("class", "td-linethrough");         
-        }        
-      }
-      
     }
 }

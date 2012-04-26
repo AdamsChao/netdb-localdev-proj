@@ -7,18 +7,30 @@ using System.Web.UI.WebControls;
 
 public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
 {
+
     protected void Page_Load(object sender, EventArgs e)
     {
+      if (Request["ProjectNO"] !=null)
+      {
+        lblProject.Text = Request["ProjectNO"].ToString();
+      }
+      if (Request["CountryID"] != null)
+      {
+        lblCountry.Text = Request["CountryID"].ToString();
+      }
+      if (Request["TargetID"] != null)
+      {
+        lblTarget.Text = Request["TargetID"].ToString();
+      }
 
     }
     protected void ddlWorkingStatusProject_SelectedIndexChanged(object sender, EventArgs e)
-    {
+    {      
         ddlWorkingStatusCountry.DataBind();
         ddlWorkingStatusTarget.DataBind();
         gvWorkingStatus.EditIndex = -1;
         gvWorkingStatus.DataBind();
         dvWorkingStatus.Visible = false;
-
     }
     protected void ddlWorkingStatusProject_DataBound(object sender, EventArgs e)
     {
@@ -27,6 +39,13 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
             Text = "Please select a project...",
             Value = "0"
         });
+        foreach (ListItem item in ddlWorkingStatusProject.Items)
+        {
+          if (item.Text == lblProject.Text)
+          {
+            item.Selected = true;
+          }
+        }
     }
     protected void ddlWorkingStatusCountry_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -40,6 +59,14 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
             Text = "Please select country...",
             Value = "0"
         });
+
+        foreach (ListItem item in ddlWorkingStatusCountry.Items)
+        {
+          if (item.Value == lblCountry.Text)
+          {
+            item.Selected = true;
+          }
+        }
     }
     protected void ddlWorkingStatusTarget_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -61,6 +88,14 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
             Text = "Please select target...",
             Value = "0"
         });
+        foreach (ListItem item in ddlWorkingStatusTarget.Items)
+        {
+          if (item.Value == lblTarget.Text)
+          {
+            item.Selected = true;
+            dvWorkingStatus.Visible = true;
+          }
+        }
     }
     protected void gvWorkingStatus_RowDataBound(object sender, GridViewRowEventArgs e)
     {

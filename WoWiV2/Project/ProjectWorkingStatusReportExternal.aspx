@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true" CodeFile="ProjectWorkingStatusReport.aspx.cs" Inherits="Project_ProjectWorkingStatusReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true" CodeFile="ProjectWorkingStatusReportExternal.aspx.cs" Inherits="Project_ProjectWorkingStatusReportExternal" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <script type="text/javascript">
@@ -14,27 +14,22 @@
         }
 		//-->
 	</script>
-    <style type="text/css"> 
-      .Arraw {color:#0000BB; cursor:hand; font-family:Webdings; font-size:9pt} 
-      .style1
-      {
-          width: 100%;
-      }        
-      .style2
-      {
-          text-decoration: underline;
-      }       
-      /* 設定底線、頂線、刪除線 */
-      .td-none {text-decoration: none; }
-      .td-underline {text-decoration: underline;color:blue; }
-      .td-overline {text-decoration: overline;color:blue; }
-      .td-linethrough {text-decoration: line-through;color:Gray; }
-      .td-blink {text-decoration: blink; }
+    <style type="text/css"> .Arraw {color:#0000BB; cursor:hand; font-family:Webdings; font-size:9pt} 
+        .style1
+        {
+            width: 100%;
+        }
+        
+        .style2
+        {
+            text-decoration: underline;
+        }
+        
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 
-    <table border="0" cellPadding="0" cellSpacing="0" height="100%" width="100%">
+       <table border="0" cellPadding="0" cellSpacing="0" height="100%" width="100%">
 			<tr>
 				<td  id="frmLeft" valign="top">
 					<table   cellPadding="0" cellSpacing="0">
@@ -73,7 +68,7 @@
 					</table>
 				</td>
 				<td valign="top" cellPadding="10" cellSpacing="10" style="WIDTH: 100%" height="100%" >
-					<center><font color="blue">Internal Working Status Report</font></center>
+					<center><font color="blue">External Working Status Report</font></center>
           <br />
 					Sales (AE) :
                     <asp:DropDownList ID="DropDownListAE" runat="server" 
@@ -84,8 +79,7 @@
                     </asp:DropDownList>
                     <asp:SqlDataSource ID="SqlDataSourceAE" runat="server" 
                         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-            SelectCommand="SELECT [id], [fname] FROM [employee] where status='Active'"></asp:SqlDataSource>
-                    <br />
+                        SelectCommand="SELECT [id], [fname] FROM [employee]"></asp:SqlDataSource>
                     <asp:GridView ID="GridViewProject" runat="server" AutoGenerateColumns="False" 
                         DataKeyNames="Project_Id" DataSourceID="SqlDataSourceProject" 
                         EmptyDataText="未有相對應之案件管理條件資料，以及指定Sales所負責之Project資料" Width="100%" 
@@ -194,25 +188,20 @@
                                                 Visible="False" />
                                             <asp:BoundField DataField="Actual_Lead_time" HeaderText="Actual Lead Time" 
                                                 SortExpression="Actual_Lead_time" Visible="False" />
-                                            <asp:BoundField DataField="CountryManager" HeaderText="Country Manager" />
+                                            <asp:BoundField DataField="CountryManager" HeaderText="Country Manager" 
+                                              Visible="False" />
                                             <asp:TemplateField HeaderText="Project Status">
                                                 <ItemTemplate>
                                                     <asp:Label ID="Label_Quotation_Target_Id" runat="server" Visible="false" 
                                                         Text='<%# Bind("Quotation_Target_Id") %>'></asp:Label>
                                                     <asp:BulletedList ID="BulletedListStatus" runat="server" 
                                                         DataSourceID="SqlDataSourceStatus" DataTextField="Status" 
-                                                        DataValueField="voided" ondatabound="BulletedListStatus_DataBound">
+                                                        DataValueField="Status">
                                                     </asp:BulletedList>
                                                     <asp:SqlDataSource ID="SqlDataSourceStatus" runat="server" 
                                                         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                                         
-                                                        SelectCommand="SELECT voided , 
-	Case external_use 
-	When 1 Then Substring(CONVERT(char(10), log_date, 111) , 6,10) + ':' + log_content + '(External)' 
-	When 0 Then Substring(CONVERT(char(10), log_date, 111) , 6,10) + ':' + log_content 
-	End AS 'Status' 
-FROM Project_working_log
-WHERE (target_id = @Quotation_Version_Id)">
+                                                        SelectCommand="SELECT Substring(CONVERT(char(10), log_date, 111) , 6,10) + ':' + log_content  AS 'Status' FROM Project_working_log WHERE external_use = 1 AND (target_id = @Quotation_Version_Id)">
                                                         <SelectParameters>
                                                             <asp:ControlParameter ControlID="Label_Quotation_Target_Id" 
                                                                 Name="Quotation_Version_Id" PropertyName="Text" />

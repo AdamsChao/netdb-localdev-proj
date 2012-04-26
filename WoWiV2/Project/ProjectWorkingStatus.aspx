@@ -5,9 +5,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 <asp:Panel ID="pnlWorkingStatusManagement" runat="server">        
-        <center><a href="ProjectWorkingStatusReport.aspx" target="_blank">Generate Working Status Report</a></center>
+        <center>
+          <asp:Label ID="lblProject" runat="server" Visible="False"></asp:Label>
+          <asp:Label ID="lblCountry" runat="server" Visible="False"></asp:Label>
+          <asp:Label ID="lblTarget" runat="server" Visible="False"></asp:Label>
+        </center>
         <fieldset>
-            <legend>Working Status List</legend>
+            <legend>Working Status</legend>
             <br />
             Project：<asp:DropDownList ID="ddlWorkingStatusProject" runat="server" AutoPostBack="True" 
                 DataSourceID="GetProjectsHasTargetSqlDataSource" DataTextField="Project_No" 
@@ -29,7 +33,12 @@
                     <asp:SqlDataSource ID="ProjectCountrySqlDataSource" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                 
-                SelectCommand="SELECT Quotation_Target.country_id, country.country_name FROM Project INNER JOIN Quotation_Target ON Project.Quotation_Id = Quotation_Target.quotation_id INNER JOIN country ON Quotation_Target.country_id = country.country_id WHERE (Project.Project_Id = @Project_Id)">
+                SelectCommand="SELECT Quotation_Target.country_id, country.country_name 
+FROM Quotation_Target
+INNER JOIN country ON Quotation_Target.country_id = country.country_id
+Where Quotation_Target.quotation_id in 
+(Select Quotation_Version_Id FROM Quotation_Version Where Quotation_Version.Quotation_No in 
+(Select Quotation_NO FROM Project Where Project_Id = @Project_Id))">
                         <SelectParameters>
                             <asp:ControlParameter ControlID="ddlWorkingStatusProject" Name="project_id" 
                                 PropertyName="SelectedValue" Type="String" />
@@ -43,10 +52,15 @@
                 onselectedindexchanged="ddlWorkingStatusTarget_SelectedIndexChanged">
                     </asp:DropDownList>
                     <asp:SqlDataSource ID="WorkingStatusTargetSqlDataSource" runat="server" 
-                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                
-                
-                SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Authority.authority_name FROM Quotation_Target INNER JOIN Project ON Quotation_Target.quotation_id = Project.Quotation_Id INNER JOIN Authority ON Quotation_Target.authority_id = Authority.authority_id WHERE (Project.Project_Id = @Project_Id) AND (Quotation_Target.country_id = @country_id)">
+                ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Authority.authority_name 
+FROM Quotation_Target 
+INNER JOIN Authority ON Quotation_Target.authority_id = Authority.authority_id 
+INNER JOIN country ON Quotation_Target.country_id = country.country_id
+Where Quotation_Target.quotation_id in 
+(Select Quotation_Version_Id FROM Quotation_Version Where Quotation_Version.Quotation_No in 
+(Select Quotation_NO FROM Project Where Project_Id = @project_id)) AND 
+Quotation_Target.country_id = @country_id  ">
                         <SelectParameters>
                             <asp:ControlParameter ControlID="ddlWorkingStatusProject" Name="project_id" 
                                 PropertyName="SelectedValue" Type="String" />

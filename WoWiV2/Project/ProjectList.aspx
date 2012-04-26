@@ -47,9 +47,8 @@
                             <asp:ListItem>Open</asp:ListItem>
                             <asp:ListItem>In-Progress</asp:ListItem>
                             <asp:ListItem>Done</asp:ListItem>
-                            <asp:ListItem>Cancelled</asp:ListItem>
-                            <asp:ListItem>Lost</asp:ListItem>
-                            <asp:ListItem>On-Hand</asp:ListItem>
+                            <asp:ListItem>Cancelled</asp:ListItem>                            
+                            <asp:ListItem>On-Hold</asp:ListItem>
                             <asp:ListItem>Void</asp:ListItem>
                         </asp:DropDownList>
                     </EditItemTemplate>
