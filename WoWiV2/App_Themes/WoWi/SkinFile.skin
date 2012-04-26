@@ -1,0 +1,57 @@
+﻿<%--
+預設面板範本。下列面板僅提供做為範例的用途。
+
+1. 具名控制面板。SkinId 應為唯一定義，因為在相同主題中，一個控制項型別不能具有重複的 SkinId。
+
+<asp:GridView runat="server" SkinId="gridviewSkin" BackColor="White" >
+   <AlternatingRowStyle BackColor="Blue" />
+</asp:GridView>
+
+2. 預設面板。SkinId 未定義。在相同主題中，每個控制項型別只能有一個預設控制面板。
+
+<asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
+--%>
+
+<asp:GridView runat="server" BackColor="White" Width="100%" 
+  BorderColor="#3366CC" BorderStyle="Solid" BorderWidth="1px" CellPadding="1">
+  <FooterStyle BackColor="#99CCCC" ForeColor="#003399" />
+  <HeaderStyle BackColor="#003399" Font-Bold="True" ForeColor="#CCCCFF" />
+  <PagerStyle BackColor="#99CCCC" ForeColor="#003399" HorizontalAlign="Left" />
+  <RowStyle BackColor="White" ForeColor="#003399" />
+  <SelectedRowStyle BackColor="#009999" Font-Bold="True" ForeColor="#CCFF99" />
+  <EditRowStyle  BackColor="#009999" Font-Bold="True" ForeColor="#CCFF99" />
+  <SortedAscendingCellStyle BackColor="#EDF6F6" />
+  <SortedAscendingHeaderStyle BackColor="#0D4AC4" />
+  <SortedDescendingCellStyle BackColor="#D6DFDF" />
+  <SortedDescendingHeaderStyle BackColor="#002876" />
+</asp:GridView>
+
+<asp:GridView SkinID="GridView" runat="server" BackColor="White" Width="100%" 
+  BorderColor="#3366CC" BorderStyle="Solid" BorderWidth="1px" CellPadding="1">
+  <FooterStyle BackColor="#99CCCC" ForeColor="#003399" />
+  <HeaderStyle BackColor="#003399" Font-Bold="True" ForeColor="#CCCCFF" />
+  <PagerStyle BackColor="#99CCCC" ForeColor="#003399" HorizontalAlign="Left" />
+  <RowStyle BackColor="White" ForeColor="#003399" />
+  <SelectedRowStyle BackColor="#009999" Font-Bold="True" ForeColor="#CCFF99" />
+  <EditRowStyle  BackColor="#009999" Font-Bold="True" ForeColor="#CCFF99" />
+  <SortedAscendingCellStyle BackColor="#EDF6F6" />
+  <SortedAscendingHeaderStyle BackColor="#0D4AC4" />
+  <SortedDescendingCellStyle BackColor="#D6DFDF" />
+  <SortedDescendingHeaderStyle BackColor="#002876" />
+</asp:GridView>
+
+
+    <asp:Calendar runat="server" BackColor="White" 
+      BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" 
+      DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" 
+      ForeColor="#003399" Height="230px" Width="100%">
+      <DayHeaderStyle BackColor="#99CCCC" ForeColor="#336666" Height="1px" />
+      <NextPrevStyle Font-Size="8pt" ForeColor="#CCCCFF" />
+      <OtherMonthDayStyle ForeColor="#999999" />
+      <SelectedDayStyle BackColor="#009999" Font-Bold="True" ForeColor="#CCFF99" />
+      <SelectorStyle BackColor="#99CCCC" ForeColor="#336666" />
+      <TitleStyle BackColor="#003399" BorderColor="#3366CC" BorderWidth="1px" 
+        Font-Bold="True" Font-Size="10pt" ForeColor="#CCCCFF" Height="25px" />
+      <TodayDayStyle BackColor="#99CCCC" ForeColor="White" />
+      <WeekendDayStyle BackColor="#CCCCFF" />
+    </asp:Calendar>
