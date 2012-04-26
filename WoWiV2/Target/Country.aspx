@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master"%>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" MaintainScrollPositionOnPostback="true" %>
 
 <script runat="server">
 

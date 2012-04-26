@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" MaintainScrollPositionOnPostback="true" %>
 
 <script runat="server">
 
@@ -27,7 +27,7 @@
         <br />
         <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
         <br />
-        <asp:GridView ID="GridViewRate" runat="server" AllowPaging="True" 
+        <asp:GridView ID="GridViewRate" runat="server" 
             AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Target_rate_id" 
             DataSourceID="SqlDataSourceRate" onrowupdated="GridViewRate_RowUpdated" 
             PageSize="20" Width="100%">
@@ -123,9 +123,11 @@
 FROM Target_Rates INNER JOIN country ON Target_Rates.country_id = country.country_id 
 LEFT JOIN wowi_product_type ON Target_Rates.product_type_id = wowi_product_type.wowi_product_type_id 
 LEFT JOIN wowi_tech ON Target_Rates.Technology_id = wowi_tech.wowi_tech_id 
-LEFT JOIN Authority ON Target_Rates.authority_id = Authority.authority_id" 
+LEFT JOIN Authority ON Target_Rates.authority_id = Authority.authority_id 
+Order by country.country_id" 
             
             
+          
           
           UpdateCommand="UPDATE [Target_Rates] SET [rate] = @rate,[target_cost_currency]=@target_cost_currency,[target_cost]=@target_cost,[local_agent_name]=@local_agent_name,[Publish]=@Publish WHERE [Target_rate_id] = @Target_rate_id">
             <DeleteParameters>
