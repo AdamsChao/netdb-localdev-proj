@@ -28,7 +28,7 @@
             DataSourceID="SqlDataSourceCountry" DefaultMode="Insert" Height="50px" 
             oniteminserted="DetailsView1_ItemInserted">
             <Fields>
-                <asp:TemplateField HeaderText="country_name" SortExpression="country_name">
+                <asp:TemplateField HeaderText="Country Name" SortExpression="country_name">
                     <ItemTemplate>
                         <asp:Label ID="Label6" runat="server" Text='<%# Bind("country_name") %>'></asp:Label>
                     </ItemTemplate>
@@ -39,10 +39,10 @@
                         <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("country_name") %>'></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                             ControlToValidate="TextBox5" Display="Dynamic" 
-                            ErrorMessage="country name cant be Empty" ForeColor="Red"></asp:RequiredFieldValidator>
+                            ErrorMessage="Country Name cant be Empty" ForeColor="Red"></asp:RequiredFieldValidator>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="country_3_code" 
+                <asp:TemplateField HeaderText="Country 3  Code" 
                     SortExpression="country_3_code">
                     <ItemTemplate>
                         <asp:Label ID="Label2" runat="server" Text='<%# Bind("country_3_code") %>'></asp:Label>
@@ -55,7 +55,7 @@
                               Text='<%# Bind("country_3_code") %>'></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="country_2_code" SortExpression="country_2_code">
+                <asp:TemplateField HeaderText="Country 2 Code" SortExpression="country_2_code">
                     <ItemTemplate>
                         <asp:Label ID="Label3" runat="server" Text='<%# Bind("country_2_code") %>'></asp:Label>
                     </ItemTemplate>
@@ -67,7 +67,7 @@
                             Text='<%# Bind("country_2_code") %>'></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="country_telephone_code" 
+                <asp:TemplateField HeaderText="Telephone Code" 
                     SortExpression="country_telephone_code">
                     <ItemTemplate>
                         <asp:Label ID="Label4" runat="server" 
@@ -82,7 +82,7 @@
                             Text='<%# Bind("country_telephone_code") %>'></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="country_currency_type" 
+                <asp:TemplateField HeaderText="Currency Type" 
                     SortExpression="country_currency_type">
                     <ItemTemplate>
                         <asp:Label ID="Label5" runat="server" 
