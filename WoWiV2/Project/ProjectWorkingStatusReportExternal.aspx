@@ -165,7 +165,8 @@
                                     <asp:GridView ID="GridViewReport" runat="server" AutoGenerateColumns="False" 
                                         DataKeyNames="Quotation_Target_Id" DataSourceID="SqlDataSourceReport" 
                                         onprerender="GridViewReport_PreRender" Width="100%" 
-                                        Caption="Project Working Status" EmptyDataText="此案件尚未有相關的Project Status紀錄!">
+                                        Caption="Project Working Status" 
+                                      EmptyDataText="此案件尚未有相關的Project Status紀錄!" SkinID="None">
                                         <Columns>
                                             <asp:BoundField DataField="country_name" HeaderText="Country" 
                                                 SortExpression="country_name" />
