@@ -36,7 +36,7 @@
                 <asp:CommandField ShowEditButton="True" />
                 <asp:BoundField DataField="authority_id" HeaderText="ID" 
                     SortExpression="authority_id" InsertVisible="False" ReadOnly="True" />
-                <asp:TemplateField HeaderText="Country" SortExpression="country_id" >
+                <asp:TemplateField HeaderText="Country" SortExpression="country_name" >
                   <EditItemTemplate>
                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("country_id") %>' Visible="false"></asp:TextBox>
                     <asp:Label ID="Label1" runat="server" Text='<%# Bind("country_name") %>'></asp:Label>

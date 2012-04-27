@@ -36,7 +36,7 @@
                 <asp:BoundField DataField="Target_rate_id" HeaderText="ID" 
                     InsertVisible="False" ReadOnly="True" SortExpression="Target_rate_id" 
                     Visible="False" />
-                <asp:TemplateField HeaderText="Country" SortExpression="country_id">
+                <asp:TemplateField HeaderText="Country" SortExpression="country_name">
                     <ItemTemplate>
                         <asp:Label ID="Label1" runat="server" Text='<%# Bind("country_name") %>'></asp:Label>
                     </ItemTemplate>
