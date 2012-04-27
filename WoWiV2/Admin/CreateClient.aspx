@@ -10,6 +10,15 @@
         if (e.Exception == null)
         {
             WoWiModel.clientapplicant obj = (WoWiModel.clientapplicant)e.Entity;
+            if (obj.department_id == null)
+            {
+                obj.department_id = -1;
+            }
+            if (obj.employee_id == null)
+            {
+                obj.employee_id = -1;
+            }
+   
             obj.code = "";
             if ((bool)ViewState["IsApplication"])
             {
