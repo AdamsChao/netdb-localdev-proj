@@ -7,118 +7,119 @@
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Page.IsPostBack) return;
-        var data = from i in wowidb.invoices where ((DateTime)i.issue_invoice_date).Year == DateTime.Now.Year && ((DateTime)i.issue_invoice_date).Month == DateTime.Now.Month select i;
-        List<InvoiceData> list = new List<InvoiceData>();
-        InvoiceData temp;
-        foreach (var item in data)
-        {
-            temp = new InvoiceData();
-            temp.id = item.invoice_id+"";
-            temp.InvoiceNo = item.issue_invoice_no;
-            if (item.issue_invoice_date.HasValue)
-            {
-                temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
-            }
-            try
-            {
-                String username = item.create_user;
-                WoWiModel.employee emp = wowidb.employees.First(c => c.username == username);
-                temp.Owner = emp.fname + " " + emp.lname;
-            }
-            catch (Exception)
-            {
+        //if (Page.IsPostBack) return;
+        //var data = from i in wowidb.invoices where ((DateTime)i.issue_invoice_date).Year == DateTime.Now.Year && ((DateTime)i.issue_invoice_date).Month == DateTime.Now.Month select i;
+        //List<InvoiceData> list = new List<InvoiceData>();
+        //InvoiceData temp;
+        //foreach (var item in data)
+        //{
+        //    temp = new InvoiceData();
+        //    temp.id = item.invoice_id+"";
+        //    temp.InvoiceNo = item.issue_invoice_no;
+        //    if (item.issue_invoice_date.HasValue)
+        //    {
+        //        temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
+        //    }
+        //    try
+        //    {
+        //        String username = item.create_user;
+        //        WoWiModel.employee emp = wowidb.employees.First(c => c.username == username);
+        //        temp.Owner = emp.fname + " " + emp.lname;
+        //    }
+        //    catch (Exception)
+        //    {
 
-                //throw;
-            }
-            temp.ProjectNo = item.project_no;
-            try
-            {
-                QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_No == item.quotaion_no select q).First();
-                temp.Model = quo.Model_No;
+        //        //throw;
+        //    }
+        //    temp.ProjectNo = item.project_no;
+        //    try
+        //    {
+        //        QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_No == item.quotaion_no select q).First();
+        //        temp.Model = quo.Model_No;
                 
-                int cid = (int)quo.Client_Id;
-                try
-                {
-                    var client = (from cli in wowidb.clientapplicants where cli.id == cid select cli).First();
-                    temp.Client = String.IsNullOrEmpty(client.c_companyname) ? client.companyname : client.c_companyname;
+        //        int cid = (int)quo.Client_Id;
+        //        try
+        //        {
+        //            var client = (from cli in wowidb.clientapplicants where cli.id == cid select cli).First();
+        //            temp.Client = String.IsNullOrEmpty(client.c_companyname) ? client.companyname : client.c_companyname;
 
-                    int countryid = (int)client.country_id;
-                    var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
-                    temp.Country = country.country_name;
-                    WoWiModel.contact_info contact;
-                    int contactid;
-                    if (quo.Client_Contact != null)
-                    {
-                        contactid = (int)quo.Client_Contact;
-                    }
-                    else
-                    {
-                        contactid = (from c in wowidb.m_clientappliant_contact where c.clientappliant_id == quo.Client_Id select c.contact_id).First();
-                    }
-                    contact = (from c in wowidb.contact_info where c.id == contactid select c).First();
-                    temp.Attn = String.IsNullOrEmpty(contact.fname) ? contact.c_lname + " " + contact.c_fname : contact.fname + " " + contact.lname;
+        //            int countryid = (int)client.country_id;
+        //            var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
+        //            temp.Country = country.country_name;
+        //            WoWiModel.contact_info contact;
+        //            int contactid;
+        //            if (quo.Client_Contact != null)
+        //            {
+        //                contactid = (int)quo.Client_Contact;
+        //            }
+        //            else
+        //            {
+        //                contactid = (from c in wowidb.m_clientappliant_contact where c.clientappliant_id == quo.Client_Id select c.contact_id).First();
+        //            }
+        //            contact = (from c in wowidb.contact_info where c.id == contactid select c).First();
+        //            temp.Attn = String.IsNullOrEmpty(contact.fname) ? contact.c_lname + " " + contact.c_fname : contact.fname + " " + contact.lname;
            
-                }
+        //        }
 
-                catch (Exception)
-                {
+        //        catch (Exception)
+        //        {
 
-                    //throw;
-                }
-                int salesid = (int)quo.SalesId;
-                //temp.Sales
-                var sales = (from emp in wowidb.employees where emp.id == salesid select emp).First();
-                temp.Sales = sales.fname + " " + sales.lname; 
-            }
-            catch (Exception)
-            {
+        //            //throw;
+        //        }
+        //        int salesid = (int)quo.SalesId;
+        //        //temp.Sales
+        //        var sales = (from emp in wowidb.employees where emp.id == salesid select emp).First();
+        //        temp.Sales = sales.fname + " " + sales.lname; 
+        //    }
+        //    catch (Exception)
+        //    {
                 
-                //throw;
-            }
+        //        //throw;
+        //    }
             
-            temp.Currency = item.ocurrency;
-            if (temp.Currency == "USD")
-            {
-                //temp.USD = ((double)item.final_total);
-                //temp.NTD = temp.USD / (double)item.exchange_rate;
-                temp.USD = ((double)item.total);
-                temp.NTD = ((double)item.final_total);
-                usdtotal += temp.USD;
-                usdissuetotal += temp.USD;
-                ntdtotal += temp.NTD;
-            }
-            else
-            {
-                //temp.NTD = ((double)item.final_total);
-                //temp.USD = temp.NTD * (double)item.exchange_rate;
-                temp.USD = ((double)item.final_total);
-                temp.NTD = ((double)item.total);
-                ntdtotal += temp.NTD;
-                ntdissuetotal += temp.NTD;
-                usdtotal += temp.USD;
-            }
+        //    temp.Currency = item.ocurrency;
+        //    if (temp.Currency == "USD")
+        //    {
+        //        //temp.USD = ((double)item.final_total);
+        //        //temp.NTD = temp.USD / (double)item.exchange_rate;
+        //        temp.USD = ((double)item.total);
+        //        temp.NTD = ((double)item.final_total);
+        //        usdtotal += temp.USD;
+        //        usdissuetotal += temp.USD;
+        //        ntdtotal += temp.NTD;
+        //    }
+        //    else
+        //    {
+        //        //temp.NTD = ((double)item.final_total);
+        //        //temp.USD = temp.NTD * (double)item.exchange_rate;
+        //        temp.USD = ((double)item.final_total);
+        //        temp.NTD = ((double)item.total);
+        //        ntdtotal += temp.NTD;
+        //        ntdissuetotal += temp.NTD;
+        //        usdtotal += temp.USD;
+        //    }
 
-            if (item.invoice_date.HasValue)
-            {
-                temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
-            }
-            temp.IVNo = item.invoice_no;
+        //    if (item.invoice_date.HasValue)
+        //    {
+        //        temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
+        //    }
+        //    temp.IVNo = item.invoice_no;
             
-            temp.QutationNo = item.quotaion_no;
-            list.Add(temp);
-        }
-        iGridView1.DataSource = list;
-        iGridView1.DataBind();
+        //    temp.QutationNo = item.quotaion_no;
+        //    list.Add(temp);
+        //}
+        //iGridView1.AllowSorting = true;
+        //iGridView1.DataSource = list;
+        //iGridView1.DataBind();
 
-        if (iGridView1.Rows.Count == 0)
-        {
-            Button2.Enabled = false;
-        }
-        else
-        {
-            Button2.Enabled = true;
-        }
+        //if (iGridView1.Rows.Count == 0)
+        //{
+        //    Button2.Enabled = false;
+        //}
+        //else
+        //{
+        //    Button2.Enabled = true;
+        //}
         
         
     }
@@ -207,6 +208,10 @@
     }
 
     protected void Button3_Click(object sender, EventArgs e)
+    {
+        Search(null);
+    }
+    protected void Search(String str)
     {
         var data = from i in wowidb.invoices select i;
         if (ddlProj.SelectedValue != "-1")
@@ -363,7 +368,37 @@
             temp.QutationNo = item.quotaion_no;
             list.Add(temp);
         }
-        iGridView1.DataSource = list;
+        if (str == null)
+        {
+            iGridView1.DataSource = list;
+        }
+        else
+        {
+            var slist = from i in list select i;
+            switch (str)
+            {
+                case "Sales":
+                    slist = slist.OrderBy(c => c.Sales);
+                    break;
+                case "Owner":
+                    slist = slist.OrderBy(c => c.Owner);
+                    break;
+                case "QutationNo":
+                    slist = slist.OrderBy(c => c.QutationNo);
+                    break;
+                case "Attn":
+                    slist = slist.OrderBy(c => c.Attn);
+                    break;
+                case "ProjectNo":
+                    slist = slist.OrderBy(c => c.ProjectNo);
+                    break;
+                case "Client":
+                    slist = slist.OrderBy(c => c.Client);
+                    break;
+            }
+            iGridView1.DataSource = slist;
+        }
+        iGridView1.AllowSorting = true;
         iGridView1.DataBind();
         if (iGridView1.Rows.Count == 0)
         {
@@ -375,7 +410,12 @@
         }
         
     }
-    
+
+    protected void iGridView1_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        Search(e.SortExpression);
+        // obj = null;
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -395,7 +435,7 @@
                     <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <th align="left" width="13%">
-                                Sales :&nbsp;</th>
+                                AE :&nbsp;</th>
                             <td width="20%">
                                 <asp:DropDownList ID="ddlSales" runat="server" 
                                     AppendDataBoundItems="True" 
@@ -404,7 +444,7 @@
                                 </asp:DropDownList>
                             </td>
                             <th align="left" width="13%">
-                                Issue Invoice Date : </th>
+                                Issue Invoice Date From: </th>
                             <td width="20%">
                                 <uc1:DateChooser ID="dcFromDate" runat="server" />
                             </td>
@@ -463,7 +503,7 @@
                     <asp:GridView ID="iGridView1" runat="server" Height="150px" 
           Width="100%" SkinID="GridView"
                          AutoGenerateColumns="False" 
-          onprerender="iGridView1_PreRender" ShowFooter="True" 
+          onprerender="iGridView1_PreRender" ShowFooter="True" AllowSorting="True" onsorting="iGridView1_Sorting" 
                        >
                         <Columns>
                             <asp:TemplateField HeaderText="">
@@ -478,8 +518,8 @@
                             </asp:TemplateField>
                             <asp:BoundField DataField="InvoiceNo" HeaderText="Invoice No" />
                             <asp:BoundField DataField="InvoiceDate" HeaderText="Invoice Date" />
-                            <asp:BoundField DataField="ProjectNo" HeaderText="Project No" />
-                            <asp:TemplateField HeaderText="Client">
+                            <asp:BoundField DataField="ProjectNo" HeaderText="Project No" SortExpression="ProjectNo" />
+                            <asp:TemplateField HeaderText="Client" SortExpression="Client">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Client") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -500,7 +540,7 @@
                                     <asp:Label ID="Label1" runat="server" Text='<%# Bind("Client") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField DataField="Attn" HeaderText="Attn" />
+                            <asp:BoundField DataField="Attn" HeaderText="Attn" SortExpression="Attn" />
                             <asp:TemplateField HeaderText="Inv USD$" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("USD") %>'></asp:TextBox>
@@ -527,11 +567,11 @@
                             </asp:TemplateField>
                             <asp:BoundField DataField="IVDate" HeaderText="I/V Date"  />
                             <asp:BoundField DataField="IVNo" HeaderText="I/V No" />
-                            <asp:BoundField DataField="Sales" HeaderText="Sales" />
+                            <asp:BoundField DataField="Sales" HeaderText="AE" SortExpression="Sales"/>
                             <asp:BoundField DataField="Model" HeaderText="Model" />
                             <asp:BoundField DataField="Country" HeaderText="Country" />
-                            <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" />
-                            <asp:BoundField DataField="Owner" HeaderText="Issued By" />
+                            <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" SortExpression="QutationNo"/>
+                            <asp:BoundField DataField="Owner" HeaderText="Issued By" SortExpression="Owner"/>
                         </Columns>
                     </asp:GridView>
       

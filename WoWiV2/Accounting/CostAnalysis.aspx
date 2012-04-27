@@ -424,7 +424,7 @@
         (sender as DropDownList).DataSource = db.Project;
         (sender as DropDownList).DataTextField = "Project_No";
         (sender as DropDownList).DataValueField = "Project_Id";
-        (sender as DropDownList).DataBind();
+        //(sender as DropDownList).DataBind();
     }
 
 
@@ -458,7 +458,7 @@
                     <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
                        <tr>
                             <th align="left" width="13%">
-                                Sales :&nbsp;</th>
+                                AE :&nbsp;</th>
                             <td width="20%">
                                 <asp:DropDownList ID="ddlSales" runat="server"  AppendDataBoundItems="True" 
                                     onload="ddlSales_Load">
@@ -492,7 +492,7 @@
                                 </asp:DropDownList>
                             </td>
                             <th align="left" width="13%">
-                                Open Project Date : </th>
+                                Open Project Date From : </th>
                             <td width="20%">
                                 <uc1:DateChooser ID="dcProjFrom" runat="server" />
                             </td>
@@ -538,7 +538,7 @@
                                 </asp:DropDownList>
                             </td>
                             <th align="left" width="13%">
-                                Status Date : </th>
+                                Status Date From : </th>
                             <td width="20%">
                                 <uc1:DateChooser ID="dcStatusFromDate" runat="server" />
                             </td>
@@ -583,7 +583,7 @@
                             <asp:BoundField DataField="Status" HeaderText="Status" />
                             <asp:BoundField DataField="StatusDate" HeaderText="Status Date" />
                             <asp:BoundField DataField="GrossProfitUS" HeaderText="Gross Profit US" />
-                            <asp:BoundField DataField="Sales" HeaderText="Sales" />
+                            <asp:BoundField DataField="Sales" HeaderText="AE" />
                             <asp:BoundField DataField="InvUSD" HeaderText="Inv USD" />
                             <asp:BoundField DataField="InvDate" HeaderText="Inv Date" />
                             <asp:BoundField DataField="InvNo" HeaderText="Inv No" />
