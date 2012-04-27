@@ -35,7 +35,7 @@
         <siteMapNode url="~/Accounting/WoWiBankInfoList.aspx" title="WoWi Bank Info"  description="" />
       </siteMapNode>
       <siteMapNode url="~/Accounting/AR.aspx" title="AR"  description=""  >
-        <siteMapNode url="~/Accounting/ARAnalysis.aspx" title="AR Analysis"  description="" />
+        <siteMapNode url="~/Accounting/ARAnalysis.aspx" title="Age Analysis"  description="" />
       </siteMapNode>
       <!--<siteMapNode url="" title="Invoice Report"  description="" />-->
       <siteMapNode url="" title="Analysis"  description="" >
