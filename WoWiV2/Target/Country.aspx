@@ -99,10 +99,11 @@
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [country] WHERE [country_id] = @country_id" 
             InsertCommand="INSERT INTO [country] ([country_id], [country_name], [country_3_code], [country_2_code], [world_region_id],[country_telephone_code],[country_currency_type]) VALUES (@country_id, @country_name, @country_3_code, @country_2_code, @world_region_id,@country_telephone_code,@country_currency_type)" 
-            SelectCommand="SELECT country.country_id, country.country_name, country.country_3_code, country.country_2_code, country.world_region_id, world_region.world_region_name, country.country_telephone_code, country.country_currency_type, access_level.name AS 'access_level_name' FROM country INNER JOIN world_region ON country.world_region_id = world_region.world_region_id INNER JOIN access_level ON world_region.access_level_id = access_level.id" 
+            SelectCommand="SELECT country.country_id, country.country_name, country.country_3_code, country.country_2_code, country.world_region_id, world_region.world_region_name, country.country_telephone_code, country.country_currency_type, access_level.name AS 'access_level_name' FROM country INNER JOIN world_region ON country.world_region_id = world_region.world_region_id INNER JOIN access_level ON world_region.access_level_id = access_level.id order by  country.country_name" 
             
             
             
+          
           UpdateCommand="UPDATE [country] SET [country_name] = @country_name, [country_3_code] = @country_3_code, [country_2_code] = @country_2_code, [world_region_id] = @world_region_id,[country_telephone_code]=@country_telephone_code,[country_currency_type]=@country_currency_type WHERE [country_id] = @country_id">
             <DeleteParameters>
                 <asp:Parameter Name="country_id" Type="Int32" />

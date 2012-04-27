@@ -72,7 +72,8 @@
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             
                   
-                  SelectCommand="SELECT DISTINCT country.country_id, country.country_name FROM country INNER JOIN Authority ON country.country_id = Authority.country_id and Authority.Publish=1 Order by country.country_id">
+                  
+                  SelectCommand="SELECT DISTINCT country.country_id, country.country_name FROM country INNER JOIN Authority ON country.country_id = Authority.country_id and Authority.Publish=1 order by  country.country_name">
         </asp:SqlDataSource>
             </td>
         </tr>

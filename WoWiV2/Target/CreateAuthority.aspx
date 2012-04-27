@@ -162,7 +162,8 @@
         <asp:SqlDataSource ID="SqlDataSourceCountry" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             
-          SelectCommand="SELECT [country_id], [country_name] FROM [country] Order by country.country_id">
+          
+          SelectCommand="SELECT [country_id], [country_name] FROM [country] order by  country.country_name">
         </asp:SqlDataSource>
     </p>
 </asp:Content>

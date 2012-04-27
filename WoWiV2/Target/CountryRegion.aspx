@@ -14,6 +14,37 @@
         Message.Text = "Country Region Update Successful!";
       }
     }
+
+    
+    //新增標題列寫法
+    //protected void GridViewRegion_RowCreated(object sender, GridViewRowEventArgs e)
+    //{
+    //  // 檢查是不是標題列 
+    //  if (e.Row.RowType == DataControlRowType.Header)
+    //  {
+    //    // 建立自訂的標題 
+    //    GridView gv = (GridView)sender;
+    //    GridViewRow gvRow = new
+    //       GridViewRow(0, 0, DataControlRowType.Header,
+    //       DataControlRowState.Insert);
+
+    //    // 增加 Department 欄位 
+    //    TableCell tc1 = new TableCell();
+    //    tc1.Text = "Department";
+    //    tc1.ColumnSpan = 2;   // 跨兩欄 
+    //    gvRow.Cells.Add(tc1);
+
+    //    // 增加 Employee 欄位 
+    //    TableCell tc2 = new TableCell();
+    //    tc2.Text = "Employee";
+    //    tc2.ColumnSpan = 2;   // 跨三欄 
+    //    gvRow.Cells.Add(tc2);
+
+    //    // 把這一列加到最上面 
+    //    gv.Controls[0].Controls.AddAt(0, gvRow);
+    //  } 
+
+    //}
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">

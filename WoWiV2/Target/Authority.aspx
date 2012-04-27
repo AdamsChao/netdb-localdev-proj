@@ -80,9 +80,10 @@
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [Authority] WHERE [authority_id] = @authority_id" 
             InsertCommand="INSERT INTO [Authority] ([country_id], [wowi_product_type_id], [authority_name], [authority_fullname], [Target_Description], [Publish]) VALUES (@country_id, @wowi_product_type_id, @authority_name, @authority_fullname, @Target_Description, @Publish)" 
-            SelectCommand="SELECT Authority.authority_id, Authority.country_id, Authority.wowi_product_type_id, Authority.authority_name, Authority.authority_fullname, Authority.Target_Description, Authority.Publish, country.country_name, wowi_product_type.wowi_product_type_name FROM Authority INNER JOIN country ON Authority.country_id = country.country_id INNER JOIN wowi_product_type ON Authority.wowi_product_type_id = wowi_product_type.wowi_product_type_id Order by country.country_id" 
+            SelectCommand="SELECT Authority.authority_id, Authority.country_id, Authority.wowi_product_type_id, Authority.authority_name, Authority.authority_fullname, Authority.Target_Description, Authority.Publish, country.country_name, wowi_product_type.wowi_product_type_name FROM Authority INNER JOIN country ON Authority.country_id = country.country_id INNER JOIN wowi_product_type ON Authority.wowi_product_type_id = wowi_product_type.wowi_product_type_id order by  country.country_name" 
             
             
+          
           
           UpdateCommand="UPDATE [Authority] SET [country_id] = @country_id, [wowi_product_type_id] = @wowi_product_type_id, [authority_name] = @authority_name, [authority_fullname] = @authority_fullname, [Target_Description] = @Target_Description, [Publish] = @Publish WHERE [authority_id] = @authority_id">
             <DeleteParameters>
