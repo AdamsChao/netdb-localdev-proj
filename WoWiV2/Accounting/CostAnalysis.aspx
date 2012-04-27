@@ -30,21 +30,24 @@
     protected void iGridView1_SetCSSClass(GridViewRow row)
     {
         row.Cells[19].CssClass = "HighLight";
-        if (count !=0 &&i == count - 1)
-        {
-            for (int k = 19 ; k <= 25; k++)
-            {
-                row.Cells[k].CssClass = "HighLight1";
-            }
-            row.Cells[8].CssClass = "HighLight1";
-            row.Cells[10].CssClass = "HighLight1";
-        }
+        //if (count !=0 &&i == count - 1)
+        //{
+        //    for (int k = 19 ; k <= 25; k++)
+        //    {
+        //        row.Cells[k].CssClass = "HighLight1";
+        //    }
+        //    row.Cells[8].CssClass = "HighLight1";
+        //    row.Cells[10].CssClass = "HighLight1";
+        //}
         i++;
     }
 
 
-
     protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        Search(null);
+    }
+    protected void Search(String str)
     {
         List<CostAnalysisData> list = new List<CostAnalysisData>();
         CostAnalysisData temp;
@@ -367,7 +370,7 @@
                     Payment = payment.ToString("F2"),
                     TotalPayment = totpay.ToString("F2")
                 };
-                list.Add(temp);
+                //list.Add(temp);
             }
         }
         catch (Exception)
@@ -375,16 +378,53 @@
 
             //throw;
         }
-        count = list.Count();
-        iGridView1.DataSource = list;
+        
+
+        if (str == null)
+        {
+            iGridView1.DataSource = list;
+            count = list.Count();
+        }
+        else
+        {
+            var slist = from i in list select i;
+            switch (str)
+            {
+                case "Sales":
+                    slist = slist.OrderBy(c => c.Sales);
+                    break;
+                case "IMA":
+                    slist = slist.OrderBy(c => c.IMA);
+                    break;
+                case "QutationNo":
+                    slist = slist.OrderBy(c => c.QutationNo);
+                    break;
+                case "Country":
+                    slist = slist.OrderBy(c => c.Country);
+                    break;
+                case "Model":
+                    slist = slist.OrderBy(c => c.Model);
+                    break;
+                case "ProjectNo":
+                    slist = slist.OrderBy(c => c.ProjectNo);
+                    break;
+                case "Client":
+                    slist = slist.OrderBy(c => c.Client);
+                    break;
+            }
+            iGridView1.DataSource = slist;
+            count = slist.Count();
+        }
+        iGridView1.AllowSorting = true;
         iGridView1.DataBind();
-        if (list.Count == 0)
+        if (iGridView1.Rows.Count == 0)
         {
             btnExport.Enabled = false;
         }
         else
         {
-            btnExport.Enabled = true;                         
+            btnExport.Enabled = true;
+                                   
         }
     }
 
@@ -424,7 +464,7 @@
         (sender as DropDownList).DataSource = db.Project;
         (sender as DropDownList).DataTextField = "Project_No";
         (sender as DropDownList).DataValueField = "Project_Id";
-        //(sender as DropDownList).DataBind();
+        (sender as DropDownList).DataBind();
     }
 
 
@@ -445,6 +485,39 @@
         (sender as DropDownList).DataTextField = "country_name";
         (sender as DropDownList).DataValueField = "country_id";
         (sender as DropDownList).DataBind();
+    }
+
+    protected void iGridView1_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        Search(e.SortExpression);
+    }
+
+    double invusd = 0;
+    double imacost = 0;
+    double gpus = 0;
+   
+    public string GetInvUSD()
+    {
+        return invusd.ToString("F2");
+    }
+    public string GetIMACost()
+    {
+        return imacost.ToString("F2");
+    }
+    public string GetGrossProfitUS()
+    {
+        return gpus.ToString("F2");
+    }
+
+
+    protected void iGridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+       if(e.Row.RowType == DataControlRowType.Footer){
+           e.Row.Cells[8].CssClass = "HighLight1";
+           e.Row.Cells[10].CssClass = "HighLight1";
+           e.Row.Cells[18].CssClass = "HighLight1";
+       }
+
     }
 </script>
 
@@ -571,28 +644,61 @@
                         
                        
                    <tr><td colspan="6">
-                    <cc1:iRowSpanGridView ID="iGridView1" runat="server"  Width="100%" isMergedHeader="True" SkinID="GridView"
-                        AutoGenerateColumns="False" CssClass="Gridview" onsetcssclass="iGridView1_SetCSSClass">
+                    <cc1:iRowSpanGridView ID="iGridView1" runat="server"  Width="100%" 
+                           isMergedHeader="True" SkinID="GridView"
+                        AutoGenerateColumns="False" CssClass="Gridview" ShowFooter="true"
+                           onsetcssclass="iGridView1_SetCSSClass" onsorting="iGridView1_Sorting" 
+                           SkipColNum="0" onrowdatabound="iGridView1_RowDataBound">
                         <Columns>
-                            <asp:BoundField DataField="ProjectNo" HeaderText="Project No" />
-                            <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" />
+                            <asp:BoundField DataField="ProjectNo" HeaderText="Project No" SortExpression="ProjectNo"/>
+                            <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" SortExpression="QutationNo"/>
                             <asp:BoundField DataField="OpenDate" HeaderText="Open Date" />
-                            <asp:BoundField DataField="Client" HeaderText="Client" />
-                            <asp:BoundField DataField="Country" HeaderText="Country" />
-                            <asp:BoundField DataField="Model" HeaderText="Model" />
+                            <asp:BoundField DataField="Client" HeaderText="Client" SortExpression="Client"/>
+                            <asp:BoundField DataField="Country" HeaderText="Target" SortExpression="Country"/>
+                            <asp:BoundField DataField="Model" HeaderText="Model" SortExpression="Model"/>
                             <asp:BoundField DataField="Status" HeaderText="Status" />
                             <asp:BoundField DataField="StatusDate" HeaderText="Status Date" />
-                            <asp:BoundField DataField="GrossProfitUS" HeaderText="Gross Profit US" />
-                            <asp:BoundField DataField="Sales" HeaderText="AE" />
-                            <asp:BoundField DataField="InvUSD" HeaderText="Inv USD" />
+                            <asp:TemplateField HeaderText="Gross Profit US">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("GrossProfitUS") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("GrossProfitUS") %>'></asp:Label>
+                                </ItemTemplate>
+                                 <FooterTemplate>
+                                    <asp:Literal ID="Literal1" runat="server" Text="<%# GetGrossProfitUS()%>"></asp:Literal>
+                                     </FooterTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="Sales" HeaderText="AE" SortExpression="Sales" />
+                            <asp:TemplateField HeaderText="Inv USD">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("InvUSD") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("InvUSD") %>'></asp:Label>
+                                </ItemTemplate>
+                                 <FooterTemplate>
+                                    <asp:Literal ID="Literal1" runat="server" Text="<%# GetInvUSD()%>"></asp:Literal>
+                                     </FooterTemplate>
+                            </asp:TemplateField>
                             <asp:BoundField DataField="InvDate" HeaderText="Inv Date" />
                             <asp:BoundField DataField="InvNo" HeaderText="Inv No" />
                             <asp:BoundField DataField="ReceiveDate" HeaderText="Received Date" />
-                            <asp:BoundField DataField="IMA" HeaderText="IMA" />
+                            <asp:BoundField DataField="IMA" HeaderText="IMA" SortExpression="IMA"/>
                             <asp:BoundField DataField="VenderNo" HeaderText="No" />
                             <asp:BoundField DataField="VenderName" HeaderText="Name" />
                             <asp:BoundField DataField="IMACostCurrency" HeaderText="幣別" />
-                            <asp:BoundField DataField="IMACost" HeaderText="$" />
+                            <asp:TemplateField HeaderText="$">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("IMACost") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label3" runat="server" Text='<%# Bind("IMACost") %>'></asp:Label>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Literal ID="Literal1" runat="server" Text="<%# GetIMACost()%>"></asp:Literal>
+                                     </FooterTemplate>
+                            </asp:TemplateField>
                             <asp:BoundField DataField="SubCostUSD" HeaderText="SubCost USD" />
                             <asp:BoundField DataField="Prepay" HeaderText="Prepay" />
                             <asp:BoundField DataField="Preunpay" HeaderText="Preunpay" />
