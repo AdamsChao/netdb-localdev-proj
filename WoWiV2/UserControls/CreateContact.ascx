@@ -234,6 +234,7 @@
     protected void lblAccessLevel_Load(object sender, EventArgs e)
     {
         String strId = Request.QueryString["id"];
+        (sender as Label).Text = "";
         if (String.IsNullOrEmpty(strId))
         {
             return;
