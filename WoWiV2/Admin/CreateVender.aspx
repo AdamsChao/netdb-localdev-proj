@@ -10,6 +10,15 @@
         if (e.Exception == null)
         {
             WoWiModel.vendor obj = (WoWiModel.vendor)e.Entity;
+            if (obj.department_id == null)
+            {
+                obj.department_id = -1;
+            }
+            if (obj.employee_id == null)
+            {
+                obj.employee_id = -1;
+            }
+            wowidb.SaveChanges();
             String WestUintQueryString = "";
             if (obj.payment_type == 5)
             {
