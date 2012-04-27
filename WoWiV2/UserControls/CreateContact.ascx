@@ -19,6 +19,15 @@
         if (e.Exception == null)
         {
             WoWiModel.contact_info obj = (WoWiModel.contact_info)e.Entity;
+            if (obj.department_id == null)
+            {
+                obj.department_id = -1;
+            }
+            if (obj.employee_id == null)
+            {
+                obj.employee_id = -1;
+            }
+            wowidb.SaveChanges();
             List<int> roles = (List<int>)ViewState[ContactUtils.Key_ViewState_Roles];
             if (roles.Count != 0)
             {
