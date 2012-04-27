@@ -306,7 +306,7 @@
                               </asp:DropDownList>
                               <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                                   ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                  SelectCommand="SELECT [country_id], [country_name] FROM [country]">
+                                  SelectCommand="SELECT [country_id], [country_name] FROM [country] order by country_name">
                               </asp:SqlDataSource>
                           </td>
                         </tr>
