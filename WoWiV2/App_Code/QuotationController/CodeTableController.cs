@@ -91,12 +91,12 @@ public class CodeTableController
 
     public static Dictionary<int, string> GetAll_Target(int country_id, int product_type_id, int authority_id, int wowi_tech_id)
     {
-
+        //Modify by Adams 2012/4/28 for New Requirment use Target Rate
         QuotationEntities entities = new QuotationEntities();
-        var result = from n in entities.Target
-                     where n.country_id == country_id && n.product_type_id == product_type_id && n.authority_id == authority_id && n.technology_id == wowi_tech_id
+        var result = from n in entities.Target_Rates
+                     where n.country_id == country_id && n.product_type_id == product_type_id && n.authority_id == authority_id && n.Technology_id == wowi_tech_id
                      select n;
-        return result.ToDictionary(n => n.target_id, n => n.target_description);
+        return result.ToDictionary(n => n.Target_rate_id, n => n.authority_name);
     }
 
     public static clientapplicant GetClientApplicant(int ClientID)
