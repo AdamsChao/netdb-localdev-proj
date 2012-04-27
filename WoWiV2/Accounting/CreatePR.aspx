@@ -11,7 +11,15 @@
         {
             WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
             int id = obj.pr_id;
-            
+            if (obj.department_id == null)
+            {
+                obj.department_id = -1;
+            }
+            if (obj.employee_id == null)
+            {
+                obj.employee_id = -1;
+            }
+            wowidb.SaveChanges();
             string username = User.Identity.Name;
             try
             {
