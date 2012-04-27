@@ -467,10 +467,20 @@
             {
                 WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
                 WoWiModel.PR_authority_history auth = wowidb.PR_authority_history.First(c => c.pr_auth_id == obj.pr_auth_id);
-                //if (auth.status == (byte)PRStatus.Done)
-                //{
-                //    Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
-                //}
+                try
+                {
+                    WoWiModel.PR_Payment pay = wowidb.PR_Payment.First(c => c.pr_id == id);
+                    if (pay.status == (byte) PRStatus.ClosePaid)
+                    {
+                        Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
+                    }
+                }
+                catch (Exception)
+                {
+                    
+                    //throw;
+                }
+                
                 //(FormView1.FindControl("dcPaymentDate") as usercontrols_datechooser_ascx).isEnabled(false);
                 if (auth.status == (byte)PRStatus.Init)
                 {

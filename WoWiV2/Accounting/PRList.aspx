@@ -103,7 +103,7 @@
         ddlProjectNo.DataSource = wowidb.Projects;
         ddlProjectNo.DataTextField = "Project_No";
         ddlProjectNo.DataValueField = "Project_Id";
-        ddlProjectNo.DataBind();
+        //ddlProjectNo.DataBind();
     }
 
     protected void ddlVenderList_Load(object sender, EventArgs e)
