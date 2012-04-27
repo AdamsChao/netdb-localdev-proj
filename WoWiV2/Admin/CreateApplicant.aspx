@@ -9,8 +9,21 @@
         if (e.Exception == null)
         {     
             WoWiModel.clientapplicant obj = (WoWiModel.clientapplicant)e.Entity;
-            
-            
+
+
+
+            obj.code = "";
+            if ((bool)ViewState["IsClient"])
+            {
+                obj.clientapplicant_type = 3;
+            }
+            else
+            {
+                obj.clientapplicant_type = 2;
+            }
+            obj.create_date = DateTime.Now;
+            obj.create_user = User.Identity.Name;
+            wowidb.SaveChanges(); 
             List<int> industry = (List<int>)ViewState[ClientApplicantUtils.Key_ViewState_Industry];
             if (industry.Count != 0)
             {
@@ -81,6 +94,10 @@
     protected void EntityDataSource1_Inserting(object sender, EntityDataSourceChangingEventArgs e)
     {
         WoWiModel.clientapplicant obj = (WoWiModel.clientapplicant)e.Entity;
+        if (obj == null)
+        {
+            return;
+        }
         obj.code = "";
         if ((bool)ViewState["IsClient"])
         {

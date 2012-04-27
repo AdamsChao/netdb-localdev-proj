@@ -68,6 +68,70 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<access_level> access_level
+        {
+            get
+            {
+                if ((_access_level == null))
+                {
+                    _access_level = base.CreateObjectSet<access_level>("access_level");
+                }
+                return _access_level;
+            }
+        }
+        private ObjectSet<access_level> _access_level;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Access_Menu> Access_Menu
+        {
+            get
+            {
+                if ((_Access_Menu == null))
+                {
+                    _Access_Menu = base.CreateObjectSet<Access_Menu>("Access_Menu");
+                }
+                return _Access_Menu;
+            }
+        }
+        private ObjectSet<Access_Menu> _Access_Menu;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Authority> Authorities
+        {
+            get
+            {
+                if ((_Authorities == null))
+                {
+                    _Authorities = base.CreateObjectSet<Authority>("Authorities");
+                }
+                return _Authorities;
+            }
+        }
+        private ObjectSet<Authority> _Authorities;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<clientapplicant> clientapplicants
+        {
+            get
+            {
+                if ((_clientapplicants == null))
+                {
+                    _clientapplicants = base.CreateObjectSet<clientapplicant>("clientapplicants");
+                }
+                return _clientapplicants;
+            }
+        }
+        private ObjectSet<clientapplicant> _clientapplicants;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<clientapplicant_industry> clientapplicant_industry
         {
             get
@@ -164,6 +228,86 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<employee> employees
+        {
+            get
+            {
+                if ((_employees == null))
+                {
+                    _employees = base.CreateObjectSet<employee>("employees");
+                }
+                return _employees;
+            }
+        }
+        private ObjectSet<employee> _employees;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<employee_jobtitle> employee_jobtitle
+        {
+            get
+            {
+                if ((_employee_jobtitle == null))
+                {
+                    _employee_jobtitle = base.CreateObjectSet<employee_jobtitle>("employee_jobtitle");
+                }
+                return _employee_jobtitle;
+            }
+        }
+        private ObjectSet<employee_jobtitle> _employee_jobtitle;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<invoice> invoices
+        {
+            get
+            {
+                if ((_invoices == null))
+                {
+                    _invoices = base.CreateObjectSet<invoice>("invoices");
+                }
+                return _invoices;
+            }
+        }
+        private ObjectSet<invoice> _invoices;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<invoice_received> invoice_received
+        {
+            get
+            {
+                if ((_invoice_received == null))
+                {
+                    _invoice_received = base.CreateObjectSet<invoice_received>("invoice_received");
+                }
+                return _invoice_received;
+            }
+        }
+        private ObjectSet<invoice_received> _invoice_received;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<invoice_target> invoice_target
+        {
+            get
+            {
+                if ((_invoice_target == null))
+                {
+                    _invoice_target = base.CreateObjectSet<invoice_target>("invoice_target");
+                }
+                return _invoice_target;
+            }
+        }
+        private ObjectSet<invoice_target> _invoice_target;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<m_clientappliant_contact> m_clientappliant_contact
         {
             get
@@ -228,162 +372,18 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<m_vender_contact> m_vender_contact
+        public ObjectSet<m_employee_accesslevel> m_employee_accesslevel
         {
             get
             {
-                if ((_m_vender_contact == null))
+                if ((_m_employee_accesslevel == null))
                 {
-                    _m_vender_contact = base.CreateObjectSet<m_vender_contact>("m_vender_contact");
+                    _m_employee_accesslevel = base.CreateObjectSet<m_employee_accesslevel>("m_employee_accesslevel");
                 }
-                return _m_vender_contact;
+                return _m_employee_accesslevel;
             }
         }
-        private ObjectSet<m_vender_contact> _m_vender_contact;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<m_vender_type> m_vender_type
-        {
-            get
-            {
-                if ((_m_vender_type == null))
-                {
-                    _m_vender_type = base.CreateObjectSet<m_vender_type>("m_vender_type");
-                }
-                return _m_vender_type;
-            }
-        }
-        private ObjectSet<m_vender_type> _m_vender_type;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<venderbanking> venderbankings
-        {
-            get
-            {
-                if ((_venderbankings == null))
-                {
-                    _venderbankings = base.CreateObjectSet<venderbanking>("venderbankings");
-                }
-                return _venderbankings;
-            }
-        }
-        private ObjectSet<venderbanking> _venderbankings;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<vendor_type> vendor_type
-        {
-            get
-            {
-                if ((_vendor_type == null))
-                {
-                    _vendor_type = base.CreateObjectSet<vendor_type>("vendor_type");
-                }
-                return _vendor_type;
-            }
-        }
-        private ObjectSet<vendor_type> _vendor_type;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<world_region> world_region
-        {
-            get
-            {
-                if ((_world_region == null))
-                {
-                    _world_region = base.CreateObjectSet<world_region>("world_region");
-                }
-                return _world_region;
-            }
-        }
-        private ObjectSet<world_region> _world_region;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<wowi_product_type> wowi_product_type
-        {
-            get
-            {
-                if ((_wowi_product_type == null))
-                {
-                    _wowi_product_type = base.CreateObjectSet<wowi_product_type>("wowi_product_type");
-                }
-                return _wowi_product_type;
-            }
-        }
-        private ObjectSet<wowi_product_type> _wowi_product_type;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<wowi_tech> wowi_tech
-        {
-            get
-            {
-                if ((_wowi_tech == null))
-                {
-                    _wowi_tech = base.CreateObjectSet<wowi_tech>("wowi_tech");
-                }
-                return _wowi_tech;
-            }
-        }
-        private ObjectSet<wowi_tech> _wowi_tech;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<clientapplicant> clientapplicants
-        {
-            get
-            {
-                if ((_clientapplicants == null))
-                {
-                    _clientapplicants = base.CreateObjectSet<clientapplicant>("clientapplicants");
-                }
-                return _clientapplicants;
-            }
-        }
-        private ObjectSet<clientapplicant> _clientapplicants;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Authority> Authorities
-        {
-            get
-            {
-                if ((_Authorities == null))
-                {
-                    _Authorities = base.CreateObjectSet<Authority>("Authorities");
-                }
-                return _Authorities;
-            }
-        }
-        private ObjectSet<Authority> _Authorities;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Target_Rates> Target_Rates
-        {
-            get
-            {
-                if ((_Target_Rates == null))
-                {
-                    _Target_Rates = base.CreateObjectSet<Target_Rates>("Target_Rates");
-                }
-                return _Target_Rates;
-            }
-        }
-        private ObjectSet<Target_Rates> _Target_Rates;
+        private ObjectSet<m_employee_accesslevel> _m_employee_accesslevel;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -420,6 +420,38 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<m_vender_contact> m_vender_contact
+        {
+            get
+            {
+                if ((_m_vender_contact == null))
+                {
+                    _m_vender_contact = base.CreateObjectSet<m_vender_contact>("m_vender_contact");
+                }
+                return _m_vender_contact;
+            }
+        }
+        private ObjectSet<m_vender_contact> _m_vender_contact;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<m_vender_type> m_vender_type
+        {
+            get
+            {
+                if ((_m_vender_type == null))
+                {
+                    _m_vender_type = base.CreateObjectSet<m_vender_type>("m_vender_type");
+                }
+                return _m_vender_type;
+            }
+        }
+        private ObjectSet<m_vender_type> _m_vender_type;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<Payment_Method> Payment_Method
         {
             get
@@ -432,38 +464,6 @@ namespace WoWiModel
             }
         }
         private ObjectSet<Payment_Method> _Payment_Method;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Quotation_Price> Quotation_Price
-        {
-            get
-            {
-                if ((_Quotation_Price == null))
-                {
-                    _Quotation_Price = base.CreateObjectSet<Quotation_Price>("Quotation_Price");
-                }
-                return _Quotation_Price;
-            }
-        }
-        private ObjectSet<Quotation_Price> _Quotation_Price;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<vendor> vendors
-        {
-            get
-            {
-                if ((_vendors == null))
-                {
-                    _vendors = base.CreateObjectSet<vendor>("vendors");
-                }
-                return _vendors;
-            }
-        }
-        private ObjectSet<vendor> _vendors;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -484,38 +484,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<PR_item> PR_item
-        {
-            get
-            {
-                if ((_PR_item == null))
-                {
-                    _PR_item = base.CreateObjectSet<PR_item>("PR_item");
-                }
-                return _PR_item;
-            }
-        }
-        private ObjectSet<PR_item> _PR_item;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<employee_jobtitle> employee_jobtitle
-        {
-            get
-            {
-                if ((_employee_jobtitle == null))
-                {
-                    _employee_jobtitle = base.CreateObjectSet<employee_jobtitle>("employee_jobtitle");
-                }
-                return _employee_jobtitle;
-            }
-        }
-        private ObjectSet<employee_jobtitle> _employee_jobtitle;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<PR_authority_history> PR_authority_history
         {
             get
@@ -532,130 +500,18 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<employee> employees
+        public ObjectSet<PR_item> PR_item
         {
             get
             {
-                if ((_employees == null))
+                if ((_PR_item == null))
                 {
-                    _employees = base.CreateObjectSet<employee>("employees");
+                    _PR_item = base.CreateObjectSet<PR_item>("PR_item");
                 }
-                return _employees;
+                return _PR_item;
             }
         }
-        private ObjectSet<employee> _employees;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<invoice_target> invoice_target
-        {
-            get
-            {
-                if ((_invoice_target == null))
-                {
-                    _invoice_target = base.CreateObjectSet<invoice_target>("invoice_target");
-                }
-                return _invoice_target;
-            }
-        }
-        private ObjectSet<invoice_target> _invoice_target;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<invoice> invoices
-        {
-            get
-            {
-                if ((_invoices == null))
-                {
-                    _invoices = base.CreateObjectSet<invoice>("invoices");
-                }
-                return _invoices;
-            }
-        }
-        private ObjectSet<invoice> _invoices;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<invoice_received> invoice_received
-        {
-            get
-            {
-                if ((_invoice_received == null))
-                {
-                    _invoice_received = base.CreateObjectSet<invoice_received>("invoice_received");
-                }
-                return _invoice_received;
-            }
-        }
-        private ObjectSet<invoice_received> _invoice_received;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Quotation_Version> Quotation_Version
-        {
-            get
-            {
-                if ((_Quotation_Version == null))
-                {
-                    _Quotation_Version = base.CreateObjectSet<Quotation_Version>("Quotation_Version");
-                }
-                return _Quotation_Version;
-            }
-        }
-        private ObjectSet<Quotation_Version> _Quotation_Version;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Project> Projects
-        {
-            get
-            {
-                if ((_Projects == null))
-                {
-                    _Projects = base.CreateObjectSet<Project>("Projects");
-                }
-                return _Projects;
-            }
-        }
-        private ObjectSet<Project> _Projects;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Quotation_Target> Quotation_Target
-        {
-            get
-            {
-                if ((_Quotation_Target == null))
-                {
-                    _Quotation_Target = base.CreateObjectSet<Quotation_Target>("Quotation_Target");
-                }
-                return _Quotation_Target;
-            }
-        }
-        private ObjectSet<Quotation_Target> _Quotation_Target;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Target> Targets
-        {
-            get
-            {
-                if ((_Targets == null))
-                {
-                    _Targets = base.CreateObjectSet<Target>("Targets");
-                }
-                return _Targets;
-            }
-        }
-        private ObjectSet<Target> _Targets;
+        private ObjectSet<PR_item> _PR_item;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -676,6 +532,214 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<Project> Projects
+        {
+            get
+            {
+                if ((_Projects == null))
+                {
+                    _Projects = base.CreateObjectSet<Project>("Projects");
+                }
+                return _Projects;
+            }
+        }
+        private ObjectSet<Project> _Projects;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Project_working_log> Project_working_log
+        {
+            get
+            {
+                if ((_Project_working_log == null))
+                {
+                    _Project_working_log = base.CreateObjectSet<Project_working_log>("Project_working_log");
+                }
+                return _Project_working_log;
+            }
+        }
+        private ObjectSet<Project_working_log> _Project_working_log;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Quotation_Price> Quotation_Price
+        {
+            get
+            {
+                if ((_Quotation_Price == null))
+                {
+                    _Quotation_Price = base.CreateObjectSet<Quotation_Price>("Quotation_Price");
+                }
+                return _Quotation_Price;
+            }
+        }
+        private ObjectSet<Quotation_Price> _Quotation_Price;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Quotation_Status> Quotation_Status
+        {
+            get
+            {
+                if ((_Quotation_Status == null))
+                {
+                    _Quotation_Status = base.CreateObjectSet<Quotation_Status>("Quotation_Status");
+                }
+                return _Quotation_Status;
+            }
+        }
+        private ObjectSet<Quotation_Status> _Quotation_Status;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Quotation_Target> Quotation_Target
+        {
+            get
+            {
+                if ((_Quotation_Target == null))
+                {
+                    _Quotation_Target = base.CreateObjectSet<Quotation_Target>("Quotation_Target");
+                }
+                return _Quotation_Target;
+            }
+        }
+        private ObjectSet<Quotation_Target> _Quotation_Target;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Quotation_Version> Quotation_Version
+        {
+            get
+            {
+                if ((_Quotation_Version == null))
+                {
+                    _Quotation_Version = base.CreateObjectSet<Quotation_Version>("Quotation_Version");
+                }
+                return _Quotation_Version;
+            }
+        }
+        private ObjectSet<Quotation_Version> _Quotation_Version;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<sysdiagram> sysdiagrams
+        {
+            get
+            {
+                if ((_sysdiagrams == null))
+                {
+                    _sysdiagrams = base.CreateObjectSet<sysdiagram>("sysdiagrams");
+                }
+                return _sysdiagrams;
+            }
+        }
+        private ObjectSet<sysdiagram> _sysdiagrams;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Target> Targets
+        {
+            get
+            {
+                if ((_Targets == null))
+                {
+                    _Targets = base.CreateObjectSet<Target>("Targets");
+                }
+                return _Targets;
+            }
+        }
+        private ObjectSet<Target> _Targets;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Target_Rates> Target_Rates
+        {
+            get
+            {
+                if ((_Target_Rates == null))
+                {
+                    _Target_Rates = base.CreateObjectSet<Target_Rates>("Target_Rates");
+                }
+                return _Target_Rates;
+            }
+        }
+        private ObjectSet<Target_Rates> _Target_Rates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<venderbanking> venderbankings
+        {
+            get
+            {
+                if ((_venderbankings == null))
+                {
+                    _venderbankings = base.CreateObjectSet<venderbanking>("venderbankings");
+                }
+                return _venderbankings;
+            }
+        }
+        private ObjectSet<venderbanking> _venderbankings;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<vendor> vendors
+        {
+            get
+            {
+                if ((_vendors == null))
+                {
+                    _vendors = base.CreateObjectSet<vendor>("vendors");
+                }
+                return _vendors;
+            }
+        }
+        private ObjectSet<vendor> _vendors;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<vendor_type> vendor_type
+        {
+            get
+            {
+                if ((_vendor_type == null))
+                {
+                    _vendor_type = base.CreateObjectSet<vendor_type>("vendor_type");
+                }
+                return _vendor_type;
+            }
+        }
+        private ObjectSet<vendor_type> _vendor_type;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<world_region> world_region
+        {
+            get
+            {
+                if ((_world_region == null))
+                {
+                    _world_region = base.CreateObjectSet<world_region>("world_region");
+                }
+                return _world_region;
+            }
+        }
+        private ObjectSet<world_region> _world_region;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<wowi_bankinfo> wowi_bankinfo
         {
             get
@@ -692,37 +756,69 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<access_level> access_level
+        public ObjectSet<wowi_product_type> wowi_product_type
         {
             get
             {
-                if ((_access_level == null))
+                if ((_wowi_product_type == null))
                 {
-                    _access_level = base.CreateObjectSet<access_level>("access_level");
+                    _wowi_product_type = base.CreateObjectSet<wowi_product_type>("wowi_product_type");
                 }
-                return _access_level;
+                return _wowi_product_type;
             }
         }
-        private ObjectSet<access_level> _access_level;
+        private ObjectSet<wowi_product_type> _wowi_product_type;
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<m_employee_accesslevel> m_employee_accesslevel
+        public ObjectSet<wowi_tech> wowi_tech
         {
             get
             {
-                if ((_m_employee_accesslevel == null))
+                if ((_wowi_tech == null))
                 {
-                    _m_employee_accesslevel = base.CreateObjectSet<m_employee_accesslevel>("m_employee_accesslevel");
+                    _wowi_tech = base.CreateObjectSet<wowi_tech>("wowi_tech");
                 }
-                return _m_employee_accesslevel;
+                return _wowi_tech;
             }
         }
-        private ObjectSet<m_employee_accesslevel> _m_employee_accesslevel;
+        private ObjectSet<wowi_tech> _wowi_tech;
 
         #endregion
         #region AddTo Methods
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the access_level EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToaccess_level(access_level access_level)
+        {
+            base.AddObject("access_level", access_level);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Access_Menu EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAccess_Menu(Access_Menu access_Menu)
+        {
+            base.AddObject("Access_Menu", access_Menu);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Authorities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAuthorities(Authority authority)
+        {
+            base.AddObject("Authorities", authority);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the clientapplicants EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToclientapplicants(clientapplicant clientapplicant)
+        {
+            base.AddObject("clientapplicants", clientapplicant);
+        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the clientapplicant_industry EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -773,6 +869,46 @@ namespace WoWiModel
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the employees EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToemployees(employee employee)
+        {
+            base.AddObject("employees", employee);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the employee_jobtitle EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToemployee_jobtitle(employee_jobtitle employee_jobtitle)
+        {
+            base.AddObject("employee_jobtitle", employee_jobtitle);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the invoices EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToinvoices(invoice invoice)
+        {
+            base.AddObject("invoices", invoice);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the invoice_received EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToinvoice_received(invoice_received invoice_received)
+        {
+            base.AddObject("invoice_received", invoice_received);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the invoice_target EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToinvoice_target(invoice_target invoice_target)
+        {
+            base.AddObject("invoice_target", invoice_target);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the m_clientappliant_contact EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTom_clientappliant_contact(m_clientappliant_contact m_clientappliant_contact)
@@ -805,83 +941,11 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the m_vender_contact EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the m_employee_accesslevel EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTom_vender_contact(m_vender_contact m_vender_contact)
+        public void AddTom_employee_accesslevel(m_employee_accesslevel m_employee_accesslevel)
         {
-            base.AddObject("m_vender_contact", m_vender_contact);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the m_vender_type EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTom_vender_type(m_vender_type m_vender_type)
-        {
-            base.AddObject("m_vender_type", m_vender_type);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the venderbankings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTovenderbankings(venderbanking venderbanking)
-        {
-            base.AddObject("venderbankings", venderbanking);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the vendor_type EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTovendor_type(vendor_type vendor_type)
-        {
-            base.AddObject("vendor_type", vendor_type);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the world_region EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToworld_region(world_region world_region)
-        {
-            base.AddObject("world_region", world_region);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the wowi_product_type EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTowowi_product_type(wowi_product_type wowi_product_type)
-        {
-            base.AddObject("wowi_product_type", wowi_product_type);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the wowi_tech EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTowowi_tech(wowi_tech wowi_tech)
-        {
-            base.AddObject("wowi_tech", wowi_tech);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the clientapplicants EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToclientapplicants(clientapplicant clientapplicant)
-        {
-            base.AddObject("clientapplicants", clientapplicant);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Authorities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToAuthorities(Authority authority)
-        {
-            base.AddObject("Authorities", authority);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Target_Rates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToTarget_Rates(Target_Rates target_Rates)
-        {
-            base.AddObject("Target_Rates", target_Rates);
+            base.AddObject("m_employee_accesslevel", m_employee_accesslevel);
         }
     
         /// <summary>
@@ -901,27 +965,27 @@ namespace WoWiModel
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the m_vender_contact EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTom_vender_contact(m_vender_contact m_vender_contact)
+        {
+            base.AddObject("m_vender_contact", m_vender_contact);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the m_vender_type EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTom_vender_type(m_vender_type m_vender_type)
+        {
+            base.AddObject("m_vender_type", m_vender_type);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the Payment_Method EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToPayment_Method(Payment_Method payment_Method)
         {
             base.AddObject("Payment_Method", payment_Method);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Quotation_Price EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToQuotation_Price(Quotation_Price quotation_Price)
-        {
-            base.AddObject("Quotation_Price", quotation_Price);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the vendors EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTovendors(vendor vendor)
-        {
-            base.AddObject("vendors", vendor);
         }
     
         /// <summary>
@@ -933,22 +997,6 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the PR_item EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPR_item(PR_item pR_item)
-        {
-            base.AddObject("PR_item", pR_item);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the employee_jobtitle EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToemployee_jobtitle(employee_jobtitle employee_jobtitle)
-        {
-            base.AddObject("employee_jobtitle", employee_jobtitle);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the PR_authority_history EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToPR_authority_history(PR_authority_history pR_authority_history)
@@ -957,67 +1005,11 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the employees EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the PR_item EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToemployees(employee employee)
+        public void AddToPR_item(PR_item pR_item)
         {
-            base.AddObject("employees", employee);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the invoice_target EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToinvoice_target(invoice_target invoice_target)
-        {
-            base.AddObject("invoice_target", invoice_target);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the invoices EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToinvoices(invoice invoice)
-        {
-            base.AddObject("invoices", invoice);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the invoice_received EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToinvoice_received(invoice_received invoice_received)
-        {
-            base.AddObject("invoice_received", invoice_received);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Quotation_Version EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToQuotation_Version(Quotation_Version quotation_Version)
-        {
-            base.AddObject("Quotation_Version", quotation_Version);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Projects EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToProjects(Project project)
-        {
-            base.AddObject("Projects", project);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Quotation_Target EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToQuotation_Target(Quotation_Target quotation_Target)
-        {
-            base.AddObject("Quotation_Target", quotation_Target);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Targets EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToTargets(Target target)
-        {
-            base.AddObject("Targets", target);
+            base.AddObject("PR_item", pR_item);
         }
     
         /// <summary>
@@ -1029,6 +1021,110 @@ namespace WoWiModel
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the Projects EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProjects(Project project)
+        {
+            base.AddObject("Projects", project);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Project_working_log EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProject_working_log(Project_working_log project_working_log)
+        {
+            base.AddObject("Project_working_log", project_working_log);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Quotation_Price EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToQuotation_Price(Quotation_Price quotation_Price)
+        {
+            base.AddObject("Quotation_Price", quotation_Price);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Quotation_Status EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToQuotation_Status(Quotation_Status quotation_Status)
+        {
+            base.AddObject("Quotation_Status", quotation_Status);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Quotation_Target EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToQuotation_Target(Quotation_Target quotation_Target)
+        {
+            base.AddObject("Quotation_Target", quotation_Target);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Quotation_Version EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToQuotation_Version(Quotation_Version quotation_Version)
+        {
+            base.AddObject("Quotation_Version", quotation_Version);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the sysdiagrams EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTosysdiagrams(sysdiagram sysdiagram)
+        {
+            base.AddObject("sysdiagrams", sysdiagram);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Targets EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTargets(Target target)
+        {
+            base.AddObject("Targets", target);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Target_Rates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTarget_Rates(Target_Rates target_Rates)
+        {
+            base.AddObject("Target_Rates", target_Rates);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the venderbankings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTovenderbankings(venderbanking venderbanking)
+        {
+            base.AddObject("venderbankings", venderbanking);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the vendors EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTovendors(vendor vendor)
+        {
+            base.AddObject("vendors", vendor);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the vendor_type EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTovendor_type(vendor_type vendor_type)
+        {
+            base.AddObject("vendor_type", vendor_type);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the world_region EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToworld_region(world_region world_region)
+        {
+            base.AddObject("world_region", world_region);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the wowi_bankinfo EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTowowi_bankinfo(wowi_bankinfo wowi_bankinfo)
@@ -1037,19 +1133,19 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the access_level EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the wowi_product_type EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToaccess_level(access_level access_level)
+        public void AddTowowi_product_type(wowi_product_type wowi_product_type)
         {
-            base.AddObject("access_level", access_level);
+            base.AddObject("wowi_product_type", wowi_product_type);
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the m_employee_accesslevel EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the wowi_tech EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTom_employee_accesslevel(m_employee_accesslevel m_employee_accesslevel)
+        public void AddTowowi_tech(wowi_tech wowi_tech)
         {
-            base.AddObject("m_employee_accesslevel", m_employee_accesslevel);
+            base.AddObject("wowi_tech", wowi_tech);
         }
 
         #endregion
@@ -1266,6 +1362,139 @@ namespace WoWiModel
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WoWiModel", Name="Access_Menu")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Access_Menu : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Access_Menu object.
+        /// </summary>
+        /// <param name="menuID">Initial value of the MenuID property.</param>
+        /// <param name="username">Initial value of the Username property.</param>
+        /// <param name="menuText">Initial value of the MenuText property.</param>
+        /// <param name="menuValuePath">Initial value of the MenuValuePath property.</param>
+        public static Access_Menu CreateAccess_Menu(global::System.Int32 menuID, global::System.String username, global::System.String menuText, global::System.String menuValuePath)
+        {
+            Access_Menu access_Menu = new Access_Menu();
+            access_Menu.MenuID = menuID;
+            access_Menu.Username = username;
+            access_Menu.MenuText = menuText;
+            access_Menu.MenuValuePath = menuValuePath;
+            return access_Menu;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 MenuID
+        {
+            get
+            {
+                return _MenuID;
+            }
+            set
+            {
+                if (_MenuID != value)
+                {
+                    OnMenuIDChanging(value);
+                    ReportPropertyChanging("MenuID");
+                    _MenuID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("MenuID");
+                    OnMenuIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _MenuID;
+        partial void OnMenuIDChanging(global::System.Int32 value);
+        partial void OnMenuIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Username
+        {
+            get
+            {
+                return _Username;
+            }
+            set
+            {
+                OnUsernameChanging(value);
+                ReportPropertyChanging("Username");
+                _Username = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Username");
+                OnUsernameChanged();
+            }
+        }
+        private global::System.String _Username;
+        partial void OnUsernameChanging(global::System.String value);
+        partial void OnUsernameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MenuText
+        {
+            get
+            {
+                return _MenuText;
+            }
+            set
+            {
+                OnMenuTextChanging(value);
+                ReportPropertyChanging("MenuText");
+                _MenuText = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MenuText");
+                OnMenuTextChanged();
+            }
+        }
+        private global::System.String _MenuText;
+        partial void OnMenuTextChanging(global::System.String value);
+        partial void OnMenuTextChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MenuValuePath
+        {
+            get
+            {
+                return _MenuValuePath;
+            }
+            set
+            {
+                OnMenuValuePathChanging(value);
+                ReportPropertyChanging("MenuValuePath");
+                _MenuValuePath = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MenuValuePath");
+                OnMenuValuePathChanged();
+            }
+        }
+        private global::System.String _MenuValuePath;
+        partial void OnMenuValuePathChanging(global::System.String value);
+        partial void OnMenuValuePathChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="WoWiModel", Name="Authority")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1276,15 +1505,19 @@ namespace WoWiModel
         /// <summary>
         /// Create a new Authority object.
         /// </summary>
+        /// <param name="authority_id">Initial value of the authority_id property.</param>
         /// <param name="country_id">Initial value of the country_id property.</param>
         /// <param name="wowi_product_type_id">Initial value of the wowi_product_type_id property.</param>
-        /// <param name="authority_id">Initial value of the authority_id property.</param>
-        public static Authority CreateAuthority(global::System.Int32 country_id, global::System.Int32 wowi_product_type_id, global::System.Int32 authority_id)
+        /// <param name="authority_name">Initial value of the authority_name property.</param>
+        /// <param name="publish">Initial value of the Publish property.</param>
+        public static Authority CreateAuthority(global::System.Int32 authority_id, global::System.Int32 country_id, global::System.Int32 wowi_product_type_id, global::System.String authority_name, global::System.Boolean publish)
         {
             Authority authority = new Authority();
+            authority.authority_id = authority_id;
             authority.country_id = country_id;
             authority.wowi_product_type_id = wowi_product_type_id;
-            authority.authority_id = authority_id;
+            authority.authority_name = authority_name;
+            authority.Publish = publish;
             return authority;
         }
 
@@ -1296,6 +1529,33 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.Int32 authority_id
+        {
+            get
+            {
+                return _authority_id;
+            }
+            set
+            {
+                if (_authority_id != value)
+                {
+                    Onauthority_idChanging(value);
+                    ReportPropertyChanging("authority_id");
+                    _authority_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("authority_id");
+                    Onauthority_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _authority_id;
+        partial void Onauthority_idChanging(global::System.Int32 value);
+        partial void Onauthority_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.Int32 country_id
         {
             get
@@ -1304,14 +1564,11 @@ namespace WoWiModel
             }
             set
             {
-                if (_country_id != value)
-                {
-                    Oncountry_idChanging(value);
-                    ReportPropertyChanging("country_id");
-                    _country_id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("country_id");
-                    Oncountry_idChanged();
-                }
+                Oncountry_idChanging(value);
+                ReportPropertyChanging("country_id");
+                _country_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("country_id");
+                Oncountry_idChanged();
             }
         }
         private global::System.Int32 _country_id;
@@ -1321,7 +1578,7 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 wowi_product_type_id
         {
@@ -1331,14 +1588,11 @@ namespace WoWiModel
             }
             set
             {
-                if (_wowi_product_type_id != value)
-                {
-                    Onwowi_product_type_idChanging(value);
-                    ReportPropertyChanging("wowi_product_type_id");
-                    _wowi_product_type_id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("wowi_product_type_id");
-                    Onwowi_product_type_idChanged();
-                }
+                Onwowi_product_type_idChanging(value);
+                ReportPropertyChanging("wowi_product_type_id");
+                _wowi_product_type_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("wowi_product_type_id");
+                Onwowi_product_type_idChanged();
             }
         }
         private global::System.Int32 _wowi_product_type_id;
@@ -1348,7 +1602,7 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String authority_name
         {
@@ -1360,7 +1614,7 @@ namespace WoWiModel
             {
                 Onauthority_nameChanging(value);
                 ReportPropertyChanging("authority_name");
-                _authority_name = StructuralObject.SetValidValue(value, true);
+                _authority_name = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("authority_name");
                 Onauthority_nameChanged();
             }
@@ -1368,6 +1622,30 @@ namespace WoWiModel
         private global::System.String _authority_name;
         partial void Onauthority_nameChanging(global::System.String value);
         partial void Onauthority_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String authority_fullname
+        {
+            get
+            {
+                return _authority_fullname;
+            }
+            set
+            {
+                Onauthority_fullnameChanging(value);
+                ReportPropertyChanging("authority_fullname");
+                _authority_fullname = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("authority_fullname");
+                Onauthority_fullnameChanged();
+            }
+        }
+        private global::System.String _authority_fullname;
+        partial void Onauthority_fullnameChanging(global::System.String value);
+        partial void Onauthority_fullnameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1468,50 +1746,50 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 authority_id
+        public global::System.String Target_Description
         {
             get
             {
-                return _authority_id;
+                return _Target_Description;
             }
             set
             {
-                Onauthority_idChanging(value);
-                ReportPropertyChanging("authority_id");
-                _authority_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("authority_id");
-                Onauthority_idChanged();
+                OnTarget_DescriptionChanging(value);
+                ReportPropertyChanging("Target_Description");
+                _Target_Description = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Target_Description");
+                OnTarget_DescriptionChanged();
             }
         }
-        private global::System.Int32 _authority_id;
-        partial void Onauthority_idChanging(global::System.Int32 value);
-        partial void Onauthority_idChanged();
+        private global::System.String _Target_Description;
+        partial void OnTarget_DescriptionChanging(global::System.String value);
+        partial void OnTarget_DescriptionChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String authority_fullname
+        public global::System.Boolean Publish
         {
             get
             {
-                return _authority_fullname;
+                return _Publish;
             }
             set
             {
-                Onauthority_fullnameChanging(value);
-                ReportPropertyChanging("authority_fullname");
-                _authority_fullname = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("authority_fullname");
-                Onauthority_fullnameChanged();
+                OnPublishChanging(value);
+                ReportPropertyChanging("Publish");
+                _Publish = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Publish");
+                OnPublishChanged();
             }
         }
-        private global::System.String _authority_fullname;
-        partial void Onauthority_fullnameChanging(global::System.String value);
-        partial void Onauthority_fullnameChanged();
+        private global::System.Boolean _Publish;
+        partial void OnPublishChanging(global::System.Boolean value);
+        partial void OnPublishChanged();
 
         #endregion
     
@@ -1531,15 +1809,13 @@ namespace WoWiModel
         /// Create a new clientapplicant object.
         /// </summary>
         /// <param name="id">Initial value of the id property.</param>
-        /// <param name="code">Initial value of the code property.</param>
         /// <param name="clientapplicant_type">Initial value of the clientapplicant_type property.</param>
         /// <param name="potential_client">Initial value of the potential_client property.</param>
         /// <param name="publish">Initial value of the publish property.</param>
-        public static clientapplicant Createclientapplicant(global::System.Int32 id, global::System.String code, global::System.Byte clientapplicant_type, global::System.Boolean potential_client, global::System.Boolean publish)
+        public static clientapplicant Createclientapplicant(global::System.Int32 id, global::System.Byte clientapplicant_type, global::System.Boolean potential_client, global::System.Boolean publish)
         {
             clientapplicant clientapplicant = new clientapplicant();
             clientapplicant.id = id;
-            clientapplicant.code = code;
             clientapplicant.clientapplicant_type = clientapplicant_type;
             clientapplicant.potential_client = potential_client;
             clientapplicant.publish = publish;
@@ -1579,7 +1855,7 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String code
         {
@@ -1591,7 +1867,7 @@ namespace WoWiModel
             {
                 OncodeChanging(value);
                 ReportPropertyChanging("code");
-                _code = StructuralObject.SetValidValue(value, false);
+                _code = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("code");
                 OncodeChanged();
             }
@@ -2277,7 +2553,7 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Byte> paymentterm
+        public Nullable<global::System.Int32> paymentterm
         {
             get
             {
@@ -2292,8 +2568,8 @@ namespace WoWiModel
                 OnpaymenttermChanged();
             }
         }
-        private Nullable<global::System.Byte> _paymentterm;
-        partial void OnpaymenttermChanging(Nullable<global::System.Byte> value);
+        private Nullable<global::System.Int32> _paymentterm;
+        partial void OnpaymenttermChanging(Nullable<global::System.Int32> value);
         partial void OnpaymenttermChanged();
     
         /// <summary>
@@ -3940,30 +4216,6 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> employee_id
-        {
-            get
-            {
-                return _employee_id;
-            }
-            set
-            {
-                Onemployee_idChanging(value);
-                ReportPropertyChanging("employee_id");
-                _employee_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("employee_id");
-                Onemployee_idChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _employee_id;
-        partial void Onemployee_idChanging(Nullable<global::System.Int32> value);
-        partial void Onemployee_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Int32> department_id
         {
             get
@@ -3982,6 +4234,30 @@ namespace WoWiModel
         private Nullable<global::System.Int32> _department_id;
         partial void Ondepartment_idChanging(Nullable<global::System.Int32> value);
         partial void Ondepartment_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> employee_id
+        {
+            get
+            {
+                return _employee_id;
+            }
+            set
+            {
+                Onemployee_idChanging(value);
+                ReportPropertyChanging("employee_id");
+                _employee_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("employee_id");
+                Onemployee_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _employee_id;
+        partial void Onemployee_idChanging(Nullable<global::System.Int32> value);
+        partial void Onemployee_idChanged();
 
         #endregion
     
@@ -4318,6 +4594,54 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public global::System.String country_telephone_code
+        {
+            get
+            {
+                return _country_telephone_code;
+            }
+            set
+            {
+                Oncountry_telephone_codeChanging(value);
+                ReportPropertyChanging("country_telephone_code");
+                _country_telephone_code = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("country_telephone_code");
+                Oncountry_telephone_codeChanged();
+            }
+        }
+        private global::System.String _country_telephone_code;
+        partial void Oncountry_telephone_codeChanging(global::System.String value);
+        partial void Oncountry_telephone_codeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String country_currency_type
+        {
+            get
+            {
+                return _country_currency_type;
+            }
+            set
+            {
+                Oncountry_currency_typeChanging(value);
+                ReportPropertyChanging("country_currency_type");
+                _country_currency_type = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("country_currency_type");
+                Oncountry_currency_typeChanged();
+            }
+        }
+        private global::System.String _country_currency_type;
+        partial void Oncountry_currency_typeChanging(global::System.String value);
+        partial void Oncountry_currency_typeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.Byte> world_region_id
         {
             get
@@ -4432,54 +4756,6 @@ namespace WoWiModel
         private Nullable<global::System.DateTime> _modify_date;
         partial void Onmodify_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onmodify_dateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String country_telephone_code
-        {
-            get
-            {
-                return _country_telephone_code;
-            }
-            set
-            {
-                Oncountry_telephone_codeChanging(value);
-                ReportPropertyChanging("country_telephone_code");
-                _country_telephone_code = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("country_telephone_code");
-                Oncountry_telephone_codeChanged();
-            }
-        }
-        private global::System.String _country_telephone_code;
-        partial void Oncountry_telephone_codeChanging(global::System.String value);
-        partial void Oncountry_telephone_codeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String country_currency_type
-        {
-            get
-            {
-                return _country_currency_type;
-            }
-            set
-            {
-                Oncountry_currency_typeChanging(value);
-                ReportPropertyChanging("country_currency_type");
-                _country_currency_type = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("country_currency_type");
-                Oncountry_currency_typeChanged();
-            }
-        }
-        private global::System.String _country_currency_type;
-        partial void Oncountry_currency_typeChanging(global::System.String value);
-        partial void Oncountry_currency_typeChanged();
 
         #endregion
     
@@ -7822,6 +8098,54 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public Nullable<global::System.Int32> vendor_contact_id
+        {
+            get
+            {
+                return _vendor_contact_id;
+            }
+            set
+            {
+                Onvendor_contact_idChanging(value);
+                ReportPropertyChanging("vendor_contact_id");
+                _vendor_contact_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("vendor_contact_id");
+                Onvendor_contact_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _vendor_contact_id;
+        partial void Onvendor_contact_idChanging(Nullable<global::System.Int32> value);
+        partial void Onvendor_contact_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> vendor_banking_id
+        {
+            get
+            {
+                return _vendor_banking_id;
+            }
+            set
+            {
+                Onvendor_banking_idChanging(value);
+                ReportPropertyChanging("vendor_banking_id");
+                _vendor_banking_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("vendor_banking_id");
+                Onvendor_banking_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _vendor_banking_id;
+        partial void Onvendor_banking_idChanging(Nullable<global::System.Int32> value);
+        partial void Onvendor_banking_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.Byte> net
         {
             get
@@ -8206,72 +8530,24 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> vendor_contact_id
+        public Nullable<global::System.DateTime> target_payment_date
         {
             get
             {
-                return _vendor_contact_id;
+                return _target_payment_date;
             }
             set
             {
-                Onvendor_contact_idChanging(value);
-                ReportPropertyChanging("vendor_contact_id");
-                _vendor_contact_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("vendor_contact_id");
-                Onvendor_contact_idChanged();
+                Ontarget_payment_dateChanging(value);
+                ReportPropertyChanging("target_payment_date");
+                _target_payment_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("target_payment_date");
+                Ontarget_payment_dateChanged();
             }
         }
-        private Nullable<global::System.Int32> _vendor_contact_id;
-        partial void Onvendor_contact_idChanging(Nullable<global::System.Int32> value);
-        partial void Onvendor_contact_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> vendor_banking_id
-        {
-            get
-            {
-                return _vendor_banking_id;
-            }
-            set
-            {
-                Onvendor_banking_idChanging(value);
-                ReportPropertyChanging("vendor_banking_id");
-                _vendor_banking_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("vendor_banking_id");
-                Onvendor_banking_idChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _vendor_banking_id;
-        partial void Onvendor_banking_idChanging(Nullable<global::System.Int32> value);
-        partial void Onvendor_banking_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String vendor_quotation_no
-        {
-            get
-            {
-                return _vendor_quotation_no;
-            }
-            set
-            {
-                Onvendor_quotation_noChanging(value);
-                ReportPropertyChanging("vendor_quotation_no");
-                _vendor_quotation_no = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("vendor_quotation_no");
-                Onvendor_quotation_noChanged();
-            }
-        }
-        private global::System.String _vendor_quotation_no;
-        partial void Onvendor_quotation_noChanging(global::System.String value);
-        partial void Onvendor_quotation_noChanged();
+        private Nullable<global::System.DateTime> _target_payment_date;
+        partial void Ontarget_payment_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Ontarget_payment_dateChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8302,48 +8578,24 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> target_payment_date
+        public global::System.String vendor_quotation_no
         {
             get
             {
-                return _target_payment_date;
+                return _vendor_quotation_no;
             }
             set
             {
-                Ontarget_payment_dateChanging(value);
-                ReportPropertyChanging("target_payment_date");
-                _target_payment_date = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("target_payment_date");
-                Ontarget_payment_dateChanged();
+                Onvendor_quotation_noChanging(value);
+                ReportPropertyChanging("vendor_quotation_no");
+                _vendor_quotation_no = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("vendor_quotation_no");
+                Onvendor_quotation_noChanged();
             }
         }
-        private Nullable<global::System.DateTime> _target_payment_date;
-        partial void Ontarget_payment_dateChanging(Nullable<global::System.DateTime> value);
-        partial void Ontarget_payment_dateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> department_id
-        {
-            get
-            {
-                return _department_id;
-            }
-            set
-            {
-                Ondepartment_idChanging(value);
-                ReportPropertyChanging("department_id");
-                _department_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("department_id");
-                Ondepartment_idChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _department_id;
-        partial void Ondepartment_idChanging(Nullable<global::System.Int32> value);
-        partial void Ondepartment_idChanged();
+        private global::System.String _vendor_quotation_no;
+        partial void Onvendor_quotation_noChanging(global::System.String value);
+        partial void Onvendor_quotation_noChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8368,6 +8620,30 @@ namespace WoWiModel
         private Nullable<global::System.Int32> _employee_id;
         partial void Onemployee_idChanging(Nullable<global::System.Int32> value);
         partial void Onemployee_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> department_id
+        {
+            get
+            {
+                return _department_id;
+            }
+            set
+            {
+                Ondepartment_idChanging(value);
+                ReportPropertyChanging("department_id");
+                _department_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("department_id");
+                Ondepartment_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _department_id;
+        partial void Ondepartment_idChanging(Nullable<global::System.Int32> value);
+        partial void Ondepartment_idChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -10240,6 +10516,289 @@ namespace WoWiModel
         private global::System.Int32 _Quotation_Id;
         partial void OnQuotation_IdChanging(global::System.Int32 value);
         partial void OnQuotation_IdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Quotation_No
+        {
+            get
+            {
+                return _Quotation_No;
+            }
+            set
+            {
+                OnQuotation_NoChanging(value);
+                ReportPropertyChanging("Quotation_No");
+                _Quotation_No = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Quotation_No");
+                OnQuotation_NoChanged();
+            }
+        }
+        private global::System.String _Quotation_No;
+        partial void OnQuotation_NoChanging(global::System.String value);
+        partial void OnQuotation_NoChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WoWiModel", Name="Project_working_log")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Project_working_log : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Project_working_log object.
+        /// </summary>
+        /// <param name="log_id">Initial value of the log_id property.</param>
+        /// <param name="target_id">Initial value of the target_id property.</param>
+        /// <param name="log_date">Initial value of the log_date property.</param>
+        /// <param name="log_content">Initial value of the log_content property.</param>
+        /// <param name="create_date">Initial value of the create_date property.</param>
+        /// <param name="external_use">Initial value of the external_use property.</param>
+        /// <param name="voided">Initial value of the voided property.</param>
+        public static Project_working_log CreateProject_working_log(global::System.Int32 log_id, global::System.Int32 target_id, global::System.DateTime log_date, global::System.String log_content, global::System.DateTime create_date, global::System.Boolean external_use, global::System.Boolean voided)
+        {
+            Project_working_log project_working_log = new Project_working_log();
+            project_working_log.log_id = log_id;
+            project_working_log.target_id = target_id;
+            project_working_log.log_date = log_date;
+            project_working_log.log_content = log_content;
+            project_working_log.create_date = create_date;
+            project_working_log.external_use = external_use;
+            project_working_log.voided = voided;
+            return project_working_log;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 log_id
+        {
+            get
+            {
+                return _log_id;
+            }
+            set
+            {
+                if (_log_id != value)
+                {
+                    Onlog_idChanging(value);
+                    ReportPropertyChanging("log_id");
+                    _log_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("log_id");
+                    Onlog_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _log_id;
+        partial void Onlog_idChanging(global::System.Int32 value);
+        partial void Onlog_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 target_id
+        {
+            get
+            {
+                return _target_id;
+            }
+            set
+            {
+                Ontarget_idChanging(value);
+                ReportPropertyChanging("target_id");
+                _target_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("target_id");
+                Ontarget_idChanged();
+            }
+        }
+        private global::System.Int32 _target_id;
+        partial void Ontarget_idChanging(global::System.Int32 value);
+        partial void Ontarget_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime log_date
+        {
+            get
+            {
+                return _log_date;
+            }
+            set
+            {
+                Onlog_dateChanging(value);
+                ReportPropertyChanging("log_date");
+                _log_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("log_date");
+                Onlog_dateChanged();
+            }
+        }
+        private global::System.DateTime _log_date;
+        partial void Onlog_dateChanging(global::System.DateTime value);
+        partial void Onlog_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String log_content
+        {
+            get
+            {
+                return _log_content;
+            }
+            set
+            {
+                Onlog_contentChanging(value);
+                ReportPropertyChanging("log_content");
+                _log_content = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("log_content");
+                Onlog_contentChanged();
+            }
+        }
+        private global::System.String _log_content;
+        partial void Onlog_contentChanging(global::System.String value);
+        partial void Onlog_contentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime create_date
+        {
+            get
+            {
+                return _create_date;
+            }
+            set
+            {
+                Oncreate_dateChanging(value);
+                ReportPropertyChanging("create_date");
+                _create_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("create_date");
+                Oncreate_dateChanged();
+            }
+        }
+        private global::System.DateTime _create_date;
+        partial void Oncreate_dateChanging(global::System.DateTime value);
+        partial void Oncreate_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> modified_date
+        {
+            get
+            {
+                return _modified_date;
+            }
+            set
+            {
+                Onmodified_dateChanging(value);
+                ReportPropertyChanging("modified_date");
+                _modified_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("modified_date");
+                Onmodified_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _modified_date;
+        partial void Onmodified_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onmodified_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String create_by
+        {
+            get
+            {
+                return _create_by;
+            }
+            set
+            {
+                Oncreate_byChanging(value);
+                ReportPropertyChanging("create_by");
+                _create_by = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("create_by");
+                Oncreate_byChanged();
+            }
+        }
+        private global::System.String _create_by;
+        partial void Oncreate_byChanging(global::System.String value);
+        partial void Oncreate_byChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean external_use
+        {
+            get
+            {
+                return _external_use;
+            }
+            set
+            {
+                Onexternal_useChanging(value);
+                ReportPropertyChanging("external_use");
+                _external_use = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("external_use");
+                Onexternal_useChanged();
+            }
+        }
+        private global::System.Boolean _external_use;
+        partial void Onexternal_useChanging(global::System.Boolean value);
+        partial void Onexternal_useChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean voided
+        {
+            get
+            {
+                return _voided;
+            }
+            set
+            {
+                OnvoidedChanging(value);
+                ReportPropertyChanging("voided");
+                _voided = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("voided");
+                OnvoidedChanged();
+            }
+        }
+        private global::System.Boolean _voided;
+        partial void OnvoidedChanging(global::System.Boolean value);
+        partial void OnvoidedChanged();
 
         #endregion
     
@@ -10607,6 +11166,85 @@ namespace WoWiModel
         private Nullable<global::System.DateTime> _modify_date;
         partial void Onmodify_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onmodify_dateChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WoWiModel", Name="Quotation_Status")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Quotation_Status : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Quotation_Status object.
+        /// </summary>
+        /// <param name="quotation_Status_Id">Initial value of the Quotation_Status_Id property.</param>
+        public static Quotation_Status CreateQuotation_Status(global::System.Byte quotation_Status_Id)
+        {
+            Quotation_Status quotation_Status = new Quotation_Status();
+            quotation_Status.Quotation_Status_Id = quotation_Status_Id;
+            return quotation_Status;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte Quotation_Status_Id
+        {
+            get
+            {
+                return _Quotation_Status_Id;
+            }
+            set
+            {
+                if (_Quotation_Status_Id != value)
+                {
+                    OnQuotation_Status_IdChanging(value);
+                    ReportPropertyChanging("Quotation_Status_Id");
+                    _Quotation_Status_Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Quotation_Status_Id");
+                    OnQuotation_Status_IdChanged();
+                }
+            }
+        }
+        private global::System.Byte _Quotation_Status_Id;
+        partial void OnQuotation_Status_IdChanging(global::System.Byte value);
+        partial void OnQuotation_Status_IdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Quotation_Status_Name
+        {
+            get
+            {
+                return _Quotation_Status_Name;
+            }
+            set
+            {
+                OnQuotation_Status_NameChanging(value);
+                ReportPropertyChanging("Quotation_Status_Name");
+                _Quotation_Status_Name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Quotation_Status_Name");
+                OnQuotation_Status_NameChanged();
+            }
+        }
+        private global::System.String _Quotation_Status_Name;
+        partial void OnQuotation_Status_NameChanging(global::System.String value);
+        partial void OnQuotation_Status_NameChanged();
 
         #endregion
     
@@ -11454,6 +12092,102 @@ namespace WoWiModel
         private global::System.String _PR_Flag;
         partial void OnPR_FlagChanging(global::System.String value);
         partial void OnPR_FlagChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Bill1
+        {
+            get
+            {
+                return _Bill1;
+            }
+            set
+            {
+                OnBill1Changing(value);
+                ReportPropertyChanging("Bill1");
+                _Bill1 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Bill1");
+                OnBill1Changed();
+            }
+        }
+        private Nullable<global::System.Decimal> _Bill1;
+        partial void OnBill1Changing(Nullable<global::System.Decimal> value);
+        partial void OnBill1Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Bill2
+        {
+            get
+            {
+                return _Bill2;
+            }
+            set
+            {
+                OnBill2Changing(value);
+                ReportPropertyChanging("Bill2");
+                _Bill2 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Bill2");
+                OnBill2Changed();
+            }
+        }
+        private Nullable<global::System.Decimal> _Bill2;
+        partial void OnBill2Changing(Nullable<global::System.Decimal> value);
+        partial void OnBill2Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Bill3
+        {
+            get
+            {
+                return _Bill3;
+            }
+            set
+            {
+                OnBill3Changing(value);
+                ReportPropertyChanging("Bill3");
+                _Bill3 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Bill3");
+                OnBill3Changed();
+            }
+        }
+        private Nullable<global::System.Decimal> _Bill3;
+        partial void OnBill3Changing(Nullable<global::System.Decimal> value);
+        partial void OnBill3Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> BillE
+        {
+            get
+            {
+                return _BillE;
+            }
+            set
+            {
+                OnBillEChanging(value);
+                ReportPropertyChanging("BillE");
+                _BillE = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BillE");
+                OnBillEChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _BillE;
+        partial void OnBillEChanging(Nullable<global::System.Decimal> value);
+        partial void OnBillEChanged();
 
         #endregion
     
@@ -11473,12 +12207,10 @@ namespace WoWiModel
         /// Create a new Quotation_Version object.
         /// </summary>
         /// <param name="quotation_Version_Id">Initial value of the Quotation_Version_Id property.</param>
-        /// <param name="max_Q_Authorize_Amt">Initial value of the Max_Q_Authorize_Amt property.</param>
-        public static Quotation_Version CreateQuotation_Version(global::System.Int32 quotation_Version_Id, global::System.Int32 max_Q_Authorize_Amt)
+        public static Quotation_Version CreateQuotation_Version(global::System.Int32 quotation_Version_Id)
         {
             Quotation_Version quotation_Version = new Quotation_Version();
             quotation_Version.Quotation_Version_Id = quotation_Version_Id;
-            quotation_Version.Max_Q_Authorize_Amt = max_Q_Authorize_Amt;
             return quotation_Version;
         }
 
@@ -11851,9 +12583,9 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 Max_Q_Authorize_Amt
+        public Nullable<global::System.Int32> Max_Q_Authorize_Amt
         {
             get
             {
@@ -11868,8 +12600,8 @@ namespace WoWiModel
                 OnMax_Q_Authorize_AmtChanged();
             }
         }
-        private global::System.Int32 _Max_Q_Authorize_Amt;
-        partial void OnMax_Q_Authorize_AmtChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _Max_Q_Authorize_Amt;
+        partial void OnMax_Q_Authorize_AmtChanging(Nullable<global::System.Int32> value);
         partial void OnMax_Q_Authorize_AmtChanged();
     
         /// <summary>
@@ -13343,6 +14075,161 @@ namespace WoWiModel
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WoWiModel", Name="sysdiagram")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class sysdiagram : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new sysdiagram object.
+        /// </summary>
+        /// <param name="name">Initial value of the name property.</param>
+        /// <param name="principal_id">Initial value of the principal_id property.</param>
+        /// <param name="diagram_id">Initial value of the diagram_id property.</param>
+        public static sysdiagram Createsysdiagram(global::System.String name, global::System.Int32 principal_id, global::System.Int32 diagram_id)
+        {
+            sysdiagram sysdiagram = new sysdiagram();
+            sysdiagram.name = name;
+            sysdiagram.principal_id = principal_id;
+            sysdiagram.diagram_id = diagram_id;
+            return sysdiagram;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                OnnameChanging(value);
+                ReportPropertyChanging("name");
+                _name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("name");
+                OnnameChanged();
+            }
+        }
+        private global::System.String _name;
+        partial void OnnameChanging(global::System.String value);
+        partial void OnnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 principal_id
+        {
+            get
+            {
+                return _principal_id;
+            }
+            set
+            {
+                Onprincipal_idChanging(value);
+                ReportPropertyChanging("principal_id");
+                _principal_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("principal_id");
+                Onprincipal_idChanged();
+            }
+        }
+        private global::System.Int32 _principal_id;
+        partial void Onprincipal_idChanging(global::System.Int32 value);
+        partial void Onprincipal_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 diagram_id
+        {
+            get
+            {
+                return _diagram_id;
+            }
+            set
+            {
+                if (_diagram_id != value)
+                {
+                    Ondiagram_idChanging(value);
+                    ReportPropertyChanging("diagram_id");
+                    _diagram_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("diagram_id");
+                    Ondiagram_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _diagram_id;
+        partial void Ondiagram_idChanging(global::System.Int32 value);
+        partial void Ondiagram_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> version
+        {
+            get
+            {
+                return _version;
+            }
+            set
+            {
+                OnversionChanging(value);
+                ReportPropertyChanging("version");
+                _version = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("version");
+                OnversionChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _version;
+        partial void OnversionChanging(Nullable<global::System.Int32> value);
+        partial void OnversionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] definition
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_definition);
+            }
+            set
+            {
+                OndefinitionChanging(value);
+                ReportPropertyChanging("definition");
+                _definition = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("definition");
+                OndefinitionChanged();
+            }
+        }
+        private global::System.Byte[] _definition;
+        partial void OndefinitionChanging(global::System.Byte[] value);
+        partial void OndefinitionChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="WoWiModel", Name="Target")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -13701,30 +14588,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String authority_name
-        {
-            get
-            {
-                return _authority_name;
-            }
-            set
-            {
-                Onauthority_nameChanging(value);
-                ReportPropertyChanging("authority_name");
-                _authority_name = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("authority_name");
-                Onauthority_nameChanged();
-            }
-        }
-        private global::System.String _authority_name;
-        partial void Onauthority_nameChanging(global::System.String value);
-        partial void Onauthority_nameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 Technology_id
@@ -13751,6 +14614,54 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public Nullable<global::System.Int32> authority_id
+        {
+            get
+            {
+                return _authority_id;
+            }
+            set
+            {
+                Onauthority_idChanging(value);
+                ReportPropertyChanging("authority_id");
+                _authority_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("authority_id");
+                Onauthority_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _authority_id;
+        partial void Onauthority_idChanging(Nullable<global::System.Int32> value);
+        partial void Onauthority_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String authority_name
+        {
+            get
+            {
+                return _authority_name;
+            }
+            set
+            {
+                Onauthority_nameChanging(value);
+                ReportPropertyChanging("authority_name");
+                _authority_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("authority_name");
+                Onauthority_nameChanged();
+            }
+        }
+        private global::System.String _authority_name;
+        partial void Onauthority_nameChanging(global::System.String value);
+        partial void Onauthority_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.Decimal> rate
         {
             get
@@ -13769,6 +14680,102 @@ namespace WoWiModel
         private Nullable<global::System.Decimal> _rate;
         partial void OnrateChanging(Nullable<global::System.Decimal> value);
         partial void OnrateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String target_cost_currency
+        {
+            get
+            {
+                return _target_cost_currency;
+            }
+            set
+            {
+                Ontarget_cost_currencyChanging(value);
+                ReportPropertyChanging("target_cost_currency");
+                _target_cost_currency = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("target_cost_currency");
+                Ontarget_cost_currencyChanged();
+            }
+        }
+        private global::System.String _target_cost_currency;
+        partial void Ontarget_cost_currencyChanging(global::System.String value);
+        partial void Ontarget_cost_currencyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> target_cost
+        {
+            get
+            {
+                return _target_cost;
+            }
+            set
+            {
+                Ontarget_costChanging(value);
+                ReportPropertyChanging("target_cost");
+                _target_cost = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("target_cost");
+                Ontarget_costChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _target_cost;
+        partial void Ontarget_costChanging(Nullable<global::System.Decimal> value);
+        partial void Ontarget_costChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String local_agent_name
+        {
+            get
+            {
+                return _local_agent_name;
+            }
+            set
+            {
+                Onlocal_agent_nameChanging(value);
+                ReportPropertyChanging("local_agent_name");
+                _local_agent_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("local_agent_name");
+                Onlocal_agent_nameChanged();
+            }
+        }
+        private global::System.String _local_agent_name;
+        partial void Onlocal_agent_nameChanging(global::System.String value);
+        partial void Onlocal_agent_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> Publish
+        {
+            get
+            {
+                return _Publish;
+            }
+            set
+            {
+                OnPublishChanging(value);
+                ReportPropertyChanging("Publish");
+                _Publish = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Publish");
+                OnPublishChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _Publish;
+        partial void OnPublishChanging(Nullable<global::System.Boolean> value);
+        partial void OnPublishChanged();
 
         #endregion
     
@@ -14302,13 +15309,11 @@ namespace WoWiModel
         /// </summary>
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="publish">Initial value of the publish property.</param>
-        /// <param name="paymentdays">Initial value of the paymentdays property.</param>
-        public static vendor Createvendor(global::System.Int32 id, global::System.Boolean publish, global::System.String paymentdays)
+        public static vendor Createvendor(global::System.Int32 id, global::System.Boolean publish)
         {
             vendor vendor = new vendor();
             vendor.id = id;
             vendor.publish = publish;
-            vendor.paymentdays = paymentdays;
             return vendor;
         }
 
@@ -14921,7 +15926,7 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String paymentdays
         {
@@ -14933,7 +15938,7 @@ namespace WoWiModel
             {
                 OnpaymentdaysChanging(value);
                 ReportPropertyChanging("paymentdays");
-                _paymentdays = StructuralObject.SetValidValue(value, false);
+                _paymentdays = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("paymentdays");
                 OnpaymentdaysChanged();
             }
@@ -15211,10 +16216,12 @@ namespace WoWiModel
         /// Create a new world_region object.
         /// </summary>
         /// <param name="world_region_id">Initial value of the world_region_id property.</param>
-        public static world_region Createworld_region(global::System.Byte world_region_id)
+        /// <param name="world_region_name">Initial value of the world_region_name property.</param>
+        public static world_region Createworld_region(global::System.Int32 world_region_id, global::System.String world_region_name)
         {
             world_region world_region = new world_region();
             world_region.world_region_id = world_region_id;
+            world_region.world_region_name = world_region_name;
             return world_region;
         }
 
@@ -15226,7 +16233,7 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Byte world_region_id
+        public global::System.Int32 world_region_id
         {
             get
             {
@@ -15244,14 +16251,14 @@ namespace WoWiModel
                 }
             }
         }
-        private global::System.Byte _world_region_id;
-        partial void Onworld_region_idChanging(global::System.Byte value);
+        private global::System.Int32 _world_region_id;
+        partial void Onworld_region_idChanging(global::System.Int32 value);
         partial void Onworld_region_idChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String world_region_name
         {
@@ -15263,7 +16270,7 @@ namespace WoWiModel
             {
                 Onworld_region_nameChanging(value);
                 ReportPropertyChanging("world_region_name");
-                _world_region_name = StructuralObject.SetValidValue(value, true);
+                _world_region_name = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("world_region_name");
                 Onworld_region_nameChanged();
             }
@@ -15367,6 +16374,30 @@ namespace WoWiModel
         private Nullable<global::System.DateTime> _modify_date;
         partial void Onmodify_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onmodify_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> access_level_id
+        {
+            get
+            {
+                return _access_level_id;
+            }
+            set
+            {
+                Onaccess_level_idChanging(value);
+                ReportPropertyChanging("access_level_id");
+                _access_level_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("access_level_id");
+                Onaccess_level_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _access_level_id;
+        partial void Onaccess_level_idChanging(Nullable<global::System.Int32> value);
+        partial void Onaccess_level_idChanged();
 
         #endregion
     
@@ -15590,7 +16621,7 @@ namespace WoWiModel
         /// </summary>
         /// <param name="wowi_product_type_id">Initial value of the wowi_product_type_id property.</param>
         /// <param name="publish">Initial value of the publish property.</param>
-        public static wowi_product_type Createwowi_product_type(global::System.Int32 wowi_product_type_id, global::System.String publish)
+        public static wowi_product_type Createwowi_product_type(global::System.Int32 wowi_product_type_id, global::System.Boolean publish)
         {
             wowi_product_type wowi_product_type = new wowi_product_type();
             wowi_product_type.wowi_product_type_id = wowi_product_type_id;
@@ -15657,7 +16688,7 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String publish
+        public global::System.Boolean publish
         {
             get
             {
@@ -15667,13 +16698,13 @@ namespace WoWiModel
             {
                 OnpublishChanging(value);
                 ReportPropertyChanging("publish");
-                _publish = StructuralObject.SetValidValue(value, false);
+                _publish = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("publish");
                 OnpublishChanged();
             }
         }
-        private global::System.String _publish;
-        partial void OnpublishChanging(global::System.String value);
+        private global::System.Boolean _publish;
+        partial void OnpublishChanging(global::System.Boolean value);
         partial void OnpublishChanged();
     
         /// <summary>
@@ -15790,11 +16821,15 @@ namespace WoWiModel
         /// Create a new wowi_tech object.
         /// </summary>
         /// <param name="wowi_tech_id">Initial value of the wowi_tech_id property.</param>
+        /// <param name="wowi_tech_name">Initial value of the wowi_tech_name property.</param>
+        /// <param name="wowi_product_type_id">Initial value of the wowi_product_type_id property.</param>
         /// <param name="publish">Initial value of the publish property.</param>
-        public static wowi_tech Createwowi_tech(global::System.Int32 wowi_tech_id, global::System.String publish)
+        public static wowi_tech Createwowi_tech(global::System.Int32 wowi_tech_id, global::System.String wowi_tech_name, global::System.Int32 wowi_product_type_id, global::System.Boolean publish)
         {
             wowi_tech wowi_tech = new wowi_tech();
             wowi_tech.wowi_tech_id = wowi_tech_id;
+            wowi_tech.wowi_tech_name = wowi_tech_name;
+            wowi_tech.wowi_product_type_id = wowi_product_type_id;
             wowi_tech.publish = publish;
             return wowi_tech;
         }
@@ -15832,7 +16867,7 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String wowi_tech_name
         {
@@ -15844,7 +16879,7 @@ namespace WoWiModel
             {
                 Onwowi_tech_nameChanging(value);
                 ReportPropertyChanging("wowi_tech_name");
-                _wowi_tech_name = StructuralObject.SetValidValue(value, true);
+                _wowi_tech_name = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("wowi_tech_name");
                 Onwowi_tech_nameChanged();
             }
@@ -15856,9 +16891,9 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> wowi_product_type_id
+        public global::System.Int32 wowi_product_type_id
         {
             get
             {
@@ -15873,8 +16908,8 @@ namespace WoWiModel
                 Onwowi_product_type_idChanged();
             }
         }
-        private Nullable<global::System.Int32> _wowi_product_type_id;
-        partial void Onwowi_product_type_idChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _wowi_product_type_id;
+        partial void Onwowi_product_type_idChanging(global::System.Int32 value);
         partial void Onwowi_product_type_idChanged();
     
         /// <summary>
@@ -15882,7 +16917,7 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String publish
+        public global::System.Boolean publish
         {
             get
             {
@@ -15892,13 +16927,13 @@ namespace WoWiModel
             {
                 OnpublishChanging(value);
                 ReportPropertyChanging("publish");
-                _publish = StructuralObject.SetValidValue(value, false);
+                _publish = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("publish");
                 OnpublishChanged();
             }
         }
-        private global::System.String _publish;
-        partial void OnpublishChanging(global::System.String value);
+        private global::System.Boolean _publish;
+        partial void OnpublishChanging(global::System.Boolean value);
         partial void OnpublishChanged();
     
         /// <summary>
