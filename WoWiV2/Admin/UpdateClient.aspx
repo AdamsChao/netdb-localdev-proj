@@ -168,7 +168,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-   <asp:FormView ID="FormView1" runat="server" DataKeyNames="id" SkinID="FormView"
+    <asp:FormView ID="FormView1" runat="server" DataKeyNames="id" SkinID="FormView"
             DataSourceID="EntityDataSource1" DefaultMode="Edit" Width="100%" onitemupdating="FormView1_ItemUpdating" >
             
             <EditItemTemplate>
@@ -266,7 +266,7 @@
                               </asp:DropDownList>
                               <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                                   ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                  SelectCommand="SELECT [country_id], [country_name] FROM [country]">
+                                    SelectCommand="SELECT [country_id], [country_name] FROM [country] order by country_name">
                               </asp:SqlDataSource>
                           </td><th align="left" 
                                    class="style7">&nbsp; <b>Annual Number Project</b>:</th><td width="30%">

@@ -275,7 +275,7 @@
                               </asp:DropDownList>
                               <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                                   ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                  SelectCommand="SELECT [country_id], [country_name] FROM [country]">
+                                    SelectCommand="SELECT [country_id], [country_name] FROM [country] order by country_name">
                               </asp:SqlDataSource>
                           </td><th align="left" 
                                    class="style7">&nbsp; <b>Annual Number Grants</b>:</th><td width="30%">
@@ -385,12 +385,22 @@
                                            DataValueField="country_id">
                                        </asp:DropDownList>
                                    </td>
-                                   <th align="left" class="style7">
-                                       &nbsp; Payment days:&nbsp;</th>
-                                   <td width="30%">
-                                       <asp:TextBox ID="tbPaymentDays" runat="server" Text='<%# Bind("paymentdays") %>' 
-                                           Width="211px"></asp:TextBox>
-                                   </td>
+                                    <th 
+                                   align="left" class="style7">&nbsp; Payment Type:&nbsp;</th><td width="30%">
+                                               <asp:DropDownList ID="ddlPaymentType" runat="server" 
+                                                   SelectedValue='<%# Bind("paymentterm") %>' >
+                                                   <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                                    <asp:ListItem Value="0">支票 Check</asp:ListItem>
+                                                   <asp:ListItem Value="1">國內匯款 Domestic Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="6">國外匯款 Foreign Wire Transfer</asp:ListItem>
+                                                   <asp:ListItem Value="2">匯票 Cashier Check</asp:ListItem>
+                                                   <asp:ListItem Value="3">信用卡 Credit Card</asp:ListItem>
+                                                   <asp:ListItem Value="4">現金 Cash</asp:ListItem>
+                                                   <asp:ListItem Value="5">西聯匯款 Westerm Union</asp:ListItem>
+                                               </asp:DropDownList>
+                                               
+                                           </td>
+                                  
                                   
                                </tr>
                                 <tr align="center" style="color: #FFFFFF; background-color: #0066FF">

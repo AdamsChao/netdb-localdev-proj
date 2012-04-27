@@ -308,7 +308,7 @@
                                 </asp:DropDownList>
                                 <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
                                     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                    SelectCommand="SELECT DISTINCT [country_name], [country_id] FROM [country]">
+                                    SelectCommand="SELECT [country_id], [country_name] FROM [country] order by country_name">
                                 </asp:SqlDataSource>
                             </td>
                         </tr>
