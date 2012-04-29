@@ -256,10 +256,11 @@
             </asp:GridView>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 
-                SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id, PR_Flag, Bill1, Bill2, Bill3, BillE FROM vw_Test_Target_List WHERE (Quotation_No = @Quotation_No) ORDER BY Quotation_Version_Id">
+                
+                SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id, PR_Flag, Bill1, Bill2, Bill3, BillE FROM vw_Test_Target_List WHERE (Quotation_Version_Id = @Quotation_Version_Id) ORDER BY Quotation_Version_Id">
                 <SelectParameters>
-                    <asp:ControlParameter ControlID="hidQuotation_No" Name="Quotation_No" PropertyName="Text"
-                        Type="String" />
+                    <asp:ControlParameter ControlID="hidQuotationID" Name="Quotation_Version_Id" 
+                        PropertyName="Text" />
                 </SelectParameters>
             </asp:SqlDataSource>
         </td>

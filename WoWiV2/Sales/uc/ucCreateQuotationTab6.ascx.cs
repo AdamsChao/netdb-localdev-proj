@@ -33,8 +33,13 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
     {
         Quotation_Version quo = Quotation_Controller.Get_Quotation(quotation_id);
 
-        lblService.Text = Quotation_Controller.GetTotalVersionUnitPrice(quo.Quotation_No);
-        lblDiscount.Text = Quotation_Controller.GetTotalVersionDiscount(quo.Quotation_No);
+        //Add by Adams 2012/4/30 for One Quotation only for one version
+        lblService.Text = Quotation_Controller.GetTotalUnitPrice(quo.Quotation_Version_Id).ToString();
+        lblDiscount.Text = Quotation_Controller.GetTotalTargetDiscount(quo.Quotation_Version_Id).ToString();
+        //Mark by Adams 2012/4/30 for One Quotation only for one version
+        //lblService.Text = Quotation_Controller.GetTotalVersionUnitPrice(quo.Quotation_No);
+        //lblDiscount.Text = Quotation_Controller.GetTotalVersionDiscount(quo.Quotation_No);
+
         lblSubTotal.Text = (Decimal.Parse(lblService.Text) - Decimal.Parse(lblDiscount.Text)).ToString();
         //txtFinalTotalPrice.Text = Quotation_Controller.GetTotalPrice(quotation_id);
         //txtTotal_Disc_Amt.Text = quo.Total_disc_amt.ToString();
