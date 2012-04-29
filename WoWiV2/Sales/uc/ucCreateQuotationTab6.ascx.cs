@@ -75,7 +75,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             HtmlInputRadioButton Radio1 = (HtmlInputRadioButton)Row.FindControl("Radio1");
             HtmlInputRadioButton Radio2 = (HtmlInputRadioButton)Row.FindControl("Radio2");
             DropDownList ddlAdv = (DropDownList)Row.FindControl("ddlAdv");
-            DropDownList ddlBill = (DropDownList)Row.FindControl("ddlBill");
+            //DropDownList ddlBill = (DropDownList)Row.FindControl("ddlBill");
             //CheckBox chkPR_Flag = (CheckBox)Row.FindControl("chkPR_Flag");
             
 
@@ -83,7 +83,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
 
             int id = Int32.Parse(lblQuotation_Target_Id.Text);
             Quotation_Target target = Quotation_Target_Controller.Select(id);
-            target.Bill = ddlBill.Text;
+            //target.Bill = ddlBill.Text;
             target.option1 = Radio1.Checked;
             target.option2 = Radio2.Checked;
             target.advance1 = hidA1.Value;

@@ -160,14 +160,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        Bill:<asp:DropDownList ID="ddlBill" runat="server" SelectedValue='<%# Bind("Bill", "{0}") %>'>
-                                            <asp:ListItem Value="">--select--</asp:ListItem>
-                                            <asp:ListItem>NB</asp:ListItem>
-                                            <asp:ListItem>PB</asp:ListItem>
-                                            <asp:ListItem>CB</asp:ListItem>
-                                            <asp:ListItem>VD</asp:ListItem>
-                                        </asp:DropDownList>
-                                        Invoice No:<asp:Label ID="Label3" runat="server" Text=""></asp:Label><asp:Label ID="lblFPrice"
+                                       <asp:Label ID="lblFPrice"
                                             Visible="false" runat="server" Text='<%# Eval("FinalPrice") %>'></asp:Label><asp:Label
                                                 ID="lblOption1" Visible="false" runat="server" Text='<%# Eval("option1") %>'></asp:Label><asp:Label
                                                     ID="lblOption2" Visible="false" runat="server" Text='<%# Eval("option2") %>'></asp:Label>
@@ -208,8 +201,11 @@
                         <ItemTemplate>
                             <asp:DropDownList ID="ddlPR_Flag" ToolTip='<%# Eval("PR_Flag")  %>' runat="server">
                                 <asp:ListItem Text="無" Value="0" ></asp:ListItem>
-                                <asp:ListItem Text="預付" Value="1" ></asp:ListItem>
-                                <asp:ListItem Text="尾款" Value="2"  ></asp:ListItem>
+                                <asp:ListItem Text="預收1" Value="1" ></asp:ListItem>
+                                <asp:ListItem Text="預收2" Value="2" ></asp:ListItem>
+                                <asp:ListItem Text="預收3" Value="3" ></asp:ListItem>
+                                <asp:ListItem Text="尾款" Value="E"  ></asp:ListItem>
+                                <asp:ListItem Text="做廢" Value="A"  ></asp:ListItem>
                             </asp:DropDownList>
                             <%-- <asp:CheckBox ID="chkPR_Flag" runat="server" Checked='<%# CheckPR_Flag(Eval("PR_Flag")) %>' 
                                 Enabled="true" />--%>
