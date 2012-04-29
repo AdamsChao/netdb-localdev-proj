@@ -111,6 +111,10 @@
 
     }
 
+    function changeHiddenValue(txtBillE, hidBillE) {
+        $("#" + hidBillE).val($("#" + txtBillE).val());
+    }
+
 </script>
 <table class="style1" bordercolor="#0000aa" cellpadding="4" style="border-bottom: solid;
     border-left: solid; background-color: #ffffff; border-collapse: collapse; border-top: solid;
@@ -212,7 +216,7 @@
                                 </tr>
                                  <tr>
                                     <td>
-                                        尾款:&nbsp;&nbsp;<asp:TextBox ID="txtBillE" Text='<%# Eval("BillE") %>' runat="server" Width="50px" Enabled="false"></asp:TextBox>元
+                                        尾款:&nbsp;&nbsp;<asp:TextBox ID="txtBillE" Text='<%# Eval("BillE") %>' runat="server" Width="50px" ></asp:TextBox>元
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ControlToValidate="txtBillE" Display="Dynamic"
                                             ErrorMessage="Only number allowed" ForeColor="Red" SetFocusOnError="True" ValidationExpression="^([-+]?[0-9]*\.?[0-9]+)$"></asp:RegularExpressionValidator>
                                         &nbsp;

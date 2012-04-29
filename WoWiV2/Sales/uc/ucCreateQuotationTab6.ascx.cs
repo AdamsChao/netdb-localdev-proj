@@ -108,6 +108,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
         Response.Redirect("CreateQuotation.aspx?q=" + quotation_id.ToString() + "&t=3");
     }
 
+    decimal TotalBilled = 0;
     protected void gvTestTargetList_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
@@ -122,27 +123,32 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             HtmlInputHidden hidBill3 = (HtmlInputHidden)e.Row.FindControl("hidBill3");
             HtmlInputHidden hidBillE = (HtmlInputHidden)e.Row.FindControl("hidBillE");
 
-            //if (txtBill1.Text == "")
-            //{
-            //    txtBill1.Text = "0";
-            //    hidBill1.Value = "0";
-            //}
-            //if (txtBill2.Text == "")
-            //{
-            //    txtBill2.Text = "0";
-            //    hidBill2.Value = "0";
-            //}
-            //if (txtBill3.Text == "")
-            //{
-            //    txtBill3.Text = "0";
-            //    hidBill3.Value = "0";
-            //}
-            //if (txtBillE.Text == "")
-            //{
-            //    txtBillE.Text = "0";
-            //    hidBillE.Value = "0";
-            //}
-
+            if (txtBill1.Text != "")
+            {
+                TotalBilled += decimal.Parse(txtBill1.Text);
+                //txtBill1.Text = "0";
+                //hidBill1.Value = "0";
+            }
+            if (txtBill2.Text != "")
+            {
+                TotalBilled += decimal.Parse(txtBill2.Text);
+                //txtBill2.Text = "0";
+                //hidBill2.Value = "0";
+            }
+            if (txtBill3.Text != "")
+            {
+                TotalBilled += decimal.Parse(txtBill3.Text);
+                //txtBill3.Text = "0";
+                //hidBill3.Value = "0";
+            }
+            if (txtBillE.Text != "")
+            {
+                TotalBilled += decimal.Parse(txtBillE.Text);
+                //txtBillE.Text = "0";
+                //hidBillE.Value = "0";
+            }
+            lblTotalBilled.Text = TotalBilled.ToString();
+            lblBlance.Text = (Decimal.Parse(lblSubTotal.Text) - TotalBilled).ToString();
             
             Label lblFPrice = (Label)e.Row.FindControl("lblFPrice");
             Label lblQuotation_Target_Id = (Label)e.Row.FindControl("lblQuotation_Target_Id");
@@ -203,6 +209,9 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
               hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
               hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
               lblFPrice.Text + "');");
+
+            txtBillE.Attributes.Add("onkeyup", "changeHiddenValue('" +
+              txtBillE.ClientID + "','" + hidBillE.ClientID +  "');");
 
 
         }
