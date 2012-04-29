@@ -67,6 +67,8 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
 
                     lblQuotation_No.Text = quotation.Quotation_No;
                     lblVersion.Text = "V" + quotation.Vername.ToString();
+                    //Add by Adams 2012/4/30
+                    ddlVersion.SelectedValue = QuotationID.ToString();
                     DropDownListStatus.SelectedValue = quotation.Quotation_Status.ToString();
                     txtQuotation_Statusdate.Text = ((DateTime)quotation.Quotation_Statusdate).ToString("yyyy/MM/dd HH:mm");
                     txtQuotation_Statusby.Text = quotation.Quotation_Statusby;
@@ -266,4 +268,8 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
         cmdCreateProject.Enabled = false;
     }
 
+    protected void ddlVersion_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Response.Redirect("CreateQuotation.aspx?q=" + ddlVersion.SelectedValue);
+    }
 }
