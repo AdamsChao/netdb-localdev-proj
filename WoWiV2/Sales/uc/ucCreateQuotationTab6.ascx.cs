@@ -39,7 +39,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
         //txtFinalTotalPrice.Text = Quotation_Controller.GetTotalPrice(quotation_id);
         //txtTotal_Disc_Amt.Text = quo.Total_disc_amt.ToString();
         //txtRemark.Text = quo.Remark;
-
+       
 
         if (quotation_id != 0)
         {
@@ -51,42 +51,35 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
         }
     }
 
-    public string myFunc(string val)
-    {
+    //public string myFunc(string val)
+    //{
 
-        if (val == "")
+    //    if (val == "")
 
-            return null;
+    //        return null;
 
-        else
+    //    else
 
-            return val;
+    //        return val;
 
-    }
+    //}
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         foreach (GridViewRow Row in gvTestTargetList.Rows)
         {
             Label lblQuotation_Target_Id = (Label)Row.FindControl("lblQuotation_Target_Id");
-            HtmlInputHidden hidA1 = (HtmlInputHidden)Row.FindControl("hidA1");
-            HtmlInputHidden hidA2 = (HtmlInputHidden)Row.FindControl("hidA2");
-            HtmlInputHidden hidB1 = (HtmlInputHidden)Row.FindControl("hidB1");
-            HtmlInputHidden hidB2 = (HtmlInputHidden)Row.FindControl("hidB2");
-            HtmlInputRadioButton Radio1 = (HtmlInputRadioButton)Row.FindControl("Radio1");
-            HtmlInputRadioButton Radio2 = (HtmlInputRadioButton)Row.FindControl("Radio2");
-            DropDownList ddlAdv = (DropDownList)Row.FindControl("ddlAdv");
-            //DropDownList ddlBill = (DropDownList)Row.FindControl("ddlBill");
-            //CheckBox chkPR_Flag = (CheckBox)Row.FindControl("chkPR_Flag");
-            
+            TextBox txtBill1 = (TextBox)Row.FindControl("txtBill1");
+            TextBox txtBill2 = (TextBox)Row.FindControl("txtBill2");
+            TextBox txtBill3 = (TextBox)Row.FindControl("txtBill3");
+            TextBox txtBillE = (TextBox)Row.FindControl("txtBillE");
+            HtmlInputHidden hidBill1 = (HtmlInputHidden)Row.FindControl("hidBill1");
+            HtmlInputHidden hidBill2 = (HtmlInputHidden)Row.FindControl("hidBill2");
+            HtmlInputHidden hidBill3 = (HtmlInputHidden)Row.FindControl("hidBill3");
+            HtmlInputHidden hidBillE = (HtmlInputHidden)Row.FindControl("hidBillE");
 
-            TextBox txtAdv2 = (TextBox)Row.FindControl("txtAdv2");
 
             int id = Int32.Parse(lblQuotation_Target_Id.Text);
             Quotation_Target target = Quotation_Target_Controller.Select(id);
-            //target.Bill = ddlBill.Text;
-            target.option1 = Radio1.Checked;
-            target.option2 = Radio2.Checked;
-            target.advance1 = hidA1.Value;
             try
             {
                 DropDownList ddlPR_Flag = (DropDownList)Row.FindControl("ddlPR_Flag");
@@ -96,13 +89,19 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             {
                 //throw;
             }
-            Decimal advance2;
-            if (Decimal.TryParse(hidA2.Value, out advance2))
-                target.advance2 = advance2;
-            target.balance1 = hidB1.Value;
-            Decimal balance2;
-            if (Decimal.TryParse(hidB2.Value, out balance2))
-                target.balance2 = balance2;
+            Decimal Bill1 = 0;
+            Decimal Bill2 = 0;
+            Decimal Bill3 = 0;
+            Decimal BillE = 0;
+            if (Decimal.TryParse(hidBill1.Value, out Bill1))
+                target.Bill1 = Bill1;
+            if (Decimal.TryParse(hidBill2.Value, out Bill2))
+                target.Bill2 = Bill2;
+            if (Decimal.TryParse(hidBill3.Value, out Bill3))
+                target.Bill3 = Bill3;
+            if (Decimal.TryParse(hidBillE.Value, out BillE))
+                target.BillE = BillE;
+
             Quotation_Target_Controller.Modify(target);
         }
         int quotation_id = ((Imaster)this.Page).getQuotationID();
@@ -113,108 +112,101 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            HtmlInputRadioButton Radio1 = (HtmlInputRadioButton)e.Row.FindControl("Radio1");
-            HtmlInputRadioButton Radio2 = (HtmlInputRadioButton)e.Row.FindControl("Radio2");
-            DropDownList ddlAdv = (DropDownList)e.Row.FindControl("ddlAdv");
-            TextBox txtAdv2 = (TextBox)e.Row.FindControl("txtAdv2");
-            TextBox txtB1 = (TextBox)e.Row.FindControl("txtB1");
-            TextBox txtB2 = (TextBox)e.Row.FindControl("txtB2");
-            HtmlInputHidden hidA1 = (HtmlInputHidden)e.Row.FindControl("hidA1");
-            HtmlInputHidden hidA2 = (HtmlInputHidden)e.Row.FindControl("hidA2");
-            HtmlInputHidden hidB1 = (HtmlInputHidden)e.Row.FindControl("hidB1");
-            HtmlInputHidden hidB2 = (HtmlInputHidden)e.Row.FindControl("hidB2");
+            TextBox txtBill1 = (TextBox)e.Row.FindControl("txtBill1");
+            TextBox txtBill2 = (TextBox)e.Row.FindControl("txtBill2");
+            TextBox txtBill3 = (TextBox)e.Row.FindControl("txtBill3");
+            TextBox txtBillE = (TextBox)e.Row.FindControl("txtBillE");
+            
+            HtmlInputHidden hidBill1 = (HtmlInputHidden)e.Row.FindControl("hidBill1");
+            HtmlInputHidden hidBill2 = (HtmlInputHidden)e.Row.FindControl("hidBill2");
+            HtmlInputHidden hidBill3 = (HtmlInputHidden)e.Row.FindControl("hidBill3");
+            HtmlInputHidden hidBillE = (HtmlInputHidden)e.Row.FindControl("hidBillE");
 
-            Label lblFPrice = (Label)e.Row.FindControl("lblFPrice");
-            Label lblOption1 = (Label)e.Row.FindControl("lblOption1");
-            Label lblOption2 = (Label)e.Row.FindControl("lblOption2");
-
-
-            Label lblQuotation_Target_Id = (Label)e.Row.FindControl("lblQuotation_Target_Id");
-            Literal lblInvoice0 = (Literal)e.Row.FindControl("lblInvoice0");
-            Label lblInvoice3 = (Label)e.Row.FindControl("lblInvoice3");
-
-            DropDownList ddlPR_Flag = (DropDownList)e.Row.FindControl("ddlPR_Flag");
-            int PR_Flag;
-            int.TryParse(ddlPR_Flag.ToolTip, out PR_Flag);
-            ddlPR_Flag.SelectedIndex = PR_Flag;
-            ddlPR_Flag.ToolTip = "";
-
-            int quotation_Id =  Int32.Parse( hidQuotationID.Text);
-            int target_Id = Int32.Parse(lblQuotation_Target_Id.Text);
-            lblInvoice0.Text = Quotation_Controller.GetInvoice(quotation_Id,target_Id, 0);
-            lblInvoice3.Text = Quotation_Controller.GetInvoice(quotation_Id,target_Id, 3);
-
-            if (!String.IsNullOrEmpty(lblOption1.Text))
-                Radio1.Checked = Boolean.Parse(lblOption1.Text);
-            if (!String.IsNullOrEmpty(lblOption2.Text))
-                Radio2.Checked = Boolean.Parse(lblOption2.Text);
-
-            if (Radio1.Checked)
-            {
-                ddlAdv.Enabled = true;
-                ddlAdv.CssClass = "";
-                txtAdv2.Enabled = false;
-                txtAdv2.CssClass = "CCSTextBoxRD";
-
-            }
-            else
-            {
-                ddlAdv.Enabled = false;
-                ddlAdv.CssClass = "CCSTextBoxRD";
-                txtAdv2.Enabled = true;
-                txtAdv2.CssClass = "";
-            }
-
-            Radio1.Attributes.Add("OnClick", "cmdRBL('" +
-                ddlAdv.ClientID + "','" + txtAdv2.ClientID + "','" +
-                txtB1.ClientID + "','" + txtB2.ClientID + "','" +
-                hidA1.ClientID + "','" + hidA2.ClientID + "','" +
-                hidB1.ClientID + "','" + hidB2.ClientID + "','" +
-                lblFPrice.Text + "','1');");
-            Radio2.Attributes.Add("OnClick", "cmdRBL('" +
-                 ddlAdv.ClientID + "','" + txtAdv2.ClientID + "','" +
-                txtB1.ClientID + "','" + txtB2.ClientID + "','" +
-                hidA1.ClientID + "','" + hidA2.ClientID + "','" +
-                hidB1.ClientID + "','" + hidB2.ClientID + "','" +
-                lblFPrice.Text + "','2');");
-
-            for (int i = 0; i <= 100; i++)
-            {
-                ddlAdv.Items.Add(new ListItem(i.ToString() + "%", i.ToString()));
-            }
-            ddlAdv.Items.Insert(0, new ListItem("--select--", ""));
-            ddlAdv.Text = hidA1.Value.Replace("%", "");
+            //if (txtBill1.Text == "")
+            //{
+            //    txtBill1.Text = "0";
+            //    hidBill1.Value = "0";
+            //}
+            //if (txtBill2.Text == "")
+            //{
+            //    txtBill2.Text = "0";
+            //    hidBill2.Value = "0";
+            //}
+            //if (txtBill3.Text == "")
+            //{
+            //    txtBill3.Text = "0";
+            //    hidBill3.Value = "0";
+            //}
+            //if (txtBillE.Text == "")
+            //{
+            //    txtBillE.Text = "0";
+            //    hidBillE.Value = "0";
+            //}
 
             
+            Label lblFPrice = (Label)e.Row.FindControl("lblFPrice");
+            Label lblQuotation_Target_Id = (Label)e.Row.FindControl("lblQuotation_Target_Id");
+            Literal lblInvoiceNo1 = (Literal)e.Row.FindControl("lblInvoiceNo1");
+            Literal lblInvoiceNo2 = (Literal)e.Row.FindControl("lblInvoiceNo2");
+            Literal lblInvoiceNo3 = (Literal)e.Row.FindControl("lblInvoiceNo3");
+            Literal lblInvoiceNoE = (Literal)e.Row.FindControl("lblInvoiceNoE");
+            Literal lblInvoiceDate1 = (Literal)e.Row.FindControl("lblInvoiceDate1");
+            Literal lblInvoiceDate2 = (Literal)e.Row.FindControl("lblInvoiceDate2");
+            Literal lblInvoiceDate3 = (Literal)e.Row.FindControl("lblInvoiceDate3");
+            Literal lblInvoiceDateE = (Literal)e.Row.FindControl("lblInvoiceDateE");
 
-            ddlAdv.Attributes.Add("OnClick", "cmdDDL('" +
-                ddlAdv.ClientID + "','" + txtAdv2.ClientID + "','" +
-                txtB1.ClientID + "','" + txtB2.ClientID + "','" +
-                hidA1.ClientID + "','" + hidA2.ClientID + "','" +
-                hidB1.ClientID + "','" + hidB2.ClientID + "','" +
+
+            DropDownList ddlPR_Flag = (DropDownList)e.Row.FindControl("ddlPR_Flag");
+            ddlPR_Flag.SelectedValue = ddlPR_Flag.ToolTip;
+            ddlPR_Flag.ToolTip = "";
+
+            int quotation_Id = Int32.Parse(hidQuotationID.Text);
+            int target_Id = Int32.Parse(lblQuotation_Target_Id.Text);
+            //lblInvoice0.Text = Quotation_Controller.GetInvoice(quotation_Id,target_Id, 0);
+            //lblInvoice3.Text = Quotation_Controller.GetInvoice(quotation_Id,target_Id, 3);
+            lblInvoiceNo1.Text = Quotation_Controller.GetInvoiceNo(quotation_Id, target_Id, 0);
+            lblInvoiceNo2.Text = Quotation_Controller.GetInvoiceNo(quotation_Id, target_Id, 1);
+            lblInvoiceNo3.Text = Quotation_Controller.GetInvoiceNo(quotation_Id, target_Id, 2);
+            lblInvoiceNoE.Text = Quotation_Controller.GetInvoiceNo(quotation_Id, target_Id, 3);
+            lblInvoiceDate1.Text = Quotation_Controller.GetInvoiceDate(quotation_Id, target_Id, 0);
+            lblInvoiceDate2.Text = Quotation_Controller.GetInvoiceDate(quotation_Id, target_Id, 1);
+            lblInvoiceDate3.Text = Quotation_Controller.GetInvoiceDate(quotation_Id, target_Id, 2);
+            lblInvoiceDateE.Text = Quotation_Controller.GetInvoiceDate(quotation_Id, target_Id, 3);
+
+
+
+            //txtAdv2.Attributes.Add("onkeyup", "cmdText('" +
+            // ddlAdv.ClientID + "','" + txtAdv2.ClientID + "','" +
+            // txtB1.ClientID + "','" + txtB2.ClientID + "','" +
+            //    hidA1.ClientID + "','" + hidA2.ClientID + "','" +
+            // hidB1.ClientID + "','" + hidB2.ClientID + "','" +
+            // lblFPrice.Text + "');");
+
+            //txtBill1, txtBill2, txtBill3, txtBillE, hidBill1, hidBill2, hidBill3, hidBillE, fPrice
+            txtBill1.Attributes.Add("onkeyup", "cmdText('" +
+                txtBill1.ClientID + "','" + txtBill2.ClientID + "','" +
+                txtBill3.ClientID + "','" + txtBillE.ClientID + "','" +
+                hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
+                hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
                 lblFPrice.Text + "');");
-            txtAdv2.Attributes.Add("onkeyup", "cmdText('" +
-             ddlAdv.ClientID + "','" + txtAdv2.ClientID + "','" +
-             txtB1.ClientID + "','" + txtB2.ClientID + "','" +
-                hidA1.ClientID + "','" + hidA2.ClientID + "','" +
-             hidB1.ClientID + "','" + hidB2.ClientID + "','" +
-             lblFPrice.Text + "');");
+
+            txtBill2.Attributes.Add("onkeyup", "cmdText('" +
+              txtBill1.ClientID + "','" + txtBill2.ClientID + "','" +
+              txtBill3.ClientID + "','" + txtBillE.ClientID + "','" +
+              hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
+              hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
+              lblFPrice.Text + "');");
+
+            txtBill3.Attributes.Add("onkeyup", "cmdText('" +
+              txtBill1.ClientID + "','" + txtBill2.ClientID + "','" +
+              txtBill3.ClientID + "','" + txtBillE.ClientID + "','" +
+              hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
+              hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
+              lblFPrice.Text + "');");
 
 
-        } 
+        }
     }
 
-    //public int CheckPR_Flag(object PR_Flag, int ID)
-    //{
-    //    int boolPR_Flag;
-    //    try
-    //    {
-    //        int.TryParse(PR_Flag.ToString(), out boolPR_Flag);
-    //        return boolPR_Flag;
-    //    }
-    //    catch (Exception)
-    //    {
-    //        return 0;
-    //    }
-    //}
+
 }

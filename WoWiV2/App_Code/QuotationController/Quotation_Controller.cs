@@ -337,7 +337,7 @@ public class Quotation_Controller
     }
 
 
-    public static string GetInvoice(int Quotation_ID, int Quotation_Target_Id, int bill_status)
+    public static string GetInvoiceNo(int Quotation_ID, int Quotation_Target_Id, int bill_status)
     {
         QuotationEntities entity = new QuotationEntities();
         entity = new QuotationEntities();
@@ -353,6 +353,25 @@ public class Quotation_Controller
             String hLink = string.Format("<a href='../Accounting/InvoiceDetails.aspx?id={0}' target='_blank'>{1}</a>", invoice_id, invoice_no);
             return hLink;
             //return result.First().invoice_no;
+        }
+        else
+            return "";
+
+    }
+
+    public static string GetInvoiceDate(int Quotation_ID, int Quotation_Target_Id, int bill_status)
+    {
+        QuotationEntities entity = new QuotationEntities();
+        entity = new QuotationEntities();
+        var result = from n in entity.invoice_target
+                     where n.quotation_id == Quotation_ID &&
+                        n.quotation_target_id == Quotation_Target_Id &&
+                        n.bill_status == bill_status
+                     select n;
+        if ((result.ToList()).Count > 0)
+        {
+        
+            return result.First().modify_date.ToString("yyyy/MM/dd");
         }
         else
             return "";

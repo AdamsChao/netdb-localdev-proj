@@ -208,7 +208,7 @@
 
 
 </asp:TabPanel>
-        <asp:TabPanel ID="TabPanel4" runat="server" HeaderText="History">
+        <asp:TabPanel ID="TabPanel4" runat="server" HeaderText="Billing">
             <ContentTemplate>
                 
                 

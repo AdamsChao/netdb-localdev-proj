@@ -87,15 +87,28 @@
         $("#" + hidB2).val(end);
         //alert(hidA2);
     }
-    function cmdText(ddlAdv, txtAdv2, txtB1, txtB2, hidA1, hidA2, hidB1, hidB2, fPrice) {
-        var t = $("#" + txtAdv2).val();
-        $("#" + hidA1).val("");
-        $("#" + hidA2).val(t);
-        $("#" + txtB1).val('');
-        $("#" + hidB1).val('');
-        $("#" + txtB2).val(fPrice - t);
-        $("#" + hidB2).val(fPrice - t);
-        //alert(hidA2);
+//    function cmdText(ddlAdv, txtAdv2, txtB1, txtB2, hidA1, hidA2, hidB1, hidB2, fPrice) {
+//        var t = $("#" + txtAdv2).val();
+//        $("#" + hidA1).val("");
+//        $("#" + hidA2).val(t);
+//        $("#" + txtB1).val('');
+//        $("#" + hidB1).val('');
+//        $("#" + txtB2).val(fPrice - t);
+//        $("#" + hidB2).val(fPrice - t);
+//        //alert(hidA2);
+    //    }
+
+    function cmdText(txtBill1, txtBill2, txtBill3, txtBillE, hidBill1, hidBill2, hidBill3, hidBillE, fPrice) {
+        var b1 = parseFloat( $("#" + txtBill1).val());
+        var b2 = parseFloat( $("#" + txtBill2).val());
+        var b3 = parseFloat( $("#" + txtBill3).val());
+        $("#" + hidBill1).val(b1);
+        $("#" + hidBill2).val(b2);
+        $("#" + hidBill3).val(b3);
+        var t = b1 + b2 + b3;       
+        $("#" + txtBillE).val(fPrice - t);
+        $("#" + hidBillE).val(fPrice - t);
+
     }
 
 </script>
@@ -160,52 +173,66 @@
                             <table>
                                 <tr>
                                     <td>
-                                       <asp:Label ID="lblFPrice"
-                                            Visible="false" runat="server" Text='<%# Eval("FinalPrice") %>'></asp:Label><asp:Label
-                                                ID="lblOption1" Visible="false" runat="server" Text='<%# Eval("option1") %>'></asp:Label><asp:Label
-                                                    ID="lblOption2" Visible="false" runat="server" Text='<%# Eval("option2") %>'></asp:Label>
+                                        <asp:Label ID="lblFPrice" Visible="false" runat="server" Text='<%# Eval("FinalPrice") %>'></asp:Label>
                                         <asp:Label ID="lblQuotation_Target_Id" Visible="false" runat="server" Text='<%# Eval("Quotation_Target_Id") %>'></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        預收:<input id="Radio1" type="radio" name="rdAdv" runat="server" />
-                                        <asp:DropDownList ID="ddlAdv" Width="80px" runat="server">
-                                        </asp:DropDownList>
-                                        <input id="Radio2" name="rdAdv" type="radio" runat="server" /><asp:TextBox ID="txtAdv2"
-                                            Text='<%# Eval("advance2") %>' runat="server" Width="50px"></asp:TextBox>元<asp:RegularExpressionValidator
-                                                ID="RegularExpressionValidator2" runat="server" ControlToValidate="txtAdv2" Display="Dynamic"
-                                                ErrorMessage="Only number allowed" ForeColor="Red" SetFocusOnError="True" ValidationExpression="^([-+]?[0-9]*\.?[0-9]+)$"></asp:RegularExpressionValidator>
-                                        &nbsp;Invoice No:<asp:Literal ID="lblInvoice0" runat="server"></asp:Literal><input
-                                            id="hidA1" type="hidden" runat="server" value='<%# Eval("advance1")%>' /><input id="hidA2"
-                                                type="hidden" runat="server" value='<%# Eval("advance2")%>' />
+                                        預收1:<asp:TextBox ID="txtBill1" Text='<%# Eval("Bill1") %>' runat="server" Width="50px"></asp:TextBox>元
+                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtBill1" Display="Dynamic"
+                                            ErrorMessage="Only number allowed" ForeColor="Red" SetFocusOnError="True" ValidationExpression="^([-+]?[0-9]*\.?[0-9]+)$"></asp:RegularExpressionValidator>
+                                        &nbsp;
+                                        Invoice No:<asp:Literal ID="lblInvoiceNo1" runat="server"></asp:Literal>&nbsp;
+                                        Date:<asp:Literal ID="lblInvoiceDate1" runat="server"></asp:Literal>
+                                        <input id="hidBill1" type="hidden" runat="server"  />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        尾款:
-                                        <asp:TextBox ID="txtB1" runat="server" Width="50px" Text='<%# Eval("balance1") %>'
-                                            ReadOnly="true" CssClass="CCSTextBoxRD"></asp:TextBox>
-                                        <input id="hidB1" type="hidden" runat="server" />
-                                        &nbsp;&nbsp;&nbsp;
-                                        <asp:TextBox ID="txtB2" runat="server" Width="100px" Text='<%# Eval("balance2") %>'
-                                            ReadOnly="true" CssClass="CCSTextBoxRD"></asp:TextBox><input id="hidB2" type="hidden"
-                                                runat="server" />
-                                        Invoice No:<asp:Label ID="lblInvoice3" runat="server" Text=""></asp:Label>
+                                        預收2:<asp:TextBox ID="txtBill2" Text='<%# Eval("Bill2") %>' runat="server" Width="50px"></asp:TextBox>元
+                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="txtBill2" Display="Dynamic"
+                                            ErrorMessage="Only number allowed" ForeColor="Red" SetFocusOnError="True" ValidationExpression="^([-+]?[0-9]*\.?[0-9]+)$"></asp:RegularExpressionValidator>
+                                        &nbsp;
+                                        Invoice No:<asp:Literal ID="lblInvoiceNo2" runat="server"></asp:Literal>&nbsp;
+                                        Date:<asp:Literal ID="lblInvoiceDate2" runat="server"></asp:Literal>
+                                        <input id="hidBill2" type="hidden" runat="server" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        預收3:<asp:TextBox ID="txtBill3" Text='<%# Eval("Bill3") %>' runat="server" Width="50px"></asp:TextBox>元
+                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ControlToValidate="txtBill3" Display="Dynamic"
+                                            ErrorMessage="Only number allowed" ForeColor="Red" SetFocusOnError="True" ValidationExpression="^([-+]?[0-9]*\.?[0-9]+)$"></asp:RegularExpressionValidator>
+                                        &nbsp;
+                                        Invoice No:<asp:Literal ID="lblInvoiceNo3" runat="server"></asp:Literal>&nbsp;
+                                        Date:<asp:Literal ID="lblInvoiceDate3" runat="server"></asp:Literal>
+                                        <input id="hidBill3" type="hidden" runat="server" />
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>
+                                        尾款:&nbsp;&nbsp;<asp:TextBox ID="txtBillE" Text='<%# Eval("BillE") %>' runat="server" Width="50px" Enabled="false"></asp:TextBox>元
+                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ControlToValidate="txtBillE" Display="Dynamic"
+                                            ErrorMessage="Only number allowed" ForeColor="Red" SetFocusOnError="True" ValidationExpression="^([-+]?[0-9]*\.?[0-9]+)$"></asp:RegularExpressionValidator>
+                                        &nbsp;
+                                        Invoice No:<asp:Literal ID="lblInvoiceNoE" runat="server"></asp:Literal>&nbsp;
+                                        Date:<asp:Literal ID="lblInvoiceDateE" runat="server"></asp:Literal>
+                                        <input id="hidBillE" type="hidden" runat="server" />
                                     </td>
                                 </tr>
                             </table>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Invoice Flag">
+                    <asp:TemplateField HeaderText="Invoice Flag" >
                         <ItemTemplate>
                             <asp:DropDownList ID="ddlPR_Flag" ToolTip='<%# Eval("PR_Flag")  %>' runat="server">
-                                <asp:ListItem Text="無" Value="0" ></asp:ListItem>
-                                <asp:ListItem Text="預收1" Value="1" ></asp:ListItem>
-                                <asp:ListItem Text="預收2" Value="2" ></asp:ListItem>
-                                <asp:ListItem Text="預收3" Value="3" ></asp:ListItem>
-                                <asp:ListItem Text="尾款" Value="E"  ></asp:ListItem>
-                                <asp:ListItem Text="做廢" Value="A"  ></asp:ListItem>
+                                <asp:ListItem Text="無" Value="0"></asp:ListItem>
+                                <asp:ListItem Text="預收1" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="預收2" Value="2"></asp:ListItem>
+                                <asp:ListItem Text="預收3" Value="3"></asp:ListItem>
+                                <asp:ListItem Text="尾款" Value="E"></asp:ListItem>
+                                <asp:ListItem Text="作廢" Value="A"></asp:ListItem>
                             </asp:DropDownList>
                             <%-- <asp:CheckBox ID="chkPR_Flag" runat="server" Checked='<%# CheckPR_Flag(Eval("PR_Flag")) %>' 
                                 Enabled="true" />--%>
@@ -224,7 +251,8 @@
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id, PR_Flag FROM vw_Test_Target_List WHERE (Quotation_No = @Quotation_No) ORDER BY Quotation_Version_Id">
+                
+                SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id, PR_Flag, Bill1, Bill2, Bill3, BillE FROM vw_Test_Target_List WHERE (Quotation_No = @Quotation_No) ORDER BY Quotation_Version_Id">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="hidQuotation_No" Name="Quotation_No" PropertyName="Text"
                         Type="String" />

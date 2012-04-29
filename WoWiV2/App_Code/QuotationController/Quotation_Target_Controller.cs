@@ -95,6 +95,10 @@ public class Quotation_Target_Controller
         result.balance1 = target.balance1;
         result.balance2 = target.balance2;
         result.PR_Flag = target.PR_Flag;
+        result.Bill1 = target.Bill1;
+        result.Bill2 = target.Bill2;
+        result.Bill3 = target.Bill3;
+        result.BillE = target.BillE;
         entities.SaveChanges();
 
         Quotation_Controller.TargetChange((int)result.quotation_id);
