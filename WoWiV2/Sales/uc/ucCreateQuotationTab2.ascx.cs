@@ -37,54 +37,58 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
 
     private void LoadDropDown()
     {
+        ddlTechnology_Bind();
         ddlCountry_Bind();
         ddlProductType_Bind();
         ddlAuthority_Bind();
-        ddlTechnology_Bind();
-        ddlTarget_Bind();
         Get_Target_Rate();
-        //if (ddlTarget.SelectedValue != "")
-        //    btnSubmit.Enabled = true;
-        //else
-        //    btnSubmit.Enabled = false;
 
         for (int i = 0; i <= 50; i++)
         {
             ddlTestdisc.Items.Add(new ListItem(i.ToString() + "%", i.ToString()));
         }
-
-
     }
+
+    protected void ddlTechnology_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ddlCountry_Bind();
+        ddlProductType_Bind();
+        ddlAuthority_Bind();
+        Get_Target_Rate();
+    }
+
     protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
     {
         ddlProductType_Bind();
         ddlAuthority_Bind();
-        ddlTechnology_Bind();
-        ddlTarget_Bind();
         Get_Target_Rate();
     }
     protected void ddlProductType_SelectedIndexChanged(object sender, EventArgs e)
     {
         ddlAuthority_Bind();
-        ddlTechnology_Bind();
-        ddlTarget_Bind();
         Get_Target_Rate();
     }
     protected void ddlAuthority_SelectedIndexChanged(object sender, EventArgs e)
     {
-        ddlTarget_Bind();
         Get_Target_Rate();
     }
-    protected void ddlTechnology_SelectedIndexChanged(object sender, EventArgs e)
+
+
+    //Technology
+    private void ddlTechnology_Bind()
     {
-        ddlTarget_Bind();
-        Get_Target_Rate();
+        ddlTechnology.DataSource = CodeTableController.GetAll_wowi_tech();
+        ddlTechnology.DataTextField = "Value";
+        ddlTechnology.DataValueField = "Key";
+        ddlTechnology.DataBind();
+  
     }
 
     //Country
     private void ddlCountry_Bind()
     {
-        ddlCountry.DataSource = CodeTableController.GetAllCountry();
+        int TechnologyID = Int32.Parse(ddlTechnology.SelectedValue);
+        ddlCountry.DataSource = CodeTableController.GetAllCountry(TechnologyID);
         ddlCountry.DataTextField = "Value";
         ddlCountry.DataValueField = "Key";
         ddlCountry.DataBind();
@@ -93,7 +97,9 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
     //Product Type
     private void ddlProductType_Bind()
     {
-        ddlProductType.DataSource = CodeTableController.GetAll_Product_Type(Int32.Parse(ddlCountry.SelectedValue));
+        int TechnologyID = Int32.Parse(ddlTechnology.SelectedValue);
+        int CountryID = Int32.Parse(ddlCountry.SelectedValue);
+        ddlProductType.DataSource = CodeTableController.GetAll_Product_Type(TechnologyID, CountryID);
         ddlProductType.DataTextField = "Value";
         ddlProductType.DataValueField = "Key";
         ddlProductType.DataBind();
@@ -102,81 +108,35 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
     //Authority
     private void ddlAuthority_Bind()
     {
-        if (ddlCountry.SelectedValue != "" && ddlProductType.SelectedValue != "")
-        {
-            ddlAuthority.DataSource = CodeTableController.GetAll_Authority(Int32.Parse(ddlCountry.SelectedValue), Int32.Parse(ddlProductType.SelectedValue));
-            ddlAuthority.DataTextField = "Value";
-            ddlAuthority.DataValueField = "Key";
-            ddlAuthority.DataBind();
-        }
-        else
-        {
-            ddlAuthority.Items.Clear();
-        }
+        int TechnologyID = Int32.Parse(ddlTechnology.SelectedValue);
+        int CountryID = Int32.Parse(ddlCountry.SelectedValue);
+        int ProductTypeID = Int32.Parse(ddlProductType.SelectedValue);
+
+        ddlAuthority.DataSource = CodeTableController.GetAll_Authority(TechnologyID, CountryID, ProductTypeID);
+        ddlAuthority.DataTextField = "Value";
+        ddlAuthority.DataValueField = "Key";
+        ddlAuthority.DataBind();
     }
 
-    //Technology
-    private void ddlTechnology_Bind()
-    {
-        if (ddlProductType.SelectedValue != "")
-        {
-            ddlTechnology.DataSource = CodeTableController.GetAll_wowi_tech(Int32.Parse(ddlProductType.SelectedValue));
-            ddlTechnology.DataTextField = "Value";
-            ddlTechnology.DataValueField = "Key";
-            ddlTechnology.DataBind();
-        }
-        else
-        {
-            ddlTechnology.Items.Clear();
-        }
-    }
-
-    //Target
-    private void ddlTarget_Bind()
-    {
-        if (ddlCountry.SelectedValue != "" && ddlProductType.SelectedValue != "" && ddlAuthority.SelectedValue != "" && ddlTechnology.SelectedValue != "")
-        {
-            ddlTarget.DataSource = CodeTableController.GetAll_Target(Int32.Parse(ddlCountry.SelectedValue), Int32.Parse(ddlProductType.SelectedValue), Int32.Parse(ddlAuthority.SelectedValue), Int32.Parse(ddlTechnology.SelectedValue));
-            ddlTarget.DataTextField = "Value";
-            ddlTarget.DataValueField = "Key";
-            ddlTarget.DataBind();
-        }
-        else
-        {
-            ddlTarget.Items.Clear();
-
-        }
-    }
 
     //Target Rate
     private void Get_Target_Rate()
     {
-        if (ddlCountry.SelectedValue != "" && ddlProductType.SelectedValue != "" && ddlAuthority.SelectedValue != "" && ddlTechnology.SelectedValue != "")
+
+        int TechnologyID = Int32.Parse(ddlTechnology.SelectedValue);
+        int CountryID = Int32.Parse(ddlCountry.SelectedValue);
+        int ProductTypeID = Int32.Parse(ddlProductType.SelectedValue);
+        int AuthorityID = Int32.Parse(ddlAuthority.SelectedValue);
+
+        Dictionary<int, decimal> result = new Dictionary<int, decimal>();
+        result = CodeTableController.GetAll_Target_Rates(TechnologyID, CountryID, ProductTypeID, AuthorityID);
+        if (result.Count > 0)
         {
-            txtRate.Text = CodeTableController.GetAll_Target_Rates(Int32.Parse(ddlCountry.SelectedValue), Int32.Parse(ddlProductType.SelectedValue), ddlAuthority.SelectedItem.Text, Int32.Parse(ddlTechnology.SelectedValue)).ToString();
-
+            txtRate.Text = result.First().Value.ToString();
             txtUnitPrice.Text = txtRate.Text;
-
-            if (ddlTarget.SelectedValue != "")
-            {
-                txtDespction.Text = ddlTarget.SelectedItem.Text;
-                btnSubmit.Enabled = true;
-            }
-            else
-            {
-                txtDespction.Text = "";
-                btnSubmit.Enabled = false;
-            }
-
-
-        }
-        else
-        {
-            txtRate.Text = "";
-            txtUnitPrice.Text = txtRate.Text;
-            txtDespction.Text = "";
-            btnSubmit.Enabled = false;
-        }
+            hidTarget_Rates_ID.Value = result.First().Key.ToString();
+            txtDespction.Text = ddlAuthority.SelectedItem.Text;            
+        }  
     }
 
     //save
@@ -218,7 +178,7 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
 
         Quotation_Target target = new Quotation_Target();
         target.quotation_id = quotation_id;
-        target.target_id = (ddlTarget.SelectedValue != "") ? Int32.Parse(ddlTarget.SelectedValue) : 0;
+        target.target_id = int.Parse(hidTarget_Rates_ID.Value);
         target.target_description = txtDespction.Text;
         //target.target_code = target.target_code;
         target.country_id = Int32.Parse(ddlCountry.SelectedValue);
@@ -253,7 +213,7 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
 
         Quotation_Target target = Quotation_Target_Controller.Select(Int32.Parse(hidTargetID.Text));
         target.quotation_id = quotation_id;
-        target.target_id = (ddlTarget.SelectedValue != "") ? Int32.Parse(ddlTarget.SelectedValue) : 0;
+        target.target_id = int.Parse(hidTarget_Rates_ID.Value);
         target.target_description = txtDespction.Text;
         //target.target_code = target.target_code;
         target.country_id = Int32.Parse(ddlCountry.SelectedValue);
@@ -276,13 +236,7 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
 
     }
 
-    protected void ddlTarget_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (ddlTarget.SelectedValue != "")
-            btnSubmit.Enabled = true;
-        else
-            btnSubmit.Enabled = false;
-    }
+
     protected void rblDisCount_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (rblDisCount.SelectedIndex == 0)
@@ -332,15 +286,16 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
     private void LoadTarget(int TargetID)
     {
         Quotation_Target target = Quotation_Target_Controller.Select(TargetID);
+        ddlTechnology_Bind();
+        ddlTechnology.SelectedValue = target.technology_id.ToString();
+        ddlCountry_Bind();
         ddlCountry.SelectedValue = target.country_id.ToString();
         ddlProductType_Bind();
         ddlProductType.SelectedValue = target.product_type_id.ToString();
         ddlAuthority_Bind();
         ddlAuthority.SelectedValue = target.authority_id.ToString();
-        ddlTechnology_Bind();
-        ddlTechnology.SelectedValue = target.technology_id.ToString();
-        ddlTarget_Bind();
-        ddlTarget.SelectedValue = target.target_id.ToString();
+
+
         txtDespction.Text = target.target_description;
         txtRate.Text = target.target_rate.ToString();
         txtUnit.Text = target.unit.ToString();

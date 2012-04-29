@@ -13,12 +13,18 @@ public class CodeTableController
     }
 
     //List All Countries
-    public static Dictionary<int, string> GetAllCountry()
+    public static Dictionary<int, string> GetAllCountry(int TechnologyID)
     {
 
         QuotationEntities entities = new QuotationEntities();
-        var result = from n in entities.country
-                     select n;
+        var result = (from n in entities.vw_Target
+                      where n.Technology_id == TechnologyID
+                      select new
+                      {
+                          n.country_id,
+                          n.country_name
+                      }).Distinct();
+
         return result.ToDictionary(n => n.country_id, n => n.country_name);
     }
 
@@ -35,35 +41,49 @@ public class CodeTableController
             return "";
     }
 
-    public static Dictionary<int, string> GetAll_Product_Type(int country_id)
+    public static Dictionary<int, string> GetAll_Product_Type(int TechnologyID, int Country_ID)
     {
         QuotationEntities entities = new QuotationEntities();
-        var result = from n in entities.vw_Product_Type
-                     where n.country_id == country_id
-                     select n;
-        return result.ToDictionary(n => n.wowi_product_type_id, n => n.wowi_product_type_name);
+        var result = (from n in entities.vw_Target
+                      where n.Technology_id == TechnologyID && n.country_id == Country_ID
+                      select new
+                      {
+                          n.product_type_id,
+                          n.wowi_product_type_name
+                      }).Distinct();
+
+        return result.ToDictionary(n => n.product_type_id, n => n.wowi_product_type_name);
 
     }
 
-    public static Dictionary<int, string> GetAll_Authority(int country_id, int wowi_product_type_id)
+    public static Dictionary<int, string> GetAll_Authority(int TechnologyID, int Country_ID, int wowi_product_type_id)
     {
 
-        QuotationEntities entities = new QuotationEntities();
-        var result = from n in entities.Authority
-                     where n.country_id == country_id && n.wowi_product_type_id == wowi_product_type_id
-                     select n;
-        //return result.ToDictionary(n => n.country_id + "," + n.wowi_product_type_id, n => n.authority_name);
-        return result.ToDictionary(n => n.authority_id, n => n.authority_name);
+         QuotationEntities entities = new QuotationEntities();
+        var result = (from n in entities.vw_Target
+                      where n.Technology_id == 
+                            TechnologyID && n.country_id == Country_ID && n.product_type_id == wowi_product_type_id
+                      select new
+                      {
+                          n.authority_id,
+                          n.authority_name
+                      }).Distinct();
+
+        return result.ToDictionary(n => (int)n.authority_id, n => n.authority_name);
     }
 
-    public static Dictionary<int, string> GetAll_wowi_tech(int wowi_product_type_id)
+    public static Dictionary<int, string> GetAll_wowi_tech()
     {
 
         QuotationEntities entities = new QuotationEntities();
-        var result = from n in entities.wowi_tech
-                     where n.wowi_product_type_id == wowi_product_type_id
-                     select n;
-        return result.ToDictionary(n => n.wowi_tech_id, n => n.wowi_tech_name);
+        var result = (from n in entities.vw_Target
+                     select new
+                     {
+                         n.Technology_id,
+                         n.wowi_tech_name
+                     }).Distinct();
+                      
+        return result.ToDictionary(n => n.Technology_id, n => n.wowi_tech_name);
     }
 
 
@@ -76,17 +96,29 @@ public class CodeTableController
         return result.ToDictionary(n => (Int32)n.Quotation_Status_Id, n => n.Quotation_Status_Name);
     }
 
-    public static decimal GetAll_Target_Rates(int country_id, int product_type_id, string authority_name, int wowi_tech_id)
+    public static Dictionary<int, decimal> GetAll_Target_Rates( int wowi_tech_id, int Country_ID, int product_type_id, int authority_id)
     {
 
+        //QuotationEntities entities = new QuotationEntities();
+        //var result = from n in entities.Target_Rates
+        //             where n.country_id == country_id && n.product_type_id == product_type_id && n.authority_name == authority_name && n.Technology_id == wowi_tech_id
+        //             select n;
+        //if (result.Count() > 0)
+        //    return (decimal)result.First().rate;
+        //else
+        //    return 0;
+
         QuotationEntities entities = new QuotationEntities();
-        var result = from n in entities.Target_Rates
-                     where n.country_id == country_id && n.product_type_id == product_type_id && n.authority_name == authority_name && n.Technology_id == wowi_tech_id
-                     select n;
-        if (result.Count() > 0)
-            return (decimal)result.First().rate;
-        else
-            return 0;
+        var result = (from n in entities.vw_Target
+                      where 
+                        n.Technology_id ==wowi_tech_id && n.country_id == Country_ID && n.product_type_id == product_type_id
+                      select new
+                      {
+                          n.Target_rate_id,
+                          n.rate
+                      }).Distinct();
+
+        return result.ToDictionary(n => (int)n.Target_rate_id, n => (decimal)n.rate);
     }
 
     public static Dictionary<int, string> GetAll_Target(int country_id, int product_type_id, int authority_id, int wowi_tech_id)
@@ -117,6 +149,7 @@ public class CodeTableController
         var result = from n in entities.employee
                      where n.username == username
                      orderby n.q_authorize_amt
+
                      select n;
         return result.First();
     }

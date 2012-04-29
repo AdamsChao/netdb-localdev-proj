@@ -206,42 +206,37 @@
                 </tr>
                 <tr>
                     <td width="50%">
+                        Technology:<asp:DropDownList ID="ddlTechnology" runat="server" 
+                            AutoPostBack="true" OnSelectedIndexChanged="ddlTechnology_SelectedIndexChanged">
+                        </asp:DropDownList>
+                    </td>
+                    <td width="50%">
                         Country:<asp:DropDownList ID="ddlCountry" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged"
                             Width="70%">
                         </asp:DropDownList>
                     </td>
-                    <td width="50%">
+                </tr>
+                <tr>
+                    <td>
                         Certification Type:
                         <asp:DropDownList ID="ddlProductType" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlProductType_SelectedIndexChanged">
                         </asp:DropDownList>
                     </td>
-                </tr>
-                <tr>
                     <td>
+                       
                         Authority Name:<asp:DropDownList ID="ddlAuthority" runat="server" AutoPostBack="true"
                             OnSelectedIndexChanged="ddlAuthority_SelectedIndexChanged">
                         </asp:DropDownList>
-                    </td>
-                    <td>
-                        Technology:<asp:DropDownList ID="ddlTechnology" runat="server" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlTechnology_SelectedIndexChanged">
-                        </asp:DropDownList>
+                       
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        Test Target:<asp:DropDownList ID="ddlTarget" runat="server">
-                            <asp:ListItem>Select Test Target</asp:ListItem>
-                        </asp:DropDownList>
-                    </td>
                     <td>
                         Target Rate
                         <asp:TextBox ID="txtRate" runat="server" CssClass="CCSTextBoxRD" ReadOnly="true"
-                            Width="100"></asp:TextBox>
+                            Width="100"></asp:TextBox><input id="hidTarget_Rates_ID" type="hidden" runat="server" />
                     </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
+                    <td>
                         Description:
                         <asp:TextBox ID="txtDespction" runat="server" Width="300"></asp:TextBox>
                     </td>
