@@ -64,6 +64,7 @@ public class Quotation_Controller
     public static int Copy_Quotation(int Quotation_ID, bool isNewQuotationID)
     {
         Quotation_Version obj = Get_Quotation(Quotation_ID);
+        string q_no = obj.Quotation_No;
         ent.Detach(obj);
         obj.EntityKey = null;
         if (isNewQuotationID)
@@ -73,7 +74,8 @@ public class Quotation_Controller
         }
         else
         {
-            obj.Vername = GetLastVersionNumber(Quotation_ID) + 1;
+            obj.Vername = GetLastVersionNumber(q_no) + 1;
+            //obj.Vername = GetLastVersionNumber(Quotation_ID) + 1; // Modify by Adams 2012/4/30
         }
         obj.Quotation_Status = 1;
         obj.Quotation_Statusdate = DateTime.Now;
@@ -107,14 +109,24 @@ public class Quotation_Controller
         return NewQuotationID;
     }
 
-    public static int GetLastVersionNumber(int Quotation_ID)
+    //Add By Adams 2012/4/30
+    public static int GetLastVersionNumber(string Quatation_No)
     {
         QuotationEntities entities = new QuotationEntities();
         return (int)entities.Quotation_Version.
-                  Where(p => p.Quotation_Version_Id == Quotation_ID).
+                  Where(p => p.Quotation_No == Quatation_No).
                   Max(p => p.Vername);
-
     }
+
+    //Mark by Adams 2012/4/30
+    //public static int GetLastVersionNumber(int Quotation_ID)
+    //{
+    //    QuotationEntities entities = new QuotationEntities();
+    //    return (int)entities.Quotation_Version.
+    //              Where(p => p.Quotation_Version_Id == Quotation_ID).
+    //              Max(p => p.Vername);
+
+    //}
 
     public static void TargetChange(int Quotation_ID)
     {
