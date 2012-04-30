@@ -68,7 +68,7 @@ public class EmployeeUtils
 
     public static Object GetEmployeeList(WoWiModel.WoWiEntities db)
     {
-        var list = from e in db.employees where e.status == "Active"  select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
+        var list = from e in db.employees where e.status == "Active" orderby e.fname, e.c_fname  select new { id = e.id, name = String.IsNullOrEmpty(e.fname) ? e.c_lname + " " + e.c_fname : e.fname + " " + e.lname };
         return list;
     }
 }

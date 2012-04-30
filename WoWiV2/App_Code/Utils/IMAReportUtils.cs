@@ -960,7 +960,8 @@ public class IMAReportUtils
                             var pri = (from pi in wowidb.PR_item where pi.pr_id == p.pr_id select pi).First();
                             try
                             {
-                                var tDesc = ( from kk in wowidb.Quotation_Target from kkk in wowidb.Targets where pri.quotation_target_id == kk.Quotation_Target_Id && kk.target_id == kkk.target_id select kkk.target_description).First();
+                                //var tDesc = ( from kk in wowidb.Quotation_Target from kkk in wowidb.Targets where pri.quotation_target_id == kk.Quotation_Target_Id && kk.target_id == kkk.target_id select kkk.target_description).First();
+                                var tDesc = (from kk in wowidb.Quotation_Target where pri.quotation_target_id == kk.Quotation_Target_Id   select kk.target_description).First();
                                 temp.Country = tDesc;
 
                             }
@@ -1245,7 +1246,8 @@ public class IMAReportUtils
                             var pri = (from pi in wowidb.PR_item where pi.pr_id == p.pr_id select pi).First();
                             try
                             {
-                                var tDesc = (from kk in wowidb.Quotation_Target from kkk in wowidb.Targets where pri.quotation_target_id == kk.Quotation_Target_Id && kk.target_id == kkk.target_id select kkk.target_description).First();
+                                //var tDesc = (from kk in wowidb.Quotation_Target from kkk in wowidb.Targets where pri.quotation_target_id == kk.Quotation_Target_Id && kk.target_id == kkk.target_id select kkk.target_description).First();
+                                var tDesc = (from kk in wowidb.Quotation_Target where pri.quotation_target_id == kk.Quotation_Target_Id  select kk.target_description).First();
                                 temp.Country = tDesc;
 
                             }
@@ -1425,7 +1427,8 @@ public class IMAReportUtils
                             var pri = (from pi in wowidb.PR_item where pi.pr_id == p.pr_id select pi).First();
                             try
                             {
-                                var tDesc = (from kk in wowidb.Quotation_Target from kkk in wowidb.Targets where pri.quotation_target_id == kk.Quotation_Target_Id && kk.target_id == kkk.target_id select kkk.target_description).First();
+                                //var tDesc = (from kk in wowidb.Quotation_Target from kkk in wowidb.Targets where pri.quotation_target_id == kk.Quotation_Target_Id && kk.target_id == kkk.target_id select kkk.target_description).First();
+                                var tDesc = (from kk in wowidb.Quotation_Target where pri.quotation_target_id == kk.Quotation_Target_Id select kk.target_description).First(); 
                                 temp.Country = tDesc;
 
                             }

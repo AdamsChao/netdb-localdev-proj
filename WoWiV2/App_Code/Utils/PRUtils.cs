@@ -41,7 +41,7 @@ public class PRUtils
                            Version = q.Vername,
                            Id = q.Quotation_Version_Id
                        };
-        var data = (from t in db.Target from qt in db.Quotation_Target from q in list where qt.quotation_id == q.Id & qt.target_id == t.target_id select new { Code = t.target_code, Desc = t.target_description }).First();
+        var data = (from t in wowidb.Target_Rates from qt in wowidb.Quotation_Target from q in list where qt.quotation_id == q.Id & qt.target_id == t.Target_rate_id select new { Code = t.authority_name, Desc = qt.target_description }).First();
         String templateStr = "PR No.#{0} / {1} / {2} / {3}  is "+message;
         return String.Format(templateStr, prid, venderName, data.Desc,data.Code);
     }
@@ -340,7 +340,7 @@ public class PRUtils
             var data = from a in wowidb.m_employee_accesslevel where a.employee_id == eid select a.accesslevel_id;
             if (data.Count() != 0)
             {
-                var list = (from c in wowidb.vendors from country in wowidb.countries from a in wowidb.access_level where c.country == country.country_id && data.Contains((int)c.department_id) && c.department_id == a.id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name + " ]" : c.name + " - [ " + country.country_name + " ] - [ Access Level = " + a.name + " ]" });
+                var list = (from c in wowidb.vendors from country in wowidb.countries from a in wowidb.access_level where c.country == country.country_id && data.Contains((int)c.department_id) && c.department_id == a.id orderby c.name,c.c_name select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name + " ]" : c.name + " - [ " + country.country_name + " ] - [ Access Level = " + a.name + " ]" });
                 (sender as DropDownList).DataSource = list;
                 (sender as DropDownList).DataTextField = "Text";
                 (sender as DropDownList).DataValueField = "Id";
