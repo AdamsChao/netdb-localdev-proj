@@ -45,12 +45,10 @@
                                     <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
                                     <Nodes>
                                         <asp:TreeNode Text="案件管理" Value="案件管理">
-                                            <asp:TreeNode Text="未完成的案子(Open)" Value="Open"></asp:TreeNode>
-                                            <asp:TreeNode Text="申請中的案子(In-Progress)" Value="In-Progress"></asp:TreeNode>
+                                            <asp:TreeNode Text="新開案的案子(Open)" Value="Open"></asp:TreeNode>
                                             <asp:TreeNode Text="暫停的案子(On-Hold)" Value="On-Hold"></asp:TreeNode>
                                             <asp:TreeNode Text="完成的案子(Done)" Value="Done"></asp:TreeNode>
                                             <asp:TreeNode Text="取消的案子(Cancelled)" Value="Cancelled"></asp:TreeNode>
-                                            <asp:TreeNode Text="待刪除案件(Void)" Value="Void"></asp:TreeNode>
                                         </asp:TreeNode>
                                         <asp:TreeNode Text="案件總覽" Value="%"></asp:TreeNode>
                                     </Nodes>

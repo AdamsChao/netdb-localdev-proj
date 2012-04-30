@@ -19,6 +19,8 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
         TextBox certification_submit_to_authority = (TextBox)DetailsViewTarget.FindControl("TextBox5");
         TextBox certification_completed = (TextBox)DetailsViewTarget.FindControl("TextBox6");
         TextBox TextBox_Actual_Lead_time = (TextBox)DetailsViewTarget.FindControl("TextBox_Actual_Lead_time");
+        TextBox textBoxEstimated = (TextBox)DetailsViewTarget.FindControl("TextBoxEstimated");
+
         decimal wk = 0;
         if (!string.IsNullOrEmpty(test_started.Text) && !string.IsNullOrEmpty(certification_completed.Text))
         {
@@ -41,21 +43,34 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
             wk = Math.Ceiling(decimal.Parse(dt_certification_completed.Subtract(dt_certification_submit_to_authority).Days.ToString()) / 7);
             TextBox_Actual_Lead_time.Text = wk.ToString();   
         }
-        SqlDataSourceModifyTarget.UpdateParameters["Actual_Lead_time"].DefaultValue = wk.ToString();
+        SqlDataSourceModifyTarget.UpdateParameters["Actual_Lead_time"].DefaultValue = wk.ToString();        
 
         DropDownList ddlAgent = (DropDownList)DetailsViewTarget.FindControl("DropDownListAgent");
         SqlDataSourceModifyTarget.UpdateParameters["Agent"].DefaultValue = ddlAgent.SelectedValue;   
 
         DropDownList ddlEmp = (DropDownList)DetailsViewTarget.FindControl("DropDownListEmp");
-        SqlDataSourceModifyTarget.UpdateParameters["Country_Manager"].DefaultValue = ddlEmp.SelectedValue;        
+        SqlDataSourceModifyTarget.UpdateParameters["Country_Manager"].DefaultValue = ddlEmp.SelectedValue;
+       
+        if (!string.IsNullOrEmpty(textBoxEstimated.Text))
+        {
+          // Actual > Estimated 則屬逾時
+          if (int.Parse(wk.ToString()) > int.Parse(textBoxEstimated.Text))
+          {
+            SqlDataSourceModifyTarget.UpdateParameters["Status"].DefaultValue = "Delay";          
+          }
+          else
+          {
+            DropDownList ddlStatus = (DropDownList)DetailsViewTarget.FindControl("ddlStatus");
+            SqlDataSourceModifyTarget.UpdateParameters["Status"].DefaultValue = ddlStatus.SelectedValue;
+          }
+        }
     }
 
     protected void DetailsViewTarget_ItemUpdated(object sender, DetailsViewUpdatedEventArgs e)
     {
         if (e.Exception==null)
         { 
-            GridViewProjectTarget.DataBind();
-            //DetailsViewTarget.DataBind();
+            GridViewProjectTarget.DataBind();            
             Message.Text = "Target Details Update Successful!";
         }
         else
@@ -99,7 +114,14 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
       {
         ddlAgent.SelectedValue = txtAgent.Text;
       }
-      
+
+      //處理Status
+      TextBox txtStatus = (TextBox)DetailsViewTarget.FindControl("TextBoxStatus");
+      DropDownList ddlStatus = (DropDownList)DetailsViewTarget.FindControl("ddlStatus");
+      if (ddlStatus != null)
+      {
+        ddlStatus.SelectedValue = txtStatus.Text;
+      }
     }
 
     protected void LinkButtonTop_Click(object sender, EventArgs e)

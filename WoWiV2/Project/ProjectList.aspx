@@ -44,12 +44,10 @@
                     <EditItemTemplate>
                         <asp:DropDownList ID="DropDownList2" runat="server" 
                             SelectedValue='<%# Bind("Project_Status") %>'>
-                            <asp:ListItem>Open</asp:ListItem>
-                            <asp:ListItem>In-Progress</asp:ListItem>
-                            <asp:ListItem>Done</asp:ListItem>
-                            <asp:ListItem>Cancelled</asp:ListItem>                            
-                            <asp:ListItem>On-Hold</asp:ListItem>
-                            <asp:ListItem>Void</asp:ListItem>
+                            <asp:ListItem Value="Open">新開案的案子(Open)</asp:ListItem>
+                            <asp:ListItem Value="On-Hold">暫停的案子(On-Hold)</asp:ListItem>
+                            <asp:ListItem Value="Done">完成的案子(Done)</asp:ListItem>
+                            <asp:ListItem Value="Cancelled">取消的案子(Cancelled)</asp:ListItem>
                         </asp:DropDownList>
                     </EditItemTemplate>
                     <ItemTemplate>

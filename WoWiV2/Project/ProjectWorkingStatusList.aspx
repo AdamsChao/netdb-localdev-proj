@@ -25,18 +25,18 @@
 				<td  id="frmLeft" valign="top">
 					<table   cellPadding="0" cellSpacing="0">
 						<tr>
-							<td >Project Status : 
+							<td >Target Status : 
                                 <asp:TreeView ID="TreeViewStatus" runat="server" ImageSet="WindowsHelp" 
                                     ShowLines="True">
                                     <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
                                     <Nodes>
                                         <asp:TreeNode Text="案件管理" Value="案件管理">
-                                            <asp:TreeNode Text="未完成的案子(Open)" Value="Open"></asp:TreeNode>
+                                            <asp:TreeNode Text="新開案的案子(Open)" Value="Open"></asp:TreeNode>
                                             <asp:TreeNode Text="申請中的案子(In-Progress)" Value="In-Progress"></asp:TreeNode>
                                             <asp:TreeNode Text="暫停的案子(On-Hold)" Value="On-Hold"></asp:TreeNode>
                                             <asp:TreeNode Text="完成的案子(Done)" Value="Done"></asp:TreeNode>
                                             <asp:TreeNode Text="取消的案子(Cancelled)" Value="Cancelled"></asp:TreeNode>
-                                            <asp:TreeNode Text="待刪除案件(Void)" Value="Void"></asp:TreeNode>
+                                            <asp:TreeNode Text="逾時案件(Delay)" Value="Void"></asp:TreeNode>
                                         </asp:TreeNode>
                                         <asp:TreeNode Text="案件總覽" Value="%"></asp:TreeNode>
                                     </Nodes>
@@ -155,8 +155,8 @@
                     SortExpression="country_name" />
       <asp:BoundField DataField="authority_name" HeaderText="Authority" 
                     SortExpression="authority_name" />
-      <asp:BoundField DataField="Project_Status" HeaderText="Project Status" 
-        SortExpression="Project_Status" />
+      <asp:BoundField DataField="Status" HeaderText="Status" 
+        SortExpression="Status" />
       <asp:BoundField DataField="test_started" HeaderText="Test Started" 
                     SortExpression="test_started" DataFormatString="{0:d}" />
       <asp:BoundField DataField="test_completed" HeaderText="Test Completed" 
@@ -209,7 +209,7 @@ INNER JOIN Project ON Project.Quotation_No = Quotation_Version.Quotation_No
 INNER JOIN Employee ON Employee.id = Quotation_Version.SalesId
 INNER JOIN clientapplicant ON Quotation_Version.Client_Id = clientapplicant.id 
 WHERE (Project.Project_No LIKE '%' + @Project_No + '%') 
-AND (Project.Project_Status LIKE '%' + @Project_Status + '%') 
+AND (Quotation_Target.Status LIKE '%' + @Status + '%') 
 AND (country.country_name LIKE '%' + @country_name + '%') 
 AND (SalesId  LIKE @SalesId) 
 AND (Client_Id  LIKE @Client_Id) ">
@@ -217,7 +217,7 @@ AND (Client_Id  LIKE @Client_Id) ">
       <asp:ControlParameter ControlID="DropDownListPO" DefaultValue="%" 
         Name="Project_No" PropertyName="SelectedValue" Type="String" />
       <asp:ControlParameter ControlID="TreeViewStatus" DefaultValue="%" 
-        Name="Project_Status" PropertyName="SelectedValue" Type="String" />
+        Name="Status" PropertyName="SelectedValue" />
       <asp:ControlParameter ControlID="DropDownListCountry" DefaultValue="%" 
         Name="country_name" PropertyName="SelectedValue" />
       <asp:ControlParameter ControlID="DropDownListAE" DefaultValue="%" 
