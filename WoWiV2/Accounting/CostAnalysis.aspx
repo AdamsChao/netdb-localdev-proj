@@ -18,10 +18,10 @@
     private void SetMergedHerderColumns(iRowSpanGridView iGridView1)
     {
         iGridView1.AddMergedColumns("Status", 6, 2);
-        iGridView1.AddMergedColumns("Vender", 15, 2);
-        iGridView1.AddMergedColumns("IMA Cost", 17, 2);
-        iGridView1.AddMergedColumns("Prepayment", 20, 2);
-        iGridView1.AddMergedColumns("Payment", 25, 2);
+        //iGridView1.AddMergedColumns("Vender", 15, 2);
+        iGridView1.AddMergedColumns("IMA Cost", 16, 2);
+        //iGridView1.AddMergedColumns("Prepayment", 20, 2);
+        //iGridView1.AddMergedColumns("Payment", 25, 2);
     }
     
     
@@ -294,42 +294,42 @@
                                 WoWiModel.PR_Payment pay = (from pr in wowidb.PR_Payment where pr.pr_id == prid select pr).First();
                                 if (pay.total_amount.HasValue)
                                 {
-                                    if (temp.Status == "Done")
-                                    {
-                                        //已結案已付款
-                                        temp.Payment = ((decimal)pay.total_amount).ToString("F2");
-                                        payment += (decimal)pay.total_amount;
-                                    }
-                                    else
-                                    {
-                                        //未結案已付款
-                                        temp.Prepay = ((decimal)pay.total_amount).ToString("F2");
-                                        prepay += (decimal)pay.total_amount;
-                                    }
-                                    temp.TotalPayment = ((decimal)pay.total_amount).ToString("F2");
-                                    totpay += (decimal)pay.total_amount;
-                                    if (pay.pay_date.HasValue)
-                                    {
-                                        temp.PaymentDate = ((DateTime)pay.pay_date).ToString("yyyy/MM/dd");
-                                    }
+                                    //if (temp.Status == "Done")
+                                    //{
+                                    //    //已結案已付款
+                                    //    temp.Payment = ((decimal)pay.total_amount).ToString("F2");
+                                    //    payment += (decimal)pay.total_amount;
+                                    //}
+                                    //else
+                                    //{
+                                    //    //未結案已付款
+                                    //    temp.Prepay = ((decimal)pay.total_amount).ToString("F2");
+                                    //    prepay += (decimal)pay.total_amount;
+                                    //}
+                                    //temp.TotalPayment = ((decimal)pay.total_amount).ToString("F2");
+                                    //totpay += (decimal)pay.total_amount;
+                                    //if (pay.pay_date.HasValue)
+                                    //{
+                                    //    temp.PaymentDate = ((DateTime)pay.pay_date).ToString("yyyy/MM/dd");
+                                    //}
                                 }
                             }
                             catch (Exception)
                             {
 
                                 //throw;
-                                if (temp.Status == "Done")
-                                {
-                                    //已結案未付款
-                                    temp.Payable = temp.SubCostUSD;
-                                    payable += decimal.Parse(temp.SubCostUSD);
-                                }
-                                else
-                                {
-                                    //未結案未付款
-                                    temp.Unpay = temp.SubCostUSD;
-                                    unpay += decimal.Parse(temp.SubCostUSD);
-                                }
+                                //if (temp.Status == "Done")
+                                //{
+                                //    //已結案未付款
+                                //    temp.Payable = temp.SubCostUSD;
+                                //    payable += decimal.Parse(temp.SubCostUSD);
+                                //}
+                                //else
+                                //{
+                                //    //未結案未付款
+                                //    temp.Unpay = temp.SubCostUSD;
+                                //    unpay += decimal.Parse(temp.SubCostUSD);
+                                //}
                             }
                         }
                         catch (Exception)
@@ -685,8 +685,8 @@
                             <asp:BoundField DataField="InvNo" HeaderText="Inv No" />
                             <asp:BoundField DataField="ReceiveDate" HeaderText="Received Date" />
                             <asp:BoundField DataField="IMA" HeaderText="IMA" SortExpression="IMA"/>
-                            <asp:BoundField DataField="VenderNo" HeaderText="No" />
-                            <asp:BoundField DataField="VenderName" HeaderText="Name" />
+                            <%--<asp:BoundField DataField="VenderNo" HeaderText="No" />--%>
+                            <asp:BoundField DataField="VenderName" HeaderText="VenderName" />
                             <asp:BoundField DataField="IMACostCurrency" HeaderText="幣別" />
                             <asp:TemplateField HeaderText="$">
                                 <EditItemTemplate>
@@ -699,14 +699,14 @@
                                     <asp:Literal ID="Literal1" runat="server" Text="<%# GetIMACost()%>"></asp:Literal>
                                      </FooterTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField DataField="SubCostUSD" HeaderText="SubCost USD" />
+                            <%--<asp:BoundField DataField="SubCostUSD" HeaderText="SubCost USD" />
                             <asp:BoundField DataField="Prepay" HeaderText="Prepay" />
                             <asp:BoundField DataField="Preunpay" HeaderText="Preunpay" />
                             <asp:BoundField DataField="Unpay" HeaderText="Unpay" />
                             <asp:BoundField DataField="Payable" HeaderText="Payable" />
                             <asp:BoundField DataField="Payment" HeaderText="Payment" />
                             <asp:BoundField DataField="TotalPayment" HeaderText="$" />
-                            <asp:BoundField DataField="PaymentDate" HeaderText="Date" />
+                            <asp:BoundField DataField="PaymentDate" HeaderText="Date" />--%>
                             <asp:BoundField DataField="PRNo" HeaderText="PR No" />
                         </Columns>
                     </cc1:iRowSpanGridView>
