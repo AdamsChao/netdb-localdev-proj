@@ -232,7 +232,7 @@
                                                 Font-Bold="True" ForeColor="Red" InitialValue="-1" >*</asp:RequiredFieldValidator>
                                             <asp:SqlDataSource ID="SqlDataSource4" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
+                                                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name]"></asp:SqlDataSource>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AppendDataBoundItems="true" Enabled="false"
@@ -293,7 +293,7 @@
                               </asp:DropDownList>
                               <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                                   ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                  SelectCommand="SELECT [country_id], [country_name] FROM [country]">
+                                  SelectCommand="SELECT [country_id], [country_name] FROM [country] order by [country_name]">
                               </asp:SqlDataSource>
                           </td><th align="left" 
                                    class="style7">&nbsp; <b>Annual Number Grants</b>:</th><td width="30%">

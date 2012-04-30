@@ -71,7 +71,7 @@
         </asp:DropDownList>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-            SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
+            SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name]"></asp:SqlDataSource>
         <asp:Button ID="Search" runat="server"  Text="Search" />
     </asp:Panel><asp:Button ID="Button1"
             runat="server" Text="Create" PostBackUrl="~/Admin/CreateApplicant.aspx" />
