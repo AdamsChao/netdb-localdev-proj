@@ -184,35 +184,6 @@
         }
     }
 
-    protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
-    {
-        try
-        {
-            DropDownList ddl = sender as DropDownList;
-            (MyContactCreateFormView1.FindControl("lblDept") as Label).Text = ddl.SelectedValue;
-        }
-        catch (Exception)
-        {
-
-            (MyContactCreateFormView1.FindControl("lblDept") as Label).Text = "-1";
-        }
-
-    }
-
-
-    protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            DropDownList ddl = sender as DropDownList;
-            (MyContactCreateFormView1.FindControl("lblEmp") as Label).Text = ddl.SelectedValue;
-        }
-        catch (Exception)
-        {
-
-            (MyContactCreateFormView1.FindControl("lblEmp") as Label).Text = "-1";
-        }
-    }
 
     protected void ddlEmployeeList_Load(object sender, EventArgs ea)
     {
