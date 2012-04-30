@@ -199,7 +199,7 @@
 
                                             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
+                                                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name]"></asp:SqlDataSource>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
                                             <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" AppendDataBoundItems="true"
