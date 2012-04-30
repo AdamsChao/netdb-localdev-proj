@@ -3,10 +3,6 @@
 <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>--%>
 <style type="text/css">
-    .style1
-    {
-        width: 100%;
-    }
     .CCSBotton
     {
         font-style: normal;
@@ -19,10 +15,6 @@
     {
         width: 150px;
         text-align: left;
-    }
-    .style7
-    {
-        width: 35%;
     }
     .quoEdit tr
     {
@@ -142,43 +134,39 @@
         </th>
         <td>
             <asp:DropDownList ID="DropDownListClient" runat="server" AutoPostBack="True" DataSourceID="SqlDataSourceClient"
-                DataTextField="companyname" DataValueField="Id" OnSelectedIndexChanged="DropDownListClient_SelectedIndexChanged">
+                DataTextField="companyname" DataValueField="Id" OnSelectedIndexChanged="DropDownListClient_SelectedIndexChanged"
+                OnDataBound="DropDownListClient_DataBound">
             </asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                SelectCommand="SELECT [id], [companyname] FROM [clientapplicant] WHERE (([clientapplicant_type] = @clientapplicant_type) OR ([clientapplicant_type] = @clientapplicant_type2))">
-                <selectparameters>
-                    <asp:Parameter DefaultValue="1" Name="clientapplicant_type" Type="Byte" />
-                    <asp:Parameter DefaultValue="3" Name="clientapplicant_type2" Type="Byte" />
-                </selectparameters>
-                <updateparameters>
-                    <asp:Parameter DefaultValue="1" Name="clientapplicant_type" Type="Byte" />
-                    <asp:Parameter DefaultValue="3" Name="clientapplicant_type2" Type="Byte" />
-                </updateparameters>
+                SelectCommand="SELECT m_employee_accesslevel.employee_id, m_employee_accesslevel.accesslevel_id, clientapplicant.id, clientapplicant.companyname FROM m_employee_accesslevel INNER JOIN clientapplicant ON m_employee_accesslevel.accesslevel_id = clientapplicant.department_id WHERE (clientapplicant.clientapplicant_type = 1 OR clientapplicant.clientapplicant_type = 3) AND (m_employee_accesslevel.employee_id = @employee_id)">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="DropDownListEmp" Name="employee_id" PropertyName="SelectedValue" />
+                </SelectParameters>
             </asp:SqlDataSource>
             <asp:DetailsView ID="DetailsViewClient" runat="server" AutoGenerateRows="False" Caption="Client Details"
                 DataSourceID="SqlDataSourceClientAddress" Height="50px" CellPadding="4" ForeColor="#333333"
                 GridLines="None">
-                <alternatingrowstyle backcolor="White" />
-                <commandrowstyle backcolor="#D1DDF1" font-bold="True" />
-                <editrowstyle backcolor="#2461BF" />
-                <fieldheaderstyle backcolor="#DEE8F5" />
-                <fields>
+                <AlternatingRowStyle BackColor="White" />
+                <CommandRowStyle BackColor="#D1DDF1" Font-Bold="True" />
+                <EditRowStyle BackColor="#2461BF" />
+                <FieldHeaderStyle BackColor="#DEE8F5" />
+                <Fields>
                     <asp:BoundField DataField="country_name" HeaderText="Country" />
                     <asp:BoundField DataField="address" HeaderText="Address" SortExpression="address" />
                     <asp:BoundField DataField="c_address" HeaderText="地址" SortExpression="c_address" />
                     <asp:BoundField DataField="main_tel" HeaderText="Tel" SortExpression="main_tel" />
                     <asp:BoundField DataField="main_fax" HeaderText="Fax" SortExpression="main_fax" />
-                </fields>
-                <footerstyle backcolor="#507CD1" font-bold="True" forecolor="White" />
-                <headerstyle backcolor="#507CD1" font-bold="True" forecolor="White" />
-                <pagerstyle backcolor="#2461BF" forecolor="White" horizontalalign="Center" />
-                <rowstyle backcolor="#EFF3FB" />
+                </Fields>
+                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                <RowStyle BackColor="#EFF3FB" />
             </asp:DetailsView>
             <asp:SqlDataSource ID="SqlDataSourceClientAddress" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 SelectCommand="SELECT clientapplicant.address, clientapplicant.c_address, clientapplicant.main_tel, clientapplicant.main_fax, country.country_name FROM clientapplicant LEFT OUTER JOIN country ON clientapplicant.country_id = country.country_id WHERE (clientapplicant.id = @id)">
-                <selectparameters>
+                <SelectParameters>
                     <asp:ControlParameter ControlID="DropDownListClient" Name="id" PropertyName="SelectedValue" />
-                </selectparameters>
+                </SelectParameters>
             </asp:SqlDataSource>
         </td>
     </tr>
@@ -191,41 +179,58 @@
                 DataTextField="companyname" DataValueField="Id">
             </asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSourceApp" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                SelectCommand="SELECT [Id], [companyname] FROM [clientapplicant] WHERE (([clientapplicant_type] = @clientapplicant_type) OR ([clientapplicant_type] = @clientapplicant_type2))">
-                <selectparameters>
-                    <asp:Parameter DefaultValue="2" Name="clientapplicant_type" Type="Byte" />
-                    <asp:Parameter DefaultValue="3" Name="clientapplicant_type2" Type="Byte" />
-                </selectparameters>
+                SelectCommand="SELECT m_employee_accesslevel.employee_id, m_employee_accesslevel.accesslevel_id, clientapplicant.id, clientapplicant.companyname FROM m_employee_accesslevel INNER JOIN clientapplicant ON m_employee_accesslevel.accesslevel_id = clientapplicant.department_id WHERE (clientapplicant.clientapplicant_type = 2 OR clientapplicant.clientapplicant_type = 3) AND (m_employee_accesslevel.employee_id = @employee_id)">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="DropDownListEmp" Name="employee_id" PropertyName="SelectedValue" />
+                </SelectParameters>
             </asp:SqlDataSource>
             <asp:DetailsView ID="DetailsViewApp" runat="server" AutoGenerateRows="False" Caption="Applicant Details"
                 DataSourceID="SqlDataSourceAppAddress" CellPadding="4" ForeColor="#333333" GridLines="None">
-                <alternatingrowstyle backcolor="White" />
-                <commandrowstyle backcolor="#D1DDF1" font-bold="True" />
-                <editrowstyle backcolor="#2461BF" />
-                <fieldheaderstyle backcolor="#DEE8F5" />
-                <fields>
-                <asp:BoundField DataField="country_name" HeaderText="Country" />
+                <AlternatingRowStyle BackColor="White" />
+                <CommandRowStyle BackColor="#D1DDF1" Font-Bold="True" />
+                <EditRowStyle BackColor="#2461BF" />
+                <FieldHeaderStyle BackColor="#DEE8F5" />
+                <Fields>
+                    <asp:BoundField DataField="country_name" HeaderText="Country" />
                     <asp:BoundField DataField="address" HeaderText="Address" SortExpression="address" />
                     <asp:BoundField DataField="c_address" HeaderText="地址" SortExpression="c_address" />
                     <asp:BoundField DataField="main_tel" HeaderText="Tel" SortExpression="main_tel" />
                     <asp:BoundField DataField="main_fax" HeaderText="Fax" SortExpression="main_fax" />
-                </fields>
-                <footerstyle backcolor="#507CD1" font-bold="True" forecolor="White" />
-                <headerstyle backcolor="#507CD1" font-bold="True" forecolor="White" />
-                <pagerstyle backcolor="#2461BF" forecolor="White" horizontalalign="Center" />
-                <rowstyle backcolor="#EFF3FB" />
+                </Fields>
+                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                <RowStyle BackColor="#EFF3FB" />
             </asp:DetailsView>
             <asp:SqlDataSource ID="SqlDataSourceAppAddress" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 SelectCommand="SELECT clientapplicant.address, clientapplicant.c_address, clientapplicant.main_tel, clientapplicant.main_fax, country.country_name FROM clientapplicant LEFT OUTER JOIN country ON clientapplicant.country_id = country.country_id WHERE (clientapplicant.id = @id)">
-                <selectparameters>
+                <SelectParameters>
                     <asp:ControlParameter ControlID="DropDownListApp" Name="id" PropertyName="SelectedValue" />
-                </selectparameters>
+                </SelectParameters>
             </asp:SqlDataSource>
         </td>
     </tr>
     <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
         <th colspan="2">
             Billing
+        </th>
+    </tr>
+    <tr>
+        <th colspan="2" style="text-align: left;">
+            <asp:RadioButtonList ID="rblSame" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow"
+                AutoPostBack="True" OnSelectedIndexChanged="rblSame_SelectedIndexChanged">
+                <asp:ListItem Selected="True">Same as Client</asp:ListItem>
+                <asp:ListItem>Not Same As Clinet</asp:ListItem>
+            </asp:RadioButtonList>
+            <asp:DropDownList ID="DropDownListClient2" runat="server" AutoPostBack="True" DataSourceID="SqlDataSourceClient2"
+                DataTextField="companyname" DataValueField="Id" Enabled="False" OnSelectedIndexChanged="DropDownListClient2_SelectedIndexChanged">
+            </asp:DropDownList>
+            <asp:SqlDataSource ID="SqlDataSourceClient2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                SelectCommand="SELECT m_employee_accesslevel.employee_id, m_employee_accesslevel.accesslevel_id, clientapplicant.id, clientapplicant.companyname FROM m_employee_accesslevel INNER JOIN clientapplicant ON m_employee_accesslevel.accesslevel_id = clientapplicant.department_id WHERE (clientapplicant.clientapplicant_type = 1 OR clientapplicant.clientapplicant_type = 3) AND (m_employee_accesslevel.employee_id = @employee_id)">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="DropDownListEmp" Name="employee_id" PropertyName="SelectedValue" />
+                </SelectParameters>
+            </asp:SqlDataSource>
         </th>
     </tr>
     <tr>
@@ -332,8 +337,18 @@
             Payment days
         </th>
         <td>
-            <asp:TextBox ID="txtPayment_Days" runat="server" Width="500px">
-            </asp:TextBox>
+         <asp:DropDownList ID="ddlPaymentDays" runat="server" 
+                                                 SelectedValue='<%# Bind("paymentdays") %>'>
+                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                                                 <asp:ListItem Value="0">ASAP</asp:ListItem>
+                                                 <asp:ListItem Value="7">  7 days</asp:ListItem>
+                                                 <asp:ListItem Value="15"> 15 days</asp:ListItem>
+                                                 <asp:ListItem Value="30"> 30 days</asp:ListItem>
+                                                 <asp:ListItem Value="45"> 45 days</asp:ListItem>
+                                                 <asp:ListItem Value="60"> 60 days</asp:ListItem>
+                                                 <asp:ListItem Value="90"> 90 days</asp:ListItem>
+                                                 <asp:ListItem Value="120">120 days</asp:ListItem>
+                                             </asp:DropDownList>
         </td>
     </tr>
     <tr>
@@ -341,9 +356,15 @@
             Payment Term
         </th>
         <td>
-            <asp:DropDownList ID="ddlPayment_Term" runat="server" AutoPostBack="True">
-                <asp:ListItem>Net 30</asp:ListItem>
-                <asp:ListItem>Cache</asp:ListItem>
+            <asp:DropDownList ID="ddlPayment_Term" runat="server" >
+                <asp:ListItem Value="-1">- Select -</asp:ListItem>
+                <asp:ListItem Value="0">支票 Check</asp:ListItem>
+                <asp:ListItem Value="1">國內匯款 Domestic Wire Transfer</asp:ListItem>
+                <asp:ListItem Value="6">國外匯款 Foreign Wire Transfer</asp:ListItem>
+                <asp:ListItem Value="2">匯票 Cashier Check</asp:ListItem>
+                <asp:ListItem Value="3">信用卡 Credit Card</asp:ListItem>
+                <asp:ListItem Value="4">現金 Cash</asp:ListItem>
+                <asp:ListItem Value="5">西聯匯款 Westerm Union</asp:ListItem>
             </asp:DropDownList>
         </td>
     </tr>

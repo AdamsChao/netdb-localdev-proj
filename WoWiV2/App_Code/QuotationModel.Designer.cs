@@ -180,22 +180,6 @@ namespace QuotationModel
         /// <summary>
         /// 沒有可用的中繼資料文件。
         /// </summary>
-        public ObjectSet<clientapplicant> clientapplicant
-        {
-            get
-            {
-                if ((_clientapplicant == null))
-                {
-                    _clientapplicant = base.CreateObjectSet<clientapplicant>("clientapplicant");
-                }
-                return _clientapplicant;
-            }
-        }
-        private ObjectSet<clientapplicant> _clientapplicant;
-    
-        /// <summary>
-        /// 沒有可用的中繼資料文件。
-        /// </summary>
         public ObjectSet<country> country
         {
             get
@@ -368,6 +352,22 @@ namespace QuotationModel
             }
         }
         private ObjectSet<vw_Test_Target_List> _vw_Test_Target_List;
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        public ObjectSet<clientapplicant> clientapplicant
+        {
+            get
+            {
+                if ((_clientapplicant == null))
+                {
+                    _clientapplicant = base.CreateObjectSet<clientapplicant>("clientapplicant");
+                }
+                return _clientapplicant;
+            }
+        }
+        private ObjectSet<clientapplicant> _clientapplicant;
 
         #endregion
         #region AddTo 方法
@@ -426,14 +426,6 @@ namespace QuotationModel
         public void AddToQuotation_Target(Quotation_Target quotation_Target)
         {
             base.AddObject("Quotation_Target", quotation_Target);
-        }
-    
-        /// <summary>
-        /// 將新物件加入 clientapplicant EntitySet 的方法已被取代。請考慮改為使用關聯的 ObjectSet&lt;T&gt; 屬性的 .Add 方法。
-        /// </summary>
-        public void AddToclientapplicant(clientapplicant clientapplicant)
-        {
-            base.AddObject("clientapplicant", clientapplicant);
         }
     
         /// <summary>
@@ -522,6 +514,14 @@ namespace QuotationModel
         public void AddTovw_Test_Target_List(vw_Test_Target_List vw_Test_Target_List)
         {
             base.AddObject("vw_Test_Target_List", vw_Test_Target_List);
+        }
+    
+        /// <summary>
+        /// 將新物件加入 clientapplicant EntitySet 的方法已被取代。請考慮改為使用關聯的 ObjectSet&lt;T&gt; 屬性的 .Add 方法。
+        /// </summary>
+        public void AddToclientapplicant(clientapplicant clientapplicant)
+        {
+            base.AddObject("clientapplicant", clientapplicant);
         }
 
         #endregion

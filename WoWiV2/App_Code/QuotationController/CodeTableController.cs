@@ -155,6 +155,16 @@ public class CodeTableController
 
     }
 
+    public static String GetEmployeeAccessLevel(int employee_id)
+    {
+        QuotationEntities entities = new QuotationEntities();
+        var result = from n in entities.m_employee_accesslevel
+                     where n.employee_id == employee_id 
+                     select n.accesslevel_id;
+        return "'" + String.Join("','", result) + "'";
+
+    }
+
     public static employee GetEmployee(string username)
     {
         QuotationEntities entities = new QuotationEntities();
