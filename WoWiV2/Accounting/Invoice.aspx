@@ -262,7 +262,7 @@
         {
             temp = new InvoiceData();
             temp.id = item.invoice_id + "";
-            temp.InvoiceNo = item.issue_invoice_no;
+            temp.InvoiceNo = item.issue_invoice_no +" ";
             try
             {
                 String username = item.create_user;
@@ -274,11 +274,34 @@
 
                 //throw;
             }
-           
+            
             if (item.issue_invoice_date.HasValue)
             {
-                temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
+                temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd")+" ";
             }
+            try
+            {
+                var rlist = from c in wowidb.invoice_received where c.invoice_id == item.invoice_id select c;
+                foreach (var ritem in rlist)
+                {
+                    temp.InvoiceNo += ritem.iv_no + " ";
+                    try
+                    {
+                        temp.InvoiceDate += ((DateTime)ritem.received_date).ToString("yyyy/MM/dd") + " ";
+                    }
+                    catch (Exception)
+                    {
+                        
+                        //throw;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+            
             temp.ProjectNo = item.project_no;
             try
             {
@@ -494,7 +517,7 @@
                                 <asp:Button ID="Button1" runat="server" Text="New" onclick="Button1_Click" />
                                 &nbsp;&nbsp;
                                 <asp:Button ID="Button2" runat="server" Text="Print List" 
-                                     onclick="Button2_Click" />
+                                     onclick="Button2_Click" Enabled="False" />
                                 
                             </td>
                         </tr>
