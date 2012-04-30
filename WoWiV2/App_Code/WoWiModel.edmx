@@ -41,8 +41,6 @@
           <EntitySet Name="Quotation_Status" EntityType="WoWiModel.Store.Quotation_Status" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Quotation_Target" EntityType="WoWiModel.Store.Quotation_Target" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Quotation_Version" EntityType="WoWiModel.Store.Quotation_Version" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="sysdiagrams" EntityType="WoWiModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Target" EntityType="WoWiModel.Store.Target" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Target_Rates" EntityType="WoWiModel.Store.Target_Rates" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="venderbanking" EntityType="WoWiModel.Store.venderbanking" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="vendor" EntityType="WoWiModel.Store.vendor" store:Type="Tables" Schema="dbo" />
@@ -723,30 +721,6 @@
           <Property Name="FinalTotalPrice" Type="decimal" Precision="20" Scale="2" />
           <Property Name="Probability" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
-        <EntityType Name="Target">
-          <Key>
-            <PropertyRef Name="target_id" />
-          </Key>
-          <Property Name="target_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="country_id" Type="int" Nullable="false" />
-          <Property Name="product_type_id" Type="int" Nullable="false" />
-          <Property Name="authority_id" Type="int" />
-          <Property Name="technology_id" Type="int" Nullable="false" />
-          <Property Name="target_code" Type="nvarchar" MaxLength="50" />
-          <Property Name="target_description" Type="nvarchar" MaxLength="250" />
-          <Property Name="target_cost" Type="money" />
-          <Property Name="target_cost_currency" Type="nvarchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="Target_Rates">
           <Key>
             <PropertyRef Name="Target_rate_id" />
@@ -922,8 +896,6 @@
           <EntitySet Name="Quotation_Status" EntityType="WoWiModel.Quotation_Status" />
           <EntitySet Name="Quotation_Target" EntityType="WoWiModel.Quotation_Target" />
           <EntitySet Name="Quotation_Version" EntityType="WoWiModel.Quotation_Version" />
-          <EntitySet Name="sysdiagrams" EntityType="WoWiModel.sysdiagram" />
-          <EntitySet Name="Targets" EntityType="WoWiModel.Target" />
           <EntitySet Name="Target_Rates" EntityType="WoWiModel.Target_Rates" />
           <EntitySet Name="venderbankings" EntityType="WoWiModel.venderbanking" />
           <EntitySet Name="vendors" EntityType="WoWiModel.vendor" />
@@ -1603,30 +1575,6 @@
           <Property Type="Decimal" Name="Discount" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="FinalTotalPrice" Precision="20" Scale="2" />
           <Property Type="String" Name="Probability" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="principal_id" Nullable="false" />
-          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="version" />
-          <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="Target">
-          <Key>
-            <PropertyRef Name="target_id" />
-          </Key>
-          <Property Type="Int32" Name="target_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="country_id" Nullable="false" />
-          <Property Type="Int32" Name="product_type_id" Nullable="false" />
-          <Property Type="Int32" Name="authority_id" />
-          <Property Type="Int32" Name="technology_id" Nullable="false" />
-          <Property Type="String" Name="target_code" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="target_description" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="target_cost" Precision="19" Scale="4" />
-          <Property Type="String" Name="target_cost_currency" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Target_Rates">
           <Key>
@@ -2466,32 +2414,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="WoWiModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Targets">
-            <EntityTypeMapping TypeName="WoWiModel.Target">
-              <MappingFragment StoreEntitySet="Target">
-                <ScalarProperty Name="target_cost_currency" ColumnName="target_cost_currency" />
-                <ScalarProperty Name="target_cost" ColumnName="target_cost" />
-                <ScalarProperty Name="target_description" ColumnName="target_description" />
-                <ScalarProperty Name="target_code" ColumnName="target_code" />
-                <ScalarProperty Name="technology_id" ColumnName="technology_id" />
-                <ScalarProperty Name="authority_id" ColumnName="authority_id" />
-                <ScalarProperty Name="product_type_id" ColumnName="product_type_id" />
-                <ScalarProperty Name="country_id" ColumnName="country_id" />
-                <ScalarProperty Name="target_id" ColumnName="target_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Target_Rates">
             <EntityTypeMapping TypeName="WoWiModel.Target_Rates">
               <MappingFragment StoreEntitySet="Target_Rates">
@@ -2691,8 +2613,6 @@
         <EntityTypeShape EntityType="WoWiModel.Quotation_Status" Width="1.5" PointX="16.75" PointY="4.75" Height="1.3215950520833246" />
         <EntityTypeShape EntityType="WoWiModel.Quotation_Target" Width="1.5" PointX="16.75" PointY="7.75" Height="7.6555794270833246" />
         <EntityTypeShape EntityType="WoWiModel.Quotation_Version" Width="1.5" PointX="16.75" PointY="16.75" Height="14.517395833333325" />
-        <EntityTypeShape EntityType="WoWiModel.sysdiagram" Width="1.5" PointX="2.75" PointY="17.75" Height="1.8494270833333246" />
-        <EntityTypeShape EntityType="WoWiModel.Target" Width="1.5" PointX="18.75" PointY="0.75" Height="2.5532031249999818" />
         <EntityTypeShape EntityType="WoWiModel.Target_Rates" Width="1.5" PointX="18.75" PointY="4.75" Height="2.9050911458333246" />
         <EntityTypeShape EntityType="WoWiModel.venderbanking" Width="1.5" PointX="18.75" PointY="8.75" Height="4.4885872395833246" />
         <EntityTypeShape EntityType="WoWiModel.vendor" Width="1.5" PointX="10.75" PointY="18.75" Height="5.8961393229166674" />

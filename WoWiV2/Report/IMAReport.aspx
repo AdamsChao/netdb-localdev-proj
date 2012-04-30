@@ -250,7 +250,7 @@
                     }
                     try
                     {
-                       var tDesc =  (from k in wowidb.PR_item from kk in wowidb.Quotation_Target from kkk in wowidb.Targets where k.pr_id == item.pr_id && k.quotation_target_id == kk.Quotation_Target_Id && kk.target_id == kkk.target_id select kkk.target_description ).First();
+                       var tDesc =  (from k in wowidb.PR_item from kk in wowidb.Quotation_Target where k.pr_id == item.pr_id && k.quotation_target_id == kk.Quotation_Target_Id  select kk.target_description ).First();
                        temp.Country = tDesc;
                          
                     }
