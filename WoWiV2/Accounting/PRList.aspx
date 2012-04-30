@@ -190,7 +190,7 @@
             </asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'">
+                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name] ">
             </asp:SqlDataSource>
 &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" 
         onclick="btnSearch_Click" /><br>

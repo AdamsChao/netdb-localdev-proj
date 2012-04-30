@@ -139,7 +139,7 @@
                           Version = q.Vername,
                            Id = q.Quotation_Version_Id
                        };
-            var data = from t in db.Target from qt in db.Quotation_Target from q in list from c in db.country where qt.quotation_id == q.Id & qt.target_id == t.target_id & t.country_id == c.country_id select new { Text = t.target_code + "(" + q.No + ") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
+            var data = from t in db.Target_Rates from qt in db.Quotation_Target from q in list from c in db.country where qt.quotation_id == q.Id & qt.target_id == t.Target_rate_id & t.country_id == c.country_id select new { Text = t.authority_name + "(" + q.No + ") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
             (sender as DropDownList).DataSource = data;
             (sender as DropDownList).DataTextField = "Text";
             (sender as DropDownList).DataValueField = "Id";
@@ -150,8 +150,7 @@
                 int tid = (from c in wowidb.PR_item where c.pr_id == id select c.quotation_target_id).First();
                 (sender as DropDownList).SelectedValue = tid.ToString();
                 String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-                //var data2 = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Price = qt.unit_price, Qty = qt.unit, FinalPrice = qt.FinalPrice };
-                var data2 = from t in db.Target from q in db.Quotation_Version from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id && q.Quotation_Version_Id == obj.quotaion_id select new { QuotataionNo = q.Quotation_No, QuotataionID = q.Quotation_Version_Id, TargetName = t.target_code, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = t.target_description, ModelNo = t.target_code, Currency = currency, Qty = qt.unit };
+                var data2 = from t in db.Target_Rates from q in db.Quotation_Version from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id && q.Quotation_Version_Id == obj.quotaion_id select new { QuotataionNo = q.Quotation_No, QuotataionID = q.Quotation_Version_Id, TargetName = t.authority_name, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = qt.target_description, ModelNo = t.authority_name, Currency = currency, Qty = qt.unit };
                     
                 GridView gv = (FormView1.FindControl("GridView4") as GridView);
                 gv.DataSource = data2;
@@ -581,7 +580,7 @@
 
                                             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true'"></asp:SqlDataSource>
+                                                SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name]"></asp:SqlDataSource>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
                                             <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" AppendDataBoundItems="true"  Enabled="false"
@@ -711,7 +710,7 @@
                               </asp:DropDownList>
                               <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                                   ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                                  SelectCommand="SELECT [country_id], [country_name] FROM [country]">
+                                  SelectCommand="SELECT [country_id], [country_name] FROM [country] order by [country_name]">
                               </asp:SqlDataSource>
                           </td><th align="left" 
                                    class="style7">&nbsp; 統一編號:</th><td width="30%">

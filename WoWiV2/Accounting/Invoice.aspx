@@ -133,7 +133,7 @@
     protected void DropDownList1_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        var sales = from s in wowidb.employees from d in wowidb.departments where d.name == "Sales" && s.department_id == d.id select new { Id = s.id, Name = s.fname + " " + s.lname };
+        var sales = from s in wowidb.employees from d in wowidb.departments where d.name == "Sales" && s.department_id == d.id orderby s.fname, s.c_fname select new { Id = s.id, Name = s.fname + " " + s.lname };
         (sender as DropDownList).DataSource = sales;
         (sender as DropDownList).DataTextField = "Name";
         (sender as DropDownList).DataValueField = "Id";
@@ -152,7 +152,7 @@
     protected void DropDownList3_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return; 
-        var clients = from c in wowidb.clientapplicants where c.clientapplicant_type == 1 || c.clientapplicant_type == 3 select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname };
+        var clients = from c in wowidb.clientapplicants where c.clientapplicant_type == 1 || c.clientapplicant_type == 3  orderby c.companyname, c.c_companyname select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname };
         (sender as DropDownList).DataSource = clients;
         (sender as DropDownList).DataTextField = "Name";
         (sender as DropDownList).DataValueField = "Id";

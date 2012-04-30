@@ -195,7 +195,7 @@
                 try
                 {
                     String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-                    var idata = from t in db.Target from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.target_id select new { /*QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id,*/ ItemDescription = t.target_description, ModelNo = t.target_code /*, Currency = currency*/, Qty = qt.unit};
+                    var idata = from t in db.Target_Rates from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id select new { /*QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id,*/ ItemDescription = qt.target_description, ModelNo = t.authority_name/*, Currency = currency*/, Qty = qt.unit};
                     
                     //lblTotal.Text = lblOtotal.Text;
                     TargetList.DataSource = idata;

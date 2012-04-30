@@ -5,7 +5,10 @@
 <script runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
-
+    static String Prepayment1 = "預收1";
+    static String Prepayment2 = "預收2";
+    static String Prepayment3 = "預收3";
+    static String Finalpayment = "尾款";
     protected void Page_Load(object sender, EventArgs e)
     {
         int sid = 1;
@@ -98,9 +101,10 @@
             var qnos = from q in db.Quotation_Version where q.Quotation_No == no select q;
             var item = from qt in db.Quotation_Target
                        from qu in qnos
-                       where qt.quotation_id == qu.Quotation_Version_Id
+                       where qt.quotation_id == qu.Quotation_Version_Id && (qt.PR_Flag == "1" || qt.PR_Flag == "2" || qt.PR_Flag == "3" || qt.PR_Flag == "E")
                        select new 
                        {
+                           tid = qt.Quotation_Target_Id,
                            qId = qu.Quotation_Version_Id,
                            No = no,
                            VersionNo = (int)qu.Vername, 
@@ -111,6 +115,10 @@
                            UnitPrice = (decimal)qt.unit_price,
                            FPrice = (decimal)qt.FinalPrice,
                            Bill = qt.Bill,
+                           Bill1 = qt.Bill1,
+                           Bill2 = qt.Bill2,
+                           Bill3 = qt.Bill3,
+                           BillE = qt.BillE,
                            Unit = qt.unit,
                            PrePayment = qt.advance2,
                            FinalPayment = qt.balance2,
@@ -123,10 +131,23 @@
             foreach (var i in item)
             {
 
-                if (i.PR_Flag == "1")
+                
+                if (i.PR_Flag == "1" )
                 {
-                    if (i.PrePayment.HasValue && (decimal)i.PrePayment != 0)
+                    if (i.Bill1.HasValue && (decimal)i.Bill1 != 0)
                     {
+                        try
+                        {
+                            var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.PrePaid1 select it;
+                            if (invoiceTarget.Count() != 0)
+                            {
+                                continue;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
                         temp = new ProjectInvoiceData()
                         {
                             No = no,
@@ -138,20 +159,32 @@
                             UnitPrice = i.UnitPrice,
                             FPrice = (decimal)i.Qty * i.UnitPrice,
                             Bill = i.Bill,
-                            PayType = "PrePayment",
+                            PayType = Prepayment1,
                             UOM = ((double)i.Unit).ToString("F0"),
-                            PayAmount = i.PrePayment.ToString(),
+                            PayAmount = i.Bill1.ToString(),
                             Qutation_Target_Id = i.Qutation_Target_Id,
-                            Qutation_Id = i.qId
+                            Qutation_Id = i.qId,
                         };
-                        total += (decimal)i.PrePayment;
+                        total += (decimal)i.Bill1;
                         items.Add(temp);
                     }
                 }
-                if (i.PR_Flag == "2")
+                else if (i.PR_Flag == "2")
                 {
-                    if (i.FinalPayment.HasValue && (decimal)i.FinalPayment != 0)
+                    if (i.Bill2.HasValue && (decimal)i.Bill2 != 0)
                     {
+                        try
+                        {
+                            var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.PrePaid2 select it;
+                            if (invoiceTarget.Count() != 0)
+                            {
+                                continue;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
                         temp = new ProjectInvoiceData()
                         {
                             No = no,
@@ -163,16 +196,32 @@
                             UnitPrice = i.UnitPrice,
                             FPrice = (decimal)i.Qty * i.UnitPrice,
                             Bill = i.Bill,
-                            PayType = "FinalPayment",
-                            PayAmount = i.FinalPayment.ToString(),
+                            PayType = Prepayment2,
+                            UOM = ((double)i.Unit).ToString("F0"),
+                            PayAmount = i.Bill2.ToString(),
                             Qutation_Target_Id = i.Qutation_Target_Id,
                             Qutation_Id = i.qId
                         };
-                        total += (decimal)i.FinalPayment;
+                        total += (decimal)i.Bill2;
                         items.Add(temp);
                     }
-                    else
+                }
+                else if (i.PR_Flag == "3")
+                {
+                    if (i.Bill3.HasValue && (decimal)i.Bill3 != 0)
                     {
+                        try
+                        {
+                            var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.PrePaid3 select it;
+                            if (invoiceTarget.Count() != 0)
+                            {
+                                continue;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
                         temp = new ProjectInvoiceData()
                         {
                             No = no,
@@ -184,14 +233,72 @@
                             UnitPrice = i.UnitPrice,
                             FPrice = (decimal)i.Qty * i.UnitPrice,
                             Bill = i.Bill,
-                            PayType = "FinalPayment",
-                            PayAmount = i.FPrice.ToString(),
+                            PayType = Prepayment3,
+                            UOM = ((double)i.Unit).ToString("F0"),
+                            PayAmount = i.Bill3.ToString(),
                             Qutation_Target_Id = i.Qutation_Target_Id,
                             Qutation_Id = i.qId
                         };
-                        total += decimal.Parse(temp.PayAmount);
+                        total += (decimal)i.Bill3;
                         items.Add(temp);
                     }
+                }
+                else if (i.PR_Flag == "E")
+                {
+                    if (i.BillE.HasValue && (decimal)i.BillE != 0)
+                    {
+                        try
+                        {
+                            var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.FinalPaid select it;
+                            if (invoiceTarget.Count() != 0)
+                            {
+                                continue;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        temp = new ProjectInvoiceData()
+                        {
+                            No = no,
+                            VersionNo = i.VersionNo,
+                            Status = i.Status,
+                            Date = i.Date,
+                            TDescription = i.TDescription,
+                            Qty = i.Qty,
+                            UnitPrice = i.UnitPrice,
+                            FPrice = (decimal)i.Qty * i.UnitPrice,
+                            Bill = i.Bill,
+                            PayType = Finalpayment,
+                            PayAmount = i.BillE.ToString(),
+                            Qutation_Target_Id = i.Qutation_Target_Id,
+                            Qutation_Id = i.qId
+                        };
+                        total += (decimal)i.BillE;
+                        items.Add(temp);
+                    }
+                    //else
+                    //{
+                    //    temp = new ProjectInvoiceData()
+                    //    {
+                    //        No = no,
+                    //        VersionNo = i.VersionNo,
+                    //        Status = i.Status,
+                    //        Date = i.Date,
+                    //        TDescription = i.TDescription,
+                    //        Qty = i.Qty,
+                    //        UnitPrice = i.UnitPrice,
+                    //        FPrice = (decimal)i.Qty * i.UnitPrice,
+                    //        Bill = i.Bill,
+                    //        PayType = "FinalPayment",
+                    //        PayAmount = i.FPrice.ToString(),
+                    //        Qutation_Target_Id = i.Qutation_Target_Id,
+                    //        Qutation_Id = i.qId
+                    //    };
+                    //    total += decimal.Parse(temp.PayAmount);
+                    //    items.Add(temp);
+                    //}
                 }
             }
 
@@ -487,15 +594,26 @@
                     itarget.quotation_target_id = int.Parse(str);
                     itarget.modify_date = DateTime.Now;
                     itarget.invoice_no = invoice.issue_invoice_no;
-                    if ((row.FindControl("lblPayType") as Label).Text == "PrePayment")
+                    if ((row.FindControl("lblPayType") as Label).Text == Prepayment1)
                     {
 
                         itarget.bill_status = (byte)InvoicePaymentStatus.PrePaid1;
+                    } 
+                    else if ((row.FindControl("lblPayType") as Label).Text == Prepayment2)
+                    {
+
+                        itarget.bill_status = (byte)InvoicePaymentStatus.PrePaid2;
                     }
-                    else
+                    else if ((row.FindControl("lblPayType") as Label).Text == Prepayment3)
+                    {
+
+                        itarget.bill_status = (byte)InvoicePaymentStatus.PrePaid3;
+                    }
+                    else //if ((row.FindControl("lblPayType") as Label).Text == Finalpayment)
                     {
                         itarget.bill_status = (byte)InvoicePaymentStatus.FinalPaid;
                     }
+                    
                     try
                     {
                         itarget.amount = decimal.Parse((row.FindControl("lblPayAmount") as Label).Text);
