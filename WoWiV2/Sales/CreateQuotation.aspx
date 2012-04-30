@@ -66,20 +66,9 @@
                     Quotation:
                     <asp:Label ID="lblQuotation_No" runat="server" Text=""></asp:Label>
                     &nbsp;
-                    <asp:Label ID="lblVersion" runat="server" Visible="False"></asp:Label>
-                    <asp:DropDownList ID="ddlVersion" runat="server" AutoPostBack="True" 
-                        DataSourceID="SqlDataSourceVersion" DataTextField="Vername" 
-                        DataValueField="Quotation_Version_Id" 
-                        onselectedindexchanged="ddlVersion_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddlVersion" runat="server" 
+                        onselectedindexchanged="ddlVersion_SelectedIndexChanged" AutoPostBack="true">
                     </asp:DropDownList>
-                    <asp:SqlDataSource ID="SqlDataSourceVersion" runat="server" 
-                        ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                        SelectCommand="SELECT [Quotation_Version_Id], 'V' + convert(varchar(2),[Vername]) as 'Vername'  FROM [Quotation_Version] WHERE ([Quotation_No] = @Quotation_No)">
-                        <SelectParameters>
-                            <asp:ControlParameter ControlID="lblQuotation_No" Name="Quotation_No" 
-                                PropertyName="Text" Type="String" />
-                        </SelectParameters>
-                    </asp:SqlDataSource>
                 </td>
                 <td>
                     <asp:Button ID="cmdAdditional" runat="server" Text="Additional Quotation" OnClick="cmdAdditional_Click" />

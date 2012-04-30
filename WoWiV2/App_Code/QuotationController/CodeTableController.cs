@@ -143,6 +143,18 @@ public class CodeTableController
 
     }
 
+    public static Dictionary<int, string> GetClientApplicantList(int employee_id)
+    {
+        QuotationEntities entities = new QuotationEntities();
+        var result = from n in entities.m_employee_accesslevel
+                     join c in entities.clientapplicant  on n.accesslevel_id equals c.department_id
+                     where n.employee_id == employee_id &&
+                          (c.clientapplicant_type == 1 || c.clientapplicant_type== 3)
+                     select c;
+        return result.ToDictionary(n => n.id, n => n.companyname);
+
+    }
+
     public static employee GetEmployee(string username)
     {
         QuotationEntities entities = new QuotationEntities();

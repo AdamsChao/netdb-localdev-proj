@@ -66,9 +66,14 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                     quoTitleDiv.Visible = true;
 
                     lblQuotation_No.Text = quotation.Quotation_No;
-                    lblVersion.Text = "V" + quotation.Vername.ToString();
-                    //Add by Adams 2012/4/30
+                    //lblVersion.Text = "V" + quotation.Vername.ToString();
+
+                    ddlVersion.DataSource = Quotation_Target_Controller.GetAllVersions(quotation.Quotation_No);
+                    ddlVersion.DataTextField = "Value";
+                    ddlVersion.DataValueField = "Key";
+                    ddlVersion.DataBind();
                     ddlVersion.SelectedValue = QuotationID.ToString();
+
                     DropDownListStatus.SelectedValue = quotation.Quotation_Status.ToString();
                     txtQuotation_Statusdate.Text = ((DateTime)quotation.Quotation_Statusdate).ToString("yyyy/MM/dd HH:mm");
                     txtQuotation_Statusby.Text = quotation.Quotation_Statusby;
@@ -238,12 +243,12 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
         QuotationID = getQuotationID();
         if (QuotationID != 0)
         {
-            if (QuotationID > 0)
-            {
-                int new_id = Quotation_Controller.Copy_Quotation(QuotationID, false);
-                Response.Redirect("CreateQuotation.aspx?q=" + new_id.ToString());
-            }
+            Quotation_Version quotation = Quotation_Controller.Get_Quotation(QuotationID);
+            int new_id = Quotation_Controller.Copy_Quotation(QuotationID, false, quotation.Quotation_No);
+            Response.Redirect("CreateQuotation.aspx?q=" + new_id.ToString());
+         
         }
+        
     }
     protected void cmdCopy_Click(object sender, EventArgs e)
     {
@@ -252,7 +257,7 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
         {
             if (QuotationID > 0)
             {
-                int new_id = Quotation_Controller.Copy_Quotation(QuotationID, true);
+                int new_id = Quotation_Controller.Copy_Quotation(QuotationID, true, "");
                 Response.Redirect("CreateQuotation.aspx?q=" + new_id.ToString());
             }
         }

@@ -8,11 +8,7 @@
             width: 15%;
             text-align:right;
         }
-        .style7
-        {
-            width: 35%;
-        }
-    </style>
+        </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <p>
@@ -31,20 +27,8 @@
                 Client
             </th>
             <td>
-                <asp:DropDownList ID="ddlClient" runat="server" DataSourceID="SqlDataSourceClient"
-                    DataTextField="companyname" DataValueField="Id" OnDataBound="ddlClient_DataBound">
+                <asp:DropDownList ID="ddlClient" runat="server" >
                 </asp:DropDownList>
-                <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                    SelectCommand="SELECT [id], [companyname] FROM [clientapplicant] WHERE (([clientapplicant_type] = @clientapplicant_type) OR ([clientapplicant_type] = @clientapplicant_type2))">
-                    <SelectParameters>
-                        <asp:Parameter DefaultValue="1" Name="clientapplicant_type" Type="Byte" />
-                        <asp:Parameter DefaultValue="3" Name="clientapplicant_type2" Type="Byte" />
-                    </SelectParameters>
-                    <UpdateParameters>
-                        <asp:Parameter DefaultValue="1" Name="clientapplicant_type" Type="Byte" />
-                        <asp:Parameter DefaultValue="3" Name="clientapplicant_type2" Type="Byte" />
-                    </UpdateParameters>
-                </asp:SqlDataSource>
             </td>
              <th  class="style4">
                 Product Name

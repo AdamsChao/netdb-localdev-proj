@@ -113,4 +113,20 @@ public class Quotation_Target_Controller
             (c => c.Quotation_No == Quotation_No);
         return TargetList;
     }
+
+    //List All Versions
+    public static Dictionary<int, string> GetAllVersions(string Quotation_No)
+    {
+
+        QuotationEntities entities = new QuotationEntities();
+        var result = (from n in entities.Quotation_Version
+                      where n.Quotation_No == Quotation_No
+                      select new
+                      {
+                          n.Quotation_Version_Id,
+                          n.Vername
+                      }).Distinct();
+
+        return result.ToDictionary(n => n.Quotation_Version_Id, n => "V" + n.Vername.ToString());
+    }
 }
