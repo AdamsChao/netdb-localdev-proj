@@ -278,16 +278,16 @@
                         <td>
                             <asp:GridView ID="gvTestTargetList" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1"
                                 Width="100%" CaptionAlign="Top" ShowFooter="True" Style="text-align: left" 
-                              Font-Size="Smaller" BorderStyle="None">
+                              Font-Size="Smaller" BorderStyle="None" GridLines="Horizontal">
                                 <Columns>
                                     <asp:TemplateField HeaderText="No.">
                                         <ItemTemplate>
                                             <%#Container.DataItemIndex + 1%>
                                         </ItemTemplate>
-                                        <ItemStyle HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="Vername" HeaderText="Version" SortExpression="Vername">
-                                        <ItemStyle HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" />
                                     </asp:BoundField>
                                     <asp:BoundField DataField="target_description" HeaderText="T. Description" SortExpression="target_description">
                                         <HeaderStyle HorizontalAlign="Left" />
