@@ -147,7 +147,7 @@
             </td>
         </tr>
         <tr>
-            <td align="left" class="ccstexth">
+            <td align="left" class="ccstextboxh">
                 Client :
                 <asp:Label ID="lblClient" runat="server"></asp:Label>
                 <br />
@@ -351,9 +351,11 @@
                 &nbsp;
             </td>
         </tr>
-        <tr>
-            <td colspan="2">
+        <tr class="ccstextboxh">
+            <td colspan="2" >
                 &nbsp;
+                Remark for Client :
+                <asp:Label ID="lblRemark" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -462,7 +464,7 @@
                 </td>
             </tr>
             <tr>
-                <td align="left" class="ccstexth">
+                <td align="left" class="ccstextboxh">
                     Client :
                     <asp:Label ID="lblClient0" runat="server"></asp:Label>
                     <br />

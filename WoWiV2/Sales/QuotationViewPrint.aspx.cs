@@ -64,6 +64,7 @@ public partial class Sales_QuotationViewPrint : System.Web.UI.Page
                 lblClient0.Text = quo.Client;
                 LabelClient.Text = quo.Client;
                 LabelClient0.Text = quo.Client;
+                lblRemark.Text = quo.Remark;
             }
         }
 
