@@ -505,7 +505,7 @@
             </tr>
             <tr>
                 <td class="ccstextboxh" valign="top" width="100%">
-                    Description: Audio transceiver module Description:
+                    Description:
                     <asp:Label ID="lblDescription0" runat="server" Text="lblDescription"></asp:Label>
                     <p>
                         Model Name:
