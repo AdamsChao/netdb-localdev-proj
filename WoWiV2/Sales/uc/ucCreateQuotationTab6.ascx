@@ -163,7 +163,13 @@
                 CaptionAlign="Top" OnRowDataBound="gvTestTargetList_RowDataBound" Style="text-align: left">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
-                    <asp:BoundField DataField="Vername" HeaderText="Version" SortExpression="Vername" />
+                    <asp:TemplateField HeaderText="T.No"> 
+                        <ItemTemplate> 
+                            <%#Container.DataItemIndex + 1%> 
+                        </ItemTemplate> 
+                    </asp:TemplateField> 
+                    <asp:BoundField DataField="Vername" HeaderText="Version" 
+                        SortExpression="Vername" Visible="False" />
                     <asp:BoundField DataField="target_description" HeaderText="T. Description" SortExpression="target_description" />
                     <%--<asp:BoundField DataField="Status" HeaderText="Status" ReadOnly="True" SortExpression="Status" />--%>
                     <asp:BoundField DataField="unit" HeaderText="Unit" SortExpression="unit" />
