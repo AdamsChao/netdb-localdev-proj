@@ -8177,6 +8177,30 @@ namespace QuotationModel
         private global::System.String _Client;
         partial void OnClientChanging(global::System.String value);
         partial void OnClientChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Remark
+        {
+            get
+            {
+                return _Remark;
+            }
+            set
+            {
+                OnRemarkChanging(value);
+                ReportPropertyChanging("Remark");
+                _Remark = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Remark");
+                OnRemarkChanged();
+            }
+        }
+        private global::System.String _Remark;
+        partial void OnRemarkChanging(global::System.String value);
+        partial void OnRemarkChanged();
 
         #endregion
     

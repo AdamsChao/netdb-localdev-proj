@@ -47,7 +47,8 @@
       [vw_Quotation_Print].[Bill_Email] AS [Bill_Email], 
       [vw_Quotation_Print].[Bill_Country] AS [Bill_Country], 
       [vw_Quotation_Print].[Bill_Address] AS [Bill_Address], 
-      [vw_Quotation_Print].[title] AS [title]
+      [vw_Quotation_Print].[title] AS [title], 
+      [vw_Quotation_Print].[Remark] AS [Remark]
       FROM [dbo].[vw_Quotation_Print] AS [vw_Quotation_Print]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_Quotation_Print_Chinese" EntityType="QuotationModel.Store.vw_Quotation_Print_Chinese" store:Type="Views" store:Schema="dbo" store:Name="vw_Quotation_Print_Chinese">
@@ -515,6 +516,7 @@
           <Property Name="Bill_Country" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_Address" Type="nvarchar" MaxLength="100" />
           <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="text" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'WoWi.dbo.vw_Quotation_Print_Chinese' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -679,6 +681,7 @@
           <Property Type="String" Name="title" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="work_ext" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Client" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Remark" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="vw_Quotation_Print_Chinese">
           <Key>
@@ -1133,6 +1136,7 @@
           <EntitySetMapping Name="vw_Quotation_Print">
             <EntityTypeMapping TypeName="QuotationModel.vw_Quotation_Print">
               <MappingFragment StoreEntitySet="vw_Quotation_Print">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Client" ColumnName="Client" />
                 <ScalarProperty Name="work_ext" ColumnName="work_ext" />
                 <ScalarProperty Name="title" ColumnName="title" />
