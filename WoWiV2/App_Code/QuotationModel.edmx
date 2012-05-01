@@ -34,9 +34,11 @@
       [vw_Quotation_Print].[fname] AS [fname], 
       [vw_Quotation_Print].[lname] AS [lname], 
       [vw_Quotation_Print].[Bill_Companyname] AS [Bill_Companyname], 
+      [vw_Quotation_Print].[Client] AS [Client], 
       [vw_Quotation_Print].[Applicant] AS [Applicant], 
       [vw_Quotation_Print].[workphone] AS [workphone], 
       [vw_Quotation_Print].[email] AS [email], 
+      [vw_Quotation_Print].[work_ext] AS [work_ext], 
       [vw_Quotation_Print].[Product_Name] AS [Product_Name], 
       [vw_Quotation_Print].[Model_No] AS [Model_No], 
       [vw_Quotation_Print].[Brand_Name] AS [Brand_Name], 
@@ -476,8 +478,8 @@
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
         </EntityType>
-        <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'WOWI.dbo.vw_Product_Type' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'WoWi.dbo.vw_Product_Type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -487,8 +489,8 @@
           <Property Name="wowi_product_type_name" Type="varchar" MaxLength="50" />
           <Property Name="country_id" Type="int" />
         </EntityType>
-        <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'WOWI.dbo.vw_Quotation_Print' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'WoWi.dbo.vw_Quotation_Print' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Quotation_Print">
           <Key>
@@ -499,9 +501,11 @@
           <Property Name="fname" Type="nvarchar" MaxLength="25" />
           <Property Name="lname" Type="nvarchar" MaxLength="25" />
           <Property Name="Bill_Companyname" Type="nvarchar" MaxLength="100" />
+          <Property Name="Client" Type="nvarchar" MaxLength="50" />
           <Property Name="Applicant" Type="nvarchar" MaxLength="50" />
-          <Property Name="workphone" Type="nvarchar" MaxLength="20" />
-          <Property Name="email" Type="nvarchar" MaxLength="30" />
+          <Property Name="workphone" Type="nvarchar" MaxLength="100" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="work_ext" Type="nvarchar" MaxLength="5" />
           <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Model_No" Type="nvarchar" MaxLength="50" />
           <Property Name="Brand_Name" Type="nvarchar" MaxLength="50" />
@@ -512,8 +516,8 @@
           <Property Name="Bill_Address" Type="nvarchar" MaxLength="100" />
           <Property Name="title" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'WOWI.dbo.vw_Quotation_Print_Chinese' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'WoWi.dbo.vw_Quotation_Print_Chinese' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Quotation_Print_Chinese">
           <Key>
@@ -544,8 +548,8 @@
           <Property Name="lname" Type="nvarchar" MaxLength="25" />
           <Property Name="c_companyname" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'WOWI.dbo.vw_Target' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'WoWi.dbo.vw_Target' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Target">
           <Key>
@@ -569,8 +573,8 @@
           <Property Name="local_agent_name" Type="nvarchar" MaxLength="50" />
           <Property Name="Publish" Type="bit" />
         </EntityType>
-        <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'WOWI.dbo.vw_Test_Target_List' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'WoWi.dbo.vw_Test_Target_List' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Test_Target_List">
           <Key>
@@ -673,6 +677,8 @@
           <Property Type="String" Name="Bill_Country" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Bill_Address" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="title" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="work_ext" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Client" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vw_Quotation_Print_Chinese">
           <Key>
@@ -1127,6 +1133,8 @@
           <EntitySetMapping Name="vw_Quotation_Print">
             <EntityTypeMapping TypeName="QuotationModel.vw_Quotation_Print">
               <MappingFragment StoreEntitySet="vw_Quotation_Print">
+                <ScalarProperty Name="Client" ColumnName="Client" />
+                <ScalarProperty Name="work_ext" ColumnName="work_ext" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="Bill_Address" ColumnName="Bill_Address" />
                 <ScalarProperty Name="Bill_Country" ColumnName="Bill_Country" />
@@ -1592,7 +1600,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="QuotationModel" ZoomLevel="43">
+      <Diagram Name="QuotationModel" ZoomLevel="83">
         <EntityTypeShape EntityType="QuotationModel.vw_Product_Type" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Status" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583317" />
         <EntityTypeShape EntityType="QuotationModel.clientapplicant_technology" Width="1.5" PointX="0.75" PointY="3.75" Height="2.3648893229166674" />
