@@ -219,7 +219,8 @@
         <th colspan="2" style="text-align: left;">
             <asp:RadioButtonList ID="rblSame" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow"
                 AutoPostBack="True" OnSelectedIndexChanged="rblSame_SelectedIndexChanged">
-                <asp:ListItem Selected="True">Same as Client</asp:ListItem>
+                <asp:ListItem Selected="True">Empty</asp:ListItem>
+                <asp:ListItem>Same as Client</asp:ListItem>
                 <asp:ListItem>Not Same As Clinet</asp:ListItem>
             </asp:RadioButtonList>
             <asp:DropDownList ID="DropDownListClient2" runat="server" AutoPostBack="True" DataSourceID="SqlDataSourceClient2"
