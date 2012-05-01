@@ -57,8 +57,13 @@ public partial class Sales_QuotationViewPrint : System.Web.UI.Page
                 imgSign.ImageUrl = "../Images/sign/" + quo.fname + "." + quo.lname + ".bmp";
                 lblTitle.Text = quo.title;
 
-
-
+                //Add by Adams 2012/5/1
+                lblext.Text = quo.work_ext;
+                lblext0.Text = quo.work_ext;
+                lblClient.Text = quo.Client;
+                lblClient0.Text = quo.Client;
+                LabelClient.Text = quo.Client;
+                LabelClient0.Text = quo.Client;
             }
         }
 

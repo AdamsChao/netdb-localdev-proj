@@ -6,7 +6,7 @@
 <head runat="server">
     <title></title>
     <style type="text/css">
-        .CCSTextBoxH
+        .ccstextboxh
         {
             font-style: normal;
             font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -14,7 +14,7 @@
             font-size: 8pt;
             font-weight: 600;
         }
-        .CCSH1
+        .ccsh1
         {
             font-style: normal;
             font-family: Times New Roman;
@@ -22,7 +22,7 @@
             font-size: 8pt;
             font-weight: 700;
         }
-        .CCSTextH
+        .ccstexth
         {
             font-style: normal;
             font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -30,7 +30,7 @@
             font-size: 8pt;
             font-weight: 500;
         }
-        .CCSItemText
+        .ccsitemtext
         {
             font-style: normal;
             font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -40,25 +40,33 @@
         {
             font-weight: bold;
         }
-        .CCSTextBoxRD
+        .ccstextboxbd
         {
             font-style: normal;
             font-family: Verdana, Arial, Helvetica, sans-serif;
             background: #dddddd;
             font-size: 9pt;
         }
-      .ccstextboxh
-      {
-        font-size: 8pt;
-      }
-      .ccstexth
-      {
-        font-size: x-small;
-      }
+      
       .style2
-      {
+      {        
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        color: rgb(0,0,0);
         font-size: 8pt;
         height: 13px;
+      }
+      .style3
+      {
+        text-decoration: underline;
+      }
+      .style4
+      {
+        font-style: normal;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        color: rgb(0,0,0);
+        font-size: 8pt;
+        font-weight: 500;
+        text-decoration: underline;
       }
     </style>
 </head>
@@ -106,7 +114,9 @@
                         </td>
                         <td align="left" class="ccstextboxh">
                             <nobr>
-                            <asp:Label ID="lblTel" runat="server" Text="lblTel"></asp:Label></nobr>
+                            <asp:Label ID="lblTel" runat="server" Text="lblTel"></asp:Label>&nbsp;ext:<asp:Label 
+                              ID="lblext" runat="server"></asp:Label>
+                            </nobr>
                         </td>
                     </tr>
                     <tr>
@@ -138,9 +148,13 @@
         </tr>
         <tr>
             <td align="left" class="ccstexth">
-                BILL TO:&nbsp;<asp:Label ID="lblBillTo" runat="server" Text="lblBillTo"></asp:Label><br />
-                APPLICANT:&nbsp;
-                <asp:Label ID="lblApplicant" runat="server" Text="lblApplicant"></asp:Label>
+                Client :
+                <asp:Label ID="lblClient" runat="server"></asp:Label>
+                <br />
+                Bill To :&nbsp;<asp:Label 
+                  ID="lblBillTo" runat="server"></asp:Label><br />
+                Applicant :&nbsp;
+                <asp:Label ID="lblApplicant" runat="server"></asp:Label>
             </td>
         </tr>
     </table>
@@ -156,7 +170,7 @@
                 and that the above-named applicant agrees with WoWi Approval Services Inc. (&quot;WoWi&quot;),
                 to all of the terms and conditions contained in this Confirmation Agreement. If
                 so, please sign below and fax this Confirmation Agreement back to WoWi Sales.
-            </td>
+             </td>
         </tr>
         <tr>
             <td colspan="2">
@@ -182,6 +196,15 @@
                         <td align="left" class="ccstextboxh" colspan="2">
                             <nobr>
                             <u>CONTACT INFORMATION</u></nobr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="ccstextboxh">
+                            Client:
+                        </td>
+                        <td align="left" class="ccstextboxh">
+                            <nobr>
+                            <asp:Label ID="LabelClient" runat="server" ></asp:Label></nobr>
                         </td>
                     </tr>
                     <tr>
@@ -310,10 +333,11 @@
                                 </Columns>
                             </asp:GridView>
                             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id FROM vw_Test_Target_List WHERE (Quotation_No = @Quotation_No) ORDER BY Quotation_Version_Id">
+                                
+                              SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id FROM vw_Test_Target_List WHERE (Quotation_Version_Id = @Quotation_Version_Id) ORDER BY Quotation_Target_Id">
                                 <SelectParameters>
-                                    <asp:ControlParameter ControlID="hidQuotation_No" Name="Quotation_No" PropertyName="Text"
-                                        Type="String" />
+                                    <asp:ControlParameter ControlID="hidQuotationID" Name="Quotation_Version_Id" 
+                                      PropertyName="Text" />
                                 </SelectParameters>
                             </asp:SqlDataSource>
                         </td>
@@ -346,12 +370,12 @@
                             &nbsp;
                         </td>
                         <td align="right" class="ccstexth">
-                            <nobr>
-                            Total Cost (payable to WoWi):</nobr>
-                        </td>
+                            &nbsp;</td>
                         <td align="right" class="ccstexth">
                             <nobr>
-                            &nbsp; &nbsp; &nbsp; <asp:Label ID="lblTotalCost" runat="server" Text="lblTotalCost"></asp:Label></nobr>
+                            <span class="style3">Total Cost (payable to WoWi):
+                            &nbsp; &nbsp; &nbsp; </span> <asp:Label ID="lblTotalCost" runat="server" 
+                              Text="lblTotalCost" CssClass="style3"></asp:Label></nobr>
                         </td>
                     </tr>
                 </table>
@@ -400,17 +424,18 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td align="left" class="ccstextboxh">
-                                Tel:
+                               Tel:
                             </td>
                             <td align="left" class="ccstextboxh">
                                 <nobr>
-                            <asp:Label ID="lblTel0" runat="server" Text="lblTel"></asp:Label></nobr>
+                            <asp:Label ID="lblTel0" runat="server" Text="lblTel"></asp:Label>&nbsp;ext:</nobr><asp:Label 
+                                  ID="lblext0" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td align="left" class="ccstextboxh">
                                 Fax:
-                            </td>
+                             </td>
                             <td align="left" class="ccstextboxh">
                                 (02) 2799-8387
                             </td>
@@ -438,9 +463,13 @@
             </tr>
             <tr>
                 <td align="left" class="ccstexth">
-                    BILL TO:&nbsp;<asp:Label ID="lblBillTo0" runat="server" Text="lblBillTo"></asp:Label><br />
-                    APPLICANT:&nbsp;
-                    <asp:Label ID="lblApplicant0" runat="server" Text="lblApplicant"></asp:Label>
+                    Client :
+                    <asp:Label ID="lblClient0" runat="server"></asp:Label>
+                    <br />
+                   Bill To :&nbsp;<asp:Label 
+                      ID="lblBillTo0" runat="server"></asp:Label><br />
+                    Applicant :&nbsp;
+                    <asp:Label ID="lblApplicant0" runat="server"></asp:Label>
                 </td>
             </tr>
         </table>
@@ -456,7 +485,7 @@
                     and that the above-named applicant agrees with WoWi Services Inc. (&quot;WoWi&quot;),
                     to all of the terms and conditions contained in this Confirmation Agreement. If
                     so, please sign below and fax this Confirmation Agreement back to WoWi Sales.
-                </td>
+                  </td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -488,6 +517,15 @@
                 </td>
                 <td align="left" class="ccstextboxh">
                     <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td align="left" class="ccstextboxh">
+                              Client:
+                          </td>
+                          <td align="left" class="ccstextboxh">
+                              <nobr>
+                              <asp:Label ID="LabelClient0" runat="server" ></asp:Label></nobr>
+                          </td>
+                        </tr>
                         <tr>
                             <td align="left" class="ccstextboxh">
                                 Contact:
@@ -536,20 +574,21 @@
             </tr>
             <tr>
                 <td class="ccstextboxh" colspan="2">
-                    Note: Additional Terms and Conditions: The applicant is responsible for providing
-                    all documents, sample(s), and any other information required by WoWi for the test
-                    and application. WoWi is not responsible for any documents provided by the applicant
-                    that contain any errors or omissions or that are delayed in process. The applicant
-                    understands that the testing process can damage or destroy the sample(s). The applicant
+                    Note: Additional Terms and Conditions: The client/applicant is responsible for providing
+                    all documents, sample(s), and any other information required by WoWi for the application. WoWi is not responsible for any documents provided by the applicant
+                    that contain any errors or omissions or that are delayed in process. The client/applicant
+                    understands that the testing process can damage or destroy the sample(s). The 
+                    client/applicant
                     also understands that WoWi may be required to alter the sample(s) in connection
                     with the testing process and that this alteration may damage or destroy the sample(s);
-                    the applicant agrees to hold WoWi harmless for any damage or destruction of the
-                    sample(s) which may occur as a result of such alteration. In addition, the applicant
+                    the client/applicant agrees to hold WoWi harmless for any damage or destruction of the
+                    sample(s) which may occur as a result of such alteration. In addition, the 
+                    client/applicant
                     agrees to hold WoWi harmless for any damage or destruction of the sample(s) due
                     to fire, theft, vandalism, or otherwise unless such damage or destruction was caused
-                    by the gross negligence of WoWi. In any event the applicant agrees that WoWi&#39;
+                    by the gross negligence of WoWi. In any event the client/applicant agrees that WoWi&#39;
                     liability shall not exceed the lesser of; (1) the wholesale value of the sample(S),
-                    or (2) five thousand dollars.If the applicant does not request the return of the
+                    or (2) <span class="style3">five hundreds dollars</span>.If the client/applicant does not request the return of the
                     sample(s) within one (1) month after the sample(s) are certified or verified, then:
                     (i) the sample(s) may be destroyed by WoWi and (ii) WoWi shall not have any liability
                     for such destruction of the sample(s). WoWi has a lien on the sample(s) and other
@@ -562,14 +601,14 @@
                     Confirmation Agreement to WoWi as soon as possible. WoWi will not start to work
                     on the above project until: (i) WoWi receives the applicant&#39;s PO and this signed
                     Confirmation Agreement; and (ii) either, an approved line of credit has been established
-                    with WoWi and a 50% deposit has been received; a 100% cash prepayment has been received
-                    by WoWi; or other payment terms have been indicated above.
+                    with WoWi and a <span class="style3">50% deposit</span> has been received; a 
+                    <span class="style3">100% cash prepayment has been received
+                    by WoWi</span>; or other payment terms have been indicated above.
                 </td>
             </tr>
             <tr>
                 <td align="middle" class="ccstexth" colspan="2">
-                    <i>Our Customers are welcome at all times to witness testing of their equipment</i>
-                </td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="ccstexth" colspan="2">
@@ -578,9 +617,8 @@
                         <tr>
                             <td class="ccstextboxh" rowspan="5" width="100%">
                                 <u>CANCELLATION POLICY</u><br />
-                                greater than 2 Days=No Charge<br />
-                                less than 2 Days = 50% Service Charge<br />
-                                less than 1 Days = 100% Service Charge
+                                after applications have been submitted to the countries , the cancellation Fee 
+                                80% of quoted price to be billed.<br />
                             </td>
                         </tr>
                         <tr>
@@ -601,13 +639,15 @@
                         </tr>
                         <!--    <tr><td class="ccstexth" align="right"><nobr>Other Fees:</nobr></td><td class="ccstexth" align="right">$0.00</td></tr>  -->
                         <tr>
-                            <td align="right" class="ccstexth">
+                            <td align="right" class="style4">
                                 <nobr>
                                 Total Cost (payable to WoWi):</nobr>
                             </td>
                             <td align="right" class="ccstexth">
                                 <nobr>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Label ID="lblTotalCost2" runat="server" Text="lblTotalCost2"></asp:Label></nobr>
+                                <span class="style3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span> 
+                                <asp:Label ID="lblTotalCost2" runat="server" Text="lblTotalCost2" 
+                                  CssClass="style3"></asp:Label></nobr>
                             </td>
                         </tr>
                     </table>
@@ -712,12 +752,7 @@
             </tr>
             <tr>
                 <td class="ccstextboxh" colspan="2">
-                    *This quote is valid for 30 days from the day of issuance. Testing must begin within
-                    30 days of the quote being accepted. All projected costs, relating to Product Safety
-                    testing, are based on the assumption that all relevant components bear requisite
-                    safety approvals, unless otherwise stipulated. Projected costs assume completion
-                    of all paperwork within 180 days of inception. Any projects not completed within
-                    180 days will be requoted for balance of requirements
+                    *This quote is valid for 30 days from the day of issuance.&nbsp;
                 </td>
             </tr>
         </table>
