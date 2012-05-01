@@ -19,7 +19,7 @@
             font-style: normal;
             font-family: Times New Roman;
             color: rgb(0,0,0);
-            font-size: 8pt;
+            font-size: 9pt;
             font-weight: 700;
         }
         .ccstexth
@@ -28,7 +28,7 @@
             font-family: Verdana, Arial, Helvetica, sans-serif;
             color: rgb(0,0,0);
             font-size: 8pt;
-            font-weight: 500;
+            font-weight: 700;
         }
         .ccsitemtext
         {
@@ -49,7 +49,7 @@
         }
       
       .style2
-      {        
+      {
         font-family: Verdana, Arial, Helvetica, sans-serif;
         color: rgb(0,0,0);
         font-size: 8pt;
@@ -65,8 +65,16 @@
         font-family: Verdana, Arial, Helvetica, sans-serif;
         color: rgb(0,0,0);
         font-size: 8pt;
-        font-weight: 500;
+        font-weight: 700;
         text-decoration: underline;
+      }
+      .style5
+      {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        color: rgb(0,0,0);
+        font-size: 8pt;
+        height: 13px;
+        font-weight: bold;
       }
     </style>
 </head>
@@ -83,8 +91,8 @@
                 <img border="0" height="90" src="../Images/Quotation/WoWilogoname.jpg" />
             </td>
             <td align="middle" class="ccsh1">
-                <font face="verdana" size="3">WoWi Approval Services Inc.</font><br />
-                <font face="verdana" size="1">3F., No.79, Zhouzi St., Neihu Dist.,<br />
+                <font face="verdana" size="4">WoWi Approval Services Inc.</font><br />
+                <font face="verdana" size="2">3F., No.79, Zhouzi St., Neihu Dist.,<br />
                     Taipei City 114, Taiwan (R.O.C.)<br />
                     T: 886-2-2799-8382 &nbsp; F: 886-2-2799-8387<br />
                     Http://www.WoWiApproval.com</font>
@@ -148,12 +156,13 @@
         </tr>
         <tr>
             <td align="left" class="ccstextboxh">
-                Client :
+                CLIENT :
                 <asp:Label ID="lblClient" runat="server"></asp:Label>
                 <br />
-                Bill To :&nbsp;<asp:Label 
+                BILL 
+                TO :&nbsp;<asp:Label 
                   ID="lblBillTo" runat="server"></asp:Label><br />
-                Applicant :&nbsp;
+                APPLICANT :&nbsp;
                 <asp:Label ID="lblApplicant" runat="server"></asp:Label>
             </td>
         </tr>
@@ -195,7 +204,7 @@
                     <tr>
                         <td align="left" class="ccstextboxh" colspan="2">
                             <nobr>
-                            <u>CONTACT INFORMATION</u></nobr>
+                            <u>CLIENT INFORMATION</u></nobr>
                         </td>
                     </tr>
                     <tr>
@@ -269,7 +278,7 @@
                         <td>
                             <asp:GridView ID="gvTestTargetList" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1"
                                 Width="100%" CaptionAlign="Top" ShowFooter="True" Style="text-align: left" 
-                              Font-Size="Smaller">
+                              Font-Size="Smaller" BorderStyle="None">
                                 <Columns>
                                     <asp:TemplateField HeaderText="No.">
                                         <ItemTemplate>
@@ -397,8 +406,8 @@
                     <img border="0" height="90" src="../Images/Quotation/WoWilogoname.jpg" />
                 </td>
                 <td align="middle" class="ccsh1">
-                    <font face="verdana" size="3">WoWi Approval Services Inc.</font><br />
-                    <font face="verdana" size="1">3F., No.79, Zhouzi St., Neihu Dist.,<br />
+                    <font face="verdana" size="4">WoWi Approval Services Inc.</font><br />
+                    <font face="verdana" size="2">3F., No.79, Zhouzi St., Neihu Dist.,<br />
                         Taipei City 114, Taiwan (R.O.C.)<br />
                         T: 886-2-2799-8382&nbsp;&nbsp; F: 886-2-2799-8387<br />
                         Http://www.WoWiApproval.com</font>
@@ -465,12 +474,12 @@
             </tr>
             <tr>
                 <td align="left" class="ccstextboxh">
-                    Client :
+                    CLIENT :
                     <asp:Label ID="lblClient0" runat="server"></asp:Label>
                     <br />
-                   Bill To :&nbsp;<asp:Label 
+                   BILL TO :&nbsp;<asp:Label 
                       ID="lblBillTo0" runat="server"></asp:Label><br />
-                    Applicant :&nbsp;
+                    APPLICANT :&nbsp;
                     <asp:Label ID="lblApplicant0" runat="server"></asp:Label>
                 </td>
             </tr>
@@ -500,7 +509,7 @@
                 </td>
                 <td class="ccstexth">
                     <nobr>
-                    <u>CONTACT INFORMATION</u></nobr>
+                    <u>CLIENT INFORMATION</u></nobr>
                 </td>
             </tr>
             <tr>
@@ -516,7 +525,7 @@
                     </p>
                     <p>
                         &nbsp;</p>
-                </td>
+                </td>                
                 <td align="left" class="ccstextboxh">
                     <table border="0" cellpadding="0" cellspacing="0">
                         <tr>
@@ -701,45 +710,48 @@
 &nbsp;</td>
                         </tr>
                         <tr>
-                            <td class="style2" height="30">
+                            <td class="style5" height="30">
                                 Name:
                             </td>
                             <td class="style2" height="30">
-                                Name:
+                                <b>Name:
                             <asp:Label ID="lblRepresentative1" runat="server" Text="lblRepresentative"></asp:Label>
+                                </b>
                             </td>
                         </tr>
                         <tr>
-                            <td class="style2">
+                            <td class="style5">
                                 Title:
                             </td>
                             <td class="style2">
-                                Title:<asp:Label ID="lblTitle" 
+                                <b>Title:<asp:Label ID="lblTitle" 
                                     runat="server" Text="lblTitle"></asp:Label>
+                                </b>
                             </td>
                         </tr>
                         <tr>
-                            <td class="style2">
+                            <td class="style5">
                                 Date:
                             </td>
                             <td class="style2">
-                                Date:<asp:Label ID="lblDate1" runat="server" 
+                                <b>Date:<asp:Label ID="lblDate1" runat="server" 
                                     Text=""></asp:Label>
+                                </b>
                             </td>
                         </tr>
                         <tr>
-                            <td class="style2">
+                            <td class="style5">
                                 &nbsp;
                             </td>
-                            <td class="style2">
+                            <td class="style5">
                                 Review:
                             </td>
                         </tr>
                         <tr>
-                            <td class="style2">
+                            <td class="style5">
                                 &nbsp;
                             </td>
-                            <td class="style2">
+                            <td class="style5">
                                 Approve:
                             </td>
                         </tr>
