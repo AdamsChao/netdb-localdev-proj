@@ -2,7 +2,7 @@
 
 <script runat="server">
 
-    
+    WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     protected void FormView1_ItemUpdating(object sender, FormViewUpdateEventArgs e)
     {
         ClientApplicantUtils.StoreDatasInViewState((FormView)sender, ClientApplicantUtils.Name_CheckBox_IndustryList, ViewState, ClientApplicantUtils.Key_ViewState_Industry);
@@ -183,7 +183,7 @@
                                align="center" border="1" cellpadding="0" cellspacing="0" width="100%"><tr><td 
                                    align="left" colspan="4">
                                    <asp:CheckBox 
-                              ID="cbApplican" runat="server" Text="Is Applicant Also" />
+                              ID="cbApplican" runat="server" Text="Is Applicant Also"  Checked='<%# (int.Parse(Eval("clientapplicant_type").ToString()) == 3 ? true : false) %>' />
 
                           </td></tr>
                           
