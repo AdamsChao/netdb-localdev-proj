@@ -11,11 +11,11 @@
         {
             WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
             int id = obj.pr_id;
-            if (obj.department_id == null)
+            if (!obj.department_id.HasValue)
             {
                 obj.department_id = -1;
             }
-            if (obj.employee_id == null)
+            if (!obj.employee_id.HasValue)
             {
                 obj.employee_id = -1;
             }

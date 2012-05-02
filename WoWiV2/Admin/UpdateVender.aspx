@@ -71,25 +71,6 @@
       
     }
 
-    
-
-    protected void ddlDeptList_Load(object sender, EventArgs e )
-    {
-       
-    }
-
-    protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
-    {
-        
-    }
-
-
-    protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        
-
-    }
-
     protected void ddlEmployeeList_Load(object sender, EventArgs ea)
     {
 
@@ -155,8 +136,7 @@
                                                 SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name]"></asp:SqlDataSource>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
-                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" AppendDataBoundItems="true"
-                                                onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged"  SelectedValue='<%# Bind("employee_id") %>'
+                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" AppendDataBoundItems="true"  SelectedValue='<%# Bind("employee_id") %>'
                                                 onload="ddlEmployeeList_Load" >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>

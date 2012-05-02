@@ -10,11 +10,11 @@
         {     
             WoWiModel.clientapplicant obj = (WoWiModel.clientapplicant)e.Entity;
 
-            if (obj.department_id == null)
+            if (!obj.department_id.HasValue)
             {
                 obj.department_id = -1;
             }
-            if (obj.employee_id == null)
+            if (!obj.employee_id.HasValue)
             {
                 obj.employee_id = -1;
             }

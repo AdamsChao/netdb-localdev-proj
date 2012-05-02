@@ -310,6 +310,14 @@
     protected void EntityDataSource1_Updating(object sender, EntityDataSourceChangingEventArgs e)
     {
         WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
+        if (!obj.department_id.HasValue)
+        {
+            obj.department_id = -1;
+        }
+        if (!obj.employee_id.HasValue)
+        {
+            obj.employee_id = -1;
+        }
         DropDownList ddlContact = (FormView1.FindControl("ddlContact") as DropDownList);
         if (!String.IsNullOrEmpty(ddlContact.SelectedValue))
         {
@@ -436,45 +444,15 @@
         }
     }
 
-    protected void ddlDeptList_SelectedIndexChanged(object sender, EventArgs ea)
-    {
-        try
-        {
-            DropDownList ddl = sender as DropDownList;
-            (FormView1.FindControl("lblDept") as Label).Text = ddl.SelectedValue;
-        }
-        catch (Exception)
-        {
-
-            (FormView1.FindControl("lblDept") as Label).Text = "-1";
-        }
-
-    }
-
-
-    protected void ddlEmployeeList_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            DropDownList ddl = sender as DropDownList;
-            (FormView1.FindControl("lblEmp") as Label).Text = ddl.SelectedValue;
-        }
-        catch (Exception)
-        {
-
-            (FormView1.FindControl("lblEmp") as Label).Text = "-1";
-        }
-    }
 
     protected void ddlEmployeeList_Load(object sender, EventArgs ea)
     {
 
-        //if (Page.IsPostBack) return;
+        if (Page.IsPostBack) return;
         var list = EmployeeUtils.GetEmployeeList(wowidb);
         (sender as DropDownList).DataSource = list;
         (sender as DropDownList).DataTextField = "name";
         (sender as DropDownList).DataValueField = "id";
-        //(FormView1.FindControl("lblDept") as Label).Text = "-1";
 
     }
   
@@ -534,8 +512,7 @@
                                    width="30%">
                                             <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
                                                 DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
-                                                onselectedindexchanged="ddlDeptList_SelectedIndexChanged" 
-                                                AppendDataBoundItems="True" ValidationGroup="VenderGroup"><%--SelectedValue='<%# Bind("department_id") %>'>--%>
+                                                AppendDataBoundItems="True" ValidationGroup="VenderGroup" SelectedValue='<%# Bind("department_id") %>'> 
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
 
@@ -547,7 +524,6 @@
                                             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                                 SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name]"></asp:SqlDataSource>
-                                            <asp:Label ID="lblDept" runat="server" Text='<%# Bind("department_id") %>' CssClass="hidden"></asp:Label>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
                                             <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" 
@@ -556,7 +532,6 @@
                                                 ValidationGroup="VenderGroup">
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
-                                            <asp:Label ID="lblEmp" runat="server" Text='<%# Bind("employee_id") %>'  CssClass="hidden"></asp:Label>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
                                                 ControlToValidate="ddlEmployeeList" 
                                                 ErrorMessage="Please select created by which user." Font-Bold="True" 
