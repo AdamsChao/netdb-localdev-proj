@@ -19,6 +19,39 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
         }
     }
 
+    //載入選項
+    protected void BindItem()
+    {
+        ////Tech_RF
+        //cbTechRF.DataBind();
+        //foreach (ListItem li in cbTechRF.Items)
+        //{
+        //    li.Attributes.Add("onclick", "Tech(this);");
+        //}
+        //if (cbTechRF.Items.Count > 0) { cbTechRF.Items.Insert(0, new ListItem("All", "0")); cbTechRF.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        ////Tech_EMC
+        //cbTechEMC.DataBind();
+        //foreach (ListItem li in cbTechEMC.Items)
+        //{
+        //    li.Attributes.Add("onclick", "Tech(this);");
+        //}
+        //if (cbTechEMC.Items.Count > 0) { cbTechEMC.Items.Insert(0, new ListItem("All", "0")); cbTechEMC.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        ////Tech_Safety
+        //cbTechSafety.DataBind();
+        //foreach (ListItem li in cbTechSafety.Items)
+        //{
+        //    li.Attributes.Add("onclick", "Tech(this);");
+        //}
+        //if (cbTechSafety.Items.Count > 0) { cbTechSafety.Items.Insert(0, new ListItem("All", "0")); cbTechSafety.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        ////Tech_Telecom
+        //cbTechTelecom.DataBind();
+        //foreach (ListItem li in cbTechTelecom.Items)
+        //{
+        //    li.Attributes.Add("onclick", "Tech(this);");
+        //}
+        //if (cbTechTelecom.Items.Count > 0) { cbTechTelecom.Items.Insert(0, new ListItem("All", "0")); cbTechTelecom.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+    }
+
     //取得General資料
     protected void LoadData()
     {
@@ -61,6 +94,7 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
+                lblProTypeName1.Text = lblProTypeName.Text + "：";
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;
@@ -87,7 +121,14 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
         else
         {
             btnSave.Visible = true;
+            trProductType.Visible = true;
+            foreach (string str in Request["pt"].Split(','))
+            {
+                if (str.Length > 0) { lblProTypeName.Text += "," + IMAUtil.GetProductType(str); }
+            }
+            if (lblProTypeName.Text.Trim().Length > 0) { lblProTypeName.Text = lblProTypeName.Text.Remove(0, 1); lblProTypeName1.Text = lblProTypeName.Text + "："; }
         }
+        lblCountry.Text = IMAUtil.GetCountryName(Request.Params["cid"]);
     }
 
     //儲存

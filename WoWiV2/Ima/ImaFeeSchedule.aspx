@@ -38,6 +38,32 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="tdRowName">Country：</td>
+                        <td class="tdRowValue"><asp:Label ID="lblCountry" runat="server"></asp:Label></td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName">Technologies：</td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblProTypeName1" runat="server"></asp:Label>
+                            <asp:DropDownList ID="ddlTech" runat="server" DataSourceID="sdsTech" DataTextField="wowi_tech_name" DataValueField="wowi_tech_id">
+                            </asp:DropDownList>
+                            <asp:SqlDataSource ID="sdsTech" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish='Y' and b.wowi_product_type_name=@TypeName">
+                                <SelectParameters>
+                                    <asp:ControlParameter ControlID="lblProTypeName" Name="TypeName" PropertyName="Text" />
+                                </SelectParameters>
+                            </asp:SqlDataSource>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName">
+                            Local Agent Name：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:TextBox ID="tbLAName" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="tdRowName">
                             <%--<span style="color: Red; font-size: 10pt;">*</span>--%>Agent handling Fee：
                         </td>
@@ -48,6 +74,14 @@
                             <act:ValidatorCalloutExtender ID="cveVoltage" runat="server" TargetControlID="rfvVoltage">
                             </act:ValidatorCalloutExtender>--%>
                             <asp:Label ID="lblProType" runat="server" Visible="false"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName">
+                            Authority Name：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:TextBox ID="tbAuthName" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -124,6 +158,14 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="tdRowName">
+                            Certification Body Name：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:TextBox ID="tbCBName" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="tdRowName" valign="top">
                             Certification Body submission fee：
                         </td>
@@ -194,6 +236,14 @@
                                     </td>
                                 </tr>
                             </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName">
+                            Accredited Test Lab Name：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:TextBox ID="tbATLName" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -444,6 +494,72 @@
                                                 <asp:QueryStringParameter Name="FeeScheduleID" QueryStringField="fsid" Type="Int32" />
                                             </SelectParameters>
                                         </asp:SqlDataSource>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Factory Inspection Fee：
+                        </td>
+                        <td class="tdRowValue">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        Document Inspection Fee：
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="tbDocumentFee" runat="server" Width="60px"></asp:TextBox>
+                                        <asp:RegularExpressionValidator ID="revDocumentFee" runat="server" ControlToValidate="tbDocumentFee"
+                                            ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
+                                            SetFocusOnError="True"></asp:RegularExpressionValidator>
+                                        <act:ValidatorCalloutExtender ID="vceDocumentFee" runat="server" TargetControlID="revDocumentFee">
+                                        </act:ValidatorCalloutExtender>
+                                    </td>
+                                    <td>
+                                        <asp:DropDownList ID="ddlDocumentFeeUnit" runat="server">
+                                            <asp:ListItem Text="USD" Value="USD"></asp:ListItem>
+                                            <asp:ListItem Text="EUR" Value="EUR"></asp:ListItem>
+                                        </asp:DropDownList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        One-time on-site Inspection Fee：
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="tbOneTimeFee" runat="server" Width="60px"></asp:TextBox>
+                                        <asp:RegularExpressionValidator ID="revOneTimeFee" runat="server" ControlToValidate="tbOneTimeFee"
+                                            ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
+                                            SetFocusOnError="True"></asp:RegularExpressionValidator>
+                                        <act:ValidatorCalloutExtender ID="vceOneTimeFee" runat="server" TargetControlID="revOneTimeFee">
+                                        </act:ValidatorCalloutExtender>
+                                    </td>
+                                    <td>
+                                        <asp:DropDownList ID="ddlOneTimeFeeUnit" runat="server">
+                                            <asp:ListItem Text="USD" Value="USD"></asp:ListItem>
+                                            <asp:ListItem Text="EUR" Value="EUR"></asp:ListItem>
+                                        </asp:DropDownList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Periodic on-site Inspection Fee：
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="tbPeriodicFee" runat="server" Width="60px"></asp:TextBox>
+                                        <asp:RegularExpressionValidator ID="revPeriodicFee" runat="server" ControlToValidate="tbPeriodicFee"
+                                            ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
+                                            SetFocusOnError="True"></asp:RegularExpressionValidator>
+                                        <act:ValidatorCalloutExtender ID="vcePeriodicFee" runat="server" TargetControlID="revPeriodicFee">
+                                        </act:ValidatorCalloutExtender>
+                                    </td>
+                                    <td>
+                                        <asp:DropDownList ID="ddlPeriodicFeeUnit" runat="server">
+                                            <asp:ListItem Text="USD" Value="USD"></asp:ListItem>
+                                            <asp:ListItem Text="EUR" Value="EUR"></asp:ListItem>
+                                        </asp:DropDownList>
                                     </td>
                                 </tr>
                             </table>
