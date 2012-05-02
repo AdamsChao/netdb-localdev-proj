@@ -572,7 +572,7 @@
                          <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
-                                            <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" Enabled="false"
+                                            <asp:DropDownList ID="ddlDeptList" runat="server"  Enabled="false"
                                                 DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
                                                  AppendDataBoundItems="True" SelectedValue='<%# Bind("department_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
@@ -583,7 +583,7 @@
                                                 SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name]"></asp:SqlDataSource>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
-                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" AppendDataBoundItems="true"  Enabled="false"
+                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AppendDataBoundItems="true"  Enabled="false"
                                                 SelectedValue='<%# Bind("employee_id") %>'
                                                 onload="ddlEmployeeList_Load" >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
