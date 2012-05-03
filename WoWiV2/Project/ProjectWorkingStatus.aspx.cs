@@ -26,6 +26,7 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
         lblTarget.Text = Request["TargetID"].ToString();
         ddlWorkingStatusTarget.DataBind();
         ddlWorkingStatusTarget.SelectedValue = lblTarget.Text;
+        dvWorkingStatus.Visible = true;
       }
 
     }
@@ -84,7 +85,7 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
         {
             Text = "Please select target...",
             Value = "0"
-        });       
+        });
     }
     protected void gvWorkingStatus_RowDataBound(object sender, GridViewRowEventArgs e)
     {
