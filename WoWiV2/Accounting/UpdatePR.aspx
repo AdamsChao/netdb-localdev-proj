@@ -118,6 +118,7 @@
         {
             (sender as DropDownList).Enabled = false;
         }
+        (sender as DropDownList).Enabled = false;
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             id = int.Parse(Request.QueryString["id"]);
@@ -1310,6 +1311,10 @@
 
     }
 
+    protected void btnAddItem_Load(object sender, EventArgs e)
+    {
+        (sender as Button).Enabled = false;
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -1436,13 +1441,13 @@
                                    align="left" class="style11">&nbsp;&nbsp; Target:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
                                <asp:DropDownList ID="ddlTarget" runat="server" 
-                                    AutoPostBack="True"  OnLoad="ddlTarget_Load" AppendDataBoundItems="true"
-                                        onselectedindexchanged="ddlTarget_SelectedIndexChanged" Enabled="false"
+                                      OnLoad="ddlTarget_Load" AppendDataBoundItems="true"
+                                        Enabled="false"
                                         ValidationGroup="VenderGroupT">
                                      <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                </asp:DropDownList>&nbsp;<asp:Button ID="btnAddItem" runat="server" Text="Add" 
                                         onclick="AddItem_Click" CausesValidation="False" Enabled="false"
-                                        ValidationGroup="VenderGroupT" />
+                                        ValidationGroup="VenderGroupT" onload="btnAddItem_Load" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                                         ControlToValidate="ddlTarget" ErrorMessage="Please select vender!" 
                                         ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroupT">*</asp:RequiredFieldValidator>
