@@ -13,14 +13,19 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
       if (Request["ProjectNO"] !=null)
       {
         lblProject.Text = Request["ProjectNO"].ToString();
+        ddlWorkingStatusProject.DataBind();
       }
       if (Request["CountryID"] != null)
       {
         lblCountry.Text = Request["CountryID"].ToString();
+        ddlWorkingStatusCountry.DataBind();
+        ddlWorkingStatusCountry.SelectedValue = lblCountry.Text;
       }
       if (Request["TargetID"] != null)
       {
         lblTarget.Text = Request["TargetID"].ToString();
+        ddlWorkingStatusTarget.DataBind();
+        ddlWorkingStatusTarget.SelectedValue = lblTarget.Text;
       }
 
     }
@@ -58,15 +63,7 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
         {
             Text = "Please select country...",
             Value = "0"
-        });
-
-        foreach (ListItem item in ddlWorkingStatusCountry.Items)
-        {
-          if (item.Value == lblCountry.Text)
-          {
-            item.Selected = true;
-          }
-        }
+        });       
     }
     protected void ddlWorkingStatusTarget_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -87,15 +84,7 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
         {
             Text = "Please select target...",
             Value = "0"
-        });
-        foreach (ListItem item in ddlWorkingStatusTarget.Items)
-        {
-          if (item.Value == lblTarget.Text)
-          {
-            item.Selected = true;
-            dvWorkingStatus.Visible = true;
-          }
-        }
+        });       
     }
     protected void gvWorkingStatus_RowDataBound(object sender, GridViewRowEventArgs e)
     {
