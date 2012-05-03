@@ -118,7 +118,7 @@
         {
             (sender as DropDownList).Enabled = false;
         }
-        (sender as DropDownList).Enabled = false;
+        //(sender as DropDownList).Enabled = false;
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             id = int.Parse(Request.QueryString["id"]);
@@ -1273,6 +1273,7 @@
                     WoWiModel.PR_item item = new WoWiModel.PR_item() { pr_id = id, model_no = d.ModelNo, item_desc = d.ItemDescription, quantity = (int)d.Qty, quotation_id = (int)d.QuotataionID, quotation_target_id = (int)d.Quotation_Target_Id };
                     wowidb.PR_item.AddObject(item);
                     wowidb.SaveChanges();
+                    Response.Redirect("~/Accounting/UpdatePR.aspx?id=" + obj.pr_id);
                 }
                 catch (Exception ex)
                 {
@@ -1313,7 +1314,7 @@
 
     protected void btnAddItem_Load(object sender, EventArgs e)
     {
-        (sender as Button).Enabled = false;
+        //(sender as Button).Enabled = false;
     }
 </script>
 
@@ -1441,12 +1442,11 @@
                                    align="left" class="style11">&nbsp;&nbsp; Target:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
                                <asp:DropDownList ID="ddlTarget" runat="server" 
-                                      OnLoad="ddlTarget_Load" AppendDataBoundItems="true"
-                                        Enabled="false"
+                                      OnLoad="ddlTarget_Load" AppendDataBoundItems="true"                
                                         ValidationGroup="VenderGroupT">
                                      <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                </asp:DropDownList>&nbsp;<asp:Button ID="btnAddItem" runat="server" Text="Add" 
-                                        onclick="AddItem_Click" CausesValidation="False" Enabled="false"
+                                        onclick="AddItem_Click" CausesValidation="False" 
                                         ValidationGroup="VenderGroupT" onload="btnAddItem_Load" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                                         ControlToValidate="ddlTarget" ErrorMessage="Please select vender!" 
