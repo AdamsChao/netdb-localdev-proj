@@ -64,6 +64,12 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
             SqlDataSourceModifyTarget.UpdateParameters["Status"].DefaultValue = ddlStatus.SelectedValue;
           }
         }
+        else
+        {
+          DropDownList ddlStatus = (DropDownList)DetailsViewTarget.FindControl("ddlStatus");
+          SqlDataSourceModifyTarget.UpdateParameters["Status"].DefaultValue = ddlStatus.SelectedValue;
+
+        }
     }
 
     protected void DetailsViewTarget_ItemUpdated(object sender, DetailsViewUpdatedEventArgs e)
