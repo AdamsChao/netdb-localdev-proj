@@ -581,16 +581,16 @@
                                 <asp:DropDownList ID="ddlTarget" runat="server" 
                                     AutoPostBack="True"  OnLoad="ddlTarget_Load" AppendDataBoundItems="true"
                                         onselectedindexchanged="ddlTarget_SelectedIndexChanged" 
-                                        ValidationGroup="VenderGroupT">
+                                        ValidationGroup="VenderGroup">
                                      <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                </asp:DropDownList>&nbsp;<asp:Button ID="btnAddItem" runat="server" Text="Add" 
                                         onclick="AddItem_Click" CausesValidation="False" 
-                                        ValidationGroup="VenderGroupT" />
+                                        ValidationGroup="VenderGroup" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
-                                        ControlToValidate="ddlTarget" ErrorMessage="Please select vender!" 
-                                        ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroupT">*</asp:RequiredFieldValidator>
+                                        ControlToValidate="ddlTarget" ErrorMessage="Please select target!" 
+                                        ForeColor="Red" InitialValue="-1" ValidationGroup="VenderGroup">*</asp:RequiredFieldValidator>
                                     <asp:ValidationSummary ID="ValidationSummary2" runat="server" 
-                                        ShowMessageBox="True" ShowSummary="False" ValidationGroup="VenderGroupT" />
+                                        ShowMessageBox="True" ShowSummary="False" ValidationGroup="VenderGroup" />
                             </td></tr>
                             <tr><td colspan="4">
                                 

@@ -118,7 +118,7 @@
         {
             (sender as DropDownList).Enabled = false;
         }
-        //(sender as DropDownList).Enabled = false;
+        (sender as DropDownList).Enabled = false;
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             id = int.Parse(Request.QueryString["id"]);
@@ -1273,11 +1273,11 @@
                     WoWiModel.PR_item item = new WoWiModel.PR_item() { pr_id = id, model_no = d.ModelNo, item_desc = d.ItemDescription, quantity = (int)d.Qty, quotation_id = (int)d.QuotataionID, quotation_target_id = (int)d.Quotation_Target_Id };
                     wowidb.PR_item.AddObject(item);
                     wowidb.SaveChanges();
-                    Response.Redirect("~/Accounting/UpdatePR.aspx?id=" + obj.pr_id);
+                    //Response.Redirect("~/Accounting/UpdatePR.aspx?id=" + obj.pr_id,false);
                 }
                 catch (Exception ex)
                 {
-                    throw ex;//Show Message In Javascript
+                    //throw ex;//Show Message In Javascript
                 }
 
             }
@@ -1314,7 +1314,7 @@
 
     protected void btnAddItem_Load(object sender, EventArgs e)
     {
-        //(sender as Button).Enabled = false;
+        (sender as Button).Enabled = false;
     }
 </script>
 
