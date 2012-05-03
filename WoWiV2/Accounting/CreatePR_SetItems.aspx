@@ -25,14 +25,14 @@
             int quotaion_id = (int)obj.quotaion_id;
             String quotaion_no = (from d in db.Quotation_Version where d.Quotation_Version_Id == quotaion_id select d.Quotation_No).First();
             var list = from q in db.Quotation_Version
-                       where q.Quotation_No.Equals(quotaion_no)
+                       where q.Quotation_Version_Id == quotaion_id//q.Quotation_No.Equals(quotaion_no)
                        select new
                        {
                            No = q.Quotation_No,
                            Version = q.Vername,
                            Id = q.Quotation_Version_Id
                        };
-            var data = from t in db.Target_Rates from qt in db.Quotation_Target from q in list from c in db.country where qt.quotation_id == q.Id & qt.target_id == t.Target_rate_id & t.country_id == c.country_id select new { Text = t.authority_name + "(" + q.No + ") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
+            var data = from t in db.Target_Rates from qt in db.Quotation_Target from q in list from c in db.country where qt.quotation_id == q.Id & qt.target_id == t.Target_rate_id & t.country_id == c.country_id select new { Text = qt.target_description + "(" + q.No + ") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
             (sender as DropDownList).DataSource = data.Distinct();
             (sender as DropDownList).DataTextField = "Text";
             (sender as DropDownList).DataValueField = "Id";
