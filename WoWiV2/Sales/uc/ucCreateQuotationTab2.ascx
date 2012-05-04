@@ -252,8 +252,8 @@
                     </td>
                     <td width="50%">
                         Unit Price :
-                        <asp:TextBox ID="txtUnitPrice" Text="0" runat="server" CausesValidation="True" onkeyup="CalPricing();"
-                            CssClass="CCSTextBoxRD" ReadOnly="true"></asp:TextBox>
+                        <asp:TextBox ID="txtUnitPrice" Text="0" runat="server" CausesValidation="True" 
+                            onkeyup="CalPricing();"></asp:TextBox>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="txtUnitPrice"
                             ErrorMessage="Only number allowed in Unit Price" ForeColor="Red" SetFocusOnError="True"
                             ValidationExpression="^([-+]?[0-9]*\.?[0-9]+)$"></asp:RegularExpressionValidator>
