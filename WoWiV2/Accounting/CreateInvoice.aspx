@@ -43,11 +43,6 @@
             QuotationModel.Quotation_Version quotation = (from d in db.Quotation_Version where d.Quotation_Version_Id == quoid select d).First();
             lblQuotationNo.Text = quotation.Quotation_No;
             lblModel.Text = quotation.Model_No;
-            GetAllItems(quotation.Quotation_No);
-            (iGridView2.FooterRow.FindControl("lblOCurrency") as Label).Text = quotation.Currency;
-            (iGridView2.FooterRow.FindControl("lblOCurrency1") as Label).Text = quotation.Currency;
-            (iGridView2.FooterRow.FindControl("lblOCurrency2") as Label).Text = quotation.Currency;
-            (iGridView2.FooterRow.FindControl("lblOCurrency3") as Label).Text = quotation.Currency;
             try
             {
 
@@ -84,6 +79,21 @@
 
 
             }
+            GetAllItems(quotation.Quotation_No);
+            try
+            {
+                (iGridView2.FooterRow.FindControl("lblOCurrency") as Label).Text = quotation.Currency;
+                (iGridView2.FooterRow.FindControl("lblOCurrency1") as Label).Text = quotation.Currency;
+                (iGridView2.FooterRow.FindControl("lblOCurrency2") as Label).Text = quotation.Currency;
+                (iGridView2.FooterRow.FindControl("lblOCurrency3") as Label).Text = quotation.Currency;
+           
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+           
             
         }
         catch (Exception)
@@ -304,9 +314,18 @@
 
             iGridView2.DataSource = items;
             iGridView2.DataBind();
-            (iGridView2.FooterRow.FindControl("lblOTotal") as Label).Text = total.ToString("F2");
-            (iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text = total.ToString("F2");
-            (iGridView2.FooterRow.FindControl("tbTotal") as TextBox).Text = total.ToString("F2");
+            try
+            {
+                (iGridView2.FooterRow.FindControl("lblOTotal") as Label).Text = total.ToString("F2");
+                (iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text = total.ToString("F2");
+                (iGridView2.FooterRow.FindControl("tbTotal") as TextBox).Text = total.ToString("F2");
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+            
             try
             {
                 (iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = "";
