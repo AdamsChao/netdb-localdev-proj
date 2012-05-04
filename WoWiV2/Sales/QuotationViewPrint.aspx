@@ -409,7 +409,7 @@
                         <td align="right" class="ccstexth">
                             <nobr>
                             <span class="style3">Total Cost (payable to WoWi):
-                            &nbsp; &nbsp;USD &nbsp; </span> <asp:Label ID="lblTotalCost" runat="server" 
+                            &nbsp; &nbsp;USD</span><asp:Label ID="lblTotalCost" runat="server" 
                               Text="lblTotalCost" CssClass="style3"></asp:Label></nobr>
                         </td>
                     </tr>
@@ -683,8 +683,7 @@
                             </td>
                             <td align="right" class="ccstexth">
                                 <nobr>
-                                <span class="style3">&nbsp;&nbsp;&nbsp;USD&nbsp;&nbsp; </span> 
-                                <asp:Label ID="lblTotalCost2" runat="server" Text="lblTotalCost2" 
+                                <span class="style3">&nbsp;&nbsp;&nbsp;USD</span><asp:Label ID="lblTotalCost2" runat="server" Text="lblTotalCost2" 
                                   CssClass="style3"></asp:Label></nobr>
                             </td>
                         </tr>
