@@ -7,12 +7,13 @@
     <title></title>
     <style type="text/css">
         .ccstextboxh
-        {
-            font-style: normal;
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-            color: rgb(0,0,0);
+        {           
             font-size: 8pt;
-            font-weight: 600;
+            font-weight: 700;
+        }
+        .ccstextboxh
+        {           
+            font-size: 8pt;
         }
         .ccsh1
         {
@@ -24,9 +25,7 @@
         }
         .ccstexth
         {
-            font-style: normal;
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-            color: rgb(0,0,0);
+            
             font-size: 8pt;
             font-weight: 700;
         }
@@ -61,9 +60,7 @@
       }
       .style4
       {
-        font-style: normal;
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-        color: rgb(0,0,0);
+       
         font-size: 8pt;
         font-weight: 700;
         text-decoration: underline;
@@ -76,6 +73,30 @@
         height: 13px;
         font-weight: bold;
       }
+        .style7
+        {
+            font-size: 8pt;
+            font-weight: 600;
+            width: 100%;
+        }
+        .ccstextboxh2
+        {
+            font-size: xx-small;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .style8
+        {
+            font-size: 7pt;
+        }
+        .style9
+        {
+            font-style: normal;
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            color: rgb(0,0,0);
+            font-size: 8pt;
+            font-weight: 700;
+            height: 40px;
+        }
     </style>
 </head>
 <body>
@@ -83,16 +104,15 @@
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td align="right" class="ccstextboxh" colspan="3" height="15" valign="top">
-                Page 1 of 2
-            </td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td align="left">
                 <img border="0" height="90" src="../Images/Quotation/WoWilogoname.jpg" />
             </td>
             <td align="middle" class="ccsh1">
-                <font face="verdana" size="4">WoWi Approval Services Inc.</font><br />
-                <font face="verdana" size="2">3F., No.79, Zhouzi St., Neihu Dist.,<br />
+                <font face="verdana" size="3">WoWi Approval Services Inc.</font><br />
+                <font face="verdana" size="1">3F., No.79, Zhouzi St., Neihu Dist.,<br />
                     Taipei City 114, Taiwan (R.O.C.)<br />
                     T: 886-2-2799-8382 &nbsp; F: 886-2-2799-8387<br />
                     Http://www.WoWiApproval.com</font>
@@ -105,6 +125,7 @@
             <td align="middle" class="ccsh1" colspan="3" valign="top">
                 QUOTATION#
                 <asp:Label ID="lblQuotationNo" runat="server" Text=""></asp:Label>
+                <br />
             </td>
         </tr>
     </table>
@@ -113,6 +134,8 @@
             <td align="left" class="ccstextboxh" width="100%">
                 Your Account Representative is:
                 <asp:Label ID="lblRepresentative" runat="server" Text="lblRepresentative"></asp:Label>
+                <br />
+                <br />
             </td>
             <td rowspan="2">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -175,7 +198,7 @@
         </tr>
         <tr>
             <td class="ccstextboxh" colspan="2" width="100%">
-                Please confirm that the date(s) scheduled and/or services requested are correct
+                Please confirm that services requested are correct
                 and that the above-named applicant agrees with WoWi Approval Services Inc. (&quot;WoWi&quot;),
                 to all of the terms and conditions contained in this Confirmation Agreement. If
                 so, please sign below and fax this Confirmation Agreement back to WoWi Sales.
@@ -187,8 +210,9 @@
             </td>
         </tr>
         <tr>
-            <td class="ccstextboxh" valign="top">
+            <td class="style7" valign="top">
                 <u>EUT INFORMATION</u><br />
+                <br />
                 Description:
                 <asp:Label ID="lblDescription" runat="server" Text="lblDescription"></asp:Label>
                 <p>
@@ -199,14 +223,15 @@
                     <asp:Label ID="lblBrandName" runat="server" Text="lblBrandName"></asp:Label>
                 </p>
             </td>
-            <td align="right" class="ccstextboxh">
+            <td align="left" class="ccstextboxh">
                 <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                         <td align="left" class="ccstextboxh" colspan="2">
                             <nobr>
-                            <u>CLIENT INFORMATION</u></nobr>
+                            <u>CLIENT INFORMATION</u></nobr>                          
                         </td>
                     </tr>
+                    <tr><td></td></tr>
                     <tr>
                         <td align="left" class="ccstextboxh">
                             Client:
@@ -266,19 +291,18 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <td class="ccstexth" width="100%">
-                            TARGET:
+                            TARGETS:
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <hr color="#003300" noshade size="1" />
-                        </td>
+                            &nbsp;</td>
                     </tr>
                     <tr>
                         <td>
                             <asp:GridView ID="gvTestTargetList" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1"
                                 Width="100%" CaptionAlign="Top" ShowFooter="True" Style="text-align: left" 
-                              Font-Size="Smaller" BorderStyle="None" GridLines="Horizontal">
+                              Font-Size="XX-Small" BorderStyle="None" GridLines="Horizontal">
                                 <Columns>
                                     <asp:TemplateField HeaderText="No.">
                                         <ItemTemplate>
@@ -287,7 +311,7 @@
                                         <ItemStyle HorizontalAlign="Left" />
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="Vername" HeaderText="Version" SortExpression="Vername">
-                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemStyle HorizontalAlign="Center" />
                                     </asp:BoundField>
                                     <asp:BoundField DataField="target_description" HeaderText="T. Description" SortExpression="target_description">
                                         <HeaderStyle HorizontalAlign="Left" />
@@ -295,7 +319,7 @@
                                     </asp:BoundField>
                                     <asp:BoundField DataField="unit" HeaderText="Unit" SortExpression="unit">
                                         <HeaderStyle HorizontalAlign="Right" />
-                                        <ItemStyle HorizontalAlign="Right" />
+                                        <ItemStyle HorizontalAlign="Right" Width="100px" />
                                     </asp:BoundField>
                                     <asp:TemplateField HeaderText="Unit Price" SortExpression="unit_price">
                                         <EditItemTemplate>
@@ -305,7 +329,7 @@
                                             <asp:Label ID="Label2" runat="server" Text='<%# Bind("unit_price") %>'></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="Right" />
-                                        <ItemStyle HorizontalAlign="Right" />
+                                        <ItemStyle HorizontalAlign="Right" Width="100px" />
                                         <FooterStyle HorizontalAlign="Right" />
                                         <FooterTemplate>
                                             <table>
@@ -333,7 +357,7 @@
                                             <%# GetUnitPrice(decimal.Parse(Eval("FinalPrice").ToString())).ToString("N2")%>
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="Right" />
-                                        <ItemStyle HorizontalAlign="Right" />
+                                        <ItemStyle HorizontalAlign="Right" Width="100px" />
                                         <FooterStyle HorizontalAlign="Right" />
                                         <FooterTemplate>
                                             <asp:Literal ID="Literal1" runat="server" Text="<%# GetNumber()%>"></asp:Literal>
@@ -385,7 +409,7 @@
                         <td align="right" class="ccstexth">
                             <nobr>
                             <span class="style3">Total Cost (payable to WoWi):
-                            &nbsp; &nbsp; &nbsp; </span> <asp:Label ID="lblTotalCost" runat="server" 
+                            &nbsp; &nbsp;USD &nbsp; </span> <asp:Label ID="lblTotalCost" runat="server" 
                               Text="lblTotalCost" CssClass="style3"></asp:Label></nobr>
                         </td>
                     </tr>
@@ -398,16 +422,15 @@
         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <td align="right" class="ccstextboxh" colspan="3" height="15" valign="top">
-                    Page 2 of 2
-                </td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td align="left">
                     <img border="0" height="90" src="../Images/Quotation/WoWilogoname.jpg" />
                 </td>
                 <td align="middle" class="ccsh1">
-                    <font face="verdana" size="4">WoWi Approval Services Inc.</font><br />
-                    <font face="verdana" size="2">3F., No.79, Zhouzi St., Neihu Dist.,<br />
+                    <font face="verdana" size="3">WoWi Approval Services Inc.</font><br />
+                    <font face="verdana" size="1">3F., No.79, Zhouzi St., Neihu Dist.,<br />
                         Taipei City 114, Taiwan (R.O.C.)<br />
                         T: 886-2-2799-8382&nbsp;&nbsp; F: 886-2-2799-8387<br />
                         Http://www.WoWiApproval.com</font>
@@ -430,6 +453,8 @@
                     Your Account Representative is:
                     <asp:Label ID="lblRepresentative0" runat="server" Text="lblRepresentative"></asp:Label>
                     &nbsp;
+                    <br />
+                    <br />
                 </td>
                 <td rowspan="2">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -492,7 +517,8 @@
             </tr>
             <tr>
                 <td class="ccstextboxh" colspan="2" width="100%">
-                    Please confirm that the date(s) scheduled and/or services requested are correct
+                    Please confirm 
+                    that services requested are correct
                     and that the above-named applicant agrees with WoWi Services Inc. (&quot;WoWi&quot;),
                     to all of the terms and conditions contained in this Confirmation Agreement. If
                     so, please sign below and fax this Confirmation Agreement back to WoWi Sales.
@@ -504,16 +530,17 @@
                 </td>
             </tr>
             <tr>
-                <td class="ccstexth">
+                <td class="ccstextboxh">
                     <u>EUT INFORMATION</u>
                 </td>
-                <td class="ccstexth">
+                <td class="ccstextboxh">
                     <nobr>
                     <u>CLIENT INFORMATION</u></nobr>
                 </td>
             </tr>
             <tr>
-                <td class="ccstextboxh" valign="top" width="100%">
+                <td class="style7" valign="top">
+                    <br />
                     Description:
                     <asp:Label ID="lblDescription0" runat="server" Text="lblDescription"></asp:Label>
                     <p>
@@ -526,8 +553,8 @@
                     <p>
                         &nbsp;</p>
                 </td>                
-                <td align="left" class="ccstextboxh">
-                    <table border="0" cellpadding="0" cellspacing="0">
+                <td align="Left" class="ccstextboxh">
+                    <table border="0" cellpadding="0" cellspacing="0" >
                         <tr>
                           <td align="left" class="ccstextboxh">
                               Client:
@@ -584,7 +611,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="ccstextboxh" colspan="2">
+                <td class="ccstextboxh2" colspan="2">
                     Note: Additional Terms and Conditions: The client/applicant is responsible for providing
                     all documents, sample(s), and any other information required by WoWi for the application. WoWi is not responsible for any documents provided by the applicant
                     that contain any errors or omissions or that are delayed in process. The client/applicant
@@ -610,7 +637,7 @@
                     <br />
                     Please read the above carefully and confirm by signing below and returning this
                     Confirmation Agreement to WoWi as soon as possible. WoWi will not start to work
-                    on the above project until: (i) WoWi receives the applicant&#39;s PO and this signed
+                    on the above project until: (i) WoWi receives the applicant&#39;s PO or this signed
                     Confirmation Agreement; and (ii) either, an approved line of credit has been established
                     with WoWi and a <span class="style3">50% deposit</span> has been received; a 
                     <span class="style3">100% cash prepayment has been received
@@ -628,8 +655,8 @@
                         <tr>
                             <td class="ccstextboxh" rowspan="5" width="100%">
                                 <u>CANCELLATION POLICY</u><br />
-                                after applications have been submitted to the countries , the cancellation Fee 
-                                80% of quoted price to be billed.<br />
+                                <span class="style8">after applications have been submitted to the countries , the cancellation Fee 
+                                80% of quoted price to be billed.</span><br />
                             </td>
                         </tr>
                         <tr>
@@ -656,7 +683,7 @@
                             </td>
                             <td align="right" class="ccstexth">
                                 <nobr>
-                                <span class="style3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span> 
+                                <span class="style3">&nbsp;&nbsp;&nbsp;USD&nbsp;&nbsp; </span> 
                                 <asp:Label ID="lblTotalCost2" runat="server" Text="lblTotalCost2" 
                                   CssClass="style3"></asp:Label></nobr>
                             </td>
@@ -677,9 +704,11 @@
 -->
             <tr>
                 <td class="ccstexth" colspan="2" width="100%">
-                    <b>Return Sample:&nbsp; Yes-<input name="C2" type="checkbox" value="ON" />&nbsp;No-<input
-                        name="C1" type="checkbox" value="ON" /><nobr>&nbsp;If no entry made, No is 
-                    assumed</nobr></b>
+                    <b><span class="style8">Return Sample:&nbsp; Yes-</span><input name="C2" 
+                        type="checkbox" value="ON" class="style8" /><span class="style8">&nbsp;No-</span><input
+                        name="C1" type="checkbox" value="ON" class="style8" /><nobr><span 
+                        class="style8">&nbsp;If no entry made, No is 
+                    assumed</span></nobr></b>
                 </td>
             </tr>
             <tr>
@@ -692,19 +721,19 @@
                     <!-- Start Signature Section -->
                     <table border="1" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
-                            <th class="ccstexth" width="50%">
+                            <th class="style9" width="50%">
                                 <asp:Label ID="lblBillTo1" runat="server" 
                                     Text="lblBillTo"></asp:Label>
                             </th>
-                            <th class="ccstexth" width="50%">
+                            <th class="style9" width="50%">
                                 WoWi Approval Services Inc.
                             </th>
                         </tr>
                         <tr>
-                            <td class="ccstextboxh">
+                            <td class="style9">
                                 By:
                             </td>
-                            <td class="ccstextboxh">
+                            <td class="style9">
                                 By:<asp:Image 
                                     ID="imgSign" runat="server" Height="31" Width="114" />
 &nbsp;</td>
@@ -740,19 +769,17 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="style5">
-                                &nbsp;
-                            </td>
-                            <td class="style5">
-                                Review:
+                            <td class="style9">
+                                &nbsp;Reviewed:</td>
+                            <td class="style9">
+                                Reviewed:
                             </td>
                         </tr>
                         <tr>
-                            <td class="style5">
-                                &nbsp;
-                            </td>
-                            <td class="style5">
-                                Approve:
+                            <td class="style9">
+                                &nbsp;Approved:</td>
+                            <td class="style9">
+                                Approved:
                             </td>
                         </tr>
                     </table>
