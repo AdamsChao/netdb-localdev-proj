@@ -3,6 +3,10 @@
 <script  runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
+    static String Prepayment1 = "預收1";
+    static String Prepayment2 = "預收2";
+    static String Prepayment3 = "預收3";
+    static String Finalpayment = "尾款";
     public String Format(String s)
     {
         return ("$"+s.PadLeft(7,'u').Replace("u","&nbsp;"));
@@ -134,11 +138,19 @@
                     temp.Date = (DateTime)quo.create_date;
                     if (i.bill_status == (byte)InvoicePaymentStatus.PrePaid1)
                     {
-                        temp.PayType = "PrePayment";
+                        temp.PayType = Prepayment1;
                     }
-                    else
+                    else if (i.bill_status == (byte)InvoicePaymentStatus.PrePaid2)
                     {
-                        temp.PayType = "FinalPayment";
+                        temp.PayType = Prepayment2;
+                    }
+                    else if (i.bill_status == (byte)InvoicePaymentStatus.PrePaid3)
+                    {
+                        temp.PayType = Prepayment3;
+                    }
+                    else if (i.bill_status == (byte)InvoicePaymentStatus.FinalPaid)
+                    {
+                        temp.PayType = Finalpayment + "&nbsp;" + "&nbsp;";
                     }
                     items.Add(temp);
                 }

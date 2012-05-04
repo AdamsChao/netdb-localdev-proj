@@ -5,7 +5,10 @@
 <script runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
-
+    static String Prepayment1 = "預收1";
+    static String Prepayment2 = "預收2";
+    static String Prepayment3 = "預收3";
+    static String Finalpayment = "尾款";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
@@ -191,11 +194,19 @@
                     temp.Date = (DateTime)quo.create_date;
                     if (i.bill_status == (byte)InvoicePaymentStatus.PrePaid1)
                     {
-                        temp.PayType = "PrePayment";
+                        temp.PayType = Prepayment1;
                     }
-                    else
+                    else if (i.bill_status == (byte)InvoicePaymentStatus.PrePaid2)
                     {
-                        temp.PayType = "FinalPayment";
+                        temp.PayType = Prepayment2;
+                    }
+                    else if (i.bill_status == (byte)InvoicePaymentStatus.PrePaid3)
+                    {
+                        temp.PayType = Prepayment3;
+                    }
+                    else if (i.bill_status == (byte)InvoicePaymentStatus.FinalPaid)
+                    {
+                        temp.PayType = Finalpayment + "&nbsp;" + "&nbsp;";
                     }
                     items.Add(temp);
                 }
@@ -349,9 +360,9 @@
                                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("TDescription") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField DataField="Qty" HeaderText="Qty" />
-                            <asp:BoundField DataField="UOM" HeaderText="Unit" />
-                            <asp:TemplateField HeaderText="UnitPrice">
+                            <asp:BoundField DataField="Qty" HeaderText="Qty" ItemStyle-HorizontalAlign="Right"  />
+                            <asp:BoundField DataField="UOM" HeaderText="Unit"  ItemStyle-HorizontalAlign="Right" />
+                            <asp:TemplateField HeaderText="UnitPrice"  ItemStyle-HorizontalAlign="Right" >
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -359,7 +370,7 @@
                                     <asp:Label ID="Label1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="F. Price" >
+                            <asp:TemplateField HeaderText="F. Price"  ItemStyle-HorizontalAlign="Right" >
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("FPrice") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -431,7 +442,7 @@
                                     <asp:Label ID="lblFPrice" runat="server" Text='<%# Bind("FPrice") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Bill">
+                            <asp:TemplateField HeaderText="Bill" ItemStyle-HorizontalAlign="Right" >
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Bill") %>'></asp:TextBox>
                                 </EditItemTemplate>

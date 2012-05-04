@@ -217,7 +217,7 @@
                     }
                     else if (i.bill_status == (byte)InvoicePaymentStatus.FinalPaid)
                     {
-                        temp.PayType = Finalpayment;
+                        temp.PayType = Finalpayment + "&nbsp;" + "&nbsp;";
                     }
                     items.Add(temp);
                 }
@@ -577,9 +577,9 @@
                                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("TDescription") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField DataField="Qty" HeaderText="Qty" />
-                            <asp:BoundField DataField="UOM" HeaderText="Unit" />
-                            <asp:TemplateField HeaderText="UnitPrice">
+                            <asp:BoundField DataField="Qty" HeaderText="Qty" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="UOM" HeaderText="Unit" ItemStyle-HorizontalAlign="Right" />
+                            <asp:TemplateField HeaderText="UnitPrice" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -587,7 +587,7 @@
                                     <asp:Label ID="Label1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="F. Price" >
+                            <asp:TemplateField HeaderText="F. Price" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("FPrice") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -661,7 +661,7 @@
                                     <asp:Label ID="lblFPrice" runat="server" Text='<%# Bind("FPrice") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Bill">
+                            <asp:TemplateField HeaderText="Bill" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Bill") %>'></asp:TextBox>
                                 </EditItemTemplate>

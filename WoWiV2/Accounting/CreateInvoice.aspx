@@ -280,7 +280,7 @@
                             UnitPrice = i.UnitPrice,
                             FPrice = (decimal)i.Qty * i.UnitPrice,
                             Bill = ((decimal)i.BillE).ToString("F0"),
-                            PayType = Finalpayment,
+                            PayType = Finalpayment+ "&nbsp;" + "&nbsp;",
                             PayAmount = i.BillE.ToString(),
                             Qutation_Target_Id = i.Qutation_Target_Id,
                             Qutation_Id = i.qId
@@ -796,9 +796,9 @@
                                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("TDescription") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField DataField="Qty" HeaderText="Qty" />
-                            <asp:BoundField DataField="UOM" HeaderText="Unit" />
-                            <asp:TemplateField HeaderText="UnitPrice">
+                            <asp:BoundField DataField="Qty" HeaderText="Qty" ItemStyle-HorizontalAlign="Right"/>
+                            <asp:BoundField DataField="UOM" HeaderText="Unit" ItemStyle-HorizontalAlign="Right" />
+                            <asp:TemplateField HeaderText="UnitPrice" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -807,7 +807,7 @@
                                     <asp:Label ID="lblQuotationId" runat="server"  Text='<%# Bind("Qutation_Id") %>' CssClass="hidden"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="F. Price" >
+                            <asp:TemplateField HeaderText="F. Price" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("FPrice") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -881,7 +881,7 @@
                                     <asp:Label ID="lblFPrice" runat="server" Text='<%# Bind("FPrice") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Bill">
+                            <asp:TemplateField HeaderText="Bill" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Bill") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -892,7 +892,6 @@
                                         Width="100px"></asp:TextBox>
                                 </FooterTemplate>
                                 <ItemTemplate>
-                                    <asp:Label ID="lblBill" runat="server" Text='<%# Bind("Bill") %>'></asp:Label>
                                     &nbsp;<asp:Label ID="lblPayType" runat="server" Text='<%# Bind("PayType") %>'></asp:Label>
                                     &nbsp;$<asp:Label ID="lblPayAmount" runat="server" Text='<%# Bind("PayAmount") %>'></asp:Label>
                                 </ItemTemplate>
