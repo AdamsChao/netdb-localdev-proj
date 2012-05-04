@@ -98,16 +98,23 @@
 //        //alert(hidA2);
     //    }
 
-    function cmdText(txtBill1, txtBill2, txtBill3, txtBillE, hidBill1, hidBill2, hidBill3, hidBillE, fPrice) {
+    function cmdText(txtBill1, txtBill2, txtBill3, txtBillE, hidBill1, hidBill2, hidBill3, hidBillE,txtBalace,hidBalace, fPrice) {
         var b1 = parseFloat( $("#" + txtBill1).val());
         var b2 = parseFloat( $("#" + txtBill2).val());
-        var b3 = parseFloat( $("#" + txtBill3).val());
+        var b3 = parseFloat($("#" + txtBill3).val());
+        var bE = parseFloat($("#" + txtBillE).val());
+//        alert(b1);
+//        alert(b2);
+//        alert(b3);
+//        alert(bE);
+
         $("#" + hidBill1).val(b1);
         $("#" + hidBill2).val(b2);
         $("#" + hidBill3).val(b3);
-        var t = b1 + b2 + b3;       
-        $("#" + txtBillE).val(fPrice - t);
-        $("#" + hidBillE).val(fPrice - t);
+        $("#" + hidBill3).val(bE);
+        var t = b1 + b2 + b3 + bE ;
+        $("#" + txtBalace).val(fPrice - t);
+        $("#" + hidBalace).val(fPrice - t);
 
     }
 
@@ -229,6 +236,12 @@
                                         Invoice No:<asp:Literal ID="lblInvoiceNoE" runat="server"></asp:Literal>&nbsp;
                                         Date:<asp:Literal ID="lblInvoiceDateE" runat="server"></asp:Literal>
                                         <input id="hidBillE" type="hidden" runat="server" />
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>
+                                        Balace:<asp:TextBox ID="txtBalace" runat="server" Text="" ReadOnly="true" 
+                                            Width="50" Enabled="false" BorderStyle="None"></asp:TextBox>元 <input id="hidBalace" type="hidden" runat="server" />
                                     </td>
                                 </tr>
                             </table>

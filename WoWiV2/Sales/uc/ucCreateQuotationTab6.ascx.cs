@@ -122,36 +122,53 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             TextBox txtBill2 = (TextBox)e.Row.FindControl("txtBill2");
             TextBox txtBill3 = (TextBox)e.Row.FindControl("txtBill3");
             TextBox txtBillE = (TextBox)e.Row.FindControl("txtBillE");
+            TextBox txtBalace = (TextBox)e.Row.FindControl("txtBalace");
+            
             
             HtmlInputHidden hidBill1 = (HtmlInputHidden)e.Row.FindControl("hidBill1");
             HtmlInputHidden hidBill2 = (HtmlInputHidden)e.Row.FindControl("hidBill2");
             HtmlInputHidden hidBill3 = (HtmlInputHidden)e.Row.FindControl("hidBill3");
             HtmlInputHidden hidBillE = (HtmlInputHidden)e.Row.FindControl("hidBillE");
+            HtmlInputHidden hidBalace = (HtmlInputHidden)e.Row.FindControl("hidBalace");
 
             if (txtBill1.Text != "")
             {
-                TotalBilled += decimal.Parse(txtBill1.Text);
-                //txtBill1.Text = "0";
-                //hidBill1.Value = "0";
+                TotalBilled += decimal.Parse(txtBill1.Text);             
             }
+            else
+            {
+                txtBill1.Text = "0";
+                hidBill1.Value = "0";
+            }
+
             if (txtBill2.Text != "")
             {
                 TotalBilled += decimal.Parse(txtBill2.Text);
-                //txtBill2.Text = "0";
-                //hidBill2.Value = "0";
             }
+            else {
+                txtBill2.Text = "0";
+                hidBill2.Value = "0";
+            }
+
             if (txtBill3.Text != "")
             {
                 TotalBilled += decimal.Parse(txtBill3.Text);
-                //txtBill3.Text = "0";
-                //hidBill3.Value = "0";
             }
+            else {
+                txtBill3.Text = "0";
+                hidBill3.Value = "0";
+            }
+
             if (txtBillE.Text != "")
             {
                 TotalBilled += decimal.Parse(txtBillE.Text);
-                //txtBillE.Text = "0";
-                //hidBillE.Value = "0";
             }
+            else
+            {
+                txtBillE.Text = "0";
+                hidBillE.Value = "0";
+            }          
+           
             lblTotalBilled.Text = TotalBilled.ToString();
             lblBlance.Text = (Decimal.Parse(lblSubTotal.Text) - TotalBilled).ToString();
             
@@ -165,7 +182,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             Literal lblInvoiceDate2 = (Literal)e.Row.FindControl("lblInvoiceDate2");
             Literal lblInvoiceDate3 = (Literal)e.Row.FindControl("lblInvoiceDate3");
             Literal lblInvoiceDateE = (Literal)e.Row.FindControl("lblInvoiceDateE");
-
+            txtBalace.Text = (Decimal.Parse(lblFPrice.Text) - Decimal.Parse(txtBill1.Text) - Decimal.Parse(txtBill1.Text) - Decimal.Parse(txtBill1.Text) - Decimal.Parse(txtBill1.Text)).ToString();
 
             DropDownList ddlPR_Flag = (DropDownList)e.Row.FindControl("ddlPR_Flag");
             ddlPR_Flag.SelectedValue = ddlPR_Flag.ToolTip;
@@ -185,20 +202,13 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             lblInvoiceDateE.Text = Quotation_Controller.GetInvoiceDate(quotation_Id, target_Id, 3);
 
 
-
-            //txtAdv2.Attributes.Add("onkeyup", "cmdText('" +
-            // ddlAdv.ClientID + "','" + txtAdv2.ClientID + "','" +
-            // txtB1.ClientID + "','" + txtB2.ClientID + "','" +
-            //    hidA1.ClientID + "','" + hidA2.ClientID + "','" +
-            // hidB1.ClientID + "','" + hidB2.ClientID + "','" +
-            // lblFPrice.Text + "');");
-
             //txtBill1, txtBill2, txtBill3, txtBillE, hidBill1, hidBill2, hidBill3, hidBillE, fPrice
             txtBill1.Attributes.Add("onkeyup", "cmdText('" +
                 txtBill1.ClientID + "','" + txtBill2.ClientID + "','" +
                 txtBill3.ClientID + "','" + txtBillE.ClientID + "','" +
                 hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
                 hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
+                txtBalace.ClientID + "','" + hidBalace.ClientID + "','" +
                 lblFPrice.Text + "');");
 
             txtBill2.Attributes.Add("onkeyup", "cmdText('" +
@@ -206,6 +216,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
               txtBill3.ClientID + "','" + txtBillE.ClientID + "','" +
               hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
               hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
+              txtBalace.ClientID + "','" + hidBalace.ClientID + "','" +
               lblFPrice.Text + "');");
 
             txtBill3.Attributes.Add("onkeyup", "cmdText('" +
@@ -213,12 +224,19 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
               txtBill3.ClientID + "','" + txtBillE.ClientID + "','" +
               hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
               hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
+              txtBalace.ClientID + "','" + hidBalace.ClientID + "','" +
               lblFPrice.Text + "');");
 
+            //txtBillE.Attributes.Add("onkeyup", "changeHiddenValue('" +
+            //  txtBillE.ClientID + "','" + hidBillE.ClientID +  "');");
+
             txtBillE.Attributes.Add("onkeyup", "changeHiddenValue('" +
-              txtBillE.ClientID + "','" + hidBillE.ClientID +  "');");
-
-
+              txtBill1.ClientID + "','" + txtBill2.ClientID + "','" +
+              txtBill3.ClientID + "','" + txtBillE.ClientID + "','" +
+              hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
+              hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
+              txtBalace.ClientID + "','" + hidBalace.ClientID + "','" +
+              lblFPrice.Text + "');");
         }
     }
 
