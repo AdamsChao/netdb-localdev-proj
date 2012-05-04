@@ -194,8 +194,10 @@
                 int tid = (item.quotation_target_id);
                 try
                 {
-                    String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-                    var idata = from t in db.Target_Rates from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id select new { /*QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id,*/ ItemDescription = qt.target_description, ModelNo = t.authority_name/*, Currency = currency*/, Qty = qt.unit};
+                    var quot = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select new { h.Currency, h.Model_No, h.CModel_No }).First();
+                    String currency = quot.Currency;
+                    String ModelNo = String.IsNullOrEmpty(quot.Model_No) ? quot.CModel_No : quot.Model_No;
+                    var idata = from t in db.Target_Rates from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id select new { /*QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id,*/ ItemDescription = qt.target_description, ModelNo = ModelNo, /*Currency = currency,*/  Qty = qt.unit };
                     
                     //lblTotal.Text = lblOtotal.Text;
                     TargetList.DataSource = idata;
