@@ -134,7 +134,7 @@
             <asp:DropDownList ID="DropDownListContact" runat="server" AutoPostBack="True" DataSourceID="SqlDataSourceContact"
                 DataTextField="fullname" DataValueField="id" 
                 OnSelectedIndexChanged="DropDownListContact_SelectedIndexChanged" 
-                AppendDataBoundItems="True">
+                ondatabound="DropDownListContact_DataBound">
                 <asp:ListItem Value="0">--select--</asp:ListItem>
             </asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
@@ -145,7 +145,8 @@
             </asp:SqlDataSource>
             <asp:SqlDataSource ID="SqlDataSourceContact" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 
-                SelectCommand="SELECT contact_info.fname + ' ' + contact_info.lname AS fullname, contact_info.title, contact_info.companyname, contact_info.c_lname + contact_info.c_fname AS c_fullname, contact_info.c_title, contact_info.c_companyname, contact_info.workphone + '  ext ' + contact_info.ext AS phone, contact_info.fax, contact_info.email, country.country_name AS country, contact_info.address, contact_info.c_address, contact_info.id FROM m_clientappliant_contact INNER JOIN clientapplicant ON m_clientappliant_contact.clientappliant_id = clientapplicant.id INNER JOIN contact_info ON m_clientappliant_contact.contact_id = contact_info.id INNER JOIN m_employee_accesslevel ON contact_info.department_id = m_employee_accesslevel.accesslevel_id LEFT OUTER JOIN country ON contact_info.country_id = country.country_id WHERE (clientapplicant.clientapplicant_type = 1 OR clientapplicant.clientapplicant_type = 3) AND (m_employee_accesslevel.employee_id = @employee_id) AND (clientapplicant.id = @client_id)">
+                
+                SelectCommand="SELECT contact_info.fname + ' ' + contact_info.lname AS fullname, contact_info.id FROM m_clientappliant_contact INNER JOIN clientapplicant ON m_clientappliant_contact.clientappliant_id = clientapplicant.id INNER JOIN contact_info ON m_clientappliant_contact.contact_id = contact_info.id INNER JOIN m_employee_accesslevel ON contact_info.department_id = m_employee_accesslevel.accesslevel_id LEFT OUTER JOIN country ON contact_info.country_id = country.country_id WHERE (clientapplicant.clientapplicant_type = 1 OR clientapplicant.clientapplicant_type = 3) AND (m_employee_accesslevel.employee_id = @employee_id) AND (clientapplicant.id = @client_id)">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="DropDownListEmp" Name="employee_id" PropertyName="SelectedValue" />
                     <asp:ControlParameter ControlID="DropDownListClient" Name="client_id" 
@@ -238,7 +239,7 @@
             <asp:DropDownList ID="DropDownListContact2" runat="server" AutoPostBack="True" DataSourceID="SqlDataSourceContact2"
                 DataTextField="fullname" DataValueField="id" 
                 OnSelectedIndexChanged="DropDownListContact_SelectedIndexChanged" 
-                AppendDataBoundItems="True" Enabled="False">
+                Enabled="False" ondatabound="DropDownListContact2_DataBound">
                 <asp:ListItem Value="0">--select--</asp:ListItem>
             </asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSourceClient2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"

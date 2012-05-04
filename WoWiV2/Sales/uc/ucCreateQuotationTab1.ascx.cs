@@ -25,6 +25,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
             int QuotationID = ((Imaster)this.Page).getQuotationID();
             if (QuotationID != 0)
             {
+
                 LoadData(QuotationID);
             }
             else
@@ -222,8 +223,8 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         txtCBrandName.Text = obj.CBrand_Name;
         txtModelDifference.Text = obj.Model_Difference;
         txtCModelDifferencev.Text = obj.CModel_Difference;
-        DropDownListClient.DataBind();
-        DropDownListClient.SelectedValue = obj.Client_Id.ToString();
+        //DropDownListClient.DataBind();
+        //DropDownListClient.SelectedValue = obj.Client_Id.ToString();
         //DropDownListContact.SelectedValue = obj.con
         DropDownListApp.SelectedValue = obj.Applicant_Id.ToString();
         txtBill_Name.Text = obj.Bill_Name;
@@ -251,6 +252,9 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
     }
     protected void DropDownListClient_SelectedIndexChanged(object sender, EventArgs e)
     {
+        //DropDownListContact.Items.Clear();
+        //DropDownListContact.Items.Add("--select--");
+      
            SelectBillInfomation();
     }
 
@@ -334,13 +338,14 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         {
             int QuotationID = ((Imaster)this.Page).getQuotationID();
             if ((QuotationID == 0) && (rblSame.SelectedIndex == 1))
-            {
-                //int cID = Int32.Parse(DropDownListClient.SelectedValue);
-                //clientapplicant obj = CodeTableController.GetClientApplicant(cID);
-
-                //Bill_Data(obj);
+            {               
                 SelectBillInfomation();
             }
+            //else
+            //{
+            //    Quotation_Version obj = Quotation_Controller.Get_Quotation(QuotationID);
+            //    DropDownListClient.SelectedValue = obj.Client_Id.ToString();
+            //}
         }
     }
     protected void DropDownListContact_SelectedIndexChanged(object sender, EventArgs e)
@@ -350,6 +355,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
 
     protected void SelectBillInfomation()
     {
+     
     
         int ClientID;
         int ContactID;
@@ -396,5 +402,22 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
                 Bill_Data();
                 break;
         }
+    }
+    protected void DropDownListContact_DataBound(object sender, EventArgs e)
+    {
+        DropDownListContact.Items.Insert(0, "--select--");
+        if (!IsPostBack)
+        {
+            int QuotationID = ((Imaster)this.Page).getQuotationID();
+            if (QuotationID != 0)
+            {               
+                Quotation_Version obj = Quotation_Controller.Get_Quotation(QuotationID);
+                DropDownListContact.SelectedValue = obj.Client_Contact.ToString();
+            }
+        }
+    }
+    protected void DropDownListContact2_DataBound(object sender, EventArgs e)
+    {
+        DropDownListContact2.Items.Insert(0, "--select--");
     }
 }
