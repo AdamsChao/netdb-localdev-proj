@@ -143,6 +143,17 @@ public class CodeTableController
 
     }
 
+    public static contact_info Getcontact_info(int ContactID)
+    {
+        QuotationEntities entities = new QuotationEntities();
+        var result = from n in entities.contact_info
+                     where n.id == ContactID
+                     select n;
+        //select new { n, c.country_name };
+        return result.First();
+
+    }
+
     public static Dictionary<int, string> GetClientApplicantList(int employee_id)
     {
         QuotationEntities entities = new QuotationEntities();

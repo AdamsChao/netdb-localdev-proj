@@ -93,7 +93,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         obj.Model_Difference = txtModelDifference.Text;
         obj.CModel_Difference = txtCModelDifferencev.Text;
         obj.Client_Id = Int32.Parse(DropDownListClient.SelectedValue);
-        //obj.Client_Contact = 
+        obj.Client_Contact = Int32.Parse(DropDownListContact.SelectedValue);
         obj.Applicant_Id = Int32.Parse(DropDownListApp.SelectedValue);
         //obj.Applicant_Contact
         obj.Bill_Name = txtBill_Name.Text;
@@ -167,7 +167,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         obj.Model_Difference = txtModelDifference.Text;
         obj.CModel_Difference = txtCModelDifferencev.Text;
         obj.Client_Id = Int32.Parse(DropDownListClient.SelectedValue);
-        //obj.Client_Contact = 
+        obj.Client_Contact = Int32.Parse(DropDownListContact.SelectedValue);
         obj.Applicant_Id = Int32.Parse(DropDownListApp.SelectedValue);
         //obj.Applicant_Contact
         obj.Bill_Name = txtBill_Name.Text;
@@ -222,7 +222,9 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         txtCBrandName.Text = obj.CBrand_Name;
         txtModelDifference.Text = obj.Model_Difference;
         txtCModelDifferencev.Text = obj.CModel_Difference;
+        DropDownListClient.DataBind();
         DropDownListClient.SelectedValue = obj.Client_Id.ToString();
+        //DropDownListContact.SelectedValue = obj.con
         DropDownListApp.SelectedValue = obj.Applicant_Id.ToString();
         txtBill_Name.Text = obj.Bill_Name;
         txtBill_Title.Text = obj.Bill_Title;
@@ -249,54 +251,22 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
     }
     protected void DropDownListClient_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (rblSame.SelectedIndex == 1)
-        {
-            int cID = Int32.Parse(DropDownListClient.SelectedValue);
-            clientapplicant obj = CodeTableController.GetClientApplicant(cID);
-            Bill_Data(obj);
-        }
+           SelectBillInfomation();
     }
 
     protected void rblSame_SelectedIndexChanged(object sender, EventArgs e)
     {
-        int cID;
-        clientapplicant obj;
-        switch (rblSame.SelectedIndex)
-        {
-            case 0: //Empty
-                Bill_Data_Empty();
-                break;
-
-            case 1: //Same as Client
-                DropDownListClient2.Enabled = false;
-
-                cID = Int32.Parse(DropDownListClient.SelectedValue);
-                obj = CodeTableController.GetClientApplicant(cID);
-
-                Bill_Data(obj);
-                break;
-
-            case 2: //Not Same as Client
-                DropDownListClient2.Enabled = true;
-
-                cID = Int32.Parse(DropDownListClient2.SelectedValue);
-                obj = CodeTableController.GetClientApplicant(cID);
-
-                Bill_Data(obj);
-                break;
-
-            default:
-                Bill_Data_Empty();
-                break;
-        }
+        SelectBillInfomation();
 
     }
     protected void DropDownListClient2_SelectedIndexChanged(object sender, EventArgs e)
     {
-        int cID = Int32.Parse(DropDownListClient2.SelectedValue);
-        clientapplicant obj = CodeTableController.GetClientApplicant(cID);
+        //int cID = Int32.Parse(DropDownListClient2.SelectedValue);
+        //clientapplicant obj = CodeTableController.GetClientApplicant(cID);
 
-        Bill_Data(obj);
+        //Bill_Data(obj);
+        //SelectBillInfomation();
+        SelectBillInfomation();
     }
 
     protected void Bill_Data(clientapplicant obj)
@@ -319,7 +289,25 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         //txtClient_Status.Text = obj.clientstatus;
         txtDHL.Text = obj.dhl_acct;
     }
-    protected void Bill_Data_Empty()
+    protected void Bill_Data(clientapplicant clinet,contact_info obj)
+    {
+
+        txtBill_Name.Text = obj.fname + " " + obj.lname;
+        txtBill_Title.Text = obj.title;
+        txtBillCompanyname.Text = obj.companyname;
+        txtBill_CName.Text = obj.c_fname + obj.c_lname;
+        txtBill_CTitle.Text = obj.c_title;
+        txtBill_CCompanyname.Text = obj.c_companyname;
+        txtBill_Phone.Text = obj.workphone + " ext " + obj.ext;
+        txtBill_Email.Text = obj.email;
+        txtBill_Country.Text = CodeTableController.GetCountryName((int)obj.country_id);
+        txtBill_Address.Text = obj.address;
+        txtBill_CAddress.Text = obj.c_address;
+        ddlPaymentDays.SelectedValue = clinet.paymentdays.ToString();
+        ddlPayment_Term.SelectedValue = clinet.paymentterm.ToString();
+        txtDHL.Text = clinet.dhl_acct;
+    }
+    protected void Bill_Data()
     {
 
         txtBill_Name.Text = "";
@@ -345,13 +333,68 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         if (!IsPostBack)
         {
             int QuotationID = ((Imaster)this.Page).getQuotationID();
-            if (QuotationID == 0)
+            if ((QuotationID == 0) && (rblSame.SelectedIndex == 1))
             {
-                int cID = Int32.Parse(DropDownListClient.SelectedValue);
-                clientapplicant obj = CodeTableController.GetClientApplicant(cID);
+                //int cID = Int32.Parse(DropDownListClient.SelectedValue);
+                //clientapplicant obj = CodeTableController.GetClientApplicant(cID);
 
-                Bill_Data(obj);
+                //Bill_Data(obj);
+                SelectBillInfomation();
             }
+        }
+    }
+    protected void DropDownListContact_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        SelectBillInfomation();
+    }
+
+    protected void SelectBillInfomation()
+    {
+    
+        int ClientID;
+        int ContactID;
+        clientapplicant client;
+        contact_info contact;
+
+        switch (rblSame.SelectedIndex)
+        {
+            case 0: //Empty
+                Bill_Data();
+                break;
+
+            case 1: //Same as Client
+                DropDownListClient2.Enabled = false;
+                DropDownListContact2.Enabled = false; 
+
+                ClientID = Int32.Parse(DropDownListClient.SelectedValue);
+                ContactID = Int32.Parse(DropDownListContact.SelectedValue);
+                client = CodeTableController.GetClientApplicant(ClientID);
+
+                if (DropDownListContact.SelectedIndex == 0)
+                {
+                    Bill_Data(client);
+                }
+                else
+                {
+                    contact = CodeTableController.Getcontact_info(ContactID);
+                    Bill_Data(client, contact);
+                }
+                break;
+
+            case 2: //Not Same as Client
+                DropDownListClient2.Enabled = true;
+                DropDownListContact2.Enabled = true;
+
+                ClientID = Int32.Parse(DropDownListClient2.SelectedValue);
+                //ContactID = Int32.Parse(DropDownListContact2.SelectedValue);
+                client = CodeTableController.GetClientApplicant(ClientID);
+
+                Bill_Data(client);
+                break;
+
+            default:
+                Bill_Data();
+                break;
         }
     }
 }

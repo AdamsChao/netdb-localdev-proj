@@ -56,8 +56,7 @@
             Product Name
         </th>
         <td>
-            <asp:TextBox ID="txtProductName" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtProductName" runat="server" Width="500px" MaxLength="50"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -65,8 +64,7 @@
             產品名稱
         </th>
         <td>
-            <asp:TextBox ID="txtCProductName" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtCProductName" runat="server" Width="500px" MaxLength="50"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -74,8 +72,7 @@
             Model No.
         </th>
         <td>
-            <asp:TextBox ID="txtModelNo" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtModelNo" runat="server" Width="500px" MaxLength="50"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -83,8 +80,7 @@
             型號
         </th>
         <td>
-            <asp:TextBox ID="txtCModelNo" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtCModelNo" runat="server" Width="500px" MaxLength="50"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -92,8 +88,7 @@
             Brand Name
         </th>
         <td>
-            <asp:TextBox ID="txtBrandName" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtBrandName" runat="server" Width="500px" MaxLength="50"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -101,8 +96,7 @@
             廠牌
         </th>
         <td>
-            <asp:TextBox ID="txtCBrandName" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtCBrandName" runat="server" Width="500px" MaxLength="50"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -110,8 +104,8 @@
             Model Difference
         </th>
         <td>
-            <asp:TextBox ID="txtModelDifference" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtModelDifference" runat="server" Width="500px" 
+                MaxLength="50"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -119,8 +113,8 @@
             型號差異說明
         </th>
         <td>
-            <asp:TextBox ID="txtCModelDifferencev" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtCModelDifferencev" runat="server" Width="500px" 
+                MaxLength="50"></asp:TextBox>
         </td>
     </tr>
     <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
@@ -137,10 +131,25 @@
                 DataTextField="companyname" DataValueField="Id" OnSelectedIndexChanged="DropDownListClient_SelectedIndexChanged"
                 OnDataBound="DropDownListClient_DataBound">
             </asp:DropDownList>
+            <asp:DropDownList ID="DropDownListContact" runat="server" AutoPostBack="True" DataSourceID="SqlDataSourceContact"
+                DataTextField="fullname" DataValueField="id" 
+                OnSelectedIndexChanged="DropDownListContact_SelectedIndexChanged" 
+                AppendDataBoundItems="True">
+                <asp:ListItem Value="0">--select--</asp:ListItem>
+            </asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 SelectCommand="SELECT m_employee_accesslevel.employee_id, m_employee_accesslevel.accesslevel_id, clientapplicant.id, clientapplicant.companyname FROM m_employee_accesslevel INNER JOIN clientapplicant ON m_employee_accesslevel.accesslevel_id = clientapplicant.department_id WHERE (clientapplicant.clientapplicant_type = 1 OR clientapplicant.clientapplicant_type = 3) AND (m_employee_accesslevel.employee_id = @employee_id)">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="DropDownListEmp" Name="employee_id" PropertyName="SelectedValue" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSourceContact" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                
+                SelectCommand="SELECT contact_info.fname + ' ' + contact_info.lname AS fullname, contact_info.title, contact_info.companyname, contact_info.c_lname + contact_info.c_fname AS c_fullname, contact_info.c_title, contact_info.c_companyname, contact_info.workphone + '  ext ' + contact_info.ext AS phone, contact_info.fax, contact_info.email, country.country_name AS country, contact_info.address, contact_info.c_address, contact_info.id FROM m_clientappliant_contact INNER JOIN clientapplicant ON m_clientappliant_contact.clientappliant_id = clientapplicant.id INNER JOIN contact_info ON m_clientappliant_contact.contact_id = contact_info.id INNER JOIN m_employee_accesslevel ON contact_info.department_id = m_employee_accesslevel.accesslevel_id LEFT OUTER JOIN country ON contact_info.country_id = country.country_id WHERE (clientapplicant.clientapplicant_type = 1 OR clientapplicant.clientapplicant_type = 3) AND (m_employee_accesslevel.employee_id = @employee_id) AND (clientapplicant.id = @client_id)">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="DropDownListEmp" Name="employee_id" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="DropDownListClient" Name="client_id" 
+                        PropertyName="SelectedValue" />
                 </SelectParameters>
             </asp:SqlDataSource>
             <asp:DetailsView ID="DetailsViewClient" runat="server" AutoGenerateRows="False" Caption="Client Details"
@@ -226,10 +235,25 @@
             <asp:DropDownList ID="DropDownListClient2" runat="server" AutoPostBack="True" DataSourceID="SqlDataSourceClient2"
                 DataTextField="companyname" DataValueField="Id" Enabled="False" OnSelectedIndexChanged="DropDownListClient2_SelectedIndexChanged">
             </asp:DropDownList>
+            <asp:DropDownList ID="DropDownListContact2" runat="server" AutoPostBack="True" DataSourceID="SqlDataSourceContact2"
+                DataTextField="fullname" DataValueField="id" 
+                OnSelectedIndexChanged="DropDownListContact_SelectedIndexChanged" 
+                AppendDataBoundItems="True" Enabled="False">
+                <asp:ListItem Value="0">--select--</asp:ListItem>
+            </asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSourceClient2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 SelectCommand="SELECT m_employee_accesslevel.employee_id, m_employee_accesslevel.accesslevel_id, clientapplicant.id, clientapplicant.companyname FROM m_employee_accesslevel INNER JOIN clientapplicant ON m_employee_accesslevel.accesslevel_id = clientapplicant.department_id WHERE (clientapplicant.clientapplicant_type = 1 OR clientapplicant.clientapplicant_type = 3) AND (m_employee_accesslevel.employee_id = @employee_id)">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="DropDownListEmp" Name="employee_id" PropertyName="SelectedValue" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSourceContact2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                
+                SelectCommand="SELECT contact_info.fname + ' ' + contact_info.lname AS fullname, contact_info.title, contact_info.companyname, contact_info.c_lname + contact_info.c_fname AS c_fullname, contact_info.c_title, contact_info.c_companyname, contact_info.workphone + '  ext ' + contact_info.ext AS phone, contact_info.fax, contact_info.email, country.country_name AS country, contact_info.address, contact_info.c_address, contact_info.id FROM m_clientappliant_contact INNER JOIN clientapplicant ON m_clientappliant_contact.clientappliant_id = clientapplicant.id INNER JOIN contact_info ON m_clientappliant_contact.contact_id = contact_info.id INNER JOIN m_employee_accesslevel ON contact_info.department_id = m_employee_accesslevel.accesslevel_id LEFT OUTER JOIN country ON contact_info.country_id = country.country_id WHERE (clientapplicant.clientapplicant_type = 1 OR clientapplicant.clientapplicant_type = 3) AND (m_employee_accesslevel.employee_id = @employee_id) AND (clientapplicant.id = @client_id)">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="DropDownListEmp" Name="employee_id" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="DropDownListClient2" Name="client_id" 
+                        PropertyName="SelectedValue" />
                 </SelectParameters>
             </asp:SqlDataSource>
         </th>
@@ -239,8 +263,7 @@
             Bill Name
         </th>
         <td>
-            <asp:TextBox ID="txtBill_Name" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtBill_Name" runat="server" Width="500px" MaxLength="100"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -248,8 +271,7 @@
             Bill Title
         </th>
         <td>
-            <asp:TextBox ID="txtBill_Title" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtBill_Title" runat="server" Width="500px" MaxLength="100"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -257,8 +279,8 @@
             Bill Company Name
         </th>
         <td>
-            <asp:TextBox ID="txtBillCompanyname" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtBillCompanyname" runat="server" Width="500px" 
+                MaxLength="100"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -266,8 +288,7 @@
             付款連絡人
         </th>
         <td>
-            <asp:TextBox ID="txtBill_CName" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtBill_CName" runat="server" Width="500px" MaxLength="100"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -275,8 +296,7 @@
             付款連絡人職稱
         </th>
         <td>
-            <asp:TextBox ID="txtBill_CTitle" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtBill_CTitle" runat="server" Width="500px" MaxLength="100"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -284,8 +304,8 @@
             付款公司
         </th>
         <td>
-            <asp:TextBox ID="txtBill_CCompanyname" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtBill_CCompanyname" runat="server" Width="500px" 
+                MaxLength="100"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -293,8 +313,7 @@
             Bill Phone
         </th>
         <td>
-            <asp:TextBox ID="txtBill_Phone" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtBill_Phone" runat="server" Width="500px" MaxLength="50"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -302,8 +321,7 @@
             Bill Email
         </th>
         <td>
-            <asp:TextBox ID="txtBill_Email" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtBill_Email" runat="server" Width="500px" MaxLength="100"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -311,8 +329,7 @@
             Bill Country
         </th>
         <td>
-            <asp:TextBox ID="txtBill_Country" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtBill_Country" runat="server" Width="500px" MaxLength="100"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -320,8 +337,7 @@
             Bill Address
         </th>
         <td>
-            <asp:TextBox ID="txtBill_Address" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtBill_Address" runat="server" Width="500px" MaxLength="100"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -329,8 +345,7 @@
             付款公司地址
         </th>
         <td>
-            <asp:TextBox ID="txtBill_CAddress" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtBill_CAddress" runat="server" Width="500px" MaxLength="100"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -374,8 +389,7 @@
             Client Status
         </th>
         <td>
-            <asp:TextBox ID="txtClient_Status" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtClient_Status" runat="server" Width="500px" MaxLength="100"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -383,8 +397,7 @@
             DHL Acct.
         </th>
         <td>
-            <asp:TextBox ID="txtDHL" runat="server" Width="500px">
-            </asp:TextBox>
+            <asp:TextBox ID="txtDHL" runat="server" Width="500px" MaxLength="100"></asp:TextBox>
         </td>
     </tr>
 </table>
