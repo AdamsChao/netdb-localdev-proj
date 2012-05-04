@@ -317,15 +317,14 @@
                                      <b>&nbsp; Title: </b>
                             <br />
                                         <asp:CheckBoxList ID="clRoleList" runat="server" 
-                                            DataSourceID="EntityDataSource2" DataTextField="contact_name" DataValueField="contact_id" 
+                                            DataSourceID="SqlDataSource3" DataTextField="contact_name" DataValueField="contact_id" 
                                             RepeatColumns="5" RepeatDirection="Horizontal" 
                                             ondatabound="clRoleList_DataBound">
                                         </asp:CheckBoxList>
-                                        <asp:EntityDataSource ID="EntityDataSource2" runat="server" 
-                                            ConnectionString="name=WoWiEntities" DefaultContainerName="WoWiEntities" 
-                                            EnableFlattening="False" EntitySetName="contact_role" 
-                                            Select="it.[contact_id], it.[contact_name]">
-                                        </asp:EntityDataSource>
+                                        <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
+                                    ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                    SelectCommand="SELECT [contact_id], [contact_name] FROM [contact_role] where [publish] = 'true'">
+                                </asp:SqlDataSource>
                                     
                         </td>
                         </tr>

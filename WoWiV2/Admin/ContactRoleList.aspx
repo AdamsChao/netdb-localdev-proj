@@ -36,21 +36,22 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-        DeleteCommand="DELETE FROM [contact_role] WHERE [contact_id] = @id" 
-        InsertCommand="INSERT INTO [contact_role] ([contact_name], [publish]) VALUES (@name, @publish)" 
-        SelectCommand="SELECT * FROM [contact_role]" 
-        UpdateCommand="UPDATE [contact_role] SET [contact_name] = @name, [publish] = @publish WHERE [id] = @id">
+        DeleteCommand="DELETE FROM [contact_role] WHERE [contact_id] = @contact_id" 
+        InsertCommand="INSERT INTO [contact_role] ([contact_name], [publish]) VALUES (@contact_name, @publish)" 
+        SelectCommand="SELECT [contact_id], [contact_name], [publish] FROM [contact_role]" 
+        
+                    UpdateCommand="UPDATE [contact_role] SET [contact_name] = @contact_name, [publish] = @publish WHERE [contact_id] = @contact_id">
         <DeleteParameters>
-            <asp:Parameter Name="id" Type="Int32" />
+            <asp:Parameter Name="contact_id" Type="Int32" />
         </DeleteParameters>
         <InsertParameters>
-            <asp:Parameter Name="name" Type="String" />
+            <asp:Parameter Name="contact_name" Type="String" />
             <asp:Parameter Name="publish" Type="Boolean" />
         </InsertParameters>
         <UpdateParameters>
-            <asp:Parameter Name="name" Type="String" />
+            <asp:Parameter Name="contact_name" Type="String" />
             <asp:Parameter Name="publish" Type="Boolean" />
-            <asp:Parameter Name="id" Type="Int32" />
+            <asp:Parameter Name="contact_id" Type="Int32" />
         </UpdateParameters>
     </asp:SqlDataSource> </ContentTemplate>
         </asp:UpdatePanel>
