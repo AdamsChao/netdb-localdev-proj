@@ -182,7 +182,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             Literal lblInvoiceDate2 = (Literal)e.Row.FindControl("lblInvoiceDate2");
             Literal lblInvoiceDate3 = (Literal)e.Row.FindControl("lblInvoiceDate3");
             Literal lblInvoiceDateE = (Literal)e.Row.FindControl("lblInvoiceDateE");
-            txtBalace.Text = (Decimal.Parse(lblFPrice.Text) - Decimal.Parse(txtBill1.Text) - Decimal.Parse(txtBill1.Text) - Decimal.Parse(txtBill1.Text) - Decimal.Parse(txtBill1.Text)).ToString();
+            txtBalace.Text = (Decimal.Parse(lblFPrice.Text) - Decimal.Parse(txtBill1.Text) - Decimal.Parse(txtBill2.Text) - Decimal.Parse(txtBill3.Text) - Decimal.Parse(txtBillE.Text)).ToString();
 
             DropDownList ddlPR_Flag = (DropDownList)e.Row.FindControl("ddlPR_Flag");
             ddlPR_Flag.SelectedValue = ddlPR_Flag.ToolTip;
