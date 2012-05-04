@@ -135,7 +135,6 @@
                 DataTextField="fullname" DataValueField="id" 
                 OnSelectedIndexChanged="DropDownListContact_SelectedIndexChanged" 
                 ondatabound="DropDownListContact_DataBound">
-                <asp:ListItem Value="0">--select--</asp:ListItem>
             </asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 SelectCommand="SELECT m_employee_accesslevel.employee_id, m_employee_accesslevel.accesslevel_id, clientapplicant.id, clientapplicant.companyname FROM m_employee_accesslevel INNER JOIN clientapplicant ON m_employee_accesslevel.accesslevel_id = clientapplicant.department_id WHERE (clientapplicant.clientapplicant_type = 1 OR clientapplicant.clientapplicant_type = 3) AND (m_employee_accesslevel.employee_id = @employee_id)">

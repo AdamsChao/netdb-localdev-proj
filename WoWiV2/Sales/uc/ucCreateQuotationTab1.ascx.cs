@@ -346,6 +346,12 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
             //    Quotation_Version obj = Quotation_Controller.Get_Quotation(QuotationID);
             //    DropDownListClient.SelectedValue = obj.Client_Id.ToString();
             //}
+             if (QuotationID != 0)
+             {
+                     Quotation_Version obj = Quotation_Controller.Get_Quotation(QuotationID);
+                     DropDownListClient.SelectedValue = obj.Client_Id.ToString(); 
+             }
+            
         }
     }
     protected void DropDownListContact_SelectedIndexChanged(object sender, EventArgs e)
@@ -409,10 +415,11 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         if (!IsPostBack)
         {
             int QuotationID = ((Imaster)this.Page).getQuotationID();
-            if (QuotationID != 0)
+            if ((QuotationID != 0) & (DropDownListContact.Items.Count >1))
             {               
                 Quotation_Version obj = Quotation_Controller.Get_Quotation(QuotationID);
-                DropDownListContact.SelectedValue = obj.Client_Contact.ToString();
+                if(obj.Client_Contact != null)
+                    DropDownListContact.SelectedValue  =  obj.Client_Contact.ToString();
             }
         }
     }
