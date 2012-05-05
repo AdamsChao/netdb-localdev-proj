@@ -53,7 +53,7 @@
             <asp:TextBox ID="txtCurrentEmployee_id" runat="server" Visible="false"></asp:TextBox>
           
             <asp:SqlDataSource ID="SqlDataSourceEmp" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                SelectCommand="SELECT [id], [fname] FROM [employee]"></asp:SqlDataSource>
+                SelectCommand="SELECT id, fname FROM employee WHERE (status = 'Active')"></asp:SqlDataSource>
         </td>
     </tr>
     <tr>

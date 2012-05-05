@@ -48,7 +48,7 @@
                     DataValueField="id" OnDataBound="ddlEmp_DataBound">
                 </asp:DropDownList>
                 <asp:SqlDataSource ID="SqlDataSourceEmp" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                    SelectCommand="SELECT [id], [fname] FROM [employee]"></asp:SqlDataSource>
+                    SelectCommand="SELECT [id], [fname] FROM [employee] where status='Active'"></asp:SqlDataSource>
             </td>
              <th  class="style4">
                 Model No
