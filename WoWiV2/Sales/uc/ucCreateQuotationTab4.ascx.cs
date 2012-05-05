@@ -87,14 +87,14 @@ public partial class Sales_uc_ucCreateQuotationTab4 : System.Web.UI.UserControl
         Load_Lable(NowMon, NowYear);
 
 
-        if (quotation_id != 0)
-        {
-            employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name); 
-            if (quo.SalesId == emp.id)
-                btnSubmitType2.Enabled = true;
-            else
-                btnSubmitType2.Enabled = false;
-        }
+        //if (quotation_id != 0)
+        //{
+        //    employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name); 
+        //    if (quo.SalesId == emp.id)
+        //        btnSubmitType2.Enabled = true;
+        //    else
+        //        btnSubmitType2.Enabled = false;
+        //}
     }
 
     private void LoadDropDown()

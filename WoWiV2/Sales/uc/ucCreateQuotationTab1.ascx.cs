@@ -21,7 +21,8 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
     {
         if (!IsPostBack)
         {
-            //int QuotationID = ((Imaster)this.Page).getQuotationID();
+            employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
+            txtCurrentEmployee_id.Text = emp.id.ToString();
             int QuotationID = ((Imaster)this.Page).getQuotationID();
             if (QuotationID != 0)
             {
@@ -29,10 +30,10 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
                 LoadData(QuotationID);
             }
             else
-            {
-                employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
+            {                
                 DropDownListEmp.SelectedValue = emp.id.ToString();
             }
+           
         }
     }
 
@@ -94,7 +95,12 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         obj.Model_Difference = txtModelDifference.Text;
         obj.CModel_Difference = txtCModelDifferencev.Text;
         obj.Client_Id = Int32.Parse(DropDownListClient.SelectedValue);
-        obj.Client_Contact = Int32.Parse(DropDownListContact.SelectedValue);
+
+        int ContactID;
+        if (Int32.TryParse(DropDownListContact.SelectedValue, out ContactID))
+            obj.Client_Contact = ContactID;
+        else
+            obj.Client_Contact = null;
         obj.Applicant_Id = Int32.Parse(DropDownListApp.SelectedValue);
         //obj.Applicant_Contact
         obj.Bill_Name = txtBill_Name.Text;
@@ -128,6 +134,11 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         obj.Payment_Term = ddlPayment_Term.Text;
         obj.Client_Status = txtClient_Status.Text;
         obj.DHL_Acct = txtDHL.Text;
+        int AccessLevelID;
+        if (Int32.TryParse(ddlAccessLevel.SelectedValue, out AccessLevelID))
+            obj.Access_Level_ID = AccessLevelID;
+        else
+            obj.Access_Level_ID = null;
 
 
         int QuotationID = Quotation_Controller.Add_Quotation(obj);
@@ -168,7 +179,11 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         obj.Model_Difference = txtModelDifference.Text;
         obj.CModel_Difference = txtCModelDifferencev.Text;
         obj.Client_Id = Int32.Parse(DropDownListClient.SelectedValue);
-        obj.Client_Contact = Int32.Parse(DropDownListContact.SelectedValue);
+        int ContactID;
+        if (Int32.TryParse(DropDownListContact.SelectedValue, out ContactID))
+            obj.Client_Contact = ContactID;
+        else
+            obj.Client_Contact = null;
         obj.Applicant_Id = Int32.Parse(DropDownListApp.SelectedValue);
         //obj.Applicant_Contact
         obj.Bill_Name = txtBill_Name.Text;
@@ -199,6 +214,11 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         obj.Payment_Term = ddlPayment_Term.Text;
         obj.Client_Status = txtClient_Status.Text;
         obj.DHL_Acct = txtDHL.Text;
+        int AccessLevelID;
+        if (Int32.TryParse(ddlAccessLevel.SelectedValue, out AccessLevelID))
+            obj.Access_Level_ID = AccessLevelID;
+        else
+            obj.Access_Level_ID = null;
 
         Quotation_Controller.Update_Quotation(Quotation_Controller.ent, obj);
         if (QuotationIDChanged != null)
@@ -245,10 +265,10 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
 
         employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
 
-        if (obj.SalesId == emp.id)
-            btnSubmit.Enabled = true;
-        else
-            btnSubmit.Enabled = false;
+        //if (obj.SalesId == emp.id)
+        //    btnSubmit.Enabled = true;
+        //else
+        //    btnSubmit.Enabled = false;
     }
     protected void DropDownListClient_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -379,7 +399,8 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
                 DropDownListContact2.Enabled = false; 
 
                 ClientID = Int32.Parse(DropDownListClient.SelectedValue);
-                ContactID = Int32.Parse(DropDownListContact.SelectedValue);
+                Int32.TryParse(DropDownListContact.SelectedValue, out ContactID);
+
                 client = CodeTableController.GetClientApplicant(ClientID);
 
                 if (DropDownListContact.SelectedIndex == 0)
@@ -426,5 +447,18 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
     protected void DropDownListContact2_DataBound(object sender, EventArgs e)
     {
         DropDownListContact2.Items.Insert(0, "--select--");
+    }
+    protected void ddlAccessLevel_DataBound(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            int QuotationID = ((Imaster)this.Page).getQuotationID();
+            if ((QuotationID != 0) & (ddlAccessLevel.Items.Count > 1))
+            {
+                Quotation_Version obj = Quotation_Controller.Get_Quotation(QuotationID);
+                if (obj.Access_Level_ID != null)
+                    ddlAccessLevel.SelectedValue = obj.Access_Level_ID.ToString();
+            }
+        }
     }
 }

@@ -19,16 +19,16 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
             hidQuotationID.Text = quotation_id.ToString();
             gvData.DataBind();
 
-            if (quotation_id != 0)
-            {
-                Quotation_Version obj = Quotation_Controller.Get_Quotation(quotation_id);
-                employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
+            //if (quotation_id != 0)
+            //{
+            //    Quotation_Version obj = Quotation_Controller.Get_Quotation(quotation_id);
+            //    employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
 
-                if (obj.SalesId == emp.id)
-                    btnSubmit.Enabled = true;
-                else
-                    btnSubmit.Enabled = false;
-            }
+            //    if (obj.SalesId == emp.id)
+            //        btnSubmit.Enabled = true;
+            //    else
+            //        btnSubmit.Enabled = false;
+            //}
         }
 
 

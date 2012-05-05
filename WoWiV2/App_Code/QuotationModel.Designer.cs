@@ -244,22 +244,6 @@ namespace QuotationModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Quotation_Version> Quotation_Version
-        {
-            get
-            {
-                if ((_Quotation_Version == null))
-                {
-                    _Quotation_Version = base.CreateObjectSet<Quotation_Version>("Quotation_Version");
-                }
-                return _Quotation_Version;
-            }
-        }
-        private ObjectSet<Quotation_Version> _Quotation_Version;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<wowi_tech> wowi_tech
         {
             get
@@ -384,6 +368,22 @@ namespace QuotationModel
             }
         }
         private ObjectSet<contact_info> _contact_info;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Quotation_Version> Quotation_Version
+        {
+            get
+            {
+                if ((_Quotation_Version == null))
+                {
+                    _Quotation_Version = base.CreateObjectSet<Quotation_Version>("Quotation_Version");
+                }
+                return _Quotation_Version;
+            }
+        }
+        private ObjectSet<Quotation_Version> _Quotation_Version;
 
         #endregion
         #region AddTo Methods
@@ -477,14 +477,6 @@ namespace QuotationModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Quotation_Version EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToQuotation_Version(Quotation_Version quotation_Version)
-        {
-            base.AddObject("Quotation_Version", quotation_Version);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the wowi_tech EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTowowi_tech(wowi_tech wowi_tech)
@@ -546,6 +538,14 @@ namespace QuotationModel
         public void AddTocontact_info(contact_info contact_info)
         {
             base.AddObject("contact_info", contact_info);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Quotation_Version EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToQuotation_Version(Quotation_Version quotation_Version)
+        {
+            base.AddObject("Quotation_Version", quotation_Version);
         }
 
         #endregion
@@ -7666,6 +7666,30 @@ namespace QuotationModel
         private global::System.String _Probability;
         partial void OnProbabilityChanging(global::System.String value);
         partial void OnProbabilityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Access_Level_ID
+        {
+            get
+            {
+                return _Access_Level_ID;
+            }
+            set
+            {
+                OnAccess_Level_IDChanging(value);
+                ReportPropertyChanging("Access_Level_ID");
+                _Access_Level_ID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Access_Level_ID");
+                OnAccess_Level_IDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Access_Level_ID;
+        partial void OnAccess_Level_IDChanging(Nullable<global::System.Int32> value);
+        partial void OnAccess_Level_IDChanged();
 
         #endregion
     

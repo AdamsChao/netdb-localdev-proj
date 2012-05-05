@@ -10,11 +10,15 @@ public partial class Sales_Quotation : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
-        ddlClient.DataSource = CodeTableController.GetClientApplicantList(emp.id);
-        ddlClient.DataTextField = "Value";
-        ddlClient.DataValueField = "Key";
-        ddlClient.DataBind();
+        if (!IsPostBack)
+        {
+            employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
+            ddlClient.DataSource = CodeTableController.GetClientApplicantList(emp.id);
+            ddlClient.DataTextField = "Value";
+            ddlClient.DataValueField = "Key";
+            ddlClient.DataBind();
+            txtCurrentEmployee_id.Text = emp.id.ToString();
+        }
     }
 
     protected void ButtonSearch_Click(object sender, EventArgs e)

@@ -46,14 +46,14 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
         //txtRemark.Text = quo.Remark;
        
 
-        if (quotation_id != 0)
-        {
-            employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
-            if (quo.SalesId == emp.id)
-                btnSubmit.Enabled = true;
-            else
-                btnSubmit.Enabled = false;
-        }
+        //if (quotation_id != 0)
+        //{
+        //    employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
+        //    if (quo.SalesId == emp.id)
+        //        btnSubmit.Enabled = true;
+        //    else
+        //        btnSubmit.Enabled = false;
+        //}
     }
 
     //public string myFunc(string val)
