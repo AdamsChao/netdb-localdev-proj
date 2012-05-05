@@ -6304,6 +6304,30 @@ namespace QuotationModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public global::System.String checkno
+        {
+            get
+            {
+                return _checkno;
+            }
+            set
+            {
+                OnchecknoChanging(value);
+                ReportPropertyChanging("checkno");
+                _checkno = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("checkno");
+                OnchecknoChanged();
+            }
+        }
+        private global::System.String _checkno;
+        partial void OnchecknoChanging(global::System.String value);
+        partial void OnchecknoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.Int32> SalesId
         {
             get

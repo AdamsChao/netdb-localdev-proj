@@ -408,6 +408,7 @@
           <Property Name="Payment_Method_Id" Type="int" />
           <Property Name="pocheckno" Type="nvarchar" MaxLength="16" />
           <Property Name="paymentlimit" Type="nvarchar" MaxLength="10" />
+          <Property Name="checkno" Type="nvarchar" MaxLength="50" />
           <Property Name="SalesId" Type="int" />
           <Property Name="Currency" Type="nvarchar" MaxLength="3" />
           <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
@@ -1100,6 +1101,7 @@
           <Property Type="Int32" Name="Payment_Method_Id" />
           <Property Type="String" Name="pocheckno" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="paymentlimit" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="checkno" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="SalesId" />
           <Property Type="String" Name="Currency" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Product_Name" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1654,6 +1656,7 @@
                 <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
                 <ScalarProperty Name="Currency" ColumnName="Currency" />
                 <ScalarProperty Name="SalesId" ColumnName="SalesId" />
+                <ScalarProperty Name="checkno" ColumnName="checkno" />
                 <ScalarProperty Name="paymentlimit" ColumnName="paymentlimit" />
                 <ScalarProperty Name="pocheckno" ColumnName="pocheckno" />
                 <ScalarProperty Name="Payment_Method_Id" ColumnName="Payment_Method_Id" />
@@ -1697,7 +1700,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="QuotationModel" ZoomLevel="47">
+      <Diagram Name="QuotationModel" ZoomLevel="71">
         <EntityTypeShape EntityType="QuotationModel.vw_Product_Type" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Status" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583317" />
         <EntityTypeShape EntityType="QuotationModel.clientapplicant_technology" Width="1.5" PointX="0.75" PointY="3.75" Height="2.3648893229166674" />
@@ -1717,7 +1720,7 @@
         <EntityTypeShape EntityType="QuotationModel.vw_Test_Target_List" Width="1.5" PointX="12.75" PointY="7.75" Height="5.4417122395833317" />
         <EntityTypeShape EntityType="QuotationModel.clientapplicant" Width="1.5" PointX="14.75" PointY="0.75" Height="12.364563802083325" />
         <EntityTypeShape EntityType="QuotationModel.contact_info" Width="1.5" PointX="5.375" PointY="13.75" Height="5.1923632812500031" />
-        <EntityTypeShape EntityType="QuotationModel.Quotation_Version" Width="1.5" PointX="0.75" PointY="12.75" Height="14.693339843750009" />
+        <EntityTypeShape EntityType="QuotationModel.Quotation_Version" Width="1.5" PointX="0.75" PointY="12.75" Height="14.869283854166667" />
       </Diagram>
     </Diagrams>
   </Designer>
