@@ -135,8 +135,20 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
             txtRate.Text = result.First().Value.ToString();
             txtUnitPrice.Text = txtRate.Text;
             hidTarget_Rates_ID.Value = result.First().Key.ToString();
-            txtDespction.Text = ddlAuthority.SelectedItem.Text;            
-        }  
+            txtDespction.Text = ddlAuthority.SelectedItem.Text;
+            btnSubmit.Enabled = true;
+        }
+        else
+        {
+          txtRate.Text = "0";
+          txtUnit.Text = "0";
+          txtUnitPrice.Text = "0";
+          hidTarget_Rates_ID.Value = "0";
+          txtDespction.Text = "";          
+          btnSubmit.Enabled = false;
+          Page.ClientScript.RegisterClientScriptBlock(this.GetType(),"Show","alert('請確認您所選取的Target Rate為有效的或已經Publish的項目!')",true);
+          LabelMessage.Text = "請確認您所選取的Target Rate為有效的或已經Publish的項目!";
+        }
     }
 
     //save
@@ -146,8 +158,6 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
             Save();
         else
             Update();
-
-
     }
 
     private void Save()
@@ -265,6 +275,7 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
                 targetID = Int32.Parse(e.CommandArgument.ToString());
                 hidTargetID.Text = targetID.ToString();
                 LoadTarget(targetID);
+                btnSubmit.Enabled = true;
                 break;
 
             case "tDelete":
@@ -310,19 +321,5 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
         txtFprice.Text = target.FinalPrice.ToString();
         txtPayTo.Text = target.PayTo;
         hidTargetID.Text = TargetID.ToString();
-
-        if (rblDisCount.SelectedIndex == 0)
-        {
-            ddlTestdisc.Visible = true;
-            txtDiscAmt.Visible = false;
-            //txtDiscAmt.Text = "0";
-
-        }
-        else
-        {
-            ddlTestdisc.Visible = false;
-            txtDiscAmt.Visible = true;
-            //ddlTestdisc.SelectedIndex = 0;
-        }
     }
 }

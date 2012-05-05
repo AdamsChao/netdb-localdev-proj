@@ -112,6 +112,7 @@ public class CodeTableController
         var result = (from n in entities.vw_Target
                       where 
                         n.Technology_id ==wowi_tech_id && n.country_id == Country_ID && n.product_type_id == product_type_id
+                        && n.Publish == true
                       select new
                       {
                           n.Target_rate_id,

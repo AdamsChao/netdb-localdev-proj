@@ -192,7 +192,8 @@
     </tr>
     <tr>
         <td>
-            <br />
+            <asp:Label ID="LabelMessage" runat="server" EnableViewState="False" 
+              ForeColor="Red"></asp:Label>
         </td>
     </tr>
     <tr>
