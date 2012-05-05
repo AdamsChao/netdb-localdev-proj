@@ -80,10 +80,12 @@
         if (list.Count == 0)
         {
             Button7.Enabled = false;
+            lblMsg.Visible = true;
         }
         else
         {
             Button7.Enabled = true;
+            lblMsg.Visible = false;
         }
     }
     
@@ -631,7 +633,7 @@
                         </tr>
                         
                        
-                   <tr><td colspan="6">
+                   <tr><td colspan="6"><asp:Label ID="lblMsg" runat="server" Text="No match data found." ></asp:Label>
                     <cc1:iRowSpanGridView ID="iGridView1" runat="server" Height="300px" Width="100%" isMergedHeader="true" SkinID="GridView"
                         AutoGenerateColumns="false" CssClass="Gridview" Visible="false"
                            onrowdatabound="iGridView1_RowDataBound" >

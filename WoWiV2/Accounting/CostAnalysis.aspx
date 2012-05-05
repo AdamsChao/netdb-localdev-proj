@@ -203,7 +203,9 @@
                             }
                         }
                         temp.Client = String.IsNullOrEmpty(cli.c_companyname) ? cli.companyname : cli.c_companyname;
-                        var country =  (from cou in wowidb.countries where cou.country_id == cli.country_id select cou).First();
+                        var qtid = wowidb.PR_item.Where(c => c.pr_id == item.pr_id).First().quotation_target_id;
+                        int country_id = (int) (from qitem in wowidb.Quotation_Target where qitem.Quotation_Target_Id == qtid select qitem.country_id).First();
+                        var country = (from cou in wowidb.countries where cou.country_id == country_id select cou).First();
                         temp.Country = country.country_name;
                         if (ddlCountry.SelectedValue != "-1")
                         {
@@ -420,11 +422,13 @@
         if (iGridView1.Rows.Count == 0)
         {
             btnExport.Enabled = false;
+            lblMsg.Visible = true;
+            
         }
         else
         {
             btnExport.Enabled = true;
-                                   
+            lblMsg.Visible = false;            
         }
     }
 
@@ -519,6 +523,8 @@
        }
 
     }
+
+   
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -644,11 +650,13 @@
                         
                        
                    <tr><td colspan="6">
+                       <asp:Label ID="lblMsg" runat="server" Text="No match data found." ></asp:Label>
                     <cc1:iRowSpanGridView ID="iGridView1" runat="server"  Width="100%" 
                            isMergedHeader="True" SkinID="GridView"
                         AutoGenerateColumns="False" CssClass="Gridview" ShowFooter="true"
                            onsetcssclass="iGridView1_SetCSSClass" onsorting="iGridView1_Sorting" 
-                           SkipColNum="0" onrowdatabound="iGridView1_RowDataBound">
+                           SkipColNum="0" onrowdatabound="iGridView1_RowDataBound" 
+                           >
                         <Columns>
                             <asp:BoundField DataField="ProjectNo" HeaderText="Project No" SortExpression="ProjectNo"/>
                             <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" SortExpression="QutationNo"/>

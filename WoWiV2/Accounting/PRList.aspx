@@ -113,10 +113,7 @@
         (sender as DropDownList).DataBind();
     }
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        
-    }
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -154,6 +151,17 @@
 
         SqlDataSourceClient.SelectCommand += newCriteria;
         GridView1.DataBind();
+        if (GridView1.Rows.Count == 0)
+        {
+           
+            lblMsg.Visible = true;
+
+        }
+        else
+        {
+           
+            lblMsg.Visible = false;
+        }
     }
 </script>
 
@@ -192,10 +200,11 @@
                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                 SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name] ">
             </asp:SqlDataSource>
-&nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" 
-        onclick="btnSearch_Click" /><br>
+&nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" /><br>
 <asp:Button ID="Button1"
-            runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" />
+            runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" /><br>
+                    <asp:Label ID="lblMsg" runat="server" 
+        Text="No match data found." ></asp:Label>
     <p><asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             SkinID="GridView" Width="100%"
             DataKeyNames="pr_id" DataSourceID="SqlDataSourceClient" AllowPaging="True" 

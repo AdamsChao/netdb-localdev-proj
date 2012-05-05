@@ -5,122 +5,7 @@
 <script runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        //if (Page.IsPostBack) return;
-        //var data = from i in wowidb.invoices select i;
-        //List<ARInvoiceData> list = new List<ARInvoiceData>();
-        //ARInvoiceData temp;
-        //foreach (var item in data)
-        //{
-        //    temp = new ARInvoiceData();
-        //    temp.id = item.invoice_id+"";
-        //    temp.InvoiceNo = item.issue_invoice_no;
-        //    if (item.ar_balance.HasValue)
-        //    {
-        //        temp.ARBalance = ((decimal)item.ar_balance).ToString("F2");
-        //    }
-        //    if (item.issue_invoice_date.HasValue)
-        //    {
-        //        temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
-        //    }
-        //    temp.ProjectNo = item.project_no;
-        //    try
-        //    {
-        //        QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_No == item.quotaion_no select q).First();
-        //        temp.Model = quo.Model_No;
-                
-        //        int cid = (int)quo.Client_Id;
-        //        try
-        //        {
-        //            var client = (from cli in wowidb.clientapplicants where cli.id == cid select cli).First();
-        //            temp.Client = String.IsNullOrEmpty(client.c_companyname) ? client.companyname : client.c_companyname;
-        //            temp.PlanDueDate = ((DateTime)item.due_date).ToString("yyyy/MM/dd");
-        //            int days = 0;
-        //            if (client.paymentdays.HasValue)
-        //            {
-        //                temp.PaymentTerms = client.paymentdays + "";
-        //                days = (int)((DateTime)item.due_date - DateTime.Now).TotalDays;
-        //            }
-        //            temp.OverDueDays = days.ToString();
-        //            temp.OverDueInterval = ARUtils.GetARInterval(-1*days);
-        //            int countryid = (int)client.country_id;
-        //            var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
-        //            temp.Country = country.country_name;
-        //            WoWiModel.contact_info contact;
-        //            int contactid;
-        //            if (quo.Client_Contact != null)
-        //            {
-        //                contactid = (int)quo.Client_Contact;
-        //            }
-        //            else
-        //            {
-        //                contactid = (from c in wowidb.m_clientappliant_contact where c.clientappliant_id == quo.Client_Id select c.contact_id).First();
-        //            }
-        //            contact = (from c in wowidb.contact_info where c.id == contactid select c).First();
-        //            temp.Attn = String.IsNullOrEmpty(contact.fname) ? contact.c_lname + " " + contact.c_fname : contact.fname + " " + contact.lname;
-                    
-        //        }
-
-        //        catch (Exception)
-        //        {
-
-        //            //throw;
-        //        }
-        //        int salesid = (int)quo.SalesId;
-        //        //temp.Sales
-        //        var sales = (from emp in wowidb.employees where emp.id == salesid select emp).First();
-        //        temp.Sales = sales.fname + " " + sales.lname; 
-        //    }
-        //    catch (Exception)
-        //    {
-                
-        //        //throw;
-        //    }
-            
-        //    temp.Currency = item.currency;
-        //    if (temp.Currency == "USD")
-        //    {
-        //        temp.USD = ((double)item.final_total);
-        //        temp.NTD = temp.USD / (double)item.exchange_rate;
-        //        usdtotal += temp.USD;
-        //        usdissuetotal += temp.USD;
-        //        ntdtotal += temp.NTD;
-        //    }
-        //    else
-        //    {
-        //        temp.NTD = ((double)item.final_total);
-        //        temp.USD = temp.NTD * (double)item.exchange_rate;
-        //        ntdtotal += temp.NTD;
-        //        ntdissuetotal += temp.NTD;
-        //        usdtotal += temp.USD;
-        //    }
-
-        //    if (item.invoice_date.HasValue)
-        //    {
-        //        temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
-        //    }
-        //    temp.IVNo = item.invoice_no;
-            
-        //    temp.QutationNo = item.quotaion_no;
-        //    list.Add(temp);
-        //}
-        //iGridView1.AllowSorting = true;
-        //iGridView1.DataSource = list;
-        //iGridView1.DataBind();
-
-        //if (iGridView1.Rows.Count == 0)
-        //{
-        //    Button2.Enabled = false;
-        //}
-        //else
-        //{
-        //    Button2.Enabled = true;
-        //}
-        
-        
-    }
-
+   
 
     protected void DropDownList1_Load(object sender, EventArgs e)
     {
@@ -409,10 +294,13 @@
         if (iGridView1.Rows.Count == 0)
         {
             Button2.Enabled = false;
+            lblMsg.Visible = true;
+
         }
         else
         {
             Button2.Enabled = true;
+            lblMsg.Visible = false;
         }
         
     }
@@ -498,7 +386,7 @@
                             </td>
                         </tr>
                        
-                    </table>
+                    </table><asp:Label ID="lblMsg" runat="server" Text="No match data found." ></asp:Label>
                     <asp:GridView ID="iGridView1" runat="server" Height="150px" 
           Width="100%" SkinID="GridView"
                          AutoGenerateColumns="False" 

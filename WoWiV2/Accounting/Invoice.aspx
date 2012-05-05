@@ -317,10 +317,13 @@
         if (iGridView1.Rows.Count == 0)
         {
             Button2.Enabled = false;
+            lblMsg.Visible = true;
+
         }
         else
         {
             Button2.Enabled = true;
+            lblMsg.Visible = false;
         }
         
     }
@@ -414,6 +417,7 @@
                         </tr>
                        
                     </table>
+                    <asp:Label ID="lblMsg" runat="server" Text="No match data found." ></asp:Label>
                     <asp:GridView ID="iGridView1" runat="server" Height="150px" 
           Width="100%" SkinID="GridView"
                          AutoGenerateColumns="False" 

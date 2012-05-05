@@ -92,6 +92,16 @@
         }
         
         GridView1.DataBind();
+        if (GridView1.Rows.Count == 0)
+        {
+            lblMsg.Visible = true;
+
+        }
+        else
+        {
+            lblMsg.Visible = false;
+        }
+
     }
 
     protected void GridView1_PreRender(object sender, EventArgs e)
@@ -178,8 +188,9 @@
     <uc1:DateChooser ID="dcPTo" runat="server" />
     <asp:CheckBox ID="cbNotPay" runat="server" Text="未付" />
 &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
-    <br>
-    
+   <br>
+                    <asp:Label ID="lblMsg" runat="server" 
+        Text="No match data found." ></asp:Label>
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             SkinID="GridView" Width="100%"
             DataKeyNames="pr_id"  
