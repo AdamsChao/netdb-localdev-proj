@@ -321,5 +321,19 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
         txtFprice.Text = target.FinalPrice.ToString();
         txtPayTo.Text = target.PayTo;
         hidTargetID.Text = TargetID.ToString();
+
+        if (rblDisCount.SelectedIndex == 0)
+        {
+            ddlTestdisc.Visible = true;
+            txtDiscAmt.Visible = false;
+            //txtDiscAmt.Text = "0";
+
+        }
+        else
+        {
+            ddlTestdisc.Visible = false;
+            txtDiscAmt.Visible = true;
+            //ddlTestdisc.SelectedIndex = 0;
+        }
     }
 }
