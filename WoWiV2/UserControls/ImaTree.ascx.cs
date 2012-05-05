@@ -78,8 +78,9 @@ public partial class UserControls_ImaTree : System.Web.UI.UserControl
     //四大分類
     protected void GetProductTypeNode(System.Web.UI.WebControls.TreeNodeCollection tnc, string strRegionID, string strContryID)
     {
-        SqlCommand cmd = new SqlCommand();
-        cmd.CommandText = "select wowi_product_type_id,wowi_product_type_name from wowi_product_type where publish=1";
+        SqlCommand cmd = new SqlCommand("STP_IMAGetProductType");
+        cmd.CommandType = CommandType.StoredProcedure;
+        //cmd.CommandText = "select wowi_product_type_id,wowi_product_type_name from wowi_product_type where publish=1 and wowi_product_type_id<>10004";
         SqlDataReader sdr = SQLUtil.QueryDR(cmd);
         while (sdr.Read())
         {
