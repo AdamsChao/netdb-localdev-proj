@@ -35,6 +35,7 @@ public partial class Project_ProjectWorkingStatusList : System.Web.UI.Page
         Value = "%"
       });
     }
+
     protected void ButtonSearch_Click(object sender, EventArgs e)
     {
       GridViewProjectTarget.DataBind();

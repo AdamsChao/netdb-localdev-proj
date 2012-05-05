@@ -53,7 +53,8 @@ Where Quotation_Target.quotation_id in
                     </asp:DropDownList>
                     <asp:SqlDataSource ID="WorkingStatusTargetSqlDataSource" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Authority.authority_name 
+                SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, 
+Authority.authority_name + ' - ' + Quotation_Target.target_description  as authority_name
 FROM Quotation_Target 
 INNER JOIN Authority ON Quotation_Target.authority_id = Authority.authority_id 
 INNER JOIN country ON Quotation_Target.country_id = country.country_id

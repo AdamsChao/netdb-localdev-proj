@@ -157,6 +157,7 @@
                     SortExpression="authority_name" />
       <asp:BoundField DataField="Status" HeaderText="Status" 
         SortExpression="Status" />
+      <asp:BoundField DataField="target_description" HeaderText="T.Description" />
       <asp:BoundField DataField="test_started" HeaderText="Test Started" 
                     SortExpression="test_started" DataFormatString="{0:d}" />
       <asp:BoundField DataField="test_completed" HeaderText="Test Completed" 
