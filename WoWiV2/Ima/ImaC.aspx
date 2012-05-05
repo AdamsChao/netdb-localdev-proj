@@ -19,7 +19,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tdRowName">Country：</td>
+                        <td class="tdRowName">
+                             Country：
+                        </td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblCountry" runat="server"></asp:Label>
                         </td>
