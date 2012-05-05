@@ -77,7 +77,11 @@
       [vw_Quotation_Print_Chinese].[Total_disc_amt] AS [Total_disc_amt], 
       [vw_Quotation_Print_Chinese].[fname] AS [fname], 
       [vw_Quotation_Print_Chinese].[lname] AS [lname], 
-      [vw_Quotation_Print_Chinese].[c_companyname] AS [c_companyname]
+      [vw_Quotation_Print_Chinese].[c_companyname] AS [c_companyname], 
+      [vw_Quotation_Print_Chinese].[Product_Name] AS [Product_Name], 
+      [vw_Quotation_Print_Chinese].[Model_No] AS [Model_No], 
+      [vw_Quotation_Print_Chinese].[Brand_Name] AS [Brand_Name], 
+      [vw_Quotation_Print_Chinese].[Client_CName] AS [Client_CName]
       FROM [dbo].[vw_Quotation_Print_Chinese] AS [vw_Quotation_Print_Chinese]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_Target" EntityType="QuotationModel.Store.vw_Target" store:Type="Views" store:Schema="dbo" store:Name="vw_Target">
@@ -561,7 +565,7 @@
           <Property Name="Quotation_No" Type="nvarchar" MaxLength="20" />
           <Property Name="Applicant" Type="nvarchar" MaxLength="50" />
           <Property Name="workphone" Type="nvarchar" MaxLength="100" />
-          <Property Name="email" Type="nvarchar" MaxLength="30" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
           <Property Name="title" Type="nvarchar" MaxLength="50" />
           <Property Name="c_fname" Type="nvarchar" MaxLength="25" />
           <Property Name="c_lname" Type="nvarchar" MaxLength="25" />
@@ -570,7 +574,7 @@
           <Property Name="CBrand_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Bill_Companyname" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_CName" Type="nvarchar" MaxLength="100" />
-          <Property Name="Bill_Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Bill_Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Bill_Country" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_Address" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_Email" Type="nvarchar" MaxLength="100" />
@@ -581,6 +585,10 @@
           <Property Name="fname" Type="nvarchar" MaxLength="25" />
           <Property Name="lname" Type="nvarchar" MaxLength="25" />
           <Property Name="c_companyname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Model_No" Type="nvarchar" MaxLength="50" />
+          <Property Name="Brand_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Client_CName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'WoWi.dbo.vw_Target' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -593,8 +601,8 @@
             <PropertyRef Name="Technology_id" />
           </Key>
           <Property Name="country_name" Type="nvarchar" MaxLength="100" />
-          <Property Name="wowi_product_type_name" Type="varchar" MaxLength="50" />
-          <Property Name="wowi_tech_name" Type="varchar" MaxLength="50" />
+          <Property Name="wowi_product_type_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="wowi_tech_name" Type="nvarchar" MaxLength="50" />
           <Property Name="Target_rate_id" Type="int" Nullable="false" />
           <Property Name="country_id" Type="int" Nullable="false" />
           <Property Name="product_type_id" Type="int" Nullable="false" />
@@ -744,6 +752,10 @@
           <Property Type="String" Name="fname" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="lname" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="c_companyname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Product_Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Model_No" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Brand_Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Client_CName" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="invoice_target">
           <Key>
@@ -1226,6 +1238,10 @@
           <EntitySetMapping Name="vw_Quotation_Print_Chinese">
             <EntityTypeMapping TypeName="QuotationModel.vw_Quotation_Print_Chinese">
               <MappingFragment StoreEntitySet="vw_Quotation_Print_Chinese">
+                <ScalarProperty Name="Client_CName" ColumnName="Client_CName" />
+                <ScalarProperty Name="Brand_Name" ColumnName="Brand_Name" />
+                <ScalarProperty Name="Model_No" ColumnName="Model_No" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
                 <ScalarProperty Name="c_companyname" ColumnName="c_companyname" />
                 <ScalarProperty Name="lname" ColumnName="lname" />
                 <ScalarProperty Name="fname" ColumnName="fname" />
@@ -1705,7 +1721,7 @@
         <EntityTypeShape EntityType="QuotationModel.Quotation_Status" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583317" />
         <EntityTypeShape EntityType="QuotationModel.clientapplicant_technology" Width="1.5" PointX="0.75" PointY="3.75" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print" Width="1.5" PointX="2.75" PointY="3.75" Height="4.2879036458333388" />
-        <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print_Chinese" Width="1.5" PointX="4.75" PointY="0.75" Height="5.6340136718750031" />
+        <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print_Chinese" Width="2.5" PointX="4.75" PointY="0.75" Height="5.19236328125" />
         <EntityTypeShape EntityType="QuotationModel.invoice_target" Width="1.5" PointX="6.75" PointY="0.75" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Target" Width="1.5" PointX="6.75" PointY="4.75" Height="8.3262337239583388" />
         <EntityTypeShape EntityType="QuotationModel.country" Width="1.5" PointX="8.75" PointY="0.75" Height="3.1340950520833317" />

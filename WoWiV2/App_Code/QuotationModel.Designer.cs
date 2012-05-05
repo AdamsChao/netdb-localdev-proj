@@ -9489,6 +9489,102 @@ namespace QuotationModel
         private global::System.String _c_companyname;
         partial void Onc_companynameChanging(global::System.String value);
         partial void Onc_companynameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Product_Name
+        {
+            get
+            {
+                return _Product_Name;
+            }
+            set
+            {
+                OnProduct_NameChanging(value);
+                ReportPropertyChanging("Product_Name");
+                _Product_Name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Product_Name");
+                OnProduct_NameChanged();
+            }
+        }
+        private global::System.String _Product_Name;
+        partial void OnProduct_NameChanging(global::System.String value);
+        partial void OnProduct_NameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Model_No
+        {
+            get
+            {
+                return _Model_No;
+            }
+            set
+            {
+                OnModel_NoChanging(value);
+                ReportPropertyChanging("Model_No");
+                _Model_No = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Model_No");
+                OnModel_NoChanged();
+            }
+        }
+        private global::System.String _Model_No;
+        partial void OnModel_NoChanging(global::System.String value);
+        partial void OnModel_NoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Brand_Name
+        {
+            get
+            {
+                return _Brand_Name;
+            }
+            set
+            {
+                OnBrand_NameChanging(value);
+                ReportPropertyChanging("Brand_Name");
+                _Brand_Name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Brand_Name");
+                OnBrand_NameChanged();
+            }
+        }
+        private global::System.String _Brand_Name;
+        partial void OnBrand_NameChanging(global::System.String value);
+        partial void OnBrand_NameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Client_CName
+        {
+            get
+            {
+                return _Client_CName;
+            }
+            set
+            {
+                OnClient_CNameChanging(value);
+                ReportPropertyChanging("Client_CName");
+                _Client_CName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Client_CName");
+                OnClient_CNameChanged();
+            }
+        }
+        private global::System.String _Client_CName;
+        partial void OnClient_CNameChanging(global::System.String value);
+        partial void OnClient_CNameChanged();
 
         #endregion
     

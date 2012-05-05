@@ -59,25 +59,29 @@ public partial class Sales_QuotationViewPrintChinese : System.Web.UI.Page
                     Total = Total + c;
                 }
 
-                ltlsub_total.Text = Total.ToString();
+                ltlsub_total.Text = Total.ToString("N0");
 
                 //Replacement(MyDoc, "#sub_total#", Total.ToString());
-                ltldiscount.Text = quo.Total_disc_amt.ToString();
-                ltltotal.Text = (Total - quo.Total_disc_amt).ToString();
-                ltl5persert.Text = ((double)(Total - quo.Total_disc_amt) * 0.05).ToString();
-                ltlsum.Text = ((double)(Total - quo.Total_disc_amt) * 1.05).ToString();
+                ltldiscount.Text =  ((decimal)quo.Total_disc_amt).ToString("N0");
+                ltltotal.Text = ((decimal)(Total - quo.Total_disc_amt)).ToString("N0");
+                ltl5persert.Text = ((double)(Total - quo.Total_disc_amt) * 0.05).ToString("N0");
+                ltlsum.Text = ((double)(Total - quo.Total_disc_amt) * 1.05).ToString("N0");
 
                 lblCProduct_Name.Text = quo.CProduct_Name;
                 lblCBrand_Name.Text = quo.CBrand_Name;
                 lblCModel_No.Text = quo.CModel_No;
                 lblBill_Companyname.Text = quo.c_companyname;
-                lblbusiness_registration_number.Text = quo.business_registration_number;
+                //lblbusiness_registration_number.Text = quo.business_registration_number;
                 lblBill_CName.Text = quo.Bill_CName;
                 lblClientAddress.Text = quo.Bill_Address;
                 lblCleintCountry.Text = quo.Bill_Country;
                 imgSign.ImageUrl = "../Images/sign/" + quo.fname + "." + quo.lname + ".bmp";
                 lblTitle.Text = quo.title;
 
+                lblProduct_Name.Text = quo.Product_Name;
+                lblModelNo.Text = quo.Model_No;
+                lblBrand_Name.Text = quo.Brand_Name;
+                lblClient.Text = quo.Client_CName;
 
 
             }
@@ -89,10 +93,10 @@ public partial class Sales_QuotationViewPrintChinese : System.Web.UI.Page
     {
         Quotation_Version quo = Quotation_Controller.Get_Quotation(quotation_id);
         string Discount = Quotation_Controller.GetTotalVersionTotal_disc_amt(quo.Quotation_No);
-        string Total = (SubTotal - Decimal.Parse(Discount)).ToString("N2");
+        string Total = (SubTotal - Decimal.Parse(Discount)).ToString("N0");
 
         List<string> list = new List<string>();
-        list.Add(SubTotal.ToString("N2"));
+        list.Add(SubTotal.ToString("N0"));
         list.Add(Discount);
         list.Add(Total);
         return list;

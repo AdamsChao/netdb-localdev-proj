@@ -55,6 +55,16 @@
         {
             text-decoration: underline;
         }
+        .style2
+        {
+            font-style: normal;
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            color: rgb(0,0,0);
+            font-size: 8pt;
+            font-weight: 500;
+            text-align: left;
+            width: 300px;
+        }
     </style>
 </head>
 <body>
@@ -92,7 +102,7 @@
     </table>
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td align="left" class="ccstextboxh" width="70%">
+            <td align="left" class="ccstextboxh" width="60%">
                 報價人員:
                 <asp:Label ID="lblRepresentative" runat="server" Text="lblRepresentative"></asp:Label>
             </td>
@@ -142,25 +152,34 @@
             </td>
         </tr>
         <tr>
-            <td class="ccstexth" valign="top">
+            <td class="style2" valign="top">
                 <u>產品資訊</u><br />
                 <br />
                 產品名稱:
                 <asp:Label ID="lblCProduct_Name" runat="server" Text="lblCProduct_Name"></asp:Label>
-                <p>
-                    產品商標:
+                <br />
+                Product Name :
+                <asp:Label ID="lblProduct_Name" runat="server"></asp:Label>
+                 <br />
+                產品商標:
                     <asp:Label ID="lblCBrand_Name" runat="server" Text="lblCBrand_Name"></asp:Label>
-                    <p>
-                        產品型號:
-                        <asp:Label ID="lblCModel_No" runat="server" Text="lblCModel_No"></asp:Label></p>
-                </p>
+                    <br />
+                    Brand Name :
+                    <asp:Label ID="lblBrand_Name" runat="server"></asp:Label>
+                     <br />
+                     產品型號:
+                        <asp:Label ID="lblCModel_No" runat="server" Text="lblCModel_No"></asp:Label>
+                        <br />
+                        Model No :
+                        <asp:Label ID="lblModelNo" runat="server"></asp:Label>
             </td>
-            <td class="ccstexth">
-                <table border="0" cellpadding="0" cellspacing="0">
+            <td class="ccstexth" align="right">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <td align="left" colspan="2">
                             <nobr>
-                            <u>申請者資訊</u></nobr>
+                            <u>申請者資訊</u>
+                            </nobr>
                         </td>
                     </tr>
                     <tr><td></td></tr>
@@ -170,10 +189,10 @@
                         </td>
                         <td align="left" >
                             <nobr>
-                            <asp:Label ID="lblBill_Companyname" runat="server" Text="lblBill_Companyname"></asp:Label></nobr>
+                            <asp:Label ID="lblBill_Companyname" runat="server"></asp:Label></nobr>
                         </td>
                     </tr>
-                    <tr>
+                    <%-- <tr>
                         <td align="left" >
                             申請公司統一編號:
                         </td>
@@ -181,7 +200,7 @@
                             <nobr>
                             <asp:Label ID="lblbusiness_registration_number" runat="server" Text="lblbusiness_registration_number"></asp:Label></nobr>
                         </td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                         <td align="left">
                             申請人:
@@ -246,7 +265,7 @@
                                 <Columns>
                                     <asp:TemplateField HeaderText="項次">
                                         <ItemTemplate>
-                                            <%#Container.DataItemIndex + 1%>
+                                            <%# Container.DataItemIndex + 1 %>
                                         </ItemTemplate>
                                         <ItemStyle HorizontalAlign="Center" />
                                     </asp:TemplateField>
@@ -302,23 +321,13 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">
-                &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                &nbsp;
-            </td>
-        </tr>
-        <tr>
             <td class="ccstexth" colspan="2">
                 <!-- start cost summary service -->
             </td>
         </tr>
         <!-- end cost summary service -->
     </table>
-    <%-- <p style="page-break-before: always">--%>
+    
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td class="ccstexth" colspan="2">
@@ -335,6 +344,7 @@
         </tr>
         <tr>
             <td align="middle" class="ccstexth" colspan="2">
+                <br />
             </td>
         </tr>
         <tr>
@@ -380,9 +390,9 @@
                     <tr>
                         <td class="style1">
                             <br />
+                            <asp:Label ID="lblClient" runat="server" Font-Bold="True" Font-Size="Large"></asp:Label>
                             <br />
-                            <br />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            
                         </td>
                         <td class="ccstextboxh">
                             <asp:Image ID="imgSign" runat="server" Height="31" Width="114" />
@@ -441,7 +451,7 @@
         </tr>
     </table>
     <!-- end body -->
-    <%-- </p>--%>
+    
     <asp:TextBox ID="hidQuotationID" runat="server" Text="0" Visible="false"></asp:TextBox>
     <asp:TextBox ID="hidQuotation_No" runat="server" Text="0" Visible="false"></asp:TextBox>
     </form>
