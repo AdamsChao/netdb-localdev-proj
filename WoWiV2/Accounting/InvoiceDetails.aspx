@@ -14,8 +14,9 @@
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             int id = int.Parse(Request.QueryString["id"]);//invoiceid
-            WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == id select i).First();
-            lblInvoiceID.Text = id.ToString();
+            int iid = Math.Abs(id);
+            WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == iid select i).First();
+            lblInvoiceID.Text = iid.ToString();
             tbIssueInvoice.Text = invoice.issue_invoice_no;
             tbIssueInvoiceDate.Text = ((DateTime)invoice.issue_invoice_date).ToString("yyyy/MM/dd");
             if (invoice.invoice_date.HasValue)
@@ -66,7 +67,8 @@
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             int id = int.Parse(Request.QueryString["id"]);//invoiceid
-            WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == id select i).First();
+            int iid = Math.Abs(id);
+            WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == iid select i).First();
             String projNo = invoice.project_no;
             String qidStr;
             foreach (ListItem item in ddlProj.Items)
@@ -170,17 +172,18 @@
                 int id = int.Parse(Request.QueryString["id"]);//invoiceid
                 List<ProjectInvoiceData> items = new List<ProjectInvoiceData>();
                 ProjectInvoiceData temp;
-
+            
                 var targets = from c in wowidb.invoice_target where c.invoice_id == id select c;
                 foreach (var i in targets)
                 {
                     temp = new ProjectInvoiceData()
                     {
                         No = qno,
-                        FPrice = (decimal)i.amount,
+                        //FPrice = (decimal)i.amount,
                         PayAmount = i.amount+""
                     };
-                    int tid = i.quotation_target_id;
+                    
+                    int tid = Math.Abs(i.quotation_target_id);
                     var quoTarget = (from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid select qt).First();
                     temp.Bill = quoTarget.Bill;
                     temp.Status = quoTarget.Status;
@@ -188,6 +191,7 @@
                     temp.Qty = (double)quoTarget.unit;
                     temp.UOM = ((double)quoTarget.unit).ToString("F0");
                     temp.UnitPrice = (decimal)quoTarget.unit_price;
+                    temp.FPrice = (decimal)temp.Qty * temp.UnitPrice;
                     int quoid = (int)quoTarget.quotation_id;
                     var quo = (from q in db.Quotation_Version where q.Quotation_Version_Id == quoid select q).First();
                     temp.VersionNo = (int)quo.Vername;
@@ -215,7 +219,8 @@
                 iGridView2.DataBind();
                 try
                 {
-                    WoWiModel.invoice invoice = wowidb.invoices.First(d => d.invoice_id == id);
+                    int iid = Math.Abs(id);
+                    WoWiModel.invoice invoice = wowidb.invoices.First(d => d.invoice_id == iid);
                     int bid = (int)invoice.bankacct_info_id;
                     ddlwowibankinfo.SelectedValue = bid.ToString();
                     WoWiModel.wowi_bankinfo b = wowidb.wowi_bankinfo.First(c => c.id == bid);

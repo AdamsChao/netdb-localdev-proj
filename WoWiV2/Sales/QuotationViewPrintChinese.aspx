@@ -71,7 +71,9 @@
             </td>
             <td align="middle" class="ccsh1">
                 <font face="verdana" size="3">康來士科技顧問股份有限公司</font><br />
-                <font face="verdana" size="1">114台北市內湖區洲子街79號3 樓<br />
+                <font face="verdana" size="1">
+                <br />
+                114台北市內湖區洲子街79號3 樓<br />
                     電話: 886-2-2799-8382
                     <br />
                     傳真: 886-2-2799-8387<br />
@@ -264,6 +266,7 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
+                                <HeaderStyle HorizontalAlign="Center" />
                             </asp:GridView>
                             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                 SelectCommand="SELECT [country_name], [authority_name], [FinalPrice], [target_description] FROM [vw_Test_Target_List] WHERE ([Quotation_Version_Id] = @Quotation_Version_Id)">

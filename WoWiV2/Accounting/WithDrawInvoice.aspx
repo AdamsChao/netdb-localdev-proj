@@ -100,7 +100,7 @@
     }
     protected void Search(String str)
     {
-        var data = from i in wowidb.invoices where i.status!=(byte) InvoicePaymentStatus.WithDraw select i;
+        var data = from i in wowidb.invoices where i.status==(byte) InvoicePaymentStatus.WithDraw select i;
         if (!Page.IsPostBack)
         {
            data = data.Where(i=> ((DateTime)i.issue_invoice_date).Year == DateTime.Now.Year && ((DateTime)i.issue_invoice_date).Month == DateTime.Now.Month);
@@ -340,7 +340,7 @@
    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
        <tr>
            <td align="left" width="50%">
-               Invoice Management</td>
+               Invoice WithDraw List</td>
            <td align="right" width="50%">
                Date : <%= DateTime.Now.ToString("yyyy/MM/dd") %>
            </td>
@@ -404,9 +404,8 @@
                                 
                             </td>
                             <td align="right" colspan="2">
-                                 <asp:Button ID="Button3" runat="server" Text="Search" onclick="Button3_Click" />&nbsp;&nbsp;
-                                <asp:Button ID="Button1" runat="server" Text="New" onclick="Button1_Click" />
-                                &nbsp;&nbsp;
+                                 <asp:Button ID="Button3" runat="server" Text="Search" onclick="Button3_Click" />
+                                 &nbsp;&nbsp;
                                 <asp:Button ID="Button2" runat="server" Text="Print List" 
                                      onclick="Button2_Click" Enabled="False" />
                                 
@@ -426,7 +425,7 @@
                                 </EditItemTemplate>
                                 <ItemTemplate>
                                     <asp:HyperLink ID="HyperLink1" runat="server" 
-                                        NavigateUrl='<%# Bind("id","~/Accounting/UpdateInvoice.aspx?id={0}") %>' Text='Edit/View'></asp:HyperLink>
+                                        NavigateUrl='<%# Bind("id","~/Accounting/InvoiceDetails.aspx?id=-{0}") %>' Text='View'></asp:HyperLink>
                                     <asp:Label ID="lblCurrency" runat="server" Text='<%# Bind("Currency") %>' CssClass="hidden"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>

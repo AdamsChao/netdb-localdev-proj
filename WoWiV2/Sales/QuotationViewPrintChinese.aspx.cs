@@ -89,7 +89,7 @@ public partial class Sales_QuotationViewPrintChinese : System.Web.UI.Page
     {
         Quotation_Version quo = Quotation_Controller.Get_Quotation(quotation_id);
         string Discount = Quotation_Controller.GetTotalVersionTotal_disc_amt(quo.Quotation_No);
-        string Total = (SubTotal - Decimal.Parse(Discount)).ToString();
+        string Total = (SubTotal - Decimal.Parse(Discount)).ToString("N2");
 
         List<string> list = new List<string>();
         list.Add(SubTotal.ToString("N2"));

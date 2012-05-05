@@ -187,7 +187,6 @@
                     temp = new ProjectInvoiceData()
                     {
                         No = qno,
-                        FPrice = (decimal)i.amount,
                         PayAmount = i.amount+"",
                         
                     };
@@ -199,6 +198,7 @@
                     temp.TDescription = quoTarget.target_description;
                     temp.Qty = (double)quoTarget.unit;
                     temp.UnitPrice = (decimal)quoTarget.unit_price;
+                    temp.FPrice = (decimal)temp.Qty * temp.UnitPrice;
                     int quoid = (int)quoTarget.quotation_id;
                     var quo = (from q in db.Quotation_Version where q.Quotation_Version_Id == quoid select q).First();
                     temp.VersionNo = (int)quo.Vername;
@@ -357,8 +357,12 @@
             int id = int.Parse(Request.QueryString["id"]);//invoiceid
             WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == id select i).First();
             invoice.status = (byte)InvoicePaymentStatus.WithDraw;
+            foreach(var item in wowidb.invoice_target.Where(c=>c.invoice_id == id)){
+                item.invoice_id = id * -1;
+                item.quotation_target_id *= -1;
+            }
             wowidb.SaveChanges();
-            Response.Redirect("~/Accounting/InvoiceDetails.aspx?id=" + id);
+            Response.Redirect("~/Accounting/InvoiceDetails.aspx?id=" + id * -1);
         }
     }
 
