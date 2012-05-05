@@ -201,6 +201,24 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             lblInvoiceDate3.Text = Quotation_Controller.GetInvoiceDate(quotation_Id, target_Id, 2);
             lblInvoiceDateE.Text = Quotation_Controller.GetInvoiceDate(quotation_Id, target_Id, 3);
 
+            //如果已開發票，就鎖住textbox不讓user修改
+            if( !String.IsNullOrEmpty(lblInvoiceNo1.Text))
+                txtBill1.Enabled =false;
+            else
+                txtBill1.Enabled =true;
+            if (!String.IsNullOrEmpty(lblInvoiceNo2.Text))
+                txtBill2.Enabled = false;
+            else
+                txtBill2.Enabled = true;
+            if (!String.IsNullOrEmpty(lblInvoiceNo3.Text))
+                txtBill3.Enabled = false;
+            else
+                txtBill3.Enabled = true;
+            if (!String.IsNullOrEmpty(lblInvoiceNoE.Text))
+                txtBillE.Enabled = false;
+            else
+                txtBillE.Enabled = true;
+
 
             //txtBill1, txtBill2, txtBill3, txtBillE, hidBill1, hidBill2, hidBill3, hidBillE, fPrice
             txtBill1.Attributes.Add("onkeyup", "cmdText('" +
