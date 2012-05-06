@@ -117,10 +117,10 @@ public class Quotation_Target_Controller
     //List All Versions
     public static Dictionary<int, string> GetAllVersions(string Quotation_No)
     {
-
+      //modify by Adams 2012/5/6 只有confirmed的報價單才會秀版本
         QuotationEntities entities = new QuotationEntities();
         var result = (from n in entities.Quotation_Version
-                      where n.Quotation_No == Quotation_No
+                      where n.Quotation_No == Quotation_No && n.Quotation_Status==5 
                       select new
                       {
                           n.Quotation_Version_Id,

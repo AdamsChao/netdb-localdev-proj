@@ -277,4 +277,22 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
     {
         Response.Redirect("CreateQuotation.aspx?q=" + ddlVersion.SelectedValue);
     }
+
+  //Add by Adams 2012/5/6 for 狀態控管
+    protected void DropDownListStatus_DataBound(object sender, EventArgs e)
+    {
+      DropDownList ddl = (DropDownList)sender;
+      if (ddl.SelectedValue=="1" || ddl.SelectedValue=="2")
+      {
+        for (int i = ddl.Items.Count - 1 ; i > 2 ; i--)
+        {
+          ddl.Items.Remove(ddl.Items[i]);
+        }
+      }
+      else
+      {
+        ddl.Items.Remove(ddl.Items[1]);
+        ddl.Items.Remove(ddl.Items[0]);
+      }
+    }
 }

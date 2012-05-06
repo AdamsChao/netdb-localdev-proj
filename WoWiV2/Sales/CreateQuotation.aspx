@@ -57,6 +57,12 @@
             return false;
         } 
     </script>
+    <style type="text/css">
+      .style5
+      {
+        font-size: small;
+      }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <div id="quoTitleDiv" runat="server" visible="false">
@@ -69,7 +75,7 @@
                     <asp:DropDownList ID="ddlVersion" runat="server" 
                         onselectedindexchanged="ddlVersion_SelectedIndexChanged" AutoPostBack="true">
                     </asp:DropDownList>
-                </td>
+                &nbsp;<span class="style5">(Only Show Confirmed Version)</span></td>
                 <td>
                     <asp:Button ID="cmdAdditional" runat="server" Text="Additional Quotation" OnClick="cmdAdditional_Click" />
                 </td>
@@ -84,7 +90,8 @@
                 <td>
                     Status:
                     <asp:DropDownList ID="DropDownListStatus" runat="server" DataSourceID="SqlDataSourceStatus"
-                        DataTextField="Quotation_Status_Name" DataValueField="Quotation_Status_Id" Enabled="False">
+                        DataTextField="Quotation_Status_Name" DataValueField="Quotation_Status_Id" 
+                      Enabled="False" ondatabound="DropDownListStatus_DataBound">
                     </asp:DropDownList>
                     <asp:Button ID="cmdStatus" runat="server" Text="Change Status" OnClick="cmdStatus_Click"
                         Enabled="false" />
