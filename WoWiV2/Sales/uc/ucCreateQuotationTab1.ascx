@@ -201,7 +201,8 @@
         </th>
         <td>
             <asp:DropDownList ID="DropDownListApp" runat="server" AutoPostBack="True" DataSourceID="SqlDataSourceApp"
-                DataTextField="companyname" DataValueField="Id">
+                DataTextField="companyname" DataValueField="Id" 
+                ondatabound="DropDownListApp_DataBound">
             </asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSourceApp" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 SelectCommand="SELECT m_employee_accesslevel.employee_id, m_employee_accesslevel.accesslevel_id, clientapplicant.id, clientapplicant.companyname FROM m_employee_accesslevel INNER JOIN clientapplicant ON m_employee_accesslevel.accesslevel_id = clientapplicant.department_id WHERE (clientapplicant.clientapplicant_type = 2 OR clientapplicant.clientapplicant_type = 3) AND (m_employee_accesslevel.employee_id = @employee_id)">

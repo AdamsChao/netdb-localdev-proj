@@ -461,4 +461,18 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
             }
         }
     }
+    protected void DropDownListApp_DataBound(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            int QuotationID = ((Imaster)this.Page).getQuotationID();
+                
+            if (QuotationID != 0)
+            {
+                Quotation_Version obj = Quotation_Controller.Get_Quotation(QuotationID);
+                DropDownListApp.SelectedValue = obj.Applicant_Id.ToString();
+            }
+
+        }
+    }
 }
