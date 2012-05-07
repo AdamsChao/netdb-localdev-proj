@@ -20,7 +20,8 @@
             try
             {
                 int id = int.Parse(Request.QueryString["id"]);
-                WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == id select i).First();
+                int aid = Math.Abs(id);
+                WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == aid select i).First();
                 OTotal = ((decimal)invoice.ototal).ToString("F2");
                 OriginalCurrency = invoice.ocurrency;
                 PayCurrency = invoice.currency;
@@ -122,6 +123,7 @@
                         PayAmount = i.amount + ""
                     };
                     int tid = i.quotation_target_id;
+                    tid = Math.Abs(tid);
                     var quoTarget = (from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid select qt).First();
                     temp.Bill = quoTarget.Bill;
                     temp.Status = quoTarget.Status;
