@@ -120,7 +120,7 @@ public class Quotation_Target_Controller
       //modify by Adams 2012/5/6 只有confirmed的報價單才會秀版本
         QuotationEntities entities = new QuotationEntities();
         var result = (from n in entities.Quotation_Version
-                      where n.Quotation_No == Quotation_No && n.Quotation_Status==5 
+                      where n.Quotation_No == Quotation_No 
                       select new
                       {
                           n.Quotation_Version_Id,
