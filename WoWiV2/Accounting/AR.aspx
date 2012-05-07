@@ -93,7 +93,7 @@
         
     protected void Search(String str)
     {
-        var data = from i in wowidb.invoices select i;
+        var data = from i in wowidb.invoices where i.status !=(byte)InvoicePaymentStatus.WithDraw select i;
         if (ddlProj.SelectedValue != "-1")
         {
             String projNo = ddlProj.SelectedItem.Text;
@@ -309,6 +309,14 @@
     {
         Search(e.SortExpression);
         //obj = null;
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Page.IsPostBack) return;
+        //Search(null);
+        lblMsg.Visible = false;
+        Button2.Enabled = false;
     }
 </script>
 
