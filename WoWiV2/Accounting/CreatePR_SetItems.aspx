@@ -217,7 +217,7 @@
 
     protected void ddlTarget_SelectedIndexChanged(object sender, EventArgs e)
     {
-        
+        AddItem_Click(sender, e);
     }
     protected void ddlContact_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -584,7 +584,7 @@
                                         ValidationGroup="VenderGroup">
                                      <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                </asp:DropDownList>&nbsp;<asp:Button ID="btnAddItem" runat="server" Text="Add" 
-                                        onclick="AddItem_Click" CausesValidation="False" 
+                                        onclick="AddItem_Click" CausesValidation="False"  Visible="false"
                                         ValidationGroup="VenderGroup" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                                         ControlToValidate="ddlTarget" ErrorMessage="Please select target!" 

@@ -629,7 +629,7 @@
                             <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Target:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
-                                <asp:DropDownList ID="ddlTarget" runat="server" 
+                                <asp:DropDownList ID="ddlTarget" runat="server"  AppendDataBoundItems="True"
                                     AutoPostBack="True"  OnLoad="ddlTarget_Load" Enabled="false"
                                        >
                                      <asp:ListItem Value="-1">- Select -</asp:ListItem>
