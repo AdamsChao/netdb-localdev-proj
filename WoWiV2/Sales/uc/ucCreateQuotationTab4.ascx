@@ -358,11 +358,11 @@
                 </tr>
                 <tr>
                     <td colspan="7">
-                        PO No.:
+                        PO No:
                         <asp:TextBox ID="txtPocheckno" CssClass="CCSTextBox" MaxLength="20" Width="100" runat="server"></asp:TextBox>  &nbsp;  PO 
-                        Limit.:
+                        Limit:
                         <asp:TextBox ID="txtPOLimit" CssClass="CCSTextBox" MaxLength="20" Width="100" runat="server"></asp:TextBox> &nbsp; Deposit Check No:
-                        <asp:TextBox ID="txtDeposit_Check_No" CssClass="CCSTextBox" MaxLength="20" Width="100" runat="server"></asp:TextBox> &nbsp;  Amount .:
+                        <asp:TextBox ID="txtDeposit_Check_No" CssClass="CCSTextBox" MaxLength="20" Width="100" runat="server"></asp:TextBox> &nbsp;  Amount:
                         <asp:TextBox ID="txtPO_Amount" CssClass="CCSTextBox" MaxLength="20" Width="100" runat="server"></asp:TextBox>
                     </td>
                 </tr>
