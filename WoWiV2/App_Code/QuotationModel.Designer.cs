@@ -276,22 +276,6 @@ namespace QuotationModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<employee> employee
-        {
-            get
-            {
-                if ((_employee == null))
-                {
-                    _employee = base.CreateObjectSet<employee>("employee");
-                }
-                return _employee;
-            }
-        }
-        private ObjectSet<employee> _employee;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Target> Target
         {
             get
@@ -384,6 +368,22 @@ namespace QuotationModel
             }
         }
         private ObjectSet<Quotation_Version> _Quotation_Version;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<employee> employee
+        {
+            get
+            {
+                if ((_employee == null))
+                {
+                    _employee = base.CreateObjectSet<employee>("employee");
+                }
+                return _employee;
+            }
+        }
+        private ObjectSet<employee> _employee;
 
         #endregion
         #region AddTo Methods
@@ -493,14 +493,6 @@ namespace QuotationModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the employee EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToemployee(employee employee)
-        {
-            base.AddObject("employee", employee);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Target EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToTarget(Target target)
@@ -546,6 +538,14 @@ namespace QuotationModel
         public void AddToQuotation_Version(Quotation_Version quotation_Version)
         {
             base.AddObject("Quotation_Version", quotation_Version);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the employee EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToemployee(employee employee)
+        {
+            base.AddObject("employee", employee);
         }
 
         #endregion
@@ -3859,7 +3859,7 @@ namespace QuotationModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Byte> department_id
+        public Nullable<global::System.Int32> department_id
         {
             get
             {
@@ -3874,8 +3874,8 @@ namespace QuotationModel
                 Ondepartment_idChanged();
             }
         }
-        private Nullable<global::System.Byte> _department_id;
-        partial void Ondepartment_idChanging(Nullable<global::System.Byte> value);
+        private Nullable<global::System.Int32> _department_id;
+        partial void Ondepartment_idChanging(Nullable<global::System.Int32> value);
         partial void Ondepartment_idChanged();
     
         /// <summary>

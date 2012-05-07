@@ -228,22 +228,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<employee> employees
-        {
-            get
-            {
-                if ((_employees == null))
-                {
-                    _employees = base.CreateObjectSet<employee>("employees");
-                }
-                return _employees;
-            }
-        }
-        private ObjectSet<employee> _employees;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<employee_jobtitle> employee_jobtitle
         {
             get
@@ -752,6 +736,22 @@ namespace WoWiModel
             }
         }
         private ObjectSet<wowi_tech> _wowi_tech;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<employee> employees
+        {
+            get
+            {
+                if ((_employees == null))
+                {
+                    _employees = base.CreateObjectSet<employee>("employees");
+                }
+                return _employees;
+            }
+        }
+        private ObjectSet<employee> _employees;
 
         #endregion
         #region AddTo Methods
@@ -834,14 +834,6 @@ namespace WoWiModel
         public void AddTodepartments(department department)
         {
             base.AddObject("departments", department);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the employees EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToemployees(employee employee)
-        {
-            base.AddObject("employees", employee);
         }
     
         /// <summary>
@@ -1098,6 +1090,14 @@ namespace WoWiModel
         public void AddTowowi_tech(wowi_tech wowi_tech)
         {
             base.AddObject("wowi_tech", wowi_tech);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the employees EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToemployees(employee employee)
+        {
+            base.AddObject("employees", employee);
         }
 
         #endregion
@@ -5356,7 +5356,7 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Byte> department_id
+        public Nullable<global::System.Int32> department_id
         {
             get
             {
@@ -5371,8 +5371,8 @@ namespace WoWiModel
                 Ondepartment_idChanged();
             }
         }
-        private Nullable<global::System.Byte> _department_id;
-        partial void Ondepartment_idChanging(Nullable<global::System.Byte> value);
+        private Nullable<global::System.Int32> _department_id;
+        partial void Ondepartment_idChanging(Nullable<global::System.Int32> value);
         partial void Ondepartment_idChanged();
     
         /// <summary>
@@ -14019,6 +14019,54 @@ namespace WoWiModel
         private global::System.String _Probability;
         partial void OnProbabilityChanging(global::System.String value);
         partial void OnProbabilityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String checkno
+        {
+            get
+            {
+                return _checkno;
+            }
+            set
+            {
+                OnchecknoChanging(value);
+                ReportPropertyChanging("checkno");
+                _checkno = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("checkno");
+                OnchecknoChanged();
+            }
+        }
+        private global::System.String _checkno;
+        partial void OnchecknoChanging(global::System.String value);
+        partial void OnchecknoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Access_Level_ID
+        {
+            get
+            {
+                return _Access_Level_ID;
+            }
+            set
+            {
+                OnAccess_Level_IDChanging(value);
+                ReportPropertyChanging("Access_Level_ID");
+                _Access_Level_ID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Access_Level_ID");
+                OnAccess_Level_IDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Access_Level_ID;
+        partial void OnAccess_Level_IDChanging(Nullable<global::System.Int32> value);
+        partial void OnAccess_Level_IDChanged();
 
         #endregion
     

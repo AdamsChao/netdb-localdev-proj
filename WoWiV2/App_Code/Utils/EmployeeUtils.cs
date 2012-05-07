@@ -25,7 +25,16 @@ public class EmployeeUtils
                     var typeList = from c in db.m_employee_accesslevel where c.employee_id== id select c;
                     foreach (WoWiModel.m_employee_accesslevel item in typeList)
                     {
-                        SetTypes(item.accesslevel_id, FormView1, dlID);
+                        try
+                        {
+                            SetTypes(item.accesslevel_id, FormView1, dlID);
+                        }
+                        catch (Exception)
+                        {
+                            
+                            //throw;
+                        }
+                        
                     }
                 }
                 catch (Exception ex)
@@ -39,16 +48,24 @@ public class EmployeeUtils
     }
     public static void SetTypes(int id, FormView FormView1, String dlID)
     {
-
-        CheckBoxList list = (CheckBoxList)FormView1.FindControl(dlID);
-        foreach (ListItem item in list.Items)
+        try
         {
-            if (item.Value == id + "")
+            CheckBoxList list = (CheckBoxList)FormView1.FindControl(dlID);
+            foreach (ListItem item in list.Items)
             {
-                item.Selected = true;
-                break;
+                if (item.Value == id + "")
+                {
+                    item.Selected = true;
+                    break;
+                }
             }
         }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
+       
     }
 
     public static void StoreDatasInViewState(FormView fv, String ID, StateBag ViewState, String ViewStateKey)
