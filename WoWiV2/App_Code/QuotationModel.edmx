@@ -410,9 +410,11 @@
           <Property Name="Max_Q_Authorize_Amt" Type="int" />
           <Property Name="Waiting_Approve_UserID" Type="int" />
           <Property Name="Payment_Method_Id" Type="int" />
-          <Property Name="pocheckno" Type="nvarchar" MaxLength="16" />
+          <Property Name="pocheckno" Type="nvarchar" MaxLength="50" />
+          <Property Name="POLimit" Type="nvarchar" MaxLength="50" />
+          <Property Name="Deposit_Check_No" Type="nvarchar" MaxLength="50" />
+          <Property Name="PO_Amount" Type="nvarchar" MaxLength="50" />
           <Property Name="paymentlimit" Type="nvarchar" MaxLength="10" />
-          <Property Name="checkno" Type="nvarchar" MaxLength="50" />
           <Property Name="SalesId" Type="int" />
           <Property Name="Currency" Type="nvarchar" MaxLength="3" />
           <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
@@ -669,8 +671,8 @@
           <EntitySet Name="vw_Test_Target_List" EntityType="QuotationModel.vw_Test_Target_List" />
           <EntitySet Name="clientapplicant" EntityType="QuotationModel.clientapplicant" />
           <EntitySet Name="contact_info" EntityType="QuotationModel.contact_info" />
-          <EntitySet Name="Quotation_Version" EntityType="QuotationModel.Quotation_Version" />
           <EntitySet Name="employee" EntityType="QuotationModel.employee" />
+          <EntitySet Name="Quotation_Version" EntityType="QuotationModel.Quotation_Version" />
         </EntityContainer>
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -1053,6 +1055,42 @@
           <Property Type="Int32" Name="department_id" />
           <Property Type="Int32" Name="employee_id" />
         </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="username" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="password" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="fname" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="lname" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_fname" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_lname" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="title" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="hiredate" />
+          <Property Type="DateTime" Name="terminationdate" />
+          <Property Type="String" Name="workphone" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="homephone" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="cellphone" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="email" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="address" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="country" />
+          <Property Type="String" Name="status" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="department_id" />
+          <Property Type="String" Name="accessprivilege" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="supervisor_id" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="work_ext" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="signature" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="q_authorize_amt" />
+          <Property Type="String" Name="q_authorize_currency" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="pr_authorize_amt" />
+          <Property Type="String" Name="pr_authorize_currency" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="jobtitle_id" />
+        </EntityType>
         <EntityType Name="Quotation_Version">
           <Key>
             <PropertyRef Name="Quotation_Version_Id" />
@@ -1075,9 +1113,11 @@
           <Property Type="Int32" Name="Max_Q_Authorize_Amt" />
           <Property Type="Int32" Name="Waiting_Approve_UserID" />
           <Property Type="Int32" Name="Payment_Method_Id" />
-          <Property Type="String" Name="pocheckno" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="pocheckno" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="POLimit" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Deposit_Check_No" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PO_Amount" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="paymentlimit" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="checkno" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="SalesId" />
           <Property Type="String" Name="Currency" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Product_Name" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1136,42 +1176,6 @@
           <Property Type="Decimal" Name="FinalTotalPrice" Precision="20" Scale="2" />
           <Property Type="String" Name="Probability" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Access_Level_ID" />
-        </EntityType>
-        <EntityType Name="employee">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="username" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="password" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="fname" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="lname" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_fname" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_lname" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="title" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="hiredate" />
-          <Property Type="DateTime" Name="terminationdate" />
-          <Property Type="String" Name="workphone" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="homephone" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="cellphone" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="email" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="address" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="country" />
-          <Property Type="String" Name="status" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="department_id" />
-          <Property Type="String" Name="accessprivilege" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="supervisor_id" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="work_ext" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="signature" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="q_authorize_amt" />
-          <Property Type="String" Name="q_authorize_currency" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="pr_authorize_amt" />
-          <Property Type="String" Name="pr_authorize_currency" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="jobtitle_id" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1574,6 +1578,43 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="employee">
+            <EntityTypeMapping TypeName="QuotationModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="jobtitle_id" ColumnName="jobtitle_id" />
+                <ScalarProperty Name="pr_authorize_currency" ColumnName="pr_authorize_currency" />
+                <ScalarProperty Name="pr_authorize_amt" ColumnName="pr_authorize_amt" />
+                <ScalarProperty Name="q_authorize_currency" ColumnName="q_authorize_currency" />
+                <ScalarProperty Name="q_authorize_amt" ColumnName="q_authorize_amt" />
+                <ScalarProperty Name="signature" ColumnName="signature" />
+                <ScalarProperty Name="work_ext" ColumnName="work_ext" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="supervisor_id" ColumnName="supervisor_id" />
+                <ScalarProperty Name="accessprivilege" ColumnName="accessprivilege" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="cellphone" ColumnName="cellphone" />
+                <ScalarProperty Name="homephone" ColumnName="homephone" />
+                <ScalarProperty Name="workphone" ColumnName="workphone" />
+                <ScalarProperty Name="terminationdate" ColumnName="terminationdate" />
+                <ScalarProperty Name="hiredate" ColumnName="hiredate" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="c_lname" ColumnName="c_lname" />
+                <ScalarProperty Name="c_fname" ColumnName="c_fname" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Quotation_Version">
             <EntityTypeMapping TypeName="QuotationModel.Quotation_Version">
               <MappingFragment StoreEntitySet="Quotation_Version">
@@ -1635,8 +1676,10 @@
                 <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
                 <ScalarProperty Name="Currency" ColumnName="Currency" />
                 <ScalarProperty Name="SalesId" ColumnName="SalesId" />
-                <ScalarProperty Name="checkno" ColumnName="checkno" />
                 <ScalarProperty Name="paymentlimit" ColumnName="paymentlimit" />
+                <ScalarProperty Name="PO_Amount" ColumnName="PO_Amount" />
+                <ScalarProperty Name="Deposit_Check_No" ColumnName="Deposit_Check_No" />
+                <ScalarProperty Name="POLimit" ColumnName="POLimit" />
                 <ScalarProperty Name="pocheckno" ColumnName="pocheckno" />
                 <ScalarProperty Name="Payment_Method_Id" ColumnName="Payment_Method_Id" />
                 <ScalarProperty Name="Waiting_Approve_UserID" ColumnName="Waiting_Approve_UserID" />
@@ -1656,43 +1699,6 @@
                 <ScalarProperty Name="Vername" ColumnName="Vername" />
                 <ScalarProperty Name="Quotation_No" ColumnName="Quotation_No" />
                 <ScalarProperty Name="Quotation_Version_Id" ColumnName="Quotation_Version_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="employee">
-            <EntityTypeMapping TypeName="QuotationModel.employee">
-              <MappingFragment StoreEntitySet="employee">
-                <ScalarProperty Name="jobtitle_id" ColumnName="jobtitle_id" />
-                <ScalarProperty Name="pr_authorize_currency" ColumnName="pr_authorize_currency" />
-                <ScalarProperty Name="pr_authorize_amt" ColumnName="pr_authorize_amt" />
-                <ScalarProperty Name="q_authorize_currency" ColumnName="q_authorize_currency" />
-                <ScalarProperty Name="q_authorize_amt" ColumnName="q_authorize_amt" />
-                <ScalarProperty Name="signature" ColumnName="signature" />
-                <ScalarProperty Name="work_ext" ColumnName="work_ext" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="supervisor_id" ColumnName="supervisor_id" />
-                <ScalarProperty Name="accessprivilege" ColumnName="accessprivilege" />
-                <ScalarProperty Name="department_id" ColumnName="department_id" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="cellphone" ColumnName="cellphone" />
-                <ScalarProperty Name="homephone" ColumnName="homephone" />
-                <ScalarProperty Name="workphone" ColumnName="workphone" />
-                <ScalarProperty Name="terminationdate" ColumnName="terminationdate" />
-                <ScalarProperty Name="hiredate" ColumnName="hiredate" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="c_lname" ColumnName="c_lname" />
-                <ScalarProperty Name="c_fname" ColumnName="c_fname" />
-                <ScalarProperty Name="lname" ColumnName="lname" />
-                <ScalarProperty Name="fname" ColumnName="fname" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1716,7 +1722,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="QuotationModel" ZoomLevel="71">
+      <Diagram Name="QuotationModel" ZoomLevel="44">
         <EntityTypeShape EntityType="QuotationModel.vw_Product_Type" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Status" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583317" />
         <EntityTypeShape EntityType="QuotationModel.clientapplicant_technology" Width="1.5" PointX="0.75" PointY="3.75" Height="2.3648893229166674" />
@@ -1735,8 +1741,8 @@
         <EntityTypeShape EntityType="QuotationModel.vw_Test_Target_List" Width="1.5" PointX="12.75" PointY="7.75" Height="5.4417122395833317" />
         <EntityTypeShape EntityType="QuotationModel.clientapplicant" Width="1.5" PointX="14.75" PointY="0.75" Height="12.364563802083325" />
         <EntityTypeShape EntityType="QuotationModel.contact_info" Width="1.5" PointX="5.375" PointY="13.75" Height="5.1923632812500031" />
-        <EntityTypeShape EntityType="QuotationModel.Quotation_Version" Width="1.5" PointX="0.75" PointY="12.75" Height="14.869283854166667" />
         <EntityTypeShape EntityType="QuotationModel.employee" Width="1.5" PointX="9.375" PointY="12.75" Height="6.4239713541666674" />
+        <EntityTypeShape EntityType="QuotationModel.Quotation_Version" Width="1.5" PointX="0.75" PointY="12.75" Height="15.221171875000009" />
       </Diagram>
     </Diagrams>
   </Designer>

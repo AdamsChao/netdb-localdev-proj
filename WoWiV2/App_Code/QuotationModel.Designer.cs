@@ -356,22 +356,6 @@ namespace QuotationModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Quotation_Version> Quotation_Version
-        {
-            get
-            {
-                if ((_Quotation_Version == null))
-                {
-                    _Quotation_Version = base.CreateObjectSet<Quotation_Version>("Quotation_Version");
-                }
-                return _Quotation_Version;
-            }
-        }
-        private ObjectSet<Quotation_Version> _Quotation_Version;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<employee> employee
         {
             get
@@ -384,6 +368,22 @@ namespace QuotationModel
             }
         }
         private ObjectSet<employee> _employee;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Quotation_Version> Quotation_Version
+        {
+            get
+            {
+                if ((_Quotation_Version == null))
+                {
+                    _Quotation_Version = base.CreateObjectSet<Quotation_Version>("Quotation_Version");
+                }
+                return _Quotation_Version;
+            }
+        }
+        private ObjectSet<Quotation_Version> _Quotation_Version;
 
         #endregion
         #region AddTo Methods
@@ -533,19 +533,19 @@ namespace QuotationModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Quotation_Version EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToQuotation_Version(Quotation_Version quotation_Version)
-        {
-            base.AddObject("Quotation_Version", quotation_Version);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the employee EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToemployee(employee employee)
         {
             base.AddObject("employee", employee);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Quotation_Version EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToQuotation_Version(Quotation_Version quotation_Version)
+        {
+            base.AddObject("Quotation_Version", quotation_Version);
         }
 
         #endregion
@@ -6280,6 +6280,78 @@ namespace QuotationModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public global::System.String POLimit
+        {
+            get
+            {
+                return _POLimit;
+            }
+            set
+            {
+                OnPOLimitChanging(value);
+                ReportPropertyChanging("POLimit");
+                _POLimit = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("POLimit");
+                OnPOLimitChanged();
+            }
+        }
+        private global::System.String _POLimit;
+        partial void OnPOLimitChanging(global::System.String value);
+        partial void OnPOLimitChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Deposit_Check_No
+        {
+            get
+            {
+                return _Deposit_Check_No;
+            }
+            set
+            {
+                OnDeposit_Check_NoChanging(value);
+                ReportPropertyChanging("Deposit_Check_No");
+                _Deposit_Check_No = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Deposit_Check_No");
+                OnDeposit_Check_NoChanged();
+            }
+        }
+        private global::System.String _Deposit_Check_No;
+        partial void OnDeposit_Check_NoChanging(global::System.String value);
+        partial void OnDeposit_Check_NoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PO_Amount
+        {
+            get
+            {
+                return _PO_Amount;
+            }
+            set
+            {
+                OnPO_AmountChanging(value);
+                ReportPropertyChanging("PO_Amount");
+                _PO_Amount = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PO_Amount");
+                OnPO_AmountChanged();
+            }
+        }
+        private global::System.String _PO_Amount;
+        partial void OnPO_AmountChanging(global::System.String value);
+        partial void OnPO_AmountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public global::System.String paymentlimit
         {
             get
@@ -6298,30 +6370,6 @@ namespace QuotationModel
         private global::System.String _paymentlimit;
         partial void OnpaymentlimitChanging(global::System.String value);
         partial void OnpaymentlimitChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String checkno
-        {
-            get
-            {
-                return _checkno;
-            }
-            set
-            {
-                OnchecknoChanging(value);
-                ReportPropertyChanging("checkno");
-                _checkno = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("checkno");
-                OnchecknoChanged();
-            }
-        }
-        private global::System.String _checkno;
-        partial void OnchecknoChanging(global::System.String value);
-        partial void OnchecknoChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

@@ -69,6 +69,9 @@ public partial class Sales_uc_ucCreateQuotationTab4 : System.Web.UI.UserControl
         txtRemark.Text = quo.Remark;
 
         txtPocheckno.Text = quo.pocheckno;
+        txtPOLimit.Text = quo.POLimit;
+        txtDeposit_Check_No.Text= quo.Deposit_Check_No;
+        txtPO_Amount.Text = quo.PO_Amount;
         ddlProbability.SelectedValue = quo.Probability;
         rolling_forecast_dollar0.Text = quo.rolling_forecast_dollar0;
         rolling_forecast_dollar1.Text = quo.rolling_forecast_dollar1;
@@ -120,6 +123,11 @@ public partial class Sales_uc_ucCreateQuotationTab4 : System.Web.UI.UserControl
         //obj.modify_user_ID
         quo.modify_date = DateTime.Now;
         quo.pocheckno=txtPocheckno.Text;
+        quo.POLimit = txtPOLimit.Text;
+        quo.Deposit_Check_No = txtDeposit_Check_No.Text;
+        quo.PO_Amount=txtPO_Amount.Text;
+
+
         quo.Probability = ddlProbability.SelectedValue;
         quo.rolling_forecast_dollar0 = rolling_forecast_dollar0.Text;
         quo.rolling_forecast_dollar1 = rolling_forecast_dollar1.Text;
