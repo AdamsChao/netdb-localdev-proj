@@ -193,7 +193,7 @@
         Text="No match data found." ></asp:Label>
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             SkinID="GridView" Width="100%"
-            DataKeyNames="pr_id"  
+            DataKeyNames="pr_id"  PageSize="50"
             AllowSorting="True" onprerender="GridView1_PreRender" 
         DataSourceID="SqlDataSource1" >
             <Columns>
