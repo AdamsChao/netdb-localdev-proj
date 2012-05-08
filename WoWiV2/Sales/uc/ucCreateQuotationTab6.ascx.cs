@@ -33,9 +33,12 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
     {
         Quotation_Version quo = Quotation_Controller.Get_Quotation(quotation_id);
 
+        //Modify by Adams 2012/5/9
+        lblService.Text = Quotation_Controller.GetConfirmedVersionUnitPrice(quo.Quotation_No);
+        lblDiscount.Text = Quotation_Controller.GetConfirmedVersionDiscount(quo.Quotation_No);
         //Add by Adams 2012/4/30 for One Quotation only for one version
-        lblService.Text = Quotation_Controller.GetTotalUnitPrice(quo.Quotation_Version_Id).ToString();
-        lblDiscount.Text = Quotation_Controller.GetTotalTargetDiscount(quo.Quotation_Version_Id).ToString();
+        //lblService.Text = Quotation_Controller.GetTotalUnitPrice(quo.Quotation_Version_Id).ToString();
+        //lblDiscount.Text = Quotation_Controller.GetTotalTargetDiscount(quo.Quotation_Version_Id).ToString();
         //Mark by Adams 2012/4/30 for One Quotation only for one version
         //lblService.Text = Quotation_Controller.GetTotalVersionUnitPrice(quo.Quotation_No);
         //lblDiscount.Text = Quotation_Controller.GetTotalVersionDiscount(quo.Quotation_No);

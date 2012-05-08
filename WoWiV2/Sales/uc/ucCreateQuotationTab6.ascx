@@ -167,7 +167,8 @@
         <td colspan="6">
             <asp:GridView ID="gvTestTargetList" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1"
                 CellPadding="4" ForeColor="#333333" Width="100%" GridLines="None" Caption='<table border="1" width="100%" cellpadding="0" cellspacing="0" bgcolor="yellow"><tr bgcolor="#bbbbbb"><th colspan="7"><font color="red">Test Target List</font></th></tr></table>'
-                CaptionAlign="Top" OnRowDataBound="gvTestTargetList_RowDataBound" Style="text-align: left">
+                CaptionAlign="Top" OnRowDataBound="gvTestTargetList_RowDataBound" 
+                Style="text-align: left" EmptyDataText="此報價單中尚未有已經Confirmed後的Target可設定">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:TemplateField HeaderText="T.No"> 
@@ -176,7 +177,7 @@
                         </ItemTemplate> 
                     </asp:TemplateField> 
                     <asp:BoundField DataField="Vername" HeaderText="Version" 
-                        SortExpression="Vername" Visible="False" />
+                        SortExpression="Vername" DataFormatString="V{0}" />
                     <asp:BoundField DataField="target_description" HeaderText="T. Description" SortExpression="target_description" />
                     <%--<asp:BoundField DataField="Status" HeaderText="Status" ReadOnly="True" SortExpression="Status" />--%>
                     <asp:BoundField DataField="unit" HeaderText="Unit" SortExpression="unit" />
@@ -276,9 +277,12 @@
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 
                 
-                SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id, PR_Flag, Bill1, Bill2, Bill3, BillE FROM vw_Test_Target_List WHERE (Quotation_Version_Id = @Quotation_Version_Id) ORDER BY Quotation_Version_Id">
+                SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id, PR_Flag, Bill1, Bill2, Bill3, BillE 
+FROM vw_Test_Target_List 
+WHERE Quotation_No = @Quotation_No
+ORDER BY Quotation_Version_Id">
                 <SelectParameters>
-                    <asp:ControlParameter ControlID="hidQuotationID" Name="Quotation_Version_Id" 
+                    <asp:ControlParameter ControlID="hidQuotation_No" Name="Quotation_No" 
                         PropertyName="Text" />
                 </SelectParameters>
             </asp:SqlDataSource>

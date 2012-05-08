@@ -232,6 +232,48 @@ public class Quotation_Controller
         return sum.ToString();
     }
 
+    //Add by Adams 2012/5/9
+    public static string GetConfirmedVersionDiscount(string Quotation_No)
+    {
+        Decimal TargetDiscount;
+        Decimal Total_disc_amt;
+        QuotationEntities entities = new QuotationEntities();
+        var result = from target in entities.Quotation_Target
+                     join quo in entities.Quotation_Version on target.quotation_id equals quo.Quotation_Version_Id
+                     where quo.Quotation_No == Quotation_No && quo.Quotation_Status==5
+                     select target.discPrice;
+        if (result.ToList().Count > 0)
+            TargetDiscount = (decimal)result.Sum();
+        else
+            TargetDiscount = 0;
+
+
+        var result2 = from n in ent.Quotation_Version
+                      where n.Quotation_No == Quotation_No && n.Quotation_Status==5
+                      select n.Total_disc_amt;
+        if (result2.ToList().Count > 0)
+            Total_disc_amt = (decimal)result2.Sum();
+        else
+            Total_disc_amt = 0;
+
+        return (TargetDiscount + Total_disc_amt).ToString();
+    }
+    public static string GetConfirmedVersionUnitPrice(string Quotation_No)
+    {
+        QuotationEntities entities = new QuotationEntities();
+        var result = from target in entities.Quotation_Target
+                     join quo in entities.Quotation_Version on target.quotation_id equals quo.Quotation_Version_Id
+                     where quo.Quotation_No == Quotation_No && quo.Quotation_Status==5
+                     select target;
+
+        decimal sum = 0;
+        foreach (Quotation_Target item in result.ToList())
+        {
+            sum += (decimal)item.unit * (decimal)item.unit_price;
+        }
+        return sum.ToString();
+    }
+
     public static int Status_AwaitingApproval(decimal FinalTotalPrice, string Currency, Quotation_Version quotation, int SupervisorID)
     {
         employee emp;
