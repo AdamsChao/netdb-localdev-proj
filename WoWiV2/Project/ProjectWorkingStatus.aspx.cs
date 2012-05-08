@@ -10,25 +10,28 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (Request["ProjectNO"] !=null)
+      if (!Page.IsPostBack)
       {
-        lblProject.Text = Request["ProjectNO"].ToString();
-        ddlWorkingStatusProject.DataBind();
+        if (Request["ProjectID"] != null)
+        {
+          lblProject.Text = Request["ProjectID"].ToString();
+          ddlWorkingStatusProject.DataBind();
+          ddlWorkingStatusProject.SelectedValue = lblProject.Text;
+        }
+        if (Request["CountryID"] != null)
+        {
+          lblCountry.Text = Request["CountryID"].ToString();
+          ddlWorkingStatusCountry.DataBind();
+          ddlWorkingStatusCountry.SelectedValue = lblCountry.Text;
+        }
+        if (Request["TargetID"] != null)
+        {
+          lblTarget.Text = Request["TargetID"].ToString();
+          ddlWorkingStatusTarget.DataBind();
+          ddlWorkingStatusTarget.SelectedValue = lblTarget.Text;
+          dvWorkingStatus.Visible = true;
+        }        
       }
-      if (Request["CountryID"] != null)
-      {
-        lblCountry.Text = Request["CountryID"].ToString();
-        ddlWorkingStatusCountry.DataBind();
-        ddlWorkingStatusCountry.SelectedValue = lblCountry.Text;
-      }
-      if (Request["TargetID"] != null)
-      {
-        lblTarget.Text = Request["TargetID"].ToString();
-        ddlWorkingStatusTarget.DataBind();
-        ddlWorkingStatusTarget.SelectedValue = lblTarget.Text;
-        dvWorkingStatus.Visible = true;
-      }
-
     }
     protected void ddlWorkingStatusProject_SelectedIndexChanged(object sender, EventArgs e)
     {      
@@ -44,14 +47,7 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
         {
             Text = "Please select a project...",
             Value = "0"
-        });
-        foreach (ListItem item in ddlWorkingStatusProject.Items)
-        {
-          if (item.Text == lblProject.Text)
-          {
-            item.Selected = true;
-          }
-        }
+        });       
     }
     protected void ddlWorkingStatusCountry_SelectedIndexChanged(object sender, EventArgs e)
     {

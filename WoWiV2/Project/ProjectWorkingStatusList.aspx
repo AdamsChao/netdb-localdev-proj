@@ -129,8 +129,8 @@
             DataSourceID="SqlDataSourceTarget" PageSize="20" Width="100%" 
             AllowSorting="True" EmptyDataText="Project下沒有可設定的相關資料!">
     <Columns>
-      <asp:HyperLinkField DataNavigateUrlFields="Project_No,country_id,Quotation_Target_Id" 
-        DataNavigateUrlFormatString="~/Project/ProjectWorkingStatus.aspx?ProjectNO={0}&amp;CountryID={1}&amp;TargetID={2}" 
+      <asp:HyperLinkField DataNavigateUrlFields="Project_Id,country_id,Quotation_Target_Id" 
+        DataNavigateUrlFormatString="~/Project/ProjectWorkingStatus.aspx?ProjectID={0}&amp;CountryID={1}&amp;TargetID={2}" 
         HeaderText="Working Status" Target="_blank" Text="Setting" />
       <asp:TemplateField HeaderText="ID" InsertVisible="False">
         <ItemTemplate>
