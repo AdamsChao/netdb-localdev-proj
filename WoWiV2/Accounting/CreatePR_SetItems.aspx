@@ -543,12 +543,12 @@
                                      <asp:Label ID="lblProjectNo" runat="server" Text="Label" 
                                          onload="lblProjectNo_Load"></asp:Label>
                             </td><th align="left" 
-                                   class="style11">&nbsp; Qutation No.:&nbsp;</th><td class="style12" width="30%">
+                                   class="style11">&nbsp; Quotation No.:&nbsp;</th><td class="style12" width="30%">
                                      <asp:Label ID="lblQuotationNo" runat="server" Text="Label" 
                                          onload="lblQuotationNo_Load"></asp:Label>
                             </td></tr>
                             <tr><th 
-                                   align="left" class="style11">&nbsp;&nbsp;&nbsp; Vender Quotaiton No.:&nbsp;&nbsp;</th><td 
+                                   align="left" class="style11">&nbsp;&nbsp;&nbsp; Vender Quotation No.:&nbsp;&nbsp;</th><td 
                                    class="style12" width="30%">
                                    <asp:TextBox ID="tbVenderQuoNo" runat="server" Text='<%# Bind("vendor_quotation_no")%>'
                                          ></asp:TextBox>
@@ -596,7 +596,7 @@
                                 
                                 <asp:GridView ID="GridView4" runat="server" Width="100%" AutoGenerateColumns="False">
                                   <Columns>
-      <asp:BoundField DataField="QuotataionNo" HeaderText="Quotataion No" 
+      <asp:BoundField DataField="QuotataionNo" HeaderText="Quotation No" 
                 SortExpression="QuotataionNo" />
             <asp:BoundField DataField="TargetName" HeaderText="Target Name" 
                 SortExpression="TargetName" />
