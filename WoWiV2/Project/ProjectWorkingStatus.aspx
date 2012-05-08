@@ -21,7 +21,10 @@
                     </asp:DropDownList>
                     <asp:SqlDataSource ID="GetProjectsHasTargetSqlDataSource" 
                 runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                SelectCommand="SELECT [Project_Id], [Project_No] FROM [Project]">
+                
+              SelectCommand="SELECT [Project_Id], [Project_No] +' [' + Model_NO + ']' as [Project_No]
+FROM [Project]
+INNER JOIN Quotation_Version ON [Project].Quotation_Id = Quotation_Version.Quotation_Version_Id">
             </asp:SqlDataSource>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     Country：<asp:DropDownList ID="ddlWorkingStatusCountry" runat="server" 
