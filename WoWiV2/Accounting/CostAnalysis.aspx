@@ -591,7 +591,7 @@
                                 </asp:DropDownList>
                             </td>
                             <th align="left" width="13%">
-                                Issue Invoice Date : </th>
+                                Issue Invoice Date From : </th>
                             <td width="20%">
                                 <uc1:DateChooser ID="dcInvoiceFrom" runat="server" />
                             </td>
