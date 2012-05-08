@@ -206,7 +206,7 @@
                     <asp:Label ID="lblMsg" runat="server" 
         Text="No match data found." ></asp:Label>
     <p><asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
-            SkinID="GridView" Width="100%"
+            SkinID="GridView" Width="100%" PageSize="50"
             DataKeyNames="pr_id" DataSourceID="SqlDataSourceClient" AllowPaging="True" 
             AllowSorting="True" onprerender="GridView1_PreRender" >
             <Columns>

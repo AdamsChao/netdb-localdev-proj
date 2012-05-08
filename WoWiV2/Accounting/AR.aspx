@@ -396,7 +396,7 @@
                        
                     </table><asp:Label ID="lblMsg" runat="server" Text="No match data found." ></asp:Label>
                     <asp:GridView ID="iGridView1" runat="server" Height="150px" 
-          Width="100%" SkinID="GridView"
+          Width="100%" SkinID="GridView" PageSize="50"
                          AutoGenerateColumns="False" 
           onprerender="iGridView1_PreRender" ShowFooter="True" onsorting="iGridView1_Sorting" 
                        >
