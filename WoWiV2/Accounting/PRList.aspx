@@ -264,7 +264,7 @@
                     SortExpression="status_date"  DataFormatString="{0:yyyy/MM/dd}" />
                 <asp:BoundField DataField="department_Id" HeaderText="Access Level" 
                     SortExpression="department_Id" />
-                <asp:BoundField DataField="employee_Id" HeaderText="Create by" 
+                <asp:BoundField DataField="employee_Id" HeaderText="Created By" 
                     SortExpression="employee_Id" />
             </Columns>
         </asp:GridView>
