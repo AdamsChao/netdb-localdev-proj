@@ -94,6 +94,26 @@
 
                 //throw;
             }
+
+            Str = row.Cells[12].Text;
+            try
+            {
+                if (Str == "-1")
+                {
+                    row.Cells[12].Text = "Not set yet";
+                }
+                else
+                {
+                    int aid = int.Parse(Str);
+                    var emp = (from p in wowidb.employees where p.id == aid select p).First();
+                    row.Cells[12].Text = emp.fname+" "+emp.lname;
+                }
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
         }
     }
 
@@ -244,7 +264,8 @@
                     SortExpression="status_date"  DataFormatString="{0:yyyy/MM/dd}" />
                 <asp:BoundField DataField="department_Id" HeaderText="Access Level" 
                     SortExpression="department_Id" />
-               
+                <asp:BoundField DataField="employee_Id" HeaderText="Create by" 
+                    SortExpression="employee_Id" />
             </Columns>
         </asp:GridView>
     </p>
@@ -253,7 +274,7 @@
         <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             
-            SelectCommand="SELECT P.currency, P.pr_id, P.project_id, P.quotaion_id, P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id , (CASE R.status WHEN 0 THEN R.create_date WHEN 1 THEN  R.requisitioner_date WHEN 2 THEN supervisor_date WHEN 3 THEN  R.vp_date WHEN 4 THEN  R.president_date  WHEN 6 THEN R.modify_date END) as status_date, P.department_id FROM PR AS P , PR_authority_history AS R WHERE P.pr_auth_id = R.pr_auth_id">
+            SelectCommand="SELECT P.currency, P.pr_id, P.project_id, P.quotaion_id, P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id , (CASE R.status WHEN 0 THEN R.create_date WHEN 1 THEN  R.requisitioner_date WHEN 2 THEN supervisor_date WHEN 3 THEN  R.vp_date WHEN 4 THEN  R.president_date  WHEN 6 THEN R.modify_date END) as status_date, P.department_id,P.employee_id FROM PR AS P , PR_authority_history AS R WHERE P.pr_auth_id = R.pr_auth_id">
         </asp:SqlDataSource>
     </p>
 </asp:Content>

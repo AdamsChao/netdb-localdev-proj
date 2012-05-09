@@ -784,7 +784,8 @@
             int authid = (int)obj.pr_auth_id;
             WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid select au).First();
             auth.status = (byte)PRStatus.Cancel;
-            db.SaveChanges();
+            wowidb.SaveChanges();
+            Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
         }
     }
 
