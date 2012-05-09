@@ -280,7 +280,7 @@ public class Quotation_Controller
         QuotationEntities entities = new QuotationEntities();
         //todo
         string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / " +  quotation.Model_No + ".  is request for approval";
-        string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id ;
+        string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id ;
 
         var result = from n in entities.employee
                      where n.q_authorize_currency == Currency && n.id == SupervisorID                     
