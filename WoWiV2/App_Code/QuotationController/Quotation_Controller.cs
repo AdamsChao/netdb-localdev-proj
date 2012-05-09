@@ -322,7 +322,7 @@ public class Quotation_Controller
            if (!String.IsNullOrEmpty(supervisor.email))
            {
                string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is request for approval ";
-               string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id;
+               string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id;
 
                Mail(supervisor.email, mailSubject, mailContent);             
            }
@@ -338,7 +338,7 @@ public class Quotation_Controller
 
     public static void Mail(string mailto, string mailSubject, string mailContent)
     {
-        string mailfrom = "System@gmail.com";        
+        string mailfrom = "dbService@wowiapproval.com";        
         Panel panel = new Panel();
         Literal ltlMail = new Literal();
         ltlMail.Text = mailContent;
