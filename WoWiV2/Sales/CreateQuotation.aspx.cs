@@ -275,7 +275,8 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
 
     protected void ddlVersion_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Response.Redirect("CreateQuotation.aspx?q=" + ddlVersion.SelectedValue);
+        Response.Redirect("CreateQuotation.aspx?q=" + ddlVersion.SelectedValue 
+            + "&t=" + TabContainer1.ActiveTabIndex.ToString());
     }
 
   //Add by Adams 2012/5/6 for 狀態控管
