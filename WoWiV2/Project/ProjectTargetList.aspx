@@ -19,7 +19,10 @@
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             
             
-          SelectCommand="SELECT [Quotation_Id], [Project_No], [Project_Id], [Quotation_No] FROM [Project]">
+          
+            SelectCommand="SELECT [Project].[Quotation_Id], [Project].[Quotation_No],[Project_Id], [Project_No] +' [' + Model_NO + ']' as [Project_No]
+FROM [Project]
+INNER JOIN Quotation_Version ON [Project].Quotation_Id = Quotation_Version.Quotation_Version_Id">
         </asp:SqlDataSource>
         <asp:GridView ID="GridViewProjectTarget" runat="server" AllowPaging="True" 
             AutoGenerateColumns="False" DataKeyNames="Quotation_Target_Id" 
