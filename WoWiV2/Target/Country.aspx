@@ -35,8 +35,17 @@
                 </asp:CommandField>
                 <asp:BoundField DataField="country_id" HeaderText="country_id" ReadOnly="True" 
                     SortExpression="country_id" Visible="False" />
-                <asp:BoundField DataField="country_name" HeaderText="Country Name" 
-                    SortExpression="country_name" />
+                <asp:TemplateField HeaderText="Country Name" SortExpression="country_name">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("country_name") %>'></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                            ControlToValidate="TextBox5" Display="Dynamic" 
+                            ErrorMessage="Country Name Can't be Empty" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label6" runat="server" Text='<%# Bind("country_name") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Country 3 Code" SortExpression="country_3_code">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox1" runat="server" MaxLength="3" Width="50px" 
@@ -92,7 +101,7 @@
                     </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="access_level_name" HeaderText="Access Level" 
-                  ReadOnly="True" SortExpression="access_level_name" />
+                    SortExpression="access_level_name" ReadOnly="True" />
             </Columns>
         </asp:GridView>
         <asp:SqlDataSource ID="SqlDataSourceCountry" runat="server" 
