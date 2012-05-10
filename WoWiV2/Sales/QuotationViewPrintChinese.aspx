@@ -203,7 +203,7 @@
                     </tr>--%>
                     <tr>
                         <td align="left">
-                            申請人:
+                            聯絡人:
                         </td>
                         <td align="left" >
                             <asp:Label ID="lblBill_CName" runat="server" Text="lblBill_CName"></asp:Label>
@@ -211,7 +211,7 @@
                     </tr>
                     <tr>
                         <td align="left"  valign="top">
-                            連絡電話:
+                            聯絡電話:
                         </td>
                         <td align="left" >
                             <asp:Label ID="lblBill_Phone" runat="server" Text="lblBill_Phone"></asp:Label>
@@ -219,7 +219,7 @@
                     </tr>
                     <tr>
                         <td align="left" valign="top">
-                            連絡地址:
+                            聯絡地址:
                         </td>
                         <td align="left" >
                             <asp:Label ID="lblClientAddress" runat="server" Text="lblClientAddress"></asp:Label>
@@ -382,6 +382,7 @@
                     <tr>
                         <th class="ccstextboxh" width="50%">
                             委任人:
+                            <asp:Label ID="lblClient" runat="server"></asp:Label>
                         </th>
                         <th class="ccstextboxh" width="50%">
                             受任人: 康來士科技顧問股份有限公司
@@ -390,7 +391,7 @@
                     <tr>
                         <td class="style1">
                             <br />
-                            <asp:Label ID="lblClient" runat="server" Font-Bold="True" Font-Size="Large"></asp:Label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <br />
                             
                         </td>
