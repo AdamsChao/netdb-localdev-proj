@@ -24,22 +24,45 @@
             WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
             int quotaion_id = (int)obj.quotaion_id;
             String quotaion_no = (from d in db.Quotation_Version where d.Quotation_Version_Id == quotaion_id select d.Quotation_No).First();
-            var list = from q in db.Quotation_Version
-                       where q.Quotation_Version_Id == quotaion_id//q.Quotation_No.Equals(quotaion_no)
+            (sender as DropDownList).DataSource = GetList(quotaion_no);
+            (sender as DropDownList).DataTextField = "Text";
+            (sender as DropDownList).DataValueField = "Id";
+        }
+        
+    }
+    public class Display
+    {
+        public String Text { get; set; }
+        public String Id { get; set; }
+    }
+    public List<Display> GetList(String quotaion_no)
+    {
+        List<Display> list = new List<Display>();
+        var idlist = from q in db.Quotation_Version
+                     where q.Quotation_No.Equals(quotaion_no)
+                     select q.Quotation_Version_Id;
+        //var data = from qt in db.Quotation_Target from q in list from c in db.country where idlist.Contains((int)qt.quotation_id) & qt.country_id == c.country_id select new { Text = qt.target_description + "(" + q.No + " - "+q.Version  +") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
+        var data = from qt in db.Quotation_Target from c in db.country where idlist.Contains((int)qt.quotation_id) & qt.country_id == c.country_id select new { Text = qt.target_description, CountryName = c.country_name, Id = qt.Quotation_Target_Id, qId = qt.quotation_id };
+        foreach (var item in data)
+        {
+            Display dis = new Display();
+            var lists = from q in db.Quotation_Version
+                       where q.Quotation_Version_Id == item.qId
                        select new
                        {
                            No = q.Quotation_No,
                            Version = q.Vername,
                            Id = q.Quotation_Version_Id
                        };
-            var data = from t in db.Target_Rates from qt in db.Quotation_Target from q in list from c in db.country where qt.quotation_id == q.Id & qt.target_id == t.Target_rate_id & qt.country_id == c.country_id select new { Text = qt.target_description + "(" + q.No + ") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
-            (sender as DropDownList).DataSource = data.Distinct();
-            (sender as DropDownList).DataTextField = "Text";
-            (sender as DropDownList).DataValueField = "Id";
+            dis.Text = item.Text + "(" + lists.First().No + " - V" + lists.First().Version + ") - [ " + item.CountryName + " ]"; 
+            dis.Id = item.Id.ToString();
+            list.Add(dis);
         }
+         
+        return list;
         
     }
-
+    
     protected void ddlVenderList_SelectedIndexChanged(object sender, EventArgs e)
     {
         int vid = int.Parse((sender as DropDownList).SelectedValue);
