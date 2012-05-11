@@ -39,7 +39,7 @@
     {
         List<Display> list = new List<Display>();
         var idlist = from q in db.Quotation_Version
-                     where q.Quotation_No.Equals(quotaion_no)
+                     where q.Quotation_No.Equals(quotaion_no) & q.Quotation_Status == 5 
                      select q.Quotation_Version_Id;
         //var data = from qt in db.Quotation_Target from q in list from c in db.country where idlist.Contains((int)qt.quotation_id) & qt.country_id == c.country_id select new { Text = qt.target_description + "(" + q.No + " - "+q.Version  +") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
         var data = from qt in db.Quotation_Target from c in db.country where idlist.Contains((int)qt.quotation_id) & qt.country_id == c.country_id select new { Text = qt.target_description, CountryName = c.country_name, Id = qt.Quotation_Target_Id, qId = qt.quotation_id };
