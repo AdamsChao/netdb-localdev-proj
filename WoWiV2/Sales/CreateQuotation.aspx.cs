@@ -74,7 +74,10 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                     ddlVersion.DataBind();
                     ddlVersion.SelectedValue = QuotationID.ToString();
 
+                    
                     DropDownListStatus.SelectedValue = quotation.Quotation_Status.ToString();
+                    DropDownListStatus.DataBind();
+
                     txtQuotation_Statusdate.Text = ((DateTime)quotation.Quotation_Statusdate).ToString("yyyy/MM/dd HH:mm");
                     txtQuotation_Statusby.Text = quotation.Quotation_Statusby;
 
@@ -86,7 +89,6 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                     btnViewPrintChinese.OnClientClick = "return printchineseform('" + QuotationID.ToString() + "');";
 
                     employee loginUser = CodeTableController.GetEmployee(Page.User.Identity.Name);
-
                     int Waiting_Approve_UserID = (quotation.Waiting_Approve_UserID != null) ? (int)quotation.Waiting_Approve_UserID : 0;
                     if (loginUser.id == Waiting_Approve_UserID || loginUser.id == quotation.SalesId)
                     {
@@ -98,7 +100,12 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                         DropDownListStatus.Enabled = false;
                         cmdStatus.Enabled = false;
                     }
-
+                    //當Status為Confirmed時，把此版本報價單鎖定，任何人都不得修改confirmed過的Quotation(Modify by Adams 2012/5/14)
+                    if (DropDownListStatus.SelectedValue == "5")
+                    {
+                      DropDownListStatus.Enabled = false;
+                      cmdStatus.Enabled = false;
+                    }
                 }
                 else
                 {
@@ -117,6 +124,7 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
             }
         }
 
+       
 
         if (getQuotationID() == 0)
         {
@@ -170,6 +178,8 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                     cmdCreateProject.Text = "Create Project";
                 cmdCreateProject.Enabled = false;
             }
+
+            
         }
 
     }
