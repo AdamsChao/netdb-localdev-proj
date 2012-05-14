@@ -40,7 +40,7 @@ INNER JOIN Quotation_Version ON [Project].Quotation_Id = Quotation_Version.Quota
 FROM Quotation_Target
 INNER JOIN country ON Quotation_Target.country_id = country.country_id
 Where Quotation_Target.quotation_id in 
-(Select Quotation_Version_Id FROM Quotation_Version Where Quotation_Version.Quotation_No in 
+(Select Quotation_Version_Id FROM Quotation_Version Where Quotation_Status=5 AND Quotation_Version.Quotation_No in 
 (Select Quotation_NO FROM Project Where Project_Id = @Project_Id))">
                         <SelectParameters>
                             <asp:ControlParameter ControlID="ddlWorkingStatusProject" Name="project_id" 

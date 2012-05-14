@@ -233,7 +233,7 @@ test_started, test_completed, certification_submit_to_authority, certification_c
 Project.Client_Action, 
 (Select fname from employee where id = Country_Manager ) as CountryManager
 FROM PROJECT 
-INNER JOIN Quotation_Version ON PROJECT.Quotation_No = Quotation_Version.Quotation_No
+INNER JOIN Quotation_Version ON PROJECT.Quotation_No = Quotation_Version.Quotation_No  AND Quotation_Status=5 
 INNER JOIN Quotation_Target ON Quotation_Target.quotation_id = Quotation_Version.Quotation_Version_Id
 WHERE Project_Id = @Project_ID">
                                         <SelectParameters>

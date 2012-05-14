@@ -71,7 +71,7 @@
             Project No:
             <asp:DropDownList ID="DropDownListPO" runat="server" 
             DataSourceID="SqlDataSourceProject" DataTextField="Project_No" 
-            DataValueField="Project_No" AppendDataBoundItems="True">
+            DataValueField="Project_Id" AppendDataBoundItems="True">
               <asp:ListItem Value="%">- All -</asp:ListItem>
             </asp:DropDownList>
             &nbsp;Country Manager :
@@ -205,18 +205,18 @@ FROM Quotation_Target
 INNER JOIN country ON Quotation_Target.country_id = country.country_id 
 INNER JOIN world_region ON world_region.world_region_id = country.world_region_id
 INNER JOIN Authority ON Quotation_Target.authority_id = Authority.authority_id 
-INNER JOIN Quotation_Version ON Quotation_Version.Quotation_Version_Id = Quotation_Target.quotation_id
+INNER JOIN Quotation_Version ON Quotation_Version.Quotation_Version_Id = Quotation_Target.quotation_id AND Quotation_Status=5
 INNER JOIN Project ON Project.Quotation_No = Quotation_Version.Quotation_No
 INNER JOIN Employee ON Employee.id = Quotation_Version.SalesId
 INNER JOIN clientapplicant ON Quotation_Version.Client_Id = clientapplicant.id 
-WHERE (Project.Project_No LIKE '%' + @Project_No + '%') 
+WHERE (Project.Project_ID LIKE @Project_ID)  
 AND (Quotation_Target.Status LIKE '%' + @Status + '%') 
 AND (country.country_name LIKE '%' + @country_name + '%') 
 AND (SalesId  LIKE @SalesId) 
 AND (Client_Id  LIKE @Client_Id) ">
     <SelectParameters>
       <asp:ControlParameter ControlID="DropDownListPO" DefaultValue="%" 
-        Name="Project_No" PropertyName="SelectedValue" Type="String" />
+        Name="Project_ID" PropertyName="SelectedValue" />
       <asp:ControlParameter ControlID="TreeViewStatus" DefaultValue="%" 
         Name="Status" PropertyName="SelectedValue" />
       <asp:ControlParameter ControlID="DropDownListCountry" DefaultValue="%" 
@@ -234,7 +234,10 @@ AND (Client_Id  LIKE @Client_Id) ">
           </asp:SqlDataSource>
   <asp:SqlDataSource ID="SqlDataSourceProject" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-          SelectCommand="SELECT [Quotation_Id], [Project_No], [Project_Id], [Quotation_No] FROM [Project]">
+          
+            SelectCommand="SELECT [Project].[Quotation_Id], [Project].[Quotation_No],[Project_Id], [Project_No] +' [' + Model_NO + ']' as [Project_No]
+FROM [Project]
+INNER JOIN Quotation_Version ON [Project].Quotation_Id = Quotation_Version.Quotation_Version_Id">
   </asp:SqlDataSource>
 
           <asp:SqlDataSource ID="SqlDataSourceRegion" runat="server" 
