@@ -130,15 +130,15 @@
                     <asp:TemplateField ShowHeader="False">
                         <ItemTemplate>
                             <asp:Button ID="Button1" runat="server" CausesValidation="False" CommandName="tEdit"
-                                Text="Edit" CommandArgument='<%# Eval("Quotation_Target_Id") %>' />
+                                Text="Edit" CommandArgument='<%# Eval("Quotation_Target_Id") %>' Enabled='<%# (Int32.Parse(Eval("Status").ToString())>=5)?false:true %>'  />
                         </ItemTemplate>
                     </asp:TemplateField>
-                   <%-- <asp:TemplateField ShowHeader="False">
+                    <asp:TemplateField ShowHeader="False">
                         <ItemTemplate>
                             <asp:Button ID="Button2" runat="server" CausesValidation="false" CommandName="tDelete"
-                                CommandArgument='<%# Eval("Quotation_Target_Id") %>' Text="Delete" />
+                                CommandArgument='<%# Eval("Quotation_Target_Id") %>' Text="Delete"  Enabled='<%# (Int32.Parse(Eval("Status").ToString())>=5)?false:true %>'  />
                         </ItemTemplate>
-                    </asp:TemplateField>--%>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="T.No">
                         <ItemTemplate>
                             <%#Container.DataItemIndex+1 %>
@@ -159,34 +159,13 @@
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                SelectCommand="SELECT [Quotation_Target_Id], [quotation_id], [target_description], [FinalPrice] FROM [Quotation_Target] WHERE ([quotation_id] = @quotation_id)"
-                ConflictDetection="CompareAllValues" DeleteCommand="DELETE FROM [Quotation_Target] WHERE [Quotation_Target_Id] = @original_Quotation_Target_Id AND (([quotation_id] = @original_quotation_id) OR ([quotation_id] IS NULL AND @original_quotation_id IS NULL)) AND (([target_description] = @original_target_description) OR ([target_description] IS NULL AND @original_target_description IS NULL)) AND (([FinalPrice] = @original_FinalPrice) OR ([FinalPrice] IS NULL AND @original_FinalPrice IS NULL))"
-                InsertCommand="INSERT INTO [Quotation_Target] ([quotation_id], [target_description], [FinalPrice]) VALUES (@quotation_id, @target_description, @FinalPrice)"
-                OldValuesParameterFormatString="original_{0}" UpdateCommand="UPDATE [Quotation_Target] SET [quotation_id] = @quotation_id, [target_description] = @target_description, [FinalPrice] = @FinalPrice WHERE [Quotation_Target_Id] = @original_Quotation_Target_Id AND (([quotation_id] = @original_quotation_id) OR ([quotation_id] IS NULL AND @original_quotation_id IS NULL)) AND (([target_description] = @original_target_description) OR ([target_description] IS NULL AND @original_target_description IS NULL)) AND (([FinalPrice] = @original_FinalPrice) OR ([FinalPrice] IS NULL AND @original_FinalPrice IS NULL))">
-                <DeleteParameters>
-                    <asp:Parameter Name="original_Quotation_Target_Id" Type="Int32" />
-                    <asp:Parameter Name="original_quotation_id" Type="Int32" />
-                    <asp:Parameter Name="original_target_description" Type="String" />
-                    <asp:Parameter Name="original_FinalPrice" Type="Decimal" />
-                </DeleteParameters>
-                <InsertParameters>
-                    <asp:Parameter Name="quotation_id" Type="Int32" />
-                    <asp:Parameter Name="target_description" Type="String" />
-                    <asp:Parameter Name="FinalPrice" Type="Decimal" />
-                </InsertParameters>
+                SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Quotation_Target.quotation_id, Quotation_Target.target_description, Quotation_Target.FinalPrice, Quotation_Version.Quotation_Status as Status FROM Quotation_Target LEFT OUTER JOIN Quotation_Version ON Quotation_Target.quotation_id = Quotation_Version.Quotation_Version_Id WHERE (Quotation_Target.quotation_id = @quotation_id)"
+                ConflictDetection="CompareAllValues"
+                OldValuesParameterFormatString="original_{0}">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="hidQuotationID" Name="quotation_id" PropertyName="Text"
                         Type="Int32" />
                 </SelectParameters>
-                <UpdateParameters>
-                    <asp:Parameter Name="quotation_id" Type="Int32" />
-                    <asp:Parameter Name="target_description" Type="String" />
-                    <asp:Parameter Name="FinalPrice" Type="Decimal" />
-                    <asp:Parameter Name="original_Quotation_Target_Id" Type="Int32" />
-                    <asp:Parameter Name="original_quotation_id" Type="Int32" />
-                    <asp:Parameter Name="original_target_description" Type="String" />
-                    <asp:Parameter Name="original_FinalPrice" Type="Decimal" />
-                </UpdateParameters>
             </asp:SqlDataSource>
         </td>
     </tr>
