@@ -101,8 +101,9 @@
     {
         WoWiModel.PR obj = (WoWiModel.PR)e.Entity;
         DropDownList ddlProjectNo = (FormView1.FindControl("ddlProjectNo") as DropDownList);
-        obj.quotaion_id = int.Parse(ddlProjectNo.SelectedValue);
-        int proj_id = (from p in db.Project where p.Project_No == ddlProjectNo.SelectedItem.Text select p).First().Project_Id;
+        //obj.quotaion_id = int.Parse(ddlProjectNo.SelectedValue);
+        int proj_id = int.Parse(ddlProjectNo.SelectedValue);
+        obj.quotaion_id = (from c in wowidb.Projects where c.Project_Id == proj_id select c.Quotation_Id).First();
         obj.project_id = proj_id;
         obj.vendor_id = -1;
         obj.department_id = -1;
@@ -121,7 +122,7 @@
             ddlQuotationNo.Items.RemoveAt(1);
         }
         int id= int.Parse(ddlProjectNo.SelectedValue);
-        var target =( from d in db.Quotation_Version where d.Quotation_Version_Id == id select d.Quotation_No ).First();
+        var target =( from d in wowidb.Projects where d.Project_Id == id select d.Quotation_No ).First();
         ddlQuotationNo.Items.Add(target);
         ddlQuotationNo.SelectedValue = (target);
       
@@ -129,7 +130,7 @@
     protected void ddlProjectNo_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        ddlProjectNo.DataSource = db.Project;
+        ddlProjectNo.DataSource = from c in wowidb.Projects select new { Project_No = c.Project_No+" - ["+( (from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault() )+"]", Quotation_Id  = c.Project_Id};
         ddlProjectNo.DataTextField = "Project_No";
         ddlProjectNo.DataValueField = "Quotation_Id";
     }

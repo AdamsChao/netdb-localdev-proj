@@ -380,7 +380,7 @@
             id = int.Parse(Request.QueryString["id"]);
             WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
             int project_id = (int)obj.project_id;
-            (sender as Label).Text = (from p in db.Project where p.Project_Id == project_id select p.Project_No).First();
+            (sender as Label).Text = (from p in db.Project where p.Project_Id == project_id select p.Project_No + " - [" + ((from qq in db.Quotation_Version where qq.Quotation_No == p.Quotation_No select qq.Model_No).FirstOrDefault()) + "]").First();
         }
     }
 
@@ -411,7 +411,7 @@
                 try
                 {
                     String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-                    var data = from t in db.Target_Rates from q in db.Quotation_Version  from qt in db.Quotation_Target  where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id && q.Quotation_Version_Id == obj.quotaion_id  select new {QuotataionNo=q.Quotation_No ,QuotataionID = q.Quotation_Version_Id, TargetName =t.authority_name, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = qt.target_description, ModelNo = t.authority_name, Currency = currency , Qty = qt.unit };
+                    var data = from t in db.Target_Rates from q in db.Quotation_Version  from qt in db.Quotation_Target  where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id && q.Quotation_Version_Id == obj.quotaion_id  select new {QuotataionNo=q.Quotation_No ,QuotataionID = q.Quotation_Version_Id, TargetName = t.authority_name, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = qt.target_description, ModelNo = q.Model_No, Currency = currency , Qty = qt.unit };
                     GridView gv = (FormView1.FindControl("GridView4") as GridView);
                     gv.DataSource = data;
                     gv.DataBind();

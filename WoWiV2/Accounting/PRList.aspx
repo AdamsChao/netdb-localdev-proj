@@ -120,16 +120,16 @@
     protected void DropDownList1_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        ddlProjectNo.DataSource = wowidb.Projects;
+        ddlProjectNo.DataSource = from c in wowidb.Projects select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_Id };
         ddlProjectNo.DataTextField = "Project_No";
         ddlProjectNo.DataValueField = "Project_Id";
-        //ddlProjectNo.DataBind();
+        ddlProjectNo.DataBind();
     }
 
     protected void ddlVenderList_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        PRUtils.ddlVenderList_Load(sender, e);
+        PRUtils.ddlVenderList_Load(sender, e, "- All -");
         (sender as DropDownList).DataBind();
     }
 
