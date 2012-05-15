@@ -139,7 +139,8 @@
                           Version = q.Vername,
                            Id = q.Quotation_Version_Id
                        };
-            var data = from t in db.Target_Rates from qt in db.Quotation_Target from q in list from c in db.country where qt.quotation_id == q.Id & qt.target_id == t.Target_rate_id & t.country_id == c.country_id select new { Text = t.authority_name + "(" + q.No + ") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
+            //var data = from t in db.Target_Rates from qt in db.Quotation_Target from q in list from c in db.country where qt.quotation_id == q.Id & qt.target_id == t.Target_rate_id & t.country_id == c.country_id select new { Text = t.authority_name + "(" + q.No + ") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
+            var data = PRUtils.GetList(quotaion_no);
             (sender as DropDownList).DataSource = data;
             (sender as DropDownList).DataTextField = "Text";
             (sender as DropDownList).DataValueField = "Id";
@@ -150,7 +151,7 @@
                 int tid = (from c in wowidb.PR_item where c.pr_id == id select c.quotation_target_id).First();
                 (sender as DropDownList).SelectedValue = tid.ToString();
                 String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-                var data2 = from t in db.Target_Rates from q in db.Quotation_Version from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id && q.Quotation_Version_Id == obj.quotaion_id select new { QuotataionNo = q.Quotation_No, QuotataionID = q.Quotation_Version_Id, TargetName = ((from c in db.Authority where c.authority_id == t.authority_id select c.authority_name).FirstOrDefault()), Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = qt.target_description, ModelNo = t.authority_name, Currency = currency, Qty = qt.unit };
+                var data2 = from t in db.Target_Rates from q in db.Quotation_Version from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id && q.Quotation_Version_Id == obj.quotaion_id select new { QuotataionNo = q.Quotation_No, QuotataionID = q.Quotation_Version_Id, TargetName = ((from c in db.Authority where c.authority_id == qt.authority_id select c.authority_name).FirstOrDefault()), Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = qt.target_description, ModelNo = t.authority_name, Currency = currency, Qty = qt.unit };
                          
                 GridView gv = (FormView1.FindControl("GridView4") as GridView);
                 gv.DataSource = data2;

@@ -332,6 +332,33 @@ public class PRUtils
     {
         ddlVenderList_Load(sender, e, "- Select -");
     }
+    public static List<Display> GetList(String quotaion_no)
+    {
+        List<Display> list = new List<Display>();
+        var idlist = from q in db.Quotation_Version
+                     where q.Quotation_No.Equals(quotaion_no) & q.Quotation_Status == 5
+                     select q.Quotation_Version_Id;
+        //var data = from qt in db.Quotation_Target from q in list from c in db.country where idlist.Contains((int)qt.quotation_id) & qt.country_id == c.country_id select new { Text = qt.target_description + "(" + q.No + " - "+q.Version  +") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
+        var data = from qt in db.Quotation_Target from c in db.country where idlist.Contains((int)qt.quotation_id) & qt.country_id == c.country_id select new { Text = qt.target_description, CountryName = c.country_name, Id = qt.Quotation_Target_Id, qId = qt.quotation_id };
+        foreach (var item in data)
+        {
+            Display dis = new Display();
+            var lists = from q in db.Quotation_Version
+                        where q.Quotation_Version_Id == item.qId
+                        select new
+                        {
+                            No = q.Quotation_No,
+                            Version = q.Vername,
+                            Id = q.Quotation_Version_Id
+                        };
+            dis.Text = item.Text + "(" + lists.First().No + " - V" + lists.First().Version + ") - [ " + item.CountryName + " ]";
+            dis.Id = item.Id.ToString();
+            list.Add(dis);
+        }
+
+        return list;
+
+    }
     public static void ddlVenderList_Load(object sender, EventArgs e,String  msg)
     {
         try
@@ -356,4 +383,10 @@ public class PRUtils
             //throw;
         }
     }
+}
+
+public class Display
+{
+    public String Text { get; set; }
+    public String Id { get; set; }
 }

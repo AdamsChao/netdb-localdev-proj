@@ -24,44 +24,14 @@
             WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
             int quotaion_id = (int)obj.quotaion_id;
             String quotaion_no = (from d in db.Quotation_Version where d.Quotation_Version_Id == quotaion_id select d.Quotation_No).First();
-            (sender as DropDownList).DataSource = GetList(quotaion_no);
+            (sender as DropDownList).DataSource = PRUtils.GetList(quotaion_no);
             (sender as DropDownList).DataTextField = "Text";
             (sender as DropDownList).DataValueField = "Id";
         }
         
     }
-    public class Display
-    {
-        public String Text { get; set; }
-        public String Id { get; set; }
-    }
-    public List<Display> GetList(String quotaion_no)
-    {
-        List<Display> list = new List<Display>();
-        var idlist = from q in db.Quotation_Version
-                     where q.Quotation_No.Equals(quotaion_no) & q.Quotation_Status == 5 
-                     select q.Quotation_Version_Id;
-        //var data = from qt in db.Quotation_Target from q in list from c in db.country where idlist.Contains((int)qt.quotation_id) & qt.country_id == c.country_id select new { Text = qt.target_description + "(" + q.No + " - "+q.Version  +") - [" + c.country_name + "]", Id = qt.Quotation_Target_Id, Version = q.Version };
-        var data = from qt in db.Quotation_Target from c in db.country where idlist.Contains((int)qt.quotation_id) & qt.country_id == c.country_id select new { Text = qt.target_description, CountryName = c.country_name, Id = qt.Quotation_Target_Id, qId = qt.quotation_id };
-        foreach (var item in data)
-        {
-            Display dis = new Display();
-            var lists = from q in db.Quotation_Version
-                       where q.Quotation_Version_Id == item.qId
-                       select new
-                       {
-                           No = q.Quotation_No,
-                           Version = q.Vername,
-                           Id = q.Quotation_Version_Id
-                       };
-            dis.Text = item.Text + "(" + lists.First().No + " - V" + lists.First().Version + ") - [ " + item.CountryName + " ]"; 
-            dis.Id = item.Id.ToString();
-            list.Add(dis);
-        }
-         
-        return list;
-        
-    }
+    
+    
     
     protected void ddlVenderList_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -411,7 +381,7 @@
                 try
                 {
                     String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-                    var data = from t in db.Target_Rates from q in db.Quotation_Version  from qt in db.Quotation_Target  where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id && q.Quotation_Version_Id == obj.quotaion_id  select new {QuotataionNo=q.Quotation_No ,QuotataionID = q.Quotation_Version_Id, TargetName = t.authority_name, Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = qt.target_description, ModelNo = q.Model_No, Currency = currency , Qty = qt.unit };
+                    var data = from t in db.Target_Rates from q in db.Quotation_Version from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id && q.Quotation_Version_Id == obj.quotaion_id select new { QuotataionNo = q.Quotation_No, QuotataionID = q.Quotation_Version_Id, TargetName = ((from c in db.Authority where c.authority_id == qt.authority_id select c.authority_name).FirstOrDefault()), Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = qt.target_description, ModelNo = q.Model_No, Currency = currency, Qty = qt.unit };
                     GridView gv = (FormView1.FindControl("GridView4") as GridView);
                     gv.DataSource = data;
                     gv.DataBind();
