@@ -133,12 +133,12 @@
                                 Text="Edit" CommandArgument='<%# Eval("Quotation_Target_Id") %>' Enabled='<%# (Int32.Parse(Eval("Status").ToString())>=5)?false:true %>'  />
                         </ItemTemplate>
                     </asp:TemplateField>
-                   <%-- <asp:TemplateField ShowHeader="False">
+                    <asp:TemplateField ShowHeader="False">
                         <ItemTemplate>
                             <asp:Button ID="Button2" runat="server" CausesValidation="false" CommandName="tDelete"
                                 CommandArgument='<%# Eval("Quotation_Target_Id") %>' Text="Delete"  Enabled='<%# (Int32.Parse(Eval("Status").ToString())>=5)?false:true %>'  />
                         </ItemTemplate>
-                    </asp:TemplateField>--%>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="T.No">
                         <ItemTemplate>
                             <%#Container.DataItemIndex+1 %>
