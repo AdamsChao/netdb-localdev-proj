@@ -258,7 +258,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="ccstexth">
                             <asp:GridView ID="gvTestTargetList" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1"
                                 Width="100%" CaptionAlign="Top" ShowFooter="True" Style="text-align: left" 
                               Font-Size="Smaller">
@@ -287,6 +287,10 @@
                                 </Columns>
                                 <HeaderStyle HorizontalAlign="Center" />
                             </asp:GridView>
+                            <br />
+                            Remark for Client : <asp:Label ID="lblRemark" runat="server"></asp:Label>
+                            <br />
+                            <br />
                             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                 SelectCommand="SELECT [country_name], [authority_name], [FinalPrice], [target_description] FROM [vw_Test_Target_List] WHERE ([Quotation_Version_Id] = @Quotation_Version_Id)">
                                 <SelectParameters>

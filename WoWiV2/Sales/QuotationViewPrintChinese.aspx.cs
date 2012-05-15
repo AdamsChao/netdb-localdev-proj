@@ -82,8 +82,7 @@ public partial class Sales_QuotationViewPrintChinese : System.Web.UI.Page
                 lblModelNo.Text = quo.Model_No;
                 lblBrand_Name.Text = quo.Brand_Name;
                 lblClient.Text = quo.Client_CName;
-
-
+                lblRemark.Text = quo.Remark;
             }
         }
 
