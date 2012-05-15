@@ -81,7 +81,8 @@
       [vw_Quotation_Print_Chinese].[Product_Name] AS [Product_Name], 
       [vw_Quotation_Print_Chinese].[Model_No] AS [Model_No], 
       [vw_Quotation_Print_Chinese].[Brand_Name] AS [Brand_Name], 
-      [vw_Quotation_Print_Chinese].[Client_CName] AS [Client_CName]
+      [vw_Quotation_Print_Chinese].[Client_CName] AS [Client_CName], 
+      [vw_Quotation_Print_Chinese].[Remark] AS [Remark]
       FROM [dbo].[vw_Quotation_Print_Chinese] AS [vw_Quotation_Print_Chinese]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_Target" EntityType="QuotationModel.Store.vw_Target" store:Type="Views" store:Schema="dbo" store:Name="vw_Target">
@@ -126,7 +127,8 @@
       [vw_Test_Target_List].[Bill1] AS [Bill1], 
       [vw_Test_Target_List].[Bill2] AS [Bill2], 
       [vw_Test_Target_List].[Bill3] AS [Bill3], 
-      [vw_Test_Target_List].[BillE] AS [BillE]
+      [vw_Test_Target_List].[BillE] AS [BillE], 
+      [vw_Test_Target_List].[Quotation_Status] AS [Quotation_Status]
       FROM [dbo].[vw_Test_Target_List] AS [vw_Test_Target_List]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -591,6 +593,7 @@
           <Property Name="Model_No" Type="nvarchar" MaxLength="50" />
           <Property Name="Brand_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Client_CName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="text" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'WoWi.dbo.vw_Target' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -626,7 +629,7 @@
           </Key>
           <Property Name="Quotation_No" Type="nvarchar" MaxLength="20" />
           <Property Name="Vername" Type="int" />
-          <Property Name="target_description" Type="nvarchar" MaxLength="50" />
+          <Property Name="target_description" Type="nvarchar" MaxLength="500" />
           <Property Name="unit" Type="float" />
           <Property Name="unit_price" Type="decimal" Precision="20" Scale="2" />
           <Property Name="Quotation_Version_Id" Type="int" />
@@ -647,6 +650,7 @@
           <Property Name="Bill2" Type="decimal" Precision="20" Scale="2" />
           <Property Name="Bill3" Type="decimal" Precision="20" Scale="2" />
           <Property Name="BillE" Type="decimal" Precision="20" Scale="2" />
+          <Property Name="Quotation_Status" Type="int" />
         </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -758,6 +762,7 @@
           <Property Type="String" Name="Model_No" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Brand_Name" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Client_CName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Remark" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="invoice_target">
           <Key>
@@ -961,6 +966,7 @@
           <Property Type="Decimal" Name="Bill2" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="Bill3" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="BillE" Precision="20" Scale="2" />
+          <Property Type="Int32" Name="Quotation_Status" />
         </EntityType>
         <EntityType Name="clientapplicant">
           <Key>
@@ -1242,6 +1248,7 @@
           <EntitySetMapping Name="vw_Quotation_Print_Chinese">
             <EntityTypeMapping TypeName="QuotationModel.vw_Quotation_Print_Chinese">
               <MappingFragment StoreEntitySet="vw_Quotation_Print_Chinese">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Client_CName" ColumnName="Client_CName" />
                 <ScalarProperty Name="Brand_Name" ColumnName="Brand_Name" />
                 <ScalarProperty Name="Model_No" ColumnName="Model_No" />
@@ -1457,6 +1464,7 @@
           <EntitySetMapping Name="vw_Test_Target_List">
             <EntityTypeMapping TypeName="QuotationModel.vw_Test_Target_List">
               <MappingFragment StoreEntitySet="vw_Test_Target_List">
+                <ScalarProperty Name="Quotation_Status" ColumnName="Quotation_Status" />
                 <ScalarProperty Name="BillE" ColumnName="BillE" />
                 <ScalarProperty Name="Bill3" ColumnName="Bill3" />
                 <ScalarProperty Name="Bill2" ColumnName="Bill2" />
@@ -1722,7 +1730,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="QuotationModel" ZoomLevel="44">
+      <Diagram Name="QuotationModel" ZoomLevel="65">
         <EntityTypeShape EntityType="QuotationModel.vw_Product_Type" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Status" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583317" />
         <EntityTypeShape EntityType="QuotationModel.clientapplicant_technology" Width="1.5" PointX="0.75" PointY="3.75" Height="2.3648893229166674" />
