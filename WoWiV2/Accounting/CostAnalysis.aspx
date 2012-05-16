@@ -128,7 +128,7 @@
                     WoWiModel.Project proj = (from p in wowidb.Projects where p.Project_Id == pid select p).First();
                     temp.ProjectNo = proj.Project_No;
                     temp.Status = proj.Project_Status;
-                    if (DropDownList3.SelectedValue != "All")
+                    if (DropDownList3.SelectedValue != "- All -")
                     {
                         if (temp.Status != DropDownList3.SelectedValue)
                         {
@@ -480,7 +480,7 @@
                             <td width="20%">
                                 <asp:DropDownList ID="ddlSales" runat="server"  AppendDataBoundItems="True" 
                                     onload="ddlSales_Load">
-                                    <asp:ListItem Value="-1">All</asp:ListItem>
+                                    <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <th align="left" width="13%">
@@ -488,7 +488,7 @@
                             <td width="20%">
                                 <asp:DropDownList ID="ddlIMA" runat="server"  AppendDataBoundItems="True" 
                                     onload="ddlIMA_Load">
-                                    <asp:ListItem Value="-1">All</asp:ListItem>
+                                    <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                              <th align="left" width="13%">
@@ -496,7 +496,7 @@
                             <td width="20%">
                                 <asp:DropDownList ID="ddlProj" runat="server" AppendDataBoundItems="True" 
                                     onload="ddlProj_Load">
-                                     <asp:ListItem Value="-1">All</asp:ListItem>
+                                     <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                         </tr>
@@ -506,7 +506,7 @@
                             <td width="20%">
                                 <asp:DropDownList ID="ddlClient" runat="server" AppendDataBoundItems="True" 
                                     onload="ddlClient_Load">
-                                     <asp:ListItem Value="-1">All</asp:ListItem>
+                                     <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <th align="left" width="13%">
@@ -526,7 +526,7 @@
                             <td width="20%">
                                 <asp:DropDownList ID="ddlCountry" runat="server" AppendDataBoundItems="True" 
                                     onload="ddlCountry_Load">
-                                     <asp:ListItem Value="-1">All</asp:ListItem>
+                                     <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <th align="left" width="13%">
