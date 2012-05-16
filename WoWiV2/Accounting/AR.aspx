@@ -335,7 +335,7 @@
                                 <asp:DropDownList ID="ddlSales" runat="server" 
                                     AppendDataBoundItems="True" 
                                     onload="DropDownList1_Load">
-                                    <asp:ListItem Value="-1">All</asp:ListItem>
+                                    <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <th align="left" width="13%">
@@ -355,7 +355,7 @@
                             <td width="20%">
                                 <asp:DropDownList ID="ddlProj" runat="server" AppendDataBoundItems="True" 
                                     onload="DropDownList2_Load">
-                                    <asp:ListItem Value="-1">All</asp:ListItem>
+                                    <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <th align="left" width="13%">
@@ -363,7 +363,7 @@
                             <td width="20%">
                                 <asp:DropDownList ID="ddlClient" runat="server" AppendDataBoundItems="True" 
                                     onload="DropDownList3_Load">
-                                    <asp:ListItem Value="-1">All</asp:ListItem>
+                                    <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                              <th align="left" width="13%">
