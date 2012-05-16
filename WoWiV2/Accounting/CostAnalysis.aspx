@@ -104,17 +104,6 @@
                         //throw;
                     }
                     
-                    //temp.SubCostUSD
-                    //if (item.currency == "USD")
-                    //{
-                    //    temp.SubCostUSD = ((decimal)item.total_cost).ToString("F2");
-                    //}
-                    //else
-                    //{
-                    //    //Temp need to modify!
-                    //    temp.SubCostUSD = ((decimal)item.total_cost).ToString("F2");
-                    //}
-                    
                     
                 }
 
@@ -289,56 +278,6 @@
                                 
                                 //throw;
                             }
-                            
-                           
-                            try
-                            {
-                                WoWiModel.PR_Payment pay = (from pr in wowidb.PR_Payment where pr.pr_id == prid select pr).First();
-                                if (pay.total_amount.HasValue)
-                                {
-                                    //if (temp.Status == "Done")
-                                    //{
-                                    //    //已結案已付款
-                                    //    temp.Payment = ((decimal)pay.total_amount).ToString("F2");
-                                    //    payment += (decimal)pay.total_amount;
-                                    //}
-                                    //else
-                                    //{
-                                    //    //未結案已付款
-                                    //    temp.Prepay = ((decimal)pay.total_amount).ToString("F2");
-                                    //    prepay += (decimal)pay.total_amount;
-                                    //}
-                                    //temp.TotalPayment = ((decimal)pay.total_amount).ToString("F2");
-                                    //totpay += (decimal)pay.total_amount;
-                                    //if (pay.pay_date.HasValue)
-                                    //{
-                                    //    temp.PaymentDate = ((DateTime)pay.pay_date).ToString("yyyy/MM/dd");
-                                    //}
-                                }
-                            }
-                            catch (Exception)
-                            {
-
-                                //throw;
-                                //if (temp.Status == "Done")
-                                //{
-                                //    //已結案未付款
-                                //    temp.Payable = temp.SubCostUSD;
-                                //    payable += decimal.Parse(temp.SubCostUSD);
-                                //}
-                                //else
-                                //{
-                                //    //未結案未付款
-                                //    temp.Unpay = temp.SubCostUSD;
-                                //    unpay += decimal.Parse(temp.SubCostUSD);
-                                //}
-                            }
-                        }
-                        catch (Exception)
-                        {
-
-                            //throw;
-                        }
 
 
                     }
@@ -465,7 +404,7 @@
     protected void ddlProj_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        (sender as DropDownList).DataSource = db.Project;
+        (sender as DropDownList).DataSource = from c in wowidb.Projects select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_Id };
         (sender as DropDownList).DataTextField = "Project_No";
         (sender as DropDownList).DataValueField = "Project_Id";
         (sender as DropDownList).DataBind();

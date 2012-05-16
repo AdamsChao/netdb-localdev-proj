@@ -30,9 +30,9 @@
     protected void DropDownList2_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        (sender as DropDownList).DataSource = db.Project;
+        (sender as DropDownList).DataSource = from c in wowidb.Projects select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_No };
         (sender as DropDownList).DataTextField = "Project_No";
-        (sender as DropDownList).DataValueField = "Quotation_Id";
+        (sender as DropDownList).DataValueField = "Project_Id";
         (sender as DropDownList).DataBind();
     }
 
@@ -107,7 +107,7 @@
         }
         if (ddlProj.SelectedValue != "-1")
         {
-            String projNo = ddlProj.SelectedItem.Text;
+            String projNo = ddlProj.SelectedValue;
             data = data.Where(d => d.project_no == projNo);
         }
 

@@ -120,10 +120,10 @@
     protected void DropDownList1_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        ddlProjectNo.DataSource = from c in wowidb.Projects select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_Id };
-        ddlProjectNo.DataTextField = "Project_No";
-        ddlProjectNo.DataValueField = "Project_Id";
-        ddlProjectNo.DataBind();
+        (sender as DropDownList).DataSource = from c in wowidb.Projects select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_Id };
+        (sender as DropDownList).DataTextField = "Project_No";
+        (sender as DropDownList).DataValueField = "Project_Id";
+        (sender as DropDownList).DataBind();
     }
 
     protected void ddlVenderList_Load(object sender, EventArgs e)
