@@ -310,6 +310,16 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
     private void LoadTarget(int TargetID)
     {
         Quotation_Target target = Quotation_Target_Controller.Select(TargetID);
+        Dictionary<int, decimal> result =
+          CodeTableController.GetAll_Target_Rates((int)target.technology_id,
+          (int)target.country_id,
+          (int)target.product_type_id, 
+          (int)target.authority_id);
+        if (result.Count <= 0)
+        {
+          LabelMessage.Text = "此筆Target中的某些資訊可能已經設定為不啟用，因此無法編輯!!請檢核此筆Target之Technology或Certification Type或對應Target Rate Managements中之設定!!";
+          return; 
+        }
         ddlTechnology_Bind();
         ddlTechnology.SelectedValue = target.technology_id.ToString();
         ddlCountry_Bind();
