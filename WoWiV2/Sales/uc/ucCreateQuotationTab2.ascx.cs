@@ -145,7 +145,9 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
             txtRate.Text = result.First().Value.ToString();
             txtUnitPrice.Text = txtRate.Text;
             hidTarget_Rates_ID.Value = result.First().Key.ToString();
-            txtDespction.Text = ddlAuthority.SelectedItem.Text;
+            //txtDespction.Text = ddlAuthority.SelectedItem.Text;
+            //Modify by Adams Target Description 來自 Authority
+            txtDespction.Text = CodeTableController.GetTargetDescription(AuthorityID);
             btnSubmit.Enabled = true;
         }
         else

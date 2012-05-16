@@ -122,6 +122,20 @@ public class CodeTableController
         return result.ToDictionary(n => (int)n.Target_rate_id, n => (decimal)n.rate);
     }
 
+    public static string GetTargetDescription(int AuthorityID)
+    {
+      QuotationEntities entities = new QuotationEntities();
+      var result = from t in entities.Authority
+                   where t.authority_id == AuthorityID
+                   select t;
+      string description = string.Empty;
+      if (result!=null)
+      {
+        description = result.FirstOrDefault().Target_Description;      
+      }
+      return description;       
+    }
+
     public static Dictionary<int, string> GetAll_Target(int country_id, int product_type_id, int authority_id, int wowi_tech_id)
     {
         //Modify by Adams 2012/4/28 for New Requirment use Target Rate
