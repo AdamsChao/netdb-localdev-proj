@@ -312,28 +312,31 @@ public class Quotation_Controller
 
        quotation.Max_Q_Authorize_Amt = emp.q_authorize_amt;
        Quotation_Controller.Update_Quotation(ent, quotation);
-
-       var result = from n in entities.employee
-                    where n.q_authorize_currency == Currency && n.id==emp.supervisor_id
-                    select n;
-       if (result.Count() > 0)
-       {
-           employee supervisor = result.First();
-           if (!String.IsNullOrEmpty(supervisor.email))
-           {
-               string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is request for approval ";
-               string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id;
-
-               Mail(supervisor.email, mailSubject, mailContent);             
-           }
-           quotation.Waiting_Approve_UserID = supervisor.id;
-           return false;
-       }
+       if (quotation.Max_Q_Authorize_Amt >= FinalTotalPrice)
+           return true;
        else
        {
-           return true;
-       }
+           var result = from n in entities.employee
+                        where n.q_authorize_currency == Currency && n.id == emp.supervisor_id
+                        select n;
+           if (result.Count() > 0)
+           {
+               employee supervisor = result.First();
+               if (!String.IsNullOrEmpty(supervisor.email))
+               {
+                   string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is request for approval ";
+                   string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id;
 
+                   Mail(supervisor.email, mailSubject, mailContent);
+               }
+               quotation.Waiting_Approve_UserID = supervisor.id;
+               return false;
+           }
+           else
+           {
+               return true;
+           }
+       }
     }
 
     public static void Mail(string mailto, string mailSubject, string mailContent)
