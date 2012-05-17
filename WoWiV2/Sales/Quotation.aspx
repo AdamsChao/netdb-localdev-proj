@@ -67,7 +67,7 @@
         Quotation Lists :
         <br />
         <asp:GridView ID="GridViewQuotation" runat="server" AutoGenerateColumns="False" DataKeyNames="Quotation_Version_Id"
-            DataSourceID="SqlDataSourceQuot" Style="text-align: center" Width="100%" AllowSorting="True"
+            DataSourceID="SqlDataSourceQuot" Style="text-align: center" Width="100%" AllowSorting="True" PageSize="20"
             CellPadding="4" ForeColor="#333333" GridLines="None" AllowPaging="True">
             <AlternatingRowStyle BackColor="White" />
             <Columns>

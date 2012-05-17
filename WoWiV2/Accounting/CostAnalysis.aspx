@@ -146,7 +146,7 @@
                     try
                     {
                         DateTime fromDate = dcProjFrom.GetDate();
-                        if ((fromDate-proj.Create_Date).TotalDays >=0)
+                        if ((fromDate - proj.Create_Date).TotalDays >= 0)
                         {
                             continue;
                         }
@@ -178,7 +178,8 @@
                         WoWiModel.Quotation_Version quo = (from q in wowidb.Quotation_Version where q.Quotation_Version_Id == qid select q).First();
                         temp.QutationNo = quo.Quotation_No;
                         temp.QutationId = qid;
-                        if(quo.modify_date.HasValue){
+                        if (quo.modify_date.HasValue)
+                        {
                             temp.StatusDate = ((DateTime)quo.modify_date).ToString("yyyy/MM/dd");
                         }
                         temp.Model = quo.Model_No;
@@ -193,7 +194,7 @@
                         }
                         temp.Client = String.IsNullOrEmpty(cli.c_companyname) ? cli.companyname : cli.c_companyname;
                         var qtid = wowidb.PR_item.Where(c => c.pr_id == item.pr_id).First().quotation_target_id;
-                        int country_id = (int) (from qitem in wowidb.Quotation_Target where qitem.Quotation_Target_Id == qtid select qitem.country_id).First();
+                        int country_id = (int)(from qitem in wowidb.Quotation_Target where qitem.Quotation_Target_Id == qtid select qitem.country_id).First();
                         var country = (from cou in wowidb.countries where cou.country_id == country_id select cou).First();
                         temp.Country = country.country_name;
                         if (ddlCountry.SelectedValue != "-1")
@@ -228,7 +229,7 @@
                                 temp.InvDate += ((DateTime)ii.issue_invoice_date).ToString("yyyy/MM/dd ");
                                 try
                                 {
-                                    DateTime fromDate =  dcInvoiceFrom.GetDate();
+                                    DateTime fromDate = dcInvoiceFrom.GetDate();
                                     if ((fromDate - (DateTime)ii.issue_invoice_date).TotalDays >= 0)
                                     {
                                         flag = true;
@@ -271,14 +272,20 @@
                                 WoWiModel.PR_item pritem = wowidb.PR_item.First(c => c.pr_id == item.pr_id);
                                 WoWiModel.Quotation_Target qti = wowidb.Quotation_Target.First(d => d.Quotation_Target_Id == pritem.quotation_target_id);
                                 profit += ((decimal)qti.unit_price * (decimal)qti.unit - decimal.Parse(temp.SubCostUSD));
-                                temp.GrossProfitUS = ((decimal)qti.unit_price * (decimal)qti.unit-decimal.Parse(temp.SubCostUSD)).ToString("F2");
+                                temp.GrossProfitUS = ((decimal)qti.unit_price * (decimal)qti.unit - decimal.Parse(temp.SubCostUSD)).ToString("F2");
                             }
                             catch (Exception)
                             {
-                                
+
                                 //throw;
                             }
 
+                        }
+                        catch (Exception)
+                        {
+
+                            //throw;
+                        }
 
                     }
                     catch (Exception)
@@ -287,16 +294,15 @@
                         //throw;
                     }
 
+                    list.Add(temp);
                 }
                 catch (Exception)
                 {
 
-                    //throw;
                 }
-
-                list.Add(temp);
+            
             }
-
+            
             if (list.Count != 0)
             {
                 temp = new CostAnalysisData()

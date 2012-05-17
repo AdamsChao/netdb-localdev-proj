@@ -888,10 +888,10 @@
                               <td>
                                   <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" 
                                             CommandName="Update" Text="Next" ValidationGroup="VenderGroup" />
-                                        &nbsp;
+                                       <%-- &nbsp;
                                         <asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" 
                                             CommandName="Cancel" Text="Cancel" />
-                                        &nbsp;</td>
+                                        &nbsp;--%></td>
                           </tr>
                       </table>
                       </td></tr>
