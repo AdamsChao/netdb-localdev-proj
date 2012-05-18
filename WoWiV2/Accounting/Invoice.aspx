@@ -165,20 +165,35 @@
 
                 //throw;
             }
-            
+    
             if (item.issue_invoice_date.HasValue)
             {
                 temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd")+" ";
+            }
+
+            temp.IVNo = item.invoice_no + " ";
+            if (item.invoice_date.HasValue)
+            {
+                try
+                {
+                    temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd") + " ";
+                }
+                catch (Exception)
+                {
+                    
+                    //throw;
+                }
+                
             }
             try
             {
                 var rlist = from c in wowidb.invoice_received where c.invoice_id == item.invoice_id select c;
                 foreach (var ritem in rlist)
                 {
-                    temp.InvoiceNo += ritem.iv_no + " ";
+                    temp.IVNo += ritem.iv_no + " ";
                     try
                     {
-                        temp.InvoiceDate += ((DateTime)ritem.received_date).ToString("yyyy/MM/dd") + " ";
+                        temp.IVDate += ((DateTime)ritem.received_date).ToString("yyyy/MM/dd") + " ";
                     }
                     catch (Exception)
                     {
@@ -273,11 +288,11 @@
                 usdtotal += temp.USD;
             }
 
-            if (item.invoice_date.HasValue)
-            {
-                temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
-            }
-            temp.IVNo = item.invoice_no;
+            //if (item.invoice_date.HasValue)
+            //{
+            //    temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
+            //}
+            //temp.IVNo = item.invoice_no;
 
             temp.QutationNo = item.quotaion_no;
             list.Add(temp);
