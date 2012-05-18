@@ -10,7 +10,7 @@
     protected void DropDownList1_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        var sales = from s in wowidb.employees from d in wowidb.departments where d.name == "Sales" && s.department_id == d.id select new { Id = s.id, Name = s.fname + " " + s.lname };
+        var sales = from s in wowidb.employees from d in wowidb.departments where d.name.Contains("Sales") && s.department_id == d.id select new { Id = s.id, Name = s.fname + " " + s.lname };
         (sender as DropDownList).DataSource = sales;
         (sender as DropDownList).DataTextField = "Name";
         (sender as DropDownList).DataValueField = "Id";
@@ -67,13 +67,20 @@
     double usdissuetotal = 0;
     double ntdtotal = 0;
     double ntdissuetotal = 0;
+    double artotal = 0;
+    double arissuetotal = 0;
     public string GetUSD()
     {
         return GetTotal(usdtotal, usdissuetotal);
     }
     public string GetNTD()
     {
-        return GetTotal(ntdtotal, ntdissuetotal);
+        return GetTotal(ntdtotal, arissuetotal);
+    }
+
+    public string GetAR()
+    {
+        return GetTotal(artotal, ntdissuetotal);
     }
     public string GetTotal(double tot,double issuetot)
     {
@@ -233,6 +240,7 @@
             }
 
             temp.Currency = item.currency;
+            decimal ARBalance = ((decimal)item.ar_balance);
             if (temp.Currency == "USD")
             {
                 temp.USD = ((double)item.final_total);
@@ -240,6 +248,8 @@
                 usdtotal += temp.USD;
                 usdissuetotal += temp.USD;
                 ntdtotal += temp.NTD;
+                arissuetotal += (double) ARBalance;
+                artotal += (double)ARBalance;
             }
             else
             {
@@ -248,6 +258,7 @@
                 ntdtotal += temp.NTD;
                 ntdissuetotal += temp.NTD;
                 usdtotal += temp.USD;
+                artotal += (double)ARBalance;
             }
 
             if (item.invoice_date.HasValue)
@@ -447,6 +458,7 @@
                                     <asp:Literal ID="Literal1" runat="server" Text="<%# GetUSD()%>"></asp:Literal>
                                 </FooterTemplate>
                                 <ControlStyle CssClass="Currency" />
+                                <ItemStyle HorizontalAlign="Right" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="AR Inv NT$" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
@@ -459,6 +471,7 @@
                                     <asp:Literal ID="Literal1" runat="server" Text="<%# GetNTD()%>"></asp:Literal>
                                      </FooterTemplate>
                                 <ControlStyle CssClass="Currency" />
+                                <ItemStyle HorizontalAlign="Right" />
                             </asp:TemplateField>
                             <asp:BoundField DataField="IVDate" HeaderText="I/V Date"  />
                             <asp:BoundField DataField="IVNo" HeaderText="I/V No" />
@@ -471,7 +484,18 @@
                             <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" SortExpression="OverDueDays"/>
                             <asp:BoundField DataField="OverDueInterval" HeaderText="逾期區間" SortExpression="OverDueInterval" />
                             <asp:BoundField DataField="Currency" HeaderText="Currency" />
-                            <asp:BoundField DataField="ARBalance" HeaderText="AR Balance" ItemStyle-HorizontalAlign="Right"/>
+                            <asp:TemplateField HeaderText="AR Balance">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("ARBalance") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label4" runat="server" Text='<%# Bind("ARBalance") %>'></asp:Label>
+                                </ItemTemplate>
+                                 <FooterTemplate>
+                                    <asp:Literal ID="Literal1" runat="server" Text="<%# GetAR()%>"></asp:Literal>
+                                     </FooterTemplate>
+                                <ItemStyle HorizontalAlign="Right" />
+                            </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
       
