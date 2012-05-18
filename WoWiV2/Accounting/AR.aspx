@@ -75,12 +75,18 @@
     }
     public string GetNTD()
     {
-        return GetTotal(ntdtotal, arissuetotal);
+        return GetTotal(ntdtotal, ntdissuetotal);
     }
 
     public string GetAR()
     {
-        return GetTotal(artotal, ntdissuetotal);
+        StringBuilder sb = new StringBuilder();
+        sb.Append("<table width='100%'><tr><td align='right' class='Total'>Totall</td></tr><tr><td align='right' class='Total'>&nbsp;</tr></table>");
+        sb.Replace("Totall", artotal.ToString("F2"));
+        
+
+        return sb.ToString();
+        
     }
     public string GetTotal(double tot,double issuetot)
     {
@@ -155,7 +161,7 @@
             temp = new ARInvoiceData();
             temp.id = item.invoice_id + "";
             temp.InvoiceNo = item.issue_invoice_no;
-            temp.ARBalance = ((decimal)item.ar_balance).ToString("F2");
+            //temp.ARBalance = ((decimal)item.ar_balance).ToString("F2");
             if (item.issue_invoice_date.HasValue)
             {
                 temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
@@ -261,26 +267,28 @@
                 //throw;
             }
 
-            temp.Currency = item.currency;
+            temp.Currency = item.ocurrency;
             decimal ARBalance = ((decimal)item.ar_balance);
             if (temp.Currency == "USD")
             {
-                temp.USD = ((double)item.final_total);
-                temp.NTD = temp.USD / (double)item.exchange_rate;
+                temp.USD = ((double)item.total);
+                temp.NTD = ((double)item.final_total);
                 usdtotal += temp.USD;
                 usdissuetotal += temp.USD;
                 ntdtotal += temp.NTD;
                 arissuetotal += (double) ARBalance;
                 artotal += (double)ARBalance;
+                temp.ARBalance = ((decimal)ARBalance).ToString("F2");
             }
             else
             {
-                temp.NTD = ((double)item.final_total);
-                temp.USD = temp.NTD * (double)item.exchange_rate;
+                temp.NTD = ((double)item.total);
+                temp.USD = ((double)item.final_total);
                 ntdtotal += temp.NTD;
                 ntdissuetotal += temp.NTD;
                 usdtotal += temp.USD;
-                artotal += (double)ARBalance;
+                artotal += (double)ARBalance / (double)item.exchange_rate;
+                temp.ARBalance = ((decimal)ARBalance / (decimal)item.exchange_rate).ToString("F2");
             }
 
             //if (item.invoice_date.HasValue)
@@ -318,6 +326,9 @@
                     break;
                 case "Client":
                     slist = slist.OrderBy(c => c.Client);
+                    break;
+                case "Model":
+                    slist = slist.OrderBy(c => c.Model);
                     break;
             }
             iGridView1.DataSource = slist;
@@ -498,7 +509,7 @@
                             <asp:BoundField DataField="IVDate" HeaderText="I/V Date"  />
                             <asp:BoundField DataField="IVNo" HeaderText="I/V No" />
                             <asp:BoundField DataField="Sales" HeaderText="AE" SortExpression="Sales" />
-                            <asp:BoundField DataField="Model" HeaderText="Model" />
+                            <asp:BoundField DataField="Model" HeaderText="Model" SortExpression="Model" />
                             <asp:BoundField DataField="Country" HeaderText="Country" />
                             <asp:BoundField DataField="QutationNo" HeaderText="Quotation No" />
                             <asp:BoundField DataField="PaymentTerms" HeaderText="收款天數" />
@@ -506,7 +517,7 @@
                             <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" SortExpression="OverDueDays"/>
                             <asp:BoundField DataField="OverDueInterval" HeaderText="逾期區間" SortExpression="OverDueInterval" />
                             <asp:BoundField DataField="Currency" HeaderText="Currency" />
-                            <asp:TemplateField HeaderText="AR Balance">
+                            <asp:TemplateField HeaderText="AR Balance(USD)">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("ARBalance") %>'></asp:TextBox>
                                 </EditItemTemplate>

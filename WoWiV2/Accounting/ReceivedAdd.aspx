@@ -19,20 +19,20 @@
             lblProjNo.Text = invoice.project_no;
             SetData(lblProjNo.Text);
             decimal rate = (decimal)invoice.exchange_rate;
-            currency = invoice.currency;
+            currency = invoice.ocurrency;
             lblCurrency.Text = currency;
-            if (invoice.currency == "USD")
+            if (currency == "USD")
             {
-                
-                lblUSD.Text = "$"+ ((decimal)invoice.final_total).ToString("F2");
+
+                lblUSD.Text = "$" + ((decimal)invoice.total).ToString("F2");
                 lblUSD.ForeColor = System.Drawing.Color.Blue;
-                lblNTD.Text = "$" + ((decimal)invoice.total).ToString("F2");
+                lblNTD.Text = "$" + ((decimal)invoice.final_total).ToString("F2");
             }
             else
             {
-                lblNTD.Text = "$" + ((decimal)invoice.final_total).ToString("F2");
+                lblNTD.Text = "$" + ((decimal)invoice.total).ToString("F2");
                 lblNTD.ForeColor = System.Drawing.Color.Blue;
-                lblUSD.Text = "$" + ((decimal)invoice.total).ToString("F2");
+                lblUSD.Text = "$" + ((decimal)invoice.final_total).ToString("F2");
             }
             GetAllItems(id);
         }
@@ -129,7 +129,7 @@
         try
         {
             WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == id select i).First();
-            decimal btotal = (decimal)invoice.final_total;
+            decimal btotal = (decimal)invoice.total;
             List<ReceivedData> data = new List<ReceivedData>();
             var list = from rd in wowidb.invoice_received orderby rd.received_date where rd.invoice_id == id select rd;
             ReceivedData temp;
@@ -181,9 +181,16 @@
                     modify_date = DateTime.Now
                 };
                 wowidb.invoice_received.AddObject(recevivedData);
-                WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == id select i).First();
-                invoice.ar_balance -= recevivedData.amount;
                 wowidb.SaveChanges();
+                //WoWiModel.invoice inv = (from i in wowidb.invoices where i.invoice_id == id select i).First();
+                //decimal arbalance = (decimal)inv.total;//inv.ocurrency == "USD" ? (decimal)inv.total : (decimal)inv.final_total;
+                //var list = wowidb.invoice_received.Where(j => j.invoice_id == inv.invoice_id);
+                //foreach (var item in list)
+                //{
+                //    arbalance -= (decimal)item.amount;
+                //}
+                //inv.ar_balance = arbalance;
+                //wowidb.SaveChanges();
                 dcReceivedDate.ClearText();
                 tbAmount.Text= "";
                 tbIVNo.Text= "";
@@ -206,8 +213,18 @@
             {
                 int rid = int.Parse(e.CommandArgument.ToString());
                 WoWiModel.invoice_received re = wowidb.invoice_received.First(c => c.id == rid);
+                int invid = re.invoice_id;
                 wowidb.invoice_received.DeleteObject(re);
                 wowidb.SaveChanges();
+                //WoWiModel.invoice inv = wowidb.invoices.First(i => i.invoice_id == invid);
+                //decimal arbalance = (decimal)inv.total;//inv.ocurrency == "USD" ? (decimal)inv.total : (decimal)inv.final_total;
+                //var list = wowidb.invoice_received.Where(j => j.invoice_id == invid);
+                //foreach (var item in list)
+                //{
+                //    arbalance -= (decimal)item.amount;
+                //}
+                //inv.ar_balance = arbalance;
+                //wowidb.SaveChanges();
                 if (!String.IsNullOrEmpty(Request.QueryString["id"]))
                 {
                     int id = int.Parse(Request.QueryString["id"]);//invoiceid

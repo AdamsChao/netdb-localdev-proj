@@ -273,16 +273,16 @@
             temp.Currency = item.ocurrency;
             if (temp.Currency == "USD")
             {
-                temp.USD = ((double)item.final_total);
-                temp.NTD = temp.USD / (double)item.exchange_rate;
+                temp.USD = ((double)item.total);
+                temp.NTD = ((double)item.final_total);
                 usdtotal += temp.USD;
                 usdissuetotal += temp.USD;
                 ntdtotal += temp.NTD;
             }
             else
             {
-                temp.NTD = ((double)item.final_total);
-                temp.USD = temp.NTD * (double)item.exchange_rate;
+                temp.NTD = ((double)item.ototal);
+                temp.USD = ((double)item.final_total);
                 ntdtotal += temp.NTD;
                 ntdissuetotal += temp.NTD;
                 usdtotal += temp.USD;
@@ -323,6 +323,9 @@
                     break;
                 case "Client":
                     slist = slist.OrderBy(c => c.Client);
+                    break;
+                case "Model":
+                    slist = slist.OrderBy(c => c.Model);
                     break;
             }
             iGridView1.DataSource = slist;
@@ -501,7 +504,7 @@
                             <asp:BoundField DataField="IVDate" HeaderText="I/V Date"  />
                             <asp:BoundField DataField="IVNo" HeaderText="I/V No" />
                             <asp:BoundField DataField="Sales" HeaderText="AE" SortExpression="Sales"/>
-                            <asp:BoundField DataField="Model" HeaderText="Model" />
+                            <asp:BoundField DataField="Model" HeaderText="Model" SortExpression="Model"  />
                             <asp:BoundField DataField="Country" HeaderText="Country" />
                             <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" SortExpression="QutationNo"/>
                             <asp:BoundField DataField="Owner" HeaderText="Issued By" SortExpression="Owner"/>
