@@ -460,7 +460,12 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Page.IsPostBack) return;
+        lbljs.Text = "";
+        if (Page.IsPostBack)
+        {
+            //PlaceHolder1_Load(null, null);
+            return;
+        }
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
             id = int.Parse(Request.QueryString["id"]);
@@ -511,6 +516,7 @@
         {
             try
             {
+                (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Clear();
                 Control con = Page.LoadControl("~/UserControls/UploadFileView.ascx");
                 (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Controls.Add(con);
                 (FormView1.FindControl("PlaceHolder1") as PlaceHolder).Visible = true;
@@ -1320,6 +1326,16 @@
     {
         (sender as Button).Enabled = false;
     }
+
+    protected void Page_PreRender(object sender, EventArgs e)
+    {
+        
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        //lbljs.Text = "<script type=\"text/javascript\">openAttachWin()</"+"script"+">";
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -1338,22 +1354,24 @@
     </style>
     <script type="text/javascript">
         function openAttachWin() {
-            window.open('<%= "MultiFileUpload.aspx?id=" + Request.QueryString["id"] %>', 'new', 'scrollbars=no,menubar=no,height=300,width=600,resizable=no,toolbar=no,location=no,status=no,menubar=no');
+            window.open('<%= "MultiFileUpload.aspx?id=" + Request.QueryString["id"] %>', 'new', 'scrollbars=no,menubar=no,height=300,width=700,resizable=no,toolbar=no,location=no,status=no,menubar=no');
         }
 
         function postBack() {
-            __doPostBack('(sender)', '');
+            __doPostBack('FormView1', '');
+            //window.location.reload();
         }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
+ 
  
         <asp:FormView ID="FormView1" runat="server" DataKeyNames="pr_id"  
            SkinID="FormView"  DataSourceID="EntityDataSource1" DefaultMode="Edit" 
             Width="100%" >
            
             <EditItemTemplate>
-             <%-- <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional"><ContentTemplate>--%>
+       <%--  <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional"><ContentTemplate>--%>
                <table align="left" border="0" cellpadding="2" cellspacing="0"  style="width:100%">
              <tr><th 
                            align="left" class="style10"><font size="+1">&nbsp;Purchase Request 
@@ -1443,7 +1461,9 @@
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Attachments:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
-                                       <asp:Button ID="Button1" runat="server" Text="Attach Files" OnClientClick="openAttachWin()" Enabled="true" /><br>
+                                       <asp:Button ID="Button1" runat="server" Text="Attach Files" Enabled="true" OnClientClick="openAttachWin()"/>
+                                     <%--  <asp:Button ID="Button2" runat="server" Text="Reload" />--%>
+                                       <br>
                                        <asp:PlaceHolder ID="PlaceHolder1" runat="server" OnLoad="PlaceHolder1_Load"></asp:PlaceHolder>
                             </td></tr>
                             <tr><th 
@@ -1900,6 +1920,11 @@
                       </table>
                       </td></tr>
                              </table>
+                           <%--  </ContentTemplate>
+                             <Triggers>
+                                 <asp:AsyncPostBackTrigger ControlID="UpdateButton" />
+             </Triggers>
+                             </asp:UpdatePanel>--%>
            </EditItemTemplate>
         </asp:FormView>
    
@@ -1912,6 +1937,7 @@
          <asp:QueryStringParameter Name="id" QueryStringField="id" Type="Int32" />
         </WhereParameters>
         </asp:EntityDataSource >
+    <asp:Label ID="lbljs" runat="server" Text=""></asp:Label>
   
                            
 </asp:Content>

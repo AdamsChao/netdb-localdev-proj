@@ -78,8 +78,30 @@
             PlaceHolder1.Visible = true;
         }
     }
- 
-    
+
+    protected void PlaceHolder1_Load(object sender, EventArgs e)
+    {
+        String UpPath = ConfigurationManager.AppSettings["UploadFolderPath"];
+        String prid = Request.QueryString["id"];
+        UpPath = UpPath + "/PR/" + prid;
+        if (System.IO.Directory.Exists(UpPath))
+        {
+            try
+            {
+                PlaceHolder1.Controls.Clear();
+                Control con = Page.LoadControl("~/UserControls/UploadFileView.ascx");
+                PlaceHolder1.Controls.Add(con);
+                PlaceHolder1.Visible = true;
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+
+
+        }
+    }
  
 </script>
 
@@ -128,13 +150,15 @@
 </head>
 <body>
 <form id="form1" runat="server" enctype="multipart/form-data">
-<input id="AddFile" type="button" value="Add file" onclick="addFileUploadBox()" /><asp:Button ID="btnSubmit" runat="server" Text="Upload Now" OnClick="btnSubmit_Click" /><span id="Span1" runat="server" />
+<input id="AddFile" type="button" value="Add file" onclick="addFileUploadBox()" /><asp:Button ID="btnSubmit" runat="server" Text="Upload Now" OnClick="btnSubmit_Click" /><asp:Button ID="Button1" runat="server" onclientclick="self.close();" 
+    Text="Close this Window" />
+<span id="Span1" runat="server" />
 <div id="upload-area">
    <input id="File1" type="file" runat="server" size="60" />  
 </div>
 File List:<br>
 <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
-
+<%--<asp:PlaceHolder ID="PlaceHolder1" runat="server" OnLoad="PlaceHolder1_Load"></asp:PlaceHolder>--%>
 
 </form>
 </body>
