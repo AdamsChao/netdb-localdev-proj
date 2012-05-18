@@ -160,6 +160,28 @@
             {
                 temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
             }
+            temp.IVNo = item.invoice_no;
+            if (item.invoice_date.HasValue)
+            {
+                temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
+            }
+            try
+            {
+                var rlist = (from radd in wowidb.invoice_received where radd.invoice_id == item.invoice_id select radd);
+                foreach (var ritem in rlist)
+                {
+                    temp.IVNo += " " + ritem.iv_no;
+                    if (ritem.received_date.HasValue)
+                    {
+                        temp.IVDate += " " + ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
             temp.ProjectNo = item.project_no;
             try
             {
@@ -261,11 +283,11 @@
                 artotal += (double)ARBalance;
             }
 
-            if (item.invoice_date.HasValue)
-            {
-                temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
-            }
-            temp.IVNo = item.invoice_no;
+            //if (item.invoice_date.HasValue)
+            //{
+            //    temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
+            //}
+            //temp.IVNo = item.invoice_no;
 
             temp.QutationNo = item.quotaion_no;
             list.Add(temp);
