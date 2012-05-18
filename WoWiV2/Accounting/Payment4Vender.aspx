@@ -139,9 +139,9 @@
                     //throw;
                 }
             }
-            if (row.Cells[6].Text.Trim() != "&nbsp;")
+            if (row.Cells[5].Text.Trim() != "&nbsp;")
             {
-                row.Cells[6].Text =  row.Cells[6].Text +"$";
+                row.Cells[5].Text =  row.Cells[5].Text +"$";
             }
             String quoIDStr = row.Cells[3].Text;
             try
