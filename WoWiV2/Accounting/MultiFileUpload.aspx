@@ -120,7 +120,8 @@
             if (flag) {
                 alert("Upload(s) Successful!");
                 self.close();
-                opener.window.location = opener.window.location;
+                //opener.window.location = opener.window.location;
+                opener.postBack();
             }
         }
 </script>

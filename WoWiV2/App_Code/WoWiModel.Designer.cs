@@ -164,22 +164,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<contact_info> contact_info
-        {
-            get
-            {
-                if ((_contact_info == null))
-                {
-                    _contact_info = base.CreateObjectSet<contact_info>("contact_info");
-                }
-                return _contact_info;
-            }
-        }
-        private ObjectSet<contact_info> _contact_info;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<contact_role> contact_role
         {
             get
@@ -596,22 +580,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Quotation_Version> Quotation_Version
-        {
-            get
-            {
-                if ((_Quotation_Version == null))
-                {
-                    _Quotation_Version = base.CreateObjectSet<Quotation_Version>("Quotation_Version");
-                }
-                return _Quotation_Version;
-            }
-        }
-        private ObjectSet<Quotation_Version> _Quotation_Version;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Target_Rates> Target_Rates
         {
             get
@@ -752,6 +720,38 @@ namespace WoWiModel
             }
         }
         private ObjectSet<employee> _employees;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<contact_info> contact_info
+        {
+            get
+            {
+                if ((_contact_info == null))
+                {
+                    _contact_info = base.CreateObjectSet<contact_info>("contact_info");
+                }
+                return _contact_info;
+            }
+        }
+        private ObjectSet<contact_info> _contact_info;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Quotation_Version> Quotation_Version
+        {
+            get
+            {
+                if ((_Quotation_Version == null))
+                {
+                    _Quotation_Version = base.CreateObjectSet<Quotation_Version>("Quotation_Version");
+                }
+                return _Quotation_Version;
+            }
+        }
+        private ObjectSet<Quotation_Version> _Quotation_Version;
 
         #endregion
         #region AddTo Methods
@@ -802,14 +802,6 @@ namespace WoWiModel
         public void AddToclientapplicant_technology(clientapplicant_technology clientapplicant_technology)
         {
             base.AddObject("clientapplicant_technology", clientapplicant_technology);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the contact_info EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTocontact_info(contact_info contact_info)
-        {
-            base.AddObject("contact_info", contact_info);
         }
     
         /// <summary>
@@ -1021,14 +1013,6 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Quotation_Version EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToQuotation_Version(Quotation_Version quotation_Version)
-        {
-            base.AddObject("Quotation_Version", quotation_Version);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Target_Rates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToTarget_Rates(Target_Rates target_Rates)
@@ -1098,6 +1082,22 @@ namespace WoWiModel
         public void AddToemployees(employee employee)
         {
             base.AddObject("employees", employee);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the contact_info EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTocontact_info(contact_info contact_info)
+        {
+            base.AddObject("contact_info", contact_info);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Quotation_Version EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToQuotation_Version(Quotation_Version quotation_Version)
+        {
+            base.AddObject("Quotation_Version", quotation_Version);
         }
 
         #endregion
@@ -12633,6 +12633,78 @@ namespace WoWiModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public global::System.String POLimit
+        {
+            get
+            {
+                return _POLimit;
+            }
+            set
+            {
+                OnPOLimitChanging(value);
+                ReportPropertyChanging("POLimit");
+                _POLimit = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("POLimit");
+                OnPOLimitChanged();
+            }
+        }
+        private global::System.String _POLimit;
+        partial void OnPOLimitChanging(global::System.String value);
+        partial void OnPOLimitChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Deposit_Check_No
+        {
+            get
+            {
+                return _Deposit_Check_No;
+            }
+            set
+            {
+                OnDeposit_Check_NoChanging(value);
+                ReportPropertyChanging("Deposit_Check_No");
+                _Deposit_Check_No = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Deposit_Check_No");
+                OnDeposit_Check_NoChanged();
+            }
+        }
+        private global::System.String _Deposit_Check_No;
+        partial void OnDeposit_Check_NoChanging(global::System.String value);
+        partial void OnDeposit_Check_NoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PO_Amount
+        {
+            get
+            {
+                return _PO_Amount;
+            }
+            set
+            {
+                OnPO_AmountChanging(value);
+                ReportPropertyChanging("PO_Amount");
+                _PO_Amount = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PO_Amount");
+                OnPO_AmountChanged();
+            }
+        }
+        private global::System.String _PO_Amount;
+        partial void OnPO_AmountChanging(global::System.String value);
+        partial void OnPO_AmountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public global::System.String paymentlimit
         {
             get
@@ -14019,30 +14091,6 @@ namespace WoWiModel
         private global::System.String _Probability;
         partial void OnProbabilityChanging(global::System.String value);
         partial void OnProbabilityChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String checkno
-        {
-            get
-            {
-                return _checkno;
-            }
-            set
-            {
-                OnchecknoChanging(value);
-                ReportPropertyChanging("checkno");
-                _checkno = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("checkno");
-                OnchecknoChanged();
-            }
-        }
-        private global::System.String _checkno;
-        partial void OnchecknoChanging(global::System.String value);
-        partial void OnchecknoChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

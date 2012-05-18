@@ -386,7 +386,7 @@
         DropDownList list = (DropDownList)sender;
         int[] data = { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
         list.DataSource = data;//Enumerable.Range(0, 101);
-        list.DataBind();
+        //list.DataBind();
     }
     protected void btnShow_Click(object sender, EventArgs e)
     {
@@ -1339,6 +1339,10 @@
     <script type="text/javascript">
         function openAttachWin() {
             window.open('<%= "MultiFileUpload.aspx?id=" + Request.QueryString["id"] %>', 'new', 'scrollbars=no,menubar=no,height=300,width=600,resizable=no,toolbar=no,location=no,status=no,menubar=no');
+        }
+
+        function postBack() {
+            __doPostBack('(sender)', '');
         }
     </script>
 </asp:Content>
