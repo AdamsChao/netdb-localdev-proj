@@ -339,7 +339,7 @@
         {
             (sender as Button).Enabled = false;
             int eid = Utils.GetEmployeeID();
-            var e = from emp in wowidb.employees from jt in wowidb.employee_jobtitle where emp.id == eid && emp.jobtitle_id == jt.jobtitle_id && jt.jobtitle_name == "Finance" select emp;
+            var e = from emp in wowidb.employees from jt in wowidb.employee_jobtitle where emp.id == eid && emp.jobtitle_id == jt.jobtitle_id && (jt.jobtitle_name == "Accounting" || jt.jobtitle_name == "Finance") select emp;
             if (e.Count() >= 1)
             {
                 (sender as Button).Enabled = true;

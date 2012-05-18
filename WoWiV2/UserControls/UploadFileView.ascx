@@ -49,7 +49,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Page.IsPostBack) return;
+        //if (Page.IsPostBack) return;
         String UpPath = ConfigurationManager.AppSettings["UploadFolderPath"];
         String prid = Request.QueryString["id"];
         UpPath = UpPath + "/PR/" + prid;
