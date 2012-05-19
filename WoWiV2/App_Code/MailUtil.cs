@@ -27,6 +27,7 @@ public class MailUtil
     {
         try
         {
+            //mailto = "rose@netdb.com.tw";
             
             MailMessage mail = new MailMessage(mailfrom, mailto);
             
@@ -36,7 +37,7 @@ public class MailUtil
 
             //for test
             String mailcc = "rose@netdb.com.tw";
-            mail.Bcc.Add(mailcc);
+            mail.CC.Add(mailcc);
 
             StringWriter sw = new StringWriter();
             HtmlTextWriter hw = new HtmlTextWriter(sw);
