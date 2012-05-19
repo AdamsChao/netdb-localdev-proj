@@ -27,12 +27,16 @@ public class MailUtil
     {
         try
         {
-
+            
             MailMessage mail = new MailMessage(mailfrom, mailto);
             
             mail.IsBodyHtml = true;
             mail.Subject = mailSubject;            
             mail.BodyEncoding = Encoding.UTF8;
+
+            //for test
+            String mailcc = "rose@netdb.com.tw";
+            mail.Bcc.Add(mailcc);
 
             StringWriter sw = new StringWriter();
             HtmlTextWriter hw = new HtmlTextWriter(sw);
@@ -92,7 +96,7 @@ public class MailUtil
             panel.RenderControl(hw);
             mail.Body = sw.ToString();
 
-            SmtpClient smtpClient = new SmtpClient("localhost",25);//設定E-mail Server和port
+            SmtpClient smtpClient = new SmtpClient("192.168.1.20", 25);//設定E-mail Server和port
             smtpClient.Send(mail);
         }
         catch (Exception ex)
