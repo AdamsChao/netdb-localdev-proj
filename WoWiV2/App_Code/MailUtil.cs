@@ -27,6 +27,7 @@ public class MailUtil
     {
         try
         {
+
             MailMessage mail = new MailMessage(mailfrom, mailto);
             
             mail.IsBodyHtml = true;
@@ -38,7 +39,9 @@ public class MailUtil
             panel.RenderControl(hw);
             mail.Body = sw.ToString();
 
-            SmtpClient smtpClient = new SmtpClient("localhost",25);//設定E-mail Server和port
+            //SmtpClient smtpClient = new SmtpClient("127.0.0.1",25);//設定E-mail Server和port
+            //SmtpClient smtpClient = new SmtpClient("localhost", 25);//設定E-mail Server和port
+            SmtpClient smtpClient = new SmtpClient("192.168.1.20", 25);//設定E-mail Server和port
             smtpClient.Send(mail);
         }
         catch (Exception ex)
