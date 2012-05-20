@@ -10,6 +10,8 @@ using System.Data.SqlClient;
 
 public partial class Ima_AccreditedTestLab : System.Web.UI.Page
 {
+    IMAUtil imau = new IMAUtil();
+    int intCopyTimes = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -23,37 +25,11 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
     //載入選項
     protected void BindItem()
     {
-        //載入幣別
-        string strFeeUnit = IMAUtil.GetCountryByID(Request["cid"]).Rows[0]["country_currency_type"].ToString();
-        if (strFeeUnit != "") { ddlFeeUnit.Items.Insert(0, new ListItem(strFeeUnit, strFeeUnit)); }
-        //Tech_RF
-        cbTechRF.DataBind();
-        foreach (ListItem li in cbTechRF.Items)
+        if (Request["atid"] == null || (Request["atid"] != null && Request["copy"] != null))
         {
-            li.Attributes.Add("onclick", "Tech(this);");
+            DateTime dt = DateTime.Now;
+            lblContactIDTemp.Text = dt.Day.ToString() + dt.Minute.ToString() + dt.Second.ToString() + dt.Millisecond.ToString();
         }
-        if (cbTechRF.Items.Count > 0) { cbTechRF.Items.Insert(0, new ListItem("All", "0")); cbTechRF.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
-        //Tech_EMC
-        cbTechEMC.DataBind();
-        foreach (ListItem li in cbTechEMC.Items)
-        {
-            li.Attributes.Add("onclick", "Tech(this);");
-        }
-        if (cbTechEMC.Items.Count > 0) { cbTechEMC.Items.Insert(0, new ListItem("All", "0")); cbTechEMC.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
-        //Tech_Safety
-        cbTechSafety.DataBind();
-        foreach (ListItem li in cbTechSafety.Items)
-        {
-            li.Attributes.Add("onclick", "Tech(this);");
-        }
-        if (cbTechSafety.Items.Count > 0) { cbTechSafety.Items.Insert(0, new ListItem("All", "0")); cbTechSafety.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
-        //Tech_Telecom
-        cbTechTelecom.DataBind();
-        foreach (ListItem li in cbTechTelecom.Items)
-        {
-            li.Attributes.Add("onclick", "Tech(this);");
-        }
-        if (cbTechTelecom.Items.Count > 0) { cbTechTelecom.Items.Insert(0, new ListItem("All", "0")); cbTechTelecom.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
     }
 
     //設定顯示的控制項
@@ -83,6 +59,8 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         btnSave.Visible = false;
         btnUpd.Visible = false;
         btnSaveCopy.Visible = false;
+        gvContact.Columns[0].Visible = false;
+        gvContact.Columns[1].Visible = false;
         if (strID != null)
         {
             SqlCommand cmd = new SqlCommand();
@@ -99,62 +77,32 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
+                tbRFRemark.Text = dt.Rows[0]["RFRemark"].ToString();
+                tbEMCRemark.Text = dt.Rows[0]["EMCRemark"].ToString();
+                tbSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
+                tbTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;
                     btnSaveCopy.Visible = true;
+                    gvContact.Columns[1].Visible = true;
                     lblTitle.Text = "Accredited Test Lab Copy";
                 }
                 else
                 {
                     btnUpd.Visible = true;
                     trProductType.Visible = true;
+                    gvContact.Columns[0].Visible = true;
                 }
             }
             //Ima_Contact
-            cmd = new SqlCommand();
-            cmd.CommandText = "select * from Ima_Contact where DID=@DID and Categroy=@Categroy;select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
-            cmd.Parameters.AddWithValue("@DID", strID);
-            cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-            DataSet ds = SQLUtil.QueryDS(cmd);
-            DataTable dtContact = ds.Tables[0];
-            if (dtContact.Rows.Count > 0)
-            {
-                lblContactID.Text = dtContact.Rows[0]["ContactID"].ToString();
-                tbFirstName.Text = dtContact.Rows[0]["FirstName"].ToString();
-                tbLastName.Text = dtContact.Rows[0]["LastName"].ToString();
-                tbTitle.Text = dtContact.Rows[0]["Title"].ToString();
-                tbWorkPhone.Text = dtContact.Rows[0]["WorkPhone"].ToString();
-                tbExt.Text = dtContact.Rows[0]["Ext"].ToString();
-                tbCellPhone.Text = dtContact.Rows[0]["CellPhone"].ToString();
-                tbAdress.Text = dtContact.Rows[0]["Adress"].ToString();
-                ddlCountry.SelectedValue = dtContact.Rows[0]["CountryID"].ToString();
-                tbFee.Text = dtContact.Rows[0]["Fee"].ToString();
-                ddlFeeUnit.SelectedValue = dtContact.Rows[0]["FeeUnit"].ToString();
-                tbLeadTime.Text = dtContact.Rows[0]["LeadTime"].ToString();
-            }
-            //Technology
-            DataTable dtTechnology = ds.Tables[1];
-            if (dtTechnology.Rows.Count > 0)
-            {
-                CheckBoxList cbl;
-                if (lblProTypeName.Text.Trim() == "RF") { cbl = cbTechRF; }
-                else if (lblProTypeName.Text.Trim() == "EMC") { cbl = cbTechEMC; }
-                else if (lblProTypeName.Text.Trim() == "Safety") { cbl = cbTechSafety; }
-                else { cbl = cbTechTelecom; }
-
-                foreach (DataRow dr in dtTechnology.Rows)
-                {
-                    foreach (ListItem li in cbl.Items)
-                    {
-                        if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
-                    }
-                }
-                if (dtTechnology.Rows.Count == cbl.Items.Count - 1) { cbl.Items[0].Selected = true; }
-            }
+            DataTable dtContact = imau.GetContact(Convert.ToInt32(strID), Request["categroy"].ToString());
+            gvContact.DataSource = dtContact;
+            gvContact.DataBind();
         }
         else
         {
+            gvContact.Columns[0].Visible = true;
             btnSave.Visible = true;
             trProductType.Visible = true;
             foreach (string str in Request["pt"].Split(','))
@@ -169,8 +117,8 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_AccreditedTestLab (world_region_id,country_id,wowi_product_type_id,AccreditedLab,VolumePerYear,Publish,Website,CreateUser,LasterUpdateUser) ";
-        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@AccreditedLab,@VolumePerYear,@Publish,@Website,@CreateUser,@LasterUpdateUser)";
+        string strTsql = "insert into Ima_AccreditedTestLab (world_region_id,country_id,wowi_product_type_id,AccreditedLab,VolumePerYear,Publish,Website,CreateUser,LasterUpdateUser,RFRemark,EMCRemark,SafetyRemark,TelecomRemark) ";
+        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@AccreditedLab,@VolumePerYear,@Publish,@Website,@CreateUser,@LasterUpdateUser,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -183,6 +131,14 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         cmd.Parameters.Add("@Website", SqlDbType.NVarChar);
         cmd.Parameters.Add("@CreateUser", SqlDbType.NVarChar);
         cmd.Parameters.Add("@LasterUpdateUser", SqlDbType.NVarChar);
+        if (tbRFRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@RFRemark", tbRFRemark.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@RFRemark", DBNull.Value); }
+        if (tbEMCRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@EMCRemark", tbEMCRemark.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@EMCRemark", DBNull.Value); }
+        if (tbSafetyRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@SafetyRemark", tbSafetyRemark.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@SafetyRemark", DBNull.Value); }
+        if (tbTelecomRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@TelecomRemark", tbTelecomRemark.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@TelecomRemark", DBNull.Value); }
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null)
         {
@@ -211,7 +167,9 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
                 cmd.Parameters["@LasterUpdateUser"].Value = IMAUtil.GetUser();
                 int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
                 //Ima_Contact
-                AddContact(intGeneralID);
+                CopyContact(gvContact, intGeneralID);
+                intCopyTimes += 1;
+                UpdateContact(intGeneralID);
                 //新增Technology
                 AddUpdTechnology(intGeneralID);
             }
@@ -219,11 +177,23 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         BackURL();
     }
 
-    //新增Contact
-    protected void AddContact(int intID)
+    protected void UpdateContact(int intDID)
     {
-        string strTsql = "insert into Ima_Contact (FirstName,LastName,Title,WorkPhone,Ext,CellPhone,Adress,CountryID,DID,Categroy,Fee,FeeUnit,LeadTime,CreateUser,LasterUpdateUser)";
-        strTsql += "values(@FirstName,@LastName,@Title,@WorkPhone,@Ext,@CellPhone,@Adress,@CountryID,@DID,@Categroy,@Fee,@FeeUnit,@LeadTime,@CreateUser,@LasterUpdateUser)";
+        SqlCommand cmd = new SqlCommand("update Ima_Contact set DID=@DID,IsTemp=0 where DID=@OldDID and Categroy=@Categroy and IsTemp=1 ");
+        cmd.Parameters.AddWithValue("@DID", intDID);
+        cmd.Parameters.AddWithValue("@OldDID", lblContactIDTemp.Text.Trim());
+        cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+        if (lblContactIDTemp.Text.Trim().Length > 0)
+        {
+            SQLUtil.ExecuteSql(cmd);
+        }
+    }
+
+    //新增Contact
+    protected void AddContact(int intGAID)
+    {
+        string strTsql = "insert into Ima_Contact (FirstName,LastName,Title,WorkPhone,Ext,CellPhone,Adress,CountryID,DID,Categroy,LeadTime,CreateUser,LasterUpdateUser,Fax,Remark,IsTemp)";
+        strTsql += "values(@FirstName,@LastName,@Title,@WorkPhone,@Ext,@CellPhone,@Adress,@CountryID,@DID,@Categroy,@LeadTime,@CreateUser,@LasterUpdateUser,@Fax,@Remark,@IsTemp)";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
         cmd.Parameters.AddWithValue("@FirstName", tbFirstName.Text.Trim());
@@ -234,62 +204,93 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@CellPhone", tbCellPhone.Text.Trim());
         cmd.Parameters.AddWithValue("@Adress", tbAdress.Text.Trim());
         cmd.Parameters.AddWithValue("@CountryID", ddlCountry.SelectedValue);
-        cmd.Parameters.AddWithValue("@DID", intID);
+        cmd.Parameters.AddWithValue("@DID", intGAID);
         cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-        if (tbFee.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@Fee", tbFee.Text.Trim()); }
-        else { cmd.Parameters.AddWithValue("@Fee", DBNull.Value); }
-        cmd.Parameters.AddWithValue("@FeeUnit", ddlFeeUnit.SelectedValue);
         if (tbLeadTime.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadTime.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
         cmd.Parameters.AddWithValue("@CreateUser", IMAUtil.GetUser());
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
+        cmd.Parameters.AddWithValue("@Fax", tbFax.Text.Trim());
+        cmd.Parameters.AddWithValue("@Remark", tbRemark.Text.Trim());
+        if (lblContactIDTemp.Text.Trim().Length == 0)
+        {
+            cmd.Parameters.AddWithValue("@IsTemp", 0);
+        }
+        else
+        {
+            cmd.Parameters.AddWithValue("@IsTemp", 1);
+        }
         SQLUtil.ExecuteSql(cmd);
+    }
+
+    //複製Contact
+    protected void CopyContact(GridView gv, int intDID)
+    {
+        foreach (GridViewRow gvr in gvContact.Rows)
+        {
+            CheckBox chContactCopy = (CheckBox)gvr.FindControl("chContactCopy");
+            bool blIsTemp = Convert.ToBoolean(gvContact.DataKeys[gvr.RowIndex].Values["IsTemp"]);
+            //intCopyTimes
+            if (intCopyTimes >= 1) { blIsTemp = false; }
+            if (Request["copy"] == null) { chContactCopy.Checked = true; }
+            if (chContactCopy.Checked && !blIsTemp)
+            {
+                string strTsql = "insert into Ima_Contact (FirstName,LastName,Title,WorkPhone,Ext,CellPhone,Adress,CountryID,DID,Categroy,LeadTime,CreateUser,LasterUpdateUser,Fax,Remark,IsTemp)";
+                strTsql += "values(@FirstName,@LastName,@Title,@WorkPhone,@Ext,@CellPhone,@Adress,@CountryID,@DID,@Categroy,@LeadTime,@CreateUser,@LasterUpdateUser,@Fax,@Remark,@IsTemp)";
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = strTsql;
+                cmd.Parameters.AddWithValue("@FirstName", ((Label)gvr.FindControl("lblFirstName")).Text.Trim());
+                cmd.Parameters.AddWithValue("@LastName", ((Label)gvr.FindControl("lblLastName")).Text.Trim());
+                cmd.Parameters.AddWithValue("@Title", ((Label)gvr.FindControl("lblTitle")).Text.Trim());
+                cmd.Parameters.AddWithValue("@WorkPhone", ((Label)gvr.FindControl("lblWorkPhone")).Text.Trim());
+                cmd.Parameters.AddWithValue("@Ext", ((Label)gvr.FindControl("lblExt")).Text.Trim());
+                cmd.Parameters.AddWithValue("@CellPhone", ((Label)gvr.FindControl("lblCellPhone")).Text.Trim());
+                cmd.Parameters.AddWithValue("@Adress", ((Label)gvr.FindControl("lblAdress")).Text.Trim());
+                cmd.Parameters.AddWithValue("@CountryID", ((Label)gvr.FindControl("lblCountryID")).Text.Trim());
+                cmd.Parameters.AddWithValue("@DID", intDID);
+                cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+                Label lblLeadTime = (Label)gvr.FindControl("lblLeadTime");
+                if (lblLeadTime.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", lblLeadTime.Text.Trim()); }
+                else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
+                cmd.Parameters.AddWithValue("@CreateUser", IMAUtil.GetUser());
+                cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
+                cmd.Parameters.AddWithValue("@Fax", ((Label)gvr.FindControl("lblFax")).Text.Trim());
+                cmd.Parameters.AddWithValue("@Remark", ((Label)gvr.FindControl("lblFax")).Text.Trim());
+                cmd.Parameters.AddWithValue("@IsTemp", 0);
+                SQLUtil.ExecuteSql(cmd);
+            }
+        }
     }
 
     //新增及修改Technology
     protected void AddUpdTechnology(int intID)
     {
-        SqlCommand cmd;
-        string strTsql = "";
         //刪除Technology
-        cmd = new SqlCommand();
-        strTsql = "delete from Ima_Technology where DID=@DID and Categroy=@Categroy";
-        cmd.CommandText = strTsql;
-        cmd.Parameters.AddWithValue("@DID", intID);
-        cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-        SQLUtil.ExecuteSql(cmd);
-        //新增Technology
-        strTsql = "if (not exists(select DID from Ima_Technology where DID=@DID and Categroy=@Categroy and wowi_tech_id=@wowi_tech_id)) ";
-        strTsql += "insert into Ima_Technology (DID,Categroy,wowi_tech_id) values(@DID,@Categroy,@wowi_tech_id)";
-        cmd = new SqlCommand();
-        cmd.CommandText = strTsql;
-        cmd.Parameters.AddWithValue("@DID", intID);
-        cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-        cmd.Parameters.Add("wowi_tech_id", SqlDbType.Int);
-        CheckBoxList cbl;
+        imau.DelTechnology(intID, Request["categroy"]);
+        DataList dl;
         string strProType = IMAUtil.GetProductType(lblProType.Text.Trim());
-        if (strProType == "RF") { cbl = cbTechRF; }
-        else if (strProType == "EMC") { cbl = cbTechEMC; }
-        else if (strProType == "Safety") { cbl = cbTechSafety; }
-        else { cbl = cbTechTelecom; }
-        foreach (ListItem li in cbl.Items)
+        if (strProType == "RF") { dl = dlTechRF; }
+        else if (strProType == "EMC") { dl = dlTechEMC; }
+        else if (strProType == "Safety") { dl = dlTechSafety; }
+        else { dl = dlTechTelecom; }
+
+        foreach (DataListItem dli in dl.Items)
         {
-            if (li.Selected && li.Value != "0")
+            int intTechID = Convert.ToInt32(dl.DataKeys[dli.ItemIndex]);
+            CheckBox cbFee = (CheckBox)dli.FindControl("cb" + strProType + "Fee");
+            TextBox tbFee = (TextBox)dli.FindControl("tb" + strProType + "Fee");
+            if (cbFee.Checked)
             {
-                cmd.Parameters["wowi_tech_id"].Value = li.Value;
-                SQLUtil.ExecuteSql(cmd);
+                //新增Technology
+                imau.AddTechnology(intID, Request["categroy"], intTechID, tbFee.Text.Trim());
             }
         }
     }
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_AccreditedTestLab set AccreditedLab=@AccreditedLab,VolumePerYear=@VolumePerYear,Publish=@Publish,Website=@Website,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate() ";
+        string strTsql = "Update Ima_AccreditedTestLab set AccreditedLab=@AccreditedLab,VolumePerYear=@VolumePerYear,Publish=@Publish,Website=@Website,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark ";
         strTsql += "where AccreditedTestID=@AccreditedTestID ";
-        if (lblContactID.Text.Trim().Length > 0)
-        {
-            strTsql += "Update Ima_Contact set FirstName=@FirstName,LastName=@LastName,Title=@Title,WorkPhone=@WorkPhone,Ext=@Ext,CellPhone=@CellPhone,Adress=@Adress,CountryID=@CountryID,DID=@DID,Categroy=@Categroy,Fee=@Fee,FeeUnit=@FeeUnit,LeadTime=@LeadTime,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate() where ContactID=@ContactID ";
-        }
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
         cmd.Parameters.AddWithValue("@AccreditedTestID", Request["atid"]);
@@ -298,31 +299,15 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Publish", rblPublish.SelectedValue == "1");
         cmd.Parameters.AddWithValue("@Website", tbWebsite.Text.Trim());
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
-        if (lblContactID.Text.Trim().Length > 0)
-        {
-            cmd.Parameters.AddWithValue("@FirstName", tbFirstName.Text.Trim());
-            cmd.Parameters.AddWithValue("@LastName", tbLastName.Text.Trim());
-            cmd.Parameters.AddWithValue("@Title", tbTitle.Text.Trim());
-            cmd.Parameters.AddWithValue("@WorkPhone", tbWorkPhone.Text.Trim());
-            cmd.Parameters.AddWithValue("@Ext", tbExt.Text.Trim());
-            cmd.Parameters.AddWithValue("@CellPhone", tbCellPhone.Text.Trim());
-            cmd.Parameters.AddWithValue("@Adress", tbAdress.Text.Trim());
-            cmd.Parameters.AddWithValue("@CountryID", ddlCountry.SelectedValue);
-            cmd.Parameters.AddWithValue("@DID", Request["atid"]);
-            cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-            if (tbFee.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@Fee", tbFee.Text.Trim()); }
-            else { cmd.Parameters.AddWithValue("@Fee", DBNull.Value); }
-            cmd.Parameters.AddWithValue("@FeeUnit", ddlFeeUnit.SelectedValue);
-            if (tbLeadTime.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadTime.Text.Trim()); }
-            else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
-            cmd.Parameters.AddWithValue("@ContactID", lblContactID.Text.Trim());
-        }
+        if (tbRFRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@RFRemark", tbRFRemark.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@RFRemark", DBNull.Value); }
+        if (tbEMCRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@EMCRemark", tbEMCRemark.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@EMCRemark", DBNull.Value); }
+        if (tbSafetyRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@SafetyRemark", tbSafetyRemark.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@SafetyRemark", DBNull.Value); }
+        if (tbTelecomRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@TelecomRemark", tbTelecomRemark.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@TelecomRemark", DBNull.Value); }
         SQLUtil.ExecuteSql(cmd);
-        //新增Contact
-        if (lblContactID.Text.Trim().Length == 0)
-        {
-            AddContact(Convert.ToInt32(Request["atid"]));
-        }
         //修改Technology
         AddUpdTechnology(Convert.ToInt32(Request["atid"]));
         BackURL();
@@ -350,5 +335,102 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         //預設參數
         Dictionary<string, string> dic = new Dictionary<string, string>();
         return IMAUtil.SetQueryString(isClear, dic, dicAdd, strRemove);
+    }
+
+    protected void btnCSave_Click(object sender, EventArgs e)
+    {
+        if (lblContactIDTemp.Text.Trim().Length == 0)
+        {
+            AddContact(Convert.ToInt32(Request["atid"]));
+        }
+        else
+        {
+            AddContact(Convert.ToInt32(lblContactIDTemp.Text.Trim()));
+        }
+        tbFirstName.Text = "";
+        tbLastName.Text = "";
+        tbTitle.Text = "";
+        tbWorkPhone.Text = "";
+        tbExt.Text = "";
+        tbCellPhone.Text = "";
+        tbAdress.Text = "";
+        ddlCountry.SelectedValue = Request["cid"];
+        tbLeadTime.Text = "";
+        tbFax.Text = "";
+        tbRemark.Text = "";
+        GetContact();
+    }
+
+    protected void btnEditSave_Click(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        GridViewRow gvr = gvContact.Rows[Convert.ToInt32(btn.CommandArgument)];
+        string strTsql = "Update Ima_Contact set FirstName=@FirstName,LastName=@LastName,Title=@Title,WorkPhone=@WorkPhone,Ext=@Ext,CellPhone=@CellPhone,Adress=@Adress,CountryID=@CountryID,DID=@DID,Categroy=@Categroy,LeadTime=@LeadTime,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Fax=@Fax,Remark=@Remark where ContactID=@ContactID ";
+        SqlCommand cmd = new SqlCommand(strTsql);
+        cmd.Parameters.AddWithValue("@FirstName", ((TextBox)gvr.FindControl("tbFirstName")).Text.Trim());
+        cmd.Parameters.AddWithValue("@LastName", ((TextBox)gvr.FindControl("tbLastName")).Text.Trim());
+        cmd.Parameters.AddWithValue("@Title", ((TextBox)gvr.FindControl("tbTitle")).Text.Trim());
+        cmd.Parameters.AddWithValue("@WorkPhone", ((TextBox)gvr.FindControl("tbWorkPhone")).Text.Trim());
+        cmd.Parameters.AddWithValue("@Ext", ((TextBox)gvr.FindControl("tbExt")).Text.Trim());
+        cmd.Parameters.AddWithValue("@CellPhone", ((TextBox)gvr.FindControl("tbCellPhone")).Text.Trim());
+        cmd.Parameters.AddWithValue("@Adress", ((TextBox)gvr.FindControl("tbAdress")).Text.Trim());
+        cmd.Parameters.AddWithValue("@CountryID", ((DropDownList)gvr.FindControl("ddlCountry")).SelectedValue);
+        if (lblContactIDTemp.Text.Trim().Length == 0)
+        {
+            cmd.Parameters.AddWithValue("@DID", Request["atid"]);
+        }
+        else
+        {
+            cmd.Parameters.AddWithValue("@DID", lblContactIDTemp.Text.Trim());
+        }
+        cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+        TextBox tbLeadTime = (TextBox)gvr.FindControl("tbLeadTime");
+        if (tbLeadTime.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadTime.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
+        cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
+        cmd.Parameters.AddWithValue("@Fax", ((TextBox)gvr.FindControl("tbFax")).Text.Trim());
+        cmd.Parameters.AddWithValue("@Remark", ((TextBox)gvr.FindControl("tbRemark")).Text.Trim());
+        cmd.Parameters.AddWithValue("@ContactID", gvContact.DataKeys[gvr.RowIndex].Values[0]);
+        SQLUtil.ExecuteSql(cmd);
+        GetContact();
+    }
+
+    protected void gvContact_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "GoDel")
+        {
+            SqlCommand cmd = new SqlCommand("delete from Ima_Contact where ContactID=@ContactID");
+            cmd.Parameters.AddWithValue("@ContactID", e.CommandArgument.ToString());
+            SQLUtil.ExecuteSql(cmd);
+            GetContact();
+        }
+    }
+
+    protected void GetContact()
+    {
+        int intDID;
+        if (Request["atid"] != null) { intDID = Convert.ToInt32(Request["atid"]); }
+        else { intDID = Convert.ToInt32(lblContactIDTemp.Text.Trim()); }
+
+        DataTable dtContact = imau.GetContact(intDID, Request["categroy"].ToString());
+        if (Request["Copy"] != null)
+        {
+            intDID = Convert.ToInt32(lblContactIDTemp.Text.Trim());
+            DataTable dtContactTemp = imau.GetContact(intDID, Request["categroy"].ToString());
+            if (dtContactTemp.Rows.Count > 0) { dtContact.Merge(dtContactTemp); }
+        }
+        gvContact.DataSource = dtContact;
+        gvContact.DataBind();
+    }
+
+    protected void gvContact_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            DropDownList ddlCountry = (DropDownList)e.Row.FindControl("ddlCountry");
+            ddlCountry.DataBind();
+            Label lblCountryID = (Label)e.Row.FindControl("lblCountryID");
+            ddlCountry.SelectedValue = lblCountryID.Text.Trim();
+        }
     }
 }

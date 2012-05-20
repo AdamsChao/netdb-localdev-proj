@@ -36,8 +36,7 @@
                                 onselectedindexchanged="rblProductType_SelectedIndexChanged">
                             </asp:RadioButtonList>
                             <asp:SqlDataSource ID="sdsProductType" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                SelectCommand="select wowi_product_type_id,wowi_product_type_name from wowi_product_type where publish=1">
-                            </asp:SqlDataSource>
+                                SelectCommand="STP_IMAGetProductType" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
                             <asp:Label ID="lblProType" runat="server" Visible="false"></asp:Label>
                         </td>
                     </tr>
@@ -66,21 +65,19 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            List harmonizes standards to
-                            <br />
-                            the above products：
+                            List harmonizes standards：
                         </td>
                         <td class="tdRowValue">
-                            <asp:TextBox ID="tbStandardDesc" runat="server" Rows="5" TextMode="MultiLine" Width="500px"></asp:TextBox>
+                            <asp:TextBox ID="tbStandardDesc" runat="server" Width="500px"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Local standards：
+                            File Upload：
                         </td>
                         <td class="tdRowValue">
                             <table border="0" cellpadding="0" cellspacing="0">
-                                <tr>
+                                <tr id="trLS" runat="server" visible="false">
                                     <td><asp:TextBox ID="tbLocalStandards" runat="server" Rows="5" TextMode="MultiLine" Width="500px"></asp:TextBox></td>
                                 </tr>
                                 <tr>
@@ -90,58 +87,62 @@
                                         3.<asp:FileUpload ID="fuGeneral3" runat="server" Width="90%" /><br />
                                         4.<asp:FileUpload ID="fuGeneral4" runat="server" Width="90%" /><br />
                                         5.<asp:FileUpload ID="fuGeneral5" runat="server" Width="90%" />
-                                        <asp:GridView ID="gvFile1" runat="server" SkinID="gvList" DataKeyNames="StandardFileID"
-                                            DataSourceID="sdsFile1">
-                                            <Columns>
-                                                <asp:TemplateField ShowHeader="False">
-                                                    <ItemTemplate>
-                                                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
-                                                            Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Copy to">
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="NO" Visible="false">
-                                                    <ItemTemplate>
-                                                        <%#Container.DataItemIndex+1 %>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
-                                                    <ItemStyle Width="30px" HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="FileName">
-                                                    <ItemTemplate>
-                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "StandardFile.ashx?fid="+Eval("StandardFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" />
-                                                    <ItemStyle HorizontalAlign="Left" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="FileURL" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                            </Columns>
-                                        </asp:GridView>
-                                        <asp:SqlDataSource ID="sdsFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            DeleteCommand="DELETE FROM [Ima_Standard_Files] WHERE [StandardFileID] = @StandardFileID"
-                                            SelectCommand="SELECT * FROM [Ima_Standard_Files] WHERE ([StandardID] = @StandardID) and FileCategory='A'">
-                                            <DeleteParameters>
-                                                <asp:Parameter Name="StandardFileID" Type="Int32" />
-                                            </DeleteParameters>
-                                            <SelectParameters>
-                                                <asp:QueryStringParameter Name="StandardID" QueryStringField="sid" Type="Int32" />
-                                            </SelectParameters>
-                                        </asp:SqlDataSource>
+                                        <asp:UpdatePanel ID="upFile" runat="server" UpdateMode="Conditional">
+                                            <ContentTemplate>
+                                                <asp:GridView ID="gvFile1" runat="server" SkinID="gvList" DataKeyNames="StandardFileID"
+                                                    DataSourceID="sdsFile1">
+                                                    <Columns>
+                                                        <asp:TemplateField ShowHeader="False">
+                                                            <ItemTemplate>
+                                                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
+                                                                    Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Copy to">
+                                                            <ItemTemplate>
+                                                                <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="NO" Visible="false">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                            <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileName">
+                                                            <ItemTemplate>
+                                                                <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "StandardFile.ashx?fid="+Eval("StandardFileID").ToString() %>'
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" />
+                                                            <ItemStyle HorizontalAlign="Left" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+                                                <asp:SqlDataSource ID="sdsFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                    DeleteCommand="DELETE FROM [Ima_Standard_Files] WHERE [StandardFileID] = @StandardFileID"
+                                                    SelectCommand="SELECT * FROM [Ima_Standard_Files] WHERE ([StandardID] = @StandardID) and FileCategory='A'">
+                                                    <DeleteParameters>
+                                                        <asp:Parameter Name="StandardFileID" Type="Int32" />
+                                                    </DeleteParameters>
+                                                    <SelectParameters>
+                                                        <asp:QueryStringParameter Name="StandardID" QueryStringField="sid" Type="Int32" />
+                                                    </SelectParameters>
+                                                </asp:SqlDataSource>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
                                     </td>
                                 </tr>
                             </table>
@@ -149,7 +150,7 @@
                     </tr>
                     <tr>
                         <td colspan="2" class="tdHeader1">
-                            Technologies
+                            Local Standards by Technologies
                         </td>
                     </tr>
                     <tr id="trTechRF" runat="server" visible="false">
@@ -157,13 +158,53 @@
                             RF：
                         </td>
                         <td class="tdRowValue">
-                            <asp:CheckBoxList ID="cbTechRF" runat="server" RepeatDirection="Horizontal" RepeatColumns="5"
-                                DataSourceID="sdsTechRF" DataTextField="wowi_tech_name" DataValueField="wowi_tech_id">
-                            </asp:CheckBoxList>
-                            <asp:SqlDataSource ID="sdsTechRF" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish=1 and b.wowi_product_type_name='RF'">
-                            </asp:SqlDataSource>
-                            <asp:Label ID="lblTechRFAll" runat="server" Visible="false"></asp:Label>
+                            <table border="0">
+                                <tr>
+                                    <td colspan="2">
+                                        <asp:DataList ID="dlTechRF" runat="server" DataSourceID="sdsTechRF" DataKeyField="wowi_tech_id"
+                                            RepeatColumns="2" RepeatDirection="Horizontal">
+                                            <ItemTemplate>
+                                                <table border="0">
+                                                    <tr>
+                                                        <td>
+                                                            <asp:CheckBox ID="cbRFFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                onclick="TechFee(this);" />
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="lblTechRF" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            <asp:TextBox ID="tbRFFee" runat="server" Width="60px" Enabled='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                Text='<%#Eval("Fee") %>'></asp:TextBox>USD
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <asp:RegularExpressionValidator ID="revRFFee" runat="server" ControlToValidate="tbRFFee"
+                                                    ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
+                                                    SetFocusOnError="True"></asp:RegularExpressionValidator>
+                                                <act:ValidatorCalloutExtender ID="vceRFFee" runat="server" TargetControlID="revRFFee">
+                                                </act:ValidatorCalloutExtender>
+                                            </ItemTemplate>
+                                        </asp:DataList>
+                                        <asp:SqlDataSource ID="sdsTechRF" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                            SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure">
+                                            <SelectParameters>
+                                                <asp:Parameter DefaultValue="10000" Name="wowi_product_type_id" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DID" QueryStringField="sid" Type="Int32" DefaultValue="0" />
+                                                <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
+                                            </SelectParameters>
+                                        </asp:SqlDataSource>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        Remark：
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="tbRFRemark" runat="server" Width="400px" TextMode="MultiLine" Rows="2"></asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr id="trTechEMC" runat="server" visible="false">
@@ -171,13 +212,53 @@
                             EMC：
                         </td>
                         <td class="tdRowValue">
-                            <asp:CheckBoxList ID="cbTechEMC" runat="server" RepeatDirection="Horizontal" RepeatColumns="5"
-                                DataSourceID="sdsTechEMC" DataTextField="wowi_tech_name" DataValueField="wowi_tech_id">
-                            </asp:CheckBoxList>
-                            <asp:SqlDataSource ID="sdsTechEMC" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish=1 and b.wowi_product_type_name='EMC'">
-                            </asp:SqlDataSource>
-                            <asp:Label ID="lblTechEMCAll" runat="server" Visible="false"></asp:Label>
+                            <table border="0">
+                                <tr>
+                                    <td colspan="2">
+                                        <asp:DataList ID="dlTechEMC" runat="server" DataSourceID="sdsTechEMC" DataKeyField="wowi_tech_id"
+                                            RepeatColumns="2" RepeatDirection="Horizontal">
+                                            <ItemTemplate>
+                                                <table border="0">
+                                                    <tr>
+                                                        <td>
+                                                            <asp:CheckBox ID="cbEMCFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                onclick="TechFee(this);" />
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="lblTechEMC" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            <asp:TextBox ID="tbEMCFee" runat="server" Width="60px" Enabled='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                Text='<%#Eval("Fee") %>'></asp:TextBox>USD
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <asp:RegularExpressionValidator ID="revEMCFee" runat="server" ControlToValidate="tbEMCFee"
+                                                    ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
+                                                    SetFocusOnError="True"></asp:RegularExpressionValidator>
+                                                <act:ValidatorCalloutExtender ID="vceEMCFee" runat="server" TargetControlID="revEMCFee">
+                                                </act:ValidatorCalloutExtender>
+                                            </ItemTemplate>
+                                        </asp:DataList>
+                                        <asp:SqlDataSource ID="sdsTechEMC" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                            SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure">
+                                            <SelectParameters>
+                                                <asp:Parameter DefaultValue="10001" Name="wowi_product_type_id" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DID" QueryStringField="sid" Type="Int32" DefaultValue="0" />
+                                                <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
+                                            </SelectParameters>
+                                        </asp:SqlDataSource>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        Remark：
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="tbEMCRemark" runat="server" Width="400px" TextMode="MultiLine" Rows="2"></asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr id="trTechSafety" runat="server" visible="false">
@@ -185,13 +266,54 @@
                             Safety：
                         </td>
                         <td class="tdRowValue">
-                            <asp:CheckBoxList ID="cbTechSafety" runat="server" RepeatDirection="Horizontal" RepeatColumns="5"
-                                DataSourceID="sdsTechSafety" DataTextField="wowi_tech_name" DataValueField="wowi_tech_id">
-                            </asp:CheckBoxList>
-                            <asp:SqlDataSource ID="sdsTechSafety" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish=1 and b.wowi_product_type_name='Safety'">
-                            </asp:SqlDataSource>
-                            <asp:Label ID="lblTechSafetyAll" runat="server" Visible="false"></asp:Label>
+                            <table border="0">
+                                <tr>
+                                    <td colspan="2">
+                                        <asp:DataList ID="dlTechSafety" runat="server" DataSourceID="sdsTechSafety" DataKeyField="wowi_tech_id"
+                                            RepeatColumns="2" RepeatDirection="Horizontal">
+                                            <ItemTemplate>
+                                                <table border="0">
+                                                    <tr>
+                                                        <td>
+                                                            <asp:CheckBox ID="cbSafetyFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                onclick="TechFee(this);" />
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="lblTechSafety" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            <asp:TextBox ID="tbSafetyFee" runat="server" Width="60px" Enabled='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                Text='<%#Eval("Fee") %>'></asp:TextBox>USD
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <asp:RegularExpressionValidator ID="revSafetyFee" runat="server" ControlToValidate="tbSafetyFee"
+                                                    ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
+                                                    SetFocusOnError="True"></asp:RegularExpressionValidator>
+                                                <act:ValidatorCalloutExtender ID="vceSafetyFee" runat="server" TargetControlID="revSafetyFee">
+                                                </act:ValidatorCalloutExtender>
+                                            </ItemTemplate>
+                                        </asp:DataList>
+                                        <asp:SqlDataSource ID="sdsTechSafety" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                            SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure">
+                                            <SelectParameters>
+                                                <asp:Parameter DefaultValue="10002" Name="wowi_product_type_id" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DID" QueryStringField="sid" Type="Int32" DefaultValue="0" />
+                                                <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
+                                            </SelectParameters>
+                                        </asp:SqlDataSource>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        Remark：
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="tbSafetyRemark" runat="server" Width="400px" TextMode="MultiLine"
+                                            Rows="2"></asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr id="trTechTelecom" runat="server" visible="false">
@@ -199,14 +321,54 @@
                             Telecom：
                         </td>
                         <td class="tdRowValue">
-                            <asp:CheckBoxList ID="cbTechTelecom" runat="server" RepeatDirection="Horizontal"
-                                RepeatColumns="5" DataSourceID="sdsTechTelecom" DataTextField="wowi_tech_name"
-                                DataValueField="wowi_tech_id">
-                            </asp:CheckBoxList>
-                            <asp:SqlDataSource ID="sdsTechTelecom" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish=1 and b.wowi_product_type_name='Telecom'">
-                            </asp:SqlDataSource>
-                            <asp:Label ID="lblTechTelecomAll" runat="server" Visible="false"></asp:Label>
+                            <table border="0">
+                                <tr>
+                                    <td colspan="2">
+                                        <asp:DataList ID="dlTechTelecom" runat="server" DataSourceID="sdsTechTelecom" DataKeyField="wowi_tech_id"
+                                            RepeatColumns="2" RepeatDirection="Horizontal">
+                                            <ItemTemplate>
+                                                <table border="0">
+                                                    <tr>
+                                                        <td>
+                                                            <asp:CheckBox ID="cbTelecomFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                onclick="TechFee(this);" />
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="lblTechTelecom" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            <asp:TextBox ID="tbTelecomFee" runat="server" Width="60px" Enabled='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                Text='<%#Eval("Fee") %>'></asp:TextBox>USD
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <asp:RegularExpressionValidator ID="revTelecomFee" runat="server" ControlToValidate="tbTelecomFee"
+                                                    ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
+                                                    SetFocusOnError="True"></asp:RegularExpressionValidator>
+                                                <act:ValidatorCalloutExtender ID="vceTelecomFee" runat="server" TargetControlID="revTelecomFee">
+                                                </act:ValidatorCalloutExtender>
+                                            </ItemTemplate>
+                                        </asp:DataList>
+                                        <asp:SqlDataSource ID="sdsTechTelecom" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                            SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure">
+                                            <SelectParameters>
+                                                <asp:Parameter DefaultValue="10003" Name="wowi_product_type_id" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DID" QueryStringField="sid" Type="Int32" DefaultValue="0" />
+                                                <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
+                                            </SelectParameters>
+                                        </asp:SqlDataSource>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        Remark：
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="tbTelecomRemark" runat="server" Width="400px" TextMode="MultiLine"
+                                            Rows="2"></asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr>

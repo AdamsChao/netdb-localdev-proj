@@ -107,7 +107,8 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Submission w/ CD：
+                            Submission w/ CD：<br />
+                            Remark：
                         </td>
                         <td class="tdRowValue" align="left">
                             <table border="0" cellpadding="0" cellspacing="0">
@@ -176,6 +177,7 @@
                             <asp:CheckBox ID="cbFCCTest" runat="server" Text="FCC Test Report" Enabled="false" />
                             <asp:CheckBox ID="cbCETest" runat="server" Text="CE Test Report" Enabled="false" />
                             <asp:CheckBox ID="cbLocalTest" runat="server" Text="Local Testing" Enabled="false" />
+                            <asp:CheckBox ID="cbOther" runat="server" Text="Other" Enabled="false" />
                         </td>
                     </tr>
                     <tr>
@@ -297,6 +299,9 @@
                                             <asp:ListItem Value="LocalCompany" Text="Local Company" Selected="True"></asp:ListItem>
                                             <asp:ListItem Value="LocalDealer" Text="Local Dealer"></asp:ListItem>
                                             <asp:ListItem Value="RealImporter" Text="Real Importer"></asp:ListItem>
+                                            <asp:ListItem Value="Distributor" Text="Distributor"></asp:ListItem>
+                                            <asp:ListItem Value="NotRequired" Text="Not Required"></asp:ListItem>
+                                            <asp:ListItem Value="Operator" Text="Operator"></asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>
@@ -310,22 +315,7 @@
                                         <asp:GridView ID="gvFile3" runat="server" SkinID="gvList" DataKeyNames="ApplicationFileID"
                                             DataSourceID="sdsFile3">
                                             <Columns>
-                                                <asp:TemplateField ShowHeader="False">
-                                                    <ItemTemplate>
-                                                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
-                                                            Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Copy to">
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="NO" Visible="false">
+                                                <asp:TemplateField HeaderText="NO">
                                                     <ItemTemplate>
                                                         <%#Container.DataItemIndex+1 %>
                                                     </ItemTemplate>
@@ -651,7 +641,7 @@
                             </asp:RadioButtonList>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="trISO" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             ISO/Quality documents required：
                         </td>
@@ -768,6 +758,32 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
+                            Provisional Certificate：
+                        </td>
+                        <td class="tdRowValue" align="left">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td>
+                                                    <asp:RadioButtonList ID="rblProvisional" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                                                        <asp:ListItem Value="Yes" Text="Yes"></asp:ListItem>
+                                                        <asp:ListItem Value="No" Text="No" Selected="True"></asp:ListItem>
+                                                    </asp:RadioButtonList>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblProvisionalYearsMonths" runat="server"></asp:Label>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
                             Validity of Certificate：
                         </td>
                         <td class="tdRowValue" align="left">
@@ -777,8 +793,8 @@
                                         <table border="0" cellpadding="0" cellspacing="0">
                                             <tr>
                                                 <td>
-                                                    <asp:RadioButtonList ID="rblValidity" runat="server" RepeatDirection="Horizontal"
-                                                        Enabled="false">
+                                                    <asp:RadioButtonList ID="rblValidity" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                                                        <asp:ListItem Value="Permanent" Text="Permanent"></asp:ListItem>
                                                         <asp:ListItem Value="Non-Life time" Text="Non-Life time"></asp:ListItem>
                                                         <asp:ListItem Value="Life-time" Text="Life-time" Selected="True"></asp:ListItem>
                                                     </asp:RadioButtonList>
@@ -795,7 +811,7 @@
                                         <asp:Label ID="lblValidityDesc" runat="server" Text="Label"></asp:Label>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr id="trVDFile" runat="server" visible="false">
                                     <td>
                                         <asp:GridView ID="gvFile8" runat="server" SkinID="gvList" DataKeyNames="ApplicationFileID"
                                             DataSourceID="sdsFile8">
@@ -840,6 +856,40 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="tdRowName" valign="top">
+                            Periodic Certificate：
+                        </td>
+                        <td class="tdRowValue" align="left">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td>
+                                                    <asp:RadioButtonList ID="rblPeriodic" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                                                        <asp:ListItem Value="Yes" Text="Yes"></asp:ListItem>
+                                                        <asp:ListItem Value="No" Text="No" Selected="True"></asp:ListItem>
+                                                    </asp:RadioButtonList>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblPeriodicDate" runat="server"></asp:Label>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Certificate by Shipment/Quantity：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblShipment" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <%--<tr>
                         <td colspan="2" class="tdHeader1">
                             Technologies
                         </td>
@@ -899,7 +949,7 @@
                                 SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish=1 and b.wowi_product_type_name='Telecom'">
                             </asp:SqlDataSource>
                         </td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                         <td colspan="2" align="center" class="tdFooter">
                         </td>

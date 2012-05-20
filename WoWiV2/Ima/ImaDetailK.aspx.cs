@@ -37,7 +37,10 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
                 lblLanguageDesc.Text = dt.Rows[0]["LanguageDesc"].ToString();
                 cbBW.Checked = Convert.ToBoolean(dt.Rows[0]["BW"]);
                 cbColor.Checked = Convert.ToBoolean(dt.Rows[0]["Color"]);
-                lblManual.Text = dt.Rows[0]["Manual"].ToString();
+                if (dt.Rows[0]["Manual"].ToString().Trim().Length > 0) 
+                {
+                    lblManual.Text = "User Manual In " + dt.Rows[0]["Manual"].ToString()+" Language";
+                }                
                 cbFCCTest.Checked = Convert.ToBoolean(dt.Rows[0]["FCCTest"]);
                 cbFCCCertificate.Checked = Convert.ToBoolean(dt.Rows[0]["FCCCertificate"]);
                 cbCETest.Checked = Convert.ToBoolean(dt.Rows[0]["CETest"]);
@@ -50,8 +53,9 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
                 cbLayout.Checked = Convert.ToBoolean(dt.Rows[0]["Layout"]);
                 cbGerber.Checked = Convert.ToBoolean(dt.Rows[0]["Gerber"]);
                 cbTheory.Checked = Convert.ToBoolean(dt.Rows[0]["Theory"]);
-                lblTechnical.Text = dt.Rows[0]["Technical"].ToString();
-                lblAntenna.Text = dt.Rows[0]["Antenna"].ToString();
+                if (dt.Rows[0]["Technical"].ToString().Trim().Length > 0) { lblTechnical.Text = dt.Rows[0]["Technical"].ToString() + " Language"; }
+                if (dt.Rows[0]["Antenna"].ToString().Trim().Length > 0) { lblAntenna.Text = dt.Rows[0]["Antenna"].ToString() + " Language"; }
+                
                 lblBOM.Text = dt.Rows[0]["BOM"].ToString();
                 cbOfficial.Checked = Convert.ToBoolean(dt.Rows[0]["Official"]);
                 cbWoWiRequest.Checked = Convert.ToBoolean(dt.Rows[0]["WoWiRequest"]);
@@ -68,7 +72,14 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
                 if (dt.Rows[0]["Email"] != DBNull.Value) { cbEmail.Checked = Convert.ToBoolean(dt.Rows[0]["Email"]); }
                 if (dt.Rows[0]["FTP"] != DBNull.Value) { cbFTP.Checked = Convert.ToBoolean(dt.Rows[0]["FTP"]); }
                 if (dt.Rows[0]["TestNote"].ToString().Trim() != "") { lblTestNote.Text = "<br>Note："+dt.Rows[0]["TestNote"].ToString(); }
-                
+                if (dt.Rows[0]["TestMark"] != DBNull.Value) { rblTestMark.SelectedValue = Convert.ToInt32(dt.Rows[0]["TestMark"]).ToString(); }
+                lblTestMarkRemark.Text = dt.Rows[0]["TestMarkRemark"].ToString();
+                if (dt.Rows[0]["BOM1"] != DBNull.Value) { cbBOM1.Checked = Convert.ToBoolean(dt.Rows[0]["BOM1"]); }
+                if (dt.Rows[0]["OfficialLanguage"].ToString().Trim().Length > 0) { lblOfficialLanguage.Text = "in " + dt.Rows[0]["OfficialLanguage"].ToString() + " Language"; }
+                if (dt.Rows[0]["ISOLanguage"].ToString().Trim().Length > 0) { lblISOLanguage.Text = "in " + dt.Rows[0]["ISOLanguage"].ToString() + " Language"; }
+                if (dt.Rows[0]["AuthorWoWi"] != DBNull.Value) { cbAuthorWoWi.Checked = Convert.ToBoolean(dt.Rows[0]["AuthorWoWi"]); }
+                if (dt.Rows[0]["AuthorAgent"] != DBNull.Value) { cbAuthorAgent.Checked = Convert.ToBoolean(dt.Rows[0]["AuthorAgent"]); }
+                lblRemark.Text = dt.Rows[0]["Remark"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
@@ -82,29 +93,29 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
                     trProductType.Visible = true;
                 }
             }
-            //Technology
-            cmd = new SqlCommand();
-            cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
-            cmd.Parameters.AddWithValue("@DID", strID);
-            cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-            DataSet ds = SQLUtil.QueryDS(cmd);
-            DataTable dtTechnology = ds.Tables[0];
-            if (dtTechnology.Rows.Count > 0)
-            {
-                CheckBoxList cbl;
-                if (lblProTypeName.Text.Trim() == "RF") { cbTechRF.DataBind(); cbl = cbTechRF; trTechRF.Visible = true; }
-                else if (lblProTypeName.Text.Trim() == "EMC") { cbTechEMC.DataBind(); cbl = cbTechEMC; trTechEMC.Visible = true; }
-                else if (lblProTypeName.Text.Trim() == "Safety") { cbTechSafety.DataBind(); cbl = cbTechSafety; trTechSafety.Visible = true; }
-                else { cbTechTelecom.DataBind(); cbl = cbTechTelecom; trTechTelecom.Visible = true; }
+            ////Technology
+            //cmd = new SqlCommand();
+            //cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
+            //cmd.Parameters.AddWithValue("@DID", strID);
+            //cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+            //DataSet ds = SQLUtil.QueryDS(cmd);
+            //DataTable dtTechnology = ds.Tables[0];
+            //if (dtTechnology.Rows.Count > 0)
+            //{
+            //    CheckBoxList cbl;
+            //    if (lblProTypeName.Text.Trim() == "RF") { cbTechRF.DataBind(); cbl = cbTechRF; trTechRF.Visible = true; }
+            //    else if (lblProTypeName.Text.Trim() == "EMC") { cbTechEMC.DataBind(); cbl = cbTechEMC; trTechEMC.Visible = true; }
+            //    else if (lblProTypeName.Text.Trim() == "Safety") { cbTechSafety.DataBind(); cbl = cbTechSafety; trTechSafety.Visible = true; }
+            //    else { cbTechTelecom.DataBind(); cbl = cbTechTelecom; trTechTelecom.Visible = true; }
 
-                foreach (DataRow dr in dtTechnology.Rows)
-                {
-                    foreach (ListItem li in cbl.Items)
-                    {
-                        if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
-                    }
-                }
-            }
+            //    foreach (DataRow dr in dtTechnology.Rows)
+            //    {
+            //        foreach (ListItem li in cbl.Items)
+            //        {
+            //            if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
+            //        }
+            //    }
+            //}
         }
     }
 }

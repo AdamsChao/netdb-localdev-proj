@@ -53,10 +53,6 @@ public partial class Ima_ImaDetailN : System.Web.UI.Page
                 //ddlOtherFeeUnit.SelectedValue = dt.Rows[0]["OtherFee"].ToString();
 
 
-
-
-
-
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
@@ -70,29 +66,29 @@ public partial class Ima_ImaDetailN : System.Web.UI.Page
                     trProductType.Visible = true;
                 }
             }
-            //Technology
-            cmd = new SqlCommand();
-            cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
-            cmd.Parameters.AddWithValue("@DID", strID);
-            cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-            DataSet ds = SQLUtil.QueryDS(cmd);
-            DataTable dtTechnology = ds.Tables[0];
-            if (dtTechnology.Rows.Count > 0)
-            {
-                CheckBoxList cbl;
-                if (lblProTypeName.Text.Trim() == "RF") { cbTechRF.DataBind(); cbl = cbTechRF; trTechRF.Visible = true; }
-                else if (lblProTypeName.Text.Trim() == "EMC") { cbTechEMC.DataBind(); cbl = cbTechEMC; trTechEMC.Visible = true; }
-                else if (lblProTypeName.Text.Trim() == "Safety") { cbTechSafety.DataBind(); cbl = cbTechSafety; trTechSafety.Visible = true; }
-                else { cbTechTelecom.DataBind(); cbl = cbTechTelecom; trTechTelecom.Visible = true; }
+            ////Technology
+            //cmd = new SqlCommand();
+            //cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
+            //cmd.Parameters.AddWithValue("@DID", strID);
+            //cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+            //DataSet ds = SQLUtil.QueryDS(cmd);
+            //DataTable dtTechnology = ds.Tables[0];
+            //if (dtTechnology.Rows.Count > 0)
+            //{
+            //    CheckBoxList cbl;
+            //    if (lblProTypeName.Text.Trim() == "RF") { cbTechRF.DataBind(); cbl = cbTechRF; trTechRF.Visible = true; }
+            //    else if (lblProTypeName.Text.Trim() == "EMC") { cbTechEMC.DataBind(); cbl = cbTechEMC; trTechEMC.Visible = true; }
+            //    else if (lblProTypeName.Text.Trim() == "Safety") { cbTechSafety.DataBind(); cbl = cbTechSafety; trTechSafety.Visible = true; }
+            //    else { cbTechTelecom.DataBind(); cbl = cbTechTelecom; trTechTelecom.Visible = true; }
 
-                foreach (DataRow dr in dtTechnology.Rows)
-                {
-                    foreach (ListItem li in cbl.Items)
-                    {
-                        if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
-                    }
-                }
-            }
+            //    foreach (DataRow dr in dtTechnology.Rows)
+            //    {
+            //        foreach (ListItem li in cbl.Items)
+            //        {
+            //            if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
+            //        }
+            //    }
+            //}
         }
     }
 }

@@ -106,12 +106,25 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
+                            Testing Sample Label Marking：<br />
+                            Remark：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:RadioButtonList ID="rblTestMark" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                                <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
+                                <asp:ListItem Text="No" Value="0"></asp:ListItem>
+                            </asp:RadioButtonList>
+                            <asp:Label ID="lblTestMarkRemark" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
                             EUT Info：
                         </td>
                         <td class="tdRowValue">
                             <asp:CheckBox ID="cbBW" runat="server" Text="Sales Brochure (B/W)" Enabled="false" />
                             <asp:CheckBox ID="cbColor" runat="server" Text="Sales Brochure (Color)" Enabled="false" /><br />
-                            User Manual In<asp:Label ID="lblManual" runat="server"></asp:Label>
+                            <asp:Label ID="lblManual" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -143,7 +156,7 @@
                                 <tr>
                                     <td>
                                         <asp:GridView ID="gvFile2" runat="server" SkinID="gvList" DataKeyNames="TestingFileID"
-                                            DataSourceID="sdsFile1">
+                                            DataSourceID="sdsFile2">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="NO">
                                                     <ItemTemplate>
@@ -197,6 +210,7 @@
                                         <asp:CheckBox ID="cbLayout" runat="server" Text="Layout" Enabled="false" />
                                         <asp:CheckBox ID="cbGerber" runat="server" Text="Gerber" Enabled="false" />
                                         <asp:CheckBox ID="cbTheory" runat="server" Text="Theory of Operation" Enabled="false" />
+                                        <asp:CheckBox ID="cbBOM1" runat="server" Text="BOM" Enabled="false" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -211,7 +225,7 @@
                                         <asp:Label ID="lblAntenna" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr id="trBOM" runat="server" visible="false">
                                     <td>
                                         BOM In
                                         <asp:Label ID="lblBOM" runat="server"></asp:Label>
@@ -228,16 +242,17 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="cbOfficial" runat="server" Text="Official Application Form" Enabled="false" />
-                                        <asp:CheckBox ID="cbWoWiRequest" runat="server" Text="WoWi Request Letter" Enabled="false" />
-                                        <asp:CheckBox ID="cbISO" runat="server" Text="ISO/Quality Documents" Enabled="false" />
+                                        <asp:CheckBox ID="cbOfficial" runat="server" Text="Official Application Form" Enabled="false" /><asp:Label ID="lblOfficialLanguage" runat="server"></asp:Label><br />
+                                        <asp:CheckBox ID="cbWoWiRequest" runat="server" Text="WoWi Request Letter" Enabled="false" /><br />
+                                        <asp:CheckBox ID="cbISO" runat="server" Text="ISO/Quality Documents" Enabled="false" /><asp:Label ID="lblISOLanguage" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="cbPayment" runat="server" Text="Payment Receipt" Enabled="false" />
-                                        <asp:CheckBox ID="cbAuthor" runat="server" Text="Authorization Letter from Manufacturer to Local Rep/Agent"
-                                            Enabled="false" />
+                                        <asp:CheckBox ID="cbPayment" runat="server" Text="Payment Receipt" Enabled="false" /><br />
+                                        <asp:CheckBox ID="cbAuthor" runat="server" Text="Authorization Letter from Manufacturer to Local Rep/Agent" Enabled="false" /><br />
+                                        <asp:CheckBox ID="cbAuthorWoWi" runat="server" Text="Authorization Letter from Manufacturer to WoWi" Enabled="false" /><br />
+                                        <asp:CheckBox ID="cbAuthorAgent" runat="server" Text="Authorization Letter from Local Rep to Local Agent" Enabled="false" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -316,7 +331,7 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Testing Sample for review only：
+                            Consummer Sample for review only：
                         </td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblReviewOnly" runat="server"></asp:Label>
@@ -336,6 +351,14 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="tdRowName" valign="top">
+                            Remark：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblRemark" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <%--<tr>
                         <td colspan="2" class="tdHeader1">
                             Technologies
                         </td>
@@ -395,7 +418,7 @@
                                 SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish=1 and b.wowi_product_type_name='Telecom'">
                             </asp:SqlDataSource>
                         </td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                         <td colspan="2" align="center" class="tdFooter">
                         </td>

@@ -134,7 +134,7 @@
                             </table>
                         </td>
                     </tr>
-                    <tr>
+                    <%--<tr>
                         <td colspan="2" class="tdHeader1">
                             Technologies
                         </td>
@@ -194,7 +194,7 @@
                                 SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish=1 and b.wowi_product_type_name='Telecom'">
                             </asp:SqlDataSource>
                         </td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                         <td colspan="2" align="center" class="tdFooter"></td>
                     </tr>

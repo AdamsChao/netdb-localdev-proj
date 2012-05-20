@@ -31,34 +31,68 @@
                         </td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblProTypeName" runat="server"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tdRowName">
-                            <%--<span style="color: Red; font-size: 10pt;">*</span>--%>Agent handling Fee：
-                        </td>
-                        <td class="tdRowValue">
-                            <asp:Label ID="lblAgentHandling" runat="server"></asp:Label>&nbsp;USD
                             <asp:Label ID="lblProType" runat="server" Visible="false"></asp:Label>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tdRowName" valign="top">
-                            Authority submission fee：
+                        <td class="tdRowName">
+                            Technologies：
                         </td>
                         <td class="tdRowValue">
-                            <table border="0" cellpadding="0" cellspacing="0" align="left">
+                            <asp:DropDownList ID="ddlTech" runat="server" DataSourceID="sdsTech" DataTextField="wowi_tech_name"
+                                Enabled="false" DataValueField="wowi_tech_id">
+                            </asp:DropDownList>
+                            <asp:SqlDataSource ID="sdsTech" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish=1 and b.wowi_product_type_id=@wowi_product_type_id">
+                                <SelectParameters>
+                                    <asp:ControlParameter ControlID="lblProType" Name="wowi_product_type_id" PropertyName="Text" />
+                                </SelectParameters>
+                            </asp:SqlDataSource>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName">
+                            Local Agent Name：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:DropDownList ID="ddlLocalAgent" runat="server" Enabled="false">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName">
+                            Agent handling Fee：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblAgentFee" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName">
+                            Authority Name：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:DropDownList ID="ddlAuthority" runat="server" Enabled="false">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Authority submission Fee：
+                        </td>
+                        <td class="tdRowValue" align="left">
+                            <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:Label ID="lblAuthoritySubmission" runat="server"></asp:Label>&nbsp;USD
+                                        <asp:Label ID="lblAuthorityFee" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:GridView ID="gvImaFiles1" runat="server" SkinID="gvList" DataKeyNames="FeeScheduleFileID"
+                                        <asp:GridView ID="gvImaFiles1" runat="server" SkinID="gvList" DataKeyNames="FileID"
                                             DataSourceID="sdsImaFiles1">
                                             <Columns>
-                                                <asp:TemplateField HeaderText="NO.">
+                                                <asp:TemplateField HeaderText="NO">
                                                     <ItemTemplate>
                                                         <%#Container.DataItemIndex+1 %>
                                                     </ItemTemplate>
@@ -67,8 +101,8 @@
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
-                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "FeeScheduleFile.ashx?fid="+Eval("FeeScheduleFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "File.ashx?fid="+Eval("FileID").ToString() %>'
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -83,13 +117,13 @@
                                             </Columns>
                                         </asp:GridView>
                                         <asp:SqlDataSource ID="sdsImaFiles1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            DeleteCommand="DELETE FROM [Ima_FeeSchedule_Files] WHERE [FeeScheduleFileID] = @FeeScheduleFileID"
-                                            SelectCommand="SELECT * FROM [Ima_FeeSchedule_Files] WHERE ([FeeScheduleID] = @FeeScheduleID) and FileCategory='A'">
+                                            DeleteCommand="DELETE FROM [Ima_Files] WHERE [FileID] = @FileID" SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='A'">
                                             <DeleteParameters>
-                                                <asp:Parameter Name="FeeScheduleFileID" Type="Int32" />
+                                                <asp:Parameter Name="FileID" Type="Int32" />
                                             </DeleteParameters>
                                             <SelectParameters>
-                                                <asp:QueryStringParameter Name="FeeScheduleID" QueryStringField="fsid" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DocID" QueryStringField="fsid" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
                                             </SelectParameters>
                                         </asp:SqlDataSource>
                                     </td>
@@ -98,22 +132,32 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tdRowName" valign="top">
-                            Certification Body submission fee：
+                        <td class="tdRowName">
+                            Certification Body Name：
                         </td>
                         <td class="tdRowValue">
-                            <table border="0" cellpadding="0" cellspacing="0" align="left">
+                            <asp:DropDownList ID="ddlCertification" runat="server" Enabled="false">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Certification Body
+                            <br />
+                            submission Fee：
+                        </td>
+                        <td class="tdRowValue" align="left">
+                            <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:Label ID="lblBodySubmission" runat="server"></asp:Label>&nbsp;USD
+                                        <asp:Label ID="lblCertificationBodyFee" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:GridView ID="gvFile2" runat="server" SkinID="gvList" DataKeyNames="FeeScheduleFileID"
-                                            DataSourceID="sdsImaFile2">
+                                        <asp:GridView ID="gvFile2" runat="server" SkinID="gvList" DataKeyNames="FileID" DataSourceID="sdsImaFile2">
                                             <Columns>
-                                                <asp:TemplateField HeaderText="NO.">
+                                                <asp:TemplateField HeaderText="NO">
                                                     <ItemTemplate>
                                                         <%#Container.DataItemIndex+1 %>
                                                     </ItemTemplate>
@@ -122,8 +166,8 @@
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
-                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "FeeScheduleFile.ashx?fid="+Eval("FeeScheduleFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "File.ashx?fid="+Eval("FileID").ToString() %>'
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -138,13 +182,13 @@
                                             </Columns>
                                         </asp:GridView>
                                         <asp:SqlDataSource ID="sdsImaFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            DeleteCommand="DELETE FROM [Ima_FeeSchedule_Files] WHERE [FeeScheduleFileID] = @FeeScheduleFileID"
-                                            SelectCommand="SELECT * FROM [Ima_FeeSchedule_Files] WHERE ([FeeScheduleID] = @FeeScheduleID) and FileCategory='B'">
+                                            DeleteCommand="DELETE FROM [Ima_Files] WHERE [FileID] = @FileID" SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='B'">
                                             <DeleteParameters>
-                                                <asp:Parameter Name="FeeScheduleFileID" Type="Int32" />
+                                                <asp:Parameter Name="FileID" Type="Int32" />
                                             </DeleteParameters>
                                             <SelectParameters>
-                                                <asp:QueryStringParameter Name="FeeScheduleID" QueryStringField="fsid" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DocID" QueryStringField="fsid" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
                                             </SelectParameters>
                                         </asp:SqlDataSource>
                                     </td>
@@ -153,22 +197,30 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tdRowName" valign="top">
-                            Lab Testing fee：
+                        <td class="tdRowName">
+                            Accredited Test Lab Name：
                         </td>
                         <td class="tdRowValue">
-                            <table border="0" cellspacing="0" cellpadding="0" align="left">
+                            <asp:DropDownList ID="ddlAccredited" runat="server" Enabled="false">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Lab Testing Fee：
+                        </td>
+                        <td class="tdRowValue" align="left">
+                            <table border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td>
-                                        <asp:Label ID="lblLabTesting" runat="server"></asp:Label>&nbsp;USD
+                                        <asp:Label ID="lblLabTestFee" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:GridView ID="gvFile3" runat="server" SkinID="gvList" DataKeyNames="FeeScheduleFileID"
-                                            DataSourceID="sdsFile3">
+                                        <asp:GridView ID="gvFile3" runat="server" SkinID="gvList" DataKeyNames="FileID" DataSourceID="sdsFile3">
                                             <Columns>
-                                                <asp:TemplateField HeaderText="NO.">
+                                                <asp:TemplateField HeaderText="NO">
                                                     <ItemTemplate>
                                                         <%#Container.DataItemIndex+1 %>
                                                     </ItemTemplate>
@@ -177,8 +229,8 @@
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
-                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "FeeScheduleFile.ashx?fid="+Eval("FeeScheduleFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "File.ashx?fid="+Eval("FileID").ToString() %>'
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -193,13 +245,13 @@
                                             </Columns>
                                         </asp:GridView>
                                         <asp:SqlDataSource ID="sdsFile3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            DeleteCommand="DELETE FROM [Ima_FeeSchedule_Files] WHERE [FeeScheduleFileID] = @FeeScheduleFileID"
-                                            SelectCommand="SELECT * FROM [Ima_FeeSchedule_Files] WHERE ([FeeScheduleID] = @FeeScheduleID) and FileCategory='C'">
+                                            DeleteCommand="DELETE FROM [Ima_Files] WHERE [FileID] = @FileID" SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='C'">
                                             <DeleteParameters>
-                                                <asp:Parameter Name="FeeScheduleFileID" Type="Int32" />
+                                                <asp:Parameter Name="FileID" Type="Int32" />
                                             </DeleteParameters>
                                             <SelectParameters>
-                                                <asp:QueryStringParameter Name="FeeScheduleID" QueryStringField="fsid" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DocID" QueryStringField="fsid" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
                                             </SelectParameters>
                                         </asp:SqlDataSource>
                                     </td>
@@ -209,53 +261,52 @@
                     </tr>
                     <tr>
                         <td class="tdRowName">
-                            Document translation fee：
+                            Document translation Fee：
                         </td>
                         <td class="tdRowValue">
-                            <asp:Label ID="lblDocumentTranslation" runat="server"></asp:Label>&nbsp;USD
+                            <asp:Label ID="lblDocTranslationFee" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td class="tdRowName">
-                            Bank fee：
+                            Bank Fee：
                         </td>
                         <td class="tdRowValue">
-                            <asp:Label ID="lblBank" runat="server"></asp:Label>&nbsp;USD
+                            <asp:Label ID="lblBankFee" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td class="tdRowName">
-                            Custom clearance fee：
+                            Custom clearance Fee：
                         </td>
                         <td class="tdRowValue">
-                            <asp:Label ID="lblCustomClearance" runat="server"></asp:Label>&nbsp;USD
+                            <asp:Label ID="lblClearanceFee" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td class="tdRowName">
-                            Sample return fee：
+                            Sample return Fee：
                         </td>
                         <td class="tdRowValue">
-                            <asp:Label ID="lblSampleReturn" runat="server"></asp:Label>&nbsp;USD
+                            <asp:Label ID="lblSampleReturnFee" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Label purchase fee：
+                            Label purchase Fee：
                         </td>
-                        <td class="tdRowValue">
-                            <table border="0" cellpadding="0" cellspacing="0" align="left">
+                        <td class="tdRowValue" align="left">
+                            <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:Label ID="lblLabelPurchase" runat="server"></asp:Label>&nbsp;USD
+                                        <asp:Label ID="lblLabelPurchaseFee" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:GridView ID="gvFile4" runat="server" SkinID="gvList" DataKeyNames="FeeScheduleFileID"
-                                            DataSourceID="sdsFile4">
+                                        <asp:GridView ID="gvFile4" runat="server" SkinID="gvList" DataKeyNames="FileID" DataSourceID="sdsFile4">
                                             <Columns>
-                                                <asp:TemplateField HeaderText="NO.">
+                                                <asp:TemplateField HeaderText="NO">
                                                     <ItemTemplate>
                                                         <%#Container.DataItemIndex+1 %>
                                                     </ItemTemplate>
@@ -264,8 +315,8 @@
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
-                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "FeeScheduleFile.ashx?fid="+Eval("FeeScheduleFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "File.ashx?fid="+Eval("FileID").ToString() %>'
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -280,13 +331,13 @@
                                             </Columns>
                                         </asp:GridView>
                                         <asp:SqlDataSource ID="sdsFile4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            DeleteCommand="DELETE FROM [Ima_FeeSchedule_Files] WHERE [FeeScheduleFileID] = @FeeScheduleFileID"
-                                            SelectCommand="SELECT * FROM [Ima_FeeSchedule_Files] WHERE ([FeeScheduleID] = @FeeScheduleID) and FileCategory='D'">
+                                            DeleteCommand="DELETE FROM [Ima_Files] WHERE [FileID] = @FileID" SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='D'">
                                             <DeleteParameters>
-                                                <asp:Parameter Name="FeeScheduleFileID" Type="Int32" />
+                                                <asp:Parameter Name="FileID" Type="Int32" />
                                             </DeleteParameters>
                                             <SelectParameters>
-                                                <asp:QueryStringParameter Name="FeeScheduleID" QueryStringField="fsid" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DocID" QueryStringField="fsid" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
                                             </SelectParameters>
                                         </asp:SqlDataSource>
                                     </td>
@@ -296,21 +347,20 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Other fee：
+                            Other Fee：
                         </td>
-                        <td class="tdRowValue">
-                            <table border="0" cellpadding="0" cellspacing="0" align="left">
+                        <td class="tdRowValue" align="left">
+                            <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:Label ID="lblOther" runat="server"></asp:Label>
+                                        <asp:Label ID="lblOtherFee" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:GridView ID="gvFile5" runat="server" SkinID="gvList" DataKeyNames="FeeScheduleFileID"
-                                            DataSourceID="sdsFile5">
+                                        <asp:GridView ID="gvFile5" runat="server" SkinID="gvList" DataKeyNames="FileID" DataSourceID="sdsFile5">
                                             <Columns>
-                                                <asp:TemplateField HeaderText="NO.">
+                                                <asp:TemplateField HeaderText="NO">
                                                     <ItemTemplate>
                                                         <%#Container.DataItemIndex+1 %>
                                                     </ItemTemplate>
@@ -319,8 +369,8 @@
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
-                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "FeeScheduleFile.ashx?fid="+Eval("FeeScheduleFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "File.ashx?fid="+Eval("FileID").ToString() %>'
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -335,13 +385,13 @@
                                             </Columns>
                                         </asp:GridView>
                                         <asp:SqlDataSource ID="sdsFile5" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            DeleteCommand="DELETE FROM [Ima_FeeSchedule_Files] WHERE [FeeScheduleFileID] = @FeeScheduleFileID"
-                                            SelectCommand="SELECT * FROM [Ima_FeeSchedule_Files] WHERE ([FeeScheduleID] = @FeeScheduleID) and FileCategory='E'">
+                                            DeleteCommand="DELETE FROM [Ima_Files] WHERE [FileID] = @FileID" SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='E'">
                                             <DeleteParameters>
-                                                <asp:Parameter Name="FeeScheduleFileID" Type="Int32" />
+                                                <asp:Parameter Name="FileID" Type="Int32" />
                                             </DeleteParameters>
                                             <SelectParameters>
-                                                <asp:QueryStringParameter Name="FeeScheduleID" QueryStringField="fsid" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DocID" QueryStringField="fsid" Type="Int32" />
+                                                <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
                                             </SelectParameters>
                                         </asp:SqlDataSource>
                                     </td>
@@ -350,8 +400,73 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="tdRowName" valign="top">
+                            Factory Inspection Fee：
+                        </td>
+                        <td class="tdRowValue">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        Document Inspection Fee：
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="lblDocumentFee" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        One-time on-site Inspection Fee：
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="lblOneTimeFee" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Periodic on-site Inspection Fee：
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="lblPeriodicFee" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Renewal Fee：
+                        </td>
+                        <td class="tdRowValue" align="left">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        W/Test：
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="lblRenewalWTest" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        W/O Test：
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="lblRenewalWOTest" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Sub Total Cost：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblTotalCostFee" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="2" align="center" class="tdFooter">
-                           
                         </td>
                     </tr>
                 </table>

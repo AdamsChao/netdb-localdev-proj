@@ -30,11 +30,10 @@
                             Coyp to：
                         </td>
                         <td class="tdRowValue">
-                            <asp:CheckBoxList ID="cbProductType" runat="server" RepeatDirection="Horizontal" DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" DataValueField="wowi_product_type_id" onclick="CertificationSelect(this);">
+                            <asp:CheckBoxList ID="cbProductType" runat="server" RepeatDirection="Horizontal" DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" DataValueField="wowi_product_type_id">
                             </asp:CheckBoxList>
                             <asp:SqlDataSource ID="sdsProductType" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                SelectCommand="select wowi_product_type_id,wowi_product_type_name from wowi_product_type where publish=1">
-                            </asp:SqlDataSource>
+                                SelectCommand="STP_IMAGetProductType" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
                             <asp:Label ID="lblProType" runat="server" Visible="false"></asp:Label>
                         </td>
                     </tr>
@@ -56,7 +55,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:TextBox ID="tbLanguageDesc" runat="server" Rows="5" TextMode="MultiLine" Width="500px"></asp:TextBox>
+                                        <asp:TextBox ID="tbLanguageDesc" runat="server" Width="500px"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
@@ -66,61 +65,78 @@
                                         3.<asp:FileUpload ID="fuGeneral3" runat="server" Width="90%" /><br />
                                         4.<asp:FileUpload ID="fuGeneral4" runat="server" Width="90%" /><br />
                                         5.<asp:FileUpload ID="fuGeneral5" runat="server" Width="90%" />
-                                        <asp:GridView ID="gvFile1" runat="server" SkinID="gvList" DataKeyNames="TestingFileID"
-                                            DataSourceID="sdsFile1">
-                                            <Columns>
-                                                <asp:TemplateField ShowHeader="False">
-                                                    <ItemTemplate>
-                                                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
-                                                            Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Copy to">
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="NO" Visible="false">
-                                                    <ItemTemplate>
-                                                        <%#Container.DataItemIndex+1 %>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
-                                                    <ItemStyle Width="30px" HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="FileName">
-                                                    <ItemTemplate>
-                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "TestingFile.ashx?fid="+Eval("TestingFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" />
-                                                    <ItemStyle HorizontalAlign="Left" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="FileURL" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                            </Columns>
-                                        </asp:GridView>
-                                        <asp:SqlDataSource ID="sdsFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            DeleteCommand="DELETE FROM [Ima_Testing_Files] WHERE [TestingFileID] = @TestingFileID"
-                                            SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='A'">
-                                            <DeleteParameters>
-                                                <asp:Parameter Name="TestingFileID" Type="Int32" />
-                                            </DeleteParameters>
-                                            <SelectParameters>
-                                                <asp:QueryStringParameter Name="TestingID" QueryStringField="tid" Type="Int32" />
-                                            </SelectParameters>
-                                        </asp:SqlDataSource>
+                                        <asp:UpdatePanel ID="upFile1" runat="server" UpdateMode="Conditional">
+                                            <ContentTemplate>
+                                                <asp:GridView ID="gvFile1" runat="server" SkinID="gvList" DataKeyNames="TestingFileID"
+                                                    DataSourceID="sdsFile1">
+                                                    <Columns>
+                                                        <asp:TemplateField ShowHeader="False">
+                                                            <ItemTemplate>
+                                                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
+                                                                    Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Copy to">
+                                                            <ItemTemplate>
+                                                                <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="NO" Visible="false">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                            <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileName">
+                                                            <ItemTemplate>
+                                                                <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "TestingFile.ashx?fid="+Eval("TestingFileID").ToString() %>'
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" />
+                                                            <ItemStyle HorizontalAlign="Left" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+                                                <asp:SqlDataSource ID="sdsFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                    DeleteCommand="DELETE FROM [Ima_Testing_Files] WHERE [TestingFileID] = @TestingFileID"
+                                                    SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='A'">
+                                                    <DeleteParameters>
+                                                        <asp:Parameter Name="TestingFileID" Type="Int32" />
+                                                    </DeleteParameters>
+                                                    <SelectParameters>
+                                                        <asp:QueryStringParameter Name="TestingID" QueryStringField="tid" Type="Int32" />
+                                                    </SelectParameters>
+                                                </asp:SqlDataSource>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
                                     </td>
                                 </tr>
                             </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                           Testing Sample Label Marking：<br />
+                           Remark：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:RadioButtonList ID="rblTestMark" runat="server" RepeatDirection="Horizontal">
+                                <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
+                                <asp:ListItem Text="No" Value="0"></asp:ListItem>
+                            </asp:RadioButtonList>
+                            <asp:TextBox ID="tbTestMarkRemark" runat="server" Width="500px"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -130,7 +146,7 @@
                         <td class="tdRowValue">
                             <asp:CheckBox ID="cbBW" runat="server" Text="Sales Brochure (B/W)" />
                             <asp:CheckBox ID="cbColor" runat="server" Text="Sales Brochure (Color)" /><br />
-                            User Manual In<asp:TextBox ID="tbManual" runat="server" Width="300px"></asp:TextBox>
+                            User Manual In <asp:TextBox ID="tbManual" runat="server" Width="300px"></asp:TextBox> Language
                         </td>
                     </tr>
                     <tr>
@@ -165,58 +181,62 @@
                                         3.<asp:FileUpload ID="FileUpload3" runat="server" Width="90%" /><br />
                                         4.<asp:FileUpload ID="FileUpload4" runat="server" Width="90%" /><br />
                                         5.<asp:FileUpload ID="FileUpload5" runat="server" Width="90%" />
-                                        <asp:GridView ID="gvFile2" runat="server" SkinID="gvList" DataKeyNames="TestingFileID"
-                                            DataSourceID="sdsFile2">
-                                            <Columns>
-                                                <asp:TemplateField ShowHeader="False">
-                                                    <ItemTemplate>
-                                                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
-                                                            Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Copy to">
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="NO" Visible="false">
-                                                    <ItemTemplate>
-                                                        <%#Container.DataItemIndex+1 %>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
-                                                    <ItemStyle Width="30px" HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="FileName">
-                                                    <ItemTemplate>
-                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "TestingFile.ashx?fid="+Eval("TestingFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" />
-                                                    <ItemStyle HorizontalAlign="Left" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="FileURL" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                            </Columns>
-                                        </asp:GridView>
-                                        <asp:SqlDataSource ID="sdsFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            DeleteCommand="DELETE FROM [Ima_Testing_Files] WHERE [TestingFileID] = @TestingFileID"
-                                            SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='B'">
-                                            <DeleteParameters>
-                                                <asp:Parameter Name="TestingFileID" Type="Int32" />
-                                            </DeleteParameters>
-                                            <SelectParameters>
-                                                <asp:QueryStringParameter Name="TestingID" QueryStringField="tid" Type="Int32" />
-                                            </SelectParameters>
-                                        </asp:SqlDataSource>
+                                        <asp:UpdatePanel ID="upFile2" runat="server" UpdateMode="Conditional">
+                                            <ContentTemplate>
+                                                <asp:GridView ID="gvFile2" runat="server" SkinID="gvList" DataKeyNames="TestingFileID"
+                                                    DataSourceID="sdsFile2">
+                                                    <Columns>
+                                                        <asp:TemplateField ShowHeader="False">
+                                                            <ItemTemplate>
+                                                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
+                                                                    Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Copy to">
+                                                            <ItemTemplate>
+                                                                <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="NO" Visible="false">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                            <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileName">
+                                                            <ItemTemplate>
+                                                                <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "TestingFile.ashx?fid="+Eval("TestingFileID").ToString() %>'
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" />
+                                                            <ItemStyle HorizontalAlign="Left" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+                                                <asp:SqlDataSource ID="sdsFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                    DeleteCommand="DELETE FROM [Ima_Testing_Files] WHERE [TestingFileID] = @TestingFileID"
+                                                    SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='B'">
+                                                    <DeleteParameters>
+                                                        <asp:Parameter Name="TestingFileID" Type="Int32" />
+                                                    </DeleteParameters>
+                                                    <SelectParameters>
+                                                        <asp:QueryStringParameter Name="TestingID" QueryStringField="tid" Type="Int32" />
+                                                    </SelectParameters>
+                                                </asp:SqlDataSource>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
                                     </td>
                                 </tr>
                             </table>
@@ -235,19 +255,20 @@
                                         <asp:CheckBox ID="cbLayout" runat="server" Text="Layout" />
                                         <asp:CheckBox ID="cbGerber" runat="server" Text="Gerber" />
                                         <asp:CheckBox ID="cbTheory" runat="server" Text="Theory of Operation" />
+                                        <asp:CheckBox ID="cbBOM1" runat="server" Text="BOM" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Technical Spec In <asp:TextBox ID="tbTechnical" runat="server" Width="300px"></asp:TextBox>
+                                        Technical Spec In <asp:TextBox ID="tbTechnical" runat="server" Width="300px"></asp:TextBox> Language
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Antenna Spec In <asp:TextBox ID="tbAntenna" runat="server" Width="300px"></asp:TextBox>
+                                        Antenna Spec In <asp:TextBox ID="tbAntenna" runat="server" Width="300px"></asp:TextBox> Language
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr id="trBOM" runat="server" visible="false">
                                     <td>
                                         BOM In <asp:TextBox ID="tbBOM" runat="server" Width="300px"></asp:TextBox>
                                     </td>
@@ -263,15 +284,17 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="cbOfficial" runat="server" Text="Official Application Form" />
-                                        <asp:CheckBox ID="cbWoWiRequest" runat="server" Text="WoWi Request Letter" />
-                                        <asp:CheckBox ID="cbISO" runat="server" Text="ISO/Quality Documents" />
+                                        <asp:CheckBox ID="cbOfficial" runat="server" Text="Official Application Form" /> in <asp:TextBox ID="tbOfficialLanguage" runat="server"></asp:TextBox> Language<br />
+                                        <asp:CheckBox ID="cbWoWiRequest" runat="server" Text="WoWi Request Letter" /><br />
+                                        <asp:CheckBox ID="cbISO" runat="server" Text="ISO/Quality Documents" /> in <asp:TextBox ID="tbISOLanguage" runat="server"></asp:TextBox> Language
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="cbPayment" runat="server" Text="Payment Receipt" />
-                                        <asp:CheckBox ID="cbAuthor" runat="server" Text="Authorization Letter from Manufacturer to Local Rep/Agent" />
+                                        <asp:CheckBox ID="cbPayment" runat="server" Text="Payment Receipt" /><br />
+                                        <asp:CheckBox ID="cbAuthor" runat="server" Text="Authorization Letter from Manufacturer to Local Rep/Agent" /><br />
+                                        <asp:CheckBox ID="cbAuthorWoWi" runat="server" Text="Authorization Letter from Manufacturer to WoWi" /><br />
+                                        <asp:CheckBox ID="cbAuthorAgent" runat="server" Text="Authorization Letter from Local Rep to Local Agent" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -287,58 +310,62 @@
                                         3.<asp:FileUpload ID="FileUpload8" runat="server" Width="90%" /><br />
                                         4.<asp:FileUpload ID="FileUpload9" runat="server" Width="90%" /><br />
                                         5.<asp:FileUpload ID="FileUpload10" runat="server" Width="90%" />
-                                        <asp:GridView ID="gvFile3" runat="server" SkinID="gvList" DataKeyNames="TestingFileID"
-                                            DataSourceID="sdsFile3">
-                                            <Columns>
-                                                <asp:TemplateField ShowHeader="False">
-                                                    <ItemTemplate>
-                                                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
-                                                            Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Copy to">
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="NO" Visible="false">
-                                                    <ItemTemplate>
-                                                        <%#Container.DataItemIndex+1 %>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
-                                                    <ItemStyle Width="30px" HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="FileName">
-                                                    <ItemTemplate>
-                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "TestingFile.ashx?fid="+Eval("TestingFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" />
-                                                    <ItemStyle HorizontalAlign="Left" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="FileURL" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                            </Columns>
-                                        </asp:GridView>
-                                        <asp:SqlDataSource ID="sdsFile3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            DeleteCommand="DELETE FROM [Ima_Testing_Files] WHERE [TestingFileID] = @TestingFileID"
-                                            SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='C'">
-                                            <DeleteParameters>
-                                                <asp:Parameter Name="TestingFileID" Type="Int32" />
-                                            </DeleteParameters>
-                                            <SelectParameters>
-                                                <asp:QueryStringParameter Name="TestingID" QueryStringField="tid" Type="Int32" />
-                                            </SelectParameters>
-                                        </asp:SqlDataSource>
+                                        <asp:UpdatePanel ID="upFile3" runat="server" UpdateMode="Conditional">
+                                            <ContentTemplate>
+                                                <asp:GridView ID="gvFile3" runat="server" SkinID="gvList" DataKeyNames="TestingFileID"
+                                                    DataSourceID="sdsFile3">
+                                                    <Columns>
+                                                        <asp:TemplateField ShowHeader="False">
+                                                            <ItemTemplate>
+                                                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
+                                                                    Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Copy to">
+                                                            <ItemTemplate>
+                                                                <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="NO" Visible="false">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                            <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileName">
+                                                            <ItemTemplate>
+                                                                <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "TestingFile.ashx?fid="+Eval("TestingFileID").ToString() %>'
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" />
+                                                            <ItemStyle HorizontalAlign="Left" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+                                                <asp:SqlDataSource ID="sdsFile3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                    DeleteCommand="DELETE FROM [Ima_Testing_Files] WHERE [TestingFileID] = @TestingFileID"
+                                                    SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='C'">
+                                                    <DeleteParameters>
+                                                        <asp:Parameter Name="TestingFileID" Type="Int32" />
+                                                    </DeleteParameters>
+                                                    <SelectParameters>
+                                                        <asp:QueryStringParameter Name="TestingID" QueryStringField="tid" Type="Int32" />
+                                                    </SelectParameters>
+                                                </asp:SqlDataSource>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
                                     </td>
                                 </tr>
                             </table>
@@ -382,7 +409,7 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Testing Sample for review only：
+                            Consummer Sample for review only：
                         </td>
                         <td class="tdRowValue">
                             <asp:TextBox ID="tbReviewOnly" runat="server" Width="60px"></asp:TextBox>pieces
@@ -407,6 +434,14 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="tdRowName" valign="top">
+                            Remark：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:TextBox ID="tbRemark" runat="server" Width="500px"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <%--<tr>
                         <td colspan="2" class="tdHeader1">
                             Technologies
                         </td>
@@ -467,7 +502,7 @@
                             </asp:SqlDataSource>
                             <asp:Label ID="lblTechTelecomAll" runat="server" Visible="false"></asp:Label>
                         </td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                         <td colspan="2" align="center" class="tdFooter">
                             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />

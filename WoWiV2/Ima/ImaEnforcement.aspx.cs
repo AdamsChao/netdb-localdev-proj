@@ -39,6 +39,7 @@ public partial class Ima_ImaEnforcement : System.Web.UI.Page
                 cbCustom.Checked = Convert.ToBoolean(dt.Rows[0]["Custom"]);
                 cbMarket.Checked = Convert.ToBoolean(dt.Rows[0]["Market"]);
                 cbFactory.Checked = Convert.ToBoolean(dt.Rows[0]["Factory"]);
+                tbRemark.Text = dt.Rows[0]["Remark"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
@@ -71,8 +72,8 @@ public partial class Ima_ImaEnforcement : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_Enforcement (world_region_id,country_id,wowi_product_type_id,Custom,Market,Factory,CreateUser,LasterUpdateUser) ";
-        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Custom,@Market,@Factory,@CreateUser,@LasterUpdateUser)";
+        string strTsql = "insert into Ima_Enforcement (world_region_id,country_id,wowi_product_type_id,Custom,Market,Factory,CreateUser,LasterUpdateUser,Remark) ";
+        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Custom,@Market,@Factory,@CreateUser,@LasterUpdateUser,@Remark)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -84,6 +85,7 @@ public partial class Ima_ImaEnforcement : System.Web.UI.Page
         cmd.Parameters.Add("@Factory", SqlDbType.Bit);
         cmd.Parameters.Add("@CreateUser", SqlDbType.NVarChar);
         cmd.Parameters.Add("@LasterUpdateUser", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@Remark", SqlDbType.NVarChar);
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null)
         {
@@ -109,6 +111,7 @@ public partial class Ima_ImaEnforcement : System.Web.UI.Page
                 cmd.Parameters["@Factory"].Value = cbFactory.Checked;
                 cmd.Parameters["@CreateUser"].Value = IMAUtil.GetUser();
                 cmd.Parameters["@LasterUpdateUser"].Value = IMAUtil.GetUser();
+                cmd.Parameters["@Remark"].Value = tbRemark.Text.Trim();
                 int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
             }
         }
@@ -118,7 +121,7 @@ public partial class Ima_ImaEnforcement : System.Web.UI.Page
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_Enforcement set Custom=@Custom,Market=@Market,Factory=@Factory,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate() ";
+        string strTsql = "Update Ima_Enforcement set Custom=@Custom,Market=@Market,Factory=@Factory,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Remark=@Remark ";
         strTsql += "where EnforcementID=@EnforcementID";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -127,6 +130,7 @@ public partial class Ima_ImaEnforcement : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Market", cbMarket.Checked);
         cmd.Parameters.AddWithValue("@Factory", cbFactory.Checked);
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
+        cmd.Parameters.AddWithValue("@Remark", tbRemark.Text.Trim());
         SQLUtil.ExecuteSql(cmd);
         BackURL();
 

@@ -34,8 +34,7 @@
                                 DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" DataValueField="wowi_product_type_id">
                             </asp:CheckBoxList>
                             <asp:SqlDataSource ID="sdsProductType" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                SelectCommand="select wowi_product_type_id,wowi_product_type_name from wowi_product_type where publish=1">
-                            </asp:SqlDataSource>
+                                SelectCommand="STP_IMAGetProductType" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
                         </td>
                     </tr>
                     <tr>
@@ -46,6 +45,14 @@
                             <asp:CheckBox ID="cbCustom" runat="server" Text="Custom/Importation Enforcement" /><br />
                             <asp:CheckBox ID="cbMarket" runat="server" Text="Market Surveillance" /><br />
                             <asp:CheckBox ID="cbFactory" runat="server" Text="Factory Inspection" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName">
+                           Remark：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:TextBox ID="tbRemark" runat="server" Width="500px"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>

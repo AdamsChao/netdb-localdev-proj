@@ -45,6 +45,7 @@
                         <td class="tdRowValue">
                             <asp:CheckBox ID="cbEmail" runat="server" Text="Email to WoWi" /><br />
                             <asp:CheckBox ID="cbCopy" runat="server" Text="Hard copy to WoWi" /><br />
+                            <asp:CheckBox ID="cbCollect" runat="server" Text="Hard copy to be Collected" /><br />
                             <asp:CheckBox ID="cbLocal" runat="server" Text="Hard copy to Local Applicant" /><br />
                             <asp:CheckBox ID="cbProof" runat="server" Text="Proof shown on website" />
                         </td>
@@ -54,8 +55,7 @@
                             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
                             <asp:Button ID="btnSaveCopy" runat="server" Text="Save(Copy)" OnClick="btnSave_Click" />
                             <asp:Button ID="btnUpd" runat="server" Text="Update" OnClick="btnUpd_Click" />
-                            <asp:Button ID="btnCancel" runat="server" Text="Cancel/Back" OnClick="btnCancel_Click"
-                                CausesValidation="false" />
+                            <asp:Button ID="btnCancel" runat="server" Text="Cancel/Back" OnClick="btnCancel_Click" CausesValidation="false" />
                         </td>
                     </tr>
                 </table>

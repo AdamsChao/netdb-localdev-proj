@@ -21,9 +21,9 @@ public partial class Ima_ImaDetailD : System.Web.UI.Page
     //載入選項
     protected void BindItem()
     {
-        //載入幣別
-        string strFeeUnit = IMAUtil.GetCountryByID(Request["cid"]).Rows[0]["country_currency_type"].ToString();
-        if (strFeeUnit != "") { ddlFeeUnit.Items.Insert(0, new ListItem(strFeeUnit, strFeeUnit)); }
+        ////載入幣別
+        //string strFeeUnit = IMAUtil.GetCountryByID(Request["cid"]).Rows[0]["country_currency_type"].ToString();
+        //if (strFeeUnit != "") { ddlFeeUnit.Items.Insert(0, new ListItem(strFeeUnit, strFeeUnit)); }
     }
 
     //取得General資料
@@ -55,6 +55,10 @@ public partial class Ima_ImaDetailD : System.Web.UI.Page
                 lblWebsite1.Text = dt.Rows[0]["Website1"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
+                lblRFRemark.Text = dt.Rows[0]["RFRemark"].ToString();
+                lblEMCRemark.Text = dt.Rows[0]["EMCRemark"].ToString();
+                lblSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
+                lblTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
                 if (Request.Params["copy"] != null)
                 {
@@ -67,44 +71,18 @@ public partial class Ima_ImaDetailD : System.Web.UI.Page
                 }
             }
 
-            //Ima_Contact
+            //Technology
             cmd = new SqlCommand();
-            cmd.CommandText = "select * from Ima_Contact where DID=@DID and Categroy=@Categroy;select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
+            cmd.CommandText = "select count(DID) from Ima_Technology where DID=@DID and Categroy=@Categroy";
             cmd.Parameters.AddWithValue("@DID", strID);
             cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-            DataSet ds = SQLUtil.QueryDS(cmd);
-            DataTable dtContact = ds.Tables[0];
-            if (dtContact.Rows.Count > 0)
+            int intCount = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));            
+            if (intCount > 0)
             {
-                lblFirstName.Text = dtContact.Rows[0]["FirstName"].ToString();
-                lblLastName.Text = dtContact.Rows[0]["LastName"].ToString();
-                lblContactTitle.Text = dtContact.Rows[0]["Title"].ToString();
-                lblWorkPhone.Text = dtContact.Rows[0]["WorkPhone"].ToString();
-                lblExt.Text = dtContact.Rows[0]["Ext"].ToString();
-                lblCellPhone.Text = dtContact.Rows[0]["CellPhone"].ToString();
-                lblAdress.Text = dtContact.Rows[0]["Adress"].ToString();
-                ddlCountry.SelectedValue = dtContact.Rows[0]["CountryID"].ToString();
-                lblFee.Text = dtContact.Rows[0]["Fee"].ToString();
-                ddlFeeUnit.SelectedValue = dtContact.Rows[0]["FeeUnit"].ToString();
-                lblLeadTime.Text = dtContact.Rows[0]["LeadTime"].ToString();
-            }
-            //Technology
-            DataTable dtTechnology = ds.Tables[1];
-            if (dtTechnology.Rows.Count > 0)
-            {
-                CheckBoxList cbl;
-                if (lblProTypeName.Text.Trim() == "RF") { cbTechRF.DataBind(); cbl = cbTechRF; trTechRF.Visible = true; }
-                else if (lblProTypeName.Text.Trim() == "EMC") { cbTechEMC.DataBind(); cbl = cbTechEMC; trTechEMC.Visible = true; }
-                else if (lblProTypeName.Text.Trim() == "Safety") { cbTechSafety.DataBind(); cbl = cbTechSafety; trTechSafety.Visible = true; }
-                else { cbTechTelecom.DataBind(); cbl = cbTechTelecom; trTechTelecom.Visible = true; }
-
-                foreach (DataRow dr in dtTechnology.Rows)
-                {
-                    foreach (ListItem li in cbl.Items)
-                    {
-                        if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
-                    }
-                }
+                if (lblProTypeName.Text.Trim() == "RF") { trTechRF.Visible = true; }
+                else if (lblProTypeName.Text.Trim() == "EMC") { trTechEMC.Visible = true; }
+                else if (lblProTypeName.Text.Trim() == "Safety") { trTechSafety.Visible = true; }
+                else { trTechTelecom.Visible = true; }
             }
         }
     }

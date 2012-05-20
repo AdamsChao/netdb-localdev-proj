@@ -24,51 +24,51 @@ public partial class Ima_Testing : System.Web.UI.Page
     //載入選項
     protected void BindItem()
     {
-        //Tech_RF
-        cbTechRF.DataBind();
-        foreach (ListItem li in cbTechRF.Items)
-        {
-            li.Attributes.Add("onclick", "Tech(this);");
-        }
-        if (cbTechRF.Items.Count > 0) { cbTechRF.Items.Insert(0, new ListItem("All", "0")); cbTechRF.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
-        //Tech_EMC
-        cbTechEMC.DataBind();
-        foreach (ListItem li in cbTechEMC.Items)
-        {
-            li.Attributes.Add("onclick", "Tech(this);");
-        }
-        if (cbTechEMC.Items.Count > 0) { cbTechEMC.Items.Insert(0, new ListItem("All", "0")); cbTechEMC.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
-        //Tech_Safety
-        cbTechSafety.DataBind();
-        foreach (ListItem li in cbTechSafety.Items)
-        {
-            li.Attributes.Add("onclick", "Tech(this);");
-        }
-        if (cbTechSafety.Items.Count > 0) { cbTechSafety.Items.Insert(0, new ListItem("All", "0")); cbTechSafety.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
-        //Tech_Telecom
-        cbTechTelecom.DataBind();
-        foreach (ListItem li in cbTechTelecom.Items)
-        {
-            li.Attributes.Add("onclick", "Tech(this);");
-        }
-        if (cbTechTelecom.Items.Count > 0) { cbTechTelecom.Items.Insert(0, new ListItem("All", "0")); cbTechTelecom.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        ////Tech_RF
+        //cbTechRF.DataBind();
+        //foreach (ListItem li in cbTechRF.Items)
+        //{
+        //    li.Attributes.Add("onclick", "Tech(this);");
+        //}
+        //if (cbTechRF.Items.Count > 0) { cbTechRF.Items.Insert(0, new ListItem("All", "0")); cbTechRF.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        ////Tech_EMC
+        //cbTechEMC.DataBind();
+        //foreach (ListItem li in cbTechEMC.Items)
+        //{
+        //    li.Attributes.Add("onclick", "Tech(this);");
+        //}
+        //if (cbTechEMC.Items.Count > 0) { cbTechEMC.Items.Insert(0, new ListItem("All", "0")); cbTechEMC.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        ////Tech_Safety
+        //cbTechSafety.DataBind();
+        //foreach (ListItem li in cbTechSafety.Items)
+        //{
+        //    li.Attributes.Add("onclick", "Tech(this);");
+        //}
+        //if (cbTechSafety.Items.Count > 0) { cbTechSafety.Items.Insert(0, new ListItem("All", "0")); cbTechSafety.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        ////Tech_Telecom
+        //cbTechTelecom.DataBind();
+        //foreach (ListItem li in cbTechTelecom.Items)
+        //{
+        //    li.Attributes.Add("onclick", "Tech(this);");
+        //}
+        //if (cbTechTelecom.Items.Count > 0) { cbTechTelecom.Items.Insert(0, new ListItem("All", "0")); cbTechTelecom.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
     }
 
     //設定顯示的控制項
     protected void SetControlVisible()
     {
-        HtmlTableRow trTech;
-        foreach (string strCT in lblProTypeName.Text.Trim().Split(','))
-        {
-            if (strCT.Length > 0)
-            {
-                if (strCT == "RF") { trTech = trTechRF; }
-                else if (strCT == "EMC") { trTech = trTechEMC; }
-                else if (strCT == "Safety") { trTech = trTechSafety; }
-                else { trTech = trTechTelecom; }
-                trTech.Style.Value = "display:'';";
-            }
-        }
+        //HtmlTableRow trTech;
+        //foreach (string strCT in lblProTypeName.Text.Trim().Split(','))
+        //{
+        //    if (strCT.Length > 0)
+        //    {
+        //        if (strCT == "RF") { trTech = trTechRF; }
+        //        else if (strCT == "EMC") { trTech = trTechEMC; }
+        //        else if (strCT == "Safety") { trTech = trTechSafety; }
+        //        else { trTech = trTechTelecom; }
+        //        trTech.Style.Value = "display:'';";
+        //    }
+        //}
     }
 
     //取得General資料
@@ -133,6 +133,15 @@ public partial class Ima_Testing : System.Web.UI.Page
                 tbTestNote.Text = dt.Rows[0]["TestNote"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
+
+                if (dt.Rows[0]["TestMark"] != DBNull.Value) { rblTestMark.SelectedValue = Convert.ToInt32(dt.Rows[0]["TestMark"]).ToString(); }
+                tbTestMarkRemark.Text = dt.Rows[0]["TestMarkRemark"].ToString();
+                if (dt.Rows[0]["BOM1"] != DBNull.Value) { cbBOM1.Checked = Convert.ToBoolean(dt.Rows[0]["BOM1"]); }
+                tbOfficialLanguage.Text = dt.Rows[0]["OfficialLanguage"].ToString();
+                tbISOLanguage.Text = dt.Rows[0]["ISOLanguage"].ToString();
+                if (dt.Rows[0]["AuthorWoWi"] != DBNull.Value) { cbAuthorWoWi.Checked = Convert.ToBoolean(dt.Rows[0]["AuthorWoWi"]); }
+                if (dt.Rows[0]["AuthorAgent"] != DBNull.Value) { cbAuthorAgent.Checked = Convert.ToBoolean(dt.Rows[0]["AuthorAgent"]); }
+                tbRemark.Text = dt.Rows[0]["Remark"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
                 if (Request.Params["copy"] != null)
                 {
@@ -152,29 +161,29 @@ public partial class Ima_Testing : System.Web.UI.Page
                     gvFile3.Columns[0].Visible = true;
                 }
             }
-            //Technology
-            cmd = new SqlCommand();
-            cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
-            cmd.Parameters.AddWithValue("@DID", strID);
-            cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-            DataSet ds = SQLUtil.QueryDS(cmd);
-            DataTable dtTechnology = ds.Tables[0];
-            if (dtTechnology.Rows.Count > 0)
-            {
-                CheckBoxList cbl;
-                if (lblProTypeName.Text.Trim() == "RF") { cbl = cbTechRF; }
-                else if (lblProTypeName.Text.Trim() == "EMC") { cbl = cbTechEMC; }
-                else if (lblProTypeName.Text.Trim() == "Safety") { cbl = cbTechSafety; }
-                else { cbl = cbTechTelecom; }
-                foreach (DataRow dr in dtTechnology.Rows)
-                {
-                    foreach (ListItem li in cbl.Items)
-                    {
-                        if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
-                    }
-                }
-                if (dtTechnology.Rows.Count == cbl.Items.Count - 1) { cbl.Items[0].Selected = true; }
-            }
+            ////Technology
+            //cmd = new SqlCommand();
+            //cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
+            //cmd.Parameters.AddWithValue("@DID", strID);
+            //cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+            //DataSet ds = SQLUtil.QueryDS(cmd);
+            //DataTable dtTechnology = ds.Tables[0];
+            //if (dtTechnology.Rows.Count > 0)
+            //{
+            //    CheckBoxList cbl;
+            //    if (lblProTypeName.Text.Trim() == "RF") { cbl = cbTechRF; }
+            //    else if (lblProTypeName.Text.Trim() == "EMC") { cbl = cbTechEMC; }
+            //    else if (lblProTypeName.Text.Trim() == "Safety") { cbl = cbTechSafety; }
+            //    else { cbl = cbTechTelecom; }
+            //    foreach (DataRow dr in dtTechnology.Rows)
+            //    {
+            //        foreach (ListItem li in cbl.Items)
+            //        {
+            //            if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
+            //        }
+            //    }
+            //    if (dtTechnology.Rows.Count == cbl.Items.Count - 1) { cbl.Items[0].Selected = true; }
+            //}
         }
         else
         {
@@ -192,8 +201,8 @@ public partial class Ima_Testing : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_Testing (world_region_id,country_id,wowi_product_type_id,Language,LanguageDesc,BW,Color,Manual,FCCTest,FCCCertificate,CETest,NBEO,EUDoC,Conformance,OtherInternationally,Schematics,Block,Layout,Gerber,Theory,Technical,Antenna,BOM,Official,WoWiRequest,ISO,Payment,Author,OtherDocRequest,CreateUser,LasterUpdateUser,Radiated,Conducted,NormalLink,ReviewOnly,PreInstalled,CD,Email,FTP,TestNote) ";
-        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Language,@LanguageDesc,@BW,@Color,@Manual,@FCCTest,@FCCCertificate,@CETest,@NBEO,@EUDoC,@Conformance,@OtherInternationally,@Schematics,@Block,@Layout,@Gerber,@Theory,@Technical,@Antenna,@BOM,@Official,@WoWiRequest,@ISO,@Payment,@Author,@OtherDocRequest,@CreateUser,@LasterUpdateUser,@Radiated,@Conducted,@NormalLink,@ReviewOnly,@PreInstalled,@CD,@Email,@FTP,@TestNote)";
+        string strTsql = "insert into Ima_Testing (world_region_id,country_id,wowi_product_type_id,Language,LanguageDesc,BW,Color,Manual,FCCTest,FCCCertificate,CETest,NBEO,EUDoC,Conformance,OtherInternationally,Schematics,Block,Layout,Gerber,Theory,Technical,Antenna,BOM,Official,WoWiRequest,ISO,Payment,Author,OtherDocRequest,CreateUser,LasterUpdateUser,Radiated,Conducted,NormalLink,ReviewOnly,PreInstalled,CD,Email,FTP,TestNote,TestMark,TestMarkRemark,BOM1,OfficialLanguage,ISOLanguage,AuthorWoWi,AuthorAgent,Remark) ";
+        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Language,@LanguageDesc,@BW,@Color,@Manual,@FCCTest,@FCCCertificate,@CETest,@NBEO,@EUDoC,@Conformance,@OtherInternationally,@Schematics,@Block,@Layout,@Gerber,@Theory,@Technical,@Antenna,@BOM,@Official,@WoWiRequest,@ISO,@Payment,@Author,@OtherDocRequest,@CreateUser,@LasterUpdateUser,@Radiated,@Conducted,@NormalLink,@ReviewOnly,@PreInstalled,@CD,@Email,@FTP,@TestNote,@TestMark,@TestMarkRemark,@BOM1,@OfficialLanguage,@ISOLanguage,@AuthorWoWi,@AuthorAgent,@Remark)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -237,6 +246,14 @@ public partial class Ima_Testing : System.Web.UI.Page
         cmd.Parameters.Add("@Email", SqlDbType.Bit);
         cmd.Parameters.Add("@FTP", SqlDbType.Bit);
         cmd.Parameters.Add("@TestNote", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@TestMark", SqlDbType.Bit);
+        cmd.Parameters.Add("@TestMarkRemark", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@BOM1", SqlDbType.Bit);
+        cmd.Parameters.Add("@OfficialLanguage", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@ISOLanguage", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@AuthorWoWi", SqlDbType.Bit);
+        cmd.Parameters.Add("@AuthorAgent", SqlDbType.Bit);
+        cmd.Parameters.Add("@Remark", SqlDbType.NVarChar);
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null)
         {
@@ -298,6 +315,14 @@ public partial class Ima_Testing : System.Web.UI.Page
                 cmd.Parameters["@Email"].Value = cbEmail.Checked;
                 cmd.Parameters["@FTP"].Value = cbFTP.Checked;
                 cmd.Parameters["@TestNote"].Value = tbTestNote.Text.Trim();
+                cmd.Parameters["@TestMark"].Value = rblTestMark.SelectedValue == "1";
+                cmd.Parameters["@TestMarkRemark"].Value = tbTestMarkRemark.Text.Trim();
+                cmd.Parameters["@BOM1"].Value = cbBOM1.Checked;
+                cmd.Parameters["@OfficialLanguage"].Value = tbOfficialLanguage.Text.Trim();
+                cmd.Parameters["@ISOLanguage"].Value = tbISOLanguage.Text.Trim();
+                cmd.Parameters["@AuthorWoWi"].Value = cbAuthorWoWi.Checked;
+                cmd.Parameters["@AuthorAgent"].Value = cbAuthorAgent.Checked;
+                cmd.Parameters["@Remark"].Value = tbRemark.Text.Trim();
                 int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
                 //文件上傳
                 GeneralFileUpload(intGeneralID);
@@ -311,7 +336,7 @@ public partial class Ima_Testing : System.Web.UI.Page
                     CopyDocData(gvFile3, intGeneralID);
                 }
                 //新增Technology
-                AddUpdTechnology(intGeneralID);
+                //AddUpdTechnology(intGeneralID);
             }
         }
         BackURL();
@@ -418,48 +443,48 @@ public partial class Ima_Testing : System.Web.UI.Page
     }
 
     //新增及修改Technology
-    protected void AddUpdTechnology(int intID)
-    {
-        SqlCommand cmd;
-        string strTsql = "";
-        //刪除Technology
-        cmd = new SqlCommand();
-        strTsql = "delete from Ima_Technology where DID=@DID and Categroy=@Categroy";
-        cmd.CommandText = strTsql;
-        cmd.Parameters.AddWithValue("@DID", intID);
-        cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-        SQLUtil.ExecuteSql(cmd);
-        //新增Technology
-        strTsql = "if (not exists(select DID from Ima_Technology where DID=@DID and Categroy=@Categroy and wowi_tech_id=@wowi_tech_id)) ";
-        strTsql += "insert into Ima_Technology (DID,Categroy,wowi_tech_id) values(@DID,@Categroy,@wowi_tech_id)";
-        cmd = new SqlCommand();
-        cmd.CommandText = strTsql;
-        cmd.Parameters.AddWithValue("@DID", intID);
-        cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-        cmd.Parameters.Add("wowi_tech_id", SqlDbType.Int);
-        CheckBoxList cbl;
-        string strProType = IMAUtil.GetProductType(lblProType.Text.Trim());
-        if (strProType == "RF") { cbl = cbTechRF; }
-        else if (strProType == "EMC") { cbl = cbTechEMC; }
-        else if (strProType == "Safety") { cbl = cbTechSafety; }
-        else { cbl = cbTechTelecom; }
-        foreach (ListItem li in cbl.Items)
-        {
-            if (li.Selected && li.Value != "0")
-            {
-                cmd.Parameters["wowi_tech_id"].Value = li.Value;
-                SQLUtil.ExecuteSql(cmd);
-            }
-        }
-    }
+    //protected void AddUpdTechnology(int intID)
+    //{
+    //    SqlCommand cmd;
+    //    string strTsql = "";
+    //    //刪除Technology
+    //    cmd = new SqlCommand();
+    //    strTsql = "delete from Ima_Technology where DID=@DID and Categroy=@Categroy";
+    //    cmd.CommandText = strTsql;
+    //    cmd.Parameters.AddWithValue("@DID", intID);
+    //    cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+    //    SQLUtil.ExecuteSql(cmd);
+    //    //新增Technology
+    //    strTsql = "if (not exists(select DID from Ima_Technology where DID=@DID and Categroy=@Categroy and wowi_tech_id=@wowi_tech_id)) ";
+    //    strTsql += "insert into Ima_Technology (DID,Categroy,wowi_tech_id) values(@DID,@Categroy,@wowi_tech_id)";
+    //    cmd = new SqlCommand();
+    //    cmd.CommandText = strTsql;
+    //    cmd.Parameters.AddWithValue("@DID", intID);
+    //    cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+    //    cmd.Parameters.Add("wowi_tech_id", SqlDbType.Int);
+    //    CheckBoxList cbl;
+    //    string strProType = IMAUtil.GetProductType(lblProType.Text.Trim());
+    //    if (strProType == "RF") { cbl = cbTechRF; }
+    //    else if (strProType == "EMC") { cbl = cbTechEMC; }
+    //    else if (strProType == "Safety") { cbl = cbTechSafety; }
+    //    else { cbl = cbTechTelecom; }
+    //    foreach (ListItem li in cbl.Items)
+    //    {
+    //        if (li.Selected && li.Value != "0")
+    //        {
+    //            cmd.Parameters["wowi_tech_id"].Value = li.Value;
+    //            SQLUtil.ExecuteSql(cmd);
+    //        }
+    //    }
+    //}
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
         string strTsql = "Update Ima_Testing set Language=@Language,LanguageDesc=@LanguageDesc,BW=@BW,Color=@Color,Manual=@Manual,FCCTest=@FCCTest,FCCCertificate=@FCCCertificate,CETest=@CETest,NBEO=@NBEO";
         strTsql += ",EUDoC=@EUDoC,Conformance=@Conformance,OtherInternationally=@OtherInternationally,Schematics=@Schematics,Block=@Block,Layout=@Layout,Gerber=@Gerber,Theory=@Theory,Technical=@Technical";
         strTsql += ",Antenna=@Antenna,BOM=@BOM,Official=@Official,WoWiRequest=@WoWiRequest,ISO=@ISO,Payment=@Payment,Author=@Author,OtherDocRequest=@OtherDocRequest,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate()";
-        strTsql += ",Radiated=@Radiated,Conducted=@Conducted,NormalLink=@NormalLink,ReviewOnly=@ReviewOnly,PreInstalled=@PreInstalled,CD=@CD,Email=@Email,FTP=@FTP,TestNote=@TestNote ";
-        strTsql += "where TestingID=@TestingID";
+        strTsql += ",Radiated=@Radiated,Conducted=@Conducted,NormalLink=@NormalLink,ReviewOnly=@ReviewOnly,PreInstalled=@PreInstalled,CD=@CD,Email=@Email,FTP=@FTP,TestNote=@TestNote,TestMark=@TestMark,TestMarkRemark=@TestMarkRemark ";
+        strTsql += ",BOM1=@BOM1,OfficialLanguage=@OfficialLanguage,ISOLanguage=@ISOLanguage,AuthorWoWi=@AuthorWoWi,AuthorAgent=@AuthorAgent,Remark=@Remark where TestingID=@TestingID";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
         cmd.Parameters.AddWithValue("@TestingID", Request["tid"]);
@@ -503,11 +528,19 @@ public partial class Ima_Testing : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Email", cbEmail.Checked);
         cmd.Parameters.AddWithValue("@FTP", cbFTP.Checked);
         cmd.Parameters.AddWithValue("@TestNote", tbTestNote.Text.Trim());
+        cmd.Parameters.AddWithValue("@TestMark", rblTestMark.SelectedValue == "1");
+        cmd.Parameters.AddWithValue("@TestMarkRemark", tbTestMarkRemark.Text.Trim());
+        cmd.Parameters.AddWithValue("@BOM1", cbBOM1.Checked);
+        cmd.Parameters.AddWithValue("@OfficialLanguage", tbOfficialLanguage.Text.Trim());
+        cmd.Parameters.AddWithValue("@ISOLanguage", tbISOLanguage.Text.Trim());
+        cmd.Parameters.AddWithValue("@AuthorWoWi", cbAuthorWoWi.Checked);
+        cmd.Parameters.AddWithValue("@AuthorAgent", cbAuthorAgent.Checked);
+        cmd.Parameters.AddWithValue("@Remark", tbRemark.Text.Trim());
         SQLUtil.ExecuteSql(cmd);
         //文件上傳
         GeneralFileUpload(Convert.ToInt32(Request["tid"]));
         //修改Technology
-        AddUpdTechnology(Convert.ToInt32(Request["tid"]));
+        //AddUpdTechnology(Convert.ToInt32(Request["tid"]));
         BackURL();
 
     }

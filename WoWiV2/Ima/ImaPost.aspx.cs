@@ -24,51 +24,51 @@ public partial class Ima_ImaPost : System.Web.UI.Page
     //載入選項
     protected void BindItem()
     {
-        //Tech_RF
-        cbTechRF.DataBind();
-        foreach (ListItem li in cbTechRF.Items)
-        {
-            li.Attributes.Add("onclick", "Tech(this);");
-        }
-        if (cbTechRF.Items.Count > 0) { cbTechRF.Items.Insert(0, new ListItem("All", "0")); cbTechRF.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
-        //Tech_EMC
-        cbTechEMC.DataBind();
-        foreach (ListItem li in cbTechEMC.Items)
-        {
-            li.Attributes.Add("onclick", "Tech(this);");
-        }
-        if (cbTechEMC.Items.Count > 0) { cbTechEMC.Items.Insert(0, new ListItem("All", "0")); cbTechEMC.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
-        //Tech_Safety
-        cbTechSafety.DataBind();
-        foreach (ListItem li in cbTechSafety.Items)
-        {
-            li.Attributes.Add("onclick", "Tech(this);");
-        }
-        if (cbTechSafety.Items.Count > 0) { cbTechSafety.Items.Insert(0, new ListItem("All", "0")); cbTechSafety.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
-        //Tech_Telecom
-        cbTechTelecom.DataBind();
-        foreach (ListItem li in cbTechTelecom.Items)
-        {
-            li.Attributes.Add("onclick", "Tech(this);");
-        }
-        if (cbTechTelecom.Items.Count > 0) { cbTechTelecom.Items.Insert(0, new ListItem("All", "0")); cbTechTelecom.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        ////Tech_RF
+        //cbTechRF.DataBind();
+        //foreach (ListItem li in cbTechRF.Items)
+        //{
+        //    li.Attributes.Add("onclick", "Tech(this);");
+        //}
+        //if (cbTechRF.Items.Count > 0) { cbTechRF.Items.Insert(0, new ListItem("All", "0")); cbTechRF.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        ////Tech_EMC
+        //cbTechEMC.DataBind();
+        //foreach (ListItem li in cbTechEMC.Items)
+        //{
+        //    li.Attributes.Add("onclick", "Tech(this);");
+        //}
+        //if (cbTechEMC.Items.Count > 0) { cbTechEMC.Items.Insert(0, new ListItem("All", "0")); cbTechEMC.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        ////Tech_Safety
+        //cbTechSafety.DataBind();
+        //foreach (ListItem li in cbTechSafety.Items)
+        //{
+        //    li.Attributes.Add("onclick", "Tech(this);");
+        //}
+        //if (cbTechSafety.Items.Count > 0) { cbTechSafety.Items.Insert(0, new ListItem("All", "0")); cbTechSafety.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
+        ////Tech_Telecom
+        //cbTechTelecom.DataBind();
+        //foreach (ListItem li in cbTechTelecom.Items)
+        //{
+        //    li.Attributes.Add("onclick", "Tech(this);");
+        //}
+        //if (cbTechTelecom.Items.Count > 0) { cbTechTelecom.Items.Insert(0, new ListItem("All", "0")); cbTechTelecom.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }
     }
 
     //設定顯示的控制項
     protected void SetControlVisible()
     {
-        HtmlTableRow trTech;
-        foreach (string strCT in lblProTypeName.Text.Trim().Split(','))
-        {
-            if (strCT.Length > 0)
-            {
-                if (strCT == "RF") { trTech = trTechRF; }
-                else if (strCT == "EMC") { trTech = trTechEMC; }
-                else if (strCT == "Safety") { trTech = trTechSafety; }
-                else { trTech = trTechTelecom; }
-                trTech.Style.Value = "display:'';";
-            }
-        }
+        //HtmlTableRow trTech;
+        //foreach (string strCT in lblProTypeName.Text.Trim().Split(','))
+        //{
+        //    if (strCT.Length > 0)
+        //    {
+        //        if (strCT == "RF") { trTech = trTechRF; }
+        //        else if (strCT == "EMC") { trTech = trTechEMC; }
+        //        else if (strCT == "Safety") { trTech = trTechSafety; }
+        //        else { trTech = trTechTelecom; }
+        //        trTech.Style.Value = "display:'';";
+        //    }
+        //}
     }
 
     //取得General資料
@@ -101,20 +101,27 @@ public partial class Ima_ImaPost : System.Web.UI.Page
                 cbPrint.Checked = Convert.ToBoolean(dt.Rows[0]["Print"]);
                 cbPurchase.Checked = Convert.ToBoolean(dt.Rows[0]["Purchase"]);
                 tbLabelsDesc.Text = dt.Rows[0]["LabelsDesc"].ToString();
-                bool b = Convert.ToBoolean(dt.Rows[0]["Required"]);
-                if (b)
-                {
-                    rbtnYes.Checked = true;
-                }
-                else 
-                {
-                    rbtnNo.Checked = true;
-                }
-                //rbtnYes.Checked = Convert.ToBoolean(dt.Rows[0]["Required"]);
-                //rbtnNo.Checked = Convert.ToBoolean(dt.Rows[0]["Required"]);
                 tbYear.Text = dt.Rows[0]["Year"].ToString();
                 tbMonth.Text = dt.Rows[0]["Month"].ToString();
                 tbRequiredDesc.Text = dt.Rows[0]["RequiredDesc"].ToString();
+                cbManufacturer.Checked = Convert.ToBoolean(dt.Rows[0]["Manufacturer"]);
+                cbImportation.Checked = Convert.ToBoolean(dt.Rows[0]["Importation"]);
+                rblProduct.SelectedValue = Convert.ToInt32(dt.Rows[0]["Product"]).ToString();
+                cbEUT1.Checked = Convert.ToBoolean(dt.Rows[0]["EUT1"]);
+                cbEUT2.Checked = Convert.ToBoolean(dt.Rows[0]["EUT2"]);
+                cbEUT3.Checked = Convert.ToBoolean(dt.Rows[0]["EUT3"]);
+                cbEUT4.Checked = Convert.ToBoolean(dt.Rows[0]["EUT4"]);
+                cbEUT5.Checked = Convert.ToBoolean(dt.Rows[0]["EUT5"]);
+                cbEUT6.Checked = Convert.ToBoolean(dt.Rows[0]["EUT6"]);
+                cbEUT7.Checked = Convert.ToBoolean(dt.Rows[0]["EUT7"]);
+                cbEUT8.Checked = Convert.ToBoolean(dt.Rows[0]["EUT8"]);
+                rblRenewal.SelectedValue = Convert.ToInt32(dt.Rows[0]["Renewal"]).ToString();
+                rblRequired.SelectedValue = Convert.ToInt32(dt.Rows[0]["Required"]).ToString();
+                tbCostTest1.Text = dt.Rows[0]["CostTest1"].ToString();
+                tbLeadTime1.Text = dt.Rows[0]["LeadTime1"].ToString();
+                tbCostTest2.Text = dt.Rows[0]["CostTest2"].ToString();
+                tbLeadTime2.Text = dt.Rows[0]["LeadTime2"].ToString();
+                tbRemark.Text = dt.Rows[0]["Remark"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
@@ -136,29 +143,29 @@ public partial class Ima_ImaPost : System.Web.UI.Page
                     gvFile3.Columns[0].Visible = true;
                 }
             }
-            //Technology
-            cmd = new SqlCommand();
-            cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
-            cmd.Parameters.AddWithValue("@DID", strID);
-            cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-            DataSet ds = SQLUtil.QueryDS(cmd);
-            DataTable dtTechnology = ds.Tables[0];
-            if (dtTechnology.Rows.Count > 0)
-            {
-                CheckBoxList cbl;
-                if (lblProTypeName.Text.Trim() == "RF") { cbl = cbTechRF; }
-                else if (lblProTypeName.Text.Trim() == "EMC") { cbl = cbTechEMC; }
-                else if (lblProTypeName.Text.Trim() == "Safety") { cbl = cbTechSafety; }
-                else { cbl = cbTechTelecom; }
-                foreach (DataRow dr in dtTechnology.Rows)
-                {
-                    foreach (ListItem li in cbl.Items)
-                    {
-                        if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
-                    }
-                }
-                if (dtTechnology.Rows.Count == cbl.Items.Count - 1) { cbl.Items[0].Selected = true; }
-            }
+            ////Technology
+            //cmd = new SqlCommand();
+            //cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
+            //cmd.Parameters.AddWithValue("@DID", strID);
+            //cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+            //DataSet ds = SQLUtil.QueryDS(cmd);
+            //DataTable dtTechnology = ds.Tables[0];
+            //if (dtTechnology.Rows.Count > 0)
+            //{
+            //    CheckBoxList cbl;
+            //    if (lblProTypeName.Text.Trim() == "RF") { cbl = cbTechRF; }
+            //    else if (lblProTypeName.Text.Trim() == "EMC") { cbl = cbTechEMC; }
+            //    else if (lblProTypeName.Text.Trim() == "Safety") { cbl = cbTechSafety; }
+            //    else { cbl = cbTechTelecom; }
+            //    foreach (DataRow dr in dtTechnology.Rows)
+            //    {
+            //        foreach (ListItem li in cbl.Items)
+            //        {
+            //            if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
+            //        }
+            //    }
+            //    if (dtTechnology.Rows.Count == cbl.Items.Count - 1) { cbl.Items[0].Selected = true; }
+            //}
         }
         else
         {
@@ -176,8 +183,8 @@ public partial class Ima_ImaPost : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_Post (world_region_id,country_id,wowi_product_type_id,Requirement,RequirementDesc,[Print],Purchase,LabelsDesc,Required,Year,Month,RequiredDesc,CreateUser,LasterUpdateUser) ";
-        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Requirement,@RequirementDesc,@Print,@Purchase,@LabelsDesc,@Required,@Year,@Month,@RequiredDesc,@CreateUser,@LasterUpdateUser)";
+        string strTsql = "insert into Ima_Post (world_region_id,country_id,wowi_product_type_id,Requirement,RequirementDesc,[Print],Purchase,LabelsDesc,Required,Year,Month,RequiredDesc,CreateUser,LasterUpdateUser,Manufacturer,Importation,Product,EUT1,EUT2,EUT3,EUT4,EUT5,EUT6,EUT7,EUT8,Renewal,CostTest1,LeadTime1,CostTest2,LeadTime2,Remark) ";
+        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Requirement,@RequirementDesc,@Print,@Purchase,@LabelsDesc,@Required,@Year,@Month,@RequiredDesc,@CreateUser,@LasterUpdateUser,@Manufacturer,@Importation,@Product,@EUT1,@EUT2,@EUT3,@EUT4,@EUT5,@EUT6,@EUT7,@EUT8,@Renewal,@CostTest1,@LeadTime1,@CostTest2,@LeadTime2,@Remark)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -195,6 +202,23 @@ public partial class Ima_ImaPost : System.Web.UI.Page
         cmd.Parameters.Add("@RequiredDesc", SqlDbType.NVarChar);
         cmd.Parameters.Add("@CreateUser", SqlDbType.NVarChar);
         cmd.Parameters.Add("@LasterUpdateUser", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@Manufacturer", SqlDbType.Bit);
+        cmd.Parameters.Add("@Importation", SqlDbType.Bit);
+        cmd.Parameters.Add("@Product", SqlDbType.Bit);
+        cmd.Parameters.Add("@EUT1", SqlDbType.Bit);
+        cmd.Parameters.Add("@EUT2", SqlDbType.Bit);
+        cmd.Parameters.Add("@EUT3", SqlDbType.Bit);
+        cmd.Parameters.Add("@EUT4", SqlDbType.Bit);
+        cmd.Parameters.Add("@EUT5", SqlDbType.Bit);
+        cmd.Parameters.Add("@EUT6", SqlDbType.Bit);
+        cmd.Parameters.Add("@EUT7", SqlDbType.Bit);
+        cmd.Parameters.Add("@EUT8", SqlDbType.Bit);
+        cmd.Parameters.Add("@Renewal", SqlDbType.Bit);
+        cmd.Parameters.Add("@CostTest1", SqlDbType.Decimal);
+        cmd.Parameters.Add("@LeadTime1", SqlDbType.Int);
+        cmd.Parameters.Add("@CostTest2", SqlDbType.Decimal);
+        cmd.Parameters.Add("@LeadTime2", SqlDbType.Int);
+        cmd.Parameters.Add("@Remark", SqlDbType.NVarChar);
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null)
         {
@@ -220,12 +244,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
                 cmd.Parameters["@Print"].Value = cbPrint.Checked;
                 cmd.Parameters["@Purchase"].Value = cbPurchase.Checked;
                 cmd.Parameters["@LabelsDesc"].Value = tbLabelsDesc.Text.Trim();
-                bool b = false;
-                if (rbtnYes.Checked)
-                {
-                    b = true;
-                }
-                cmd.Parameters["@Required"].Value = b;
+                cmd.Parameters["@Required"].Value = rblRequired.SelectedValue == "1";
                 if (tbYear.Text.Trim().Length > 0)
                 {
                     cmd.Parameters["@Year"].Value = tbYear.Text.Trim();
@@ -245,6 +264,27 @@ public partial class Ima_ImaPost : System.Web.UI.Page
                 cmd.Parameters["@RequiredDesc"].Value = tbRequiredDesc.Text.Trim();
                 cmd.Parameters["@CreateUser"].Value = IMAUtil.GetUser();
                 cmd.Parameters["@LasterUpdateUser"].Value = IMAUtil.GetUser();
+                cmd.Parameters["@Manufacturer"].Value = cbManufacturer.Checked;
+                cmd.Parameters["@Importation"].Value = cbImportation.Checked;
+                cmd.Parameters["@Product"].Value = rblProduct.SelectedValue == "1";
+                cmd.Parameters["@EUT1"].Value = cbEUT1.Checked;
+                cmd.Parameters["@EUT2"].Value = cbEUT2.Checked;
+                cmd.Parameters["@EUT3"].Value = cbEUT3.Checked;
+                cmd.Parameters["@EUT4"].Value = cbEUT4.Checked;
+                cmd.Parameters["@EUT5"].Value = cbEUT5.Checked;
+                cmd.Parameters["@EUT6"].Value = cbEUT6.Checked;
+                cmd.Parameters["@EUT7"].Value = cbEUT7.Checked;
+                cmd.Parameters["@EUT8"].Value = cbEUT8.Checked;
+                cmd.Parameters["@Renewal"].Value = rblRenewal.SelectedValue == "1";
+                if (tbCostTest1.Text.Trim().Length > 0) { cmd.Parameters["@CostTest1"].Value = tbCostTest1.Text.Trim(); }
+                else { cmd.Parameters["@CostTest1"].Value = DBNull.Value; }
+                if (tbLeadTime1.Text.Trim().Length > 0) { cmd.Parameters["@LeadTime1"].Value = tbLeadTime1.Text.Trim(); }
+                else { cmd.Parameters["@LeadTime1"].Value = DBNull.Value; }
+                if (tbCostTest2.Text.Trim().Length > 0) { cmd.Parameters["@CostTest2"].Value = tbCostTest2.Text.Trim(); }
+                else { cmd.Parameters["@CostTest2"].Value = DBNull.Value; }
+                if (tbLeadTime2.Text.Trim().Length > 0) { cmd.Parameters["@LeadTime2"].Value = tbLeadTime2.Text.Trim(); }
+                else { cmd.Parameters["@LeadTime2"].Value = DBNull.Value; }
+                cmd.Parameters["@Remark"].Value = tbRemark.Text.Trim();
                 int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
                 //文件上傳
                 GeneralFileUpload(intGeneralID);
@@ -258,7 +298,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
                     CopyDocData(gvFile3, intGeneralID);
                 }
                 //新增Technology
-                AddUpdTechnology(intGeneralID);
+                //AddUpdTechnology(intGeneralID);
             }
         }
         BackURL();
@@ -365,44 +405,45 @@ public partial class Ima_ImaPost : System.Web.UI.Page
     }
 
     //新增及修改Technology
-    protected void AddUpdTechnology(int intID)
-    {
-        SqlCommand cmd;
-        string strTsql = "";
-        //刪除Technology
-        cmd = new SqlCommand();
-        strTsql = "delete from Ima_Technology where DID=@DID and Categroy=@Categroy";
-        cmd.CommandText = strTsql;
-        cmd.Parameters.AddWithValue("@DID", intID);
-        cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-        SQLUtil.ExecuteSql(cmd);
-        //新增Technology
-        strTsql = "if (not exists(select DID from Ima_Technology where DID=@DID and Categroy=@Categroy and wowi_tech_id=@wowi_tech_id)) ";
-        strTsql += "insert into Ima_Technology (DID,Categroy,wowi_tech_id) values(@DID,@Categroy,@wowi_tech_id)";
-        cmd = new SqlCommand();
-        cmd.CommandText = strTsql;
-        cmd.Parameters.AddWithValue("@DID", intID);
-        cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-        cmd.Parameters.Add("wowi_tech_id", SqlDbType.Int);
-        CheckBoxList cbl;
-        string strProType = IMAUtil.GetProductType(lblProType.Text.Trim());
-        if (strProType == "RF") { cbl = cbTechRF; }
-        else if (strProType == "EMC") { cbl = cbTechEMC; }
-        else if (strProType == "Safety") { cbl = cbTechSafety; }
-        else { cbl = cbTechTelecom; }
-        foreach (ListItem li in cbl.Items)
-        {
-            if (li.Selected && li.Value != "0")
-            {
-                cmd.Parameters["wowi_tech_id"].Value = li.Value;
-                SQLUtil.ExecuteSql(cmd);
-            }
-        }
-    }
+    //protected void AddUpdTechnology(int intID)
+    //{
+    //    SqlCommand cmd;
+    //    string strTsql = "";
+    //    //刪除Technology
+    //    cmd = new SqlCommand();
+    //    strTsql = "delete from Ima_Technology where DID=@DID and Categroy=@Categroy";
+    //    cmd.CommandText = strTsql;
+    //    cmd.Parameters.AddWithValue("@DID", intID);
+    //    cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+    //    SQLUtil.ExecuteSql(cmd);
+    //    //新增Technology
+    //    strTsql = "if (not exists(select DID from Ima_Technology where DID=@DID and Categroy=@Categroy and wowi_tech_id=@wowi_tech_id)) ";
+    //    strTsql += "insert into Ima_Technology (DID,Categroy,wowi_tech_id) values(@DID,@Categroy,@wowi_tech_id)";
+    //    cmd = new SqlCommand();
+    //    cmd.CommandText = strTsql;
+    //    cmd.Parameters.AddWithValue("@DID", intID);
+    //    cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
+    //    cmd.Parameters.Add("wowi_tech_id", SqlDbType.Int);
+    //    CheckBoxList cbl;
+    //    string strProType = IMAUtil.GetProductType(lblProType.Text.Trim());
+    //    if (strProType == "RF") { cbl = cbTechRF; }
+    //    else if (strProType == "EMC") { cbl = cbTechEMC; }
+    //    else if (strProType == "Safety") { cbl = cbTechSafety; }
+    //    else { cbl = cbTechTelecom; }
+    //    foreach (ListItem li in cbl.Items)
+    //    {
+    //        if (li.Selected && li.Value != "0")
+    //        {
+    //            cmd.Parameters["wowi_tech_id"].Value = li.Value;
+    //            SQLUtil.ExecuteSql(cmd);
+    //        }
+    //    }
+    //}
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_Post set Requirement=@Requirement,RequirementDesc=@RequirementDesc,[Print]=@Print,Purchase=@Purchase,LabelsDesc=@LabelsDesc,Required=@Required,Year=@Year,Month=@Month,RequiredDesc=@RequiredDesc,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate() ";
+        string strTsql = "Update Ima_Post set Requirement=@Requirement,RequirementDesc=@RequirementDesc,[Print]=@Print,Purchase=@Purchase,LabelsDesc=@LabelsDesc,Required=@Required,Year=@Year,Month=@Month,RequiredDesc=@RequiredDesc,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate()";
+        strTsql += ",Manufacturer=@Manufacturer,Importation=@Importation,Product=@Product,EUT1=@EUT1,EUT2=@EUT2,EUT3=@EUT3,EUT4=@EUT4,EUT5=@EUT5,EUT6=@EUT6,EUT7=@EUT7,EUT8=@EUT8,Renewal=@Renewal,CostTest1=@CostTest1,LeadTime1=@LeadTime1,CostTest2=@CostTest2,LeadTime2=@LeadTime2,Remark=@Remark ";
         strTsql += "where PostID=@PostID";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -412,12 +453,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Print", cbPrint.Checked);
         cmd.Parameters.AddWithValue("@Purchase", cbPurchase.Checked);
         cmd.Parameters.AddWithValue("@LabelsDesc", tbLabelsDesc.Text.Trim());
-        bool b = false;
-        if (rbtnYes.Checked) 
-        {
-            b = true;
-        }
-        cmd.Parameters.AddWithValue("@Required", b);
+        cmd.Parameters.AddWithValue("@Required", rblRequired.SelectedValue == "1");
         if (tbYear.Text.Trim().Length > 0)
         {
             cmd.Parameters.AddWithValue("@Year", tbYear.Text.Trim());
@@ -433,16 +469,35 @@ public partial class Ima_ImaPost : System.Web.UI.Page
         else
         {
             cmd.Parameters.AddWithValue("@Month", DBNull.Value);
-        }       
-        //cmd.Parameters.AddWithValue("@Year", tbYear.Text.Trim());
-        //cmd.Parameters.AddWithValue("@Month", tbMonth.Text.Trim());
+        }
         cmd.Parameters.AddWithValue("@RequiredDesc", tbRequiredDesc.Text.Trim());
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
+        cmd.Parameters.AddWithValue("@Manufacturer", cbManufacturer.Checked);
+        cmd.Parameters.AddWithValue("@Importation", cbImportation.Checked);
+        cmd.Parameters.AddWithValue("@Product", rblProduct.SelectedValue == "1");
+        cmd.Parameters.AddWithValue("@EUT1", cbEUT1.Checked);
+        cmd.Parameters.AddWithValue("@EUT2", cbEUT2.Checked);
+        cmd.Parameters.AddWithValue("@EUT3", cbEUT3.Checked);
+        cmd.Parameters.AddWithValue("@EUT4", cbEUT4.Checked);
+        cmd.Parameters.AddWithValue("@EUT5", cbEUT5.Checked);
+        cmd.Parameters.AddWithValue("@EUT6", cbEUT6.Checked);
+        cmd.Parameters.AddWithValue("@EUT7", cbEUT7.Checked);
+        cmd.Parameters.AddWithValue("@EUT8", cbEUT8.Checked);
+        cmd.Parameters.AddWithValue("@Renewal", rblRenewal.SelectedValue == "1");
+        if (tbCostTest1.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@CostTest1", tbCostTest1.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@CostTest1", DBNull.Value); }
+        if (tbLeadTime1.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime1", tbLeadTime1.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LeadTime1", DBNull.Value); }
+        if (tbCostTest2.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@CostTest2", tbCostTest2.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@CostTest2", DBNull.Value); }
+        if (tbLeadTime2.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime2", tbLeadTime2.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LeadTime2", DBNull.Value); }
+        cmd.Parameters.AddWithValue("@Remark", tbRemark.Text.Trim());
         SQLUtil.ExecuteSql(cmd);
         //文件上傳
         GeneralFileUpload(Convert.ToInt32(Request["pcid"]));
         //修改Technology
-        AddUpdTechnology(Convert.ToInt32(Request["pcid"]));
+        //AddUpdTechnology(Convert.ToInt32(Request["pcid"]));
         BackURL();
 
     }

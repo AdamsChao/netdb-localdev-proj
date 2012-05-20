@@ -60,7 +60,7 @@ public class ProductControlFile : IHttpHandler
                             ContentType = "application/x-zip-compressed";
                             break;
                     }
-                    context.Response.AddHeader("Content-Disposition", String.Format("attachment; filename=" + HttpUtility.UrlEncode(strGeneralFileName)));
+                    context.Response.AddHeader("Content-Disposition", String.Format("attachment; filename=" + HttpUtility.UrlEncode(strGeneralFileName) + HttpUtility.UrlEncode("." + strGeneralFileType)));
                     //context.Response.AddHeader("content-disposition", "attachment; filename=" + HttpUtility.UrlPathEncode(strGeneralFileName));
                     context.Response.ContentType = ContentType;
                     context.Response.WriteFile(strGeneralFileURL);

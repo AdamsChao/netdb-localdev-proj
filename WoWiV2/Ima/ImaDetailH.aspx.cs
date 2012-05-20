@@ -48,7 +48,10 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
                 rblProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblCountry.Text = IMAUtil.GetCountryName(Request.Params["cid"]);
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
-
+                lblRFRemark.Text = dt.Rows[0]["RFRemark"].ToString();
+                lblEMCRemark.Text = dt.Rows[0]["EMCRemark"].ToString();
+                lblSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
+                lblTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;
@@ -61,26 +64,16 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
             }
             //Technology
             cmd = new SqlCommand();
-            cmd.CommandText = "select * from Ima_Technology where DID=@DID and Categroy=@Categroy";
+            cmd.CommandText = "select count(DID) from Ima_Technology where DID=@DID and Categroy=@Categroy";
             cmd.Parameters.AddWithValue("@DID", strID);
             cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
-            DataSet ds = SQLUtil.QueryDS(cmd);
-            DataTable dtTechnology = ds.Tables[0];
-            if (dtTechnology.Rows.Count > 0)
+            int intCount = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
+            if (intCount > 0)
             {
-                CheckBoxList cbl;
-                if (lblProTypeName.Text.Trim() == "RF") { cbTechRF.DataBind(); cbl = cbTechRF; trTechRF.Visible = true; }
-                else if (lblProTypeName.Text.Trim() == "EMC") { cbTechEMC.DataBind(); cbl = cbTechEMC; trTechEMC.Visible = true; }
-                else if (lblProTypeName.Text.Trim() == "Safety") { cbTechSafety.DataBind(); cbl = cbTechSafety; trTechSafety.Visible = true; }
-                else { cbTechTelecom.DataBind(); cbl = cbTechTelecom; trTechTelecom.Visible = true; }
-
-                foreach (DataRow dr in dtTechnology.Rows)
-                {
-                    foreach (ListItem li in cbl.Items)
-                    {
-                        if (li.Value == dr["wowi_tech_id"].ToString()) { li.Selected = true; break; }
-                    }
-                }
+                if (lblProTypeName.Text.Trim() == "RF") { trTechRF.Visible = true; }
+                else if (lblProTypeName.Text.Trim() == "EMC") { trTechEMC.Visible = true; }
+                else if (lblProTypeName.Text.Trim() == "Safety") { trTechSafety.Visible = true; }
+                else { trTechTelecom.Visible = true; }
             }
         }
         else

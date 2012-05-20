@@ -1,18 +1,19 @@
-﻿<%@ WebHandler Language="C#" Class="PostFile" %>
+﻿<%@ WebHandler Language="C#" Class="File" %>
 
 using System;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 
-public class PostFile : IHttpHandler {
+public class File : IHttpHandler
+{
     
     public void ProcessRequest (HttpContext context) {
         if ((context.Request["fid"] != null))
         {
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * from Ima_Post_Files where PostFileID=@PostFileID";
-            cmd.Parameters.AddWithValue("@PostFileID", context.Request["fid"]);
+            SqlCommand cmd = new SqlCommand("STP_IMAGetFile");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@FileID", context.Request["fid"]);
             DataTable dt = new DataTable();
             dt = SQLUtil.QueryDS(cmd).Tables[0];
             if (dt.Rows.Count > 0)

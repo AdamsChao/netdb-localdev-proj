@@ -38,6 +38,7 @@ public partial class Ima_ImaCertificate : System.Web.UI.Page
             {
                 cbEmail.Checked = Convert.ToBoolean(dt.Rows[0]["Email"]);
                 cbCopy.Checked = Convert.ToBoolean(dt.Rows[0]["Copy"]);
+                if (dt.Rows[0]["Collect"] != DBNull.Value) { cbCollect.Checked = Convert.ToBoolean(dt.Rows[0]["Collect"]); }
                 cbLocal.Checked = Convert.ToBoolean(dt.Rows[0]["Local"]);
                 cbProof.Checked = Convert.ToBoolean(dt.Rows[0]["Proof"]);
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
@@ -72,8 +73,8 @@ public partial class Ima_ImaCertificate : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_Certificate (world_region_id,country_id,wowi_product_type_id,Email,Copy,Local,Proof,CreateUser,LasterUpdateUser) ";
-        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Email,@Copy,@Local,@Proof,@CreateUser,@LasterUpdateUser)";
+        string strTsql = "insert into Ima_Certificate (world_region_id,country_id,wowi_product_type_id,Email,Copy,Local,Proof,CreateUser,LasterUpdateUser,Collect) ";
+        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Email,@Copy,@Local,@Proof,@CreateUser,@LasterUpdateUser,@Collect)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -86,6 +87,7 @@ public partial class Ima_ImaCertificate : System.Web.UI.Page
         cmd.Parameters.Add("@Proof", SqlDbType.Bit);
         cmd.Parameters.Add("@CreateUser", SqlDbType.NVarChar);
         cmd.Parameters.Add("@LasterUpdateUser", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@Collect", SqlDbType.Bit);
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null)
         {
@@ -112,6 +114,7 @@ public partial class Ima_ImaCertificate : System.Web.UI.Page
                 cmd.Parameters["@Proof"].Value = cbProof.Checked;
                 cmd.Parameters["@CreateUser"].Value = IMAUtil.GetUser();
                 cmd.Parameters["@LasterUpdateUser"].Value = IMAUtil.GetUser();
+                cmd.Parameters["@Collect"].Value = cbCollect.Checked;
                 int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
             }
         }
@@ -121,7 +124,7 @@ public partial class Ima_ImaCertificate : System.Web.UI.Page
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_Certificate set Email=@Email,Copy=@Copy,Local=@Local,Proof=@Proof,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate() ";
+        string strTsql = "Update Ima_Certificate set Email=@Email,Copy=@Copy,Local=@Local,Proof=@Proof,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Collect=@Collect ";
         strTsql += "where CertificateID=@CertificateID";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -131,6 +134,7 @@ public partial class Ima_ImaCertificate : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Local", cbLocal.Checked);
         cmd.Parameters.AddWithValue("@Proof", cbProof.Checked);
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
+        cmd.Parameters.AddWithValue("@Collect", cbCollect.Checked);
         SQLUtil.ExecuteSql(cmd);
         BackURL();
 
