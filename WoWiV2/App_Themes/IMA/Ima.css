@@ -11,3 +11,31 @@
 .tbEditItem .tdRowValue{font-size:10pt;background-color: #FFFFFF;}
 .tbEditItem .tdRowValue1{font-size:10pt;background-color: #FFFFFF;text-align:center;}
 .tbEditItem .tdFooter{height:25px;background-color: #60B0A8;padding: 3px 0px 0px 1px;}
+
+
+/* ModalPopup*/
+.mpeBackground {background-color: Gray;filter: alpha(opacity=35); opacity: 0.5;}
+.tbModalPopup {border:solid 2px #FFFFFF;background-color:#FFFFFF}
+.tbModalPopup .tdHeader{text-align:center;font-size: 10pt;color: #FFFFFF;background-color:#60B0A8;}
+.tbModalPopup .tdRowName{font-size:10pt;text-align:right;background-color:#BDDFDC; color:#333333;}
+.tbModalPopup .tdRowValue{font-size:10pt;background-color: #FFFFFF;color:#333333;text-align:left;}
+.tdMPWinHeader{border:solid 2px #E78F08;background: #F7B64B}
+.tdMPWinL{text-align:Left;padding: 2px 0px 0px 5px;font-size: 13px;color: #FFFFFF}
+.tdMPWinR{text-align:Right;padding: 0px 3px 0px 0px;}
+.trMPWinHeader{background-color: #F7B64B}
+
+
+/* Contact Item */
+.tbContact{border-left:1px #60B0A8 solid; border-right:1px #60B0A8 solid;background-color: #60B0A8;line-height:25px}
+.tbContact .tdHeader{text-align:center;font-size: 10pt;color: #FFFFFF;background-color:#60B0A8;}
+.tbContact .tdHeader1{font-size:10pt;text-align:left;background-color:#BDDFDC; font-weight:bolder;}
+.tbContact .tdHeader2{font-size:10pt;text-align:center;background-color:#BDDFDC}
+.tbContact .tdRowName{font-size:10pt;text-align:right;background-color:#BDDFDC}
+.tbContact .tdRowName1{font-size:10pt;text-align:center;background-color:#BDDFDC}
+.tbContact .tdRowValue{font-size:10pt;background-color: #FFFFFF;}
+.tbContact .tdRowValue1{font-size:10pt;background-color: #FFFFFF;text-align:center;}
+.tbContact .tdFooter{height:25px;background-color: #60B0A8;padding: 3px 0px 0px 1px;}
+
+
+.tdContactRowName{width:80px; font-weight:bolder; text-align:right;}
+.tdContactRowValue{width:120px;}
