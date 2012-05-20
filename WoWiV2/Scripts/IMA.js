@@ -12,6 +12,8 @@
             trID.style.display = "";
         }
         else {
+            var tb = document.getElementById(strContentID + "_tb" + strType + "Remark");
+            tb.value = "";
             trID.style.display = "none";
         }
     }
@@ -46,3 +48,15 @@ function Tech(a) {
     checkBoxRef = CheckBoxListArray[0];
     checkBoxRef.checked = b;
 }
+
+
+function TechFee(a) {
+    var b = document.getElementById(a.id.replace('cb', 'tb'));
+    if (a.checked) {
+        b.disabled = '';
+    }
+    else {
+        b.disabled = 'disabled';
+        b.value = '';
+    }
+ }
