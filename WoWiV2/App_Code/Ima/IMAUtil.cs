@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -138,5 +139,80 @@ public class IMAUtil
             sbQueryString.Insert(0, "?");
         }
         return sbQueryString.ToString();
+    }
+
+    /// <summary>
+    /// 刪除Technology
+    /// </summary>
+    /// <param name="intDID"></param>
+    /// <param name="strCategory"></param>
+    public void DelTechnology(int intDID, string strCategory) 
+    {
+        SqlCommand cmd = new SqlCommand("delete from Ima_Technology where DID=@DID and Categroy=@Categroy");
+        cmd.Parameters.AddWithValue("@DID", intDID);
+        cmd.Parameters.AddWithValue("@Categroy", strCategory);
+        SQLUtil.ExecuteSql(cmd);
+    }
+
+    /// <summary>
+    /// 新增Technology
+    /// </summary>
+    /// <param name="intDID"></param>
+    /// <param name="strCategory"></param>
+    /// <param name="intTechID"></param>
+    /// <param name="strFee"></param>
+    public void AddTechnology(int intDID, string strCategory, int intTechID, string strFee) 
+    {
+        string strTsql = "if (not exists(select DID from Ima_Technology where DID=@DID and Categroy=@Categroy and wowi_tech_id=@wowi_tech_id)) ";
+        strTsql += "insert into Ima_Technology (DID,Categroy,wowi_tech_id,Fee) values(@DID,@Categroy,@wowi_tech_id,@Fee)";
+        SqlCommand cmd = new SqlCommand(strTsql);
+        cmd.Parameters.AddWithValue("@DID", intDID);
+        cmd.Parameters.AddWithValue("@Categroy", strCategory);
+        cmd.Parameters.AddWithValue("@wowi_tech_id", intTechID);
+        if (strFee.Length > 0) { cmd.Parameters.AddWithValue("@Fee", strFee); }
+        else { cmd.Parameters.AddWithValue("@Fee", DBNull.Value); }        
+        SQLUtil.ExecuteSql(cmd);
+    }
+
+    public DataTable GetContact(int intDID, string strCategory) 
+    {
+        SqlCommand cmd = new SqlCommand("STP_IMAGetContactByDIDCategory");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@DID", intDID);
+        cmd.Parameters.AddWithValue("@Categroy", strCategory);
+        return SQLUtil.QueryDS(cmd).Tables[0];
+    }
+
+
+    public void FileUpload(int intID, FileUpload fu, string strFileCatetory, string strUploadPath)
+    {
+        string strFileURL = "";
+        string strFileName = "";
+        string strFileType = "";
+        if (fu.HasFile)
+        {
+            //取得檔名(包含副檔名)
+            strFileName = fu.FileName.Trim();
+            //檢查上傳檔案路徑是否存在，若不存在就自動建立
+            IMAUtil.CheckURL(strUploadPath);
+            strFileURL = strUploadPath + @"\" + strFileName;
+            //取得副檔名
+            strFileType = strFileName.Substring(strFileName.LastIndexOf(Convert.ToChar(".")) + 1).Trim().ToLower();
+            strFileName = strFileName.Replace("." + strFileType, "");
+            string strTsql = "insert into Ima_Files (DocID,DocCategory,FileURL,FileName,FileType,FileCategory,CreateUser,LasterUpdateUser) ";
+            strTsql += "values(@DocID,@DocCategory,@FileURL,@FileName,@FileType,@FileCategory,@CreateUser,@LasterUpdateUser)";
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = strTsql;
+            cmd.Parameters.AddWithValue("@DocID", intID);
+            cmd.Parameters.AddWithValue("@DocCategory", HttpContext.Current.Request["categroy"]);
+            cmd.Parameters.AddWithValue("@FileURL", strFileURL.Replace(IMAUtil.GetIMAUploadPath(), ""));
+            cmd.Parameters.AddWithValue("@FileName", strFileName);
+            cmd.Parameters.AddWithValue("@FileType", strFileType);
+            cmd.Parameters.AddWithValue("@FileCategory", strFileCatetory);
+            cmd.Parameters.AddWithValue("@CreateUser", IMAUtil.GetUser());
+            cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
+            SQLUtil.ExecuteSql(cmd);
+            fu.SaveAs(strFileURL);
+        }
     }
 }
