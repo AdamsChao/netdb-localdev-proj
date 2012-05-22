@@ -148,16 +148,16 @@
                     decimal ar_balance = (decimal)item.ar_balance;
                     if (DropDownList2.SelectedValue == "NT$")
                     {
-                        if (item.currency == "USD")
+                        if (item.ocurrency == "USD")
                         {
-                            ar_balance /= (decimal)item.exchange_rate;
+                            ar_balance *= (decimal)item.exchange_rate;
                         }
                     }
                     else
                     {
-                        if (item.currency == "NTD")
+                        if (item.ocurrency == "NTD")
                         {
-                            ar_balance *= (decimal)item.exchange_rate;
+                            ar_balance /= (decimal)item.exchange_rate;
                         }
                     }
                     if (days < 0)
@@ -354,16 +354,16 @@
                         decimal ar_balance = (decimal)item.ar_balance;
                         if (DropDownList2.SelectedValue == "NT$")
                         {
-                            if (item.currency == "USD")
+                            if (item.ocurrency == "USD")
                             {
-                                ar_balance /= (decimal)item.exchange_rate;
+                                ar_balance *= (decimal)item.exchange_rate;
                             }
                         }
                         else
                         {
-                            if (item.currency == "NTD")
+                            if (item.ocurrency == "NTD")
                             {
-                                ar_balance *= (decimal)item.exchange_rate;
+                                ar_balance /= (decimal)item.exchange_rate;
                             }
                         }
                         if (days < 0)
@@ -641,25 +641,25 @@
                             <asp:BoundField DataField="InvoiceNo" HeaderText="Invoice No" />
                             <asp:BoundField DataField="InvoiceDate" HeaderText="Invoice Date" />
                             <asp:BoundField DataField="Client" HeaderText="Client" />
-                            <asp:BoundField DataField="USD" HeaderText="期末AR US$" />
-                            <asp:BoundField DataField="Day30USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day30P" HeaderText="%" />
-                            <asp:BoundField DataField="Day60USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day60P" HeaderText="%" />
-                            <asp:BoundField DataField="Day90USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day90P" HeaderText="%" />
-                            <asp:BoundField DataField="Day120USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day120P" HeaderText="%" />
-                            <asp:BoundField DataField="Day150USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day150P" HeaderText="%" />
-                            <asp:BoundField DataField="Day180USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day180P" HeaderText="%" />
-                            <asp:BoundField DataField="Day365USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day365P" HeaderText="%" />
-                            <asp:BoundField DataField="Year1USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Year1P" HeaderText="%" />
-                            <asp:BoundField DataField="Year2USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Year2P" HeaderText="%" />
+                            <asp:BoundField DataField="USD" HeaderText="期末AR US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day30USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day30P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day60USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day60P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day90USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day90P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day120USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day120P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day150USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day150P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day180USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day180P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day365USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day365P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Year1USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Year1P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Year2USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Year2P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
                         </Columns>
                     </cc1:iRowSpanGridView>
                     <cc1:iRowSpanGridView ID="iGridView2" runat="server" Height="300px" Width="100%" isMergedHeader="true"
@@ -667,25 +667,25 @@
                            onrowdatabound="iGridView1_RowDataBound" >
                         <Columns>
                             <asp:BoundField DataField="Client" HeaderText="Client" />
-                            <asp:BoundField DataField="USD" HeaderText="期末AR US$" />
-                            <asp:BoundField DataField="Day30USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day30P" HeaderText="%" />
-                            <asp:BoundField DataField="Day60USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day60P" HeaderText="%" />
-                            <asp:BoundField DataField="Day90USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day90P" HeaderText="%" />
-                            <asp:BoundField DataField="Day120USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day120P" HeaderText="%" />
-                            <asp:BoundField DataField="Day150USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day150P" HeaderText="%" />
-                            <asp:BoundField DataField="Day180USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day180P" HeaderText="%" />
-                            <asp:BoundField DataField="Day365USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Day365P" HeaderText="%" />
-                            <asp:BoundField DataField="Year1USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Year1P" HeaderText="%" />
-                            <asp:BoundField DataField="Year2USD" HeaderText="US$" />
-                            <asp:BoundField DataField="Year2P" HeaderText="%" />
+                            <asp:BoundField DataField="USD" HeaderText="期末AR US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day30USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day30P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day60USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day60P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day90USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day90P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day120USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day120P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day150USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day150P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day180USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day180P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day365USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day365P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Year1USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Year1P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Year2USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Year2P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
                         </Columns>
                     </cc1:iRowSpanGridView>
                     </td>

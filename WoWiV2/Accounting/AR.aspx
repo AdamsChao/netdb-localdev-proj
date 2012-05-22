@@ -507,11 +507,11 @@
                             <asp:BoundField DataField="Model" HeaderText="Model" SortExpression="Model" />
                             <asp:BoundField DataField="Country" HeaderText="Country" />
                             <asp:BoundField DataField="QutationNo" HeaderText="Quotation No" />
-                            <asp:BoundField DataField="PaymentTerms" HeaderText="收款天數" />
-                            <asp:BoundField DataField="PlanDueDate" HeaderText="預計收款日" />
-                            <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" SortExpression="OverDueDays"/>
+                            <asp:BoundField DataField="PaymentTerms" HeaderText="收款天數" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="PlanDueDate" HeaderText="預計收款日" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" SortExpression="OverDueDays" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="OverDueInterval" HeaderText="逾期區間" SortExpression="OverDueInterval" />
-                            <asp:TemplateField HeaderText="Currency">
+                            <asp:TemplateField HeaderText="Currency"  ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Currency") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -522,12 +522,12 @@
                                 <table width="100%">
                                         <tr>
                                             <td align="right">
-                                                USD$ :
+                                                US$
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="right">
-                                                NTD$ :</td>
+                                                NT$</td>
                                         </tr>
                                     </table></FooterTemplate>
                             </asp:TemplateField>
