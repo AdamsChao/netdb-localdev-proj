@@ -62,10 +62,10 @@ public partial class Sales_uc_ucCreateQuotationTab4 : System.Web.UI.UserControl
         //txtDiscount.Text = Quotation_Controller.GetTotalTargetDiscount(quotation_id).ToString();
         //txtFinalTotalPrice.Text = Quotation_Controller.GetTotalPrice(quotation_id).ToString();
 
-        txtTargetTotalPrice.Text = quo.TargetTotalPrice.ToString();
-        txtDiscount.Text = quo.Discount.ToString();
-        txtFinalTotalPrice.Text = quo.FinalTotalPrice.ToString();
-        txtTotal_Disc_Amt.Text = quo.Total_disc_amt.ToString();
+        txtTargetTotalPrice.Text = ((Decimal)quo.TargetTotalPrice).ToString("F2");
+        txtDiscount.Text = ((Decimal)quo.Discount).ToString("F2");
+        txtFinalTotalPrice.Text = ((Decimal)quo.FinalTotalPrice).ToString("F2");
+        txtTotal_Disc_Amt.Text = ((Decimal)quo.Total_disc_amt).ToString("F2");
         txtRemark.Text = quo.Remark;
 
         txtPocheckno.Text = quo.pocheckno;

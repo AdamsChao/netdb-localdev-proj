@@ -43,7 +43,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
         //lblService.Text = Quotation_Controller.GetTotalVersionUnitPrice(quo.Quotation_No);
         //lblDiscount.Text = Quotation_Controller.GetTotalVersionDiscount(quo.Quotation_No);
 
-        lblSubTotal.Text = (Decimal.Parse(lblService.Text) - Decimal.Parse(lblDiscount.Text)).ToString();
+        lblSubTotal.Text = (Decimal.Parse(lblService.Text) - Decimal.Parse(lblDiscount.Text)).ToString("f2");
         //txtFinalTotalPrice.Text = Quotation_Controller.GetTotalPrice(quotation_id);
         //txtTotal_Disc_Amt.Text = quo.Total_disc_amt.ToString();
         //txtRemark.Text = quo.Remark;
@@ -173,7 +173,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             }          
            
             lblTotalBilled.Text = TotalBilled.ToString();
-            lblBlance.Text = (Decimal.Parse(lblSubTotal.Text) - TotalBilled).ToString();
+            lblBlance.Text = (Decimal.Parse(lblSubTotal.Text) - TotalBilled).ToString("F2");
             
             Label lblFPrice = (Label)e.Row.FindControl("lblFPrice");
             Label lblQuotation_Target_Id = (Label)e.Row.FindControl("lblQuotation_Target_Id");

@@ -256,7 +256,7 @@ public class Quotation_Controller
         else
             Total_disc_amt = 0;
 
-        return (TargetDiscount + Total_disc_amt).ToString();
+        return (TargetDiscount + Total_disc_amt).ToString("F2");
     }
     public static string GetConfirmedVersionUnitPrice(string Quotation_No)
     {
