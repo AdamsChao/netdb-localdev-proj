@@ -51,7 +51,7 @@
         
         foreach (GridViewRow row in iGridView1.Rows)
         {
-            if (row.Cells[17].Text == "USD")
+            if ((row.Cells[17].FindControl("Label5") as Label).Text == "USD")
             {
                 row.Cells[5].CssClass = "HighLight";
             }
@@ -67,8 +67,8 @@
     double usdissuetotal = 0;
     double ntdtotal = 0;
     double ntdissuetotal = 0;
-    double artotal = 0;
-    double arissuetotal = 0;
+    double arusdtotal = 0;
+    double arntdtotal = 0;
     public string GetUSD()
     {
         return GetTotal(usdtotal, usdissuetotal);
@@ -80,13 +80,7 @@
 
     public string GetAR()
     {
-        StringBuilder sb = new StringBuilder();
-        sb.Append("<table width='100%'><tr><td align='right' class='Total'>Totall</td></tr><tr><td align='right' class='Total'>&nbsp;</tr></table>");
-        sb.Replace("Totall", artotal.ToString("F2"));
-        
-
-        return sb.ToString();
-        
+        return GetTotal(arusdtotal, arntdtotal);
     }
     public string GetTotal(double tot,double issuetot)
     {
@@ -179,7 +173,7 @@
                     temp.IVNo += " " + ritem.iv_no;
                     if (ritem.received_date.HasValue)
                     {
-                        temp.IVDate += " " + ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
+                        temp.IVDate += " " + ((DateTime)ritem.received_date).ToString("yyyy/MM/dd");
                     }
                 }
             }
@@ -276,8 +270,7 @@
                 usdtotal += temp.USD;
                 usdissuetotal += temp.USD;
                 ntdtotal += temp.NTD;
-                arissuetotal += (double) ARBalance;
-                artotal += (double)ARBalance;
+                arusdtotal += (double)ARBalance;
                 temp.ARBalance = ((decimal)ARBalance).ToString("F2");
             }
             else
@@ -287,8 +280,10 @@
                 ntdtotal += temp.NTD;
                 ntdissuetotal += temp.NTD;
                 usdtotal += temp.USD;
-                artotal += (double)ARBalance / (double)item.exchange_rate;
-                temp.ARBalance = ((decimal)ARBalance / (decimal)item.exchange_rate).ToString("F2");
+                //arntdtotal += (double)ARBalance / (double)item.exchange_rate;
+                //temp.ARBalance = ((decimal)ARBalance / (decimal)item.exchange_rate).ToString("F2");
+                arntdtotal += (double)ARBalance;
+                temp.ARBalance = ((decimal)ARBalance).ToString("F2");
             }
 
             //if (item.invoice_date.HasValue)
@@ -516,17 +511,36 @@
                             <asp:BoundField DataField="PlanDueDate" HeaderText="預計收款日" />
                             <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" SortExpression="OverDueDays"/>
                             <asp:BoundField DataField="OverDueInterval" HeaderText="逾期區間" SortExpression="OverDueInterval" />
-                            <asp:BoundField DataField="Currency" HeaderText="Currency" />
-                            <asp:TemplateField HeaderText="AR Balance(USD)">
+                            <asp:TemplateField HeaderText="Currency">
                                 <EditItemTemplate>
-                                    <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("ARBalance") %>'></asp:TextBox>
+                                    <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Currency") %>'></asp:TextBox>
                                 </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label5" runat="server" Text='<%# Bind("Currency") %>'></asp:Label>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                <table width="100%">
+                                        <tr>
+                                            <td align="right">
+                                                USD$ :
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                NTD$ :</td>
+                                        </tr>
+                                    </table></FooterTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="AR Balance">
                                 <ItemTemplate>
                                     <asp:Label ID="Label4" runat="server" Text='<%# Bind("ARBalance") %>'></asp:Label>
                                 </ItemTemplate>
-                                 <FooterTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("ARBalance") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <FooterTemplate>
                                     <asp:Literal ID="Literal1" runat="server" Text="<%# GetAR()%>"></asp:Literal>
-                                     </FooterTemplate>
+                                </FooterTemplate>
                                 <ItemStyle HorizontalAlign="Right" />
                             </asp:TemplateField>
                         </Columns>
