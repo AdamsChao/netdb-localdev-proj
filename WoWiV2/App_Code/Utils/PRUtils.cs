@@ -14,7 +14,7 @@ public class PRUtils
     static WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     public static void Mail(string[] mailto, string[] mailcc,string mailSubject, string mailContent)
     {
-        string mailfrom = "System@gmail.com";
+        string mailfrom = "dbService@wowiapproval.com";
         Panel panel = new Panel();
         Literal ltlMail = new Literal();
         ltlMail.Text = mailContent;
