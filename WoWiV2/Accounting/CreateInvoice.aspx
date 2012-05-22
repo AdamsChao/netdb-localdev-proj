@@ -24,14 +24,15 @@
         }
         tbIssueInvoice.Text = String.Format("W{0}{1}", DateTime.Now.ToString("yyyyMM"), sid.ToString().PadLeft(3,'0'));
         dcissueinvdate.setText( DateTime.Now.ToString("yyyy/MM/dd"));
+        result.Text = "";
     }
 
     protected void ddlProj_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        (sender as DropDownList).DataSource = db.Project;
+        (sender as DropDownList).DataSource = from c in wowidb.Projects select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_No };
         (sender as DropDownList).DataTextField = "Project_No";
-        (sender as DropDownList).DataValueField = "Quotation_Id";
+        (sender as DropDownList).DataValueField = "Project_Id";
         (sender as DropDownList).DataBind();
     }
 
@@ -39,7 +40,8 @@
     {
         try
         {
-            int quoid = int.Parse((sender as DropDownList).SelectedValue);
+            String pNo = (sender as DropDownList).SelectedValue;
+            int quoid = wowidb.Projects.First(p =>p.Project_No== pNo).Quotation_Id;
             QuotationModel.Quotation_Version quotation = (from d in db.Quotation_Version where d.Quotation_Version_Id == quoid select d).First();
             lblQuotationNo.Text = quotation.Quotation_No;
             lblModel.Text = quotation.Model_No;
@@ -325,7 +327,10 @@
                 
                 //throw;
             }
-            
+            if (items.Count() == 0)
+            {
+                result.Text = "<br>No target is required to create an invoice.";
+            }
             try
             {
                 (iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = "";
@@ -469,7 +474,7 @@
                 
                 issue_invoice_no = tbIssueInvoice.Text,
                 invoice_no = tbivno.Text,
-                project_no = ddlProj.SelectedItem.Text,
+                project_no = ddlProj.SelectedValue,
                 quotaion_no = lblQuotationNo.Text,
                 ocurrency = (iGridView2.FooterRow.FindControl("lblOCurrency") as Label).Text,
                 ototal = decimal.Parse((iGridView2.FooterRow.FindControl("lblOTotal") as Label).Text),
@@ -580,7 +585,8 @@
         
             try
             {
-                int qid = int.Parse(ddlProj.SelectedValue);
+                String pNo =  ddlProj.SelectedValue;
+                int qid = wowidb.Projects.First(p => p.Project_No == pNo).Quotation_Id;
                 QuotationModel.Quotation_Version quotation = (from d in db.Quotation_Version where d.Quotation_Version_Id == qid select d).First();
                 int clientid = (int)quotation.Client_Id;
                 WoWiModel.clientapplicant client = (from c in wowidb.clientapplicants where c.id == clientid select c).First();
@@ -905,6 +911,8 @@
                                 
                                 <asp:Button ID="BtnAdd" runat="server" Text="Add" onclick="BtnAdd_Click" 
                                     style="width: 37px" />
+                                
+                                <asp:Label ID="result" runat="server" Font-Bold="False"></asp:Label>
                                 
                              </td>
                         </tr>

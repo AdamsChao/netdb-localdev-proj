@@ -72,7 +72,7 @@
                 auth.president_id = p.id;
                 auth.president = GetNameById(p.id);
             }
-            WoWiModel.employee finance = (from e in wowidb.employees from jt in wowidb.employee_jobtitle where jt.jobtitle_name.Trim().Equals("Finance") & e.jobtitle_id == jt.jobtitle_id select e).First();
+            WoWiModel.employee finance = (from e in wowidb.employees from jt in wowidb.employee_jobtitle where (jt.jobtitle_name.Trim().Equals("Finance") || jt.jobtitle_name.Trim().Equals("Accounting")) & e.jobtitle_id == jt.jobtitle_id select e).First();
             auth.finance_id = finance.id;
             auth.finance = GetNameById(finance.id);
         }

@@ -176,7 +176,7 @@
                 try
                 {
                     String f;
-                    WoWiModel.employee emp = (from e1 in wowidb.employees from d in wowidb.employee_jobtitle where e1.jobtitle_id == d.jobtitle_id & d.jobtitle_name == "Finance" select e1).First();
+                    WoWiModel.employee emp = (from e1 in wowidb.employees from d in wowidb.employee_jobtitle where e1.jobtitle_id == d.jobtitle_id & (d.jobtitle_name == "Finance" || d.jobtitle_name == "Accounting") select e1).First();
                     f = emp.fname.Trim() + "." + emp.lname.Trim();
                     imgF.ImageUrl = "../Images/sign/" + f + ".bmp";
                 }
