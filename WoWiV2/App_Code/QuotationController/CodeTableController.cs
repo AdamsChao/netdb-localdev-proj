@@ -202,6 +202,15 @@ public class CodeTableController
         return result.First();
     }
 
+    public static employee GetEmployee(int EmployeeID)
+    {
+        QuotationEntities entities = new QuotationEntities();
+        var result = from n in entities.employee
+                     where n.id == EmployeeID
+                     select n;
+        return result.First();
+    }
+
     //Mark by Adams 2012/4/23 for Project Requirment Change Requirment
     //public static Project GetProject(int QuotationID)
     //{

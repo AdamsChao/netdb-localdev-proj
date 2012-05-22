@@ -106,6 +106,28 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                       DropDownListStatus.Enabled = false;
                       cmdStatus.Enabled = false;
                     }
+
+                    switch (DropDownListStatus.SelectedValue)
+                    {
+                       case "2":
+                            if (quotation.Waiting_Approve_UserID != null)
+                            {
+                                DropDownListStatus.ToolTip = CodeTableController.GetEmployee((int)quotation.Waiting_Approve_UserID).fname;
+                            }
+                            break;
+
+                       case "3":
+                            if (quotation.ApprovedBy != null)
+                            {
+                                DropDownListStatus.ToolTip = CodeTableController.GetEmployee((int)quotation.ApprovedBy).fname;
+                            }                            
+                            break;
+
+                        default:
+                            DropDownListStatus.ToolTip = "";
+                            break;
+                    }
+
                 }
                 else
                 {
@@ -222,7 +244,12 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
 
                     bool result = Quotation_Controller.Status_Approved((Decimal)quotation.FinalTotalPrice, quotation.Currency, quotation, emp.id);
 
-                    if (!result)
+                    if (result)
+                    {
+                        quotation.ApprovedBy = emp.id;
+                        quotation.Approved_Date = DateTime.Now;
+                    }
+                    else
                     {
                         //quotation.Waiting_Approve_UserID 
                         DropDownListStatus.SelectedValue = "2";
