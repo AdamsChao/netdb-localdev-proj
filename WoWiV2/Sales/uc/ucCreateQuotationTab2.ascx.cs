@@ -148,7 +148,20 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
             //txtDespction.Text = ddlAuthority.SelectedItem.Text;
             //Modify by Adams Target Description 來自 Authority
             txtDespction.Text = CodeTableController.GetTargetDescription(AuthorityID);
-            btnSubmit.Enabled = true;
+
+            int quotation_id = ((Imaster)this.Page).getQuotationID();
+            if (quotation_id != 0)
+            {
+                Quotation_Version obj = Quotation_Controller.Get_Quotation(quotation_id);
+                if (obj.Quotation_Status == 5)
+                {
+                    btnSubmit.Enabled = false;
+                }
+                else
+                {
+                    btnSubmit.Enabled = true;
+                }
+            }       
         }
         else
         {
