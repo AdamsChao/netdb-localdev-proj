@@ -213,7 +213,8 @@ WHERE (Project.Project_ID LIKE @Project_ID)
 AND (Quotation_Target.Status LIKE '%' + @Status + '%') 
 AND (country.country_name LIKE '%' + @country_name + '%') 
 AND (SalesId  LIKE @SalesId) 
-AND (Client_Id  LIKE @Client_Id) ">
+AND (Client_Id  LIKE @Client_Id) 
+ORDER BY Project.Project_Id Desc">
     <SelectParameters>
       <asp:ControlParameter ControlID="DropDownListPO" DefaultValue="%" 
         Name="Project_ID" PropertyName="SelectedValue" />

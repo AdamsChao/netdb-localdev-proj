@@ -107,7 +107,8 @@
                     </asp:GridView>
                     <asp:SqlDataSource ID="SqlDataSourceProject" runat="server" 
                         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                        SelectCommand="SELECT Project.Project_Id, Project.Project_No, Project.Project_Status, clientapplicant.companyname, Quotation_Version.Model_No, Quotation_Version.Product_Name FROM Project INNER JOIN Quotation_Version ON Project.Quotation_Id = Quotation_Version.Quotation_Version_Id INNER JOIN clientapplicant ON Quotation_Version.Client_Id = clientapplicant.id WHERE (Quotation_Version.SalesId LIKE  @SalesID) AND (Project.Project_Status LIKE @Project_Status)">
+                        SelectCommand="SELECT Project.Project_Id, Project.Project_No, Project.Project_Status, clientapplicant.companyname, Quotation_Version.Model_No, Quotation_Version.Product_Name FROM Project INNER JOIN Quotation_Version ON Project.Quotation_Id = Quotation_Version.Quotation_Version_Id INNER JOIN clientapplicant ON Quotation_Version.Client_Id = clientapplicant.id WHERE (Quotation_Version.SalesId LIKE  @SalesID) AND (Project.Project_Status LIKE @Project_Status)
+Order by Project.Project_Id Desc">
                         <SelectParameters>
                             <asp:ControlParameter ControlID="DropDownListAE" DefaultValue="%" 
                                 Name="SalesID" PropertyName="SelectedValue" />
