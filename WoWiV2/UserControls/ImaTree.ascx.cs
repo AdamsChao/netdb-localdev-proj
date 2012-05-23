@@ -12,7 +12,7 @@ public partial class UserControls_ImaTree : System.Web.UI.UserControl
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
-        {            
+        {
             BuildCatalogTree();
         }
     }
@@ -27,8 +27,11 @@ public partial class UserControls_ImaTree : System.Web.UI.UserControl
     //區域
     protected void GetRegionNode(System.Web.UI.WebControls.TreeNodeCollection tnc)
     {
+        string strTsql = "select world_region_id,world_region_name from world_region ";
+        strTsql += "where world_region_id in(select world_region_id from vw_ImaAccess where id=@EmpID) order by world_region_name";       
         SqlCommand cmd = new SqlCommand();
-        cmd.CommandText = "select world_region_id,world_region_name from world_region order by world_region_name";
+        cmd.CommandText = strTsql;
+        cmd.Parameters.AddWithValue("@EmpID", Session["Session_User_Id"]);
         SqlDataReader sdr = SQLUtil.QueryDR(cmd);
         while (sdr.Read())
         {
