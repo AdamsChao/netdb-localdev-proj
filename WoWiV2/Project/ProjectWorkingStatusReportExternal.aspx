@@ -164,7 +164,8 @@
                                         DataKeyNames="Quotation_Target_Id" DataSourceID="SqlDataSourceReport" 
                                         onprerender="GridViewReport_PreRender" Width="100%" 
                                         Caption="Project Working Status" 
-                                      EmptyDataText="此案件尚未有相關的Project Status紀錄!" SkinID="None">
+                                      EmptyDataText="此案件尚未有相關的Project Status紀錄!" SkinID="None" 
+                                      onrowdatabound="GridViewReport_RowDataBound">
                                         <Columns>
                                             <asp:BoundField DataField="country_name" HeaderText="Country" 
                                                 SortExpression="country_name" />
@@ -172,14 +173,27 @@
                                                 SortExpression="authority_name" />
                                             <asp:BoundField DataField="VenderName" HeaderText="Agent" 
                                                 SortExpression="companyname" Visible="False" />
-                                            <asp:BoundField DataField="test_started" HeaderText="Test Started" 
-                                                SortExpression="test_started" DataFormatString="{0:d}" />
-                                            <asp:BoundField DataField="test_completed" HeaderText="Est. Completed" 
-                                                SortExpression="test_completed" DataFormatString="{0:d}" />
-                                            <asp:BoundField DataField="certification_submit_to_authority" 
-                                                HeaderText="Submit to Authority" 
+                                            <asp:TemplateField HeaderText="Test Started" SortExpression="test_started">
+                                              <ItemTemplate>
+                                                <asp:Label ID="LabelTestDate" runat="server" 
+                                                  Text='<%# Bind("test_started", "{0:d}") %>'></asp:Label>
+                                              </ItemTemplate>
+                                              <EditItemTemplate>
+                                                <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("test_started") %>'></asp:TextBox>
+                                              </EditItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Est. Completed" SortExpression="test_completed">
+                                              <ItemTemplate>
+                                                <asp:Label ID="LabelEstDate" runat="server" 
+                                                  Text='<%# Bind("test_completed", "{0:d}") %>'></asp:Label>
+                                              </ItemTemplate>
+                                              <EditItemTemplate>
+                                                <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("test_completed") %>'></asp:TextBox>
+                                              </EditItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:BoundField DataField="certification_submit_to_authority" HeaderText="Submit to Authority" 
                                                 SortExpression="certification_submit_to_authority" 
-                                                DataFormatString="{0:d}" />
+                                              DataFormatString="{0:d}" />
                                             <asp:BoundField DataField="certification_completed" HeaderText="Est. Completed" 
                                                 SortExpression="certification_completed" DataFormatString="{0:d}" />
                                             <asp:BoundField DataField="Estimated_Lead_time" 

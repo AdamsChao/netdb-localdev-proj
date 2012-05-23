@@ -67,4 +67,20 @@ public partial class Project_ProjectWorkingStatusReportExternal : System.Web.UI.
     {
 
     }
+    protected void GridViewReport_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+      if (e.Row.RowType == DataControlRowType.DataRow)
+      {
+        Label lblTest = (Label)e.Row.FindControl("LabelTestDate");
+        if (string.IsNullOrEmpty(lblTest.Text))
+        {
+          lblTest.Text = "N/A";
+        }
+        Label lblEst = (Label)e.Row.FindControl("LabelEstDate");
+        if (string.IsNullOrEmpty(lblEst.Text))
+        {
+          lblEst.Text = "N/A";
+        }
+      }
+    }
 }
