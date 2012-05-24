@@ -24,7 +24,7 @@ public class IMAUtil
 
     public static string GetUser()
     {
-        return "";
+        return HttpContext.Current.User.Identity.Name;
     }
 
     static public String GetIMAUploadPath()
