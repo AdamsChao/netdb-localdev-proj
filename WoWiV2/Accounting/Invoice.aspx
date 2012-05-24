@@ -354,7 +354,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-  <asp:UpdatePanel runat="server">
+    <asp:UpdatePanel runat="server">
   <ContentTemplate>
    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
        <tr>

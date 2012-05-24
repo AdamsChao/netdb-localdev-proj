@@ -27,12 +27,236 @@
         result.Text = "";
     }
 
+    //protected void ddlProj_Load(object sender, EventArgs e)
+    //{
+    //    if (Page.IsPostBack) return;
+    //    Utils.ProjectDropDownList_Load(sender, e);
+    //}
+
     protected void ddlProj_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        Utils.ProjectDropDownList_Load(sender, e);
-    }
+        List<Display> list = GetProjects();
+        if (list.Count == 0)
+        {
+            (sender as DropDownList).Visible = false;
+            noProjLabel.Text = "No project needs to create invoices.";
+            BtnAdd.Visible = false;
+            ddlwowibankinfo.Enabled = false;
+        }
+        else
+        {
+            (sender as DropDownList).DataSource = list;
+            (sender as DropDownList).DataTextField = "Text";
+            (sender as DropDownList).DataValueField = "Id";
+            (sender as DropDownList).DataBind();
+            noProjLabel.Visible = false;
+            BtnAdd.Visible = true;
+            ddlwowibankinfo.Enabled = true;
 
+        }
+    }
+    private List<Display> GetProjects()
+    {
+        List<Display> result = new List<Display>();
+        try
+        {
+            var list = from c in wowidb.Projects orderby c.Project_No descending select c;//select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_No };
+            foreach (var proj in list)
+            {
+                Display dis = new Display { Text = proj.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == proj.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Id = proj.Project_No };
+                String no = proj.Quotation_No;
+                var qnos = from q in db.Quotation_Version where q.Quotation_No == no select q;
+                var item = from qt in db.Quotation_Target
+                           from qu in qnos
+                           where qt.quotation_id == qu.Quotation_Version_Id && (qt.PR_Flag == "1" || qt.PR_Flag == "2" || qt.PR_Flag == "3" || qt.PR_Flag == "E")
+                           select new
+                           {
+                               tid = qt.Quotation_Target_Id,
+                               qId = qu.Quotation_Version_Id,
+                               No = no,
+                               VersionNo = (int)qu.Vername,
+                               Status = qt.Status,
+                               Date = (DateTime)qu.create_date,
+                               TDescription = qt.target_description,
+                               Qty = (double)qt.unit,
+                               UnitPrice = (decimal)qt.unit_price,
+                               FPrice = (decimal)qt.FinalPrice,
+                               Bill = qt.Bill,
+                               Bill1 = qt.Bill1,
+                               Bill2 = qt.Bill2,
+                               Bill3 = qt.Bill3,
+                               BillE = qt.BillE,
+                               Unit = qt.unit,
+                               PrePayment = qt.advance2,
+                               FinalPayment = qt.balance2,
+                               Qutation_Target_Id = qt.Quotation_Target_Id,
+                               PR_Flag = qt.PR_Flag
+                           };
+                List<ProjectInvoiceData> items = new List<ProjectInvoiceData>();
+                ProjectInvoiceData temp;
+                foreach (var i in item)
+                {
+
+
+                    if (i.PR_Flag == "1")
+                    {
+                        if (i.Bill1.HasValue && (decimal)i.Bill1 != 0)
+                        {
+                            try
+                            {
+                                var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.PrePaid1 select it;
+                                if (invoiceTarget.Count() != 0)
+                                {
+                                    continue;
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            temp = new ProjectInvoiceData()
+                            {
+                                No = no,
+                                VersionNo = i.VersionNo,
+                                Status = i.Status,
+                                Date = i.Date,
+                                TDescription = i.TDescription,
+                                Qty = i.Qty,
+                                UnitPrice = i.UnitPrice,
+                                FPrice = (decimal)i.Qty * i.UnitPrice,
+                                Bill = ((decimal)i.Bill1).ToString("F0"),
+                                UOM = ((double)i.Unit).ToString("F0"),
+                                PayAmount = i.Bill1.ToString(),
+                                Qutation_Target_Id = i.Qutation_Target_Id,
+                                Qutation_Id = i.qId,
+                            };
+                            items.Add(temp);
+                        }
+                    }
+                    else if (i.PR_Flag == "2")
+                    {
+                        if (i.Bill2.HasValue && (decimal)i.Bill2 != 0)
+                        {
+                            try
+                            {
+                                var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.PrePaid2 select it;
+                                if (invoiceTarget.Count() != 0)
+                                {
+                                    continue;
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            temp = new ProjectInvoiceData()
+                            {
+                                No = no,
+                                VersionNo = i.VersionNo,
+                                Status = i.Status,
+                                Date = i.Date,
+                                TDescription = i.TDescription,
+                                Qty = i.Qty,
+                                UnitPrice = i.UnitPrice,
+                                FPrice = (decimal)i.Qty * i.UnitPrice,
+                                Bill = ((decimal)i.Bill2).ToString("F0"),
+                                UOM = ((double)i.Unit).ToString("F0"),
+                                PayAmount = i.Bill2.ToString(),
+                                Qutation_Target_Id = i.Qutation_Target_Id,
+                                Qutation_Id = i.qId
+                            };
+                            items.Add(temp);
+                        }
+                    }
+                    else if (i.PR_Flag == "3")
+                    {
+                        if (i.Bill3.HasValue && (decimal)i.Bill3 != 0)
+                        {
+                            try
+                            {
+                                var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.PrePaid3 select it;
+                                if (invoiceTarget.Count() != 0)
+                                {
+                                    continue;
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            temp = new ProjectInvoiceData()
+                            {
+                                No = no,
+                                VersionNo = i.VersionNo,
+                                Status = i.Status,
+                                Date = i.Date,
+                                TDescription = i.TDescription,
+                                Qty = i.Qty,
+                                UnitPrice = i.UnitPrice,
+                                FPrice = (decimal)i.Qty * i.UnitPrice,
+                                Bill = ((decimal)i.Bill3).ToString("F0"),
+                                UOM = ((double)i.Unit).ToString("F0"),
+                                PayAmount = i.Bill3.ToString(),
+                                Qutation_Target_Id = i.Qutation_Target_Id,
+                                Qutation_Id = i.qId
+                            };
+                            items.Add(temp);
+                        }
+                    }
+                    else if (i.PR_Flag == "E")
+                    {
+                        if (i.BillE.HasValue && (decimal)i.BillE != 0)
+                        {
+                            try
+                            {
+                                var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.FinalPaid select it;
+                                if (invoiceTarget.Count() != 0)
+                                {
+                                    continue;
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            temp = new ProjectInvoiceData()
+                            {
+                                No = no,
+                                VersionNo = i.VersionNo,
+                                Status = i.Status,
+                                Date = i.Date,
+                                TDescription = i.TDescription,
+                                Qty = i.Qty,
+                                UnitPrice = i.UnitPrice,
+                                FPrice = (decimal)i.Qty * i.UnitPrice,
+                                Bill = ((decimal)i.BillE).ToString("F0"),
+                                PayAmount = i.BillE.ToString(),
+                                Qutation_Target_Id = i.Qutation_Target_Id,
+                                Qutation_Id = i.qId
+                            };
+                            items.Add(temp);
+                        }
+                    }
+                }
+
+
+                if (items.Count() != 0)
+                {
+
+                    result.Add(dis);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+            //throw ex;
+        }
+
+        return result;
+    }
+    
     protected void ddlProj_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
@@ -327,6 +551,12 @@
             if (items.Count() == 0)
             {
                 result.Text = "<br>No target is required to create an invoice.";
+                BtnAdd.Visible = false;
+            }
+            else
+            {
+                result.Text = "";
+                BtnAdd.Visible = true;
             }
             try
             {
@@ -718,6 +948,7 @@
                                     onselectedindexchanged="ddlProj_SelectedIndexChanged">
                                    <asp:ListItem Value="-1">Select one</asp:ListItem>
                                 </asp:DropDownList>
+                                <asp:Label ID="noProjLabel" runat="server" Text="Label"></asp:Label>
                             </td>
                            
                             <th align="left" width="13%">
