@@ -172,8 +172,8 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
     //儲存
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        string strTsql = "insert into Ima_LocalAgent (world_region_id,country_id,Name,RF,Telecom,EMC,Safety,CreateUser,LasterUpdateUser,Professional,Individual,OtherBusiness,Responsive,Knowledgeable,Slow,NDAYes,NDAChoose,MOUYes,MOUChoose,RFRemark,EMCRemark,SafetyRemark,TelecomRemark,ProductTypeID) ";
-        strTsql += "values(@world_region_id,@country_id,@Name,@RF,@Telecom,@EMC,@Safety,@CreateUser,@LasterUpdateUser,@Professional,@Individual,@OtherBusiness,@Responsive,@Knowledgeable,@Slow,@NDAYes,@NDAChoose,@MOUYes,@MOUChoose,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark,@ProductTypeID)";
+        string strTsql = "insert into Ima_LocalAgent (world_region_id,country_id,Name,RF,Telecom,EMC,Safety,CreateUser,LasterUpdateUser,Professional,Individual,OtherBusiness,Responsive,Knowledgeable,Slow,NDAYes,NDAChoose,MOUYes,MOUChoose,RFRemark,EMCRemark,SafetyRemark,TelecomRemark,ProductTypeID,ProductTypeName) ";
+        strTsql += "values(@world_region_id,@country_id,@Name,@RF,@Telecom,@EMC,@Safety,@CreateUser,@LasterUpdateUser,@Professional,@Individual,@OtherBusiness,@Responsive,@Knowledgeable,@Slow,@NDAYes,@NDAChoose,@MOUYes,@MOUChoose,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark,@ProductTypeID,@ProductTypeName)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -181,30 +181,32 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@country_id", Request["cid"]);
         cmd.Parameters.AddWithValue("@Name", tbName.Text.Trim());
         string strProductTypeID = "";
+        string strProductTypeName = "";
         foreach (ListItem li in cbProductType.Items)
         {
             if (li.Text.Trim() == "RF") 
             {
                 cmd.Parameters.AddWithValue("@RF", li.Selected);
-                if (li.Selected) { strProductTypeID += "," + li.Value; }
+                if (li.Selected) { strProductTypeID += "," + li.Value; strProductTypeName += "," + li.Text.Trim(); }
             }
             else if (li.Text.Trim() == "Telecom")
             {
                 cmd.Parameters.AddWithValue("@Telecom", li.Selected);
-                if (li.Selected) { strProductTypeID += "," + li.Value; }
+                if (li.Selected) { strProductTypeID += "," + li.Value; strProductTypeName += "," + li.Text.Trim(); }
             }
             else if (li.Text.Trim() == "EMC")
             {
-                cmd.Parameters.AddWithValue("@EMC", li.Selected); 
-                if (li.Selected) { strProductTypeID += "," + li.Value; }
+                cmd.Parameters.AddWithValue("@EMC", li.Selected);
+                if (li.Selected) { strProductTypeID += "," + li.Value; strProductTypeName += "," + li.Text.Trim(); }
             }
             else if (li.Text.Trim() == "Safety")
             {
                 cmd.Parameters.AddWithValue("@Safety", li.Selected);
-                if (li.Selected) { strProductTypeID += "," + li.Value; }
+                if (li.Selected) { strProductTypeID += "," + li.Value; strProductTypeName += "," + li.Text.Trim(); }
             }
         }
         if (strProductTypeID.Length > 0) { strProductTypeID += ","; }
+        if (strProductTypeName.Length > 0) { strProductTypeName = strProductTypeName.Remove(0, 1); }
         cmd.Parameters.AddWithValue("@CreateUser", IMAUtil.GetUser());
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
         cmd.Parameters.AddWithValue("@Professional", cbProfessional.Checked);
@@ -227,6 +229,8 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@TelecomRemark", DBNull.Value); }
         if (strProductTypeID.Length > 0) { cmd.Parameters.AddWithValue("@ProductTypeID", strProductTypeID); }
         else { cmd.Parameters.AddWithValue("@ProductTypeID", DBNull.Value); }
+        if (strProductTypeName.Length > 0) { cmd.Parameters.AddWithValue("@ProductTypeName", strProductTypeName); }
+        else { cmd.Parameters.AddWithValue("@ProductTypeName", DBNull.Value); }
         //SQLUtil.ExecuteSql(cmd);
         int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
         //文件上傳
@@ -468,7 +472,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_LocalAgent set Name=@Name,RF=@RF,Telecom=@Telecom,EMC=@EMC,Safety=@Safety,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Professional=@Professional,Individual=@Individual,OtherBusiness=@OtherBusiness,Responsive=@Responsive,Knowledgeable=@Knowledgeable,Slow=@Slow,NDAYes=@NDAYes,NDAChoose=@NDAChoose,MOUYes=@MOUYes,MOUChoose=@MOUChoose,RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark,ProductTypeID=@ProductTypeID ";
+        string strTsql = "Update Ima_LocalAgent set Name=@Name,RF=@RF,Telecom=@Telecom,EMC=@EMC,Safety=@Safety,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Professional=@Professional,Individual=@Individual,OtherBusiness=@OtherBusiness,Responsive=@Responsive,Knowledgeable=@Knowledgeable,Slow=@Slow,NDAYes=@NDAYes,NDAChoose=@NDAChoose,MOUYes=@MOUYes,MOUChoose=@MOUChoose,RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark,ProductTypeID=@ProductTypeID,ProductTypeName=@ProductTypeName ";
         strTsql += "where LocalAgentID=@LocalAgentID ";
         //if (lblContactID.Text.Trim().Length > 0)
         //{
@@ -479,30 +483,32 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@LocalAgentID", Request["laid"]);
         cmd.Parameters.AddWithValue("@Name", tbName.Text.Trim());
         string strProductTypeID = "";
+        string strProductTypeName = "";
         foreach (ListItem li in cbProductType.Items)
         {
             if (li.Text.Trim() == "RF")
             {
                 cmd.Parameters.AddWithValue("@RF", li.Selected);
-                if (li.Selected) { strProductTypeID += "," + li.Value; }
+                if (li.Selected) { strProductTypeID += "," + li.Value; strProductTypeName += "," + li.Text.Trim(); }
             }
             else if (li.Text.Trim() == "Telecom")
             {
                 cmd.Parameters.AddWithValue("@Telecom", li.Selected);
-                if (li.Selected) { strProductTypeID += "," + li.Value; }
+                if (li.Selected) { strProductTypeID += "," + li.Value; strProductTypeName += "," + li.Text.Trim(); }
             }
             else if (li.Text.Trim() == "EMC")
             {
                 cmd.Parameters.AddWithValue("@EMC", li.Selected);
-                if (li.Selected) { strProductTypeID += "," + li.Value; }
+                if (li.Selected) { strProductTypeID += "," + li.Value; strProductTypeName += "," + li.Text.Trim(); }
             }
             else if (li.Text.Trim() == "Safety")
             {
                 cmd.Parameters.AddWithValue("@Safety", li.Selected);
-                if (li.Selected) { strProductTypeID += "," + li.Value; }
+                if (li.Selected) { strProductTypeID += "," + li.Value; strProductTypeName += "," + li.Text.Trim(); }
             }
         }
         if (strProductTypeID.Length > 0) { strProductTypeID += ","; }
+        if (strProductTypeName.Length > 0) { strProductTypeName = strProductTypeName.Remove(0, 1); }
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
         cmd.Parameters.AddWithValue("@Professional", cbProfessional.Checked);
         cmd.Parameters.AddWithValue("@Individual", cbIndividual.Checked);
@@ -524,6 +530,8 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@TelecomRemark", DBNull.Value); }
         if (strProductTypeID.Length > 0) { cmd.Parameters.AddWithValue("@ProductTypeID", strProductTypeID); }
         else { cmd.Parameters.AddWithValue("@ProductTypeID", DBNull.Value); }
+        if (strProductTypeName.Length > 0) { cmd.Parameters.AddWithValue("@ProductTypeName", strProductTypeName); }
+        else { cmd.Parameters.AddWithValue("@ProductTypeName", DBNull.Value); }
         //if (lblContactID.Text.Trim().Length > 0)
         //{
         //    cmd.Parameters.AddWithValue("@FirstName", tbFirstName.Text.Trim());
