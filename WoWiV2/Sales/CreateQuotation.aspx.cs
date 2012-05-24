@@ -52,6 +52,12 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        string msgError = (Session["msgError"] == null) ? "" : (Session["msgError"].ToString());
+        if (!String.IsNullOrEmpty(msgError))
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Show", "alert('" + msgError + "')", true);
+            Session["msgError"] = "";
+        }
         if (!IsPostBack)
         {
             string q = Request.QueryString["q"];
@@ -223,10 +229,11 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                 txtQuotation_Statusdate.Text = ((DateTime)quotation.Quotation_Statusdate).ToString("yyyy/MM/dd HH:mm:ss");
                 txtQuotation_Statusby.Text = quotation.Quotation_Statusby;
 
-
+                String msgError = "";
                 if ((DropDownListStatus.SelectedValue == "2") && (quotation.FinalTotalPrice != null))
                 {
-                    int status = Quotation_Controller.Status_AwaitingApproval((Decimal)quotation.FinalTotalPrice, quotation.Currency, quotation, (int)emp.supervisor_id);
+                 
+                    int status = Quotation_Controller.Status_AwaitingApproval((Decimal)quotation.FinalTotalPrice, quotation.Currency, quotation, (int)emp.supervisor_id, out msgError);
                     //quotation.Quotation_Status = Int32.Parse(DropDownListStatus.SelectedValue);
                     quotation.Waiting_Approve_UserID = emp.supervisor_id;
                     quotation.Quotation_Status = status;
@@ -242,7 +249,7 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                         return;
                     }
 
-                    bool result = Quotation_Controller.Status_Approved((Decimal)quotation.FinalTotalPrice, quotation.Currency, quotation, emp.id);
+                    bool result = Quotation_Controller.Status_Approved((Decimal)quotation.FinalTotalPrice, quotation.Currency, quotation, emp.id, out msgError);
 
                     if (result)
                     {
@@ -263,10 +270,15 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                     quotation.Quotation_Status = Int32.Parse(DropDownListStatus.SelectedValue);
                     Quotation_Controller.Update_Quotation(Quotation_Controller.ent, quotation);
                 }
+
+                if (!String.IsNullOrEmpty(msgError))
+                {
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Show", "alert('" + msgError + "')", true);
+                    Session["msgError"] = msgError;
+
+                }
             }
-
         }
-
         Response.Redirect("CreateQuotation.aspx?q=" + QuotationID.ToString());
 
     }

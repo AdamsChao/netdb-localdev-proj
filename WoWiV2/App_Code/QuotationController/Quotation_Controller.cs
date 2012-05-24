@@ -274,8 +274,9 @@ public class Quotation_Controller
         return sum.ToString();
     }
 
-    public static int Status_AwaitingApproval(decimal FinalTotalPrice, string Currency, Quotation_Version quotation, int SupervisorID)
+    public static int Status_AwaitingApproval(decimal FinalTotalPrice, string Currency, Quotation_Version quotation, int SupervisorID, out string msgError)
     {
+        msgError = "";
         employee emp;
         QuotationEntities entities = new QuotationEntities();
         //todo
@@ -289,7 +290,17 @@ public class Quotation_Controller
         {
             emp = result.First();
             if (!String.IsNullOrEmpty(emp.email))
-                Mail(emp.email, mailSubject, mailContent);
+            {
+                try
+                {
+                    Mail(emp.email, mailSubject, mailContent);
+                }
+                catch (Exception ex)
+                {
+                    msgError = "Mail郵件通知失敗，請洽系統管理員! 錯誤訊息: " + ex.Message;
+                }
+                
+            }
             return 2;
         }
         else
@@ -300,9 +311,9 @@ public class Quotation_Controller
         
     }
 
-    public static bool Status_Approved(decimal FinalTotalPrice, string Currency, Quotation_Version quotation, int EmpID)
+    public static bool Status_Approved(decimal FinalTotalPrice, string Currency, Quotation_Version quotation, int EmpID, out string msgError )
     {
-       
+        msgError = "";
        QuotationEntities entities = new QuotationEntities();
 
 
@@ -326,8 +337,16 @@ public class Quotation_Controller
                {
                    string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is request for approval ";
                    string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id;
+                   try
+                   {
+                       Mail(supervisor.email, mailSubject, mailContent);
+                   }
+                   catch (Exception ex)
+                   {
 
-                   Mail(supervisor.email, mailSubject, mailContent);
+                       msgError = "Mail郵件通知失敗，請洽系統管理員! /n 錯誤訊息:" + ex.Message;
+                   }
+                   
                }
                quotation.Waiting_Approve_UserID = supervisor.id;
                return false;
