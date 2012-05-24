@@ -434,6 +434,7 @@
                                                 <SelectParameters>
                                                     <asp:QueryStringParameter Name="world_region_id" QueryStringField="rid" Type="Int32" />
                                                     <asp:QueryStringParameter Name="country_id" QueryStringField="cid" Type="Int32" />
+                                                    <asp:QueryStringParameter Name="wowi_product_type_id" QueryStringField="pid" Type="Int32" DefaultValue="0" />
                                                     <asp:ControlParameter ControlID="ddlDocCategory" Name="DocCategory" PropertyName="SelectedValue" />
                                                 </SelectParameters>
                                                 <DeleteParameters>
