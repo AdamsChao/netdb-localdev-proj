@@ -35,10 +35,7 @@
     protected void ddlProj_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        (sender as DropDownList).DataSource = db.Project;
-        (sender as DropDownList).DataTextField = "Project_No";
-        (sender as DropDownList).DataValueField = "Project_Id";
-        (sender as DropDownList).DataBind();
+        Utils.ProjectNoDescDropDownList_Load(sender, e);
     }
 
 

@@ -231,7 +231,7 @@
         </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-        SelectCommand="SELECT P.total_cost,P.currency,P.pr_id, P.project_id, P.vendor_id, P.quotaion_id, P.target_payment_date, (SELECT Top 1 PP.pay_date FROM PR AS P1, PR_Payment AS PP WHERE P1.pr_id = PP.pr_id and PP.pr_id = P.pr_id and PP.Status = 10) AS pay_date FROM PR AS P, PR_authority_history AS AU  where P.pr_auth_id = AU.pr_auth_id and AU.status = 6">
+        SelectCommand="SELECT P.total_cost,P.currency,P.pr_id, P.project_id, P.vendor_id, P.quotaion_id, P.target_payment_date, (SELECT Top 1 PP.pay_date FROM PR AS P1, PR_Payment AS PP WHERE P1.pr_id = PP.pr_id and PP.pr_id = P.pr_id and PP.Status = 10) AS pay_date FROM PR AS P, PR_authority_history AS AU  where P.pr_auth_id = AU.pr_auth_id and AU.status = 6 Order by P.pr_id desc">
     </asp:SqlDataSource>
     </p>
     

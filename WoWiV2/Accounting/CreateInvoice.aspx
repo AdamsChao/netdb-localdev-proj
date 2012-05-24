@@ -30,10 +30,7 @@
     protected void ddlProj_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        (sender as DropDownList).DataSource = from c in wowidb.Projects select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_No };
-        (sender as DropDownList).DataTextField = "Project_No";
-        (sender as DropDownList).DataValueField = "Project_Id";
-        (sender as DropDownList).DataBind();
+        Utils.ProjectDropDownList_Load(sender, e);
     }
 
     protected void ddlProj_SelectedIndexChanged(object sender, EventArgs e)

@@ -15,12 +15,30 @@ public class Utils
     public static String Key_Session_AddContacts_ID = "Add_Contacts_ID";
     public static String Key_Session_AddContacts_BackURL = "Add_Contacts_BackURL";
     public static String Key_Session_New_Contact = "New_Contact";
+    public static WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
 	public Utils()
 	{
 		//
 		// TODO: Add constructor logic here
 		//
 	}
+
+    public static void ProjectDropDownList_Load(object sender, EventArgs e)
+    {
+        //if (HttpContext.Current.Request.HttpMethod == "POST") return;
+        (sender as DropDownList).DataSource = from c in wowidb.Projects orderby c.Project_No descending select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_No };
+        (sender as DropDownList).DataTextField = "Project_No";
+        (sender as DropDownList).DataValueField = "Project_Id";
+        (sender as DropDownList).DataBind();
+    }
+
+    public static void ProjectNoDescDropDownList_Load(object sender, EventArgs e)
+    {
+        (sender as DropDownList).DataSource = wowidb.Projects.OrderByDescending(c => c.Project_No);
+        (sender as DropDownList).DataTextField = "Project_No";
+        (sender as DropDownList).DataValueField = "Quotation_Id";
+        (sender as DropDownList).DataBind();
+    }
     public static void Message_Load(Label lbl, StateBag ViewState,String Key)
     {
         if (ViewState[Key] != null)

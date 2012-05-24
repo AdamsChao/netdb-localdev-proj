@@ -120,10 +120,7 @@
     protected void DropDownList1_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        (sender as DropDownList).DataSource = from c in wowidb.Projects select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_Id };
-        (sender as DropDownList).DataTextField = "Project_No";
-        (sender as DropDownList).DataValueField = "Project_Id";
-        (sender as DropDownList).DataBind();
+        Utils.ProjectDropDownList_Load(sender, e);
     }
 
     protected void ddlVenderList_Load(object sender, EventArgs e)
@@ -274,7 +271,7 @@
         <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             
-            SelectCommand="SELECT P.currency, P.pr_id, P.project_id, P.quotaion_id, P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id , (CASE R.status WHEN 0 THEN R.create_date WHEN 1 THEN  R.requisitioner_date WHEN 2 THEN supervisor_date WHEN 3 THEN  R.vp_date WHEN 4 THEN  R.president_date WHEN 5 THEN R.modify_date  WHEN 6 THEN R.modify_date END) as status_date, P.department_id,P.employee_id FROM PR AS P , PR_authority_history AS R WHERE P.pr_auth_id = R.pr_auth_id">
+            SelectCommand="SELECT P.currency, P.pr_id, P.project_id, P.quotaion_id, P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id , (CASE R.status WHEN 0 THEN R.create_date WHEN 1 THEN  R.requisitioner_date WHEN 2 THEN supervisor_date WHEN 3 THEN  R.vp_date WHEN 4 THEN  R.president_date WHEN 5 THEN R.modify_date  WHEN 6 THEN R.modify_date END) as status_date, P.department_id,P.employee_id FROM PR AS P , PR_authority_history AS R WHERE P.pr_auth_id = R.pr_auth_id Order by P.pr_id desc">
         </asp:SqlDataSource>
     </p>
 </asp:Content>

@@ -20,10 +20,7 @@
     protected void DropDownList2_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        (sender as DropDownList).DataSource = from c in wowidb.Projects select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_No };
-        (sender as DropDownList).DataTextField = "Project_No";
-        (sender as DropDownList).DataValueField = "Project_Id";
-        (sender as DropDownList).DataBind();
+        Utils.ProjectDropDownList_Load(sender, e);
     }
 
     protected void DropDownList3_Load(object sender, EventArgs e)
@@ -100,7 +97,7 @@
         
     protected void Search(String str)
     {
-        var data = from i in wowidb.invoices where i.status !=(byte)InvoicePaymentStatus.WithDraw select i;
+        var data = from i in wowidb.invoices where i.status !=(byte)InvoicePaymentStatus.WithDraw  select i;
         if (ddlProj.SelectedValue != "-1")
         {
             String projNo = ddlProj.SelectedValue;
@@ -150,7 +147,7 @@
         {
             usdissuetotal = usdtotal = ntdtotal = ntdissuetotal = 0;
         }
-        foreach (var item in data)
+        foreach (var item in data.OrderByDescending(c =>c.invoice_no))
         {
             temp = new ARInvoiceData();
             temp.id = item.invoice_id + "";

@@ -30,10 +30,7 @@
     protected void DropDownList2_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        (sender as DropDownList).DataSource = db.Project;
-        (sender as DropDownList).DataTextField = "Project_No";
-        (sender as DropDownList).DataValueField = "Quotation_Id";
-        (sender as DropDownList).DataBind();
+        Utils.ProjectNoDescDropDownList_Load(sender, e);
     }
 
     protected void DropDownList3_Load(object sender, EventArgs e)
