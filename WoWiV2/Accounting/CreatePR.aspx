@@ -130,9 +130,7 @@
     protected void ddlProjectNo_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        ddlProjectNo.DataSource = from c in wowidb.Projects select new { Project_No = c.Project_No+" - ["+( (from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault() )+"]", Quotation_Id  = c.Project_Id};
-        ddlProjectNo.DataTextField = "Project_No";
-        ddlProjectNo.DataValueField = "Quotation_Id";
+        Utils.ProjectNoDescDropDownList_Load(sender, e);
     }
 
     
