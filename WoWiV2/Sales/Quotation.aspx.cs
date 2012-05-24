@@ -48,7 +48,8 @@ public partial class Sales_Quotation : System.Web.UI.Page
         }
 
 
-        SqlDataSourceQuot.SelectCommand = "SELECT * FROM [vw_Quotation] WHERE 1=1 " + mySQLstr;
+        SqlDataSourceQuot.SelectCommand = "SELECT * FROM [vw_Quotation] WHERE 1=1 " + mySQLstr +
+            " ORDER BY  vw_Quotation.Quotation_No DESC, vw_Quotation.Model_No ";
         GridViewQuotation.DataBind();
     }
     protected void ddlClient_DataBound(object sender, EventArgs e)
