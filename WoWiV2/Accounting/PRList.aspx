@@ -166,7 +166,7 @@
             newCriteria += " and R.status = " + ddlStatus.SelectedValue;
         }
 
-        SqlDataSourceClient.SelectCommand += newCriteria;
+        SqlDataSourceClient.SelectCommand += newCriteria + " Order by P.pr_id desc";
         GridView1.DataBind();
         if (GridView1.Rows.Count == 0)
         {
@@ -271,7 +271,7 @@
         <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             
-            SelectCommand="SELECT P.currency, P.pr_id, P.project_id, P.quotaion_id, P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id , (CASE R.status WHEN 0 THEN R.create_date WHEN 1 THEN  R.requisitioner_date WHEN 2 THEN supervisor_date WHEN 3 THEN  R.vp_date WHEN 4 THEN  R.president_date WHEN 5 THEN R.modify_date  WHEN 6 THEN R.modify_date END) as status_date, P.department_id,P.employee_id FROM PR AS P , PR_authority_history AS R WHERE P.pr_auth_id = R.pr_auth_id Order by P.pr_id desc">
+            SelectCommand="SELECT P.currency, P.pr_id, P.project_id, P.quotaion_id, P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id , (CASE R.status WHEN 0 THEN R.create_date WHEN 1 THEN  R.requisitioner_date WHEN 2 THEN supervisor_date WHEN 3 THEN  R.vp_date WHEN 4 THEN  R.president_date WHEN 5 THEN R.modify_date  WHEN 6 THEN R.modify_date END) as status_date, P.department_id,P.employee_id FROM PR AS P , PR_authority_history AS R WHERE P.pr_auth_id = R.pr_auth_id ">
         </asp:SqlDataSource>
     </p>
 </asp:Content>
