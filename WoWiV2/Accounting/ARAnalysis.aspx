@@ -107,7 +107,7 @@
             try
             {
                 DateTime fromDate = dcFrom.GetDate();
-                data = data.Where(d => ((DateTime)d.invoice_date) >= fromDate);
+                data = data.Where(d => ((DateTime)d.issue_invoice_date) >= fromDate);
             }
             catch (Exception)
             {
@@ -118,7 +118,7 @@
             try
             {
                 DateTime toDate = dcTo.GetDate();
-                data = data.Where(d => ((DateTime)d.invoice_date) <= toDate);
+                data = data.Where(d => ((DateTime)d.issue_invoice_date) <= toDate);
             }
             catch (Exception)
             {
@@ -130,7 +130,8 @@
                 temp = new ARAnalysisData()
                 {
                     InvoiceNo = item.issue_invoice_no,
-                    InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd")
+                    InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd"),
+                    Currency = item.ocurrency
                 };
 
                 QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_No == item.quotaion_no select q).First();
@@ -300,7 +301,7 @@
         ARAnalysisData temp;
         try
         {
-            var datas = from i in wowidb.invoices where (int)(decimal)i.ar_balance > 0 select new { pNo = i.project_no, invoice_id = i.invoice_id, qNo = i.quotaion_no, invoice_date = i.invoice_date };
+            var datas = from i in wowidb.invoices where (int)(decimal)i.ar_balance > 0 select new { pNo = i.project_no, invoice_id = i.invoice_id, qNo = i.quotaion_no, invoice_date = i.issue_invoice_date };
             try
             {
                 DateTime fromDate = dcFrom.GetDate();
@@ -352,6 +353,7 @@
                     {
                         double days = (DateTime.Now - (DateTime)item.due_date).TotalDays;
                         decimal ar_balance = (decimal)item.ar_balance;
+                        temp.Currency = item.ocurrency;
                         if (DropDownList2.SelectedValue == "NT$")
                         {
                             if (item.ocurrency == "USD")
@@ -465,7 +467,10 @@
                 }
                 temp.USD = tot.ToString("F2");
                 atot += tot;
-                list.Add(temp);
+                if (atot != 0)
+                {
+                    list.Add(temp);
+                }
             }
             
             
@@ -569,6 +574,52 @@
     {
 
     }
+
+    protected void iGridView1_PreRender(object sender, EventArgs e)
+    {
+        foreach (GridViewRow row in iGridView1.Rows)
+        {
+            if (DropDownList2.SelectedValue == "NT$")
+            {
+                if (row.Cells[22].Text == "NTD")
+                {
+                    row.Cells[3].BackColor = System.Drawing.Color.Yellow;
+                }
+            }
+            else
+            {
+                if (row.Cells[22].Text == "USD")
+                {
+                    row.Cells[3].BackColor = System.Drawing.Color.Yellow;
+                }
+            }
+            row.Cells[22].Visible = false;
+        }
+        iGridView1.HeaderRow.Cells[22].Visible = false;
+    }
+
+    protected void iGridView2_PreRender(object sender, EventArgs e)
+    {
+        foreach (GridViewRow row in iGridView2.Rows)
+        {
+            if (DropDownList2.SelectedValue == "NT$")
+            {
+                if (row.Cells[20].Text == "NTD")
+                {
+                    row.Cells[1].BackColor = System.Drawing.Color.Yellow;
+                }
+            }
+            else
+            {
+                if (row.Cells[20].Text == "USD")
+                {
+                    row.Cells[1].BackColor = System.Drawing.Color.Yellow;
+                }
+            }
+            row.Cells[20].Visible = false;
+        }
+        iGridView2.HeaderRow.Cells[20].Visible = false;
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -634,9 +685,11 @@
                         
                        
                    <tr><td colspan="6"><asp:Label ID="lblMsg" runat="server" Text="No match data found." ></asp:Label>
-                    <cc1:iRowSpanGridView ID="iGridView1" runat="server" Height="300px" Width="100%" isMergedHeader="true" SkinID="GridView"
+                    <cc1:iRowSpanGridView ID="iGridView1" runat="server" Height="300px" Width="100%" 
+                           isMergedHeader="true" SkinID="GridView"
                         AutoGenerateColumns="false" CssClass="Gridview" Visible="false"
-                           onrowdatabound="iGridView1_RowDataBound" >
+                           onrowdatabound="iGridView1_RowDataBound" 
+                           onprerender="iGridView1_PreRender" >
                         <Columns>
                             <asp:BoundField DataField="InvoiceNo" HeaderText="Invoice No" />
                             <asp:BoundField DataField="InvoiceDate" HeaderText="Invoice Date" />
@@ -660,11 +713,13 @@
                             <asp:BoundField DataField="Year1P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="Year2USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="Year2P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Currency" HeaderText="Currency"/>
                         </Columns>
                     </cc1:iRowSpanGridView>
                     <cc1:iRowSpanGridView ID="iGridView2" runat="server" Height="300px" Width="100%" isMergedHeader="true"
                         AutoGenerateColumns="false" CssClass="Gridview" Visible="false"
-                           onrowdatabound="iGridView1_RowDataBound" >
+                           onrowdatabound="iGridView1_RowDataBound" 
+                           onprerender="iGridView2_PreRender" >
                         <Columns>
                             <asp:BoundField DataField="Client" HeaderText="Client" />
                             <asp:BoundField DataField="USD" HeaderText="期末AR US$" ItemStyle-HorizontalAlign="Right" />
@@ -686,6 +741,7 @@
                             <asp:BoundField DataField="Year1P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="Year2USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="Year2P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Currency" HeaderText="Currency"/>
                         </Columns>
                     </cc1:iRowSpanGridView>
                     </td>
