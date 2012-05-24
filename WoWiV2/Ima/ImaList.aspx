@@ -416,7 +416,7 @@
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblSafety" runat="server" Text='<%# Convert.ToBoolean(Eval("Safety")) ? "Y" : "N" %>'></asp:Label>
                                                         </ItemTemplate>
-                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" /> 
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Telecom">

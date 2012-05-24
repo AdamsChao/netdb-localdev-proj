@@ -195,7 +195,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
             }
             else if (li.Text.Trim() == "EMC")
             {
-                cmd.Parameters.AddWithValue("@EMC", li.Selected);
+                cmd.Parameters.AddWithValue("@EMC", li.Selected); 
                 if (li.Selected) { strProductTypeID += "," + li.Value; }
             }
             else if (li.Text.Trim() == "Safety")

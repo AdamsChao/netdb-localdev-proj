@@ -759,8 +759,7 @@
                                         Remark：
                                     </td>
                                     <td>
-                                        <asp:TextBox ID="tbTelecomRemark" runat="server" Width="400px" TextMode="MultiLine"
-                                            Rows="2"></asp:TextBox>
+                                        <asp:TextBox ID="tbTelecomRemark" runat="server" Width="400px" TextMode="MultiLine" Rows="2"></asp:TextBox>
                                     </td>
                                 </tr>
                             </table>
@@ -771,8 +770,7 @@
                             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
                             <asp:Button ID="btnSaveCopy" runat="server" Text="Save(Copy)" OnClick="btnSave_Click" />
                             <asp:Button ID="btnUpd" runat="server" Text="Update" OnClick="btnUpd_Click" />
-                            <asp:Button ID="btnCancel" runat="server" Text="Cancel/Back" OnClick="btnCancel_Click"
-                                CausesValidation="false" />
+                            <asp:Button ID="btnCancel" runat="server" Text="Cancel/Back" OnClick="btnCancel_Click" CausesValidation="false" />
                         </td>
                     </tr>
                 </table>
