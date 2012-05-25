@@ -1012,7 +1012,7 @@
                                     <asp:Button ID="delBtn" runat="server" Text="Delete" onclick="delBtn_Click" />
                                 </HeaderTemplate>
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="cbDel" runat="server" CssClass="cbDel" /><asp:Label ID="lblTid" runat="server" Text='<%# Eval("Qutation_Target_Id") %>' Visible="false"></asp:Label>
+                                    <asp:CheckBox ID="cbDel" runat="server" CssClass="cbDel" /><asp:Label ID="lblTid" runat="server" Text='<%# Eval("Qutation_Target_Id") %>' CssClass="hidden" ></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Version" HeaderText="Version" />
