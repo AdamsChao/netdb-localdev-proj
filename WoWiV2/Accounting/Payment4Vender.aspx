@@ -9,6 +9,9 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         String newCriteria = "";
+        int eid = Utils.GetEmployeeID(User.Identity.Name);
+        newCriteria += " and P.department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
+        
         if (ddlVenderList.SelectedValue != "-1")
         {
             newCriteria += " and P.vendor_id = " + ddlVenderList.SelectedValue;
@@ -33,6 +36,7 @@
         {
             //throw;
         }
+       
         bool append = false;
         try
         {
@@ -74,7 +78,7 @@
         {
             if (cbNotPay.Checked)
             {
-                newCriteria += " and u.pay_date IS NULL";
+                newCriteria += " and u.pay_date IS NULL Order by u.pr_id desc ";
             }
             SqlDataSource1.SelectCommand = newCriteria;
         }
@@ -82,7 +86,7 @@
         {
             if (cbNotPay.Checked)
             {
-                newCriteria = "select * from (" + SqlDataSource1.SelectCommand + newCriteria + ") AS u where u.pay_date IS NULL";
+                newCriteria = "select * from (" + SqlDataSource1.SelectCommand + newCriteria + ") AS u where u.pay_date IS NULL Order by u.pr_id desc ";
                 SqlDataSource1.SelectCommand = newCriteria;
             }
             else
@@ -231,7 +235,7 @@
         </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-        SelectCommand="SELECT P.total_cost,P.currency,P.pr_id, P.project_id, P.vendor_id, P.quotaion_id, P.target_payment_date, (SELECT Top 1 PP.pay_date FROM PR AS P1, PR_Payment AS PP WHERE P1.pr_id = PP.pr_id and PP.pr_id = P.pr_id and PP.Status = 10) AS pay_date FROM PR AS P, PR_authority_history AS AU  where P.pr_auth_id = AU.pr_auth_id and AU.status = 6 Order by P.pr_id desc">
+        SelectCommand="SELECT P.total_cost,P.currency,P.pr_id, P.project_id, P.vendor_id, P.quotaion_id, P.target_payment_date, (SELECT Top 1 PP.pay_date FROM PR AS P1, PR_Payment AS PP WHERE P1.pr_id = PP.pr_id and PP.pr_id = P.pr_id and PP.Status = 10) AS pay_date FROM PR AS P, PR_authority_history AS AU  where P.pr_auth_id = AU.pr_auth_id and AU.status = 6 ">
     </asp:SqlDataSource>
     </p>
     
