@@ -19,7 +19,7 @@
     {
         iGridView1.AddMergedColumns("Status", 6, 2);
         //iGridView1.AddMergedColumns("Vender", 15, 2);
-        iGridView1.AddMergedColumns("IMA Cost", 16, 2);
+        //iGridView1.AddMergedColumns("IMA Cost", 16, 2);
         //iGridView1.AddMergedColumns("Prepayment", 20, 2);
         //iGridView1.AddMergedColumns("Payment", 25, 2);
     }
@@ -469,7 +469,7 @@
        if(e.Row.RowType == DataControlRowType.Footer){
            e.Row.Cells[8].CssClass = "HighLight1";
            e.Row.Cells[10].CssClass = "HighLight1";
-           e.Row.Cells[17].CssClass = "HighLight1";
+           e.Row.Cells[16].CssClass = "HighLight1";
        }
 
     }
@@ -645,7 +645,6 @@
                             </asp:TemplateField>
                             <asp:BoundField DataField="InvDate" HeaderText="Inv Date" />
                             <asp:BoundField DataField="InvNo" HeaderText="Inv No" />
-                            <asp:BoundField DataField="ReceiveDate" HeaderText="Received Date" />
                             <asp:BoundField DataField="IMA" HeaderText="IMA" SortExpression="IMA"/>
                             <%--<asp:BoundField DataField="VenderNo" HeaderText="No" />--%>
                             <asp:BoundField DataField="VenderName" HeaderText="VenderName" />
@@ -671,6 +670,7 @@
                             <asp:BoundField DataField="Payment" HeaderText="Payment" />
                             <asp:BoundField DataField="TotalPayment" HeaderText="$" />
                             <asp:BoundField DataField="PaymentDate" HeaderText="Date" />--%>
+                            <asp:BoundField DataField="ReceiveDate" HeaderText="Received Date" />
                             <asp:BoundField DataField="PRNo" HeaderText="PR No" />
                         </Columns>
                     </cc1:iRowSpanGridView>
