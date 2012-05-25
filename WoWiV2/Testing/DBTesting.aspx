@@ -122,6 +122,11 @@
         }
         db.SaveChanges();
     }
+
+    protected void Button7_Click(object sender, EventArgs e)
+    {
+        PRUtils.Mail(new String[]{"ken@netdb.com.tw"}, null, "test", "TEST");
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -147,6 +152,10 @@
    
    <asp:Button ID="Button6" runat="server" 
         Text="Client Payment days/Status" onclick="Button6_Click"  />
+    <br />
+    <asp:Button ID="Button7" runat="server" onclick="Button7_Click" 
+        Text="Send Email" />
+    <br />
     <br />
 </asp:Content>
 
