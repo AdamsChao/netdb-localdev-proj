@@ -29,7 +29,7 @@
     int count = 0;
     protected void iGridView1_SetCSSClass(GridViewRow row)
     {
-        row.Cells[19].CssClass = "HighLight";
+        //row.Cells[19].CssClass = "HighLight";
         //if (count !=0 &&i == count - 1)
         //{
         //    for (int k = 19 ; k <= 25; k++)
@@ -53,10 +53,8 @@
         CostAnalysisData temp;
         try
         {
-            var datas = from pr in wowidb.PRs select pr;
+            var datas = from pr in wowidb.PRs from a in wowidb.PR_authority_history where pr.pr_auth_id == a.pr_auth_id && (a.status == (byte)PRStatus.Done ) select pr;
 
-
-            decimal profit = 0, invusd = 0, imausd = 0, prepay = 0, preunpay = 0, unpay = 0, payable = 0, payment = 0, totpay = 0;
             foreach (var item in datas)
             {
                 int prid = item.pr_id;
@@ -90,19 +88,31 @@
                 }
                 if (item.total_cost.HasValue)
                 {
-                    temp.IMACost = ((decimal)item.total_cost).ToString("F2");
-                    imausd += (decimal)item.total_cost;
-                    temp.IMACostCurrency = item.currency;
                     try
                     {
-                        WoWiModel.PR_Payment p = (from pa in wowidb.PR_Payment where pa.pr_id == item.pr_id select pa).First();
-                        temp.SubCostUSD = ((decimal)p.total_amount).ToString("F2");
+                        WoWiModel.PR_Payment pay = wowidb.PR_Payment.First(c => c.pr_id == item.pr_id);
+                        //temp.IMACost = ((decimal)item.total_cost).ToString("F2");
+                        temp.IMACost = ((decimal)pay.total_amount).ToString("F2");
+                        imausd += ((decimal)pay.total_amount);
                     }
                     catch (Exception)
                     {
                         
-                        //throw;
+                        temp.IMACost = ((decimal)item.total_cost).ToString("F2");
+                        imausd += ((decimal)item.total_cost);
                     }
+                   
+                    temp.IMACostCurrency = item.currency;
+                    //try
+                    //{
+                    //    WoWiModel.PR_Payment p = (from pa in wowidb.PR_Payment where pa.pr_id == item.pr_id select pa).First();
+                    //    temp.SubCostUSD = ((decimal)p.total_amount).ToString("F2");
+                    //}
+                    //catch (Exception)
+                    //{
+                        
+                    //    //throw;
+                    //}
                     
                     
                 }
@@ -176,7 +186,7 @@
                     {
                         int qid = proj.Quotation_Id;
                         WoWiModel.Quotation_Version quo = (from q in wowidb.Quotation_Version where q.Quotation_Version_Id == qid select q).First();
-                        temp.QutationNo = quo.Quotation_No;
+                        temp.QutationNo = quo.Quotation_No +" - V"+quo.Vername;
                         temp.QutationId = qid;
                         if (quo.modify_date.HasValue)
                         {
@@ -196,7 +206,7 @@
                         var qtid = wowidb.PR_item.Where(c => c.pr_id == item.pr_id).First().quotation_target_id;
                         int country_id = (int)(from qitem in wowidb.Quotation_Target where qitem.Quotation_Target_Id == qtid select qitem.country_id).First();
                         var country = (from cou in wowidb.countries where cou.country_id == country_id select cou).First();
-                        temp.Country = country.country_name;
+                        //temp.Country = country.country_name;
                         if (ddlCountry.SelectedValue != "-1")
                         {
                             if (country.country_id != int.Parse(ddlCountry.SelectedValue))
@@ -270,9 +280,10 @@
                             try
                             {
                                 WoWiModel.PR_item pritem = wowidb.PR_item.First(c => c.pr_id == item.pr_id);
+                                temp.Country = pritem.item_desc;
                                 WoWiModel.Quotation_Target qti = wowidb.Quotation_Target.First(d => d.Quotation_Target_Id == pritem.quotation_target_id);
-                                profit += ((decimal)qti.unit_price * (decimal)qti.unit - decimal.Parse(temp.SubCostUSD));
-                                temp.GrossProfitUS = ((decimal)qti.unit_price * (decimal)qti.unit - decimal.Parse(temp.SubCostUSD)).ToString("F2");
+                                profit += ((decimal)qti.unit_price * (decimal)qti.unit - decimal.Parse(temp.IMACost));
+                                temp.GrossProfitUS = ((decimal)qti.unit_price * (decimal)qti.unit - decimal.Parse(temp.IMACost)).ToString("F2");
                             }
                             catch (Exception)
                             {
@@ -303,22 +314,22 @@
             
             }
             
-            if (list.Count != 0)
-            {
-                temp = new CostAnalysisData()
-                {
-                    GrossProfitUS = profit.ToString("F2"),
-                    InvUSD = invusd.ToString("F2"),
-                    SubCostUSD = "US$"+imausd.ToString("F2"),
-                    Prepay = prepay.ToString("F2"),
-                    Preunpay = preunpay.ToString("F2"),
-                    Payable = payable.ToString("F2"),
-                    Unpay = unpay.ToString("F2"),
-                    Payment = payment.ToString("F2"),
-                    TotalPayment = totpay.ToString("F2")
-                };
-                //list.Add(temp);
-            }
+            //if (list.Count != 0)
+            //{
+            //    temp = new CostAnalysisData()
+            //    {
+            //        GrossProfitUS = profit.ToString("F2"),
+            //        InvUSD = invusd.ToString("F2"),
+            //        SubCostUSD = "US$"+imausd.ToString("F2"),
+            //        Prepay = prepay.ToString("F2"),
+            //        Preunpay = preunpay.ToString("F2"),
+            //        Payable = payable.ToString("F2"),
+            //        Unpay = unpay.ToString("F2"),
+            //        Payment = payment.ToString("F2"),
+            //        TotalPayment = totpay.ToString("F2")
+            //    };
+            //    //list.Add(temp);
+            //}
         }
         catch (Exception)
         {
@@ -438,21 +449,18 @@
         Search(e.SortExpression);
     }
 
-    double invusd = 0;
-    double imacost = 0;
-    double gpus = 0;
-   
+    decimal profit = 0, invusd = 0, imausd = 0;
     public string GetInvUSD()
     {
         return invusd.ToString("F2");
     }
     public string GetIMACost()
     {
-        return imacost.ToString("F2");
+        return imausd.ToString("F2");
     }
     public string GetGrossProfitUS()
     {
-        return gpus.ToString("F2");
+        return profit.ToString("F2");
     }
 
 
@@ -461,7 +469,7 @@
        if(e.Row.RowType == DataControlRowType.Footer){
            e.Row.Cells[8].CssClass = "HighLight1";
            e.Row.Cells[10].CssClass = "HighLight1";
-           e.Row.Cells[18].CssClass = "HighLight1";
+           e.Row.Cells[17].CssClass = "HighLight1";
        }
 
     }
@@ -548,7 +556,7 @@
                                 Project Status :&nbsp;</th>
                             <td width="20%">
                                 <asp:DropDownList ID="DropDownList3" runat="server" AppendDataBoundItems="True">
-                                    <asp:ListItem>All</asp:ListItem>
+                                    <asp:ListItem>- All -</asp:ListItem>
                                     <asp:ListItem>Open</asp:ListItem>
                                     <asp:ListItem>In-Progress</asp:ListItem>
                                     <asp:ListItem>On-Hand</asp:ListItem>
@@ -592,11 +600,11 @@
                         
                        
                    <tr><td colspan="6">
-                       <asp:Label ID="lblMsg" runat="server" Text="No match data found." ></asp:Label>
+                       <asp:Label ID="lblMsg" runat="server" Text="No matched data found." ></asp:Label>
                     <cc1:iRowSpanGridView ID="iGridView1" runat="server"  Width="100%" 
                            isMergedHeader="True" SkinID="GridView"
                         AutoGenerateColumns="False" CssClass="Gridview" ShowFooter="true"
-                           onsetcssclass="iGridView1_SetCSSClass" onsorting="iGridView1_Sorting" 
+                         onsorting="iGridView1_Sorting" 
                            SkipColNum="0" onrowdatabound="iGridView1_RowDataBound" 
                            >
                         <Columns>
@@ -608,7 +616,7 @@
                             <asp:BoundField DataField="Model" HeaderText="Model" SortExpression="Model"/>
                             <asp:BoundField DataField="Status" HeaderText="Status" />
                             <asp:BoundField DataField="StatusDate" HeaderText="Status Date" />
-                            <asp:TemplateField HeaderText="Gross Profit US">
+                            <asp:TemplateField HeaderText="Gross Profit US" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("GrossProfitUS") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -616,11 +624,13 @@
                                     <asp:Label ID="Label1" runat="server" Text='<%# Bind("GrossProfitUS") %>'></asp:Label>
                                 </ItemTemplate>
                                  <FooterTemplate>
-                                    <asp:Literal ID="Literal1" runat="server" Text="<%# GetGrossProfitUS()%>"></asp:Literal>
+                                   <table width="100%"><tr><td align="right">
+                                   <asp:Literal ID="Literal1" runat="server" Text="<%# GetGrossProfitUS()%>"></asp:Literal>
+                                    </td></tr></table>
                                      </FooterTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Sales" HeaderText="AE" SortExpression="Sales" />
-                            <asp:TemplateField HeaderText="Inv USD">
+                            <asp:TemplateField HeaderText="Inv USD" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("InvUSD") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -628,7 +638,9 @@
                                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("InvUSD") %>'></asp:Label>
                                 </ItemTemplate>
                                  <FooterTemplate>
+                                 <table width="100%"><tr><td align="right">
                                     <asp:Literal ID="Literal1" runat="server" Text="<%# GetInvUSD()%>"></asp:Literal>
+                                    </td></tr></table>
                                      </FooterTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="InvDate" HeaderText="Inv Date" />
@@ -638,7 +650,7 @@
                             <%--<asp:BoundField DataField="VenderNo" HeaderText="No" />--%>
                             <asp:BoundField DataField="VenderName" HeaderText="VenderName" />
                             <asp:BoundField DataField="IMACostCurrency" HeaderText="幣別" />
-                            <asp:TemplateField HeaderText="$">
+                            <asp:TemplateField HeaderText="$" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("IMACost") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -646,7 +658,9 @@
                                     <asp:Label ID="Label3" runat="server" Text='<%# Bind("IMACost") %>'></asp:Label>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    <asp:Literal ID="Literal1" runat="server" Text="<%# GetIMACost()%>"></asp:Literal>
+                                 <table width="100%"><tr><td align="right">
+                                   <asp:Literal ID="Literal1" runat="server" Text="<%# GetIMACost()%>"></asp:Literal>
+                                    </td></tr></table>
                                      </FooterTemplate>
                             </asp:TemplateField>
                             <%--<asp:BoundField DataField="SubCostUSD" HeaderText="SubCost USD" />
