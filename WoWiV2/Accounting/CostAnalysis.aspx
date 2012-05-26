@@ -533,7 +533,7 @@
                         </tr>
                         <tr>
                             <th align="left" width="13%">
-                                Country :&nbsp;</th>
+                                Target :&nbsp;</th>
                             <td width="20%">
                                 <asp:DropDownList ID="ddlCountry" runat="server" AppendDataBoundItems="True" 
                                     onload="ddlCountry_Load">
