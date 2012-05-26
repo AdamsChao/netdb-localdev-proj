@@ -967,6 +967,10 @@
                     WoWiModel.employee emp = (from c in wowidb.employees where c.id == empid select c).First();
                     String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
                     String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
+                    if (!obj.total_cost.HasValue)
+                    {
+                        obj.total_cost = 0;
+                    }
                     switch (btnID)
                     {
                         case "btnSupervisorApprove":

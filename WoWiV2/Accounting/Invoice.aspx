@@ -296,7 +296,7 @@
         }
         if (str == null)
         {
-            iGridView1.DataSource = list;
+            iGridView1.DataSource = list.OrderByDescending(c => c.InvoiceNo);
         }
         else
         {

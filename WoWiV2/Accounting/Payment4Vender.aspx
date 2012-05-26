@@ -91,7 +91,7 @@
             }
             else
             {
-                SqlDataSource1.SelectCommand += newCriteria;
+                SqlDataSource1.SelectCommand += newCriteria + " Order by P.pr_id desc ";
             }
         }
         

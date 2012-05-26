@@ -258,8 +258,16 @@ public class PRUtils
             string to = GetEmail((int)auth.requisitioner_id);
             if (to != null)
             {
-                string cc = GetEmail((int)auth.finance_id);
-                Mail(new String[] { to }, new String[] { cc }, mailSubject, mailContent);
+                if (auth.finance_id.HasValue)
+                {
+                    string cc = GetEmail((int)auth.finance_id);
+                    Mail(new String[] { to }, new String[] { cc }, mailSubject, mailContent);
+                }
+                else
+                {
+                    Mail(new String[] { to }, null, mailSubject, mailContent);
+                }
+
             }
         }
         catch (Exception)
