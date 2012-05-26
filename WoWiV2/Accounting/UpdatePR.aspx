@@ -827,7 +827,7 @@
             (FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
             wowidb.SaveChanges();
             //Send Email
-            PRUtils.WaitingForSupervisorApprove(auth);//Not Yet
+            PRUtils.WaitingForSupervisorApprove(wowidb,auth);//Not Yet
             (sender as Button).Enabled = false;
             Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id,false);
         }
@@ -994,18 +994,18 @@
                             //Send Email To
                             if (auth.status == (byte)PRStatus.Supervisor)
                             {
-                                PRUtils.WaitingForVPApprove(auth);//Not Yet
+                                PRUtils.WaitingForVPApprove(wowidb,auth);//Not Yet
                             }
                             else
                             {
-                                PRUtils.PRStatusDone(auth);
+                                PRUtils.PRStatusDone(wowidb, auth);
                             }
                             SetValue("btnSupervisorApprove", "btnSupervisorDisapprove", (byte)auth.status);
                             break;
                         case "btnSupervisorDisapprove":
                             disapprove(obj, auth, "lblSupervisorDate", auth.supervisor);
                             //Send Email To Requisitioner
-                            PRUtils.SupervisorDisapprove(auth);//Not Yet
+                            PRUtils.SupervisorDisapprove(wowidb,auth);//Not Yet
                             SetValue("btnSupervisorApprove", "btnSupervisorDisapprove", (byte)PRStatus.Init);
                             break;
                         case "btnVPApprove":
@@ -1033,18 +1033,18 @@
                             //Send Email To
                             if (auth.status == (byte)PRStatus.VicePresident)
                             {
-                                PRUtils.WaitingForPresidentApprove(auth);//Not Yet
+                                PRUtils.WaitingForPresidentApprove(wowidb,auth);//Not Yet
                             }
                             else
                             {
-                                PRUtils.PRStatusDone(auth);
+                                PRUtils.PRStatusDone(wowidb, auth);
                             }
                             SetValue("btnVPApprove", "btnVPDisapprove", (byte)auth.status);
                             break;
                         case "btnVPDisapprove":
                             disapprove(obj, auth, "lblVPDate", auth.vp);
                             //Send Email To Requisitioner
-                            PRUtils.VPDisapprove(auth);//Not Yet
+                            PRUtils.VPDisapprove(wowidb,auth);//Not Yet
                             SetValue("btnVPApprove", "btnVPDisapprove", (byte)PRStatus.Init);
                             break;
                         case "btnPresidentApprove":
@@ -1062,13 +1062,13 @@
                                 auth.instruction += inst + " by " + auth.president + " \n";
                             }
                             wowidb.SaveChanges();
-                            PRUtils.PRStatusDone(auth);
+                            PRUtils.PRStatusDone(wowidb,auth);
                             SetValue("btnPresidentApprove", "btnPresidentApprove", (byte)PRStatus.Done);
                             break;
                         case "btnPresidentDisapprove":
                             disapprove(obj, auth, "lblPresidentDate", auth.president);
                             //Send Email To Requisitioner
-                            PRUtils.PresidentDisapprove(auth);//Not Yet
+                            PRUtils.PresidentDisapprove(wowidb,auth);//Not Yet
                             break;
                         case "btnPay":
                             Response.Redirect("~/Accounting/PRPayment.aspx?id=" + obj.pr_id);
@@ -1155,7 +1155,7 @@
         WoWiModel.PR pr = wowidb.PRs.Where(n => n.pr_id == obj.pr_id).First();
         pr.pr_auth_id = newauth.pr_auth_id;
         wowidb.SaveChanges();
-        Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
+        //Response.Redirect("~/Accounting/PRDetails.aspx?id=" + obj.pr_id);
     }
     protected void lbl_Load(object sender, EventArgs e)
     {

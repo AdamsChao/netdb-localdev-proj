@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 /// </summary>
 public class PRUtils
 {
-    public const String PRApproval_URL = "http://wowiv2.wowiapproval.com/Accounting/UpdatePR.aspx?id=";
+    public const String PRApproval_URL = "http://wowiv2.wowiapproval.com/WoWiV2/Accounting/UpdatePR.aspx?id=";
     static QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     static WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     public static void Mail(string[] mailto, string[] mailcc,string mailSubject, string mailContent)
@@ -22,18 +22,18 @@ public class PRUtils
         MailUtil.SendHTMLMail(mailfrom, mailto, mailcc, null, mailSubject, panel);
     }
 
-    private static String GetPRMailSubject(WoWiModel.PR_authority_history auth)
+    private static String GetPRMailSubject(WoWiModel.WoWiEntities wowidb,WoWiModel.PR_authority_history auth)
     {
-        return GetPRMailSubject(auth, "request for approval");
+        return GetPRMailSubject(wowidb,auth, "request for approval");
     }
-    private static String GetPRMailSubject(WoWiModel.PR_authority_history auth,String message)
+    private static String GetPRMailSubject(WoWiModel.WoWiEntities wowidb,WoWiModel.PR_authority_history auth,String message)
     {
         int prid = auth.pr_id;
         WoWiModel.PR obj = (from p in wowidb.PRs where p.pr_id == prid select p).First();
         WoWiModel.vendor ven = (from v in wowidb.vendors where v.id == obj.vendor_id select v).First();
         String venderName = String.IsNullOrEmpty(ven.name) ? ven.c_name : ven.name;
-        String quotaion_no = (from d in db.Quotation_Version where d.Quotation_Version_Id == obj.quotaion_id select d.Quotation_No).First();
-        var list = from q in db.Quotation_Version
+        String quotaion_no = (from d in wowidb.Quotation_Version where d.Quotation_Version_Id == obj.quotaion_id select d.Quotation_No).First();
+        var list = from q in wowidb.Quotation_Version
                        where q.Quotation_No.Equals(quotaion_no)
                        select new
                        {
@@ -56,11 +56,11 @@ public class PRUtils
         return (from c in wowidb.employees where c.id == empId select c.email).First();
     }
 
-    public static void WaitingForSupervisorApprove(WoWiModel.PR_authority_history auth)
+    public static void WaitingForSupervisorApprove(WoWiModel.WoWiEntities wowidb,WoWiModel.PR_authority_history auth)
     {
         try
         {
-            string mailSubject = GetPRMailSubject(auth);
+            string mailSubject = GetPRMailSubject(wowidb,auth);
             string sender = auth.requisitioner + "<br />" + PRApproval_URL + auth.pr_id;
             string mailContent = GetPRMailContent(mailSubject, sender);
             string to = GetEmail((int)auth.supervisor_id);
@@ -78,11 +78,11 @@ public class PRUtils
         
     }
 
-    public static void WaitingForVPApprove(WoWiModel.PR_authority_history auth)
+    public static void WaitingForVPApprove(WoWiModel.WoWiEntities wowidb,WoWiModel.PR_authority_history auth)
     {
         try
         {
-            string mailSubject = GetPRMailSubject(auth);
+            string mailSubject = GetPRMailSubject(wowidb,auth);
             string sender = auth.supervisor + "<br />" + PRApproval_URL + auth.pr_id;
             string mailContent = GetPRMailContent(mailSubject, sender);
             string to = GetEmail((int)auth.vp_id);
@@ -101,11 +101,11 @@ public class PRUtils
        
     }
 
-    public static void WaitingForPresidentApprove(WoWiModel.PR_authority_history auth)
+    public static void WaitingForPresidentApprove(WoWiModel.WoWiEntities wowidb, WoWiModel.PR_authority_history auth)
     {
         try
         {
-            string mailSubject = GetPRMailSubject(auth);
+            string mailSubject = GetPRMailSubject(wowidb,auth);
             string sender = auth.vp + "<br />" + PRApproval_URL + auth.pr_id;
             string mailContent = GetPRMailContent(mailSubject, sender);
             string to = GetEmail((int)auth.president_id);
@@ -125,12 +125,12 @@ public class PRUtils
         
     }
 
-    public static void SupervisorDisapprove(WoWiModel.PR_authority_history auth)
+    public static void SupervisorDisapprove(WoWiModel.WoWiEntities wowidb,WoWiModel.PR_authority_history auth)
     {
         try
         {
-            string mailSubject = GetPRMailSubject(auth, "disapprove");
-            string sender = auth.supervisor_id + "<br />" + PRApproval_URL + auth.pr_id;
+            string mailSubject = GetPRMailSubject(wowidb,auth, "disapprove");
+            string sender = auth.supervisor + "<br />" + PRApproval_URL + auth.pr_id;
             string mailContent = GetPRMailContent(mailSubject, sender);
             string to = GetEmail((int)auth.requisitioner_id);
             if (to != null)
@@ -147,7 +147,7 @@ public class PRUtils
        
     }
 
-    public static void VPDisapprove(WoWiModel.PR_authority_history auth)
+    public static void VPDisapprove(WoWiModel.WoWiEntities wowidb,WoWiModel.PR_authority_history auth)
     {
         try
         {
@@ -158,7 +158,7 @@ public class PRUtils
 
             //throw;
         }
-        string mailSubject = GetPRMailSubject(auth, "disapprove");
+        string mailSubject = GetPRMailSubject(wowidb,auth, "disapprove");
         string sender = auth.vp + "<br />" + PRApproval_URL + auth.pr_id;
         string mailContent = GetPRMailContent(mailSubject, sender);
         string to = GetEmail((int)auth.requisitioner_id);
@@ -173,7 +173,7 @@ public class PRUtils
 
     }
 
-    public static void PresidentDisapprove(WoWiModel.PR_authority_history auth)
+    public static void PresidentDisapprove(WoWiModel.WoWiEntities wowidb, WoWiModel.PR_authority_history auth)
     {
         try
         {
@@ -184,8 +184,8 @@ public class PRUtils
             
             //throw;
         }
-        string mailSubject = GetPRMailSubject(auth, "disapprove");
-        string sender = auth.vp + "<br />" + PRApproval_URL + auth.pr_id;
+        string mailSubject = GetPRMailSubject(wowidb,auth, "disapprove");
+        string sender = auth.president + "<br />" + PRApproval_URL + auth.pr_id;
         string mailContent = GetPRMailContent(mailSubject, sender);
         string to = GetEmail((int)auth.requisitioner_id);
         if (to != null)
@@ -248,11 +248,11 @@ public class PRUtils
         return ret;
     }
 
-    public static void PRStatusDone(WoWiModel.PR_authority_history auth)
+    public static void PRStatusDone(WoWiModel.WoWiEntities wowidb, WoWiModel.PR_authority_history auth)
     {
         try
         {
-            string mailSubject = GetPRMailSubject(auth, "approved");
+            string mailSubject = GetPRMailSubject(wowidb,auth, "approved");
             string sender = "Approver <br />" + PRApproval_URL + auth.pr_id;
             string mailContent = GetPRMailContent(mailSubject, sender);
             string to = GetEmail((int)auth.requisitioner_id);
