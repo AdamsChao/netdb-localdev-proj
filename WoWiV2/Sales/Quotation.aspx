@@ -98,7 +98,8 @@
         <asp:SqlDataSource ID="SqlDataSourceQuot" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
             
             
-            SelectCommand="SELECT vw_Quotation.Quotation_Version_Id, vw_Quotation.Quotation_No, vw_Quotation.Vername, vw_Quotation.Quotation_Status_Name, vw_Quotation.code, vw_Quotation.companyname, vw_Quotation.Product_Name, vw_Quotation.Model_No, vw_Quotation.username, vw_Quotation.Quotation_OpenDate, vw_Quotation.Client_Id, vw_Quotation.fname, vw_Quotation.SalesId FROM vw_Quotation LEFT OUTER JOIN m_employee_accesslevel ON vw_Quotation.Access_Level_ID = m_employee_accesslevel.accesslevel_id WHERE (m_employee_accesslevel.employee_id = @employee_id) OR (vw_Quotation.Access_Level_ID IS NULL) ORDER BY vw_Quotation.Quotation_No DESC, vw_Quotation.Model_No">
+            
+            SelectCommand="SELECT vw_Quotation.Quotation_Version_Id, vw_Quotation.Quotation_No, vw_Quotation.Vername, vw_Quotation.Quotation_Status_Name, vw_Quotation.code, vw_Quotation.companyname, vw_Quotation.Product_Name, vw_Quotation.Model_No, vw_Quotation.username, vw_Quotation.Quotation_OpenDate, vw_Quotation.Client_Id, vw_Quotation.fname, vw_Quotation.SalesId FROM vw_Quotation LEFT OUTER JOIN m_employee_accesslevel ON vw_Quotation.Access_Level_ID = m_employee_accesslevel.accesslevel_id WHERE (m_employee_accesslevel.employee_id = @employee_id) OR (vw_Quotation.Access_Level_ID IS NULL) ORDER BY vw_Quotation.Quotation_No DESC, vw_Quotation.Vername, vw_Quotation.Model_No">
             <SelectParameters>
                 <asp:ControlParameter ControlID="txtCurrentEmployee_id" Name="employee_id" 
                     PropertyName="Text" />
