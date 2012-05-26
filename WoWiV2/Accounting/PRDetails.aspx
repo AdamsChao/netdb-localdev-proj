@@ -1049,7 +1049,7 @@
                             <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
                          <tr><td>
                          </td></tr>
-                                <asp:GridView ID="GridView5" runat="server">
+                                <asp:GridView ID="GridView5" runat="server" Width="100%">
                                 </asp:GridView>
                       </table>
                             </td></tr>
