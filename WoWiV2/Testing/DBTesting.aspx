@@ -125,7 +125,7 @@
 
     protected void Button7_Click(object sender, EventArgs e)
     {
-        PRUtils.Mail(new String[]{"ken@netdb.com.tw"}, null, "test", "TEST");
+        PRUtils.Mail(new String[] { "ken_tai@uuu.com.tw" }, new String[] { "ken@netdb.com.tw" }, "test", "TEST");
     }
 </script>
 
