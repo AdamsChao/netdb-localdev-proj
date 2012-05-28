@@ -30,20 +30,23 @@ public class PRUtils
     {
         int prid = auth.pr_id;
         WoWiModel.PR obj = (from p in wowidb.PRs where p.pr_id == prid select p).First();
+        int tid = wowidb.PR_item.First(c => c.pr_id == obj.pr_id).quotation_target_id;
         WoWiModel.vendor ven = (from v in wowidb.vendors where v.id == obj.vendor_id select v).First();
         String venderName = String.IsNullOrEmpty(ven.name) ? ven.c_name : ven.name;
-        String quotaion_no = (from d in wowidb.Quotation_Version where d.Quotation_Version_Id == obj.quotaion_id select d.Quotation_No).First();
-        var list = from q in wowidb.Quotation_Version
-                       where q.Quotation_No.Equals(quotaion_no)
-                       select new
-                       {
-                           No = q.Quotation_No,
-                           Version = q.Vername,
-                           Id = q.Quotation_Version_Id
-                       };
-        var data = (from t in wowidb.Target_Rates from qt in wowidb.Quotation_Target from q in list where qt.quotation_id == q.Id & qt.target_id == t.Target_rate_id select new { Code = t.authority_name, Desc = qt.target_description }).First();
+        //String quotaion_no = (from d in wowidb.Quotation_Version where d.Quotation_Version_Id == obj.quotaion_id select d.Quotation_No).First();
+        //var list = from q in wowidb.Quotation_Version
+        //               where q.Quotation_No.Equals(quotaion_no)
+        //               select new
+        //               {
+        //                   No = q.Quotation_No,
+        //                   Version = q.Vername,
+        //                   Id = q.Quotation_Version_Id
+        //               };
+        //var data = (from t in wowidb.Target_Rates from qt in wowidb.Quotation_Target from q in list where qt.quotation_id == q.Id & qt.target_id == t.Target_rate_id select new { Code =11, Desc = qt.target_description }).First();
+        var data = (from t in wowidb.Target_Rates from q in wowidb.Quotation_Version from qt in wowidb.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id && q.Quotation_Version_Id == obj.quotaion_id select new { TargetName = ((from c in wowidb.Authorities where c.authority_id == qt.authority_id select c.authority_name).FirstOrDefault()), Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = qt.target_description, ModelNo = q.Model_No, Qty = qt.unit }).First();
+                    
         String templateStr = "PR No.#{0} / {1} / {2} / {3}  is "+message;
-        return String.Format(templateStr, prid, venderName, data.Desc,data.Code);
+        return String.Format(templateStr, prid, venderName, data.ItemDescription,data.TargetName);
     }
 
     private static String GetPRMailContent(String subject,String sender)
