@@ -41,18 +41,17 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            <%--<span style="color: Red; font-size: 10pt;">*</span>--%>Document language
-                            <br />
-                            acceptance：
+                            <%--<span style="color: Red; font-size: 10pt;">*</span>--%>Document language acceptance：
                         </td>
                         <td class="tdRowValue" align="left">
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:RadioButtonList ID="rblLanguage" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                                        <asp:Label ID="lblLanguage" runat="server"></asp:Label>
+                                        <%--<asp:RadioButtonList ID="rblLanguage" runat="server" RepeatDirection="Horizontal" Enabled="false">
                                             <asp:ListItem Text="All English" Value="All" Selected="True"></asp:ListItem>
                                             <asp:ListItem Text="Other or Partial" Value="Other"></asp:ListItem>
-                                        </asp:RadioButtonList>
+                                        </asp:RadioButtonList>--%>
                                     </td>
                                 </tr>
                                 <tr>
@@ -75,7 +74,7 @@
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
                                                         <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "TestingFile.ashx?fid="+Eval("TestingFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -106,14 +105,14 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Testing Sample Label Marking：<br />
-                            Remark：
+                            Testing Sample Label Marking：
                         </td>
                         <td class="tdRowValue">
-                            <asp:RadioButtonList ID="rblTestMark" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                            <asp:Label ID="lblTestMark" runat="server"></asp:Label>
+                            <%--<asp:RadioButtonList ID="rblTestMark" runat="server" RepeatDirection="Horizontal" Enabled="false">
                                 <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="No" Value="0"></asp:ListItem>
-                            </asp:RadioButtonList>
+                            </asp:RadioButtonList>--%>
                             <asp:Label ID="lblTestMarkRemark" runat="server"></asp:Label>
                         </td>
                     </tr>
@@ -122,8 +121,9 @@
                             EUT Info：
                         </td>
                         <td class="tdRowValue">
-                            <asp:CheckBox ID="cbBW" runat="server" Text="Sales Brochure (B/W)" Enabled="false" />
-                            <asp:CheckBox ID="cbColor" runat="server" Text="Sales Brochure (Color)" Enabled="false" /><br />
+                            <asp:Label ID="lblEUTInfo" runat="server"></asp:Label>
+                            <%--<asp:CheckBox ID="cbBW" runat="server" Text="Sales Brochure (B/W)" Enabled="false" />
+                            <asp:CheckBox ID="cbColor" runat="server" Text="Sales Brochure (Color)" Enabled="false" /><br />--%>
                             <asp:Label ID="lblManual" runat="server"></asp:Label>
                         </td>
                     </tr>
@@ -135,21 +135,21 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="cbFCCTest" runat="server" Text="FCC Test Report" Enabled="false" />
+                                        <asp:Label ID="lblCertification" runat="server"></asp:Label>
+                                        <%--<asp:CheckBox ID="cbFCCTest" runat="server" Text="FCC Test Report" Enabled="false" />
                                         <asp:CheckBox ID="cbFCCCertificate" runat="server" Text="FCC Certificate" Enabled="false" />
                                         <asp:CheckBox ID="cbCETest" runat="server" Text="CE Test Report" Enabled="false" />
-                                        <asp:CheckBox ID="cbNBEO" runat="server" Text="NBEO" Enabled="false" />
+                                        <asp:CheckBox ID="cbNBEO" runat="server" Text="NBEO" Enabled="false" />--%>
                                     </td>
                                 </tr>
-                                <tr>
+                                <%--<tr>
                                     <td>
                                         <asp:CheckBox ID="cbEUDoC" runat="server" Text="EU DoC" Enabled="false" />
                                         <asp:CheckBox ID="cbConformance" runat="server" Text="Conformance for GSM, CDMA , and WCDMA" Enabled="false" />
                                     </td>
-                                </tr>
+                                </tr>--%>
                                 <tr>
                                     <td>
-                                        Other internationally recognized certification (specify)<br />
                                         <asp:Label ID="lblOtherInternationally" runat="server"></asp:Label>
                                     </td>
                                 </tr>
@@ -168,7 +168,7 @@
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
                                                         <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "TestingFile.ashx?fid="+Eval("TestingFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -205,23 +205,22 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="cbSchematics" runat="server" Text="Schematics" Enabled="false" />
+                                        <asp:Label ID="lblTechnicalDocs" runat="server"></asp:Label>
+                                        <%--<asp:CheckBox ID="cbSchematics" runat="server" Text="Schematics" Enabled="false" />
                                         <asp:CheckBox ID="cbBlock" runat="server" Text="Block Diagram" Enabled="false" />
                                         <asp:CheckBox ID="cbLayout" runat="server" Text="Layout" Enabled="false" />
                                         <asp:CheckBox ID="cbGerber" runat="server" Text="Gerber" Enabled="false" />
                                         <asp:CheckBox ID="cbTheory" runat="server" Text="Theory of Operation" Enabled="false" />
-                                        <asp:CheckBox ID="cbBOM1" runat="server" Text="BOM" Enabled="false" />
+                                        <asp:CheckBox ID="cbBOM1" runat="server" Text="BOM" Enabled="false" />--%>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Technical Spec In
                                         <asp:Label ID="lblTechnical" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Antenna Spec In
                                         <asp:Label ID="lblAntenna" runat="server"></asp:Label>
                                     </td>
                                 </tr>
@@ -242,22 +241,22 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="cbOfficial" runat="server" Text="Official Application Form" Enabled="false" /><asp:Label ID="lblOfficialLanguage" runat="server"></asp:Label><br />
-                                        <asp:CheckBox ID="cbWoWiRequest" runat="server" Text="WoWi Request Letter" Enabled="false" /><br />
-                                        <asp:CheckBox ID="cbISO" runat="server" Text="ISO/Quality Documents" Enabled="false" /><asp:Label ID="lblISOLanguage" runat="server"></asp:Label>
+                                        <asp:Label ID="lblOtherDoc1" runat="server"></asp:Label>
+                                        <%--<asp:CheckBox ID="cbOfficial" runat="server" Text="Official Application Form" Enabled="false" /><asp:Label ID="lblOfficialLanguage" runat="server"></asp:Label><br />--%>
+                                        <%--<asp:CheckBox ID="cbWoWiRequest" runat="server" Text="WoWi Request Letter" Enabled="false" />--%><br />
+                                        <%--<asp:CheckBox ID="cbISO" runat="server" Text="ISO/Quality Documents" Enabled="false" /><asp:Label ID="lblISOLanguage" runat="server"></asp:Label>--%>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="cbPayment" runat="server" Text="Payment Receipt" Enabled="false" /><br />
-                                        <asp:CheckBox ID="cbAuthor" runat="server" Text="Authorization Letter from Manufacturer to Local Rep/Agent" Enabled="false" /><br />
-                                        <asp:CheckBox ID="cbAuthorWoWi" runat="server" Text="Authorization Letter from Manufacturer to WoWi" Enabled="false" /><br />
-                                        <asp:CheckBox ID="cbAuthorAgent" runat="server" Text="Authorization Letter from Local Rep to Local Agent" Enabled="false" />
+                                        <%--<asp:CheckBox ID="cbPayment" runat="server" Text="Payment Receipt" Enabled="false" /><br />--%>
+                                        <%--<asp:CheckBox ID="cbAuthor" runat="server" Text="Authorization Letter from Manufacturer to Local Rep/Agent" Enabled="false" /><br />--%>
+                                        <%--<asp:CheckBox ID="cbAuthorWoWi" runat="server" Text="Authorization Letter from Manufacturer to WoWi" Enabled="false" /><br />--%>
+                                        <%--<asp:CheckBox ID="cbAuthorAgent" runat="server" Text="Authorization Letter from Local Rep to Local Agent" Enabled="false" />--%>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Please specify any other documents required<br />
                                         <asp:Label ID="lblOtherDocRequest" runat="server"></asp:Label>
                                     </td>
                                 </tr>
@@ -276,7 +275,7 @@
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
                                                         <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "TestingFile.ashx?fid="+Eval("TestingFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -344,10 +343,12 @@
                             or send by CD, email, or FTP：
                         </td>
                         <td class="tdRowValue">
-                            <asp:CheckBox ID="cbPreInstalled" runat="server" Text="Pre-installed" Enabled="false" />
+                            <asp:Label ID="lblPreInstalled" runat="server"></asp:Label>
+                            <%--<asp:CheckBox ID="cbPreInstalled" runat="server" Text="Pre-installed" Enabled="false" />
                             <asp:CheckBox ID="cbCD" runat="server" Text="CD" Enabled="false" />
                             <asp:CheckBox ID="cbEmail" runat="server" Text="Email" Enabled="false" />
-                            <asp:CheckBox ID="cbFTP" runat="server" Text="FTP" Enabled="false" /><asp:Label ID="lblTestNote" runat="server"></asp:Label>
+                            <asp:CheckBox ID="cbFTP" runat="server" Text="FTP" Enabled="false" />--%>
+                            <asp:Label ID="lblTestNote" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>

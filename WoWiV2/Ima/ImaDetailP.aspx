@@ -49,18 +49,18 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Label Requirement：<br />
-                            Remark：
+                            Label Requirement：
                         </td>
                         <td class="tdRowValue">
                             <table border="0" cellpadding="0" cellspacing="0" align="left">
                                 <tr>
                                     <td>
-                                        <asp:RadioButtonList ID="rblRequirement" runat="server" RepeatDirection="Horizontal"
+                                        <asp:Label ID="lblRequirement" runat="server"></asp:Label>
+                                        <%--<asp:RadioButtonList ID="rblRequirement" runat="server" RepeatDirection="Horizontal"
                                             Enabled="false">
                                             <asp:ListItem Text="Yes" Value="Yes" Selected="True"></asp:ListItem>
                                             <asp:ListItem Text="No" Value="No"></asp:ListItem>
-                                        </asp:RadioButtonList>
+                                        </asp:RadioButtonList>--%>
                                     </td>
                                 </tr>
                                 <tr>
@@ -83,7 +83,7 @@
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
                                                         <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "PostFile.ashx?fid="+Eval("PostFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -111,10 +111,11 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="cbPrint" runat="server" Text="Labels can be self-printed" Enabled="false" /><br />
+                                        <asp:Label ID="lblPrint" runat="server"></asp:Label>
+                                        <%--<asp:CheckBox ID="cbPrint" runat="server" Text="Labels can be self-printed" Enabled="false" /><br />
                                         <asp:CheckBox ID="cbPurchase" runat="server" Text="Labels need to be purchase from authority" Enabled="false" /><br />
                                         <asp:CheckBox ID="cbManufacturer" runat="server" Text="Affixed in Manufacturer" Enabled="false" /><br />
-                                        <asp:CheckBox ID="cbImportation" runat="server" Text="Affixed after Importation" Enabled="false" />
+                                        <asp:CheckBox ID="cbImportation" runat="server" Text="Affixed after Importation" Enabled="false" />--%>
                                     </td>
                                 </tr>
                                 <tr>
@@ -135,11 +136,12 @@
                                             <tr>
                                                 <td>Must be on End Product：</td>
                                                 <td>
-                                                    <asp:RadioButtonList ID="rblProduct" runat="server" 
+                                                    <asp:Label ID="lblProduct" runat="server"></asp:Label>
+                                                    <%--<asp:RadioButtonList ID="rblProduct" runat="server" 
                                                         RepeatDirection="Horizontal" Enabled="False">
                                                         <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
                                                         <asp:ListItem Text="NO" Value="0"></asp:ListItem>
-                                                    </asp:RadioButtonList>
+                                                    </asp:RadioButtonList>--%>
                                                 </td>
                                             </tr>
                                         </table>
@@ -147,14 +149,15 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="cbEUT1" runat="server" Text="EUT(module) or Manual or Package" Enabled="false" /><br />
+                                        <asp:Label ID="lblEUT" runat="server"></asp:Label>
+                                        <%--<asp:CheckBox ID="cbEUT1" runat="server" Text="EUT(module) or Manual or Package" Enabled="false" /><br />
                                         <asp:CheckBox ID="cbEUT2" runat="server" Text="EUT(module) or End Product" Enabled="false" /><br />
                                         <asp:CheckBox ID="cbEUT3" runat="server" Text="EUT(module) or End Product or Manual" Enabled="false" /><br />
                                         <asp:CheckBox ID="cbEUT4" runat="server" Text="EUT(module) or End Product or Manual or Package" Enabled="false" /><br />
                                         <asp:CheckBox ID="cbEUT5" runat="server" Text="EUT(module) and End Product" Enabled="false" /><br />
                                         <asp:CheckBox ID="cbEUT6" runat="server" Text="EUT(module) and End Product and Manual" Enabled="false" /><br />
                                         <asp:CheckBox ID="cbEUT7" runat="server" Text="EUT(module) and End Product and Manual and Package" Enabled="false" /><br />
-                                        <asp:CheckBox ID="cbEUT8" runat="server" Text="EUT(module) and End Product and Package" Enabled="false" />
+                                        <asp:CheckBox ID="cbEUT8" runat="server" Text="EUT(module) and End Product and Package" Enabled="false" />--%>
                                     </td>
                                 </tr>
                                 <tr>
@@ -172,7 +175,7 @@
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
                                                         <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "PostFile.ashx?fid="+Eval("PostFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -223,7 +226,7 @@
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
                                                         <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "PostFile.ashx?fid="+Eval("PostFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -257,10 +260,11 @@
                             Renewal：
                         </td>
                         <td class="tdRowValue" align="left">
-                            <asp:RadioButtonList ID="rblRenewal" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                            <asp:Label ID="lblRenewal" runat="server"></asp:Label>
+                            <%--<asp:RadioButtonList ID="rblRenewal" runat="server" RepeatDirection="Horizontal" Enabled="false">
                                 <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="NO" Value="0"></asp:ListItem>
-                            </asp:RadioButtonList>
+                            </asp:RadioButtonList>--%>
                         </td>
                     </tr>
                     <tr>
@@ -268,10 +272,11 @@
                             Test Required：
                         </td>
                         <td class="tdRowValue" align="left">
-                            <asp:RadioButtonList ID="rblRequired" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                            <asp:Label ID="lblRequired" runat="server"></asp:Label>
+                            <%--<asp:RadioButtonList ID="rblRequired" runat="server" RepeatDirection="Horizontal" Enabled="false">
                                 <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="NO" Value="0"></asp:ListItem>
-                            </asp:RadioButtonList>
+                            </asp:RadioButtonList>--%>
                         </td>
                     </tr>
                     <tr>
@@ -296,6 +301,14 @@
                         </td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblYearMonth" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Required documents：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblRequiredDoc" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>

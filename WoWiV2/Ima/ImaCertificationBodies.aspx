@@ -191,7 +191,7 @@
                                                                     Work Phone：
                                                                 </td>
                                                                 <td class="tdRowValue">
-                                                                    <asp:TextBox ID="tbWorkPhone" runat="server"></asp:TextBox>
+                                                                    <asp:TextBox ID="tbWorkPhone" runat="server" Width="300px"></asp:TextBox>
                                                                     &nbsp;&nbsp;&nbsp; EXT：<asp:TextBox ID="tbExt" runat="server" Width="60px"></asp:TextBox>
                                                                 </td>
                                                             </tr>
@@ -200,7 +200,7 @@
                                                                     Fax：
                                                                 </td>
                                                                 <td class="tdRowValue">
-                                                                    <asp:TextBox ID="tbFax" runat="server"></asp:TextBox>
+                                                                    <asp:TextBox ID="tbFax" runat="server" Width="300px"></asp:TextBox>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -208,7 +208,15 @@
                                                                     Cell Phone：
                                                                 </td>
                                                                 <td class="tdRowValue">
-                                                                    <asp:TextBox ID="tbCellPhone" runat="server"></asp:TextBox>
+                                                                    <asp:TextBox ID="tbCellPhone" runat="server" Width="300px"></asp:TextBox>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="tdRowName">
+                                                                    Email：
+                                                                </td>
+                                                                <td class="tdRowValue">
+                                                                    <asp:TextBox ID="tbEmail" runat="server" Width="300px"></asp:TextBox>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -228,7 +236,7 @@
                                                                         DataValueField="country_id">
                                                                     </asp:DropDownList>
                                                                     <asp:SqlDataSource ID="sdsCountry" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                                        SelectCommand="SELECT DISTINCT [country_name], [country_id] FROM [country]">
+                                                                        SelectCommand="SELECT DISTINCT [country_name], [country_id] FROM [country] order by [country_name]">
                                                                     </asp:SqlDataSource>
                                                                 </td>
                                                             </tr>
@@ -337,7 +345,7 @@
                                                                                 Work Phone：
                                                                             </td>
                                                                             <td class="tdRowValue">
-                                                                                <asp:TextBox ID="tbWorkPhone" runat="server" Text='<%#Eval("WorkPhone") %>'></asp:TextBox>
+                                                                                <asp:TextBox ID="tbWorkPhone" runat="server" Text='<%#Eval("WorkPhone") %>' Width="300px"></asp:TextBox>
                                                                                 &nbsp;&nbsp;&nbsp; EXT：<asp:TextBox ID="tbExt" runat="server" Width="60px" Text='<%#Eval("Ext") %>'></asp:TextBox>
                                                                                 <asp:Label ID="lblWorkPhone" runat="server" Text='<%#Eval("WorkPhone") %>' Visible="false"></asp:Label>
                                                                                 <asp:Label ID="lblExt" runat="server" Text='<%#Eval("Ext") %>' Visible="false"></asp:Label>
@@ -348,7 +356,7 @@
                                                                                 Fax：
                                                                             </td>
                                                                             <td class="tdRowValue">
-                                                                                <asp:TextBox ID="tbFax" runat="server" Text='<%#Eval("Fax") %>'></asp:TextBox>
+                                                                                <asp:TextBox ID="tbFax" runat="server" Text='<%#Eval("Fax") %>' Width="300px"></asp:TextBox>
                                                                                 <asp:Label ID="lblFax" runat="server" Text='<%#Eval("Fax") %>' Visible="false"></asp:Label>
                                                                             </td>
                                                                         </tr>
@@ -357,8 +365,17 @@
                                                                                 Cell Phone：
                                                                             </td>
                                                                             <td class="tdRowValue">
-                                                                                <asp:TextBox ID="tbCellPhone" runat="server" Text='<%#Eval("CellPhone") %>'></asp:TextBox>
+                                                                                <asp:TextBox ID="tbCellPhone" runat="server" Text='<%#Eval("CellPhone") %>' Width="300px"></asp:TextBox>
                                                                                 <asp:Label ID="lblCellPhone" runat="server" Text='<%#Eval("CellPhone") %>' Visible="false"></asp:Label>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="tdRowName">
+                                                                                Email：
+                                                                            </td>
+                                                                            <td class="tdRowValue">
+                                                                                <asp:TextBox ID="tbEmail" runat="server" Text='<%#Eval("Email") %>' Width="300px"></asp:TextBox>
+                                                                                <asp:Label ID="lblEmail" runat="server" Text='<%#Eval("Email") %>' Visible="false"></asp:Label>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -379,7 +396,7 @@
                                                                                     DataValueField="country_id">
                                                                                 </asp:DropDownList>
                                                                                 <asp:SqlDataSource ID="sdsCountry" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                                                    SelectCommand="SELECT DISTINCT [country_name], [country_id] FROM [country]">
+                                                                                    SelectCommand="SELECT DISTINCT [country_name], [country_id] FROM [country] order by [country_name]">
                                                                                 </asp:SqlDataSource>
                                                                                 <asp:Label ID="lblCountryID" runat="server" Text='<%#Eval("CountryID") %>' Visible="false"></asp:Label>
                                                                             </td>

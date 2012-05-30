@@ -37,21 +37,43 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
             dt = SQLUtil.QueryDS(cmd).Tables[0];
             if (dt.Rows.Count > 0)
             {
-                lblOthers.Text = dt.Rows[0]["Others"].ToString();
-                rblRequired.SelectedValue = dt.Rows[0]["Required"].ToString();
+                lblRequired.Text = dt.Rows[0]["Required"].ToString();
                 lblStandardDesc.Text = dt.Rows[0]["StandardDesc"].ToString();
                 lblLocalStandards.Text = dt.Rows[0]["LocalStandards"].ToString();
-                cbFCC.Checked = Convert.ToBoolean(dt.Rows[0]["FCC"]);
-                cbIEC.Checked = Convert.ToBoolean(dt.Rows[0]["FCC"]);
-                cbCE.Checked = Convert.ToBoolean(dt.Rows[0]["CE"]);
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 rblProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblCountry.Text = IMAUtil.GetCountryName(Request.Params["cid"]);
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
-                lblRFRemark.Text = dt.Rows[0]["RFRemark"].ToString();
-                lblEMCRemark.Text = dt.Rows[0]["EMCRemark"].ToString();
-                lblSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
-                lblTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
+                if (lblProTypeName.Text.Trim() != "Safety")
+                {
+                    lblFCCTitle.Text = "Harmonized with FCC or CE";
+                    cbFCC.Visible = true;
+                    lblRequiredTitle.Text = "Safety Required";
+                }
+                else
+                {
+                    lblFCCTitle.Text = "Harmonized with IEC or CE";
+                    cbIEC.Visible = true;
+                    lblRequiredTitle.Text = "EMC Required";
+                }
+
+                if (Convert.ToBoolean(dt.Rows[0]["FCC"]) && cbFCC.Visible) { lblFCCorIECorCE.Text = "FCC"; }
+                else if (Convert.ToBoolean(dt.Rows[0]["FCC"]) && cbIEC.Visible) { lblFCCorIECorCE.Text = "IEC"; }
+
+                if (Convert.ToBoolean(dt.Rows[0]["CE"]) && lblFCCorIECorCE.Text.Trim().Length == 0) { lblFCCorIECorCE.Text = "CE"; }
+                else if (Convert.ToBoolean(dt.Rows[0]["CE"]) && lblFCCorIECorCE.Text.Trim().Length > 0) { lblFCCorIECorCE.Text += "；CE"; }
+
+                cbFCC.Checked = Convert.ToBoolean(dt.Rows[0]["FCC"]);
+                cbIEC.Checked = Convert.ToBoolean(dt.Rows[0]["FCC"]);
+                cbCE.Checked = Convert.ToBoolean(dt.Rows[0]["CE"]);
+
+                if (dt.Rows[0]["Others"].ToString().Trim().Length > 0 && lblFCCorIECorCE.Text.Trim().Length > 0) { lblOthers.Text = "<br>Others：" + dt.Rows[0]["Others"].ToString(); }
+                else if (dt.Rows[0]["Others"].ToString().Trim().Length > 0 && lblFCCorIECorCE.Text.Trim().Length == 0) { lblOthers.Text = "Others：" + dt.Rows[0]["Others"].ToString(); }
+
+                if (dt.Rows[0]["RFRemark"].ToString().Trim().Length > 0) { lblRFRemark.Text = "Remark：" + dt.Rows[0]["RFRemark"].ToString(); }
+                if (dt.Rows[0]["EMCRemark"].ToString().Trim().Length > 0) { lblEMCRemark.Text = "Remark：" + dt.Rows[0]["EMCRemark"].ToString(); }
+                if (dt.Rows[0]["SafetyRemark"].ToString().Trim().Length > 0) { lblSafetyRemark.Text = "Remark：" + dt.Rows[0]["SafetyRemark"].ToString(); }
+                if (dt.Rows[0]["TelecomRemark"].ToString().Trim().Length > 0) { lblTelecomRemark.Text = "Remark：" + dt.Rows[0]["TelecomRemark"].ToString(); }
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;
@@ -64,7 +86,7 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
             }
             //Technology
             cmd = new SqlCommand();
-            cmd.CommandText = "select count(DID) from Ima_Technology where DID=@DID and Categroy=@Categroy";
+            cmd.CommandText = "select count(DID) from Ima_Tech where DID=@DID and Categroy=@Categroy";
             cmd.Parameters.AddWithValue("@DID", strID);
             cmd.Parameters.AddWithValue("@Categroy", Request["categroy"]);
             int intCount = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
@@ -81,20 +103,21 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
             lblProTypeName.Text = IMAUtil.GetProductType(Request.Params["pt"]);
         }
 
-
-
-        if (lblProTypeName.Text.Trim() != "Safety")
-        {
-            lblFCCTitle.Text = "Harmonized with FCC or CE";
-            cbFCC.Visible = true;
-            lblRequiredTitle.Text = "Safety Required";
-        }
-        else
-        {
-            lblFCCTitle.Text = "Harmonized with IEC or CE";
-            cbIEC.Visible = true;
-            lblRequiredTitle.Text = "EMC Required";
-        }
+        cbFCC.Visible = false;
+        cbIEC.Visible = false;
+        cbCE.Visible = false;
+        //if (lblProTypeName.Text.Trim() != "Safety")
+        //{
+        //    lblFCCTitle.Text = "Harmonized with FCC or CE";
+        //    cbFCC.Visible = true;
+        //    lblRequiredTitle.Text = "Safety Required";
+        //}
+        //else
+        //{
+        //    lblFCCTitle.Text = "Harmonized with IEC or CE";
+        //    cbIEC.Visible = true;
+        //    lblRequiredTitle.Text = "EMC Required";
+        //}
 
     }
 }

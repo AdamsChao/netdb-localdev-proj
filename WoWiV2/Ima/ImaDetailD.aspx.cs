@@ -13,18 +13,10 @@ public partial class Ima_ImaDetailD : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
-            BindItem();
             LoadData();
         }
     }
 
-    //載入選項
-    protected void BindItem()
-    {
-        ////載入幣別
-        //string strFeeUnit = IMAUtil.GetCountryByID(Request["cid"]).Rows[0]["country_currency_type"].ToString();
-        //if (strFeeUnit != "") { ddlFeeUnit.Items.Insert(0, new ListItem(strFeeUnit, strFeeUnit)); }
-    }
 
     //取得General資料
     protected void LoadData()
@@ -43,22 +35,23 @@ public partial class Ima_ImaDetailD : System.Web.UI.Page
             if (dt.Rows.Count > 0)
             {
                 lblName.Text = dt.Rows[0]["Name"].ToString();
-                rblAuthority.SelectedValue = Convert.ToInt32(dt.Rows[0]["Authority"]).ToString();
-                rblAccreditedTest.SelectedValue = dt.Rows[0]["AccreditedTest"].ToString();
-                rblCB.SelectedValue = Convert.ToInt32(dt.Rows[0]["CertificationBody"]).ToString();
+                if (Convert.ToInt32(dt.Rows[0]["Authority"]) == 1) { lblAuthority.Text = "Yes"; }
+                else { lblAuthority.Text = "No"; }
+                lblAccreditedTest.Text = dt.Rows[0]["AccreditedTest"].ToString();
+                if (Convert.ToInt32(dt.Rows[0]["CertificationBody"]) == 1) { lblCB.Text = "Yes"; }
+                else { lblCB.Text = "No"; }
                 lblVolumePerYear.Text = dt.Rows[0]["VolumePerYear"].ToString();
-                rblPublish.SelectedValue = Convert.ToInt32(dt.Rows[0]["Publish"]).ToString();
+                if (Convert.ToInt32(dt.Rows[0]["Publish"]) == 1) { lblPublish.Text = "Yes"; }
+                else { lblPublish.Text = "No"; }
                 lblAccredidedLab.Text = dt.Rows[0]["AccredidedLab"].ToString();
                 lblVolumePerYear1.Text = dt.Rows[0]["VolumePerYear1"].ToString();
-                rblPublish1.SelectedValue = Convert.ToInt32(dt.Rows[0]["Publish1"]).ToString();
-                lblWebsite.Text = dt.Rows[0]["Website"].ToString();
-                lblWebsite1.Text = dt.Rows[0]["Website1"].ToString();
+                if (dt.Rows[0]["Website"].ToString().Trim().Length > 0) { lblWebsite.Text = "<br>Website：" + dt.Rows[0]["Website"].ToString(); }
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
-                lblRFRemark.Text = dt.Rows[0]["RFRemark"].ToString();
-                lblEMCRemark.Text = dt.Rows[0]["EMCRemark"].ToString();
-                lblSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
-                lblTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
+                if (dt.Rows[0]["RFRemark"].ToString().Trim().Length > 0) { lblRFRemark.Text = "Remark：" + dt.Rows[0]["RFRemark"].ToString(); }
+                if (dt.Rows[0]["EMCRemark"].ToString().Trim().Length > 0) { lblEMCRemark.Text = "Remark：" + dt.Rows[0]["EMCRemark"].ToString(); }
+                if (dt.Rows[0]["SafetyRemark"].ToString().Trim().Length > 0) { lblSafetyRemark.Text = "Remark：" + dt.Rows[0]["SafetyRemark"].ToString(); }
+                if (dt.Rows[0]["TelecomRemark"].ToString().Trim().Length > 0) { lblTelecomRemark.Text = "Remark：" + dt.Rows[0]["TelecomRemark"].ToString(); }
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
                 if (Request.Params["copy"] != null)
                 {

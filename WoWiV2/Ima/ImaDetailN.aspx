@@ -47,21 +47,23 @@
                             <table border="0" cellpadding="0" cellspacing="0" align="left">
                                 <tr>
                                     <td>
-                                        <asp:RadioButtonList ID="rblFactoryInspection" runat="server" Enabled="false">
+                                        <asp:Label ID="lblFactoryInspection" runat="server"></asp:Label>
+                                        <%--<asp:RadioButtonList ID="rblFactoryInspection" runat="server" Enabled="false">
                                             <asp:ListItem Text="Document review only" Value="Document" Selected="True"></asp:ListItem>
                                             <asp:ListItem Text="One-time on-site Inspection Required" Value="OneTime"></asp:ListItem>
                                             <asp:ListItem Text="Periodic on-site Inspection Required" Value="Periodic"></asp:ListItem>
                                             <asp:ListItem Value="NotRequired" Text="Not Required"></asp:ListItem>
-                                        </asp:RadioButtonList>
+                                        </asp:RadioButtonList>--%>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Inspection every：
+                                        <asp:Label ID="lblInspection" runat="server"></asp:Label>
+                                        <%--Inspection every：
                                         <asp:Label ID="lblYear" runat="server"></asp:Label>
                                         year(s)
                                         <asp:Label ID="lblMonth" runat="server"></asp:Label>
-                                        month(s)
+                                        month(s)--%>
                                     </td>
                                 </tr>
                                 <tr>
@@ -84,7 +86,7 @@
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
                                                         <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "PeriodicFile.ashx?fid="+Eval("PeriodicFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -120,16 +122,16 @@
                         <td class="tdRowValue">
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <td>Document Inspection Fee：<asp:Label ID="lblDocumentFee" runat="server"></asp:Label></td>
+                                    <td><asp:Label ID="lblDocumentFee" runat="server"></asp:Label></td>
                                 </tr>
                                 <tr>
-                                    <td>One-time on-site Inspection Fee：<asp:Label ID="lblOneTimeFee" runat="server"></asp:Label></td>
+                                    <td><asp:Label ID="lblOneTimeFee" runat="server"></asp:Label></td>
                                 </tr>
                                 <tr>
-                                    <td>Periodic on-site Inspection Fee：<asp:Label ID="lblPeriodicFee" runat="server"></asp:Label></td>
+                                    <td><asp:Label ID="lblPeriodicFee" runat="server"></asp:Label></td>
                                 </tr>
                                 <tr>
-                                    <td>Other Fee：<asp:Label ID="lblOtherFee" runat="server"></asp:Label></td>
+                                    <td><asp:Label ID="lblOtherFee" runat="server"></asp:Label></td>
                                 </tr>
                             </table>
                         </td>

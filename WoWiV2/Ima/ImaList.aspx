@@ -648,8 +648,16 @@
                                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:BoundField>
+                                                    <asp:BoundField DataField="Name" HeaderText="Local Agent">
+                                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:BoundField>
                                                     <asp:BoundField DataField="wowi_tech_name" HeaderText="Technology">
                                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:BoundField>
+                                                    <asp:BoundField DataField="Renew" HeaderText="Renew(USD)">
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:BoundField>
                                                     <asp:BoundField DataField="TotalCostFee" HeaderText="Sub Total Cost(USD)">

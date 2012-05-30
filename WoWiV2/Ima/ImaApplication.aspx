@@ -164,7 +164,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "ApplicationFile.ashx?fid="+Eval("ApplicationFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />
@@ -323,7 +323,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "ApplicationFile.ashx?fid="+Eval("ApplicationFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />
@@ -415,7 +415,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "ApplicationFile.ashx?fid="+Eval("ApplicationFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />
@@ -539,7 +539,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "ApplicationFile.ashx?fid="+Eval("ApplicationFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />
@@ -647,7 +647,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "ApplicationFile.ashx?fid="+Eval("ApplicationFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />
@@ -678,12 +678,12 @@
                             </table>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="tr7" runat="server" visible="false">
                         <td colspan="2" class="tdHeader1">
                             Certificate Holder(s)
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="tr6" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             Foreign Applicant：
                         </td>
@@ -694,7 +694,7 @@
                             </asp:RadioButtonList>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="tr5" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             Any Local Person/Company：
                         </td>
@@ -705,7 +705,7 @@
                             </asp:RadioButtonList>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="tr4" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             Actual Importer：
                         </td>
@@ -716,7 +716,7 @@
                             </asp:RadioButtonList>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="trLocalDealer" runat="server" visible="false">
                         <td class="tdRowName" valign="top">
                             Local Dealer：
                         </td>
@@ -772,7 +772,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "ApplicationFile.ashx?fid="+Eval("ApplicationFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />
@@ -871,7 +871,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "ApplicationFile.ashx?fid="+Eval("ApplicationFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />
@@ -1067,7 +1067,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "ApplicationFile.ashx?fid="+Eval("ApplicationFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />

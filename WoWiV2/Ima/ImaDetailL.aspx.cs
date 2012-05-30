@@ -82,10 +82,15 @@ public partial class Ima_ImaDetailL : System.Web.UI.Page
             if (dt.Rows.Count > 0)
             {
                 ddlTech.SelectedValue = dt.Rows[0]["wowi_tech_id"].ToString();
+                lblTechName.Text = ddlTech.SelectedItem.Text;
                 ddlLocalAgent.SelectedValue = dt.Rows[0]["LocalAgentID"].ToString();
+                lblLocalAgent.Text = ddlLocalAgent.SelectedItem.Text;
                 ddlAuthority.SelectedValue = dt.Rows[0]["GovernmentAuthorityID"].ToString();
+                lblAuthority.Text = ddlAuthority.SelectedItem.Text;
                 ddlCertification.SelectedValue = dt.Rows[0]["CertificationBodiesID"].ToString();
+                lblCertification.Text = ddlCertification.SelectedItem.Text;
                 ddlAccredited.SelectedValue = dt.Rows[0]["AccreditedTestID"].ToString();
+                lblAccredited.Text = ddlAccredited.SelectedItem.Text;
                 if (dt.Rows[0]["AgentFee"].ToString().Trim().Length > 0) { lblAgentFee.Text = dt.Rows[0]["AgentFee"].ToString() + " USD"; }
                 if (dt.Rows[0]["AuthorityFee"].ToString().Trim().Length > 0) { lblAuthorityFee.Text = dt.Rows[0]["AuthorityFee"].ToString() + " USD"; }
                 if (dt.Rows[0]["CertificationBodyFee"].ToString().Trim().Length > 0) { lblCertificationBodyFee.Text = dt.Rows[0]["CertificationBodyFee"].ToString() + " USD"; }
@@ -96,11 +101,12 @@ public partial class Ima_ImaDetailL : System.Web.UI.Page
                 if (dt.Rows[0]["SampleReturnFee"].ToString().Trim().Length > 0) { lblSampleReturnFee.Text = dt.Rows[0]["SampleReturnFee"].ToString() + " USD"; }
                 if (dt.Rows[0]["LabelPurchaseFee"].ToString().Trim().Length > 0) { lblLabelPurchaseFee.Text = dt.Rows[0]["LabelPurchaseFee"].ToString() + " USD"; }
                 if (dt.Rows[0]["OtherFee"].ToString().Trim().Length > 0) { lblOtherFee.Text = dt.Rows[0]["OtherFee"].ToString() + " USD"; }
-                if (dt.Rows[0]["DocumentFee"].ToString().Trim().Length > 0) { lblDocumentFee.Text = dt.Rows[0]["DocumentFee"].ToString() + " USD"; }
-                if (dt.Rows[0]["OneTimeFee"].ToString().Trim().Length > 0) { lblOneTimeFee.Text = dt.Rows[0]["OneTimeFee"].ToString() + " USD"; }
-                if (dt.Rows[0]["PeriodicFee"].ToString().Trim().Length > 0) { lblPeriodicFee.Text = dt.Rows[0]["PeriodicFee"].ToString() + " USD"; }
-                if (dt.Rows[0]["RenewalWTest"].ToString().Trim().Length > 0) { lblRenewalWTest.Text = dt.Rows[0]["RenewalWTest"].ToString() + " USD"; }
-                if (dt.Rows[0]["RenewalWOTest"].ToString().Trim().Length > 0) { lblRenewalWOTest.Text = dt.Rows[0]["RenewalWOTest"].ToString() + " USD"; }
+                if (dt.Rows[0]["DocumentFee"].ToString().Trim().Length > 0) { lblDocumentFee.Text = "Document Inspection Fee：" + dt.Rows[0]["DocumentFee"].ToString() + " USD"; }
+                if (dt.Rows[0]["OneTimeFee"].ToString().Trim().Length > 0) { lblOneTimeFee.Text = "One-time on-site Inspection Fee：" + dt.Rows[0]["OneTimeFee"].ToString() + " USD"; }
+                if (dt.Rows[0]["PeriodicFee"].ToString().Trim().Length > 0) { lblPeriodicFee.Text = "Periodic on-site Inspection Fee：" + dt.Rows[0]["PeriodicFee"].ToString() + " USD"; }
+
+                if (dt.Rows[0]["RenewalWTest"].ToString().Trim().Length > 0) { lblRenewalWTest.Text = "W/Test：" + dt.Rows[0]["RenewalWTest"].ToString() + " USD"; }
+                if (dt.Rows[0]["RenewalWOTest"].ToString().Trim().Length > 0) { lblRenewalWOTest.Text = " W/O Test：" + dt.Rows[0]["RenewalWOTest"].ToString() + " USD"; }
                 if (dt.Rows[0]["TotalCostFee"].ToString().Trim().Length > 0) { lblTotalCostFee.Text = dt.Rows[0]["TotalCostFee"].ToString() + " USD"; }
                 //lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 //cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();

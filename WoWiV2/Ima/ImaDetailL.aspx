@@ -39,8 +39,9 @@
                             Technologies：
                         </td>
                         <td class="tdRowValue">
+                            <asp:Label ID="lblTechName" runat="server"></asp:Label>
                             <asp:DropDownList ID="ddlTech" runat="server" DataSourceID="sdsTech" DataTextField="wowi_tech_name"
-                                Enabled="false" DataValueField="wowi_tech_id">
+                                Enabled="false" DataValueField="wowi_tech_id" Visible="false">
                             </asp:DropDownList>
                             <asp:SqlDataSource ID="sdsTech" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                 SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish=1 and b.wowi_product_type_id=@wowi_product_type_id">
@@ -55,7 +56,8 @@
                             Local Agent Name：
                         </td>
                         <td class="tdRowValue">
-                            <asp:DropDownList ID="ddlLocalAgent" runat="server" Enabled="false">
+                            <asp:Label ID="lblLocalAgent" runat="server"></asp:Label>
+                            <asp:DropDownList ID="ddlLocalAgent" runat="server" Enabled="false" Visible="false">
                             </asp:DropDownList>
                         </td>
                     </tr>
@@ -72,7 +74,8 @@
                             Authority Name：
                         </td>
                         <td class="tdRowValue">
-                            <asp:DropDownList ID="ddlAuthority" runat="server" Enabled="false">
+                            <asp:Label ID="lblAuthority" runat="server"></asp:Label>
+                            <asp:DropDownList ID="ddlAuthority" runat="server" Enabled="false" Visible="false">
                             </asp:DropDownList>
                         </td>
                     </tr>
@@ -136,7 +139,8 @@
                             Certification Body Name：
                         </td>
                         <td class="tdRowValue">
-                            <asp:DropDownList ID="ddlCertification" runat="server" Enabled="false">
+                            <asp:Label ID="lblCertification" runat="server"></asp:Label>
+                            <asp:DropDownList ID="ddlCertification" runat="server" Enabled="false" Visible="false">
                             </asp:DropDownList>
                         </td>
                     </tr>
@@ -201,7 +205,8 @@
                             Accredited Test Lab Name：
                         </td>
                         <td class="tdRowValue">
-                            <asp:DropDownList ID="ddlAccredited" runat="server" Enabled="false">
+                            <asp:Label ID="lblAccredited" runat="server" ></asp:Label>
+                            <asp:DropDownList ID="ddlAccredited" runat="server" Enabled="false" Visible="false">
                             </asp:DropDownList>
                         </td>
                     </tr>
@@ -404,27 +409,18 @@
                             Factory Inspection Fee：
                         </td>
                         <td class="tdRowValue">
-                            <table border="0" cellpadding="0" cellspacing="0">
+                            <table border="0" cellpadding="0" cellspacing="0" align="left">
                                 <tr>
-                                    <td>
-                                        Document Inspection Fee：
-                                    </td>
                                     <td>
                                         <asp:Label ID="lblDocumentFee" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        One-time on-site Inspection Fee：
-                                    </td>
-                                    <td>
                                         <asp:Label ID="lblOneTimeFee" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        Periodic on-site Inspection Fee：
-                                    </td>
                                     <td>
                                         <asp:Label ID="lblPeriodicFee" runat="server"></asp:Label>
                                     </td>
@@ -440,16 +436,10 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        W/Test：
-                                    </td>
-                                    <td>
                                         <asp:Label ID="lblRenewalWTest" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        W/O Test：
-                                    </td>
                                     <td>
                                         <asp:Label ID="lblRenewalWOTest" runat="server"></asp:Label>
                                     </td>

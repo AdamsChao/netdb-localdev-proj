@@ -59,20 +59,38 @@ public partial class Ima_ImaDetailF : System.Web.UI.Page
             if (dt.Rows.Count > 0)
             {
                 lblName.Text = dt.Rows[0]["Name"].ToString();
-                if (dt.Rows[0]["Professional"].ToString().Trim().ToLower() == "true") { cbProfessional.Checked = true; }
-                if (dt.Rows[0]["Individual"].ToString().Trim().ToLower() == "true") { cbIndividual.Checked = true; }
-                if (dt.Rows[0]["OtherBusiness"].ToString().Trim().ToLower() == "true") { cbOtherBusiness.Checked = true; }
-                if (dt.Rows[0]["Responsive"].ToString().Trim().ToLower() == "true") { cbResponsive.Checked = true; }
-                if (dt.Rows[0]["Knowledgeable"].ToString().Trim().ToLower() == "true") { cbKnowledgeable.Checked = true; }
-                if (dt.Rows[0]["Slow"].ToString().Trim().ToLower() == "true") { cbSlow.Checked = true; }
-                if (dt.Rows[0]["NDAYes"].ToString().Trim().ToLower() == "true") { cbNDAYes.Checked = true; }
-                if (dt.Rows[0]["NDAChoose"].ToString().Trim().ToLower() == "true") { cbNDAChoose.Checked = true; }
-                if (dt.Rows[0]["MOUYes"].ToString().Trim().ToLower() == "true") { cbMOUYes.Checked = true; }
-                if (dt.Rows[0]["MOUChoose"].ToString().Trim().ToLower() == "true") { cbMOUChoose.Checked = true; }
-                lblRFRemark.Text = dt.Rows[0]["RFRemark"].ToString();
-                lblEMCRemark.Text = dt.Rows[0]["EMCRemark"].ToString();
-                lblSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
-                lblTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
+                if (dt.Rows[0]["Professional"].ToString().Trim().ToLower() == "true") { lblAngentType.Text = "Professional"; }
+                if (dt.Rows[0]["Individual"].ToString().Trim().ToLower() == "true") 
+                {
+                    if (lblAngentType.Text.Trim().Length == 0) { lblAngentType.Text = "Individual"; }
+                    else { lblAngentType.Text += "、Individual"; }
+                }
+                if (dt.Rows[0]["OtherBusiness"].ToString().Trim().ToLower() == "true") 
+                {
+                    if (lblAngentType.Text.Trim().Length == 0) { lblAngentType.Text = "Other Business"; }
+                    else { lblAngentType.Text += "、Other Business"; }
+                }
+
+                if (dt.Rows[0]["Responsive"].ToString().Trim().ToLower() == "true") { lblCredit.Text = "Responsive"; }
+                if (dt.Rows[0]["Knowledgeable"].ToString().Trim().ToLower() == "true")
+                {
+                    if (lblCredit.Text.Trim().Length == 0) { lblCredit.Text = "Knowledgeable"; }
+                    else { lblCredit.Text += "、Knowledgeable"; }
+                }
+                if (dt.Rows[0]["Slow"].ToString().Trim().ToLower() == "true")
+                {
+                    if (lblCredit.Text.Trim().Length == 0) { lblCredit.Text = "Slow"; }
+                    else { lblCredit.Text += "、Slow"; }
+                }
+
+                if (dt.Rows[0]["NDAYes"].ToString().Trim().ToLower() == "true") { lblNDAYes.Text = "Yes"; }
+                //if (dt.Rows[0]["NDAChoose"].ToString().Trim().ToLower() == "true") { cbNDAChoose.Checked = true; }
+                if (dt.Rows[0]["MOUYes"].ToString().Trim().ToLower() == "true") { lblMOUYes.Text = "Yes"; }
+                //if (dt.Rows[0]["MOUChoose"].ToString().Trim().ToLower() == "true") { cbMOUChoose.Checked = true; }
+                if (dt.Rows[0]["RFRemark"].ToString().Trim().Length > 0) { lblRFRemark.Text = "Remark：" + dt.Rows[0]["RFRemark"].ToString(); }
+                if (dt.Rows[0]["EMCRemark"].ToString().Trim().Length > 0) { lblEMCRemark.Text = "Remark：" + dt.Rows[0]["EMCRemark"].ToString(); }
+                if (dt.Rows[0]["SafetyRemark"].ToString().Trim().Length > 0) { lblSafetyRemark.Text = "Remark：" + dt.Rows[0]["SafetyRemark"].ToString(); }
+                if (dt.Rows[0]["TelecomRemark"].ToString().Trim().Length > 0) { lblTelecomRemark.Text = "Remark：" + dt.Rows[0]["TelecomRemark"].ToString(); }
                 foreach (ListItem li in cbProductType.Items)
                 {
                     if (li.Text.Trim() == "RF")
@@ -138,6 +156,7 @@ public partial class Ima_ImaDetailF : System.Web.UI.Page
                 if (lblProTypeName.Text.Trim().Contains(",Safety")) { trTechSafety.Visible = true; }
                 if (lblProTypeName.Text.Trim().Contains(",Telecom")) { trTechTelecom.Visible = true; }
             }
+            if (lblProTypeName.Text.Trim().Length > 0) { lblProTypeName.Text = lblProTypeName.Text.Remove(0, 1); }
         }
     }
 

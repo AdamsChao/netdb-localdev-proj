@@ -117,7 +117,6 @@ public partial class Ima_ImaApplication : System.Web.UI.Page
                 tbSubmissionDesc.Text = dt.Rows[0]["SubmissionDesc"].ToString();
                 cbFCCTest.Checked = Convert.ToBoolean(dt.Rows[0]["FCCTest"]);
                 cbCETest.Checked = Convert.ToBoolean(dt.Rows[0]["CETest"]);
-                cbCETest.Checked = Convert.ToBoolean(dt.Rows[0]["CETest"]);
                 cbLocalTest.Checked = Convert.ToBoolean(dt.Rows[0]["LocalTest"]);                
                 rbtnlSamplesRequired.SelectedValue = dt.Rows[0]["SamplesRequired"].ToString().ToLower();
                 //cbSamplesRequired.Checked = Convert.ToBoolean(dt.Rows[0]["SamplesRequired"]);

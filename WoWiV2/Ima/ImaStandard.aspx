@@ -30,26 +30,43 @@
                             Coyp to：
                         </td>
                         <td class="tdRowValue">
-                            <asp:RadioButtonList ID="rblProductType" runat="server" RepeatDirection="Horizontal"
-                                DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" 
-                                DataValueField="wowi_product_type_id" AutoPostBack="True" 
-                                onselectedindexchanged="rblProductType_SelectedIndexChanged">
-                            </asp:RadioButtonList>
-                            <asp:SqlDataSource ID="sdsProductType" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                SelectCommand="STP_IMAGetProductType" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
-                            <asp:Label ID="lblProType" runat="server" Visible="false"></asp:Label>
+                            <asp:UpdatePanel ID="upProductType" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:RadioButtonList ID="rblProductType" runat="server" RepeatDirection="Horizontal"
+                                        DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" DataValueField="wowi_product_type_id"
+                                        AutoPostBack="True" OnSelectedIndexChanged="rblProductType_SelectedIndexChanged">
+                                    </asp:RadioButtonList>
+                                    <asp:SqlDataSource ID="sdsProductType" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                        SelectCommand="STP_IMAGetProductType" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+                                    <asp:Label ID="lblProType" runat="server" Visible="false"></asp:Label>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </td>
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            <%--<span style="color: Red; font-size: 10pt;">*</span>--%>
-                            <asp:Label ID="lblFCCTitle" runat="server"></asp:Label>
+                            <asp:UpdatePanel ID="upFccTitle" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <%--<span style="color: Red; font-size: 10pt;">*</span>--%>
+                                    <asp:Label ID="lblFCCTitle" runat="server"></asp:Label>
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="rblProductType" EventName="SelectedIndexChanged" />
+                                </Triggers>
+                            </asp:UpdatePanel>
                         </td>
                         <td class="tdRowValue">
-                            <asp:CheckBox ID="cbFCC" runat="server" Text="FCC" />
-                            <asp:CheckBox ID="cbIEC" runat="server" Text="IEC" />
-                            <asp:CheckBox ID="cbCE" runat="server" Text="CE" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Others：<asp:TextBox ID="tbOthers" runat="server"></asp:TextBox>
+                            <asp:UpdatePanel ID="upFcc" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:CheckBox ID="cbFCC" runat="server" Text="FCC" />
+                                    <asp:CheckBox ID="cbIEC" runat="server" Text="IEC" />
+                                    <asp:CheckBox ID="cbCE" runat="server" Text="CE" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Others：<asp:TextBox ID="tbOthers" runat="server"></asp:TextBox>
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="rblProductType" EventName="SelectedIndexChanged" />
+                                </Triggers>
+                            </asp:UpdatePanel>
                         </td>
                     </tr>
                     <tr>
@@ -117,7 +134,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "StandardFile.ashx?fid="+Eval("StandardFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />
@@ -153,222 +170,201 @@
                             Local Standards by Technologies
                         </td>
                     </tr>
-                    <tr id="trTechRF" runat="server" visible="false">
-                        <td class="tdRowName">
-                            RF：
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            <asp:UpdatePanel ID="upTechTitle" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:Label ID="lblTech" runat="server"></asp:Label>
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="rblProductType" EventName="SelectedIndexChanged" />
+                                </Triggers>
+                            </asp:UpdatePanel>
                         </td>
                         <td class="tdRowValue">
-                            <table border="0">
-                                <tr>
-                                    <td colspan="2">
-                                        <asp:DataList ID="dlTechRF" runat="server" DataSourceID="sdsTechRF" DataKeyField="wowi_tech_id"
-                                            RepeatColumns="2" RepeatDirection="Horizontal">
-                                            <ItemTemplate>
-                                                <table border="0">
-                                                    <tr>
-                                                        <td>
-                                                            <asp:CheckBox ID="cbRFFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                                onclick="TechFee(this);" />
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID="lblTechRF" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
-                                                        </td>
-                                                        <td>
-                                                            <asp:TextBox ID="tbRFFee" runat="server" Width="60px" Enabled='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                                Text='<%#Eval("Fee") %>'></asp:TextBox>USD
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <asp:RegularExpressionValidator ID="revRFFee" runat="server" ControlToValidate="tbRFFee"
-                                                    ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
-                                                    SetFocusOnError="True"></asp:RegularExpressionValidator>
-                                                <act:ValidatorCalloutExtender ID="vceRFFee" runat="server" TargetControlID="revRFFee">
-                                                </act:ValidatorCalloutExtender>
-                                            </ItemTemplate>
-                                        </asp:DataList>
-                                        <asp:SqlDataSource ID="sdsTechRF" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure">
-                                            <SelectParameters>
-                                                <asp:Parameter DefaultValue="10000" Name="wowi_product_type_id" Type="Int32" />
-                                                <asp:QueryStringParameter Name="DID" QueryStringField="sid" Type="Int32" DefaultValue="0" />
-                                                <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
-                                            </SelectParameters>
-                                        </asp:SqlDataSource>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td valign="top">
-                                        Remark：
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="tbRFRemark" runat="server" Width="400px" TextMode="MultiLine" Rows="2"></asp:TextBox>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr id="trTechEMC" runat="server" visible="false">
-                        <td class="tdRowName">
-                            EMC：
-                        </td>
-                        <td class="tdRowValue">
-                            <table border="0">
-                                <tr>
-                                    <td colspan="2">
-                                        <asp:DataList ID="dlTechEMC" runat="server" DataSourceID="sdsTechEMC" DataKeyField="wowi_tech_id"
-                                            RepeatColumns="2" RepeatDirection="Horizontal">
-                                            <ItemTemplate>
-                                                <table border="0">
-                                                    <tr>
-                                                        <td>
-                                                            <asp:CheckBox ID="cbEMCFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                                onclick="TechFee(this);" />
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID="lblTechEMC" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
-                                                        </td>
-                                                        <td>
-                                                            <asp:TextBox ID="tbEMCFee" runat="server" Width="60px" Enabled='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                                Text='<%#Eval("Fee") %>'></asp:TextBox>USD
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <asp:RegularExpressionValidator ID="revEMCFee" runat="server" ControlToValidate="tbEMCFee"
-                                                    ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
-                                                    SetFocusOnError="True"></asp:RegularExpressionValidator>
-                                                <act:ValidatorCalloutExtender ID="vceEMCFee" runat="server" TargetControlID="revEMCFee">
-                                                </act:ValidatorCalloutExtender>
-                                            </ItemTemplate>
-                                        </asp:DataList>
-                                        <asp:SqlDataSource ID="sdsTechEMC" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure">
-                                            <SelectParameters>
-                                                <asp:Parameter DefaultValue="10001" Name="wowi_product_type_id" Type="Int32" />
-                                                <asp:QueryStringParameter Name="DID" QueryStringField="sid" Type="Int32" DefaultValue="0" />
-                                                <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
-                                            </SelectParameters>
-                                        </asp:SqlDataSource>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td valign="top">
-                                        Remark：
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="tbEMCRemark" runat="server" Width="400px" TextMode="MultiLine" Rows="2"></asp:TextBox>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr id="trTechSafety" runat="server" visible="false">
-                        <td class="tdRowName">
-                            Safety：
-                        </td>
-                        <td class="tdRowValue">
-                            <table border="0">
-                                <tr>
-                                    <td colspan="2">
-                                        <asp:DataList ID="dlTechSafety" runat="server" DataSourceID="sdsTechSafety" DataKeyField="wowi_tech_id"
-                                            RepeatColumns="2" RepeatDirection="Horizontal">
-                                            <ItemTemplate>
-                                                <table border="0">
-                                                    <tr>
-                                                        <td>
-                                                            <asp:CheckBox ID="cbSafetyFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                                onclick="TechFee(this);" />
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID="lblTechSafety" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
-                                                        </td>
-                                                        <td>
-                                                            <asp:TextBox ID="tbSafetyFee" runat="server" Width="60px" Enabled='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                                Text='<%#Eval("Fee") %>'></asp:TextBox>USD
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <asp:RegularExpressionValidator ID="revSafetyFee" runat="server" ControlToValidate="tbSafetyFee"
-                                                    ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
-                                                    SetFocusOnError="True"></asp:RegularExpressionValidator>
-                                                <act:ValidatorCalloutExtender ID="vceSafetyFee" runat="server" TargetControlID="revSafetyFee">
-                                                </act:ValidatorCalloutExtender>
-                                            </ItemTemplate>
-                                        </asp:DataList>
-                                        <asp:SqlDataSource ID="sdsTechSafety" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure">
-                                            <SelectParameters>
-                                                <asp:Parameter DefaultValue="10002" Name="wowi_product_type_id" Type="Int32" />
-                                                <asp:QueryStringParameter Name="DID" QueryStringField="sid" Type="Int32" DefaultValue="0" />
-                                                <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
-                                            </SelectParameters>
-                                        </asp:SqlDataSource>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td valign="top">
-                                        Remark：
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="tbSafetyRemark" runat="server" Width="400px" TextMode="MultiLine"
-                                            Rows="2"></asp:TextBox>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr id="trTechTelecom" runat="server" visible="false">
-                        <td class="tdRowName">
-                            Telecom：
-                        </td>
-                        <td class="tdRowValue">
-                            <table border="0">
-                                <tr>
-                                    <td colspan="2">
-                                        <asp:DataList ID="dlTechTelecom" runat="server" DataSourceID="sdsTechTelecom" DataKeyField="wowi_tech_id"
-                                            RepeatColumns="2" RepeatDirection="Horizontal">
-                                            <ItemTemplate>
-                                                <table border="0">
-                                                    <tr>
-                                                        <td>
-                                                            <asp:CheckBox ID="cbTelecomFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                                onclick="TechFee(this);" />
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID="lblTechTelecom" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
-                                                        </td>
-                                                        <td>
-                                                            <asp:TextBox ID="tbTelecomFee" runat="server" Width="60px" Enabled='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                                Text='<%#Eval("Fee") %>'></asp:TextBox>USD
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <asp:RegularExpressionValidator ID="revTelecomFee" runat="server" ControlToValidate="tbTelecomFee"
-                                                    ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
-                                                    SetFocusOnError="True"></asp:RegularExpressionValidator>
-                                                <act:ValidatorCalloutExtender ID="vceTelecomFee" runat="server" TargetControlID="revTelecomFee">
-                                                </act:ValidatorCalloutExtender>
-                                            </ItemTemplate>
-                                        </asp:DataList>
-                                        <asp:SqlDataSource ID="sdsTechTelecom" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                            SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure">
-                                            <SelectParameters>
-                                                <asp:Parameter DefaultValue="10003" Name="wowi_product_type_id" Type="Int32" />
-                                                <asp:QueryStringParameter Name="DID" QueryStringField="sid" Type="Int32" DefaultValue="0" />
-                                                <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
-                                            </SelectParameters>
-                                        </asp:SqlDataSource>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td valign="top">
-                                        Remark：
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="tbTelecomRemark" runat="server" Width="400px" TextMode="MultiLine"
-                                            Rows="2"></asp:TextBox>
-                                    </td>
-                                </tr>
-                            </table>
+                            <asp:UpdatePanel ID="upTech" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:Panel ID="plTechRF" runat="server" Visible="false">
+                                        <table border="0">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <asp:DataList ID="dlTechRF" runat="server" DataSourceID="sdsTechRF" DataKeyField="wowi_tech_id"
+                                                        RepeatColumns="2" RepeatDirection="Horizontal">
+                                                        <ItemTemplate>
+                                                            <table border="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <asp:CheckBox ID="cbRFFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>' onclick="TechFee(this);" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Label ID="lblTechRF" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:TextBox ID="tbRFFee" runat="server" Width="200px" Enabled='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                            Text='<%#Eval("Description") %>'></asp:TextBox>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </ItemTemplate>
+                                                    </asp:DataList>
+                                                    <asp:SqlDataSource ID="sdsTechRF" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                        SelectCommand="STP_IMAGetTechList1" SelectCommandType="StoredProcedure">
+                                                        <SelectParameters>
+                                                            <asp:Parameter DefaultValue="10000" Name="wowi_product_type_id" Type="Int32" />
+                                                            <asp:QueryStringParameter Name="DID" QueryStringField="sid" Type="Int32" DefaultValue="0" />
+                                                            <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
+                                                        </SelectParameters>
+                                                    </asp:SqlDataSource>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top">
+                                                    Remark：
+                                                </td>
+                                                <td>
+                                                    <asp:TextBox ID="tbRFRemark" runat="server" Width="400px" TextMode="MultiLine" Rows="2"></asp:TextBox>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </asp:Panel>
+                                    <asp:Panel ID="plTechEMC" runat="server" Visible="false">
+                                        <table border="0">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <asp:DataList ID="dlTechEMC" runat="server" DataSourceID="sdsTechEMC" DataKeyField="wowi_tech_id"
+                                                        RepeatColumns="2" RepeatDirection="Horizontal">
+                                                        <ItemTemplate>
+                                                            <table border="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <asp:CheckBox ID="cbEMCFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                            onclick="TechFee(this);" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Label ID="lblTechEMC" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:TextBox ID="tbEMCFee" runat="server" Width="200px" Enabled='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                            Text='<%#Eval("Description") %>'></asp:TextBox>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </ItemTemplate>
+                                                    </asp:DataList>
+                                                    <asp:SqlDataSource ID="sdsTechEMC" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                        SelectCommand="STP_IMAGetTechList1" SelectCommandType="StoredProcedure">
+                                                        <SelectParameters>
+                                                            <asp:Parameter DefaultValue="10001" Name="wowi_product_type_id" Type="Int32" />
+                                                            <asp:QueryStringParameter Name="DID" QueryStringField="sid" Type="Int32" DefaultValue="0" />
+                                                            <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
+                                                        </SelectParameters>
+                                                    </asp:SqlDataSource>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top">
+                                                    Remark：
+                                                </td>
+                                                <td>
+                                                    <asp:TextBox ID="tbEMCRemark" runat="server" Width="400px" TextMode="MultiLine" Rows="2"></asp:TextBox>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </asp:Panel>
+                                    <asp:Panel ID="plTechSafety" runat="server" Visible="false">
+                                        <table border="0">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <asp:DataList ID="dlTechSafety" runat="server" DataSourceID="sdsTechSafety" DataKeyField="wowi_tech_id"
+                                                        RepeatColumns="2" RepeatDirection="Horizontal">
+                                                        <ItemTemplate>
+                                                            <table border="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <asp:CheckBox ID="cbSafetyFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                            onclick="TechFee(this);" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Label ID="lblTechSafety" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:TextBox ID="tbSafetyFee" runat="server" Width="200px" Enabled='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                            Text='<%#Eval("Description") %>'></asp:TextBox>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </ItemTemplate>
+                                                    </asp:DataList>
+                                                    <asp:SqlDataSource ID="sdsTechSafety" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                        SelectCommand="STP_IMAGetTechList1" SelectCommandType="StoredProcedure">
+                                                        <SelectParameters>
+                                                            <asp:Parameter DefaultValue="10002" Name="wowi_product_type_id" Type="Int32" />
+                                                            <asp:QueryStringParameter Name="DID" QueryStringField="sid" Type="Int32" DefaultValue="0" />
+                                                            <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
+                                                        </SelectParameters>
+                                                    </asp:SqlDataSource>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top">
+                                                    Remark：
+                                                </td>
+                                                <td>
+                                                    <asp:TextBox ID="tbSafetyRemark" runat="server" Width="400px" TextMode="MultiLine"
+                                                        Rows="2"></asp:TextBox>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </asp:Panel>
+                                    <asp:Panel ID="plTechTelecom" runat="server" Visible="false">
+                                        <table border="0">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <asp:DataList ID="dlTechTelecom" runat="server" DataSourceID="sdsTechTelecom" DataKeyField="wowi_tech_id"
+                                                        RepeatColumns="2" RepeatDirection="Horizontal">
+                                                        <ItemTemplate>
+                                                            <table border="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <asp:CheckBox ID="cbTelecomFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                            onclick="TechFee(this);" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Label ID="lblTechTelecom" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:TextBox ID="tbTelecomFee" runat="server" Width="200px" Enabled='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                            Text='<%#Eval("Description") %>'></asp:TextBox>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </ItemTemplate>
+                                                    </asp:DataList>
+                                                    <asp:SqlDataSource ID="sdsTechTelecom" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                        SelectCommand="STP_IMAGetTechList1" SelectCommandType="StoredProcedure">
+                                                        <SelectParameters>
+                                                            <asp:Parameter DefaultValue="10003" Name="wowi_product_type_id" Type="Int32" />
+                                                            <asp:QueryStringParameter Name="DID" QueryStringField="sid" Type="Int32" DefaultValue="0" />
+                                                            <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
+                                                        </SelectParameters>
+                                                    </asp:SqlDataSource>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top">
+                                                    Remark：
+                                                </td>
+                                                <td>
+                                                    <asp:TextBox ID="tbTelecomRemark" runat="server" Width="400px" TextMode="MultiLine" Rows="2"></asp:TextBox>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </asp:Panel>
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="rblProductType" EventName="SelectedIndexChanged" />
+                                </Triggers>
+                            </asp:UpdatePanel>
                         </td>
                     </tr>
                     <tr>
@@ -376,8 +372,7 @@
                             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
                             <asp:Button ID="btnSaveCopy" runat="server" Text="Save(Copy)" OnClick="btnSave_Click" />
                             <asp:Button ID="btnUpd" runat="server" Text="Update" OnClick="btnUpd_Click" />
-                            <asp:Button ID="btnCancel" runat="server" Text="Cancel/Back" OnClick="btnCancel_Click"
-                                CausesValidation="false" />
+                            <asp:Button ID="btnCancel" runat="server" Text="Cancel/Back" OnClick="btnCancel_Click" CausesValidation="false" />
                         </td>
                     </tr>
                 </table>

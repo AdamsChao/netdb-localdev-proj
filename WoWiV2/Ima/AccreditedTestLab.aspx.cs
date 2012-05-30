@@ -192,8 +192,8 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
     //新增Contact
     protected void AddContact(int intGAID)
     {
-        string strTsql = "insert into Ima_Contact (FirstName,LastName,Title,WorkPhone,Ext,CellPhone,Adress,CountryID,DID,Categroy,LeadTime,CreateUser,LasterUpdateUser,Fax,Remark,IsTemp)";
-        strTsql += "values(@FirstName,@LastName,@Title,@WorkPhone,@Ext,@CellPhone,@Adress,@CountryID,@DID,@Categroy,@LeadTime,@CreateUser,@LasterUpdateUser,@Fax,@Remark,@IsTemp)";
+        string strTsql = "insert into Ima_Contact (FirstName,LastName,Title,WorkPhone,Ext,CellPhone,Adress,CountryID,DID,Categroy,LeadTime,CreateUser,LasterUpdateUser,Fax,Remark,IsTemp,Email)";
+        strTsql += "values(@FirstName,@LastName,@Title,@WorkPhone,@Ext,@CellPhone,@Adress,@CountryID,@DID,@Categroy,@LeadTime,@CreateUser,@LasterUpdateUser,@Fax,@Remark,@IsTemp,@Email)";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
         cmd.Parameters.AddWithValue("@FirstName", tbFirstName.Text.Trim());
@@ -212,6 +212,7 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
         cmd.Parameters.AddWithValue("@Fax", tbFax.Text.Trim());
         cmd.Parameters.AddWithValue("@Remark", tbRemark.Text.Trim());
+        cmd.Parameters.AddWithValue("@Email", tbEmail.Text.Trim());
         if (lblContactIDTemp.Text.Trim().Length == 0)
         {
             cmd.Parameters.AddWithValue("@IsTemp", 0);
@@ -235,8 +236,8 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
             if (Request["copy"] == null) { chContactCopy.Checked = true; }
             if (chContactCopy.Checked && !blIsTemp)
             {
-                string strTsql = "insert into Ima_Contact (FirstName,LastName,Title,WorkPhone,Ext,CellPhone,Adress,CountryID,DID,Categroy,LeadTime,CreateUser,LasterUpdateUser,Fax,Remark,IsTemp)";
-                strTsql += "values(@FirstName,@LastName,@Title,@WorkPhone,@Ext,@CellPhone,@Adress,@CountryID,@DID,@Categroy,@LeadTime,@CreateUser,@LasterUpdateUser,@Fax,@Remark,@IsTemp)";
+                string strTsql = "insert into Ima_Contact (FirstName,LastName,Title,WorkPhone,Ext,CellPhone,Adress,CountryID,DID,Categroy,LeadTime,CreateUser,LasterUpdateUser,Fax,Remark,IsTemp,Email)";
+                strTsql += "values(@FirstName,@LastName,@Title,@WorkPhone,@Ext,@CellPhone,@Adress,@CountryID,@DID,@Categroy,@LeadTime,@CreateUser,@LasterUpdateUser,@Fax,@Remark,@IsTemp,@Email)";
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = strTsql;
                 cmd.Parameters.AddWithValue("@FirstName", ((Label)gvr.FindControl("lblFirstName")).Text.Trim());
@@ -255,8 +256,9 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
                 cmd.Parameters.AddWithValue("@CreateUser", IMAUtil.GetUser());
                 cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
                 cmd.Parameters.AddWithValue("@Fax", ((Label)gvr.FindControl("lblFax")).Text.Trim());
-                cmd.Parameters.AddWithValue("@Remark", ((Label)gvr.FindControl("lblFax")).Text.Trim());
+                cmd.Parameters.AddWithValue("@Remark", ((Label)gvr.FindControl("lblRemark")).Text.Trim());
                 cmd.Parameters.AddWithValue("@IsTemp", 0);
+                cmd.Parameters.AddWithValue("@Email", ((Label)gvr.FindControl("lblEmail")).Text.Trim());
                 SQLUtil.ExecuteSql(cmd);
             }
         }
@@ -358,6 +360,7 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         tbLeadTime.Text = "";
         tbFax.Text = "";
         tbRemark.Text = "";
+        tbEmail.Text = "";
         GetContact();
     }
 
@@ -365,7 +368,7 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
     {
         Button btn = (Button)sender;
         GridViewRow gvr = gvContact.Rows[Convert.ToInt32(btn.CommandArgument)];
-        string strTsql = "Update Ima_Contact set FirstName=@FirstName,LastName=@LastName,Title=@Title,WorkPhone=@WorkPhone,Ext=@Ext,CellPhone=@CellPhone,Adress=@Adress,CountryID=@CountryID,DID=@DID,Categroy=@Categroy,LeadTime=@LeadTime,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Fax=@Fax,Remark=@Remark where ContactID=@ContactID ";
+        string strTsql = "Update Ima_Contact set FirstName=@FirstName,LastName=@LastName,Title=@Title,WorkPhone=@WorkPhone,Ext=@Ext,CellPhone=@CellPhone,Adress=@Adress,CountryID=@CountryID,DID=@DID,Categroy=@Categroy,LeadTime=@LeadTime,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Fax=@Fax,Remark=@Remark,Email=@Email where ContactID=@ContactID ";
         SqlCommand cmd = new SqlCommand(strTsql);
         cmd.Parameters.AddWithValue("@FirstName", ((TextBox)gvr.FindControl("tbFirstName")).Text.Trim());
         cmd.Parameters.AddWithValue("@LastName", ((TextBox)gvr.FindControl("tbLastName")).Text.Trim());
@@ -390,6 +393,7 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
         cmd.Parameters.AddWithValue("@Fax", ((TextBox)gvr.FindControl("tbFax")).Text.Trim());
         cmd.Parameters.AddWithValue("@Remark", ((TextBox)gvr.FindControl("tbRemark")).Text.Trim());
+        cmd.Parameters.AddWithValue("@Email", ((TextBox)gvr.FindControl("tbEmail")).Text.Trim());
         cmd.Parameters.AddWithValue("@ContactID", gvContact.DataKeys[gvr.RowIndex].Values[0]);
         SQLUtil.ExecuteSql(cmd);
         GetContact();

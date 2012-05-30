@@ -44,18 +44,18 @@ public partial class Ima_ImaB : System.Web.UI.Page
                 lblAbbreviatedAuthorityName.Text = dt.Rows[0]["AbbreviatedAuthorityName"].ToString();
                 lblWebsite.Text = dt.Rows[0]["Website"].ToString();
                 lblMandatory.Text = dt.Rows[0]["Mandatory"].ToString();
-                rblCertificateValid.SelectedValue = dt.Rows[0]["CertificateValid"].ToString();
-                rblTransfer.SelectedValue = dt.Rows[0]["IsTransfer"].ToString();
-                lblDescription.Text = dt.Rows[0]["Description"].ToString();
-                rblCertificationBody.SelectedValue = dt.Rows[0]["CertificationBody"].ToString();
-                rblAccreditedTest.SelectedValue = dt.Rows[0]["AccreditedTest"].ToString();
+                lblCertificateValid.Text = dt.Rows[0]["CertificateValid"].ToString() + " Importer";
+                lblTransfer.Text = dt.Rows[0]["IsTransfer"].ToString();
+                if (dt.Rows[0]["Description"].ToString().Trim().Length > 0) { lblDescription.Text = "<br>Remark：" + dt.Rows[0]["Description"].ToString(); }
+                lblCertificationBody.Text = dt.Rows[0]["CertificationBody"].ToString();
+                lblAccreditedTest.Text = dt.Rows[0]["AccreditedTest"].ToString();
                 trProductType.Visible = true;
                 lblCountry.Text = IMAUtil.GetCountryName(Request.Params["cid"]);
                 lblProTypeName.Text = IMAUtil.GetProductType(dt.Rows[0]["wowi_product_type_id"].ToString());
-                lblRFRemark.Text = dt.Rows[0]["RFRemark"].ToString();
-                lblEMCRemark.Text = dt.Rows[0]["EMCRemark"].ToString();
-                lblSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
-                lblTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
+                if (dt.Rows[0]["RFRemark"].ToString().Trim().Length > 0) { lblRFRemark.Text = "Remark：" + dt.Rows[0]["RFRemark"].ToString(); }
+                if (dt.Rows[0]["EMCRemark"].ToString().Trim().Length > 0) { lblEMCRemark.Text = "Remark：" + dt.Rows[0]["EMCRemark"].ToString(); }
+                if (dt.Rows[0]["SafetyRemark"].ToString().Trim().Length > 0) { lblSafetyRemark.Text = "Remark：" + dt.Rows[0]["SafetyRemark"].ToString(); }
+                if (dt.Rows[0]["TelecomRemark"].ToString().Trim().Length > 0) { lblTelecomRemark.Text = "Remark：" + dt.Rows[0]["TelecomRemark"].ToString(); }                
             }
 
             //Ima_Contact

@@ -23,12 +23,11 @@
                                 Certification Type：
                             </td>
                             <td class="tdRowValue">
-                                <asp:CheckBoxList ID="cbProductType" runat="server" RepeatDirection="Horizontal" DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" DataValueField="wowi_product_type_id" Enabled="false">
+                                <asp:CheckBoxList ID="cbProductType" runat="server" RepeatDirection="Horizontal" DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" DataValueField="wowi_product_type_id" Enabled="false" Visible="false">
                                 </asp:CheckBoxList>
                                 <asp:SqlDataSource ID="sdsProductType" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                    SelectCommand="select wowi_product_type_id,wowi_product_type_name from wowi_product_type where publish=1">
-                                </asp:SqlDataSource>
-                                <asp:Label ID="lblProTypeName" runat="server" Visible="false"></asp:Label>
+                                    SelectCommand="STP_IMAGetProductType" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+                                <asp:Label ID="lblProTypeName" runat="server" ></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -44,9 +43,7 @@
                                 Local Angent Type：
                             </td>
                             <td class="tdRowValue">
-                                <asp:CheckBox ID="cbProfessional" runat="server" Text="Professional" Enabled="false" />
-                                <asp:CheckBox ID="cbIndividual" runat="server" Text="Individual" Enabled="false" />
-                                <asp:CheckBox ID="cbOtherBusiness" runat="server" Text="Other Business" Enabled="false" />
+                                <asp:Label ID="lblAngentType" runat="server" ></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -54,9 +51,7 @@
                                 Credit：
                             </td>
                             <td class="tdRowValue">
-                                <asp:CheckBox ID="cbResponsive" runat="server" Text="Responsive" Enabled="false" />
-                                <asp:CheckBox ID="cbKnowledgeable" runat="server" Text="Knowledgeable" Enabled="false" />
-                                <asp:CheckBox ID="cbSlow" runat="server" Text="Slow" Enabled="false" />
+                                <asp:Label ID="lblCredit" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -67,8 +62,9 @@
                                 <table border="0" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td>
+                                            <asp:Label ID="lblNDAYes" runat="server" Text="No"></asp:Label><%--
                                             <asp:CheckBox ID="cbNDAYes" runat="server" Text="Yes" Enabled="false" />
-                                            <asp:CheckBox ID="cbNDAChoose" runat="server" Text="Choose File" Enabled="false" />
+                                            <asp:CheckBox ID="cbNDAChoose" runat="server" Text="Choose File" Enabled="false" />--%>
                                         </td>
                                     </tr>
                                     <tr>
@@ -119,8 +115,9 @@
                                 <table border="0" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td>
-                                            <asp:CheckBox ID="cbMOUYes" runat="server" Text="Yes" Enabled="false" />
-                                            <asp:CheckBox ID="cbMOUChoose" runat="server" Text="Choose File" Enabled="false" />
+                                            <asp:Label ID="lblMOUYes" runat="server" Text="No"></asp:Label>
+                                            <%--<asp:CheckBox ID="cbMOUYes" runat="server" Text="Yes" Enabled="false" />
+                                            <asp:CheckBox ID="cbMOUChoose" runat="server" Text="Choose File" Enabled="false" />--%>
                                         </td>
                                     </tr>
                                     <tr>
@@ -214,6 +211,14 @@
                                                 </td>
                                                 <td class="tdContactRowValue">
                                                     <asp:Label ID="lblCellPhone" runat="server" Text='<%#Eval("CellPhone") %>'></asp:Label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tdContactRowName">
+                                                    Email：
+                                                </td>
+                                                <td colspan="5">
+                                                    <asp:Label ID="lblEmail" runat="server" Text='<%#Eval("Email") %>'></asp:Label>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -355,14 +360,14 @@
                             </td>
                             <td class="tdRowValue">
                                 <asp:DataList ID="dlTechRF" runat="server" DataSourceID="sdsTechRF" DataKeyField="wowi_tech_id"
-                                    RepeatColumns="2" RepeatDirection="Horizontal">
+                                    RepeatColumns="3" RepeatDirection="Horizontal">
                                     <ItemTemplate>
                                         <table border="0">
                                             <tr>
-                                                <td>
+                                                <%--<td>
                                                     <asp:CheckBox ID="cbRFFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
                                                         onclick="TechFee(this);" Enabled="false" />
-                                                </td>
+                                                </td>--%>
                                                 <td>
                                                     <asp:Label ID="lblTechRF" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
                                                 </td>
@@ -374,14 +379,14 @@
                                     </ItemTemplate>
                                 </asp:DataList>
                                 <asp:SqlDataSource ID="sdsTechRF" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                    SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure">
+                                    SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure" FilterExpression="DID is not null">
                                     <SelectParameters>
                                         <asp:Parameter DefaultValue="10000" Name="wowi_product_type_id" Type="Int32" />
                                         <asp:QueryStringParameter Name="DID" QueryStringField="laid" Type="Int32" DefaultValue="0" />
                                         <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
                                     </SelectParameters>
                                 </asp:SqlDataSource>
-                                Remark：<asp:Label ID="lblRFRemark" runat="server"></asp:Label>
+                                <asp:Label ID="lblRFRemark" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr id="trTechEMC" runat="server" visible="false">
@@ -390,14 +395,14 @@
                             </td>
                             <td class="tdRowValue">
                                 <asp:DataList ID="dlTechEMC" runat="server" DataSourceID="sdsTechEMC" DataKeyField="wowi_tech_id"
-                                    RepeatColumns="2" RepeatDirection="Horizontal">
+                                    RepeatColumns="3" RepeatDirection="Horizontal">
                                     <ItemTemplate>
                                         <table border="0">
                                             <tr>
-                                                <td>
+                                                <%--<td>
                                                     <asp:CheckBox ID="cbEMCFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
                                                         Enabled="false" />
-                                                </td>
+                                                </td>--%>
                                                 <td>
                                                     <asp:Label ID="lblTechEMC" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
                                                 </td>
@@ -409,14 +414,14 @@
                                     </ItemTemplate>
                                 </asp:DataList>
                                 <asp:SqlDataSource ID="sdsTechEMC" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                    SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure">
+                                    SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure" FilterExpression="DID is not null">
                                     <SelectParameters>
                                         <asp:Parameter DefaultValue="10001" Name="wowi_product_type_id" Type="Int32" />
                                         <asp:QueryStringParameter Name="DID" QueryStringField="laid" Type="Int32" DefaultValue="0" />
                                         <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
                                     </SelectParameters>
                                 </asp:SqlDataSource>
-                                Remark：<asp:Label ID="lblEMCRemark" runat="server"></asp:Label>
+                                <asp:Label ID="lblEMCRemark" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr id="trTechSafety" runat="server" visible="false">
@@ -425,14 +430,14 @@
                             </td>
                             <td class="tdRowValue">
                                 <asp:DataList ID="dlTechSafety" runat="server" DataSourceID="sdsTechSafety" DataKeyField="wowi_tech_id"
-                                    RepeatColumns="2" RepeatDirection="Horizontal">
+                                    RepeatColumns="3" RepeatDirection="Horizontal">
                                     <ItemTemplate>
                                         <table border="0">
                                             <tr>
-                                                <td>
+                                                <%--<td>
                                                     <asp:CheckBox ID="cbSafetyFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
                                                         Enabled="false" />
-                                                </td>
+                                                </td>--%>
                                                 <td>
                                                     <asp:Label ID="lblTechSafety" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
                                                 </td>
@@ -444,14 +449,14 @@
                                     </ItemTemplate>
                                 </asp:DataList>
                                 <asp:SqlDataSource ID="sdsTechSafety" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                    SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure">
+                                    SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure" FilterExpression="DID is not null">
                                     <SelectParameters>
                                         <asp:Parameter DefaultValue="10002" Name="wowi_product_type_id" Type="Int32" />
                                         <asp:QueryStringParameter Name="DID" QueryStringField="laid" Type="Int32" DefaultValue="0" />
                                         <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
                                     </SelectParameters>
                                 </asp:SqlDataSource>
-                                Remark：<asp:Label ID="lblSafetyRemark" runat="server"></asp:Label>
+                                <asp:Label ID="lblSafetyRemark" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr id="trTechTelecom" runat="server" visible="false">
@@ -460,14 +465,14 @@
                             </td>
                             <td class="tdRowValue">
                                 <asp:DataList ID="dlTechTelecom" runat="server" DataSourceID="sdsTechTelecom" DataKeyField="wowi_tech_id"
-                                    RepeatColumns="2" RepeatDirection="Horizontal">
+                                    RepeatColumns="3" RepeatDirection="Horizontal">
                                     <ItemTemplate>
                                         <table border="0">
                                             <tr>
-                                                <td>
+                                                <%--<td>
                                                     <asp:CheckBox ID="cbTelecomFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
                                                         Enabled="false" />
-                                                </td>
+                                                </td>--%>
                                                 <td>
                                                     <asp:Label ID="lblTechTelecom" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
                                                 </td>
@@ -479,14 +484,14 @@
                                     </ItemTemplate>
                                 </asp:DataList>
                                 <asp:SqlDataSource ID="sdsTechTelecom" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                    SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure">
+                                    SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure" FilterExpression="DID is not null">
                                     <SelectParameters>
                                         <asp:Parameter DefaultValue="10003" Name="wowi_product_type_id" Type="Int32" />
                                         <asp:QueryStringParameter Name="DID" QueryStringField="laid" Type="Int32" DefaultValue="0" />
                                         <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
                                     </SelectParameters>
                                 </asp:SqlDataSource>
-                                Remark：<asp:Label ID="lblTelecomRemark" runat="server"></asp:Label>
+                                <asp:Label ID="lblTelecomRemark" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <%--<tr id="trTechRF" runat="server" visible="false">

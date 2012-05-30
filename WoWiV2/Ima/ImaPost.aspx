@@ -95,7 +95,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "PostFile.ashx?fid="+Eval("PostFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />
@@ -206,7 +206,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "PostFile.ashx?fid="+Eval("PostFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />
@@ -283,7 +283,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "PostFile.ashx?fid="+Eval("PostFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />
@@ -384,9 +384,17 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="tdRowName" valign="top">
+                            Required documents：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:TextBox ID="tbRequiredDoc" runat="server" Width="500px" TextMode="MultiLine" Rows="2"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="tdRowName" valign="top">Remark：</td>
                         <td class="tdRowValue">
-                            <asp:TextBox ID="tbRemark" runat="server" Width="500px"></asp:TextBox>
+                            <asp:TextBox ID="tbRemark" runat="server" Width="500px" TextMode="MultiLine" Rows="2"></asp:TextBox>
                         </td>
                     </tr>
                     <%--<tr>

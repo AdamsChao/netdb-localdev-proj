@@ -48,15 +48,15 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="cbFedex" runat="server" Text="Fedex" Enabled="false" />
+                                        <asp:Label ID="lblCarrier" runat="server"></asp:Label>
+                                        <%--<asp:CheckBox ID="cbFedex" runat="server" Text="Fedex" Enabled="false" />
                                         <asp:CheckBox ID="cbDHL" runat="server" Text="DHL" Enabled="false" />
-                                        <asp:CheckBox ID="cbUPS" runat="server" Text="UPS" Enabled="false" /><br />
-                                        Other(specify)：<asp:Label ID="lblOtherCarrier" runat="server"></asp:Label>
+                                        <asp:CheckBox ID="cbUPS" runat="server" Text="UPS" Enabled="false" /><br />--%>
+                                        <asp:Label ID="lblOtherCarrier" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Please specify if there’s any special cases (Ex. No Zip code used, or P.O. Box only for the entire country)<br>
                                         <asp:Label ID="lblCarrierDesc" runat="server"></asp:Label>
                                     </td>
                                 </tr>
@@ -75,7 +75,7 @@
                                                 <asp:TemplateField HeaderText="FileName">
                                                     <ItemTemplate>
                                                         <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "SampleShippingFile.ashx?fid="+Eval("SampleShippingFileID").ToString() %>'
-                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                     </ItemTemplate>
                                                     <HeaderStyle Font-Bold="False" />
                                                     <ItemStyle HorizontalAlign="Left" />
@@ -109,10 +109,11 @@
                             Any documents for sample shipping：
                         </td>
                         <td class="tdRowValue">
-                            <asp:CheckBox ID="cbInvoice" runat="server" Text="Invoice" Enabled="false" />
+                            <asp:Label ID="lblSampleDoc" runat="server" ></asp:Label>
+                            <%--<asp:CheckBox ID="cbInvoice" runat="server" Text="Invoice" Enabled="false" />
                             <asp:CheckBox ID="cbPackingList" runat="server" Text="Packing List" Enabled="false" />
-                            <asp:CheckBox ID="cbContract" runat="server" Text="Contract" Enabled="false" /><br />
-                            Other(specify)：<asp:Label ID="lblOtherSampleShipping" runat="server" ></asp:Label>
+                            <asp:CheckBox ID="cbContract" runat="server" Text="Contract" Enabled="false" /><br />--%>
+                            <asp:Label ID="lblOtherSampleShipping" runat="server" ></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -122,9 +123,10 @@
                             from local customs’ auditing sample：
                         </td>
                         <td class="tdRowValue">
-                            A value of under
+                            <asp:Label ID="lblUnderUSD" runat="server"></asp:Label>
+                            <%--A value of under
                             <asp:TextBox ID="tbUnderUSD" runat="server" Enabled="false"></asp:TextBox>USD is suggested for custom
-                            declaration value
+                            declaration value--%>
                         </td>
                     </tr>
                     <tr>
@@ -135,9 +137,10 @@
                             OR declare actual commercial value ：
                         </td>
                         <td class="tdRowValue">
-                            <asp:CheckBox ID="cbNoCommercial" runat="server" Text="Label shipment as no commercial value" Enabled="false" />
-                            <asp:CheckBox ID="cbActualCommercial" runat="server" Text="Label shipment as actual commercial value" Enabled="false" /><br />
-                            Note：<asp:Label ID="lblNote" runat="server"></asp:Label>
+                            <asp:Label ID="lblMarksample" runat="server"></asp:Label>
+                            <%--<asp:CheckBox ID="cbNoCommercial" runat="server" Text="Label shipment as no commercial value" Enabled="false" />
+                            <asp:CheckBox ID="cbActualCommercial" runat="server" Text="Label shipment as actual commercial value" Enabled="false" /><br />--%>
+                            <asp:Label ID="lblNote" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr id="tr1" runat="server" visible="false">
@@ -157,11 +160,12 @@
                             Samples can be returned：
                         </td>
                         <td class="tdRowValue">
-                            <asp:RadioButtonList ID="rblReturned" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                            <asp:Label ID="lblReturned" runat="server"></asp:Label>
+                            <%--<asp:RadioButtonList ID="rblReturned" runat="server" RepeatDirection="Horizontal" Enabled="false">
                                 <asp:ListItem Text="Yes" Value="Yes" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="No" Value="No"></asp:ListItem>
-                            </asp:RadioButtonList>
-                            Note：<asp:Label ID="lblReturnedNote" runat="server"></asp:Label>
+                            </asp:RadioButtonList>--%>
+                            <asp:Label ID="lblReturnedNote" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>

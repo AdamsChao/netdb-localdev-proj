@@ -42,6 +42,7 @@ public partial class Ima_ImaContactDetail : System.Web.UI.Page
             lblFax.Text = dtContact.Rows[0]["Fax"].ToString();
             lblExt.Text = dtContact.Rows[0]["Ext"].ToString();
             lblCellPhone.Text = dtContact.Rows[0]["CellPhone"].ToString();
+            lblEmail.Text = dtContact.Rows[0]["Email"].ToString();
             lblAdress.Text = dtContact.Rows[0]["Adress"].ToString();
             ddlCountry.SelectedValue = dtContact.Rows[0]["CountryID"].ToString();
             lblLeadTime.Text = dtContact.Rows[0]["LeadTime"].ToString();

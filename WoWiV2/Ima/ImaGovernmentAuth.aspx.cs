@@ -19,6 +19,7 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
         {
             BindItem();
             LoadData();
+            SetControlVisible();
         }
     }
 
@@ -62,7 +63,24 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
         //    li.Attributes.Add("onclick", "Tech(this);");
         //}
         //if (cbTechTelecom.Items.Count > 0) { cbTechTelecom.Items.Insert(0, new ListItem("All", "0")); cbTechTelecom.Items[0].Attributes.Add("onclick", "TechSelect(this);"); }        
-    }    
+    }
+
+    //設定顯示的控制項
+    protected void SetControlVisible()
+    {
+        HtmlTableRow trTech;
+        foreach (string strCT in lblProTypeName.Text.Trim().Split(','))
+        {
+            if (strCT.Length > 0)
+            {
+                if (strCT == "RF") { trTech = trTechRF; }
+                else if (strCT == "EMC") { trTech = trTechEMC; }
+                else if (strCT == "Safety") { trTech = trTechSafety; }
+                else { trTech = trTechTelecom; }
+                trTech.Style.Value = "display:'';";
+            }
+        }
+    }
 
     //取得General資料
     protected void LoadData()
@@ -205,11 +223,18 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
             gvContact.Columns[0].Visible = true;
             btnSave.Visible = true;
             trProductType.Visible = true;
-            lblProTypeName.Text = IMAUtil.GetProductType(Request["pt"]);
+
+            foreach (string str in Request["pt"].Split(','))
+            {
+                if (str.Length > 0) { lblProTypeName.Text += "," + IMAUtil.GetProductType(str); }
+            }
+            if (lblProTypeName.Text.Trim().Length > 0) { lblProTypeName.Text = lblProTypeName.Text.Remove(0, 1); }
+
+            //lblProTypeName.Text = IMAUtil.GetProductType(Request["pt"]);
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "select * from Authority where country_id=@country_id and wowi_product_type_id=@wowi_product_type_id";
             cmd.Parameters.AddWithValue("@country_id", Request["cid"]);
-            cmd.Parameters.AddWithValue("@wowi_product_type_id", Request["pt"]);            
+            cmd.Parameters.AddWithValue("@wowi_product_type_id", Request["pt"].Split(',')[0]);
             SqlDataReader sdr = SQLUtil.QueryDR(cmd);
             while (sdr.Read()) 
             {
@@ -219,16 +244,16 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
             sdr.Close();
         }
 
-        string strCT = lblProTypeName.Text;
-        //if (strCT == "RF") { trTechRF.Visible = true; }
-        //else if (strCT == "EMC") { trTechEMC.Visible = true; }
-        //else if (strCT == "Safety") { trTechSafety.Visible = true; }
-        //else if (strCT == "Telecom") { trTechTelecom.Visible = true; }
+        //string strCT = lblProTypeName.Text;
+        ////if (strCT == "RF") { trTechRF.Visible = true; }
+        ////else if (strCT == "EMC") { trTechEMC.Visible = true; }
+        ////else if (strCT == "Safety") { trTechSafety.Visible = true; }
+        ////else if (strCT == "Telecom") { trTechTelecom.Visible = true; }
         
-        if (strCT == "RF") { trTechRF.Style.Value = "display:'';"; }
-        else if (strCT == "EMC") { trTechEMC.Style.Value = "display:'';"; }
-        else if (strCT == "Safety") { trTechSafety.Style.Value = "display:'';"; }
-        else if (strCT == "Telecom") { trTechTelecom.Style.Value = "display:'';"; }
+        //if (strCT == "RF") { trTechRF.Style.Value = "display:'';"; }
+        //else if (strCT == "EMC") { trTechEMC.Style.Value = "display:'';"; }
+        //else if (strCT == "Safety") { trTechSafety.Style.Value = "display:'';"; }
+        //else if (strCT == "Telecom") { trTechTelecom.Style.Value = "display:'';"; }
     }
 
     //protected DataTable CreateContactDataTable()
@@ -450,8 +475,8 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
     //新增Contact
     protected void AddContact(int intGAID)
     {
-        string strTsql = "insert into Ima_Contact (FirstName,LastName,Title,WorkPhone,Ext,CellPhone,Adress,CountryID,DID,Categroy,LeadTime,CreateUser,LasterUpdateUser,Fax,Remark,IsTemp)";
-        strTsql += "values(@FirstName,@LastName,@Title,@WorkPhone,@Ext,@CellPhone,@Adress,@CountryID,@DID,@Categroy,@LeadTime,@CreateUser,@LasterUpdateUser,@Fax,@Remark,@IsTemp)";
+        string strTsql = "insert into Ima_Contact (FirstName,LastName,Title,WorkPhone,Ext,CellPhone,Adress,CountryID,DID,Categroy,LeadTime,CreateUser,LasterUpdateUser,Fax,Remark,IsTemp,Email)";
+        strTsql += "values(@FirstName,@LastName,@Title,@WorkPhone,@Ext,@CellPhone,@Adress,@CountryID,@DID,@Categroy,@LeadTime,@CreateUser,@LasterUpdateUser,@Fax,@Remark,@IsTemp,@Email)";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
         cmd.Parameters.AddWithValue("@FirstName", tbFirstName.Text.Trim());
@@ -473,6 +498,7 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
         cmd.Parameters.AddWithValue("@Fax", tbFax.Text.Trim());
         cmd.Parameters.AddWithValue("@Remark", tbRemark.Text.Trim());
+        cmd.Parameters.AddWithValue("@Email", tbEmail.Text.Trim());
         if (lblContactIDTemp.Text.Trim().Length == 0)
         {
             cmd.Parameters.AddWithValue("@IsTemp", 0);
@@ -496,8 +522,8 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
             if (Request["copy"] == null) { chContactCopy.Checked = true; }
             if (chContactCopy.Checked && !blIsTemp)
             {
-                string strTsql = "insert into Ima_Contact (FirstName,LastName,Title,WorkPhone,Ext,CellPhone,Adress,CountryID,DID,Categroy,LeadTime,CreateUser,LasterUpdateUser,Fax,Remark,IsTemp)";
-                strTsql += "values(@FirstName,@LastName,@Title,@WorkPhone,@Ext,@CellPhone,@Adress,@CountryID,@DID,@Categroy,@LeadTime,@CreateUser,@LasterUpdateUser,@Fax,@Remark,@IsTemp)";
+                string strTsql = "insert into Ima_Contact (FirstName,LastName,Title,WorkPhone,Ext,CellPhone,Adress,CountryID,DID,Categroy,LeadTime,CreateUser,LasterUpdateUser,Fax,Remark,IsTemp,Email)";
+                strTsql += "values(@FirstName,@LastName,@Title,@WorkPhone,@Ext,@CellPhone,@Adress,@CountryID,@DID,@Categroy,@LeadTime,@CreateUser,@LasterUpdateUser,@Fax,@Remark,@IsTemp,@Email)";
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = strTsql;
                 cmd.Parameters.AddWithValue("@FirstName", ((Label)gvr.FindControl("lblFirstName")).Text.Trim());
@@ -516,7 +542,8 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
                 cmd.Parameters.AddWithValue("@CreateUser", IMAUtil.GetUser());
                 cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
                 cmd.Parameters.AddWithValue("@Fax", ((Label)gvr.FindControl("lblFax")).Text.Trim());
-                cmd.Parameters.AddWithValue("@Remark", ((Label)gvr.FindControl("lblFax")).Text.Trim());
+                cmd.Parameters.AddWithValue("@Remark", ((Label)gvr.FindControl("lblRemark")).Text.Trim());
+                cmd.Parameters.AddWithValue("@Email", ((Label)gvr.FindControl("lblEmail")).Text.Trim());
                 cmd.Parameters.AddWithValue("@IsTemp", 0);
                 SQLUtil.ExecuteSql(cmd);
             }
@@ -675,6 +702,7 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
         tbLeadTime.Text = "";
         tbFax.Text = "";
         tbRemark.Text = "";
+        tbEmail.Text = "";
         GetContact();
     }
 
@@ -682,7 +710,7 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
     {
         Button btn = (Button)sender;
         GridViewRow gvr = gvContact.Rows[Convert.ToInt32(btn.CommandArgument)];
-        string strTsql = "Update Ima_Contact set FirstName=@FirstName,LastName=@LastName,Title=@Title,WorkPhone=@WorkPhone,Ext=@Ext,CellPhone=@CellPhone,Adress=@Adress,CountryID=@CountryID,DID=@DID,Categroy=@Categroy,LeadTime=@LeadTime,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Fax=@Fax,Remark=@Remark where ContactID=@ContactID ";
+        string strTsql = "Update Ima_Contact set FirstName=@FirstName,LastName=@LastName,Title=@Title,WorkPhone=@WorkPhone,Ext=@Ext,CellPhone=@CellPhone,Adress=@Adress,CountryID=@CountryID,DID=@DID,Categroy=@Categroy,LeadTime=@LeadTime,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Fax=@Fax,Remark=@Remark,Email=@Email where ContactID=@ContactID ";
         SqlCommand cmd = new SqlCommand(strTsql);
         cmd.Parameters.AddWithValue("@FirstName", ((TextBox)gvr.FindControl("tbFirstName")).Text.Trim());
         cmd.Parameters.AddWithValue("@LastName", ((TextBox)gvr.FindControl("tbLastName")).Text.Trim());
@@ -707,6 +735,7 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
         cmd.Parameters.AddWithValue("@Fax", ((TextBox)gvr.FindControl("tbFax")).Text.Trim());
         cmd.Parameters.AddWithValue("@Remark", ((TextBox)gvr.FindControl("tbRemark")).Text.Trim());
+        cmd.Parameters.AddWithValue("@Email", ((TextBox)gvr.FindControl("tbEmail")).Text.Trim());
         cmd.Parameters.AddWithValue("@ContactID", gvContact.DataKeys[gvr.RowIndex].Values[0]);
         SQLUtil.ExecuteSql(cmd);
         GetContact();

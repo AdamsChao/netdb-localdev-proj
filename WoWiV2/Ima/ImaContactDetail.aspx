@@ -66,6 +66,14 @@
         </tr>
         <tr>
             <td class="tdRowName">
+                Email：
+            </td>
+            <td class="tdRowValue">
+                <asp:Label ID="lblEmail" runat="server"></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td class="tdRowName">
                 Adress：
             </td>
             <td class="tdRowValue">

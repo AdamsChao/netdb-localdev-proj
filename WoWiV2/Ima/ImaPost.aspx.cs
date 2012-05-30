@@ -122,6 +122,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
                 tbCostTest2.Text = dt.Rows[0]["CostTest2"].ToString();
                 tbLeadTime2.Text = dt.Rows[0]["LeadTime2"].ToString();
                 tbRemark.Text = dt.Rows[0]["Remark"].ToString();
+                tbRequiredDoc.Text = dt.Rows[0]["RequiredDoc"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
@@ -183,8 +184,8 @@ public partial class Ima_ImaPost : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_Post (world_region_id,country_id,wowi_product_type_id,Requirement,RequirementDesc,[Print],Purchase,LabelsDesc,Required,Year,Month,RequiredDesc,CreateUser,LasterUpdateUser,Manufacturer,Importation,Product,EUT1,EUT2,EUT3,EUT4,EUT5,EUT6,EUT7,EUT8,Renewal,CostTest1,LeadTime1,CostTest2,LeadTime2,Remark) ";
-        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Requirement,@RequirementDesc,@Print,@Purchase,@LabelsDesc,@Required,@Year,@Month,@RequiredDesc,@CreateUser,@LasterUpdateUser,@Manufacturer,@Importation,@Product,@EUT1,@EUT2,@EUT3,@EUT4,@EUT5,@EUT6,@EUT7,@EUT8,@Renewal,@CostTest1,@LeadTime1,@CostTest2,@LeadTime2,@Remark)";
+        string strTsql = "insert into Ima_Post (world_region_id,country_id,wowi_product_type_id,Requirement,RequirementDesc,[Print],Purchase,LabelsDesc,Required,Year,Month,RequiredDesc,CreateUser,LasterUpdateUser,Manufacturer,Importation,Product,EUT1,EUT2,EUT3,EUT4,EUT5,EUT6,EUT7,EUT8,Renewal,CostTest1,LeadTime1,CostTest2,LeadTime2,Remark,RequiredDoc) ";
+        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Requirement,@RequirementDesc,@Print,@Purchase,@LabelsDesc,@Required,@Year,@Month,@RequiredDesc,@CreateUser,@LasterUpdateUser,@Manufacturer,@Importation,@Product,@EUT1,@EUT2,@EUT3,@EUT4,@EUT5,@EUT6,@EUT7,@EUT8,@Renewal,@CostTest1,@LeadTime1,@CostTest2,@LeadTime2,@Remark,@RequiredDoc)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -219,6 +220,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
         cmd.Parameters.Add("@CostTest2", SqlDbType.Decimal);
         cmd.Parameters.Add("@LeadTime2", SqlDbType.Int);
         cmd.Parameters.Add("@Remark", SqlDbType.NVarChar);
+        cmd.Parameters.AddWithValue("@RequiredDoc", tbRequiredDoc.Text.Trim());
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null)
         {
@@ -443,7 +445,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
     protected void btnUpd_Click(object sender, EventArgs e)
     {
         string strTsql = "Update Ima_Post set Requirement=@Requirement,RequirementDesc=@RequirementDesc,[Print]=@Print,Purchase=@Purchase,LabelsDesc=@LabelsDesc,Required=@Required,Year=@Year,Month=@Month,RequiredDesc=@RequiredDesc,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate()";
-        strTsql += ",Manufacturer=@Manufacturer,Importation=@Importation,Product=@Product,EUT1=@EUT1,EUT2=@EUT2,EUT3=@EUT3,EUT4=@EUT4,EUT5=@EUT5,EUT6=@EUT6,EUT7=@EUT7,EUT8=@EUT8,Renewal=@Renewal,CostTest1=@CostTest1,LeadTime1=@LeadTime1,CostTest2=@CostTest2,LeadTime2=@LeadTime2,Remark=@Remark ";
+        strTsql += ",Manufacturer=@Manufacturer,Importation=@Importation,Product=@Product,EUT1=@EUT1,EUT2=@EUT2,EUT3=@EUT3,EUT4=@EUT4,EUT5=@EUT5,EUT6=@EUT6,EUT7=@EUT7,EUT8=@EUT8,Renewal=@Renewal,CostTest1=@CostTest1,LeadTime1=@LeadTime1,CostTest2=@CostTest2,LeadTime2=@LeadTime2,Remark=@Remark,RequiredDoc=@RequiredDoc ";
         strTsql += "where PostID=@PostID";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -493,6 +495,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
         if (tbLeadTime2.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime2", tbLeadTime2.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@LeadTime2", DBNull.Value); }
         cmd.Parameters.AddWithValue("@Remark", tbRemark.Text.Trim());
+        cmd.Parameters.AddWithValue("@RequiredDoc", tbRequiredDoc.Text.Trim());
         SQLUtil.ExecuteSql(cmd);
         //文件上傳
         GeneralFileUpload(Convert.ToInt32(Request["pcid"]));

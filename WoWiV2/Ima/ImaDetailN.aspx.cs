@@ -33,17 +33,26 @@ public partial class Ima_ImaDetailN : System.Web.UI.Page
             dt = SQLUtil.QueryDS(cmd).Tables[0];
             if (dt.Rows.Count > 0)
             {
-                rblFactoryInspection.SelectedValue = dt.Rows[0]["FactoryInspection"].ToString();
-                lblYear.Text = dt.Rows[0]["Year"].ToString();
-                lblMonth.Text = dt.Rows[0]["Month"].ToString();
-                lblPeriodicDesc.Text = dt.Rows[0]["PeriodicDesc"].ToString();
+                //rblFactoryInspection.SelectedValue = dt.Rows[0]["FactoryInspection"].ToString();
+                if (dt.Rows[0]["FactoryInspection"].ToString() == "Document") { lblFactoryInspection.Text = "Document review only"; }
+                else if (dt.Rows[0]["FactoryInspection"].ToString() == "OneTime") { lblFactoryInspection.Text = "One-time on-site Inspection Required"; }
+                else if (dt.Rows[0]["FactoryInspection"].ToString() == "Periodic") { lblFactoryInspection.Text = "Periodic on-site Inspection Required"; }
+                else { lblFactoryInspection.Text = "Not Required"; }
+                if (dt.Rows[0]["Year"].ToString().Trim().Length > 0) { lblInspection.Text = "Inspection every：" + dt.Rows[0]["Year"].ToString() + " year(s) "; }
+                if (dt.Rows[0]["Month"].ToString().Trim().Length > 0) 
+                {
+                    if (lblInspection.Text.Trim().Length == 0) { lblInspection.Text = "Inspection every：" + dt.Rows[0]["Month"].ToString() + " month(s) "; }
+                    else { lblInspection.Text += dt.Rows[0]["Month"].ToString() + " month(s) "; }
+                }
+                //lblYear.Text = dt.Rows[0]["Year"].ToString();
+                //lblMonth.Text = dt.Rows[0]["Month"].ToString();
 
+                if (dt.Rows[0]["PeriodicDesc"].ToString().Trim().Length > 0) { lblPeriodicDesc.Text = "Remark：" + dt.Rows[0]["PeriodicDesc"].ToString(); }
 
-
-                if (dt.Rows[0]["DocumentFee"].ToString().Trim().Length > 0) { lblDocumentFee.Text = dt.Rows[0]["DocumentFee"].ToString() + dt.Rows[0]["DocumentFeeUnit"].ToString(); }
-                if (dt.Rows[0]["OneTimeFee"].ToString().Trim().Length > 0) { lblOneTimeFee.Text = dt.Rows[0]["OneTimeFee"].ToString() + dt.Rows[0]["OneTimeFeeUnit"].ToString(); }
-                if (dt.Rows[0]["PeriodicFee"].ToString().Trim().Length > 0) { lblPeriodicFee.Text = dt.Rows[0]["PeriodicFee"].ToString() + dt.Rows[0]["PeriodicFeeUnit"].ToString(); }
-                if (dt.Rows[0]["OtherFee"].ToString().Trim().Length > 0) { lblOtherFee.Text = dt.Rows[0]["OtherFee"].ToString() + dt.Rows[0]["OtherFeeUnit"].ToString(); }
+                if (dt.Rows[0]["DocumentFee"].ToString().Trim().Length > 0) { lblDocumentFee.Text = "Document Inspection Fee：" + dt.Rows[0]["DocumentFee"].ToString() + dt.Rows[0]["DocumentFeeUnit"].ToString(); }
+                if (dt.Rows[0]["OneTimeFee"].ToString().Trim().Length > 0) { lblOneTimeFee.Text = "One-time on-site Inspection Fee：" + dt.Rows[0]["OneTimeFee"].ToString() + dt.Rows[0]["OneTimeFeeUnit"].ToString(); }
+                if (dt.Rows[0]["PeriodicFee"].ToString().Trim().Length > 0) { lblPeriodicFee.Text = "Periodic on-site Inspection Fee：" + dt.Rows[0]["PeriodicFee"].ToString() + dt.Rows[0]["PeriodicFeeUnit"].ToString(); }
+                if (dt.Rows[0]["OtherFee"].ToString().Trim().Length > 0) { lblOtherFee.Text = "Other Fee：" + dt.Rows[0]["OtherFee"].ToString() + dt.Rows[0]["OtherFeeUnit"].ToString(); }
                 
                 //tbOneTimeFee.Text = dt.Rows[0]["OneTimeFee"].ToString();
                 //ddlOneTimeFeeUnit.SelectedValue = dt.Rows[0]["OneTimeFee"].ToString();

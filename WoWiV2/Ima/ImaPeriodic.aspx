@@ -111,7 +111,7 @@
                                                         <asp:TemplateField HeaderText="FileName">
                                                             <ItemTemplate>
                                                                 <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "PeriodicFile.ashx?fid="+Eval("PeriodicFileID").ToString() %>'
-                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_blank"></asp:HyperLink>
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
                                                             </ItemTemplate>
                                                             <HeaderStyle Font-Bold="False" />
                                                             <ItemStyle HorizontalAlign="Left" />

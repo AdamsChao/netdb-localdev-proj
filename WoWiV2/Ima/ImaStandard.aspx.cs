@@ -30,17 +30,16 @@ public partial class Ima_ImaStandard : System.Web.UI.Page
     //設定顯示的控制項
     protected void SetControlVisible()
     {
-        HtmlTableRow trTech;
+        Panel plTech;
         foreach (string strCT in lblProTypeName.Text.Trim().Split(','))
         {
             if (strCT.Length > 0)
             {
-                if (strCT == "RF") { trTech = trTechRF; }
-                else if (strCT == "EMC") { trTech = trTechEMC; }
-                else if (strCT == "Safety") { trTech = trTechSafety; }
-                else { trTech = trTechTelecom; }
-                //trTech.Style.Value = "display:'';";
-                trTech.Visible = true;
+                if (strCT == "RF") { plTech = plTechRF; lblTech.Text = "RF"; }
+                else if (strCT == "EMC") { plTech = plTechEMC; lblTech.Text = "EMC"; }
+                else if (strCT == "Safety") { plTech = plTechSafety; lblTech.Text = "Safety"; }
+                else { plTech = plTechTelecom; lblTech.Text = "Telecom"; }
+                plTech.Visible = true;
             }
         }
     }
@@ -290,7 +289,7 @@ public partial class Ima_ImaStandard : System.Web.UI.Page
     protected void AddUpdTechnology(int intID)
     {
         //刪除Technology
-        imau.DelTechnology(intID, Request["categroy"]);
+        imau.DelTech(intID, Request["categroy"]);
         DataList dl;
         string strProType = IMAUtil.GetProductType(lblProType.Text.Trim());
         if (strProType == "RF") { dl = dlTechRF; }
@@ -306,7 +305,7 @@ public partial class Ima_ImaStandard : System.Web.UI.Page
             if (cbFee.Checked)
             {
                 //新增Technology
-                imau.AddTechnology(intID, Request["categroy"], intTechID, tbFee.Text.Trim());
+                imau.AddTech(intID, Request["categroy"], intTechID, tbFee.Text.Trim());
             }
         }
     }
@@ -376,32 +375,28 @@ public partial class Ima_ImaStandard : System.Web.UI.Page
     {
         cbFCC.Visible = false;
         cbIEC.Visible = false;
-        HtmlTableRow htr;
-        //trTechRF.Style.Value = "display:'none';";
-        //trTechEMC.Style.Value = "display:'none';";
-        //trTechSafety.Style.Value = "display:'none';";
-        //trTechTelecom.Style.Value = "display:'none';";
-        trTechRF.Visible = false;
-        trTechEMC.Visible = false;
-        trTechSafety.Visible = false;
-        trTechTelecom.Visible = false;
+        Panel plTech;
+        plTechRF.Visible = false;
+        plTechEMC.Visible = false;
+        plTechSafety.Visible = false;
+        plTechTelecom.Visible = false;
         if (rblProductType.SelectedItem.Text != "Safety")
         {
             lblFCCTitle.Text = "Harmonized with FCC or CE";
             cbFCC.Visible = true;
             lblRequiredTitle.Text = "Safety Required";
-            if (rblProductType.SelectedItem.Text == "RF") { htr = trTechRF; }
-            else if (rblProductType.SelectedItem.Text == "EMC") { htr = trTechEMC; }
-            else { htr = trTechTelecom; }
+            if (rblProductType.SelectedItem.Text == "RF") { plTech = plTechRF; lblTech.Text = "RF"; }
+            else if (rblProductType.SelectedItem.Text == "EMC") { plTech = plTechEMC; lblTech.Text = "EMC"; }
+            else { plTech = plTechTelecom; lblTech.Text = "Telecom"; }
         }
         else
         {
             lblFCCTitle.Text = "Harmonized with IEC or CE";
             cbIEC.Visible = true;
             lblRequiredTitle.Text = "EMC Required";
-            htr = trTechSafety;
+            plTech = plTechSafety;
+            lblTech.Text = "Safety";
         }
-        //htr.Style.Value = "display:'';";
-        htr.Visible = true;
+        plTech.Visible = true;
     }
 }
