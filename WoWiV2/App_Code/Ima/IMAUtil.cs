@@ -174,6 +174,40 @@ public class IMAUtil
         SQLUtil.ExecuteSql(cmd);
     }
 
+
+    /// <summary>
+    /// 刪除Technology
+    /// </summary>
+    /// <param name="intDID"></param>
+    /// <param name="strCategory"></param>
+    public void DelTech(int intDID, string strCategory)
+    {
+        SqlCommand cmd = new SqlCommand("delete from Ima_Tech where DID=@DID and Categroy=@Categroy");
+        cmd.Parameters.AddWithValue("@DID", intDID);
+        cmd.Parameters.AddWithValue("@Categroy", strCategory);
+        SQLUtil.ExecuteSql(cmd);
+    }
+
+    /// <summary>
+    /// 新增Technology
+    /// </summary>
+    /// <param name="intDID"></param>
+    /// <param name="strCategory"></param>
+    /// <param name="intTechID"></param>
+    /// <param name="strFee"></param>
+    public void AddTech(int intDID, string strCategory, int intTechID, string strDescription)
+    {
+        string strTsql = "if (not exists(select DID from Ima_Tech where DID=@DID and Categroy=@Categroy and wowi_tech_id=@wowi_tech_id)) ";
+        strTsql += "insert into Ima_Tech (DID,Categroy,wowi_tech_id,Description) values(@DID,@Categroy,@wowi_tech_id,@Description)";
+        SqlCommand cmd = new SqlCommand(strTsql);
+        cmd.Parameters.AddWithValue("@DID", intDID);
+        cmd.Parameters.AddWithValue("@Categroy", strCategory);
+        cmd.Parameters.AddWithValue("@wowi_tech_id", intTechID);
+        if (strDescription.Length > 0) { cmd.Parameters.AddWithValue("@Description", strDescription); }
+        else { cmd.Parameters.AddWithValue("@Description", DBNull.Value); }
+        SQLUtil.ExecuteSql(cmd);
+    }
+
     public DataTable GetContact(int intDID, string strCategory) 
     {
         SqlCommand cmd = new SqlCommand("STP_IMAGetContactByDIDCategory");
