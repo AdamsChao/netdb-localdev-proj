@@ -1,6 +1,8 @@
 ﻿body {
 }
 
+.tdStatSubject{font-size:10pt;color:#0066FF;font-weight:bold;height:30px}
+
 /* Edit Item */
 .tbEditItem{border-left:1px #60B0A8 solid; border-right:1px #60B0A8 solid;background-color: #60B0A8;line-height:25px}
 .tbEditItem .tdHeader{text-align:center;font-size: 10pt;color: #FFFFFF;background-color:#60B0A8;}
@@ -39,3 +41,9 @@
 
 .tdContactRowName{width:80px; font-weight:bolder; text-align:right;}
 .tdContactRowValue{width:120px;}
+
+/* Search  */
+.tbSearch {border: solid 2px #11CFFF; line-height: 17pt;background-color:#FFFFFF;}
+.tbSearch .tdRowName {font-size: 10pt; text-align: right; padding-left: 10px;background-color:#84E7FF}
+.tbSearch .tdRowValue {font-size: 10pt; padding-right: 10px; }
+.tbSearch .tdFooter {background-color: #11CFFF; padding: 4px 0px 0px 1px;}
