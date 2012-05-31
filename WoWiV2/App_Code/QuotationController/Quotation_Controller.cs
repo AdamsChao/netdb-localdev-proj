@@ -311,51 +311,84 @@ public class Quotation_Controller
         
     }
 
-    public static bool Status_Approved(decimal FinalTotalPrice, string Currency, Quotation_Version quotation, int EmpID, out string msgError )
+    public static bool Status_Approved(decimal FinalTotalPrice, string Currency, Quotation_Version quotation, int EmpID, out string msgError)
     {
         msgError = "";
-       QuotationEntities entities = new QuotationEntities();
+        QuotationEntities entities = new QuotationEntities();
+        Boolean isApproved = false;
+
+        var emp = (from n in entities.employee
+                   where n.id == EmpID
+                   select n).First();
+
+        quotation.Max_Q_Authorize_Amt = emp.q_authorize_amt;
+        Quotation_Controller.Update_Quotation(ent, quotation);
+        if (quotation.Max_Q_Authorize_Amt >= FinalTotalPrice)
+        {
+            isApproved = true;
+        }
+        else
+        {
+            var result = from n in entities.employee
+                         where n.q_authorize_currency == Currency && n.id == emp.supervisor_id
+                         select n;
+            if (result.Count() > 0)
+            {
+                employee supervisor = result.First();
+                if (!String.IsNullOrEmpty(supervisor.email))
+                {
+                    string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is request for approval ";
+                    string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id;
+                    try
+                    {
+                        Mail(supervisor.email, mailSubject, mailContent);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        msgError = "Mail郵件通知失敗，請洽系統管理員! /n 錯誤訊息:" + ex.Message;
+                    }
+
+                }
+                quotation.Waiting_Approve_UserID = supervisor.id;
+                return false;
+            }
+            else
+            {
+                isApproved = true;
+            }
+        }
+
+        if (isApproved)
+            Maill_Approved(quotation, EmpID);
+        return isApproved;
+    }
 
 
-       var emp = (from n in entities.employee
-                                  where n.id == EmpID
-                                  select n).First();
+    private static string Maill_Approved(Quotation_Version quotation, int EmpID)
+    {
+        QuotationEntities entities = new QuotationEntities();
+        var Sales_emp = (from n in entities.employee
+                   where n.id == quotation.SalesId
+                   select n).First();
 
-       quotation.Max_Q_Authorize_Amt = emp.q_authorize_amt;
-       Quotation_Controller.Update_Quotation(ent, quotation);
-       if (quotation.Max_Q_Authorize_Amt >= FinalTotalPrice)
-           return true;
-       else
-       {
-           var result = from n in entities.employee
-                        where n.q_authorize_currency == Currency && n.id == emp.supervisor_id
-                        select n;
-           if (result.Count() > 0)
-           {
-               employee supervisor = result.First();
-               if (!String.IsNullOrEmpty(supervisor.email))
-               {
-                   string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is request for approval ";
-                   string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id;
-                   try
-                   {
-                       Mail(supervisor.email, mailSubject, mailContent);
-                   }
-                   catch (Exception ex)
-                   {
+        var emp = (from n in entities.employee
+                         where n.id == EmpID
+                         select n).First();
 
-                       msgError = "Mail郵件通知失敗，請洽系統管理員! /n 錯誤訊息:" + ex.Message;
-                   }
-                   
-               }
-               quotation.Waiting_Approve_UserID = supervisor.id;
-               return false;
-           }
-           else
-           {
-               return true;
-           }
-       }
+        string msgError = "";
+        string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is  approved ";
+        string mailContent = mailSubject + " by " +  emp.fname + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id;
+        try
+        {
+            Mail(Sales_emp.email, mailSubject, mailContent);
+        }
+        catch (Exception ex)
+        {
+
+            msgError = "Mail郵件通知失敗，請洽系統管理員! /n 錯誤訊息:" + ex.Message;
+        }
+        return msgError;
     }
 
     public static void Mail(string mailto, string mailSubject, string mailContent)
