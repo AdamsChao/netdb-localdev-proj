@@ -187,9 +187,14 @@
                         }
                         CostAnalysisData temp2 = new CostAnalysisData();
                         temp2.ProjectNo = temp.ProjectNo;
-                        temp2.Status = temp.Status;
+                        temp.Status = t.Status;
+                        temp2.Status = t.Status;
                         temp2.OpenDate = temp.OpenDate;
-                        temp2.StatusDate = temp.StatusDate;
+                        if (t.certification_completed.HasValue)
+                        {
+                            temp.StatusDate = ((DateTime)t.certification_completed).ToString("yyyy-MM-dd");
+                            temp2.StatusDate = ((DateTime)t.certification_completed).ToString("yyyy-MM-dd");
+                        }
                         temp2.QutationNo = temp.QutationNo;
                         temp2.QutationId = temp.QutationId;
                         temp2.Model = temp.Model;
