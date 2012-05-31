@@ -58,7 +58,8 @@
       <siteMapNode url="~/Project/ProjectWorkingStatusReportExternal.aspx" title="External Working Status Report"  description="" />
     </siteMapNode>    
     <siteMapNode url="" title="IMA System"  description=""   >
-      <siteMapNode url="~/Ima/ImaList.aspx" title="Documents Manage"  description="" />      
+      <siteMapNode url="~/Ima/ImaList.aspx" title="Documents Manage"  description="" />
+      <siteMapNode url="~/Ima/ImaSearch.aspx" title="Documents Search"  description="" />
     </siteMapNode>
   </siteMapNode>
 </siteMap>
