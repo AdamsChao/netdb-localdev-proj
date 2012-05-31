@@ -261,9 +261,9 @@
                                             {
                                                 tarTotal += intar.amount;
                                             }
-                                            temp2.InvNo = inv.invoice_no + " ";
+                                            temp2.InvNo += inv.issue_invoice_no + " ";
 
-                                            temp2.InvDate = ((DateTime)inv.invoice_date).ToString("yyyy-MM-dd") + " ";
+                                            temp2.InvDate += ((DateTime)inv.issue_invoice_date).ToString("yyyy-MM-dd") + " ";
 
                                             foreach (var invr in wowidb.invoice_received.Where(c => c.invoice_id == inv.invoice_id))
                                             {
@@ -282,7 +282,7 @@
                                                 }
                                             }
                                             
-                                            break;
+                                            //break;
                                         }
                                         catch (Exception)
                                         {
@@ -508,7 +508,7 @@
    
     protected void iGridView1_PreRender(object sender, EventArgs e)
     {
-        //RowSpanHandeler(0);
+        RowSpanHandeler(0);
     }
        
 

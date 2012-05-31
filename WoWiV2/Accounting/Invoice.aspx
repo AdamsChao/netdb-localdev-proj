@@ -426,7 +426,7 @@
                                  <asp:Button ID="Button3" runat="server" Text="Search" onclick="Button3_Click" />&nbsp;&nbsp;
                                 <asp:Button ID="Button1" runat="server" Text="New" onclick="Button1_Click" />
                                 &nbsp;&nbsp;
-                                <asp:Button ID="Button2" runat="server" Text="Print List" 
+                                <asp:Button ID="Button2" runat="server" Text="Excel" 
                                      onclick="Button2_Click" Enabled="False" />
                                 
                             </td>
