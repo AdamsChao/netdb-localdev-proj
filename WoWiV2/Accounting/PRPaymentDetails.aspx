@@ -65,6 +65,15 @@
                 lblQuoNo.Text = quo.Quotation_No;
                 int vender_id = (int)obj.vendor_id;
                 WoWiModel.vendor vendor = (from v in wowidb.vendors where v.id == vender_id select v).First();
+                try
+                {
+                    lblPaymentTerm.Text = PRUtils.GetPaymentTermString(byte.Parse(vendor.paymentdays));
+                }
+                catch (Exception)
+                {
+
+                    lblPaymentTerm.Text = "Not set yet";
+                }
                 lblBankCharge.Text = VenderUtils.GetBankCharge((int)vendor.bank_charge);
                 lblName.Text = String.IsNullOrEmpty(vendor.name) ? "" : vendor.name;
                 if (String.IsNullOrEmpty(lblName.Text))
@@ -214,14 +223,7 @@
                 {
                     
                     WoWiModel.PR_Payment pay = (from p in wowidb.PR_Payment where p.pr_id == obj.pr_id select p).First();
-                    if (pay.payment_term.HasValue)
-                    {
-                        lblPaymentTerm.Text = PRUtils.GetString((byte)pay.payment_term);
-                    }
-                    else
-                    {
-                        lblPaymentTerm.Text = "Not set yet.";
-                    }
+                    
                     if (pay.status == (byte)PRStatus.ClosePaid)
                     {
                         btnSave.Enabled = false;
@@ -230,7 +232,9 @@
                     }
                     ddlAdjustOperate.SelectedValue = pay.adjust_operator;
                     ddlOperate.SelectedValue = pay.adjust_operator;
+                    if (pay.adjust_amount.HasValue)
                     tbAdjustAmount.Text = ((decimal)pay.adjust_amount).ToString("F2");
+            
                     tbRate.Text = ((decimal)pay.exchange_rate).ToString("F2");
                     tbReason.Text = pay.reason;
                     tbPayRemarks.Text = pay.remarks;

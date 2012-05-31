@@ -61,14 +61,14 @@
                 try
                 {
                     WoWiModel.PR_Payment pay = wowidb.PR_Payment.First(c => c.pr_id == obj.pr_id);
-                    if (pay.payment_term.HasValue)
-                    {
-                        lblPaymentTerm.Text = PRUtils.GetString((byte)pay.payment_term);
-                    }
-                    else
-                    {
-                        lblPaymentTerm.Text = "Not set yet.";
-                    }
+                    //if (pay.payment_term.HasValue)
+                    //{
+                    //    lblPaymentTerm.Text = PRUtils.GetPaymentTermString((byte)pay.payment_term);
+                    //}
+                    //else
+                    //{
+                    //    lblPaymentTerm.Text = "Not set yet.";
+                    //}
                     ddlAdjustOperate.SelectedValue = pay.adjust_operator;
                     ddlOperate.SelectedValue = pay.adjust_operator;
                     tbAdjustAmount.Text = ((decimal)pay.adjust_amount).ToString("F2");
@@ -123,6 +123,17 @@
                 {
                     lblAddress.Text += String.IsNullOrEmpty(vendor.c_address) ? "" : " / " + vendor.c_address;
                 }
+                try
+                {
+                    lblPaymentTerm.Text = PRUtils.GetPaymentTermString(byte.Parse(vendor.paymentdays));
+                }
+                catch (Exception)
+                {
+
+                    lblPaymentTerm.Text = "Not set yet";
+                }
+                
+               
                 try
                 {
                     int bank_id = (int)obj.vendor_banking_id;
@@ -368,14 +379,14 @@
                     //adjust_amount = decimal.Parse(lblTotal.Text),
                     modify_date = DateTime.Now,
                     status = (byte)PRStatus.Paid,
-                    original_amount = decimal.Parse(lblOtotal.Text)
+                    
                 };
 
           
 
                 try
                 {
-
+                    payment.original_amount = decimal.Parse(lblOtotal.Text);
                 }
                 catch (Exception)
                 {
@@ -388,15 +399,19 @@
                     try
                     {
 
-                       rate = decimal.Parse(tbRate.Text);
+                        rate = decimal.Parse(tbRate.Text);
                         payment.exchange_rate = (double)rate;
                     }
                     catch (Exception)
                     {
                         payment.exchange_rate = (double)rate;
-                        
+
                     }
 
+                }
+                else
+                {
+                    payment.exchange_rate = (double)rate;
                 }
                 decimal adj = 0;
                 if (!String.IsNullOrEmpty(tbAdjustAmount.Text))
@@ -413,6 +428,10 @@
                         payment.adjust_amount = (decimal)adj;
                     }
 
+                }
+                else
+                {
+                    payment.adjust_amount = (decimal)adj;
                 }
 
                 decimal total;
