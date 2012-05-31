@@ -339,6 +339,48 @@ public class PRUtils
         return str;
     }
 
+    public static String GetPaymentTermString(byte pt)
+    {
+         //<asp:ListItem Value="-1">- Select -</asp:ListItem>
+         //                                        <asp:ListItem Value="0">ASAP</asp:ListItem>
+         //                                        <asp:ListItem Value="7">  7 days</asp:ListItem>
+         //                                        <asp:ListItem Value="15"> 15 days</asp:ListItem>
+         //                                        <asp:ListItem Value="30"> 30 days</asp:ListItem>
+         //                                        <asp:ListItem Value="45"> 45 days</asp:ListItem>
+         //                                        <asp:ListItem Value="60"> 60 days</asp:ListItem>
+         //                                        <asp:ListItem Value="90"> 90 days</asp:ListItem>
+         //                                        <asp:ListItem Value="120">120 days</asp:ListItem>
+        String str = "";
+        switch (pt)
+        {
+            case 0:
+                str = "ASAP";
+                break;
+            case 7:
+                str = "7 days";
+                break;
+            case 15:
+                str = "15 days";
+                break;
+            case 30:
+                str = "30 days";
+                break;
+            case 60:
+                str = "60 days";
+                break;
+            case 90:
+                str = "90 days";
+                break;
+            case 120:
+                str = "120 days";
+                break;
+            default:
+               str = "Not set yet";
+                break;
+        }
+        return str;
+    }
+
     public static void ddlVenderList_Load(object sender, EventArgs e)
     {
         ddlVenderList_Load(sender, e, "- Select -");
