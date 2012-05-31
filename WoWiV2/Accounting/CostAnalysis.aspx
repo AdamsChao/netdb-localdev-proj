@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" EnableEventValidation = "false" %>
 
 <%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
 
@@ -505,7 +505,7 @@
         (sender as DropDownList).DataValueField = "Id";
         (sender as DropDownList).DataBind();
     }
-    
+   
     protected void iGridView1_PreRender(object sender, EventArgs e)
     {
         //RowSpanHandeler(0);
