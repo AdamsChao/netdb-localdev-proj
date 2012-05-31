@@ -256,8 +256,8 @@ public class PRUtils
         try
         {
             string mailSubject = GetPRMailSubject(wowidb,auth, "approved");
-            string sender = "Approver <br />" + PRApproval_URL + auth.pr_id;
-            string mailContent = GetPRMailContent(mailSubject, sender);
+            string sender = "<br />" + PRApproval_URL + auth.pr_id;
+            string mailContent = mailSubject + sender;
             string to = GetEmail((int)auth.requisitioner_id);
             if (to != null)
             {
