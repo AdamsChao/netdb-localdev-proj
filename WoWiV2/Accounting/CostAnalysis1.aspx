@@ -804,7 +804,7 @@
                             <%--<asp:BoundField DataField="VenderNo" HeaderText="No" />--%>
                             <asp:BoundField DataField="VenderName" HeaderText="VenderName" />
                             <asp:BoundField DataField="IMACostCurrency" HeaderText="幣別" />
-                            <asp:TemplateField HeaderText="Payment" ItemStyle-HorizontalAlign="Right">
+                            <asp:TemplateField HeaderText="Cost$" ItemStyle-HorizontalAlign="Right">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("IMACost") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -825,7 +825,7 @@
                             <asp:BoundField DataField="Payment" HeaderText="Payment" />
                             <asp:BoundField DataField="TotalPayment" HeaderText="$" />
                             <asp:BoundField DataField="PaymentDate" HeaderText="Date" />--%>
-                            <asp:BoundField DataField="PaymentDate" HeaderText="Payment Date" />
+                            <asp:BoundField DataField="PaymentDate" HeaderText="Paid Date" />
                             <asp:BoundField DataField="PRNo" HeaderText="PR No" />
                         </Columns>
                     </cc1:iRowSpanGridView>

@@ -371,15 +371,7 @@
                     original_amount = decimal.Parse(lblOtotal.Text)
                 };
 
-                try
-                {
-                    payment.adjust_amount = decimal.Parse(lblTotal.Text);
-                }
-                catch (Exception)
-                {
-                    
-                    //throw;
-                }
+          
 
                 try
                 {
@@ -443,7 +435,7 @@
                 }
                 try
                 {
-                    payment.adjust_total = decimal.Parse(lblTotal.Text);
+                    payment.adjust_total = total;
                 }
                 catch (Exception)
                 {
