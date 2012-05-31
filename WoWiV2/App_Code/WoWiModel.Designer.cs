@@ -180,22 +180,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<country> countries
-        {
-            get
-            {
-                if ((_countries == null))
-                {
-                    _countries = base.CreateObjectSet<country>("countries");
-                }
-                return _countries;
-            }
-        }
-        private ObjectSet<country> _countries;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<department> departments
         {
             get
@@ -448,22 +432,6 @@ namespace WoWiModel
             }
         }
         private ObjectSet<PR> _PRs;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<PR_authority_history> PR_authority_history
-        {
-            get
-            {
-                if ((_PR_authority_history == null))
-                {
-                    _PR_authority_history = base.CreateObjectSet<PR_authority_history>("PR_authority_history");
-                }
-                return _PR_authority_history;
-            }
-        }
-        private ObjectSet<PR_authority_history> _PR_authority_history;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -752,6 +720,38 @@ namespace WoWiModel
             }
         }
         private ObjectSet<Quotation_Version> _Quotation_Version;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PR_authority_history> PR_authority_history
+        {
+            get
+            {
+                if ((_PR_authority_history == null))
+                {
+                    _PR_authority_history = base.CreateObjectSet<PR_authority_history>("PR_authority_history");
+                }
+                return _PR_authority_history;
+            }
+        }
+        private ObjectSet<PR_authority_history> _PR_authority_history;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<country> countries
+        {
+            get
+            {
+                if ((_countries == null))
+                {
+                    _countries = base.CreateObjectSet<country>("countries");
+                }
+                return _countries;
+            }
+        }
+        private ObjectSet<country> _countries;
 
         #endregion
         #region AddTo Methods
@@ -810,14 +810,6 @@ namespace WoWiModel
         public void AddTocontact_role(contact_role contact_role)
         {
             base.AddObject("contact_role", contact_role);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the countries EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTocountries(country country)
-        {
-            base.AddObject("countries", country);
         }
     
         /// <summary>
@@ -946,14 +938,6 @@ namespace WoWiModel
         public void AddToPRs(PR pR)
         {
             base.AddObject("PRs", pR);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the PR_authority_history EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPR_authority_history(PR_authority_history pR_authority_history)
-        {
-            base.AddObject("PR_authority_history", pR_authority_history);
         }
     
         /// <summary>
@@ -1098,6 +1082,22 @@ namespace WoWiModel
         public void AddToQuotation_Version(Quotation_Version quotation_Version)
         {
             base.AddObject("Quotation_Version", quotation_Version);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PR_authority_history EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPR_authority_history(PR_authority_history pR_authority_history)
+        {
+            base.AddObject("PR_authority_history", pR_authority_history);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the countries EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTocountries(country country)
+        {
+            base.AddObject("countries", country);
         }
 
         #endregion
@@ -4432,10 +4432,12 @@ namespace WoWiModel
         /// Create a new country object.
         /// </summary>
         /// <param name="country_id">Initial value of the country_id property.</param>
-        public static country Createcountry(global::System.Int32 country_id)
+        /// <param name="country_name">Initial value of the country_name property.</param>
+        public static country Createcountry(global::System.Int32 country_id, global::System.String country_name)
         {
             country country = new country();
             country.country_id = country_id;
+            country.country_name = country_name;
             return country;
         }
 
@@ -4472,7 +4474,7 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String country_name
         {
@@ -4484,7 +4486,7 @@ namespace WoWiModel
             {
                 Oncountry_nameChanging(value);
                 ReportPropertyChanging("country_name");
-                _country_name = StructuralObject.SetValidValue(value, true);
+                _country_name = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("country_name");
                 Oncountry_nameChanged();
             }
