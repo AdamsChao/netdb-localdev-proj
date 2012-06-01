@@ -338,7 +338,7 @@ public class Quotation_Controller
                 if (!String.IsNullOrEmpty(supervisor.email))
                 {
                     string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is request for approval ";
-                    string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id;
+                    string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=" + quotation.Quotation_Version_Id;
                     try
                     {
                         Mail(supervisor.email, mailSubject, mailContent);
@@ -378,7 +378,7 @@ public class Quotation_Controller
 
         string msgError = "";
         string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is  approved ";
-        string mailContent = mailSubject + " by " +  emp.fname + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=2" + quotation.Quotation_Version_Id;
+        string mailContent = mailSubject + " by " +  emp.fname + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=" + quotation.Quotation_Version_Id;
         try
         {
             Mail(Sales_emp.email, mailSubject, mailContent);

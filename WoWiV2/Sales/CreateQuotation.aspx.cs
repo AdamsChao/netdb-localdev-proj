@@ -116,7 +116,7 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                     switch (DropDownListStatus.SelectedValue)
                     {
                        case "2":
-                            if (quotation.Waiting_Approve_UserID != null)
+                            if ((quotation.Waiting_Approve_UserID != null) && (quotation.Waiting_Approve_UserID != -1 ))
                             {
                                 DropDownListStatus.ToolTip = CodeTableController.GetEmployee((int)quotation.Waiting_Approve_UserID).fname;
                             }
@@ -230,9 +230,14 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
                 txtQuotation_Statusby.Text = quotation.Quotation_Statusby;
 
                 String msgError = "";
-                if ((DropDownListStatus.SelectedValue == "2") && (quotation.FinalTotalPrice != null))
+                //if ((DropDownListStatus.SelectedValue == "2") && (quotation.FinalTotalPrice != null))
+                if (DropDownListStatus.SelectedValue == "2") 
                 {
-                 
+                    if (quotation.FinalTotalPrice == null)
+                    {
+                        quotation.FinalTotalPrice = 0;
+                    }
+
                     int status = Quotation_Controller.Status_AwaitingApproval((Decimal)quotation.FinalTotalPrice, quotation.Currency, quotation, (int)emp.supervisor_id, out msgError);
                     //quotation.Quotation_Status = Int32.Parse(DropDownListStatus.SelectedValue);
                     quotation.Waiting_Approve_UserID = emp.supervisor_id;
