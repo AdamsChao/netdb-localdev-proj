@@ -14,6 +14,7 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             LoadData();
+            SetKW();
         }
     }
 
@@ -119,5 +120,14 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
         //    lblRequiredTitle.Text = "EMC Required";
         //}
 
+    }
+
+    //替換關鍵字查詢的顏色
+    protected void SetKW()
+    {
+        if (Request["kw"] != null)
+        {
+            new IMAUtil().RepKW(this.Form.Controls);
+        }
     }
 }

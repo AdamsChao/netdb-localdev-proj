@@ -166,7 +166,7 @@
                             </td>
                             <td class="tdRowValue">
                                 <asp:DataList ID="dlContact" runat="server" DataSourceID="sdsContact" CellPadding="4"
-                                    ForeColor="#333333">
+                                    ForeColor="#333333" onitemdatabound="dlContact_ItemDataBound">
                                     <AlternatingItemStyle BackColor="White" />
                                     <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
                                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />

@@ -156,4 +156,15 @@ public partial class Ima_ImaSearch : System.Web.UI.Page
         tbCountry.Text = "";
         lblCountrys.Text = "";
     }
+
+    //設定Detail的路徑(加入查詢的關鍵字)
+    protected string SetDetailUrl(object objUrl) 
+    {
+        string strURL = "";
+        if (objUrl != null) 
+        {
+            strURL = objUrl.ToString() + "&kw=" + HttpUtility.UrlEncode(tbKeyWord.Text.Trim());
+        }
+        return strURL;
+    }
 }

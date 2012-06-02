@@ -15,6 +15,7 @@ public partial class Ima_ImaB : System.Web.UI.Page
         {
             BindItem();
             LoadData();
+            SetKW();
         }
     }
 
@@ -100,6 +101,64 @@ public partial class Ima_ImaB : System.Web.UI.Page
                 else if (lblProTypeName.Text.Trim() == "EMC") { trTechEMC.Visible = true; }
                 else if (lblProTypeName.Text.Trim() == "Safety") { trTechSafety.Visible = true; }
                 else { trTechTelecom.Visible = true; }
+            }
+        }
+    }
+
+
+    //替換關鍵字查詢的顏色
+    protected void SetKW()
+    {
+        if (Request["kw"] != null)
+        {
+            new IMAUtil().RepKW(this.Form.Controls);
+            //string strKW = HttpUtility.UrlDecode(Request["kw"]);
+            //string[] arrKW = strKW.Split(' ');
+            //Label lbl;
+            //foreach (Control ctl in this.Form.Controls)
+            //{
+            //    if (ctl is Label)
+            //    {
+            //        lbl = (Label)ctl;
+            //        foreach (string str in arrKW) 
+            //        {
+            //            lbl.Text = lbl.Text.Replace(str, @"<span class=""fontR"">" + str + @"</span>");
+            //        }
+            //        lbl.Text = lbl.Text.Replace(strKW, @"<span class=""fontR"">" + strKW + @"</span>");
+            //    }
+            //    ////Contact
+            //    //if (ctl is DataList)
+            //    //{
+            //    //    if (ctl.ClientID == "dlContact")
+            //    //    {
+            //    //        foreach (Control cl in ctl.Controls)
+            //    //        {
+            //    //            if (cl is DataListItem)
+            //    //            {
+            //    //                foreach (Control c in cl.Controls)
+            //    //                {
+            //    //                    if (c is Label)
+            //    //                    {
+            //    //                        lbl = (Label)c;
+            //    //                        lbl.Text = lbl.Text.Replace(strKW, @"<span class=""fontR"">" + strKW + @"</span>");
+            //    //                    }
+            //    //                }
+            //    //            }
+            //    //        }
+            //    //    }
+            //    //}
+            //}
+        }
+    }
+
+    //Contact 替換關鍵字查詢的顏色
+    protected void dlContact_ItemDataBound(object sender, DataListItemEventArgs e)
+    {
+        if (Request["kw"] != null) 
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                new IMAUtil().RepKW(e.Item.Controls);
             }
         }
     }

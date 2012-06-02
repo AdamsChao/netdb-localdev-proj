@@ -15,6 +15,7 @@ public partial class Ima_ImaDetailQ : System.Web.UI.Page
         {
             BindItem();
             LoadData();
+            SetKW();
         }
     }
 
@@ -67,6 +68,27 @@ public partial class Ima_ImaDetailQ : System.Web.UI.Page
                 else if (lblProTypeName.Text.Trim() == "EMC") { trTechEMC.Visible = true; }
                 else if (lblProTypeName.Text.Trim() == "Safety") { trTechSafety.Visible = true; }
                 else { trTechTelecom.Visible = true; }
+            }
+        }
+    }
+
+    //替換關鍵字查詢的顏色
+    protected void SetKW()
+    {
+        if (Request["kw"] != null)
+        {
+            new IMAUtil().RepKW(this.Form.Controls);
+        }
+    }
+
+    //Contact 替換關鍵字查詢的顏色
+    protected void dlContact_ItemDataBound(object sender, DataListItemEventArgs e)
+    {
+        if (Request["kw"] != null)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                new IMAUtil().RepKW(e.Item.Controls);
             }
         }
     }

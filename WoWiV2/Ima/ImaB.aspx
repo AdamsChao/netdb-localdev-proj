@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ImaB.aspx.cs" Inherits="Ima_ImaB"
-    StylesheetTheme="IMA" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ImaB.aspx.cs" Inherits="Ima_ImaB" StylesheetTheme="IMA" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -169,7 +168,8 @@
                         <td class="tdRowName" valign="top">Contact：</td>
                         <td class="tdRowValue">
                             <asp:DataList ID="dlContact" runat="server" DataSourceID="sdsContact" 
-                                CellPadding="4" ForeColor="#333333">
+                                CellPadding="4" ForeColor="#333333" 
+                                onitemdatabound="dlContact_ItemDataBound">
                                 <AlternatingItemStyle BackColor="White" />
                                 <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
                                 <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
