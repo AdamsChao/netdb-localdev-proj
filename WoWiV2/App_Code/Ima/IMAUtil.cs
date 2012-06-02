@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Text;
 using System.Collections.Specialized;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// IMAUtil 的摘要描述
@@ -249,4 +250,62 @@ public class IMAUtil
             fu.SaveAs(strFileURL);
         }
     }
+
+    //替換查詢關鍵字的顏色
+    public void RepKW(System.Web.UI.ControlCollection CTLC)
+    {
+        string strKW = HttpUtility.UrlDecode(HttpContext.Current.Request["kw"]);
+        string[] arrKW = strKW.Split(' ');
+        Label lbl;
+        
+        foreach (System.Web.UI.Control ctl in CTLC)
+        {
+            if (ctl is Label)
+            {
+                lbl = (Label)ctl;
+                lbl.Text = HighlightString(lbl.Text, strKW);
+                foreach (string str in arrKW)
+                {
+                    lbl.Text = HighlightString(lbl.Text, str);
+                }
+                lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
+            }           
+
+
+            if (ctl is System.Web.UI.HtmlControls.HtmlTableRow) 
+            {
+                foreach (System.Web.UI.Control tc in ctl.Controls) 
+                {
+                    if (tc is System.Web.UI.HtmlControls.HtmlTableCell) 
+                    {
+                        foreach (System.Web.UI.Control c in tc.Controls) 
+                        {
+                            if (c is Label)
+                            {
+                                lbl = (Label)c;
+                                lbl.Text = HighlightString(lbl.Text, strKW);
+                                foreach (string str in arrKW)
+                                {
+                                    lbl.Text = HighlightString(lbl.Text, str);
+                                }
+                                lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
+                            }
+                        }
+                    }                    
+                }
+            }
+        }
+    }
+
+    protected string HighlightString(string Contents, string ReplaceWord)
+    {
+        System.Text.RegularExpressions.MatchCollection matchs = Regex.Matches(Contents, ReplaceWord, RegexOptions.IgnoreCase);
+        for (int i = 0; i < matchs.Count; i++)
+        {
+            Contents = Regex.Replace(Contents, matchs[i].Value, "<span class=\"fontR\">" + matchs[i].Value + "</span>");
+            //Contents = Regex.Replace(Contents, matchs[i].Value, @"<span class=""fontR"">" + matchs[i].Value + @"</span>");
+        }
+        return Contents;
+    }
+
 }
