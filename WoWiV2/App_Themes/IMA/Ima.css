@@ -2,6 +2,7 @@
 }
 
 .tdStatSubject{font-size:10pt;color:#0066FF;font-weight:bold;height:30px}
+.fontR{color:Red;}
 
 /* Edit Item */
 .tbEditItem{border-left:1px #60B0A8 solid; border-right:1px #60B0A8 solid;background-color: #60B0A8;line-height:25px}
