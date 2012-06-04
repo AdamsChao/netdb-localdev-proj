@@ -251,47 +251,78 @@ public class IMAUtil
         }
     }
 
-    //替換查詢關鍵字的顏色
+    //替換查詢關鍵字的顏色及換行
     public void RepKW(System.Web.UI.ControlCollection CTLC)
     {
         string strKW = HttpUtility.UrlDecode(HttpContext.Current.Request["kw"]);
-        string[] arrKW = strKW.Split(' ');
-        Label lbl;
-        
-        foreach (System.Web.UI.Control ctl in CTLC)
+         Label lbl;
+        if (strKW != null)
         {
-            if (ctl is Label)
+            string[] arrKW = strKW.Split(' ');
+            foreach (System.Web.UI.Control ctl in CTLC)
             {
-                lbl = (Label)ctl;
-                lbl.Text = HighlightString(lbl.Text, strKW);
-                foreach (string str in arrKW)
+                if (ctl is Label)
                 {
-                    lbl.Text = HighlightString(lbl.Text, str);
-                }
-                lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
-            }           
-
-
-            if (ctl is System.Web.UI.HtmlControls.HtmlTableRow) 
-            {
-                foreach (System.Web.UI.Control tc in ctl.Controls) 
-                {
-                    if (tc is System.Web.UI.HtmlControls.HtmlTableCell) 
+                    lbl = (Label)ctl;
+                    lbl.Text = HighlightString(lbl.Text, strKW);
+                    foreach (string str in arrKW)
                     {
-                        foreach (System.Web.UI.Control c in tc.Controls) 
+                        lbl.Text = HighlightString(lbl.Text, str);
+                    }
+                    lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
+                }
+
+
+                if (ctl is System.Web.UI.HtmlControls.HtmlTableRow)
+                {
+                    foreach (System.Web.UI.Control tc in ctl.Controls)
+                    {
+                        if (tc is System.Web.UI.HtmlControls.HtmlTableCell)
                         {
-                            if (c is Label)
+                            foreach (System.Web.UI.Control c in tc.Controls)
                             {
-                                lbl = (Label)c;
-                                lbl.Text = HighlightString(lbl.Text, strKW);
-                                foreach (string str in arrKW)
+                                if (c is Label)
                                 {
-                                    lbl.Text = HighlightString(lbl.Text, str);
+                                    lbl = (Label)c;
+                                    lbl.Text = HighlightString(lbl.Text, strKW);
+                                    foreach (string str in arrKW)
+                                    {
+                                        lbl.Text = HighlightString(lbl.Text, str);
+                                    }
+                                    lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
                                 }
-                                lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
                             }
                         }
-                    }                    
+                    }
+                }
+            }
+        }
+        else 
+        {
+            foreach (System.Web.UI.Control ctl in CTLC)
+            {
+                if (ctl is Label)
+                {
+                    lbl = (Label)ctl;
+                    lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
+                }
+
+                if (ctl is System.Web.UI.HtmlControls.HtmlTableRow)
+                {
+                    foreach (System.Web.UI.Control tc in ctl.Controls)
+                    {
+                        if (tc is System.Web.UI.HtmlControls.HtmlTableCell)
+                        {
+                            foreach (System.Web.UI.Control c in tc.Controls)
+                            {
+                                if (c is Label)
+                                {
+                                    lbl = (Label)c;
+                                    lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
