@@ -27,9 +27,14 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
         if (Request["fsid"] != null)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select wowi_product_type_id from Ima_FeeSchedule where FeeScheduleID=@FeeScheduleID";
+            cmd.CommandText = "select wowi_product_type_id,wowi_tech_id from Ima_FeeSchedule where FeeScheduleID=@FeeScheduleID";
             cmd.Parameters.AddWithValue("@FeeScheduleID", Request["fsid"]);
-            lblProType.Text = SQLUtil.ExecuteScalar(cmd).ToString();
+            DataTable dtFS = SQLUtil.QueryDS(cmd).Tables[0];
+            if (dtFS.Rows.Count > 0) 
+            {
+                lblProType.Text = dtFS.Rows[0]["wowi_product_type_id"].ToString();
+                ddlTech.SelectedValue = dtFS.Rows[0]["wowi_tech_id"].ToString();
+            }            
         }
         else 
         {

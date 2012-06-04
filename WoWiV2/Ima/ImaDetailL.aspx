@@ -43,8 +43,14 @@
                             <asp:DropDownList ID="ddlTech" runat="server" DataSourceID="sdsTech" DataTextField="wowi_tech_name"
                                 Enabled="false" DataValueField="wowi_tech_id" Visible="false">
                             </asp:DropDownList>
-                            <asp:SqlDataSource ID="sdsTech" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                            <%--<asp:SqlDataSource ID="sdsTech" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                 SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish=1 and b.wowi_product_type_id=@wowi_product_type_id">
+                                <SelectParameters>
+                                    <asp:ControlParameter ControlID="lblProType" Name="wowi_product_type_id" PropertyName="Text" />
+                                </SelectParameters>
+                            </asp:SqlDataSource>--%>
+                            <asp:SqlDataSource ID="sdsTech" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="select a.wowi_tech_id,a.wowi_tech_name from vw_Ima_wowi_tech a inner join wowi_product_type b on a.wowi_product_type_id=b.wowi_product_type_id where a.publish=1 and b.wowi_product_type_id=@wowi_product_type_id">
                                 <SelectParameters>
                                     <asp:ControlParameter ControlID="lblProType" Name="wowi_product_type_id" PropertyName="Text" />
                                 </SelectParameters>

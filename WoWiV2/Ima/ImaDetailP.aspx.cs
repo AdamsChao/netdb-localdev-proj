@@ -186,9 +186,6 @@ public partial class Ima_ImaDetailP : System.Web.UI.Page
     //替換關鍵字查詢的顏色
     protected void SetKW()
     {
-        if (Request["kw"] != null)
-        {
-            new IMAUtil().RepKW(this.Form.Controls);
-        }
+        new IMAUtil().RepKW(this.Form.Controls);
     }
 }
