@@ -283,8 +283,11 @@ public class Quotation_Controller
         string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / " +  quotation.Model_No + ".  is request for approval";
         string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=" + quotation.Quotation_Version_Id ;
 
+        //var result = from n in entities.employee
+        //             where n.q_authorize_currency == Currency && n.id == SupervisorID                     
+        //             select n;        
         var result = from n in entities.employee
-                     where n.q_authorize_currency == Currency && n.id == SupervisorID                     
+                     where n.id == SupervisorID
                      select n;
         if (result.Count() > 0)
         {
@@ -298,17 +301,14 @@ public class Quotation_Controller
                 catch (Exception ex)
                 {
                     msgError = "Mail郵件通知失敗，請洽系統管理員! 錯誤訊息: " + ex.Message;
-                }
-                
-            }
-            return 2;
+                }                
+            }           
         }
-        else
-        {
-            return 3;
-        }
-       
-        
+        //else
+        //{
+        //    return 3;
+        //}       
+        return 2;
     }
 
     public static bool Status_Approved(decimal FinalTotalPrice, string Currency, Quotation_Version quotation, int EmpID, out string msgError)
@@ -329,8 +329,11 @@ public class Quotation_Controller
         }
         else
         {
+            //var result = from n in entities.employee
+            //             where n.q_authorize_currency == Currency && n.id == emp.supervisor_id
+            //             select n;
             var result = from n in entities.employee
-                         where n.q_authorize_currency == Currency && n.id == emp.supervisor_id
+                         where n.id == emp.supervisor_id
                          select n;
             if (result.Count() > 0)
             {
