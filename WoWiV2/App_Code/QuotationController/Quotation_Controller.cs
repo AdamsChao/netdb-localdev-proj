@@ -307,9 +307,9 @@ public class Quotation_Controller
         else
         {
             //找不到可以approval的人，則寄信給系統管理員
-            int System_Admin_ID = Int32.Parse(System.Web.Configuration.WebConfigurationManager.AppSettings["System_Admin_ID"]);
+            string System_Admin_Name = System.Web.Configuration.WebConfigurationManager.AppSettings["System_Admin_Name"];
             var system_admin = (from n in entities.employee
-                                where n.id == System_Admin_ID
+                                where n.username.ToUpper() == System_Admin_Name.ToUpper()
                                 select n).First();
 
              mailSubject = "Quotation #" + quotation.Quotation_No + " can't be approved ";
@@ -334,8 +334,9 @@ public class Quotation_Controller
 
     public static bool Status_Approved(decimal FinalTotalPrice, string Currency, Quotation_Version quotation, int EmpID, out string msgError)
     {
-        int Super_Approvor_ID =Int32.Parse( System.Web.Configuration.WebConfigurationManager.AppSettings["Super_Approvor_ID"]);
-        int System_Admin_ID =Int32.Parse( System.Web.Configuration.WebConfigurationManager.AppSettings["System_Admin_ID"]);
+        string Super_Approvor_Name =System.Web.Configuration.WebConfigurationManager.AppSettings["Super_Approvor_Name"];
+        string System_Admin_Name = System.Web.Configuration.WebConfigurationManager.AppSettings["System_Admin_Name"];
+        int USD_NTD_RATE = Int32.Parse( System.Web.Configuration.WebConfigurationManager.AppSettings["USD_NTD_RATE"]);
 
 
         msgError = "";
@@ -348,12 +349,12 @@ public class Quotation_Controller
         
         quotation.Max_Q_Authorize_Amt = emp.q_authorize_amt;
         if (Currency == "NTD")
-            quotation.Max_Q_Authorize_Amt = quotation.Max_Q_Authorize_Amt * 30;
+            quotation.Max_Q_Authorize_Amt = quotation.Max_Q_Authorize_Amt * USD_NTD_RATE;
 
         Quotation_Controller.Update_Quotation(ent, quotation);
 
         //如果是scott，則一定可以approval
-        if (EmpID == Super_Approvor_ID)
+        if (emp.username.ToUpper() == Super_Approvor_Name.ToUpper())
             isApproved = true;
         else
         {
@@ -395,7 +396,7 @@ public class Quotation_Controller
                     //isApproved = true;
                     //找不到可以approval的人，則寄信給系統管理員
                     var system_admin = (from n in entities.employee
-                                        where n.id == System_Admin_ID
+                                        where n.username.ToUpper() == System_Admin_Name.ToUpper()
                                select n).First();
                     
                     string mailSubject = "Quotation #" + quotation.Quotation_No + " can't be approved ";
