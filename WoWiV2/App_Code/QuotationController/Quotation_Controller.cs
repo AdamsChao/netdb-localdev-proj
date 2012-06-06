@@ -304,6 +304,27 @@ public class Quotation_Controller
                 }                
             }           
         }
+        else
+        {
+            //找不到可以approval的人，則寄信給系統管理員
+            int System_Admin_ID = Int32.Parse(System.Web.Configuration.WebConfigurationManager.AppSettings["System_Admin_ID"]);
+            var system_admin = (from n in entities.employee
+                                where n.id == System_Admin_ID
+                                select n).First();
+
+             mailSubject = "Quotation #" + quotation.Quotation_No + " can't be approved ";
+             mailContent = mailSubject + "<br /> Please Check It";
+            try
+            {
+                Mail(system_admin.email, mailSubject, mailContent);
+            }
+            catch (Exception ex)
+            {
+
+                msgError = "Mail郵件通知失敗，請洽系統管理員! /n 錯誤訊息:" + ex.Message;
+            }
+
+        }
         //else
         //{
         //    return 3;
@@ -328,6 +349,7 @@ public class Quotation_Controller
         quotation.Max_Q_Authorize_Amt = emp.q_authorize_amt;
         Quotation_Controller.Update_Quotation(ent, quotation);
 
+        //如果是scott，則一定可以approval
         if (EmpID == Super_Approvor_ID)
             isApproved = true;
         else
@@ -368,6 +390,7 @@ public class Quotation_Controller
                 else
                 {
                     //isApproved = true;
+                    //找不到可以approval的人，則寄信給系統管理員
                     var system_admin = (from n in entities.employee
                                         where n.id == System_Admin_ID
                                select n).First();
