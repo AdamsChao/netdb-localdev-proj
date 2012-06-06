@@ -967,14 +967,15 @@
                     WoWiModel.employee emp = (from c in wowidb.employees where c.id == empid select c).First();
                     String remark = (FormView1.FindControl("tbInternalMarks") as TextBox).Text;
                     String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
-                    if (!obj.total_cost.HasValue)
+                    //Use shipping_cost as authorization total cost
+                    if (!obj.shipping_cost.HasValue)
                     {
-                        obj.total_cost = 0;
+                        obj.shipping_cost = 0;
                     }
                     switch (btnID)
                     {
                         case "btnSupervisorApprove":
-                            if (emp.pr_authorize_amt >= obj.total_cost)
+                            if (emp.pr_authorize_amt >= obj.shipping_cost)
                             {
                                 auth.status = (byte)PRStatus.Done;
                                 auth.modify_date = DateTime.Now;
@@ -1013,7 +1014,7 @@
                             SetValue("btnSupervisorApprove", "btnSupervisorDisapprove", (byte)PRStatus.Init);
                             break;
                         case "btnVPApprove":
-                            if (emp.pr_authorize_amt >= obj.total_cost)
+                            if (emp.pr_authorize_amt >= obj.shipping_cost)
                             {
                                 auth.status = (byte)PRStatus.Done;
                                 auth.modify_date = DateTime.Now;
