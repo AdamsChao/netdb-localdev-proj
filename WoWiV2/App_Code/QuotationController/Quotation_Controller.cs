@@ -345,8 +345,11 @@ public class Quotation_Controller
         var emp = (from n in entities.employee
                    where n.id == EmpID
                    select n).First();
-
+        
         quotation.Max_Q_Authorize_Amt = emp.q_authorize_amt;
+        if (Currency == "NTD")
+            quotation.Max_Q_Authorize_Amt = quotation.Max_Q_Authorize_Amt * 30;
+
         Quotation_Controller.Update_Quotation(ent, quotation);
 
         //如果是scott，則一定可以approval
