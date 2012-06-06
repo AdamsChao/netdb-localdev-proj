@@ -313,6 +313,10 @@ public class Quotation_Controller
 
     public static bool Status_Approved(decimal FinalTotalPrice, string Currency, Quotation_Version quotation, int EmpID, out string msgError)
     {
+        int Super_Approvor_ID =Int32.Parse( System.Web.Configuration.WebConfigurationManager.AppSettings["Super_Approvor_ID"]);
+        int System_Admin_ID =Int32.Parse( System.Web.Configuration.WebConfigurationManager.AppSettings["System_Admin_ID"]);
+
+
         msgError = "";
         QuotationEntities entities = new QuotationEntities();
         Boolean isApproved = false;
@@ -323,42 +327,64 @@ public class Quotation_Controller
 
         quotation.Max_Q_Authorize_Amt = emp.q_authorize_amt;
         Quotation_Controller.Update_Quotation(ent, quotation);
-        if (quotation.Max_Q_Authorize_Amt >= FinalTotalPrice)
-        {
+
+        if (EmpID == Super_Approvor_ID)
             isApproved = true;
-        }
         else
         {
-            //var result = from n in entities.employee
-            //             where n.q_authorize_currency == Currency && n.id == emp.supervisor_id
-            //             select n;
-            var result = from n in entities.employee
-                         where n.id == emp.supervisor_id
-                         select n;
-            if (result.Count() > 0)
+            if (quotation.Max_Q_Authorize_Amt >= FinalTotalPrice)
             {
-                employee supervisor = result.First();
-                if (!String.IsNullOrEmpty(supervisor.email))
+                isApproved = true;
+            }
+            else
+            {
+                //var result = from n in entities.employee
+                //             where n.q_authorize_currency == Currency && n.id == emp.supervisor_id
+                //             select n;
+                var result = from n in entities.employee
+                             where n.id == emp.supervisor_id
+                             select n;
+                if (result.Count() > 0)
                 {
-                    string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is request for approval ";
-                    string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=" + quotation.Quotation_Version_Id;
+                    employee supervisor = result.First();
+                    if (!String.IsNullOrEmpty(supervisor.email))
+                    {
+                        string mailSubject = "Quotation #" + quotation.Quotation_No + " / " + GetClientName((int)quotation.Client_Id) + " / Model No.  is request for approval ";
+                        string mailContent = mailSubject + " by " + quotation.modify_user + "<br /> http://wowiv2.wowiapproval.com/WoWiV2/Sales/CreateQuotation.aspx?q=" + quotation.Quotation_Version_Id;
+                        try
+                        {
+                            Mail(supervisor.email, mailSubject, mailContent);
+                        }
+                        catch (Exception ex)
+                        {
+
+                            msgError = "Mail郵件通知失敗，請洽系統管理員! /n 錯誤訊息:" + ex.Message;
+                        }
+
+                    }
+                    quotation.Waiting_Approve_UserID = supervisor.id;
+                    return false;
+                }
+                else
+                {
+                    //isApproved = true;
+                    var system_admin = (from n in entities.employee
+                                        where n.id == System_Admin_ID
+                               select n).First();
+                    
+                    string mailSubject = "Quotation #" + quotation.Quotation_No + " can't be approved ";
+                    string mailContent = mailSubject + "<br /> Please Check It";
                     try
                     {
-                        Mail(supervisor.email, mailSubject, mailContent);
+                        Mail(system_admin.email, mailSubject, mailContent);
                     }
                     catch (Exception ex)
                     {
 
                         msgError = "Mail郵件通知失敗，請洽系統管理員! /n 錯誤訊息:" + ex.Message;
-                    }
+                    }                    
 
                 }
-                quotation.Waiting_Approve_UserID = supervisor.id;
-                return false;
-            }
-            else
-            {
-                isApproved = true;
             }
         }
 
