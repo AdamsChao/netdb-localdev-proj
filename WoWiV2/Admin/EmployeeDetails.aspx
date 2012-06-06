@@ -217,7 +217,8 @@
                             <th align="left" class="style4">
                                 <font color="red">*&nbsp;</font>Quotation Authorize Currency:</th>
                             <td class="style7">
-                                <asp:Label ID="tbAuthorizeAmt" runat="server"  Text='<%# Bind("q_authorize_currency") %>'></asp:Label>
+                                <%--<asp:Label ID="tbAuthorizeAmt" runat="server"  Text='<%# Bind("q_authorize_currency") %>'></asp:Label>--%>
+                                <asp:Label ID="tbAuthorizeAmt" runat="server"  Text='USD'></asp:Label>
                              </td>
                             <th align="left" class="style4">
                                 <font color="red">*&nbsp;</font>Quotation Authorize Amount:</th>
@@ -229,7 +230,8 @@
                             <th align="left" class="style4">
                                 <font color="red">*&nbsp;</font>PR Authorize Currency:</th>
                             <td class="style7">
-                                <asp:Label ID="TextBox5" runat="server"  Text='<%# Bind("pr_authorize_currency") %>'></asp:Label>
+                                <%--<asp:Label ID="TextBox5" runat="server"  Text='<%# Bind("pr_authorize_currency") %>'></asp:Label>--%>
+                                <asp:Label ID="TextBox5" runat="server"  Text='USD'></asp:Label>
                              </td>
                             <th align="left" class="style4">
                                 <font color="red">*&nbsp;</font>PR Authorize Amount:</th>

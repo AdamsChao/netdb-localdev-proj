@@ -663,6 +663,16 @@
                                          ></asp:TextBox>
                             </td></tr>
                             <tr><th 
+                                   align="left" class="style11">&nbsp;&nbsp;&nbsp;Authorization Currency:&nbsp;&nbsp;</th><td 
+                                   class="style12" width="30%">
+                                    USD
+                            </td><th align="left" 
+                                   class="style11"><font color="red">*&#160;</font>Authorization Total:&nbsp;</th><td class="style12" width="30%">
+                                    <asp:TextBox ID="TextBox4" runat="server"  Text='<%# Eval("shipping_cost")%>' Enabled="false" 
+                                         ></asp:TextBox>
+                                   
+                            </td></tr>
+                            <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Vender:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
                                 <asp:DropDownList ID="ddlVenderList" runat="server"  Enabled="false"
