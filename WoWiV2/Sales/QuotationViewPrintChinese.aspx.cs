@@ -71,6 +71,7 @@ public partial class Sales_QuotationViewPrintChinese : System.Web.UI.Page
                 lblCBrand_Name.Text = quo.CBrand_Name;
                 lblCModel_No.Text = quo.CModel_No;
                 lblBill_Companyname.Text = quo.c_companyname;
+                lblBill_EN_Companyname.Text =quo.Bill_Companyname;
                 //lblbusiness_registration_number.Text = quo.business_registration_number;
                 lblBill_CName.Text = quo.Bill_CName;
                 lblClientAddress.Text = quo.Bill_Address;

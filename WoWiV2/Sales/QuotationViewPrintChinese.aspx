@@ -187,9 +187,10 @@
                         <td align="left">
                             申請公司:
                         </td>
-                        <td align="left" >
-                            <nobr>
-                            <asp:Label ID="lblBill_Companyname" runat="server"></asp:Label></nobr>
+                        <td align="left" >                            
+                            <asp:Label ID="lblBill_Companyname" runat="server"></asp:Label>
+                            <br/>
+                            <asp:Label ID="lblBill_EN_Companyname" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <%-- <tr>
