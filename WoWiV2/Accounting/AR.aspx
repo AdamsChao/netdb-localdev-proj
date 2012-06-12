@@ -305,10 +305,10 @@
                     slist = slist.OrderBy(c => c.Sales);
                     break;
                 case "OverDueDays":
-                    slist = slist.OrderBy(c => c.OverDueDays);
+                    slist = slist.OrderBy(c => int.Parse(c.OverDueDays));
                     break;
                 case "OverDueInterval":
-                    slist = slist.OrderBy(c => c.OverDueDays);
+                    slist = slist.OrderByDescending(c => c.OverDueInterval);
                     break;
                 case "Attn":
                     slist = slist.OrderBy(c => c.Attn);
