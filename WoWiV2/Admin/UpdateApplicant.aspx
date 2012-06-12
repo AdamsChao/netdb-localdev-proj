@@ -380,10 +380,13 @@
                                    <th align="left" class="style9">
                                        &nbsp; Country:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:DropDownList ID="dlBillCountry" runat="server" 
-                                           DataSourceID="SqlDataSource1" DataTextField="country_name" 
-                                           DataValueField="country_id">
-                                       </asp:DropDownList>
+                                      <asp:DropDownList ID="dlBillCountry" runat="server"
+                                 DataTextField="country_name"  DataSourceID="SqlDataSource8" AppendDataBoundItems="true"
+                                  DataValueField="country_id" SelectedValue='<%# Bind("billcountry_id") %>'>
+                              </asp:DropDownList>
+                              <asp:SqlDataSource ID="SqlDataSource8" runat="server" 
+                                  ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                                  SelectCommand="SELECT [country_id], [country_name] FROM [country] order by [country_name]"/>
                                    </td>
                                     <th 
                                    align="left" class="style7">&nbsp; Payment Type:&nbsp;</th><td width="30%">
