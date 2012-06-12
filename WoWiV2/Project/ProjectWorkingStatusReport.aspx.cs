@@ -70,17 +70,19 @@ public partial class Project_ProjectWorkingStatusReport : System.Web.UI.Page
     protected void BulletedListStatus_DataBound(object sender, EventArgs e)
     {
       BulletedList bullStatus = (BulletedList)sender;
+      
       foreach (ListItem item in bullStatus.Items)
       {
         if (item.Value.ToLower()=="true")
         {
+          item.Text = item.Text + " (Voided)";
           Style VoidedStyle = new Style();
           VoidedStyle.ForeColor = System.Drawing.Color.BurlyWood;
           VoidedStyle.Font.Strikeout = true;
-          item.Attributes.Add("class", "td-linethrough");         
+          item.Attributes.Add("class", "td-linethrough");
+          item.Attributes.Add("color", "red");
         }        
-      }
-      
+      }      
     }
    
 
@@ -97,9 +99,7 @@ public partial class Project_ProjectWorkingStatusReport : System.Web.UI.Page
         if (string.IsNullOrEmpty(lblEst.Text))
         {
           lblEst.Text = "N/A";
-        }
+        }       
       }
-	
-      
     }
 }

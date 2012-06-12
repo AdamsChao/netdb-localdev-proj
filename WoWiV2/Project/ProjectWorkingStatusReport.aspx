@@ -215,7 +215,8 @@ Order by Project.Project_Id Desc">
                                                         Text='<%# Bind("Quotation_Target_Id") %>'></asp:Label>
                                                     <asp:BulletedList ID="BulletedListStatus" runat="server" 
                                                         DataSourceID="SqlDataSourceStatus" DataTextField="Status" 
-                                                        DataValueField="voided" ondatabound="BulletedListStatus_DataBound">
+                                                        DataValueField="voided" ondatabound="BulletedListStatus_DataBound" 
+                                                      BulletStyle="Numbered">
                                                     </asp:BulletedList>
                                                     <asp:SqlDataSource ID="SqlDataSourceStatus" runat="server" 
                                                         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
