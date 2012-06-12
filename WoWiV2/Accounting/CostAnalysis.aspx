@@ -110,42 +110,10 @@
                 {
                     int qid = proj.Quotation_Id;
                     WoWiModel.Quotation_Version quo = (from q in wowidb.Quotation_Version where q.Quotation_Version_Id == qid select q).First();
-                    //if(quo.Quotation_Status != 3 ){
-                    //    continue;
-                    //}
+                   
                     temp.QutationNo = quo.Quotation_No + " - V" + quo.Vername;
                     temp.QutationId = qid;
-                    //if (quo.modify_date.HasValue)
-                    //{
-                    //    temp.StatusDate = ((DateTime)quo.modify_date).ToString("yyyy/MM/dd");
-                    //    try
-                    //    {
-                    //        DateTime fromDate = dcStatusFromDate.GetDate();
-                    //        if ((fromDate - (DateTime)quo.modify_date).TotalDays > 0)
-                    //        {
-                    //            continue;
-                    //        }
-                    //    }
-                    //    catch (Exception)
-                    //    {
-
-                    //        //throw;
-                    //    }
-                    //    try
-                    //    {
-                    //        DateTime toDate = dcStatusToDate.GetDate();
-                    //        if ((toDate - (DateTime)quo.modify_date).TotalDays < 0)
-                    //        {
-                    //            continue;
-                    //        }
-                    //    }
-                    //    catch (Exception)
-                    //    {
-
-                    //        //throw;
-                    //    }
-                    //}
-                   
+                    
                     temp.Model = quo.Model_No;
                     int cid = (int)quo.Client_Id;
                     WoWiModel.clientapplicant cli = (from c in wowidb.clientapplicants where c.id == cid select c).First();
@@ -253,14 +221,19 @@
                                             DateTime fromDate = dcInvoiceFrom.GetDate();
                                             if ((fromDate - (DateTime)inv.issue_invoice_date).TotalDays > 0)
                                             {
+                                                //flag = true;
                                                 //continue;
+                                            }
+                                            else
+                                            {
+                                                flag = true;
                                             }
                                         }
                                     }
                                     catch (Exception)
                                     {
 
-                                        //throw;
+                                        flag = true;
                                     }
                                     try
                                     {
@@ -269,14 +242,19 @@
                                         {
                                             if ((toDate - (DateTime)inv.issue_invoice_date).TotalDays < 0)
                                             {
+                                                //flag = true;
                                                 //continue;
+                                            }
+                                            else
+                                            {
+                                                flag = true;
                                             }
                                         }
                                     }
                                     catch (Exception)
                                     {
 
-                                        //throw;
+                                        flag = true;
                                     }
                                     var invtargets = wowidb.invoice_target.Where(c => c.invoice_id == inv.invoice_id);
                                     foreach (var intar in invtargets)
@@ -296,6 +274,7 @@
                                                 temp2.InvNo += inv.issue_invoice_no + " ";
 
                                                 temp2.InvDate += ((DateTime)inv.issue_invoice_date).ToString("yyyy-MM-dd") + " ";
+                                                
 
                                                 foreach (var invr in wowidb.invoice_received.Where(c => c.invoice_id == inv.invoice_id))
                                                 {
@@ -305,6 +284,49 @@
                                                         if (invr.received_date.HasValue)
                                                         {
                                                             temp2.InvDate += ((DateTime)invr.received_date).ToString("yyyy-MM-dd") + " ";
+                                                            try
+                                                            {
+                                                                if (invr.received_date.HasValue)
+                                                                {
+
+                                                                    DateTime fromDate = dcInvoiceFrom.GetDate();
+                                                                    if ((fromDate - (DateTime)invr.received_date).TotalDays > 0)
+                                                                    {
+                                                                        //flag = true;
+                                                                        //continue;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        flag = true;
+                                                                    }
+                                                                }
+                                                            }
+                                                            catch (Exception)
+                                                            {
+
+                                                                flag = true;
+                                                            }
+                                                            try
+                                                            {
+                                                                DateTime toDate = dcInvoiceTo.GetDate();
+                                                                if (invr.received_date.HasValue)
+                                                                {
+                                                                    if ((toDate - (DateTime)invr.received_date).TotalDays < 0)
+                                                                    {
+                                                                        //flag = true;
+                                                                        //continue;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        flag = true;
+                                                                    }
+                                                                }
+                                                            }
+                                                            catch (Exception)
+                                                            {
+
+                                                                flag = true;
+                                                            }
                                                         }
                                                     }
                                                     catch (Exception)
@@ -313,7 +335,7 @@
                                                         //throw;
                                                     }
                                                 }
-
+                                               
                                                 //break;
                                             }
                                             catch (Exception)
@@ -324,7 +346,7 @@
 
                                         }
                                     }
-
+                                   
                                 }
                                 catch (Exception)
                                 {
@@ -332,6 +354,10 @@
                                     //throw;
                                 }
                             }
+                            //if (!flag)
+                            //{
+                            //    continue;
+                            //}
                             temp2.InvUSD = tarTotal.ToString("F2");
                         }
                         catch (Exception)
