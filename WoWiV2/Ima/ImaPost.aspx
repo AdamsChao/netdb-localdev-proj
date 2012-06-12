@@ -342,11 +342,11 @@
                                 SetFocusOnError="True"></asp:RegularExpressionValidator>
                             <act:ValidatorCalloutExtender ID="vceCostTest1" runat="server" TargetControlID="revCostTest1">
                             </act:ValidatorCalloutExtender>
-                            <asp:RegularExpressionValidator ID="revLeadTime1" runat="server" ControlToValidate="tbLeadTime1"
+                            <%--<asp:RegularExpressionValidator ID="revLeadTime1" runat="server" ControlToValidate="tbLeadTime1"
                                 ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
                                 SetFocusOnError="True"></asp:RegularExpressionValidator>
                             <act:ValidatorCalloutExtender ID="vceLeadTime1" runat="server" TargetControlID="revLeadTime1">
-                            </act:ValidatorCalloutExtender>
+                            </act:ValidatorCalloutExtender>--%>
                         </td>
                     </tr>
                     <tr>
@@ -359,11 +359,11 @@
                                 SetFocusOnError="True"></asp:RegularExpressionValidator>
                             <act:ValidatorCalloutExtender ID="vceCostTest2" runat="server" TargetControlID="revCostTest2">
                             </act:ValidatorCalloutExtender>
-                            <asp:RegularExpressionValidator ID="revLeadTime2" runat="server" ControlToValidate="tbLeadTime2"
+                            <%--<asp:RegularExpressionValidator ID="revLeadTime2" runat="server" ControlToValidate="tbLeadTime2"
                                 ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
                                 SetFocusOnError="True"></asp:RegularExpressionValidator>
                             <act:ValidatorCalloutExtender ID="vceLeadTime2" runat="server" TargetControlID="revLeadTime2">
-                            </act:ValidatorCalloutExtender>
+                            </act:ValidatorCalloutExtender>--%>
                         </td>
                     </tr>
                     <tr>

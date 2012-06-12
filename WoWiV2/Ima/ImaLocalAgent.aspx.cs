@@ -63,6 +63,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         gvFile1.Columns[1].Visible = false;
         gvFile2.Columns[0].Visible = false;
         gvFile2.Columns[1].Visible = false;
+        ddlCountry.SelectedValue = Request["cid"];
         if (strID != null)
         {
             SqlCommand cmd = new SqlCommand();

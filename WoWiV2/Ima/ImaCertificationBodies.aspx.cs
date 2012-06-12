@@ -61,6 +61,7 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
         btnSaveCopy.Visible = false;
         gvContact.Columns[0].Visible = false;
         gvContact.Columns[1].Visible = false;
+        ddlCountry.SelectedValue = Request["cid"];
         if (strID != null)
         {
             SqlCommand cmd = new SqlCommand();

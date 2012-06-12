@@ -216,9 +216,9 @@ public partial class Ima_ImaPost : System.Web.UI.Page
         cmd.Parameters.Add("@EUT8", SqlDbType.Bit);
         cmd.Parameters.Add("@Renewal", SqlDbType.Bit);
         cmd.Parameters.Add("@CostTest1", SqlDbType.Decimal);
-        cmd.Parameters.Add("@LeadTime1", SqlDbType.Int);
+        cmd.Parameters.Add("@LeadTime1", SqlDbType.NVarChar);
         cmd.Parameters.Add("@CostTest2", SqlDbType.Decimal);
-        cmd.Parameters.Add("@LeadTime2", SqlDbType.Int);
+        cmd.Parameters.Add("@LeadTime2", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Remark", SqlDbType.NVarChar);
         cmd.Parameters.AddWithValue("@RequiredDoc", tbRequiredDoc.Text.Trim());
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
