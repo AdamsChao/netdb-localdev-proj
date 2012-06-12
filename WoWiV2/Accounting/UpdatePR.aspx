@@ -972,6 +972,10 @@
                     {
                         obj.shipping_cost = 0;
                     }
+                    if (!emp.pr_authorize_amt.HasValue)
+                    {
+                        emp.pr_authorize_amt = 0;
+                    }
                     switch (btnID)
                     {
                         case "btnSupervisorApprove":
