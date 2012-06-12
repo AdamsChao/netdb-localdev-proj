@@ -116,22 +116,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<clientapplicant> clientapplicants
-        {
-            get
-            {
-                if ((_clientapplicants == null))
-                {
-                    _clientapplicants = base.CreateObjectSet<clientapplicant>("clientapplicants");
-                }
-                return _clientapplicants;
-            }
-        }
-        private ObjectSet<clientapplicant> _clientapplicants;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<clientapplicant_industry> clientapplicant_industry
         {
             get
@@ -752,6 +736,22 @@ namespace WoWiModel
             }
         }
         private ObjectSet<country> _countries;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<clientapplicant> clientapplicants
+        {
+            get
+            {
+                if ((_clientapplicants == null))
+                {
+                    _clientapplicants = base.CreateObjectSet<clientapplicant>("clientapplicants");
+                }
+                return _clientapplicants;
+            }
+        }
+        private ObjectSet<clientapplicant> _clientapplicants;
 
         #endregion
         #region AddTo Methods
@@ -778,14 +778,6 @@ namespace WoWiModel
         public void AddToAuthorities(Authority authority)
         {
             base.AddObject("Authorities", authority);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the clientapplicants EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToclientapplicants(clientapplicant clientapplicant)
-        {
-            base.AddObject("clientapplicants", clientapplicant);
         }
     
         /// <summary>
@@ -1098,6 +1090,14 @@ namespace WoWiModel
         public void AddTocountries(country country)
         {
             base.AddObject("countries", country);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the clientapplicants EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToclientapplicants(clientapplicant clientapplicant)
+        {
+            base.AddObject("clientapplicants", clientapplicant);
         }
 
         #endregion
@@ -3195,6 +3195,30 @@ namespace WoWiModel
         private global::System.String _contact_ext;
         partial void Oncontact_extChanging(global::System.String value);
         partial void Oncontact_extChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> billcountry_id
+        {
+            get
+            {
+                return _billcountry_id;
+            }
+            set
+            {
+                Onbillcountry_idChanging(value);
+                ReportPropertyChanging("billcountry_id");
+                _billcountry_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("billcountry_id");
+                Onbillcountry_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _billcountry_id;
+        partial void Onbillcountry_idChanging(Nullable<global::System.Int32> value);
+        partial void Onbillcountry_idChanged();
 
         #endregion
     
