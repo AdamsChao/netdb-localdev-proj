@@ -54,7 +54,7 @@
         try
         {
             //var datas = from pr in wowidb.PRs from a in wowidb.PR_authority_history where pr.pr_auth_id == a.pr_auth_id && (a.status == (byte)PRStatus.Done ) select pr;
-            var projs = from pro in wowidb.Projects select pro;
+            var projs = from pro in wowidb.Projects orderby pro.Project_Id descending  select pro;
             
             foreach (var proj in projs)
             {
@@ -80,7 +80,7 @@
                 try
                 {
                     DateTime fromDate = dcProjFrom.GetDate();
-                    if ((fromDate - proj.Create_Date).TotalDays >= 0)
+                    if ((fromDate - proj.Create_Date).TotalDays > 0)
                     {
                         continue;
                     }
@@ -93,7 +93,7 @@
                 try
                 {
                     DateTime toDate = dcProjTo.GetDate();
-                    if ((toDate - proj.Create_Date).TotalDays <= 0)
+                    if ((toDate - proj.Create_Date).TotalDays < 0)
                     {
                         continue;
                     }
@@ -115,43 +115,37 @@
                     //}
                     temp.QutationNo = quo.Quotation_No + " - V" + quo.Vername;
                     temp.QutationId = qid;
-                    bool flagStatus = false;
-                    if (quo.modify_date.HasValue)
-                    {
-                        temp.StatusDate = ((DateTime)quo.modify_date).ToString("yyyy/MM/dd");
-                        try
-                        {
-                            DateTime fromDate = dcStatusFromDate.GetDate();
-                            if ((fromDate - (DateTime)quo.modify_date).TotalDays >= 0)
-                            {
-                                flagStatus = true;
-                                break;
-                            }
-                        }
-                        catch (Exception)
-                        {
+                    //if (quo.modify_date.HasValue)
+                    //{
+                    //    temp.StatusDate = ((DateTime)quo.modify_date).ToString("yyyy/MM/dd");
+                    //    try
+                    //    {
+                    //        DateTime fromDate = dcStatusFromDate.GetDate();
+                    //        if ((fromDate - (DateTime)quo.modify_date).TotalDays > 0)
+                    //        {
+                    //            continue;
+                    //        }
+                    //    }
+                    //    catch (Exception)
+                    //    {
 
-                            //throw;
-                        }
-                        try
-                        {
-                            DateTime toDate = dcStatusToDate.GetDate();
-                            if ((toDate - (DateTime)quo.modify_date).TotalDays <= 0)
-                            {
-                                flagStatus = true;
-                                break;
-                            }
-                        }
-                        catch (Exception)
-                        {
+                    //        //throw;
+                    //    }
+                    //    try
+                    //    {
+                    //        DateTime toDate = dcStatusToDate.GetDate();
+                    //        if ((toDate - (DateTime)quo.modify_date).TotalDays < 0)
+                    //        {
+                    //            continue;
+                    //        }
+                    //    }
+                    //    catch (Exception)
+                    //    {
 
-                            //throw;
-                        }
-                    }
-                    if (flagStatus)
-                    {
-                        continue;
-                    }
+                    //        //throw;
+                    //    }
+                    //}
+                   
                     temp.Model = quo.Model_No;
                     int cid = (int)quo.Client_Id;
                     WoWiModel.clientapplicant cli = (from c in wowidb.clientapplicants where c.id == cid select c).First();
@@ -186,6 +180,7 @@
                             }
                         }
                         CostAnalysisData temp2 = new CostAnalysisData();
+                       
                         temp2.ProjectNo = temp.ProjectNo;
                         temp.Status = t.Status;
                         temp2.Status = t.Status;
@@ -194,7 +189,35 @@
                         {
                             temp.StatusDate = ((DateTime)t.certification_completed).ToString("yyyy-MM-dd");
                             temp2.StatusDate = ((DateTime)t.certification_completed).ToString("yyyy-MM-dd");
+                            
+                            try
+                            {
+                                DateTime fromDate = dcStatusFromDate.GetDate();
+                                if ((fromDate - (DateTime)t.certification_completed).TotalDays > 0)
+                                {
+                                    continue;
+                                }
+                            }
+                            catch (Exception)
+                            {
+
+                                //throw;
+                            }
+                            try
+                            {
+                                DateTime toDate = dcStatusToDate.GetDate();
+                                if ((toDate - (DateTime)t.certification_completed).TotalDays < 0)
+                                {
+                                    continue;
+                                }
+                            }
+                            catch (Exception)
+                            {
+
+                                //throw;
+                            }
                         }
+                        
                         temp2.QutationNo = temp.QutationNo;
                         temp2.QutationId = temp.QutationId;
                         temp2.Model = temp.Model;
@@ -202,122 +225,106 @@
                         temp2.Sales = temp.Sales;
                         targetDesc = t.target_description;
                         temp2.Country = t.target_description;
+                        //continue;
                         //Get all invoices
-                        var invList = from inv in wowidb.invoices where inv.project_no == temp2.ProjectNo select inv;
                         decimal tarTotal = 0;
-                        bool flag = false;
-                        foreach (var inv in invList)
-                        {   
-                            try
+                        try
+                        {
+                            var invList = from inv in wowidb.invoices where inv.project_no == temp2.ProjectNo select inv;
+                            
+                            bool flag = false;
+                            foreach (var inv in invList)
                             {
-                                if (inv.ocurrency != "USD")
-                                {
-                                    projDisTotal += (decimal)inv.adjust / (decimal)inv.exchange_rate;
-                                }
-                                else
-                                {
-                                    projDisTotal += (decimal)inv.adjust;
-                                }
                                 try
                                 {
-                                    DateTime fromDate = dcInvoiceFrom.GetDate();
-                                    if ((fromDate - (DateTime)inv.issue_invoice_date).TotalDays >= 0)
+                                    if (inv.ocurrency != "USD")
                                     {
-                                        flag = true;
-                                        break;
+                                        projDisTotal += (decimal)inv.adjust / (decimal)inv.exchange_rate;
                                     }
-                                }
-                                catch (Exception)
-                                {
-
-                                    //throw;
-                                }
-                                try
-                                {
-                                    DateTime toDate = dcInvoiceTo.GetDate();
-                                    if ((toDate - (DateTime)inv.issue_invoice_date).TotalDays <= 0)
+                                    else
                                     {
-                                        flag = true;
-                                        break;
+                                        projDisTotal += (decimal)inv.adjust;
                                     }
-                                }
-                                catch (Exception)
-                                {
-
-                                    //throw;
-                                }
-                                var invtargets = wowidb.invoice_target.Where(c => c.invoice_id==inv.invoice_id);
-                                foreach (var intar in invtargets)
-                                {
-                                    if (intar.quotation_target_id == t.Quotation_Target_Id)
+                                    try
                                     {
-                                        try
+                                        if (inv.issue_invoice_date.HasValue)
                                         {
-                                            if (inv.ocurrency != "USD")
-                                            {
-                                                tarTotal += intar.amount / (decimal)inv.exchange_rate;
-                                            }
-                                            else
-                                            {
-                                                tarTotal += intar.amount;
-                                            }
-                                            temp2.InvNo += inv.issue_invoice_no + " ";
 
-                                            temp2.InvDate += ((DateTime)inv.issue_invoice_date).ToString("yyyy-MM-dd") + " ";
-
-                                            foreach (var invr in wowidb.invoice_received.Where(c => c.invoice_id == inv.invoice_id))
+                                            DateTime fromDate = dcInvoiceFrom.GetDate();
+                                            if ((fromDate - (DateTime)inv.issue_invoice_date).TotalDays > 0)
                                             {
-                                                try
+                                                //continue;
+                                            }
+                                        }
+                                    }
+                                    catch (Exception)
+                                    {
+
+                                        //throw;
+                                    }
+                                    try
+                                    {
+                                        DateTime toDate = dcInvoiceTo.GetDate();
+                                        if (inv.issue_invoice_date.HasValue)
+                                        {
+                                            if ((toDate - (DateTime)inv.issue_invoice_date).TotalDays < 0)
+                                            {
+                                                //continue;
+                                            }
+                                        }
+                                    }
+                                    catch (Exception)
+                                    {
+
+                                        //throw;
+                                    }
+                                    var invtargets = wowidb.invoice_target.Where(c => c.invoice_id == inv.invoice_id);
+                                    foreach (var intar in invtargets)
+                                    {
+                                        if (intar.quotation_target_id == t.Quotation_Target_Id)
+                                        {
+                                            try
+                                            {
+                                                if (inv.ocurrency != "USD")
                                                 {
-                                                    temp2.InvNo += invr.iv_no + " ";
-                                                    if (invr.received_date.HasValue)
+                                                    tarTotal += intar.amount / (decimal)inv.exchange_rate;
+                                                }
+                                                else
+                                                {
+                                                    tarTotal += intar.amount;
+                                                }
+                                                temp2.InvNo += inv.issue_invoice_no + " ";
+
+                                                temp2.InvDate += ((DateTime)inv.issue_invoice_date).ToString("yyyy-MM-dd") + " ";
+
+                                                foreach (var invr in wowidb.invoice_received.Where(c => c.invoice_id == inv.invoice_id))
+                                                {
+                                                    try
                                                     {
-                                                        temp2.InvDate += ((DateTime)invr.received_date).ToString("yyyy-MM-dd") + " ";
+                                                        temp2.InvNo += invr.iv_no + " ";
+                                                        if (invr.received_date.HasValue)
+                                                        {
+                                                            temp2.InvDate += ((DateTime)invr.received_date).ToString("yyyy-MM-dd") + " ";
+                                                        }
+                                                    }
+                                                    catch (Exception)
+                                                    {
+
+                                                        //throw;
                                                     }
                                                 }
-                                                catch (Exception)
-                                                {
-                                                    
-                                                    //throw;
-                                                }
+
+                                                //break;
                                             }
-                                            
-                                            //break;
+                                            catch (Exception)
+                                            {
+
+                                                //throw;
+                                            }
+
                                         }
-                                        catch (Exception)
-                                        {
-                                            
-                                            //throw;
-                                        }
-                                        
                                     }
-                                }
-                                
-                            }
-                            catch (Exception)
-                            {
-                                
-                                //throw;
-                            }
-                        }
-                        if (flag)
-                        {
-                            continue;
-                        }
-                        temp2.InvUSD = tarTotal.ToString("F2");
-                        var prs = wowidb.PRs.Where(c=> c.project_id == proj.Project_Id);
-                        decimal prtot = 0;
-                        
-                        foreach(var pr in prs){
-                            temp2.IMA = pr.create_user;
-                            temp2.IMACostCurrency = pr.currency;
-                            if (pr.vendor_id != -1)
-                            {
-                                temp2.VenderNo = pr.vendor_id.ToString();
-                                try
-                                {
-                                    var vender = (from ven in wowidb.vendors where ven.id == pr.vendor_id select ven).First();
-                                    temp2.VenderName = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
+
                                 }
                                 catch (Exception)
                                 {
@@ -325,37 +332,80 @@
                                     //throw;
                                 }
                             }
+                            temp2.InvUSD = tarTotal.ToString("F2");
+                        }
+                        catch (Exception)
+                        {
 
-                            var item = wowidb.PR_item.First(c => c.pr_id == pr.pr_id);
-                            if (t.Quotation_Target_Id == item.quotation_target_id)
+                            //throw;
+                        }    
+                            
+                        
+                        
+                        //if (flag)
+                        //{
+                        //    continue;
+                        //}
+                        decimal prtot = 0;
+                        try
+                        {
+                            var prs = wowidb.PRs.Where(c => c.project_id == proj.Project_Id);
+                            
+
+                            foreach (var pr in prs)
                             {
-                                temp2.PRNo += pr.pr_id+" ";
-                                foreach (var prr in wowidb.PR_Payment.Where(c => c.pr_id == pr.pr_id))
+                                temp2.IMA = pr.create_user;
+                                temp2.IMACostCurrency = pr.currency;
+                                if (pr.vendor_id != -1)
                                 {
-                                    prtot += (decimal)prr.total_amount;
-                                    if(prr.pay_date.HasValue){
-                                        temp2.PaymentDate += ((DateTime)prr.pay_date).ToString("yyyy-MM-dd")+" ";
+                                    temp2.VenderNo = pr.vendor_id.ToString();
+                                    try
+                                    {
+                                        var vender = (from ven in wowidb.vendors where ven.id == pr.vendor_id select ven).First();
+                                        temp2.VenderName = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
+                                    }
+                                    catch (Exception)
+                                    {
+
+                                        //throw;
                                     }
                                 }
-                                break;
-                            }
-                        }
-                        if (ddlIMA.SelectedValue != "-1")
-                        {
-                            try
-                            {
-                                int imaid = (from emp in wowidb.employees where emp.username == temp2.IMA select emp.id).First();
 
-                                if (imaid != int.Parse(ddlIMA.SelectedValue))
+                                var item = wowidb.PR_item.First(c => c.pr_id == pr.pr_id);
+                                if (t.Quotation_Target_Id == item.quotation_target_id)
                                 {
-                                    continue;
+                                    temp2.PRNo += pr.pr_id + " ";
+                                    foreach (var prr in wowidb.PR_Payment.Where(c => c.pr_id == pr.pr_id))
+                                    {
+                                        prtot += (decimal)prr.total_amount;
+                                        if (prr.pay_date.HasValue)
+                                        {
+                                            temp2.PaymentDate += ((DateTime)prr.pay_date).ToString("yyyy-MM-dd") + " ";
+                                        }
+                                    }
+                                    //break;
                                 }
                             }
-                            catch (Exception)
-                            { 
-                                continue;
-                            }
+                            if (ddlIMA.SelectedValue != "-1")
+                            {
+                                try
+                                {
+                                    int imaid = (from emp in wowidb.employees where emp.username == temp2.IMA select emp.id).First();
 
+                                    if (imaid != int.Parse(ddlIMA.SelectedValue))
+                                    {
+                                        continue;
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    //continue;
+                                }
+
+                            }
+                        }
+                        catch
+                        {
                         }
                         temp2.IMACost = prtot.ToString("F2");
                         temp2.GrossProfitUS = (tarTotal - prtot).ToString("F2");
@@ -363,6 +413,7 @@
                         imausd += prtot;
                         profit += (tarTotal - prtot);
                         list.Add(temp2);
+                        
                     }//end of targets
                     if (projDisTotal != 0)
                     {
@@ -734,7 +785,7 @@
                              <th align="left" width="13%">
                                  To :&nbsp;</th>
                             <td width="20%">
-                                <uc1:DateChooser ID="dcStatusToDate" runat="server" Visible="False" />
+                                <uc1:DateChooser ID="dcStatusToDate" runat="server" Visible="True" />
                             </td>
                         </tr>
                         <tr>
