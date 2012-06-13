@@ -111,7 +111,7 @@
         $("#" + hidBill1).val(b1);
         $("#" + hidBill2).val(b2);
         $("#" + hidBill3).val(b3);
-        $("#" + hidBill3).val(bE);
+        $("#" + hidBillE).val(bE);
         var t = b1 + b2 + b3 + bE ;
         $("#" + txtBalace).val(fPrice - t);
         $("#" + hidBalace).val(fPrice - t);

@@ -251,7 +251,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             //txtBillE.Attributes.Add("onkeyup", "changeHiddenValue('" +
             //  txtBillE.ClientID + "','" + hidBillE.ClientID +  "');");
 
-            txtBillE.Attributes.Add("onkeyup", "changeHiddenValue('" +
+            txtBillE.Attributes.Add("onkeyup", "cmdText('" +
               txtBill1.ClientID + "','" + txtBill2.ClientID + "','" +
               txtBill3.ClientID + "','" + txtBillE.ClientID + "','" +
               hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
