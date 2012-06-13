@@ -396,6 +396,22 @@
                             int eid = (int)t.Country_Manager;
                             var e = wowidb.employees.First(c => c.id == eid);
                             temp2.IMA = e.fname +" "+e.lname;
+                            if (ddlIMA.SelectedValue != "-1")
+                            {
+                                try
+                                {
+                                    
+                                    if (eid != int.Parse(ddlIMA.SelectedValue))
+                                    {
+                                        continue;
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    //continue;
+                                }
+
+                            }
                         }
                         catch (Exception)
                         {
@@ -443,23 +459,7 @@
                                     //break;
                                 }
                             }
-                            if (ddlIMA.SelectedValue != "-1")
-                            {
-                                try
-                                {
-                                    int imaid = (from emp in wowidb.employees where emp.username == temp2.IMA select emp.id).First();
-
-                                    if (imaid != int.Parse(ddlIMA.SelectedValue))
-                                    {
-                                        continue;
-                                    }
-                                }
-                                catch (Exception)
-                                {
-                                    //continue;
-                                }
-
-                            }
+                            
                         }
                         catch
                         {
