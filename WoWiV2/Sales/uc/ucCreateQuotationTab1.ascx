@@ -401,15 +401,15 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr>
+    <tr style="display: none" >
         <th class="style4">
             Client Status
         </th>
-        <td>
+        <td >
             <asp:TextBox ID="txtClient_Status" runat="server" Width="500px" MaxLength="100"></asp:TextBox>
         </td>
     </tr>
-    <tr>
+    <tr style="display: none"cc>
         <th class="style4">
             DHL Acct.
         </th>

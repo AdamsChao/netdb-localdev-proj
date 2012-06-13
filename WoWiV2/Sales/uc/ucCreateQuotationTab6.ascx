@@ -279,7 +279,7 @@
                 
                 SelectCommand="SELECT Quotation_No, Vername, target_description, unit, unit_price, FinalPrice, Status, Bill, advance1, advance2, balance1, balance2, option1, option2, Quotation_Target_Id, PR_Flag, Bill1, Bill2, Bill3, BillE 
 FROM vw_Test_Target_List 
-WHERE Quotation_No = @Quotation_No
+WHERE Quotation_No = @Quotation_No AND Quotation_Status=5
 ORDER BY Quotation_Version_Id">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="hidQuotation_No" Name="Quotation_No" 
