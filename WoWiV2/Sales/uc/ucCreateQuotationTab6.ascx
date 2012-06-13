@@ -241,7 +241,7 @@
                                 </tr>
                                  <tr>
                                     <td>
-                                        Balace:<asp:TextBox ID="txtBalace" runat="server" Text="" ReadOnly="true" 
+                                        Balance:<asp:TextBox ID="txtBalace" runat="server" Text="" ReadOnly="true" 
                                             Width="50" Enabled="false" BorderStyle="None"></asp:TextBox>元 <input id="hidBalace" type="hidden" runat="server" />
                                     </td>
                                 </tr>
