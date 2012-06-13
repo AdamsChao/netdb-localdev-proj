@@ -488,28 +488,28 @@
                         list.Add(temp2);
                         
                     }//end of targets
-                    if (projDisTotal != 0)
-                    {
-                        CostAnalysisData tempD = new CostAnalysisData();
-                        tempD.ProjectNo = temp.ProjectNo;
-                        tempD.Status = temp.Status;
-                        tempD.OpenDate = temp.OpenDate;
-                        tempD.StatusDate = temp.StatusDate;
-                        tempD.QutationNo = temp.QutationNo;
-                        tempD.QutationId = temp.QutationId;
-                        tempD.InvNo = disIVNo;
-                        tempD.InvDate = disIVDate;
-                        tempD.Model = temp.Model;
-                        tempD.Client = temp.Client;
-                        tempD.Sales = temp.Sales;
-                        tempD.Country = "Discount";
-                        tempD.InvUSD = (-1*projDisTotal).ToString("F2");
-                        invusd -= projDisTotal;
-                        list.Add(tempD);                      
-                    }
-                    projDisTotal = 0;
-                    disIVNo = "";
-                    disIVDate = "";
+                    //if (projDisTotal != 0)
+                    //{
+                    //    CostAnalysisData tempD = new CostAnalysisData();
+                    //    tempD.ProjectNo = temp.ProjectNo;
+                    //    tempD.Status = temp.Status;
+                    //    tempD.OpenDate = temp.OpenDate;
+                    //    tempD.StatusDate = temp.StatusDate;
+                    //    tempD.QutationNo = temp.QutationNo;
+                    //    tempD.QutationId = temp.QutationId;
+                    //    tempD.InvNo = disIVNo;
+                    //    tempD.InvDate = disIVDate;
+                    //    tempD.Model = temp.Model;
+                    //    tempD.Client = temp.Client;
+                    //    tempD.Sales = temp.Sales;
+                    //    tempD.Country = "Discount";
+                    //    tempD.InvUSD = (-1*projDisTotal).ToString("F2");
+                    //    invusd -= projDisTotal;
+                    //    list.Add(tempD);                      
+                    //}
+                    //projDisTotal = 0;
+                    //disIVNo = "";
+                    //disIVDate = "";
                 }
                 catch
                 {
