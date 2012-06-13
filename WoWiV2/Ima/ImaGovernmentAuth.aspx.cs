@@ -126,6 +126,7 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
                 tbEMCRemark.Text = dt.Rows[0]["EMCRemark"].ToString();
                 tbSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
                 tbTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
+                tbLeadT.Text = dt.Rows[0]["LeadTime"].ToString();
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;
@@ -280,8 +281,8 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_GovernmentAuthority (world_region_id,country_id,FullAuthorityName,AbbreviatedAuthorityName,Website,Mandatory,wowi_product_type_id,CertificateValid,IsTransfer,Description,CreateUser,LasterUpdateUser,CertificationBody,AccreditedTest,RFRemark,EMCRemark,SafetyRemark,TelecomRemark) ";
-        strTsql += "values(@world_region_id,@country_id,@FullAuthorityName,@AbbreviatedAuthorityName,@Website,@Mandatory,@wowi_product_type_id,@CertificateValid,@IsTransfer,@Description,@CreateUser,@LasterUpdateUser,@CertificationBody,@AccreditedTest,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark)";
+        string strTsql = "insert into Ima_GovernmentAuthority (world_region_id,country_id,FullAuthorityName,AbbreviatedAuthorityName,Website,Mandatory,wowi_product_type_id,CertificateValid,IsTransfer,Description,CreateUser,LasterUpdateUser,CertificationBody,AccreditedTest,RFRemark,EMCRemark,SafetyRemark,TelecomRemark,LeadTime) ";
+        strTsql += "values(@world_region_id,@country_id,@FullAuthorityName,@AbbreviatedAuthorityName,@Website,@Mandatory,@wowi_product_type_id,@CertificateValid,@IsTransfer,@Description,@CreateUser,@LasterUpdateUser,@CertificationBody,@AccreditedTest,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark,@LeadTime)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -308,6 +309,8 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@SafetyRemark", DBNull.Value); }
         if (tbTelecomRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@TelecomRemark", tbTelecomRemark.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@TelecomRemark", DBNull.Value); }
+        if (tbLeadT.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadT.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null) 
         {
@@ -596,7 +599,7 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_GovernmentAuthority set FullAuthorityName=@FullAuthorityName,AbbreviatedAuthorityName=@AbbreviatedAuthorityName,Website=@Website,Mandatory=@Mandatory,CertificateValid=@CertificateValid,IsTransfer=@IsTransfer,Description=@Description,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),CertificationBody=@CertificationBody,AccreditedTest=@AccreditedTest,RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark ";
+        string strTsql = "Update Ima_GovernmentAuthority set FullAuthorityName=@FullAuthorityName,AbbreviatedAuthorityName=@AbbreviatedAuthorityName,Website=@Website,Mandatory=@Mandatory,CertificateValid=@CertificateValid,IsTransfer=@IsTransfer,Description=@Description,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),CertificationBody=@CertificationBody,AccreditedTest=@AccreditedTest,RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark,LeadTime=@LeadTime ";
         strTsql += "where GovernmentAuthorityID=@GovernmentAuthorityID ";
         //if (lblContactID.Text.Trim().Length > 0) 
         //{
@@ -624,6 +627,8 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@SafetyRemark", DBNull.Value); }
         if (tbTelecomRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@TelecomRemark", tbTelecomRemark.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@TelecomRemark", DBNull.Value); }
+        if (tbLeadT.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadT.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
         //if (lblContactID.Text.Trim().Length > 0)
         //{
         //    cmd.Parameters.AddWithValue("@FirstName", tbFirstName.Text.Trim());

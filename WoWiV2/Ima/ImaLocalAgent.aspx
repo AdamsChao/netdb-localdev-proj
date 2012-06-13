@@ -358,7 +358,7 @@
                                                                     </act:ValidatorCalloutExtender>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
+                                                            <tr id="tr1" runat="server" visible="false">
                                                                 <td class="tdRowName">
                                                                     Lead Time：
                                                                 </td>
@@ -502,7 +502,7 @@
                                                                                 <asp:Label ID="lblCountryID" runat="server" Text='<%#Eval("CountryID") %>' Visible="false"></asp:Label>
                                                                             </td>
                                                                         </tr>
-                                                                        <tr>
+                                                                        <tr id="tr2" runat="server" visible="false">
                                                                             <td class="tdRowName">
                                                                                 Lead Time：
                                                                             </td>
@@ -566,6 +566,14 @@
                                     </table>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName">
+                            Lead Time：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:TextBox ID="tbLeadT" runat="server" Width="60px"></asp:TextBox>&nbsp;Weeks
                         </td>
                     </tr>
                     <tr>

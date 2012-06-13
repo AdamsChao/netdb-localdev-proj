@@ -108,12 +108,59 @@
                             Testing Sample Label Marking：
                         </td>
                         <td class="tdRowValue">
-                            <asp:Label ID="lblTestMark" runat="server"></asp:Label>
-                            <%--<asp:RadioButtonList ID="rblTestMark" runat="server" RepeatDirection="Horizontal" Enabled="false">
-                                <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
-                                <asp:ListItem Text="No" Value="0"></asp:ListItem>
-                            </asp:RadioButtonList>--%>
-                            <asp:Label ID="lblTestMarkRemark" runat="server"></asp:Label>
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="lblTestMark" runat="server"></asp:Label>
+                                        <%--<asp:RadioButtonList ID="rblTestMark" runat="server" RepeatDirection="Horizontal" Enabled="false">
+                                            <asp:ListItem Text="Yes" Value="1" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Text="No" Value="0"></asp:ListItem>
+                                        </asp:RadioButtonList>--%>
+                                        <asp:Label ID="lblTestMarkRemark" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:GridView ID="gvFile4" runat="server" SkinID="gvList" DataKeyNames="TestingFileID"
+                                            DataSourceID="sdsFile4">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="NO">
+                                                    <ItemTemplate>
+                                                        <%#Container.DataItemIndex+1 %>
+                                                    </ItemTemplate>
+                                                    <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                    <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="FileName">
+                                                    <ItemTemplate>
+                                                        <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "TestingFile.ashx?fid="+Eval("TestingFileID").ToString() %>'
+                                                            Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                                    </ItemTemplate>
+                                                    <HeaderStyle Font-Bold="False" />
+                                                    <ItemStyle HorizontalAlign="Left" />
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                    </ItemTemplate>
+                                                    <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+                                        <asp:SqlDataSource ID="sdsFile4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                            DeleteCommand="DELETE FROM [Ima_Testing_Files] WHERE [TestingFileID] = @TestingFileID"
+                                            SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='D'">
+                                            <DeleteParameters>
+                                                <asp:Parameter Name="TestingFileID" Type="Int32" />
+                                            </DeleteParameters>
+                                            <SelectParameters>
+                                                <asp:QueryStringParameter Name="TestingID" QueryStringField="tid" Type="Int32" />
+                                            </SelectParameters>
+                                        </asp:SqlDataSource>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr>

@@ -82,6 +82,7 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
                 tbEMCRemark.Text = dt.Rows[0]["EMCRemark"].ToString();
                 tbSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
                 tbTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
+                tbLeadT.Text = dt.Rows[0]["LeadTime"].ToString();
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;
@@ -118,8 +119,8 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_AccreditedTestLab (world_region_id,country_id,wowi_product_type_id,AccreditedLab,VolumePerYear,Publish,Website,CreateUser,LasterUpdateUser,RFRemark,EMCRemark,SafetyRemark,TelecomRemark) ";
-        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@AccreditedLab,@VolumePerYear,@Publish,@Website,@CreateUser,@LasterUpdateUser,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark)";
+        string strTsql = "insert into Ima_AccreditedTestLab (world_region_id,country_id,wowi_product_type_id,AccreditedLab,VolumePerYear,Publish,Website,CreateUser,LasterUpdateUser,RFRemark,EMCRemark,SafetyRemark,TelecomRemark,LeadTime) ";
+        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@AccreditedLab,@VolumePerYear,@Publish,@Website,@CreateUser,@LasterUpdateUser,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark,@LeadTime)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -140,6 +141,8 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@SafetyRemark", DBNull.Value); }
         if (tbTelecomRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@TelecomRemark", tbTelecomRemark.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@TelecomRemark", DBNull.Value); }
+        if (tbLeadT.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadT.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null)
         {
@@ -292,7 +295,7 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_AccreditedTestLab set AccreditedLab=@AccreditedLab,VolumePerYear=@VolumePerYear,Publish=@Publish,Website=@Website,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark ";
+        string strTsql = "Update Ima_AccreditedTestLab set AccreditedLab=@AccreditedLab,VolumePerYear=@VolumePerYear,Publish=@Publish,Website=@Website,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark,LeadTime=@LeadTime ";
         strTsql += "where AccreditedTestID=@AccreditedTestID ";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -310,6 +313,8 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@SafetyRemark", DBNull.Value); }
         if (tbTelecomRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@TelecomRemark", tbTelecomRemark.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@TelecomRemark", DBNull.Value); }
+        if (tbLeadT.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadT.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
         SQLUtil.ExecuteSql(cmd);
         //修改Technology
         AddUpdTechnology(Convert.ToInt32(Request["atid"]));

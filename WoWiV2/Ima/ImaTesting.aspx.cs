@@ -87,6 +87,8 @@ public partial class Ima_Testing : System.Web.UI.Page
         gvFile2.Columns[1].Visible = false;
         gvFile3.Columns[0].Visible = false;
         gvFile3.Columns[1].Visible = false;
+        gvFile4.Columns[0].Visible = false;
+        gvFile4.Columns[1].Visible = false;
         if (strID != null)
         {
             SqlCommand cmd = new SqlCommand();
@@ -151,6 +153,7 @@ public partial class Ima_Testing : System.Web.UI.Page
                     gvFile1.Columns[1].Visible = true;
                     gvFile2.Columns[1].Visible = true;
                     gvFile3.Columns[1].Visible = true;
+                    gvFile4.Columns[1].Visible = true;
                 }
                 else
                 {
@@ -159,6 +162,7 @@ public partial class Ima_Testing : System.Web.UI.Page
                     gvFile1.Columns[0].Visible = true;
                     gvFile2.Columns[0].Visible = true;
                     gvFile3.Columns[0].Visible = true;
+                    gvFile4.Columns[0].Visible = true;
                 }
             }
             ////Technology
@@ -334,6 +338,7 @@ public partial class Ima_Testing : System.Web.UI.Page
                     //Transfer File
                     CopyDocData(gvFile2, intGeneralID);
                     CopyDocData(gvFile3, intGeneralID);
+                    CopyDocData(gvFile4, intGeneralID);
                 }
                 //新增Technology
                 //AddUpdTechnology(intGeneralID);
@@ -405,6 +410,12 @@ public partial class Ima_Testing : System.Web.UI.Page
         GeneralFileUpload(intGeneralID, FileUpload8, "C");
         GeneralFileUpload(intGeneralID, FileUpload9, "C");
         GeneralFileUpload(intGeneralID, FileUpload10, "C");
+
+        GeneralFileUpload(intGeneralID, FileUpload11, "D");
+        GeneralFileUpload(intGeneralID, FileUpload12, "D");
+        GeneralFileUpload(intGeneralID, FileUpload13, "D");
+        GeneralFileUpload(intGeneralID, FileUpload14, "D");
+        GeneralFileUpload(intGeneralID, FileUpload15, "D");
     }
 
     protected void GeneralFileUpload(int intID, FileUpload fu, string strFileCatetory)

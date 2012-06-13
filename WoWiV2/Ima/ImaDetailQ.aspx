@@ -155,6 +155,14 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="tdRowName">
+                                Lead Time：
+                            </td>
+                            <td class="tdRowValue">
+                                <asp:Label ID="lblLeadT" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="2" class="tdHeader1">
                                 Test Fee by Technologies
                             </td>

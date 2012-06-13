@@ -89,6 +89,7 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
                 tbEMCRemark.Text = dt.Rows[0]["EMCRemark"].ToString();
                 tbSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
                 tbTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
+                tbLeadT.Text = dt.Rows[0]["LeadTime"].ToString();
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;
@@ -125,8 +126,8 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_CertificationBodies (world_region_id,country_id,wowi_product_type_id,Name,Authority,CertificationBody,VolumePerYear,Publish,AccredidedLab,VolumePerYear1,Publish1,Website,Website1,CreateUser,LasterUpdateUser,AccreditedTest,RFRemark,EMCRemark,SafetyRemark,TelecomRemark) ";
-        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Name,@Authority,@CertificationBody,@VolumePerYear,@Publish,@AccredidedLab,@VolumePerYear1,@Publish1,@Website,@Website1,@CreateUser,@LasterUpdateUser,@AccreditedTest,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark)";
+        string strTsql = "insert into Ima_CertificationBodies (world_region_id,country_id,wowi_product_type_id,Name,Authority,CertificationBody,VolumePerYear,Publish,AccredidedLab,VolumePerYear1,Publish1,Website,Website1,CreateUser,LasterUpdateUser,AccreditedTest,RFRemark,EMCRemark,SafetyRemark,TelecomRemark,LeadTime) ";
+        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@Name,@Authority,@CertificationBody,@VolumePerYear,@Publish,@AccredidedLab,@VolumePerYear1,@Publish1,@Website,@Website1,@CreateUser,@LasterUpdateUser,@AccreditedTest,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark,@LeadTime)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -154,6 +155,8 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@SafetyRemark", DBNull.Value); }
         if (tbTelecomRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@TelecomRemark", tbTelecomRemark.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@TelecomRemark", DBNull.Value); }
+        if (tbLeadT.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadT.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null)
         {
@@ -313,7 +316,7 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_CertificationBodies set Name=@Name,Authority=@Authority,CertificationBody=@CertificationBody,VolumePerYear=@VolumePerYear,Publish=@Publish,AccredidedLab=@AccredidedLab,VolumePerYear1=@VolumePerYear1,Publish1=@Publish1,Website=@Website,Website1=@Website1,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),AccreditedTest=@AccreditedTest,RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark ";
+        string strTsql = "Update Ima_CertificationBodies set Name=@Name,Authority=@Authority,CertificationBody=@CertificationBody,VolumePerYear=@VolumePerYear,Publish=@Publish,AccredidedLab=@AccredidedLab,VolumePerYear1=@VolumePerYear1,Publish1=@Publish1,Website=@Website,Website1=@Website1,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),AccreditedTest=@AccreditedTest,RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark,LeadTime=@LeadTime ";
         strTsql += "where CertificationBodiesID=@CertificationBodiesID ";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -338,6 +341,8 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@SafetyRemark", DBNull.Value); }
         if (tbTelecomRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@TelecomRemark", tbTelecomRemark.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@TelecomRemark", DBNull.Value); }
+        if (tbLeadT.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadT.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
         SQLUtil.ExecuteSql(cmd);
         //修改Technology
         AddUpdTechnology(Convert.ToInt32(Request["cbwid"]));
