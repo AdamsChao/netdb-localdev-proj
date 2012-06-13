@@ -136,8 +136,8 @@
                     }
                     WoWiModel.employee sales = (from s in wowidb.employees where s.id == sid select s).First();
                         temp.Sales = String.IsNullOrEmpty(sales.c_fname) ? sales.fname + " " + sales.lname : sales.c_lname + " " + sales.c_fname;
-                        var qids = wowidb.Quotation_Version.Where(c => c.Quotation_No == proj.Quotation_No);
-                    var targets = from qt in wowidb.Quotation_Target from qid1 in qids where qt.quotation_id == qid1.Quotation_Version_Id select qt;
+                   var qids = wowidb.Quotation_Version.Where(c => c.Quotation_No == proj.Quotation_No);
+                    var targets = from qt in wowidb.Quotation_Target from qid1 in qids where qt.quotation_id == qid1.Quotation_Version_Id  select qt;
                     String disIVNo = "";
                     String disIVDate = "";  
                     foreach (var t in targets)
@@ -416,15 +416,15 @@
                                 }
                                 catch (Exception)
                                 {
-                                    //continue;
+                                    continue;
                                 }
 
                             }
                         }
                         catch (Exception)
                         {
-                            
-                            //throw;
+
+                            continue;
                         }
                         
                         try
@@ -646,7 +646,7 @@
         int i = 1;
         int AlternatingRowStyle_i = 0;
         int AlternatingRowStyle_j = 0;
-        int[] indexs = { 0, 2, 3, 4 };//, 13};//, 15 };
+        int[] indexs = { 0, 3, 4 };
         //Get all rows
         foreach (GridViewRow wkItem in iGridView1.Rows)
         {
