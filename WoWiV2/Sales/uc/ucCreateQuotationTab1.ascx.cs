@@ -339,7 +339,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         txtBillCompanyname.Text = obj.bill_companyname;
         txtBill_CName.Text = obj.c_bill_firstname + obj.c_bill_lastname;
         txtBill_CTitle.Text = obj.bill_title;
-        txtBill_CCompanyname.Text = obj.bill_companyname;
+        txtBill_CCompanyname.Text = obj.bill_ccompanyname;
         txtBill_Phone.Text = obj.bill_workphone;
         txtBill_Email.Text = obj.bill_email;
         txtBill_Country.Text = CodeTableController.GetCountryName((int)obj.country_id);
