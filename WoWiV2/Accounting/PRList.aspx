@@ -148,12 +148,23 @@
             ddlAccessLevel.Visible = true;
             if (ddlAccessLevel.SelectedValue != "-1")
             {
-                newCriteria += " and P.department_id  = " + ddlAccessLevel.SelectedValue ;
+                newCriteria += " and P.department_id  = " + ddlAccessLevel.SelectedValue;
+                
             }
         }
         if (ddlProjectNo.SelectedValue != "-1")
         {
-            newCriteria += " and P.project_id = " + ddlProjectNo.SelectedValue;
+            
+            try
+            {
+                int id = wowidb.Projects.First(c => c.Project_No == ddlProjectNo.SelectedValue).Project_Id;
+                newCriteria += " and P.project_id = " + id;
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
         }
 
         if (ddlVenderList.SelectedValue != "-1")
