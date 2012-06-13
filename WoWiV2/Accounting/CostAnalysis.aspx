@@ -138,6 +138,8 @@
                         temp.Sales = String.IsNullOrEmpty(sales.c_fname) ? sales.fname + " " + sales.lname : sales.c_lname + " " + sales.c_fname;
                         
                     var targets = wowidb.Quotation_Target.Where(c => c.quotation_id == proj.Quotation_Id);
+                    String disIVNo = "";
+                    String disIVDate = "";  
                     foreach (var t in targets)
                     {
                         if (ddlCountry.SelectedValue != "-1")
@@ -153,6 +155,7 @@
                         temp.Status = t.Status;
                         temp2.Status = t.Status;
                         temp2.OpenDate = temp.OpenDate;
+                        
                         if (t.certification_completed.HasValue)
                         {
                             temp.StatusDate = ((DateTime)t.certification_completed).ToString("yyyy-MM-dd");
@@ -196,6 +199,7 @@
                         //continue;
                         //Get all invoices
                         decimal tarTotal = 0;
+                         
                         try
                         {
                             var invList = from inv in wowidb.invoices where inv.project_no == temp2.ProjectNo select inv;
@@ -205,14 +209,28 @@
                             {
                                 try
                                 {
-                                    if (inv.ocurrency != "USD")
-                                    {
-                                        projDisTotal += (decimal)inv.adjust / (decimal)inv.exchange_rate;
-                                    }
-                                    else
-                                    {
-                                        projDisTotal += (decimal)inv.adjust;
-                                    }
+
+                                    //if (inv.adjust.HasValue && (decimal)inv.adjust != 0)
+                                    //{
+                                    //    if (inv.ocurrency != "USD")
+                                    //    {
+                                    //        projDisTotal += (decimal)inv.adjust / (decimal)inv.exchange_rate;
+                                    //    }
+                                    //    else
+                                    //    {
+                                    //        projDisTotal += (decimal)inv.adjust;
+                                    //    }
+                                    //    disIVNo += inv.invoice_no + " ";
+                                    //    try
+                                    //    {
+                                    //        disIVDate += ((DateTime)inv.invoice_date).ToString("yyyy-MM-dd") + " ";
+                                    //    }
+                                    //    catch (Exception)
+                                    //    {
+
+                                    //        //throw;
+                                    //    }
+                                    //}
                                     try
                                     {
                                         if (inv.issue_invoice_date.HasValue)
@@ -375,31 +393,44 @@
                         decimal prtot = 0;
                         try
                         {
+                            int eid = (int)t.Country_Manager;
+                            var e = wowidb.employees.First(c => c.id == eid);
+                            temp2.IMA = e.fname +" "+e.lname;
+                        }
+                        catch (Exception)
+                        {
+                            
+                            //throw;
+                        }
+                        
+                        try
+                        {
                             var prs = wowidb.PRs.Where(c => c.project_id == proj.Project_Id);
                             
 
                             foreach (var pr in prs)
                             {
-                                temp2.IMA = pr.create_user;
+                                //temp2.IMA = pr.create_user;
                                 temp2.IMACostCurrency = pr.currency;
-                                if (pr.vendor_id != -1)
-                                {
-                                    temp2.VenderNo = pr.vendor_id.ToString();
-                                    try
-                                    {
-                                        var vender = (from ven in wowidb.vendors where ven.id == pr.vendor_id select ven).First();
-                                        temp2.VenderName = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
-                                    }
-                                    catch (Exception)
-                                    {
-
-                                        //throw;
-                                    }
-                                }
+                                
 
                                 var item = wowidb.PR_item.First(c => c.pr_id == pr.pr_id);
                                 if (t.Quotation_Target_Id == item.quotation_target_id)
                                 {
+                                    if (pr.vendor_id != -1)
+                                    {
+                                        temp2.VenderNo = pr.vendor_id.ToString();
+                                        try
+                                        {
+                                            var vender = (from ven in wowidb.vendors where ven.id == pr.vendor_id select ven).First();
+                                            temp2.VenderName = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
+                                        }
+                                        catch (Exception)
+                                        {
+
+                                            //throw;
+                                        }
+                                    }
                                     temp2.PRNo += pr.pr_id + " ";
                                     foreach (var prr in wowidb.PR_Payment.Where(c => c.pr_id == pr.pr_id))
                                     {
@@ -450,14 +481,19 @@
                         tempD.StatusDate = temp.StatusDate;
                         tempD.QutationNo = temp.QutationNo;
                         tempD.QutationId = temp.QutationId;
+                        tempD.InvNo = disIVNo;
+                        tempD.InvDate = disIVDate;
                         tempD.Model = temp.Model;
                         tempD.Client = temp.Client;
                         tempD.Sales = temp.Sales;
                         tempD.Country = "Discount";
                         tempD.InvUSD = (-1*projDisTotal).ToString("F2");
                         invusd -= projDisTotal;
-                        list.Add(tempD);
+                        list.Add(tempD);                      
                     }
+                    projDisTotal = 0;
+                    disIVNo = "";
+                    disIVDate = "";
                 }
                 catch
                 {
@@ -594,7 +630,7 @@
         int i = 1;
         int AlternatingRowStyle_i = 0;
         int AlternatingRowStyle_j = 0;
-        int[] indexs = { 0,1, 2, 3, 4, 13};//, 15 };
+        int[] indexs = { 0, 1, 2, 3, 4 };//, 13};//, 15 };
         //Get all rows
         foreach (GridViewRow wkItem in iGridView1.Rows)
         {
