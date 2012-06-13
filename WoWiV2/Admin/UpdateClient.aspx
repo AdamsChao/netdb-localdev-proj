@@ -370,7 +370,7 @@
                                    <th align="left" class="style9">
                                        &nbsp; Country:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:DropDownList ID="dlBillCountry" runat="server" Enabled="false"
+                                       <asp:DropDownList ID="dlBillCountry" runat="server"
                                  DataTextField="country_name"  DataSourceID="SqlDataSource8" AppendDataBoundItems="true"
                                   DataValueField="country_id" SelectedValue='<%# Bind("billcountry_id") %>'>
                               </asp:DropDownList>

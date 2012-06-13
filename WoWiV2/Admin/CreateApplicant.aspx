@@ -450,7 +450,7 @@
                               <asp:SqlDataSource ID="SqlDataSource8" runat="server" 
                                   ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                   SelectCommand="SELECT [country_id], [country_name] FROM [country] order by [country_name]"/>
-                                       </asp:DropDownList>
+                                      
                                    </td>
                                     <th 
                                    align="left" class="style7">&nbsp; Payment Type:&nbsp;</th><td width="30%">
