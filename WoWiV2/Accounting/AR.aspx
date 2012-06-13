@@ -107,7 +107,7 @@
         try
         {
             DateTime fromDate = dcFromDate.GetDate();
-            data = data.Where(d => ((DateTime)d.invoice_date) >= fromDate);
+            data = data.Where(d => ((DateTime)d.issue_invoice_date) >= fromDate);
         }
         catch (Exception)
         {
@@ -118,7 +118,7 @@
         try
         {
             DateTime toDate = dcToDate.GetDate();
-            data = data.Where(d => ((DateTime)d.invoice_date) <=toDate);
+            data = data.Where(d => ((DateTime)d.issue_invoice_date) <= toDate);
         }
         catch (Exception)
         {

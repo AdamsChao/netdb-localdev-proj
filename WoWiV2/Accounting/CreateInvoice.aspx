@@ -5,10 +5,10 @@
 <script runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
-    static String Prepayment1 = "預收1";
-    static String Prepayment2 = "預收2";
-    static String Prepayment3 = "預收3";
-    static String Finalpayment = "尾款";
+    static String Prepayment1 = "Prepayment1";
+    static String Prepayment2 = "Prepayment2";
+    static String Prepayment3 = "Prepayment3";
+    static String Finalpayment = "Finalpayment";
     protected void Page_Load(object sender, EventArgs e)
     {
         int sid = 1;
@@ -503,7 +503,7 @@
                             UnitPrice = i.UnitPrice,
                             FPrice = (decimal)i.Qty * i.UnitPrice,
                             Bill = ((decimal)i.BillE).ToString("F0"),
-                            PayType = Finalpayment+ "&nbsp;" + "&nbsp;",
+                            PayType = Finalpayment,
                             PayAmount = i.BillE.ToString(),
                             Qutation_Target_Id = i.Qutation_Target_Id,
                             Qutation_Id = i.qId

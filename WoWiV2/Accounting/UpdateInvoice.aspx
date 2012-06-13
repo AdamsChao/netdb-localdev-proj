@@ -4,10 +4,10 @@
 <script runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
-    static String Prepayment1 = "預收1";
-    static String Prepayment2 = "預收2";
-    static String Prepayment3 = "預收3";
-    static String Finalpayment = "尾款";
+    static String Prepayment1 = "Prepayment1";
+    static String Prepayment2 = "Prepayment2";
+    static String Prepayment3 = "Prepayment3";
+    static String Finalpayment = "Finalpayment";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
@@ -214,7 +214,7 @@
                     }
                     else if (i.bill_status == (byte)InvoicePaymentStatus.FinalPaid)
                     {
-                        temp.PayType = Finalpayment + "&nbsp;" + "&nbsp;";
+                        temp.PayType = Finalpayment ;
                     }
                     items.Add(temp);
                 }

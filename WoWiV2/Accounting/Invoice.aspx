@@ -225,9 +225,25 @@
                     }
                     temp.Client = String.IsNullOrEmpty(client.c_companyname) ? client.companyname : client.c_companyname;
 
-                    int countryid = (int)client.country_id;
-                    var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
-                    temp.Country = country.country_name;
+                    //int countryid = (int)client.country_id;
+                    //var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
+                    //temp.Country = country.country_name;
+                    try
+                    {
+                        var itlist = wowidb.invoice_target.Where(c => c.invoice_id == item.invoice_id);
+                        foreach (var kk in itlist)
+                        {
+                            var ddd = wowidb.Quotation_Target.First(c=> c.Quotation_Target_Id==kk.quotation_target_id);
+                            int countryid = (int)ddd.country_id;
+                            var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
+                            temp.Country += country.country_name +"/ ";
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        
+                        //throw;
+                    }
                     WoWiModel.contact_info contact;
                     int contactid;
                     if (quo.Client_Contact != null)
