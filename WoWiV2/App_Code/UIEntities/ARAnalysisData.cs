@@ -13,6 +13,8 @@ public class ARAnalysisData
     public String InvoiceDate { get; set; }
     public String Client { get; set; }
     public String USD { get; set; }
+    public String Day0USD { get; set; }
+    public String Day0P { get; set; }
     public String Day30USD { get; set; }
     public String Day30P { get; set; }
     public String Day60USD { get; set; }
@@ -34,6 +36,8 @@ public class ARAnalysisData
 
     public ARAnalysisData()
     {
+        Day0USD = "-";
+        Day0P = "0.00%";
         Day30USD = "-";
         Day30P = "0.00%";
         Day60USD = "-";
