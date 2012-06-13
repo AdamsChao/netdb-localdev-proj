@@ -477,8 +477,14 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
             if ((QuotationID != 0) & (DropDownListContact.Items.Count >1))
             {               
                 Quotation_Version obj = Quotation_Controller.Get_Quotation(QuotationID);
-                if(obj.Client_Contact != null)
-                    DropDownListContact.SelectedValue  =  obj.Client_Contact.ToString();
+                if (obj.Client_Contact != null)
+                {
+                    foreach (ListItem item in DropDownListContact.Items)
+                    {
+                        if(item.Value==obj.Client_Contact.ToString())
+                            DropDownListContact.SelectedValue = obj.Client_Contact.ToString();                    
+                    }                    
+                }
             }
         }
     }
