@@ -182,11 +182,11 @@
         onload="ddlVenderList_Load">
         <asp:ListItem Value="-1">- All -</asp:ListItem>
     </asp:DropDownList>
-&nbsp;Target Payment Date From :
+<br>Target Payment Date From :
     <uc1:DateChooser ID="dcFrom" runat="server" />
 &nbsp; To:&nbsp;
     <uc1:DateChooser ID="dcTo" runat="server" />
-&nbsp;<br>Pay Date From :
+&nbsp;<br>Paid Date From :
     <uc1:DateChooser ID="dcPFrom" runat="server" />
 &nbsp; To:&nbsp;
     <uc1:DateChooser ID="dcPTo" runat="server" />
