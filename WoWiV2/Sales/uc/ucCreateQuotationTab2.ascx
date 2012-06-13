@@ -130,13 +130,13 @@
                     <asp:TemplateField ShowHeader="False">
                         <ItemTemplate>
                             <asp:Button ID="Button1" runat="server" CausesValidation="False" CommandName="tEdit"
-                                Text="Edit" CommandArgument='<%# Eval("Quotation_Target_Id") %>' Enabled='<%# (Int32.Parse(Eval("Status").ToString())>=5)?false:true %>'  />
+                                Text="Edit" CommandArgument='<%# Eval("Quotation_Target_Id") %>' Enabled='<%# (Int32.Parse(Eval("Status").ToString())>=3)?false:true %>'  />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField ShowHeader="False">
                         <ItemTemplate>
                             <asp:Button ID="Button2" runat="server" CausesValidation="false" CommandName="tDelete"
-                                CommandArgument='<%# Eval("Quotation_Target_Id") %>' Text="Delete"  Enabled='<%# (Int32.Parse(Eval("Status").ToString())>=5)?false:true %>'  />
+                                CommandArgument='<%# Eval("Quotation_Target_Id") %>' Text="Delete"  Enabled='<%# (Int32.Parse(Eval("Status").ToString())>=3)?false:true %>'  />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="T.No">

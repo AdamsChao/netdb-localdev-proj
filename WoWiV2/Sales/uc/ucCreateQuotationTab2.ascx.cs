@@ -30,14 +30,32 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
                 //    btnSubmit.Enabled = false;
 
                 Quotation_Version obj = Quotation_Controller.Get_Quotation(quotation_id);
-                if (obj.Quotation_Status >= 5)
+                if (obj.Quotation_Status >= 3)
                 {
                     btnSubmit.Enabled = false;
+
+                    ddlTechnology.Enabled = false;
+                    ddlCountry.Enabled = false;
+                    ddlProductType.Enabled = false;
+                    ddlAuthority.Enabled = false;
+                    txtDespction.Enabled = false;
+                    txtUnit.Enabled = false;
+                    txtUnitPrice.Enabled = false;
+                    rblDisCount.Enabled = false;
+                    txtRate.Enabled = false;
+                    ddlTestdisc.Enabled = false;
+                    txtDiscAmt.Enabled = false;
+                    txtDiscPrice.Enabled = false;
+                    txtFprice.Enabled = false;
+                    txtPayTo.Enabled = false;
+
                 }
                 else
                 {
                     btnSubmit.Enabled = true;
                 }
+
+                
             }
         }
 
@@ -153,7 +171,7 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
             if (quotation_id != 0)
             {
                 Quotation_Version obj = Quotation_Controller.Get_Quotation(quotation_id);
-                if (obj.Quotation_Status == 5)
+                if (obj.Quotation_Status >= 3)
                 {
                     btnSubmit.Enabled = false;
                 }

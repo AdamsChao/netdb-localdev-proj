@@ -98,6 +98,30 @@ public partial class Sales_uc_ucCreateQuotationTab4 : System.Web.UI.UserControl
         //    else
         //        btnSubmitType2.Enabled = false;
         //}
+        if (quo.Quotation_Status >= 3)
+        {
+            btnSubmitType2.Enabled = false;
+            txtTotal_Disc_Amt.Enabled = false;
+            txtRemark.Enabled = false;
+            ddlProbability.Enabled = false;
+            rolling_forecast_dollar0.Enabled = false;
+            rolling_forecast_dollar1.Enabled = false;
+            rolling_forecast_dollar2.Enabled = false;
+            rolling_forecast_dollar3.Enabled = false;
+            rolling_forecast_dollar4.Enabled = false;
+            rolling_forecast_dollar5.Enabled = false;
+            rolling_forecast_dollar6.Enabled = false;
+            rolling_forecast_dollar7.Enabled = false;
+            rolling_forecast_dollar8.Enabled = false;
+            rolling_forecast_dollar9.Enabled = false;
+            rolling_forecast_dollar10.Enabled = false;
+            rolling_forecast_dollar11.Enabled = false;
+            dollar_balance.Enabled = false;
+            txtPocheckno.Enabled = false;
+            txtPOLimit.Enabled = false;
+            txtDeposit_Check_No.Enabled = false;
+            txtPO_Amount.Enabled = false;
+        }
     }
 
     private void LoadDropDown()
