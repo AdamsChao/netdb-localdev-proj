@@ -436,36 +436,44 @@
                             {
                                 //temp2.IMA = pr.create_user;
                                 temp2.IMACostCurrency = pr.currency;
-                                
 
-                                var item = wowidb.PR_item.First(c => c.pr_id == pr.pr_id);
-                                if (t.Quotation_Target_Id == item.quotation_target_id)
+                                try
                                 {
-                                    if (pr.vendor_id != -1)
+                                    var item = wowidb.PR_item.First(c => c.pr_id == pr.pr_id);
+                                    if (t.Quotation_Target_Id == item.quotation_target_id)
                                     {
-                                        temp2.VenderNo = pr.vendor_id.ToString();
-                                        try
+                                        if (pr.vendor_id != -1)
                                         {
-                                            var vender = (from ven in wowidb.vendors where ven.id == pr.vendor_id select ven).First();
-                                            temp2.VenderName = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
-                                        }
-                                        catch (Exception)
-                                        {
+                                            temp2.VenderNo = pr.vendor_id.ToString();
+                                            try
+                                            {
+                                                var vender = (from ven in wowidb.vendors where ven.id == pr.vendor_id select ven).First();
+                                                temp2.VenderName = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
+                                            }
+                                            catch (Exception)
+                                            {
 
-                                            //throw;
+                                                //throw;
+                                            }
                                         }
-                                    }
-                                    temp2.PRNo += pr.pr_id + " ";
-                                    foreach (var prr in wowidb.PR_Payment.Where(c => c.pr_id == pr.pr_id))
-                                    {
-                                        prtot += (decimal)prr.total_amount;
-                                        if (prr.pay_date.HasValue)
+                                        temp2.PRNo += pr.pr_id + " ";
+                                        foreach (var prr in wowidb.PR_Payment.Where(c => c.pr_id == item.pr_id))
                                         {
-                                            temp2.PaymentDate += ((DateTime)prr.pay_date).ToString("yyyy-MM-dd") + " ";
+                                            prtot += (decimal)prr.total_amount;
+                                            if (prr.pay_date.HasValue)
+                                            {
+                                                temp2.PaymentDate += ((DateTime)prr.pay_date).ToString("yyyy-MM-dd") + " ";
+                                            }
                                         }
+                                        //break;
                                     }
-                                    //break;
                                 }
+                                catch (Exception)
+                                {
+                                    
+                                    //throw;
+                                }
+                                
                             }
                             
                         }
