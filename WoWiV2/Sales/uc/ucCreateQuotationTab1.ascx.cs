@@ -337,7 +337,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         txtBill_Name.Text = obj.bill_firstname + " " + obj.bill_lastname;
         txtBill_Title.Text = obj.bill_title;
         txtBillCompanyname.Text = obj.bill_companyname;
-        txtBill_CName.Text = obj.c_bill_firstname + obj.c_bill_lastname;
+        txtBill_CName.Text = obj.c_bill_lastname + obj.c_bill_firstname;
         txtBill_CTitle.Text = obj.bill_title;
         txtBill_CCompanyname.Text = obj.bill_ccompanyname;
         txtBill_Phone.Text = obj.bill_workphone;
@@ -357,7 +357,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         txtBill_Name.Text = obj.fname + " " + obj.lname;
         txtBill_Title.Text = obj.title;
         txtBillCompanyname.Text = obj.companyname;
-        txtBill_CName.Text = obj.c_fname + obj.c_lname;
+        txtBill_CName.Text = obj.c_lname+ obj.c_fname;
         txtBill_CTitle.Text = obj.c_title;
         txtBill_CCompanyname.Text = obj.c_companyname;
         txtBill_Phone.Text = obj.workphone + " ext " + obj.ext;
