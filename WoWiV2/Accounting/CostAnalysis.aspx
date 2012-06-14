@@ -9,7 +9,7 @@
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     protected void Page_Load(object sender, EventArgs e)
     {
-        System.Diagnostics.Debug.Listeners.Add(new System.Diagnostics.ConsoleTraceListener());
+        //System.Diagnostics.Debug.Listeners.Add(new System.Diagnostics.ConsoleTraceListener());
         if (Page.IsPostBack == false)
         {
             SetMergedHerderColumns(iGridView1);
@@ -452,7 +452,7 @@
                                                                     flag2 = true;
                                                                 }
                                                                 state |= (flag2 && isflag2);
-                                                                System.Diagnostics.Debug.WriteLine("INVR {0} : {1} : {2} = {3}", invr.received_date, flag2, isflag2, state);
+                                                                //System.Diagnostics.Debug.WriteLine("INVR {0} : {1} : {2} = {3}", invr.received_date, flag2, isflag2, state);
                                                             }                                   
                                                         }
                                                         
