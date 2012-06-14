@@ -18,15 +18,21 @@
     }
 
     private void SetMergedHerderColumns(iRowSpanGridView iGridView1,int idx) {
-        iGridView1.AddMergedColumns("0 ~ 30 天", idx, 2);
-        iGridView1.AddMergedColumns("30 ~ 60 天", idx + 2, 2);
-        iGridView1.AddMergedColumns("60 ~ 90 天", idx + 4, 2);
-        iGridView1.AddMergedColumns("90 ~ 120 天", idx + 6, 2);
-        iGridView1.AddMergedColumns("120 ~ 150 天", idx + 8, 2);
-        iGridView1.AddMergedColumns("150 ~ 180 天", idx + 10, 2);
-        iGridView1.AddMergedColumns("180 ~ 365 天", idx + 12, 2);
-        iGridView1.AddMergedColumns("1年", idx+14, 2);
-        iGridView1.AddMergedColumns("2年以上", idx+16, 2);
+        String[] titles = { "未逾期", "0 ~ 30 天", "30 ~ 60 天", "60 ~ 90 天", "90 ~ 120 天", "120 ~ 150 天", "150 ~ 180 天", "180 ~ 365 天", "1年", "2年以上" };
+        for (int i = 0; i < titles.Length; i++)
+        {
+             iGridView1.AddMergedColumns(titles[i], idx+i*2, 2);
+        }
+        //iGridView1.AddMergedColumns("未逾期", idx, 2);
+        //iGridView1.AddMergedColumns("0 ~ 30 天", idx, 2);
+        //iGridView1.AddMergedColumns("30 ~ 60 天", idx + 2, 2);
+        //iGridView1.AddMergedColumns("60 ~ 90 天", idx + 4, 2);
+        //iGridView1.AddMergedColumns("90 ~ 120 天", idx + 6, 2);
+        //iGridView1.AddMergedColumns("120 ~ 150 天", idx + 8, 2);
+        //iGridView1.AddMergedColumns("150 ~ 180 天", idx + 10, 2);
+        //iGridView1.AddMergedColumns("180 ~ 365 天", idx + 12, 2);
+        //iGridView1.AddMergedColumns("1年", idx+14, 2);
+        //iGridView1.AddMergedColumns("2年以上", idx+16, 2);
     }
     
     
@@ -124,7 +130,7 @@
             {
                 //throw;
             }
-            decimal tot=0,d30 = 0 ,d60  = 0 ,d90 = 0, d120  = 0, d150  = 0, d180  = 0, d365  = 0, y1  = 0, y2 = 0;
+            decimal tot=0,d30 = 0 ,d60  = 0 ,d90 = 0, d120  = 0, d150  = 0, d180  = 0, d365  = 0, y1  = 0, y2 = 0,d0=0;
             foreach (var item in data)
             {
                 temp = new ARAnalysisData()
@@ -163,7 +169,9 @@
                     }
                     if (days < 0)
                     {
-                        continue;//期限未到
+                        d0 += ar_balance;
+                        temp.Day0USD = (ar_balance).ToString("F2");
+                        temp.Day0P = "100%";
                     }
                     else if (days <= 30)
                     {
@@ -231,6 +239,11 @@
                     InvoiceNo ="Total : ",
                     USD = tot.ToString("F2"),
                 };
+                if (d0 != 0)
+                {
+                    temp.Day0USD = d0.ToString("F2");
+                    temp.Day0P = ((d0 / tot) * 100).ToString("F0") + "%";
+                }
                 if (d30 != 0)
                 {
                     temp.Day30USD = d30.ToString("F2");
@@ -336,7 +349,7 @@
                     clients[ii.clientID].Add(ii.invoiceID);
                 }
             }
-            decimal atot = 0, ad30 = 0, ad60 = 0, ad90 = 0, ad120 = 0, ad150 = 0, ad180 = 0, ad365 = 0, ay1 = 0, ay2 = 0;
+            decimal atot = 0, ad30 = 0, ad60 = 0, ad90 = 0, ad120 = 0, ad150 = 0, ad180 = 0, ad365 = 0, ay1 = 0, ay2 = 0,ad0=0;
             foreach (var iii in clients)
             {
                 int cid = iii.Key;
@@ -345,7 +358,7 @@
                 {
                     Client = String.IsNullOrEmpty(client.c_companyname) ? client.companyname : client.c_companyname
                 };
-                decimal tot = 0, d30 = 0, d60 = 0, d90 = 0, d120 = 0, d150 = 0, d180 = 0, d365 = 0, y1 = 0, y2 = 0;
+                decimal tot = 0, d30 = 0, d60 = 0, d90 = 0, d120 = 0, d150 = 0, d180 = 0, d365 = 0, y1 = 0, y2 = 0,d0=0;
                 foreach (var iid in iii.Value)
                 {
                     var item = (from i in wowidb.invoices where  i.invoice_id == iid select i ).First();
@@ -370,7 +383,8 @@
                         }
                         if (days < 0)
                         {
-                            continue;//期限未到
+                            d0 += ar_balance;
+                            //continue;//期限未到
                         }
                         else if (days <= 30)
                         {
@@ -410,6 +424,12 @@
                         }
                         tot += ar_balance;
                     }
+                }
+                if (d0 != 0)
+                {
+                    ad0 += d0;
+                    temp.Day0USD = d0.ToString("F2");
+                    temp.Day0P = ((d0 / tot) * 100).ToString("F0") + "%";
                 }
                 if (d30 != 0)
                 {
@@ -482,6 +502,11 @@
                     Client = "Total : ",
                     USD = atot.ToString("F2"),
                 };
+                if (ad0 != 0)
+                {
+                    temp.Day0USD = ad0.ToString("F2");
+                    temp.Day0P = ((ad0 / atot) * 100).ToString("F0") + "%";
+                }
                 if (ad30 != 0)
                 {
                     temp.Day30USD = ad30.ToString("F2");
@@ -581,21 +606,21 @@
         {
             if (DropDownList2.SelectedValue == "NT$")
             {
-                if (row.Cells[22].Text == "NTD")
+                if (row.Cells[24].Text == "NTD")
                 {
                     row.Cells[3].BackColor = System.Drawing.Color.Yellow;
                 }
             }
             else
             {
-                if (row.Cells[22].Text == "USD")
+                if (row.Cells[24].Text == "USD")
                 {
                     row.Cells[3].BackColor = System.Drawing.Color.Yellow;
                 }
             }
-            row.Cells[22].Visible = false;
+            row.Cells[24].Visible = false;
         }
-        iGridView1.HeaderRow.Cells[22].Visible = false;
+        iGridView1.HeaderRow.Cells[24].Visible = false;
     }
 
     protected void iGridView2_PreRender(object sender, EventArgs e)
@@ -604,28 +629,28 @@
         {
             if (DropDownList2.SelectedValue == "NT$")
             {
-                if (row.Cells[20].Text == "NTD")
+                if (row.Cells[22].Text == "NTD")
                 {
                     row.Cells[1].BackColor = System.Drawing.Color.Yellow;
                 }
             }
             else
             {
-                if (row.Cells[20].Text == "USD")
+                if (row.Cells[22].Text == "USD")
                 {
                     row.Cells[1].BackColor = System.Drawing.Color.Yellow;
                 }
             }
-            row.Cells[20].Visible = false;
+            row.Cells[22].Visible = false;
         }
-        iGridView2.HeaderRow.Cells[20].Visible = false;
+        iGridView2.HeaderRow.Cells[22].Visible = false;
     }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-  <asp:UpdatePanel runat="server">
+  <asp:UpdatePanel ID="UpdatePanel1" runat="server">
   <ContentTemplate>
   Accounts Receivable Aging Schedule
                     <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
@@ -695,6 +720,8 @@
                             <asp:BoundField DataField="InvoiceDate" HeaderText="Invoice Date" />
                             <asp:BoundField DataField="Client" HeaderText="Client" />
                             <asp:BoundField DataField="USD" HeaderText="期末AR US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day0USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day0P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="Day30USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="Day30P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="Day60USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
@@ -723,6 +750,8 @@
                         <Columns>
                             <asp:BoundField DataField="Client" HeaderText="Client" />
                             <asp:BoundField DataField="USD" HeaderText="期末AR US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day0USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
+                            <asp:BoundField DataField="Day0P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="Day30USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="Day30P" HeaderText="%" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="Day60USD" HeaderText="US$" ItemStyle-HorizontalAlign="Right" />
