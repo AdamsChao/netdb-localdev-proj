@@ -63,6 +63,7 @@ public class Quotation_Controller
 
     public static int Copy_Quotation(int Quotation_ID, bool isNewQuotationID, string Quotation_No)
     {
+       
         Quotation_Version obj = Get_Quotation(Quotation_ID);
         ent.Detach(obj);
         obj.EntityKey = null;
@@ -96,14 +97,16 @@ public class Quotation_Controller
         if (isNewQuotationID)
         {
             Quotation_Target_Controller.Copy(NewQuotationID, Quotation_ID);         
-            obj.FinalTotalPrice =   obj.TargetTotalPrice -obj.Discount ;
+            //obj.FinalTotalPrice =   obj.TargetTotalPrice -obj.Discount ;
         }
-        else
-        {
-            obj.TargetTotalPrice = 0;
-            obj.Discount = 0;
-            obj.FinalTotalPrice = 0;
-        }
+        //else
+        //{
+        //    obj.TargetTotalPrice = 0;
+        //    obj.Discount = 0;
+        //    obj.FinalTotalPrice = 0;
+        //}
+
+        TargetChange(NewQuotationID);
         return NewQuotationID;
     }
 
