@@ -76,7 +76,8 @@
                 <asp:BoundField DataField="Quotation_No" HeaderText="Quot. No" SortExpression="Quotation_No" />
                 <asp:BoundField DataField="Vername" HeaderText="Version" SortExpression="Vername" />
                 <asp:BoundField DataField="Quotation_Status_Name" HeaderText="Status" SortExpression="Quotation_Status_Name" />
-                <asp:BoundField DataField="code" HeaderText="Client Code" SortExpression="code" />
+                <asp:BoundField DataField="code" HeaderText="Client Code" SortExpression="code" 
+                    Visible="False" />
                 <asp:BoundField DataField="companyname" HeaderText="Client Company Name" SortExpression="companyname" />
                 <asp:BoundField DataField="Product_Name" HeaderText="Product Name" SortExpression="Product_Name" />
                 <asp:BoundField DataField="Model_No" HeaderText="Model No" SortExpression="Model_No" />
