@@ -424,7 +424,7 @@
                             <td align="right" colspan="2">
                                  <asp:Button ID="Button3" runat="server" Text="Search" onclick="Button3_Click" />
                                  &nbsp;&nbsp;&nbsp;
-                                <asp:Button ID="Button2" runat="server" Text="Print List" 
+                                <asp:Button ID="Button2" runat="server" Text="Excel" 
                                      onclick="Button2_Click" />
                                 
                             </td>
