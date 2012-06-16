@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="QuotationViewPrintChinese.aspx.cs"
-    Inherits="Sales_QuotationViewPrintChinese" %>
+    Inherits="Sales_QuotationViewPrintChinese" EnableTheming="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -80,8 +80,8 @@
                 <img border="0" height="90" src="../Images/Quotation/WoWilogoname.jpg" />
             </td>
             <td align="middle" class="ccsh1">
-                <font face="verdana" size="3">康來士科技顧問股份有限公司</font><br />
-                <font face="verdana" size="1">
+                <font face="verdana" size="4">康來士科技顧問股份有限公司</font><br />
+                <font face="verdana" size="2">
                 <br />
                 114台北市內湖區洲子街79號3 樓<br />
                     電話: 886-2-2799-8382
@@ -94,9 +94,12 @@
             </td>
         </tr>
         <tr>
-            <td align="middle" class="ccsh1" colspan="3" valign="top">
+            <td align="middle" colspan="3" class="ccsh1" valign="top">
+            <font face="verdana" size="2">
                 報價單號
                 <asp:Label ID="lblQuotationNo" runat="server" Text=""></asp:Label>
+                </font>
+
             </td>
         </tr>
     </table>
@@ -104,7 +107,7 @@
         <tr>
             <td align="left" class="ccstextboxh" width="60%">
                 報價人員:
-                <asp:Label ID="lblRepresentative" runat="server" Text="lblRepresentative"></asp:Label>
+                <asp:Label ID="lblRepresentative" runat="server"></asp:Label>
             </td>
             <td rowspan="2">
                 <table border="0" cellpadding="0" cellspacing="0">
@@ -114,7 +117,9 @@
                         </td>
                         <td align="left" class="ccstextboxh">
                             <nobr>
-                            <asp:Label ID="lblTel" runat="server" Text="lblTel"></asp:Label></nobr>
+                            <asp:Label ID="lblTel" runat="server"></asp:Label>&nbsp;分機 <asp:Label 
+                              ID="lblext" runat="server"></asp:Label>
+                            </nobr>
                         </td>
                     </tr>
                     <tr>
@@ -122,7 +127,7 @@
                             Email:
                         </td>
                         <td align="left" class="ccstextboxh">
-                            <asp:Label ID="lblEmail" runat="server" Text="lblEmail"></asp:Label>
+                            <asp:Label ID="lblEmail" runat="server"></asp:Label>
                         </td>
                     </tr>
                 </table>
@@ -130,7 +135,7 @@
         </tr>
         <tr>
             <td align="left" class="ccstextboxh">
-                報價日期:&nbsp;<asp:Label ID="lblDate" runat="server" Text="lblDate"></asp:Label>
+                報價日期:&nbsp;<asp:Label ID="lblDate" runat="server"></asp:Label>
             </td>
         </tr>
     </table>
@@ -177,20 +182,21 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <td align="left" colspan="2">
-                            <nobr>
-                            <u>申請者資訊</u>
-                            </nobr>
+                            <nobr><u>委任者資訊</u></nobr>
                         </td>
                     </tr>
-                    <tr><td></td></tr>
-                    <tr>
-                        <td align="left">
-                            申請公司:
+                    <tr><td align="left">
+                            委任人公司:
                         </td>
-                        <td align="left" >                            
-                            <asp:Label ID="lblBill_Companyname" runat="server"></asp:Label>
-                            <br/>
-                            <asp:Label ID="lblBill_EN_Companyname" runat="server"></asp:Label>
+                        <td align="left" ><nobr><asp:Label ID="lblBill_Companyname" runat="server"></asp:Label></nobr></td>
+                        </tr>
+                    <tr>
+                        
+                        <td align="left">
+                            Company Name:
+                        </td>
+                        <td align="left" > <nobr>                                                      
+                            <asp:Label ID="lblBill_EN_Companyname" runat="server"></asp:Label></nobr>
                         </td>
                     </tr>
                     <%-- <tr>
@@ -261,7 +267,7 @@
                     <tr>
                         <td class="ccstexth">
                             <asp:GridView ID="gvTestTargetList" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1"
-                                Width="100%" CaptionAlign="Top" ShowFooter="True" Style="text-align: left" 
+                                Width="100%" CaptionAlign="Top" Style="text-align: left" 
                               Font-Size="Smaller">
                                 <Columns>
                                     <asp:TemplateField HeaderText="項次">
@@ -272,7 +278,8 @@
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="country_name" HeaderText="申請國家" SortExpression="country_name">
                                     </asp:BoundField>
-                                    <asp:BoundField DataField="authority_name" HeaderText="認證標準" SortExpression="authority_name">
+                                    <asp:BoundField DataField="authority_name" HeaderText="認證項目" 
+                                      SortExpression="authority_name">
                                     </asp:BoundField>
                                     <asp:BoundField DataField="FinalPrice" HeaderText="價格(未稅)" SortExpression="FinalPrice">
                                     </asp:BoundField>
@@ -332,10 +339,80 @@
         </tr>
         <!-- end cost summary service -->
     </table>
+
+    <p style="page-break-before: always">
     
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">          
+        <tr>
+            <td align="left">
+                <img border="0" height="90" src="../Images/Quotation/WoWilogoname.jpg" />
+            </td>
+            <td align="middle" class="ccsh1">
+                <font face="verdana" size="4">康來士科技顧問股份有限公司</font><br />
+                <font face="verdana" size="2">
+                <br />
+                114台北市內湖區洲子街79號3 樓<br />
+                    電話: 886-2-2799-8382
+                    <br />
+                    傳真: 886-2-2799-8387<br />
+                    網站: www.WoWiApproval.com</font>
+            </td>
+            <td align="right">
+                <img border="0" height="56" src="../Images/Quotation/transparent.gif" width="168" />
+            </td>
+        </tr>
+        <tr>
+            <td align="middle" colspan="3" class="ccsh1" valign="top">
+            <font face="verdana" size="2">
+                報價單號
+                <asp:Label ID="lblQuotationNo2" runat="server"></asp:Label>
+                </font>
+
+            </td>
+        </tr>
+    </table>
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td align="left" class="ccstextboxh" width="60%">
+                報價人員:
+                <asp:Label ID="lblRepresentative2" runat="server"></asp:Label>
+            </td>
+            <td rowspan="2">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="left" class="ccstextboxh">
+                            連絡電話:
+                        </td>
+                        <td align="left" class="ccstextboxh">
+                            <nobr>
+                            <asp:Label ID="lblTel2" runat="server"></asp:Label>&nbsp;分機 
+                            <asp:Label 
+                              ID="lblext2" runat="server"></asp:Label>
+                            </nobr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="ccstextboxh">
+                            Email:
+                        </td>
+                        <td align="left" class="ccstextboxh">
+                            <asp:Label ID="lblEmail2" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" class="ccstextboxh">
+                報價日期:&nbsp;<asp:Label ID="lblDate2" runat="server"></asp:Label>
+            </td>
+        </tr>
+    </table>
+
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td class="ccstexth" colspan="2">
+                <br />
                 備 註：
                 <br />
                 1. 本報價單視為合作契約，故請簽回報價時確認其產品之資訊/申請項目/標準/價格之正確性，有任何修改請事先更正作業。
@@ -408,6 +485,7 @@
                     <tr>
                         <td class="ccstextboxh" height="30">
                             簽署人:
+                            <asp:Label ID="lblCName" runat="server"></asp:Label>
                         </td>
                         <td class="ccstextboxh" height="30">
                             簽署人:
@@ -417,9 +495,10 @@
                     <tr>
                         <td class="ccstextboxh" height="30">
                             職稱:
+                            <asp:Label ID="lblCTitle" runat="server"></asp:Label>
                         </td>
                         <td class="ccstextboxh" height="30">
-                            職稱:<asp:Label ID="lblTitle" runat="server" Text="lblTitle"></asp:Label>
+                            職稱:<asp:Label ID="lblTitle" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -460,6 +539,9 @@
     
     <asp:TextBox ID="hidQuotationID" runat="server" Text="0" Visible="false"></asp:TextBox>
     <asp:TextBox ID="hidQuotation_No" runat="server" Text="0" Visible="false"></asp:TextBox>
+
+    </p>
+
     </form>
 </body>
 </html>

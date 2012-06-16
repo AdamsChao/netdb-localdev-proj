@@ -84,7 +84,11 @@
       [vw_Quotation_Print_Chinese].[Client_CName] AS [Client_CName], 
       [vw_Quotation_Print_Chinese].[Remark] AS [Remark], 
       [vw_Quotation_Print_Chinese].[work_ext] AS [work_ext], 
-      [vw_Quotation_Print_Chinese].[Bill_CAddress] AS [Bill_CAddress]
+      [vw_Quotation_Print_Chinese].[Bill_CAddress] AS [Bill_CAddress], 
+      [vw_Quotation_Print_Chinese].[Bill_CTitle] AS [Bill_CTitle], 
+      [vw_Quotation_Print_Chinese].[Bill_CCompanyname] AS [Bill_CCompanyname], 
+      [vw_Quotation_Print_Chinese].[jobtitle_id] AS [jobtitle_id], 
+      [vw_Quotation_Print_Chinese].[jobtitle_name] AS [jobtitle_name]
       FROM [dbo].[vw_Quotation_Print_Chinese] AS [vw_Quotation_Print_Chinese]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_Target" EntityType="QuotationModel.Store.vw_Target" store:Type="Views" store:Schema="dbo" store:Name="vw_Target">
@@ -522,8 +526,8 @@
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Product_Type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Product_Type' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -533,8 +537,8 @@
           <Property Name="wowi_product_type_name" Type="varchar" MaxLength="50" />
           <Property Name="country_id" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Quotation_Print' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Quotation_Print' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Quotation_Print">
           <Key>
@@ -561,8 +565,8 @@
           <Property Name="title" Type="nvarchar" MaxLength="50" />
           <Property Name="Remark" Type="text" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Quotation_Print_Chinese' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Quotation_Print_Chinese' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Quotation_Print_Chinese">
           <Key>
@@ -596,12 +600,16 @@
           <Property Name="Model_No" Type="nvarchar" MaxLength="50" />
           <Property Name="Brand_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Client_CName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Remark" Type="text" />
+          <Property Name="Remark" Type="nvarchar(max)" />
           <Property Name="work_ext" Type="nvarchar" MaxLength="5" />
           <Property Name="Bill_CAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="Bill_CTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="Bill_CCompanyname" Type="nvarchar" MaxLength="100" />
+          <Property Name="jobtitle_id" Type="int" />
+          <Property Name="jobtitle_name" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Target' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Target' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Target">
           <Key>
@@ -625,8 +633,8 @@
           <Property Name="local_agent_name" Type="nvarchar" MaxLength="50" />
           <Property Name="Publish" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Test_Target_List' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Test_Target_List' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Test_Target_List">
           <Key>
@@ -1190,6 +1198,10 @@
           <Property Type="String" Name="Remark" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="work_ext" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Bill_CAddress" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Bill_CTitle" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Bill_CCompanyname" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="jobtitle_id" />
+          <Property Type="String" Name="jobtitle_name" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1687,6 +1699,10 @@
           <EntitySetMapping Name="vw_Quotation_Print_Chinese">
             <EntityTypeMapping TypeName="QuotationModel.vw_Quotation_Print_Chinese">
               <MappingFragment StoreEntitySet="vw_Quotation_Print_Chinese">
+                <ScalarProperty Name="jobtitle_name" ColumnName="jobtitle_name" />
+                <ScalarProperty Name="jobtitle_id" ColumnName="jobtitle_id" />
+                <ScalarProperty Name="Bill_CCompanyname" ColumnName="Bill_CCompanyname" />
+                <ScalarProperty Name="Bill_CTitle" ColumnName="Bill_CTitle" />
                 <ScalarProperty Name="Bill_CAddress" ColumnName="Bill_CAddress" />
                 <ScalarProperty Name="work_ext" ColumnName="work_ext" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
@@ -1741,7 +1757,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="QuotationModel" ZoomLevel="65">
+      <Diagram Name="QuotationModel" ZoomLevel="108">
         <EntityTypeShape EntityType="QuotationModel.vw_Product_Type" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Status" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583317" />
         <EntityTypeShape EntityType="QuotationModel.clientapplicant_technology" Width="1.5" PointX="0.75" PointY="3.75" Height="2.3648893229166674" />
@@ -1761,7 +1777,7 @@
         <EntityTypeShape EntityType="QuotationModel.employee" Width="1.5" PointX="9.375" PointY="12.75" Height="6.4239713541666674" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Version" Width="1.5" PointX="0.75" PointY="12.75" Height="15.221171875000009" />
         <EntityTypeShape EntityType="QuotationModel.country" Width="1.5" PointX="3.375" PointY="9.75" Height="2.9050911458333317" />
-        <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print_Chinese" Width="1.5" PointX="11.375" PointY="13.75" Height="6.4239713541666674" />
+        <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print_Chinese" Width="1.5" PointX="11.375" PointY="13.75" Height="7.7493294270833353" />
       </Diagram>
     </Diagrams>
   </Designer>

@@ -31,8 +31,8 @@ public partial class Sales_QuotationViewPrintChinese : System.Web.UI.Page
                 lblEmail.Text = quo.email;
                 lblDate.Text = DateTime.Now.ToString("MM/dd/yyyy");
                 lblDate1.Text = DateTime.Now.ToString("MM/dd/yyyy");
-                lblBill_Phone.Text = quo.Bill_Phone;
-                lblClientAddress.Text = quo.Bill_Address;
+                lblBill_Phone.Text = quo.Bill_Phone;              
+                lblClientAddress.Text = quo.Bill_CAddress;
                 lblCleintCountry.Text = quo.Bill_Country;
                 lblBill_Email.Text = quo.Bill_Email;
 
@@ -70,20 +70,33 @@ public partial class Sales_QuotationViewPrintChinese : System.Web.UI.Page
                 lblCProduct_Name.Text = quo.CProduct_Name;
                 lblCBrand_Name.Text = quo.CBrand_Name;
                 lblCModel_No.Text = quo.CModel_No;
-                lblBill_Companyname.Text = quo.c_companyname;
+                lblBill_Companyname.Text = quo.Bill_CCompanyname;
                 lblBill_EN_Companyname.Text =quo.Bill_Companyname;
                 //lblbusiness_registration_number.Text = quo.business_registration_number;
                 lblBill_CName.Text = quo.Bill_CName;
-                lblClientAddress.Text = quo.Bill_Address;
+                lblClientAddress.Text = quo.Bill_CAddress;
                 lblCleintCountry.Text = quo.Bill_Country;
                 imgSign.ImageUrl = "../Images/sign/" + quo.fname + "." + quo.lname + ".bmp";
-                lblTitle.Text = quo.title;
+                lblTitle.Text = quo.jobtitle_name;
 
                 lblProduct_Name.Text = quo.Product_Name;
                 lblModelNo.Text = quo.Model_No;
                 lblBrand_Name.Text = quo.Brand_Name;
-                lblClient.Text = quo.Client_CName;
+                lblClient.Text = quo.Bill_CCompanyname;
                 lblRemark.Text = quo.Remark;
+
+                lblext.Text = quo.work_ext;
+                lblCTitle.Text = quo.Bill_CTitle;
+                lblCName.Text = quo.Bill_CName;
+
+                lblQuotationNo2.Text = quo.Quotation_No;
+                lblRepresentative2.Text = quo.c_lname + quo.c_fname;
+                lblDate2.Text = DateTime.Now.ToString("MM/dd/yyyy");
+                lblTel2.Text = quo.workphone;
+                lblext2.Text = quo.work_ext;
+                lblEmail2.Text = quo.email;
+                
+
             }
         }
 
