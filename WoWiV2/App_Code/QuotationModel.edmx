@@ -82,7 +82,8 @@
       [vw_Quotation_Print_Chinese].[Model_No] AS [Model_No], 
       [vw_Quotation_Print_Chinese].[Brand_Name] AS [Brand_Name], 
       [vw_Quotation_Print_Chinese].[Client_CName] AS [Client_CName], 
-      [vw_Quotation_Print_Chinese].[Remark] AS [Remark]
+      [vw_Quotation_Print_Chinese].[Remark] AS [Remark], 
+      [vw_Quotation_Print_Chinese].[work_ext] AS [work_ext]
       FROM [dbo].[vw_Quotation_Print_Chinese] AS [vw_Quotation_Print_Chinese]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_Target" EntityType="QuotationModel.Store.vw_Target" store:Type="Views" store:Schema="dbo" store:Name="vw_Target">
@@ -211,6 +212,7 @@
           <Property Name="contact_email" Type="nvarchar" MaxLength="100" />
           <Property Name="contact_tel" Type="nvarchar" MaxLength="100" />
           <Property Name="contact_ext" Type="nvarchar" MaxLength="50" />
+          <Property Name="billcountry_id" Type="int" />
         </EntityType>
         <EntityType Name="clientapplicant_technology">
           <Key>
@@ -232,12 +234,12 @@
           <Property Name="fname" Type="nvarchar" MaxLength="30" />
           <Property Name="lname" Type="nvarchar" MaxLength="30" />
           <Property Name="title" Type="nvarchar" MaxLength="50" />
-          <Property Name="companyname" Type="nvarchar" MaxLength="50" />
+          <Property Name="companyname" Type="nvarchar" MaxLength="100" />
           <Property Name="address" Type="nvarchar" MaxLength="250" />
           <Property Name="c_fname" Type="nvarchar" MaxLength="30" />
           <Property Name="c_lname" Type="nvarchar" MaxLength="30" />
           <Property Name="c_title" Type="nvarchar" MaxLength="50" />
-          <Property Name="c_companyname" Type="nvarchar" MaxLength="50" />
+          <Property Name="c_companyname" Type="nvarchar" MaxLength="100" />
           <Property Name="c_address" Type="nvarchar" MaxLength="250" />
           <Property Name="country_id" Type="int" />
           <Property Name="workphone" Type="nvarchar" MaxLength="20" />
@@ -258,7 +260,7 @@
             <PropertyRef Name="country_id" />
           </Key>
           <Property Name="country_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="country_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="country_name" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="country_3_code" Type="nvarchar" MaxLength="50" />
           <Property Name="country_2_code" Type="nvarchar" MaxLength="50" />
           <Property Name="country_telephone_code" Type="nvarchar" MaxLength="50" />
@@ -594,6 +596,7 @@
           <Property Name="Brand_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Client_CName" Type="nvarchar" MaxLength="50" />
           <Property Name="Remark" Type="text" />
+          <Property Name="work_ext" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'WoWi.dbo.vw_Target' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -763,6 +766,7 @@
           <Property Type="String" Name="Brand_Name" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Client_CName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Remark" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="work_ext" MaxLength="5" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="invoice_target">
           <Key>
@@ -1031,6 +1035,7 @@
           <Property Type="String" Name="contact_email" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="contact_tel" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="contact_ext" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="billcountry_id" />
         </EntityType>
         <EntityType Name="contact_info">
           <Key>
@@ -1248,6 +1253,7 @@
           <EntitySetMapping Name="vw_Quotation_Print_Chinese">
             <EntityTypeMapping TypeName="QuotationModel.vw_Quotation_Print_Chinese">
               <MappingFragment StoreEntitySet="vw_Quotation_Print_Chinese">
+                <ScalarProperty Name="work_ext" ColumnName="work_ext" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Client_CName" ColumnName="Client_CName" />
                 <ScalarProperty Name="Brand_Name" ColumnName="Brand_Name" />
@@ -1494,6 +1500,7 @@
           <EntitySetMapping Name="clientapplicant">
             <EntityTypeMapping TypeName="QuotationModel.clientapplicant">
               <MappingFragment StoreEntitySet="clientapplicant">
+                <ScalarProperty Name="billcountry_id" ColumnName="billcountry_id" />
                 <ScalarProperty Name="contact_ext" ColumnName="contact_ext" />
                 <ScalarProperty Name="contact_tel" ColumnName="contact_tel" />
                 <ScalarProperty Name="contact_email" ColumnName="contact_email" />

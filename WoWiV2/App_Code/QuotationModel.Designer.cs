@@ -2307,6 +2307,30 @@ namespace QuotationModel
         private global::System.String _contact_ext;
         partial void Oncontact_extChanging(global::System.String value);
         partial void Oncontact_extChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> billcountry_id
+        {
+            get
+            {
+                return _billcountry_id;
+            }
+            set
+            {
+                Onbillcountry_idChanging(value);
+                ReportPropertyChanging("billcountry_id");
+                _billcountry_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("billcountry_id");
+                Onbillcountry_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _billcountry_id;
+        partial void Onbillcountry_idChanging(Nullable<global::System.Int32> value);
+        partial void Onbillcountry_idChanged();
 
         #endregion
     
@@ -9657,6 +9681,30 @@ namespace QuotationModel
         private global::System.String _Remark;
         partial void OnRemarkChanging(global::System.String value);
         partial void OnRemarkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String work_ext
+        {
+            get
+            {
+                return _work_ext;
+            }
+            set
+            {
+                Onwork_extChanging(value);
+                ReportPropertyChanging("work_ext");
+                _work_ext = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("work_ext");
+                Onwork_extChanged();
+            }
+        }
+        private global::System.String _work_ext;
+        partial void Onwork_extChanging(global::System.String value);
+        partial void Onwork_extChanged();
 
         #endregion
     
