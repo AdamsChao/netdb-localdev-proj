@@ -180,22 +180,6 @@ namespace QuotationModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<country> country
-        {
-            get
-            {
-                if ((_country == null))
-                {
-                    _country = base.CreateObjectSet<country>("country");
-                }
-                return _country;
-            }
-        }
-        private ObjectSet<country> _country;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Target_Rates> Target_Rates
         {
             get
@@ -384,6 +368,22 @@ namespace QuotationModel
             }
         }
         private ObjectSet<Quotation_Version> _Quotation_Version;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<country> country
+        {
+            get
+            {
+                if ((_country == null))
+                {
+                    _country = base.CreateObjectSet<country>("country");
+                }
+                return _country;
+            }
+        }
+        private ObjectSet<country> _country;
 
         #endregion
         #region AddTo Methods
@@ -442,14 +442,6 @@ namespace QuotationModel
         public void AddToQuotation_Target(Quotation_Target quotation_Target)
         {
             base.AddObject("Quotation_Target", quotation_Target);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the country EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTocountry(country country)
-        {
-            base.AddObject("country", country);
         }
     
         /// <summary>
@@ -546,6 +538,14 @@ namespace QuotationModel
         public void AddToQuotation_Version(Quotation_Version quotation_Version)
         {
             base.AddObject("Quotation_Version", quotation_Version);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the country EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTocountry(country country)
+        {
+            base.AddObject("country", country);
         }
 
         #endregion
@@ -3162,10 +3162,12 @@ namespace QuotationModel
         /// Create a new country object.
         /// </summary>
         /// <param name="country_id">Initial value of the country_id property.</param>
-        public static country Createcountry(global::System.Int32 country_id)
+        /// <param name="country_name">Initial value of the country_name property.</param>
+        public static country Createcountry(global::System.Int32 country_id, global::System.String country_name)
         {
             country country = new country();
             country.country_id = country_id;
+            country.country_name = country_name;
             return country;
         }
 
@@ -3202,7 +3204,7 @@ namespace QuotationModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String country_name
         {
@@ -3214,7 +3216,7 @@ namespace QuotationModel
             {
                 Oncountry_nameChanging(value);
                 ReportPropertyChanging("country_name");
-                _country_name = StructuralObject.SetValidValue(value, true);
+                _country_name = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("country_name");
                 Oncountry_nameChanged();
             }

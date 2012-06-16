@@ -667,7 +667,6 @@
           <EntitySet Name="vw_Quotation_Print_Chinese" EntityType="QuotationModel.vw_Quotation_Print_Chinese" />
           <EntitySet Name="invoice_target" EntityType="QuotationModel.invoice_target" />
           <EntitySet Name="Quotation_Target" EntityType="QuotationModel.Quotation_Target" />
-          <EntitySet Name="country" EntityType="QuotationModel.country" />
           <EntitySet Name="Target_Rates" EntityType="QuotationModel.Target_Rates" />
           <EntitySet Name="Authority" EntityType="QuotationModel.Authority" />
           <EntitySet Name="Project" EntityType="QuotationModel.Project" />
@@ -680,6 +679,7 @@
           <EntitySet Name="contact_info" EntityType="QuotationModel.contact_info" />
           <EntitySet Name="employee" EntityType="QuotationModel.employee" />
           <EntitySet Name="Quotation_Version" EntityType="QuotationModel.Quotation_Version" />
+          <EntitySet Name="country" EntityType="QuotationModel.country" />
         </EntityContainer>
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -825,22 +825,6 @@
           <Property Type="Decimal" Name="Bill2" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="Bill3" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="BillE" Precision="20" Scale="2" />
-        </EntityType>
-        <EntityType Name="country">
-          <Key>
-            <PropertyRef Name="country_id" />
-          </Key>
-          <Property Type="Int32" Name="country_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="country_name" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="country_3_code" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="country_2_code" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="country_telephone_code" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="country_currency_type" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Byte" Name="world_region_id" />
-          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
         </EntityType>
         <EntityType Name="Target_Rates">
           <Key>
@@ -1188,6 +1172,22 @@
           <Property Type="String" Name="Probability" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Access_Level_ID" />
         </EntityType>
+        <EntityType Name="country">
+          <Key>
+            <PropertyRef Name="country_id" />
+          </Key>
+          <Property Type="Int32" Name="country_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="country_name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="country_3_code" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="country_2_code" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="country_telephone_code" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="country_currency_type" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="world_region_id" />
+          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1343,23 +1343,6 @@
                 <ScalarProperty Name="target_id" ColumnName="target_id" />
                 <ScalarProperty Name="quotation_id" ColumnName="quotation_id" />
                 <ScalarProperty Name="Quotation_Target_Id" ColumnName="Quotation_Target_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="country">
-            <EntityTypeMapping TypeName="QuotationModel.country">
-              <MappingFragment StoreEntitySet="country">
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="world_region_id" ColumnName="world_region_id" />
-                <ScalarProperty Name="country_currency_type" ColumnName="country_currency_type" />
-                <ScalarProperty Name="country_telephone_code" ColumnName="country_telephone_code" />
-                <ScalarProperty Name="country_2_code" ColumnName="country_2_code" />
-                <ScalarProperty Name="country_3_code" ColumnName="country_3_code" />
-                <ScalarProperty Name="country_name" ColumnName="country_name" />
-                <ScalarProperty Name="country_id" ColumnName="country_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1717,6 +1700,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="country">
+            <EntityTypeMapping TypeName="QuotationModel.country">
+              <MappingFragment StoreEntitySet="country">
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="world_region_id" ColumnName="world_region_id" />
+                <ScalarProperty Name="country_currency_type" ColumnName="country_currency_type" />
+                <ScalarProperty Name="country_telephone_code" ColumnName="country_telephone_code" />
+                <ScalarProperty Name="country_2_code" ColumnName="country_2_code" />
+                <ScalarProperty Name="country_3_code" ColumnName="country_3_code" />
+                <ScalarProperty Name="country_name" ColumnName="country_name" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1745,7 +1745,6 @@
         <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print_Chinese" Width="2.5" PointX="4.75" PointY="0.75" Height="5.19236328125" />
         <EntityTypeShape EntityType="QuotationModel.invoice_target" Width="1.5" PointX="6.75" PointY="0.75" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Target" Width="1.5" PointX="6.75" PointY="4.75" Height="8.3262337239583388" />
-        <EntityTypeShape EntityType="QuotationModel.country" Width="1.5" PointX="8.75" PointY="0.75" Height="3.1340950520833317" />
         <EntityTypeShape EntityType="QuotationModel.Target_Rates" Width="1.5" PointX="8.75" PointY="4.75" Height="3.1340950520833353" />
         <EntityTypeShape EntityType="QuotationModel.Authority" Width="1.5" PointX="8.75" PointY="8.75" Height="3.1340950520833317" />
         <EntityTypeShape EntityType="QuotationModel.Project" Width="1.5" PointX="0.75" PointY="9.75" Height="2.3648893229166674" />
@@ -1758,6 +1757,7 @@
         <EntityTypeShape EntityType="QuotationModel.contact_info" Width="1.5" PointX="5.375" PointY="13.75" Height="5.1923632812500031" />
         <EntityTypeShape EntityType="QuotationModel.employee" Width="1.5" PointX="9.375" PointY="12.75" Height="6.4239713541666674" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Version" Width="1.5" PointX="0.75" PointY="12.75" Height="15.221171875000009" />
+        <EntityTypeShape EntityType="QuotationModel.country" Width="1.5" PointX="3.375" PointY="9.75" Height="2.9050911458333317" />
       </Diagram>
     </Diagrams>
   </Designer>
