@@ -132,22 +132,6 @@ namespace QuotationModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<vw_Quotation_Print_Chinese> vw_Quotation_Print_Chinese
-        {
-            get
-            {
-                if ((_vw_Quotation_Print_Chinese == null))
-                {
-                    _vw_Quotation_Print_Chinese = base.CreateObjectSet<vw_Quotation_Print_Chinese>("vw_Quotation_Print_Chinese");
-                }
-                return _vw_Quotation_Print_Chinese;
-            }
-        }
-        private ObjectSet<vw_Quotation_Print_Chinese> _vw_Quotation_Print_Chinese;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<invoice_target> invoice_target
         {
             get
@@ -384,6 +368,22 @@ namespace QuotationModel
             }
         }
         private ObjectSet<country> _country;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<vw_Quotation_Print_Chinese> vw_Quotation_Print_Chinese
+        {
+            get
+            {
+                if ((_vw_Quotation_Print_Chinese == null))
+                {
+                    _vw_Quotation_Print_Chinese = base.CreateObjectSet<vw_Quotation_Print_Chinese>("vw_Quotation_Print_Chinese");
+                }
+                return _vw_Quotation_Print_Chinese;
+            }
+        }
+        private ObjectSet<vw_Quotation_Print_Chinese> _vw_Quotation_Print_Chinese;
 
         #endregion
         #region AddTo Methods
@@ -418,14 +418,6 @@ namespace QuotationModel
         public void AddTovw_Quotation_Print(vw_Quotation_Print vw_Quotation_Print)
         {
             base.AddObject("vw_Quotation_Print", vw_Quotation_Print);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the vw_Quotation_Print_Chinese EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTovw_Quotation_Print_Chinese(vw_Quotation_Print_Chinese vw_Quotation_Print_Chinese)
-        {
-            base.AddObject("vw_Quotation_Print_Chinese", vw_Quotation_Print_Chinese);
         }
     
         /// <summary>
@@ -546,6 +538,14 @@ namespace QuotationModel
         public void AddTocountry(country country)
         {
             base.AddObject("country", country);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the vw_Quotation_Print_Chinese EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTovw_Quotation_Print_Chinese(vw_Quotation_Print_Chinese vw_Quotation_Print_Chinese)
+        {
+            base.AddObject("vw_Quotation_Print_Chinese", vw_Quotation_Print_Chinese);
         }
 
         #endregion
@@ -9707,6 +9707,30 @@ namespace QuotationModel
         private global::System.String _work_ext;
         partial void Onwork_extChanging(global::System.String value);
         partial void Onwork_extChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Bill_CAddress
+        {
+            get
+            {
+                return _Bill_CAddress;
+            }
+            set
+            {
+                OnBill_CAddressChanging(value);
+                ReportPropertyChanging("Bill_CAddress");
+                _Bill_CAddress = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Bill_CAddress");
+                OnBill_CAddressChanged();
+            }
+        }
+        private global::System.String _Bill_CAddress;
+        partial void OnBill_CAddressChanging(global::System.String value);
+        partial void OnBill_CAddressChanged();
 
         #endregion
     
