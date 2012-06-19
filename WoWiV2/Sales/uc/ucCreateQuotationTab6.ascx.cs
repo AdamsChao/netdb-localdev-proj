@@ -230,7 +230,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
                 hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
                 hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
                 txtBalace.ClientID + "','" + hidBalace.ClientID + "','" +
-                lblFPrice.Text + "');");
+                lblFPrice.Text + "','" + txtBill1.ClientID + "');");
 
             txtBill2.Attributes.Add("onkeyup", "cmdText('" +
               txtBill1.ClientID + "','" + txtBill2.ClientID + "','" +
@@ -238,7 +238,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
               hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
               hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
               txtBalace.ClientID + "','" + hidBalace.ClientID + "','" +
-              lblFPrice.Text + "');");
+              lblFPrice.Text + "','" + txtBill2.ClientID + "');");
 
             txtBill3.Attributes.Add("onkeyup", "cmdText('" +
               txtBill1.ClientID + "','" + txtBill2.ClientID + "','" +
@@ -246,7 +246,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
               hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
               hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
               txtBalace.ClientID + "','" + hidBalace.ClientID + "','" +
-              lblFPrice.Text + "');");
+               lblFPrice.Text + "','" + txtBill3.ClientID + "');");
 
             //txtBillE.Attributes.Add("onkeyup", "changeHiddenValue('" +
             //  txtBillE.ClientID + "','" + hidBillE.ClientID +  "');");
@@ -257,7 +257,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
               hidBill1.ClientID + "','" + hidBill2.ClientID + "','" +
               hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
               txtBalace.ClientID + "','" + hidBalace.ClientID + "','" +
-              lblFPrice.Text + "');");
+              lblFPrice.Text + "','" + txtBillE.ClientID + "');");
         }
     }
 

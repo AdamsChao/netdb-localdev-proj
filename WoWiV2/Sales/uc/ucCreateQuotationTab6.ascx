@@ -98,7 +98,7 @@
 //        //alert(hidA2);
     //    }
 
-    function cmdText(txtBill1, txtBill2, txtBill3, txtBillE, hidBill1, hidBill2, hidBill3, hidBillE,txtBalace,hidBalace, fPrice) {
+    function cmdText(txtBill1, txtBill2, txtBill3, txtBillE, hidBill1, hidBill2, hidBill3, hidBillE,txtBalace,hidBalace, fPrice, senderID) {
         var b1 = parseFloat( $("#" + txtBill1).val());
         var b2 = parseFloat( $("#" + txtBill2).val());
         var b3 = parseFloat($("#" + txtBill3).val());
@@ -108,11 +108,24 @@
 //        alert(b3);
 //        alert(bE);
 
+        var t = b1 + b2 + b3 + bE;
+        if (t > fPrice) {
+            alert("開立之發票金額不應該 > Final Price 的金額!");
+            var hidID = senderID.replace("txt", "hid");
+            var hidValue = $("#" + hidID).val();
+            //alert(hidValue);
+            if ( (hidValue == "") || (hidValue=="NaN")) {
+                $("#" + hidID).val("0");
+                hidValue = 0;
+            }
+            $("#" + senderID).val(hidValue);
+            return;
+        }     
         $("#" + hidBill1).val(b1);
         $("#" + hidBill2).val(b2);
         $("#" + hidBill3).val(b3);
         $("#" + hidBillE).val(bE);
-        var t = b1 + b2 + b3 + bE ;
+
         $("#" + txtBalace).val(fPrice - t);
         $("#" + hidBalace).val(fPrice - t);
 
