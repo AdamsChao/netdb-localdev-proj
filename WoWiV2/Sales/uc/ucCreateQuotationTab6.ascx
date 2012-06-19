@@ -135,6 +135,29 @@
         $("#" + hidBillE).val($("#" + txtBillE).val());
     }
 
+    function ddlPR_Flag_changed(ddlPR_Flag_ID, hidPR_Flag_ID, hid_ddlPR_Flag_ID) {
+        var ddlPR_Flag = $("#" + ddlPR_Flag_ID + " option:selected").val();
+        var hidPR_Flag = $("#" + hidPR_Flag_ID).val();
+        var hid_ddlPR_Flag = $("#" + hid_ddlPR_Flag_ID).val();
+
+        if ((ddlPR_Flag == "E") || (ddlPR_Flag == "A")) {
+            $("#" + hid_ddlPR_Flag_ID).val(ddlPR_Flag);
+            return true;
+        }
+
+        //alert(ddlPR_Flag);
+        //alert(hidPR_Flag);
+
+        if  (ddlPR_Flag - hidPR_Flag != 1) {
+            alert("請依照順序開發票!");
+            $("#" + ddlPR_Flag_ID ).val(hid_ddlPR_Flag);
+        } else {
+            $("#" + hid_ddlPR_Flag_ID).val(ddlPR_Flag);
+        }
+
+   
+    }
+
 </script>
 <table class="style1" bordercolor="#0000aa" cellpadding="4" style="border-bottom: solid;
     border-left: solid; background-color: #ffffff; border-collapse: collapse; border-top: solid;
@@ -270,9 +293,11 @@
                                 <asp:ListItem Text="預收3" Value="3"></asp:ListItem>
                                 <asp:ListItem Text="尾款" Value="E"></asp:ListItem>
                                 <asp:ListItem Text="作廢" Value="A"></asp:ListItem>
-                            </asp:DropDownList>
+                            </asp:DropDownList>                            
                             <%-- <asp:CheckBox ID="chkPR_Flag" runat="server" Checked='<%# CheckPR_Flag(Eval("PR_Flag")) %>' 
                                 Enabled="true" />--%>
+                               <input id="hidPR_Flag" type="hidden" runat="server" value="0"  />
+                               <input id="hid_ddlPR_Flag" type="hidden" runat="server" value="0"  />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

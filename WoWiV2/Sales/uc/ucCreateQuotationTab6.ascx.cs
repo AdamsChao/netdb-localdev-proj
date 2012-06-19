@@ -126,6 +126,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             TextBox txtBill3 = (TextBox)e.Row.FindControl("txtBill3");
             TextBox txtBillE = (TextBox)e.Row.FindControl("txtBillE");
             TextBox txtBalace = (TextBox)e.Row.FindControl("txtBalace");
+          
             
             
             HtmlInputHidden hidBill1 = (HtmlInputHidden)e.Row.FindControl("hidBill1");
@@ -133,6 +134,10 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             HtmlInputHidden hidBill3 = (HtmlInputHidden)e.Row.FindControl("hidBill3");
             HtmlInputHidden hidBillE = (HtmlInputHidden)e.Row.FindControl("hidBillE");
             HtmlInputHidden hidBalace = (HtmlInputHidden)e.Row.FindControl("hidBalace");
+
+            HtmlInputHidden hidPR_Flag = (HtmlInputHidden)e.Row.FindControl("hidPR_Flag");
+            HtmlInputHidden hid_ddlPR_Flag = (HtmlInputHidden)e.Row.FindControl("hid_ddlPR_Flag");
+
 
             if (txtBill1.Text != "")
             {
@@ -204,24 +209,46 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             lblInvoiceDate3.Text = Quotation_Controller.GetInvoiceDate(quotation_Id, target_Id, 2);
             lblInvoiceDateE.Text = Quotation_Controller.GetInvoiceDate(quotation_Id, target_Id, 3);
 
+            hidPR_Flag.Value = "0";
             //如果已開發票，就鎖住textbox不讓user修改
-            if( !String.IsNullOrEmpty(lblInvoiceNo1.Text))
-                txtBill1.Enabled =false;
+            if (!String.IsNullOrEmpty(lblInvoiceNo1.Text))
+            {
+                txtBill1.Enabled = false;
+                hidPR_Flag.Value = "1";
+            }
             else
-                txtBill1.Enabled =true;
+                txtBill1.Enabled = true;
             if (!String.IsNullOrEmpty(lblInvoiceNo2.Text))
+            {
                 txtBill2.Enabled = false;
+                hidPR_Flag.Value = "2";
+            }
             else
                 txtBill2.Enabled = true;
             if (!String.IsNullOrEmpty(lblInvoiceNo3.Text))
+            {
                 txtBill3.Enabled = false;
+                hidPR_Flag.Value = "3";
+            }
             else
                 txtBill3.Enabled = true;
             if (!String.IsNullOrEmpty(lblInvoiceNoE.Text))
+            {
                 txtBillE.Enabled = false;
+                hidPR_Flag.Value = "4";
+            }
             else
                 txtBillE.Enabled = true;
 
+            //如果Final Price為O時,不應該可以開立發票
+            if (Decimal.Parse(lblFPrice.Text) ==0 )
+            {
+                txtBill1.Enabled = false;
+                txtBill2.Enabled = false;
+                txtBill3.Enabled = false;
+                txtBillE.Enabled = false;
+                ddlPR_Flag.Enabled = false;
+            }
 
             //txtBill1, txtBill2, txtBill3, txtBillE, hidBill1, hidBill2, hidBill3, hidBillE, fPrice
             txtBill1.Attributes.Add("onkeyup", "cmdText('" +
@@ -258,8 +285,13 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
               hidBill3.ClientID + "','" + hidBillE.ClientID + "','" +
               txtBalace.ClientID + "','" + hidBalace.ClientID + "','" +
               lblFPrice.Text + "','" + txtBillE.ClientID + "');");
+
+            hid_ddlPR_Flag.Value = ddlPR_Flag.SelectedValue;
+            ddlPR_Flag.Attributes.Add("onchange", "ddlPR_Flag_changed('" +
+              ddlPR_Flag.ClientID + "','" + hidPR_Flag.ClientID + "','" + hid_ddlPR_Flag.ClientID + "');");
         }
     }
+
 
 
 }
