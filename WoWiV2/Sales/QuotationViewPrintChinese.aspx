@@ -231,7 +231,8 @@
                         <td align="left" >
                             <asp:Label ID="lblClientAddress" runat="server" Text="lblClientAddress"></asp:Label>
                             <br />
-                            <asp:Label ID="lblCleintCountry" runat="server" Text="lblCleintCountry"></asp:Label>
+                            <asp:Label ID="lblCleintCountry" runat="server" Text="lblCleintCountry" 
+                              Visible="False"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -408,7 +409,8 @@
             </td>
         </tr>
     </table>
-
+                    <hr />
+            
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td class="ccstexth" colspan="2">
