@@ -13,7 +13,8 @@
         if (Page.IsPostBack == false)
         {
             SetMergedHerderColumns(iGridView1);
-        }   
+        }
+        lblMsg.Visible = false;         
     }
 
     private void SetMergedHerderColumns(iRowSpanGridView iGridView1)
@@ -46,6 +47,8 @@
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
+        iGridView1.DataSource = null;
+        iGridView1.DataBind();
         Search(null);
     }
     protected void Search(String str)
@@ -60,6 +63,7 @@
             
             foreach (var proj in projs)
             {
+                HashSet<String> disAE = new HashSet<String>();
                 decimal projDisTotal = 0;
                 temp.ProjectNo = proj.Project_No;
                 temp.Status = proj.Project_Status;
@@ -311,6 +315,24 @@
                                         hs.Add(inv.invoice_id);
                                         if (inv.adjust.HasValue && (decimal)inv.adjust != 0)
                                         {
+                                            if (t.Country_Manager.HasValue)
+                                            {
+                                                try
+                                                {
+                                                    var e = wowidb.employees.First(c => c.id == (int)t.Country_Manager);
+                                                    String name = e.fname + " " + e.lname;
+                                                    if (!disAE.Contains(name))
+                                                    {
+                                                        disAE.Add(name);
+                                                    }
+                                                }
+                                                catch (Exception)
+                                                {
+                                                    
+                                                    //throw;
+                                                }
+                                                
+                                            }
                                             if (inv.ocurrency != "USD")
                                             {
                                                 projDisTotal += (decimal)inv.adjust / (decimal)inv.exchange_rate;
@@ -663,6 +685,10 @@
                         //tempD.Model = temp.Model;
                         //tempD.Client = temp.Client;
                         tempD.Sales = temp.Sales;
+                        //foreach (var ae in disAE)
+                        //{
+                        //    tempD.Sales += (ae + " ");
+                        //}
                         tempD.Country = "Discount";
                         tempD.IMACostCurrency = "USD";
                         tempD.IMACost = 0.0.ToString("F2");
