@@ -888,12 +888,12 @@
                      <tr>
             <td class="ccstextboxh" valign="top"colspan="2" align="left"  >
                 <u>Internal Remarks</u><br />
-                <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px" ReadOnly=true
+                <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px" ReadOnly=true TextMode="MultiLine"
                     ></asp:TextBox>
             </td>
             <td class="ccstextboxh" valign="top"colspan="2" align="left" >
                 <u>External Instruction</u><br />
-                <asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px" ReadOnly=true
+                <asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px" ReadOnly=true TextMode="MultiLine"
                    ></asp:TextBox>
             </td>
              </tr>

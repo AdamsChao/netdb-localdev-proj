@@ -1826,7 +1826,7 @@
                                  <td rowspan="3">
                                      Internal Remarks:<br/>
                                      <asp:TextBox ID="tbInternalMarksHis" runat="server" TextMode="MultiLine" 
-                                         Width="200px" Height="55px" Enabled="False" OnLoad="AuthLabel_Load"></asp:TextBox><br/>
+                                         Width="200px" Height="55px" ReadOnly="true" OnLoad="AuthLabel_Load"></asp:TextBox><br/>
                                      <asp:TextBox ID="tbInternalMarks" runat="server" Height="36px" 
                                          TextMode="MultiLine" Width="200px" OnLoad="AuthLabel_Load"></asp:TextBox>
                                  </td>
@@ -1883,7 +1883,7 @@
                                  </td>
                                  <td rowspan="3">
                                  External Instruction:<br/>
-                                     <asp:TextBox ID="tbInstructionHis" runat="server" TextMode="MultiLine" Width="200" Enabled="false"
+                                     <asp:TextBox ID="tbInstructionHis" runat="server" TextMode="MultiLine" Width="200" ReadOnly="true"
                                          Height="55px" OnLoad="AuthLabel_Load" ></asp:TextBox><br/>
                                      <asp:TextBox ID="tbInstruction" runat="server" Height="36px" 
                                          TextMode="MultiLine" Width="200" OnLoad="AuthLabel_Load"></asp:TextBox>

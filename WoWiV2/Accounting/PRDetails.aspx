@@ -952,7 +952,7 @@
                                  </td>
                                  <td rowspan="3">
                                      Internal Remarks:<br/>
-                                     <asp:TextBox ID="tbInternalMarks" runat="server" TextMode="MultiLine" Width="200" Height="100" Enabled ="false"  OnLoad="AuthLabel_Load"></asp:TextBox>
+                                     <asp:TextBox ID="tbInternalMarks" runat="server" TextMode="MultiLine" Width="200" Height="100" OnLoad="AuthLabel_Load" ReadOnly="true"></asp:TextBox>
                                  </td>
                           </tr>
                            <tr >
@@ -1007,7 +1007,7 @@
                                  </td>
                                  <td rowspan="3">
                                  External Instruction:<br/>
-                                     <asp:TextBox ID="tbInstruction" runat="server" TextMode="MultiLine" Width="200" Height="100" Enabled ="false" OnLoad="AuthLabel_Load"></asp:TextBox>
+                                     <asp:TextBox ID="tbInstruction" runat="server" TextMode="MultiLine" Width="200" Height="100" OnLoad="AuthLabel_Load" ReadOnly="true"></asp:TextBox>
                                  </td>
                           </tr>
                           <%--<tr >
