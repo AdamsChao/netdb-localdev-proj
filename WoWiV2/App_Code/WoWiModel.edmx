@@ -94,32 +94,32 @@
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="code" Type="nvarchar" MaxLength="8" />
           <Property Name="clientapplicant_type" Type="tinyint" Nullable="false" />
-          <Property Name="companyname" Type="nvarchar" MaxLength="50" />
-          <Property Name="c_companyname" Type="nvarchar" MaxLength="50" />
-          <Property Name="website" Type="nvarchar" MaxLength="50" />
-          <Property Name="address" Type="nvarchar" MaxLength="50" />
-          <Property Name="c_address" Type="nvarchar" MaxLength="50" />
+          <Property Name="companyname" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_companyname" Type="nvarchar" MaxLength="255" />
+          <Property Name="website" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_address" Type="nvarchar" MaxLength="255" />
           <Property Name="country_id" Type="int" />
           <Property Name="main_tel" Type="nvarchar" MaxLength="50" />
           <Property Name="main_fax" Type="nvarchar" MaxLength="50" />
           <Property Name="businesstype" Type="tinyint" />
           <Property Name="billing_id" Type="int" />
-          <Property Name="bill_ccompanyname" Type="nvarchar" MaxLength="50" />
-          <Property Name="bill_companyname" Type="nvarchar" MaxLength="50" />
+          <Property Name="bill_ccompanyname" Type="nvarchar" MaxLength="255" />
+          <Property Name="bill_companyname" Type="nvarchar" MaxLength="255" />
           <Property Name="bill_firstname" Type="nvarchar" MaxLength="50" />
-          <Property Name="bill_lastname" Type="nvarchar" MaxLength="25" />
-          <Property Name="bill_title" Type="nvarchar" MaxLength="50" />
+          <Property Name="bill_lastname" Type="nvarchar" MaxLength="50" />
+          <Property Name="bill_title" Type="nvarchar" MaxLength="100" />
           <Property Name="c_bill_firstname" Type="nvarchar" MaxLength="50" />
           <Property Name="c_bill_lastname" Type="nvarchar" MaxLength="50" />
           <Property Name="bill_workphone" Type="nvarchar" MaxLength="50" />
           <Property Name="bill_ext" Type="nvarchar" MaxLength="50" />
           <Property Name="bill_fax" Type="nvarchar" MaxLength="50" />
           <Property Name="bill_email" Type="nvarchar" MaxLength="100" />
-          <Property Name="bill_address" Type="nvarchar" MaxLength="100" />
-          <Property Name="bill_caddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="bill_address" Type="nvarchar" MaxLength="255" />
+          <Property Name="bill_caddress" Type="nvarchar" MaxLength="255" />
           <Property Name="owner" Type="int" />
           <Property Name="acct_manager" Type="int" />
-          <Property Name="acctno" Type="nvarchar" MaxLength="50" />
+          <Property Name="acctno" Type="nvarchar" MaxLength="100" />
           <Property Name="creditlimit" Type="money" />
           <Property Name="paymentterm" Type="int" />
           <Property Name="clientstatus" Type="tinyint" />
@@ -133,8 +133,8 @@
           <Property Name="ups_acct" Type="nvarchar" MaxLength="50" />
           <Property Name="potential_client" Type="bit" Nullable="false" />
           <Property Name="acct_contact_id" Type="int" />
-          <Property Name="ups_bankname" Type="nvarchar" MaxLength="100" />
-          <Property Name="ups_bankaddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="ups_bankname" Type="nvarchar" MaxLength="255" />
+          <Property Name="ups_bankaddress" Type="nvarchar" MaxLength="255" />
           <Property Name="ups_swiftcode" Type="nvarchar" MaxLength="50" />
           <Property Name="ups_accountno" Type="nvarchar" MaxLength="50" />
           <Property Name="ups_banefucuanyname" Type="nvarchar" MaxLength="50" />
@@ -145,7 +145,7 @@
           <Property Name="business_registration_number" Type="nvarchar" MaxLength="50" />
           <Property Name="department_id" Type="int" />
           <Property Name="employee_id" Type="int" />
-          <Property Name="ups_bankbranch" Type="nvarchar" MaxLength="100" />
+          <Property Name="ups_bankbranch" Type="nvarchar" MaxLength="255" />
           <Property Name="contact_name" Type="nvarchar" MaxLength="100" />
           <Property Name="contact_email" Type="nvarchar" MaxLength="100" />
           <Property Name="contact_tel" Type="nvarchar" MaxLength="100" />
@@ -250,20 +250,20 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="nvarchar" MaxLength="26" />
+          <Property Name="username" Type="nvarchar" MaxLength="100" />
           <Property Name="password" Type="nvarchar" MaxLength="50" />
           <Property Name="fname" Type="nvarchar" MaxLength="25" />
           <Property Name="lname" Type="nvarchar" MaxLength="25" />
           <Property Name="c_fname" Type="nvarchar" MaxLength="25" />
           <Property Name="c_lname" Type="nvarchar" MaxLength="25" />
-          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" />
           <Property Name="hiredate" Type="datetime" />
           <Property Name="terminationdate" Type="datetime" />
           <Property Name="workphone" Type="nvarchar" MaxLength="100" />
           <Property Name="homephone" Type="nvarchar" MaxLength="100" />
           <Property Name="cellphone" Type="nvarchar" MaxLength="100" />
           <Property Name="email" Type="nvarchar" MaxLength="100" />
-          <Property Name="address" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
           <Property Name="country" Type="int" />
           <Property Name="status" Type="nvarchar" MaxLength="10" />
           <Property Name="department_id" Type="int" />
@@ -298,11 +298,11 @@
             <PropertyRef Name="invoice_id" />
           </Key>
           <Property Name="invoice_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="project_no" Type="nvarchar" MaxLength="20" />
-          <Property Name="quotaion_no" Type="nvarchar" MaxLength="20" />
-          <Property Name="invoice_no" Type="nvarchar" MaxLength="20" />
+          <Property Name="project_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="quotaion_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="invoice_no" Type="nvarchar" MaxLength="50" />
           <Property Name="invoice_date" Type="datetime" />
-          <Property Name="issue_invoice_no" Type="nvarchar" MaxLength="20" />
+          <Property Name="issue_invoice_no" Type="nvarchar" MaxLength="50" />
           <Property Name="issue_invoice_date" Type="datetime" />
           <Property Name="currency" Type="nvarchar" MaxLength="5" />
           <Property Name="ototal" Type="decimal" Precision="10" Scale="2" />
@@ -314,7 +314,7 @@
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
           <Property Name="ocurrency" Type="nvarchar" MaxLength="5" />
-          <Property Name="remarks" Type="nvarchar" MaxLength="100" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="255" />
           <Property Name="status" Type="tinyint" />
           <Property Name="exchange_operate" Type="nvarchar" MaxLength="1" />
           <Property Name="final_total" Type="decimal" Precision="10" Scale="2" />
@@ -334,9 +334,9 @@
           <Property Name="create_date" Type="datetime" />
           <Property Name="modify_date" Type="datetime" />
           <Property Name="ocurrency" Type="nvarchar" MaxLength="5" />
-          <Property Name="note" Type="nvarchar" MaxLength="200" />
+          <Property Name="note" Type="nvarchar" MaxLength="255" />
           <Property Name="status" Type="tinyint" />
-          <Property Name="iv_no" Type="nvarchar" MaxLength="10" />
+          <Property Name="iv_no" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="invoice_target">
           <Key>
@@ -351,7 +351,7 @@
           <Property Name="modify_date" Type="datetime" Nullable="false" />
           <Property Name="amount" Type="decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="invoice_id" Type="int" Nullable="false" />
-          <Property Name="invoice_no" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="invoice_no" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="m_clientappliant_contact">
           <Key>
@@ -459,7 +459,7 @@
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
           <Property Name="target_payment_date" Type="datetime" />
-          <Property Name="vendor_invoice_no" Type="nvarchar" MaxLength="20" />
+          <Property Name="vendor_invoice_no" Type="nvarchar" MaxLength="50" />
           <Property Name="vendor_quotation_no" Type="nvarchar" MaxLength="50" />
           <Property Name="employee_id" Type="int" />
           <Property Name="department_id" Type="int" />
@@ -472,23 +472,23 @@
           <Property Name="pr_auth_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="pr_id" Type="int" Nullable="false" />
           <Property Name="requisitioner_id" Type="int" />
-          <Property Name="requisitioner" Type="nvarchar" MaxLength="26" />
+          <Property Name="requisitioner" Type="nvarchar" MaxLength="50" />
           <Property Name="requisitioner_date" Type="datetime" />
           <Property Name="requisitioner_approval" Type="char" MaxLength="1" />
           <Property Name="supervisor_id" Type="int" />
-          <Property Name="supervisor" Type="nvarchar" MaxLength="26" />
+          <Property Name="supervisor" Type="nvarchar" MaxLength="50" />
           <Property Name="supervisor_date" Type="datetime" />
           <Property Name="supervisor_approval" Type="char" MaxLength="1" />
           <Property Name="manager_id" Type="int" />
-          <Property Name="manager" Type="nvarchar" MaxLength="26" />
+          <Property Name="manager" Type="nvarchar" MaxLength="50" />
           <Property Name="manager_date" Type="datetime" />
           <Property Name="manager_approval" Type="char" MaxLength="1" />
           <Property Name="finance_id" Type="int" />
-          <Property Name="finance" Type="nvarchar" MaxLength="26" />
+          <Property Name="finance" Type="nvarchar" MaxLength="50" />
           <Property Name="finance_date" Type="datetime" />
           <Property Name="finance_approval" Type="char" MaxLength="1" />
           <Property Name="vp_id" Type="int" />
-          <Property Name="vp" Type="nvarchar" MaxLength="26" />
+          <Property Name="vp" Type="nvarchar" MaxLength="50" />
           <Property Name="vp_date" Type="datetime" />
           <Property Name="vp_approval" Type="char" MaxLength="1" />
           <Property Name="president_id" Type="int" />
@@ -510,8 +510,8 @@
           <Property Name="pr_item_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="pr_id" Type="int" Nullable="false" />
           <Property Name="quantity" Type="int" />
-          <Property Name="item_desc" Type="nvarchar" MaxLength="80" />
-          <Property Name="model_no" Type="nvarchar" MaxLength="26" />
+          <Property Name="item_desc" Type="nvarchar" MaxLength="200" />
+          <Property Name="model_no" Type="nvarchar" MaxLength="50" />
           <Property Name="unit_price" Type="money" />
           <Property Name="tax" Type="decimal" Precision="10" Scale="2" />
           <Property Name="amount" Type="decimal" Precision="10" Scale="2" />
@@ -539,10 +539,10 @@
           <Property Name="status" Type="tinyint" Nullable="false" />
           <Property Name="modify_date" Type="datetime" />
           <Property Name="pay_date" Type="datetime" />
-          <Property Name="reason" Type="nvarchar" MaxLength="100" />
-          <Property Name="reasontype" Type="nvarchar" MaxLength="20" />
+          <Property Name="reason" Type="nvarchar" MaxLength="255" />
+          <Property Name="reasontype" Type="nvarchar" MaxLength="100" />
           <Property Name="adjust_total" Type="decimal" Precision="20" Scale="5" />
-          <Property Name="remarks" Type="nvarchar" MaxLength="200" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="255" />
           <Property Name="payment_term" Type="tinyint" />
         </EntityType>
         <EntityType Name="Project">
@@ -695,7 +695,7 @@
           <Property Name="Approve" Type="char" MaxLength="1" />
           <Property Name="Approved_Date" Type="datetime" />
           <Property Name="ApprovedBy" Type="int" />
-          <Property Name="Remark" Type="text" />
+          <Property Name="Remark" Type="nvarchar(max)" />
           <Property Name="Request_approval_date" Type="datetime" />
           <Property Name="Sent_date" Type="datetime" />
           <Property Name="Confirmed_date" Type="datetime" />
@@ -772,21 +772,21 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="nvarchar" MaxLength="200" />
-          <Property Name="c_name" Type="nvarchar" MaxLength="100" />
-          <Property Name="tel1" Type="nvarchar" MaxLength="32" />
-          <Property Name="tel2" Type="nvarchar" MaxLength="32" />
-          <Property Name="fax1" Type="nvarchar" MaxLength="32" />
-          <Property Name="fax2" Type="nvarchar" MaxLength="32" />
-          <Property Name="address" Type="nvarchar" MaxLength="200" />
-          <Property Name="c_address" Type="nvarchar" MaxLength="200" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="tel1" Type="nvarchar" MaxLength="50" />
+          <Property Name="tel2" Type="nvarchar" MaxLength="50" />
+          <Property Name="fax1" Type="nvarchar" MaxLength="50" />
+          <Property Name="fax2" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_address" Type="nvarchar" MaxLength="255" />
           <Property Name="country" Type="int" />
-          <Property Name="qualification" Type="nvarchar" MaxLength="32" />
+          <Property Name="qualification" Type="nvarchar" MaxLength="50" />
           <Property Name="create_user" Type="nvarchar" MaxLength="26" />
           <Property Name="create_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="26" />
           <Property Name="modify_date" Type="datetime" />
-          <Property Name="contract_type" Type="nvarchar" MaxLength="32" />
+          <Property Name="contract_type" Type="nvarchar" MaxLength="50" />
           <Property Name="publish" Type="bit" Nullable="false" />
           <Property Name="bank_charge" Type="smallint" />
           <Property Name="ub_license_number" Type="nvarchar" MaxLength="50" />
@@ -874,9 +874,6 @@
           <EntitySet Name="contact_role" EntityType="WoWiModel.contact_role" />
           <EntitySet Name="departments" EntityType="WoWiModel.department" />
           <EntitySet Name="employee_jobtitle" EntityType="WoWiModel.employee_jobtitle" />
-          <EntitySet Name="invoices" EntityType="WoWiModel.invoice" />
-          <EntitySet Name="invoice_received" EntityType="WoWiModel.invoice_received" />
-          <EntitySet Name="invoice_target" EntityType="WoWiModel.invoice_target" />
           <EntitySet Name="m_clientappliant_contact" EntityType="WoWiModel.m_clientappliant_contact" />
           <EntitySet Name="m_clientappliant_industry" EntityType="WoWiModel.m_clientappliant_industry" />
           <EntitySet Name="m_clientappliant_technology" EntityType="WoWiModel.m_clientappliant_technology" />
@@ -887,28 +884,31 @@
           <EntitySet Name="m_vender_contact" EntityType="WoWiModel.m_vender_contact" />
           <EntitySet Name="m_vender_type" EntityType="WoWiModel.m_vender_type" />
           <EntitySet Name="Payment_Method" EntityType="WoWiModel.Payment_Method" />
-          <EntitySet Name="PRs" EntityType="WoWiModel.PR" />
-          <EntitySet Name="PR_item" EntityType="WoWiModel.PR_item" />
-          <EntitySet Name="PR_Payment" EntityType="WoWiModel.PR_Payment" />
           <EntitySet Name="Projects" EntityType="WoWiModel.Project" />
           <EntitySet Name="Project_working_log" EntityType="WoWiModel.Project_working_log" />
           <EntitySet Name="Quotation_Price" EntityType="WoWiModel.Quotation_Price" />
           <EntitySet Name="Quotation_Status" EntityType="WoWiModel.Quotation_Status" />
           <EntitySet Name="Quotation_Target" EntityType="WoWiModel.Quotation_Target" />
           <EntitySet Name="Target_Rates" EntityType="WoWiModel.Target_Rates" />
-          <EntitySet Name="venderbankings" EntityType="WoWiModel.venderbanking" />
-          <EntitySet Name="vendors" EntityType="WoWiModel.vendor" />
           <EntitySet Name="vendor_type" EntityType="WoWiModel.vendor_type" />
           <EntitySet Name="world_region" EntityType="WoWiModel.world_region" />
           <EntitySet Name="wowi_bankinfo" EntityType="WoWiModel.wowi_bankinfo" />
           <EntitySet Name="wowi_product_type" EntityType="WoWiModel.wowi_product_type" />
           <EntitySet Name="wowi_tech" EntityType="WoWiModel.wowi_tech" />
-          <EntitySet Name="employees" EntityType="WoWiModel.employee" />
           <EntitySet Name="contact_info" EntityType="WoWiModel.contact_info" />
           <EntitySet Name="Quotation_Version" EntityType="WoWiModel.Quotation_Version" />
-          <EntitySet Name="PR_authority_history" EntityType="WoWiModel.PR_authority_history" />
           <EntitySet Name="countries" EntityType="WoWiModel.country" />
           <EntitySet Name="clientapplicants" EntityType="WoWiModel.clientapplicant" />
+          <EntitySet Name="employees" EntityType="WoWiModel.employee" />
+          <EntitySet Name="invoices" EntityType="WoWiModel.invoice" />
+          <EntitySet Name="invoice_received" EntityType="WoWiModel.invoice_received" />
+          <EntitySet Name="invoice_target" EntityType="WoWiModel.invoice_target" />
+          <EntitySet Name="PRs" EntityType="WoWiModel.PR" />
+          <EntitySet Name="PR_authority_history" EntityType="WoWiModel.PR_authority_history" />
+          <EntitySet Name="PR_item" EntityType="WoWiModel.PR_item" />
+          <EntitySet Name="PR_Payment" EntityType="WoWiModel.PR_Payment" />
+          <EntitySet Name="venderbankings" EntityType="WoWiModel.venderbanking" />
+          <EntitySet Name="vendors" EntityType="WoWiModel.vendor" />
         </EntityContainer>
         <EntityType Name="access_level">
           <Key>
@@ -1007,66 +1007,6 @@
           <Property Type="DateTime" Name="modify_date" />
           <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="invoice">
-          <Key>
-            <PropertyRef Name="invoice_id" />
-          </Key>
-          <Property Type="Int32" Name="invoice_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="project_no" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="quotaion_no" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="invoice_no" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="invoice_date" />
-          <Property Type="String" Name="issue_invoice_no" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="issue_invoice_date" />
-          <Property Type="String" Name="currency" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="ototal" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="tax" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="total" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="exchange_rate" Precision="6" Scale="2" />
-          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="String" Name="ocurrency" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="remarks" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Byte" Name="status" />
-          <Property Type="String" Name="exchange_operate" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="final_total" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="adjust" Precision="10" Scale="2" />
-          <Property Type="DateTime" Name="due_date" />
-          <Property Type="Decimal" Name="ar_balance" Precision="10" Scale="2" />
-          <Property Type="Int32" Name="bankacct_info_id" />
-        </EntityType>
-        <EntityType Name="invoice_received">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="invoice_id" Nullable="false" />
-          <Property Type="DateTime" Name="received_date" />
-          <Property Type="Decimal" Name="amount" Precision="10" Scale="2" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="String" Name="ocurrency" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="note" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="Byte" Name="status" />
-          <Property Type="String" Name="iv_no" MaxLength="10" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="invoice_target">
-          <Key>
-            <PropertyRef Name="invoice_target_id" />
-          </Key>
-          <Property Type="Int32" Name="invoice_target_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="quotation_target_id" Nullable="false" />
-          <Property Type="Int32" Name="quotation_id" Nullable="false" />
-          <Property Type="Int32" Name="target_id" Nullable="false" />
-          <Property Type="Byte" Name="bill_status" Nullable="false" />
-          <Property Type="Int32" Name="percentage" Nullable="false" />
-          <Property Type="DateTime" Name="modify_date" Nullable="false" />
-          <Property Type="Decimal" Name="amount" Nullable="false" Precision="10" Scale="2" />
-          <Property Type="Int32" Name="invoice_id" Nullable="false" />
-          <Property Type="String" Name="invoice_no" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="m_clientappliant_contact">
           <Key>
             <PropertyRef Name="clientappliant_id" />
@@ -1145,81 +1085,6 @@
           </Key>
           <Property Type="Byte" Name="Payment_Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Method" MaxLength="25" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="PR">
-          <Key>
-            <PropertyRef Name="pr_id" />
-          </Key>
-          <Property Type="Int32" Name="pr_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="project_id" />
-          <Property Type="Int32" Name="quotaion_id" />
-          <Property Type="Int32" Name="vendor_id" />
-          <Property Type="Int32" Name="vendor_contact_id" />
-          <Property Type="Int32" Name="vendor_banking_id" />
-          <Property Type="Byte" Name="net" />
-          <Property Type="DateTime" Name="date_delivered" />
-          <Property Type="Decimal" Name="misc" Precision="10" Scale="2" />
-          <Property Type="String" Name="taxable" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="Decimal" Name="tax" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="subtotal" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="shipping_cost" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="total_cost" Precision="10" Scale="2" />
-          <Property Type="Int32" Name="pr_auth_id" />
-          <Property Type="String" Name="currency" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="transfer_date" />
-          <Property Type="String" Name="vendor_quote" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="DateTime" Name="target_payment_date" />
-          <Property Type="String" Name="vendor_invoice_no" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="vendor_quotation_no" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="employee_id" />
-          <Property Type="Int32" Name="department_id" />
-          <Property Type="Byte" Name="payment_term" />
-        </EntityType>
-        <EntityType Name="PR_item">
-          <Key>
-            <PropertyRef Name="pr_item_id" />
-          </Key>
-          <Property Type="Int32" Name="pr_item_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="pr_id" Nullable="false" />
-          <Property Type="Int32" Name="quantity" />
-          <Property Type="String" Name="item_desc" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="model_no" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="unit_price" Precision="19" Scale="4" />
-          <Property Type="Decimal" Name="tax" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="amount" Precision="10" Scale="2" />
-          <Property Type="String" Name="currency" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="status" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="Int32" Name="quotation_target_id" Nullable="false" />
-          <Property Type="Int32" Name="quotation_id" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PR_Payment">
-          <Key>
-            <PropertyRef Name="pr_pay_id" />
-          </Key>
-          <Property Type="Int32" Name="pr_pay_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="pr_id" Nullable="false" />
-          <Property Type="Double" Name="exchange_rate" Nullable="false" />
-          <Property Type="Decimal" Name="exchanged_amount" Precision="20" Scale="5" />
-          <Property Type="Decimal" Name="original_amount" Precision="20" Scale="5" />
-          <Property Type="Decimal" Name="adjust_amount" Precision="20" Scale="5" />
-          <Property Type="Decimal" Name="total_amount" Precision="20" Scale="5" />
-          <Property Type="String" Name="fromcurrency" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="tocurrency" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="rate_operator" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="adjust_operator" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="Byte" Name="status" Nullable="false" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="DateTime" Name="pay_date" />
-          <Property Type="String" Name="reason" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="reasontype" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="adjust_total" Precision="20" Scale="5" />
-          <Property Type="String" Name="remarks" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="Byte" Name="payment_term" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -1332,64 +1197,6 @@
           <Property Type="String" Name="local_agent_name" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="Publish" />
         </EntityType>
-        <EntityType Name="venderbanking">
-          <Key>
-            <PropertyRef Name="bank_id" />
-          </Key>
-          <Property Type="Int32" Name="bank_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="vender_id" Nullable="false" />
-          <Property Type="String" Name="bank_name" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bank_branch_name" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bank_address" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bank_account_no" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bank_swifcode" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bank_beneficiary_name" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bank_routing_no" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bank_comments" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="Boolean" Name="isWestUnit" />
-          <Property Type="String" Name="wu_first_name" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="wu_last_name" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="wu_destination" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bank_telephone" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="payment_type" MaxLength="10" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="vendor">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="name" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_name" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="tel1" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="tel2" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="fax1" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="fax2" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="address" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_address" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="country" />
-          <Property Type="String" Name="qualification" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="String" Name="contract_type" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="publish" Nullable="false" />
-          <Property Type="Int16" Name="bank_charge" />
-          <Property Type="String" Name="ub_license_number" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int16" Name="payment_type" />
-          <Property Type="Int16" Name="payment_term1" />
-          <Property Type="Int16" Name="payment_term2" />
-          <Property Type="Int16" Name="payment_term3" />
-          <Property Type="Int16" Name="payment_term_final" />
-          <Property Type="Int16" Name="payment_balance" />
-          <Property Type="String" Name="paymentdays" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="department_id" />
-          <Property Type="Int32" Name="employee_id" />
-        </EntityType>
         <EntityType Name="vendor_type">
           <Key>
             <PropertyRef Name="id" />
@@ -1450,42 +1257,6 @@
           <Property Type="DateTime" Name="create_date" />
           <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
-        </EntityType>
-        <EntityType Name="employee">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="username" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="password" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="fname" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="lname" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_fname" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_lname" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="title" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="hiredate" />
-          <Property Type="DateTime" Name="terminationdate" />
-          <Property Type="String" Name="workphone" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="homephone" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="cellphone" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="email" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="address" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="country" />
-          <Property Type="String" Name="status" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="department_id" />
-          <Property Type="String" Name="accessprivilege" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="supervisor_id" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="work_ext" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="signature" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="q_authorize_amt" />
-          <Property Type="String" Name="q_authorize_currency" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="pr_authorize_amt" />
-          <Property Type="String" Name="pr_authorize_currency" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="jobtitle_id" />
         </EntityType>
         <EntityType Name="contact_info">
           <Key>
@@ -1602,44 +1373,6 @@
           <Property Type="String" Name="Probability" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Access_Level_ID" />
         </EntityType>
-        <EntityType Name="PR_authority_history">
-          <Key>
-            <PropertyRef Name="pr_auth_id" />
-          </Key>
-          <Property Type="Int32" Name="pr_auth_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="pr_id" Nullable="false" />
-          <Property Type="Int32" Name="requisitioner_id" />
-          <Property Type="String" Name="requisitioner" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="requisitioner_date" />
-          <Property Type="String" Name="requisitioner_approval" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="Int32" Name="supervisor_id" />
-          <Property Type="String" Name="supervisor" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="supervisor_date" />
-          <Property Type="String" Name="supervisor_approval" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="Int32" Name="manager_id" />
-          <Property Type="String" Name="manager" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="manager_date" />
-          <Property Type="String" Name="manager_approval" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="Int32" Name="finance_id" />
-          <Property Type="String" Name="finance" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="finance_date" />
-          <Property Type="String" Name="finance_approval" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="Int32" Name="vp_id" />
-          <Property Type="String" Name="vp" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="vp_date" />
-          <Property Type="String" Name="vp_approval" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="Int32" Name="president_id" />
-          <Property Type="String" Name="president" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="president_date" />
-          <Property Type="String" Name="president_approval" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="Byte" Name="status" />
-          <Property Type="String" Name="remark" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="instruction" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-        </EntityType>
         <EntityType Name="country">
           <Key>
             <PropertyRef Name="country_id" />
@@ -1663,32 +1396,32 @@
           <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="code" MaxLength="8" FixedLength="false" Unicode="true" />
           <Property Type="Byte" Name="clientapplicant_type" Nullable="false" />
-          <Property Type="String" Name="companyname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_companyname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="website" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="address" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_address" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="companyname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_companyname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="website" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="address" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_address" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="country_id" />
           <Property Type="String" Name="main_tel" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="main_fax" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Byte" Name="businesstype" />
           <Property Type="Int32" Name="billing_id" />
-          <Property Type="String" Name="bill_ccompanyname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_companyname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_ccompanyname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_companyname" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="bill_firstname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_lastname" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_title" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_lastname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_title" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="c_bill_firstname" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="c_bill_lastname" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="bill_workphone" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="bill_ext" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="bill_fax" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="bill_email" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_address" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_caddress" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_address" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_caddress" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="owner" />
           <Property Type="Int32" Name="acct_manager" />
-          <Property Type="String" Name="acctno" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="acctno" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="Decimal" Name="creditlimit" Precision="19" Scale="4" />
           <Property Type="Int32" Name="paymentterm" />
           <Property Type="Byte" Name="clientstatus" />
@@ -1702,8 +1435,8 @@
           <Property Type="String" Name="ups_acct" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="potential_client" Nullable="false" />
           <Property Type="Int32" Name="acct_contact_id" />
-          <Property Type="String" Name="ups_bankname" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ups_bankaddress" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ups_bankname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ups_bankaddress" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ups_swiftcode" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ups_accountno" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ups_banefucuanyname" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1714,12 +1447,279 @@
           <Property Type="String" Name="business_registration_number" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="department_id" />
           <Property Type="Int32" Name="employee_id" />
-          <Property Type="String" Name="ups_bankbranch" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ups_bankbranch" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="contact_name" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="contact_email" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="contact_tel" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="contact_ext" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="billcountry_id" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="username" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="password" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="fname" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="lname" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_fname" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_lname" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="title" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="hiredate" />
+          <Property Type="DateTime" Name="terminationdate" />
+          <Property Type="String" Name="workphone" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="homephone" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="cellphone" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="email" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="address" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="country" />
+          <Property Type="String" Name="status" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="department_id" />
+          <Property Type="String" Name="accessprivilege" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="supervisor_id" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="work_ext" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="signature" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="q_authorize_amt" />
+          <Property Type="String" Name="q_authorize_currency" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="pr_authorize_amt" />
+          <Property Type="String" Name="pr_authorize_currency" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="jobtitle_id" />
+        </EntityType>
+        <EntityType Name="invoice">
+          <Key>
+            <PropertyRef Name="invoice_id" />
+          </Key>
+          <Property Type="Int32" Name="invoice_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="project_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="quotaion_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="invoice_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="invoice_date" />
+          <Property Type="String" Name="issue_invoice_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="issue_invoice_date" />
+          <Property Type="String" Name="currency" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="ototal" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="tax" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="total" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="exchange_rate" Precision="6" Scale="2" />
+          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="ocurrency" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="remarks" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="status" />
+          <Property Type="String" Name="exchange_operate" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="final_total" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="adjust" Precision="10" Scale="2" />
+          <Property Type="DateTime" Name="due_date" />
+          <Property Type="Decimal" Name="ar_balance" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="bankacct_info_id" />
+        </EntityType>
+        <EntityType Name="invoice_received">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="invoice_id" Nullable="false" />
+          <Property Type="DateTime" Name="received_date" />
+          <Property Type="Decimal" Name="amount" Precision="10" Scale="2" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="ocurrency" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="note" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="status" />
+          <Property Type="String" Name="iv_no" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="invoice_target">
+          <Key>
+            <PropertyRef Name="invoice_target_id" />
+          </Key>
+          <Property Type="Int32" Name="invoice_target_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="quotation_target_id" Nullable="false" />
+          <Property Type="Int32" Name="quotation_id" Nullable="false" />
+          <Property Type="Int32" Name="target_id" Nullable="false" />
+          <Property Type="Byte" Name="bill_status" Nullable="false" />
+          <Property Type="Int32" Name="percentage" Nullable="false" />
+          <Property Type="DateTime" Name="modify_date" Nullable="false" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="invoice_id" Nullable="false" />
+          <Property Type="String" Name="invoice_no" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PR">
+          <Key>
+            <PropertyRef Name="pr_id" />
+          </Key>
+          <Property Type="Int32" Name="pr_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="project_id" />
+          <Property Type="Int32" Name="quotaion_id" />
+          <Property Type="Int32" Name="vendor_id" />
+          <Property Type="Int32" Name="vendor_contact_id" />
+          <Property Type="Int32" Name="vendor_banking_id" />
+          <Property Type="Byte" Name="net" />
+          <Property Type="DateTime" Name="date_delivered" />
+          <Property Type="Decimal" Name="misc" Precision="10" Scale="2" />
+          <Property Type="String" Name="taxable" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="Decimal" Name="tax" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="subtotal" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="shipping_cost" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="total_cost" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="pr_auth_id" />
+          <Property Type="String" Name="currency" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="transfer_date" />
+          <Property Type="String" Name="vendor_quote" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="DateTime" Name="target_payment_date" />
+          <Property Type="String" Name="vendor_invoice_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="vendor_quotation_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="employee_id" />
+          <Property Type="Int32" Name="department_id" />
+          <Property Type="Byte" Name="payment_term" />
+        </EntityType>
+        <EntityType Name="PR_authority_history">
+          <Key>
+            <PropertyRef Name="pr_auth_id" />
+          </Key>
+          <Property Type="Int32" Name="pr_auth_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="pr_id" Nullable="false" />
+          <Property Type="Int32" Name="requisitioner_id" />
+          <Property Type="String" Name="requisitioner" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="requisitioner_date" />
+          <Property Type="String" Name="requisitioner_approval" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="supervisor_id" />
+          <Property Type="String" Name="supervisor" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="supervisor_date" />
+          <Property Type="String" Name="supervisor_approval" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="manager_id" />
+          <Property Type="String" Name="manager" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="manager_date" />
+          <Property Type="String" Name="manager_approval" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="finance_id" />
+          <Property Type="String" Name="finance" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="finance_date" />
+          <Property Type="String" Name="finance_approval" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="vp_id" />
+          <Property Type="String" Name="vp" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="vp_date" />
+          <Property Type="String" Name="vp_approval" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="president_id" />
+          <Property Type="String" Name="president" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="president_date" />
+          <Property Type="String" Name="president_approval" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="Byte" Name="status" />
+          <Property Type="String" Name="remark" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="instruction" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+        </EntityType>
+        <EntityType Name="PR_item">
+          <Key>
+            <PropertyRef Name="pr_item_id" />
+          </Key>
+          <Property Type="Int32" Name="pr_item_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="pr_id" Nullable="false" />
+          <Property Type="Int32" Name="quantity" />
+          <Property Type="String" Name="item_desc" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="model_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="unit_price" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="tax" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="amount" Precision="10" Scale="2" />
+          <Property Type="String" Name="currency" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="status" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="Int32" Name="quotation_target_id" Nullable="false" />
+          <Property Type="Int32" Name="quotation_id" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PR_Payment">
+          <Key>
+            <PropertyRef Name="pr_pay_id" />
+          </Key>
+          <Property Type="Int32" Name="pr_pay_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="pr_id" Nullable="false" />
+          <Property Type="Double" Name="exchange_rate" Nullable="false" />
+          <Property Type="Decimal" Name="exchanged_amount" Precision="20" Scale="5" />
+          <Property Type="Decimal" Name="original_amount" Precision="20" Scale="5" />
+          <Property Type="Decimal" Name="adjust_amount" Precision="20" Scale="5" />
+          <Property Type="Decimal" Name="total_amount" Precision="20" Scale="5" />
+          <Property Type="String" Name="fromcurrency" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="tocurrency" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="rate_operator" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="adjust_operator" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="status" Nullable="false" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="DateTime" Name="pay_date" />
+          <Property Type="String" Name="reason" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="reasontype" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="adjust_total" Precision="20" Scale="5" />
+          <Property Type="String" Name="remarks" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="payment_term" />
+        </EntityType>
+        <EntityType Name="venderbanking">
+          <Key>
+            <PropertyRef Name="bank_id" />
+          </Key>
+          <Property Type="Int32" Name="bank_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="vender_id" Nullable="false" />
+          <Property Type="String" Name="bank_name" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bank_branch_name" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bank_address" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bank_account_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bank_swifcode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bank_beneficiary_name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bank_routing_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bank_comments" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="Boolean" Name="isWestUnit" />
+          <Property Type="String" Name="wu_first_name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="wu_last_name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="wu_destination" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bank_telephone" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="payment_type" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vendor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_name" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="tel1" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="tel2" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="fax1" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="fax2" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="address" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_address" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="country" />
+          <Property Type="String" Name="qualification" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="contract_type" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="publish" Nullable="false" />
+          <Property Type="Int16" Name="bank_charge" />
+          <Property Type="String" Name="ub_license_number" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="payment_type" />
+          <Property Type="Int16" Name="payment_term1" />
+          <Property Type="Int16" Name="payment_term2" />
+          <Property Type="Int16" Name="payment_term3" />
+          <Property Type="Int16" Name="payment_term_final" />
+          <Property Type="Int16" Name="payment_balance" />
+          <Property Type="String" Name="paymentdays" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="department_id" />
+          <Property Type="Int32" Name="employee_id" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1832,69 +1832,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="invoices">
-            <EntityTypeMapping TypeName="WoWiModel.invoice">
-              <MappingFragment StoreEntitySet="invoice">
-                <ScalarProperty Name="bankacct_info_id" ColumnName="bankacct_info_id" />
-                <ScalarProperty Name="ar_balance" ColumnName="ar_balance" />
-                <ScalarProperty Name="due_date" ColumnName="due_date" />
-                <ScalarProperty Name="adjust" ColumnName="adjust" />
-                <ScalarProperty Name="final_total" ColumnName="final_total" />
-                <ScalarProperty Name="exchange_operate" ColumnName="exchange_operate" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="remarks" ColumnName="remarks" />
-                <ScalarProperty Name="ocurrency" ColumnName="ocurrency" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="exchange_rate" ColumnName="exchange_rate" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="tax" ColumnName="tax" />
-                <ScalarProperty Name="ototal" ColumnName="ototal" />
-                <ScalarProperty Name="currency" ColumnName="currency" />
-                <ScalarProperty Name="issue_invoice_date" ColumnName="issue_invoice_date" />
-                <ScalarProperty Name="issue_invoice_no" ColumnName="issue_invoice_no" />
-                <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
-                <ScalarProperty Name="invoice_no" ColumnName="invoice_no" />
-                <ScalarProperty Name="quotaion_no" ColumnName="quotaion_no" />
-                <ScalarProperty Name="project_no" ColumnName="project_no" />
-                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="invoice_received">
-            <EntityTypeMapping TypeName="WoWiModel.invoice_received">
-              <MappingFragment StoreEntitySet="invoice_received">
-                <ScalarProperty Name="iv_no" ColumnName="iv_no" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="note" ColumnName="note" />
-                <ScalarProperty Name="ocurrency" ColumnName="ocurrency" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="received_date" ColumnName="received_date" />
-                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="invoice_target">
-            <EntityTypeMapping TypeName="WoWiModel.invoice_target">
-              <MappingFragment StoreEntitySet="invoice_target">
-                <ScalarProperty Name="invoice_no" ColumnName="invoice_no" />
-                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="percentage" ColumnName="percentage" />
-                <ScalarProperty Name="bill_status" ColumnName="bill_status" />
-                <ScalarProperty Name="target_id" ColumnName="target_id" />
-                <ScalarProperty Name="quotation_id" ColumnName="quotation_id" />
-                <ScalarProperty Name="quotation_target_id" ColumnName="quotation_target_id" />
-                <ScalarProperty Name="invoice_target_id" ColumnName="invoice_target_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="m_clientappliant_contact">
             <EntityTypeMapping TypeName="WoWiModel.m_clientappliant_contact">
               <MappingFragment StoreEntitySet="m_clientappliant_contact">
@@ -1972,84 +1909,6 @@
               <MappingFragment StoreEntitySet="Payment_Method">
                 <ScalarProperty Name="Method" ColumnName="Method" />
                 <ScalarProperty Name="Payment_Id" ColumnName="Payment_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PRs">
-            <EntityTypeMapping TypeName="WoWiModel.PR">
-              <MappingFragment StoreEntitySet="PR">
-                <ScalarProperty Name="payment_term" ColumnName="payment_term" />
-                <ScalarProperty Name="department_id" ColumnName="department_id" />
-                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
-                <ScalarProperty Name="vendor_quotation_no" ColumnName="vendor_quotation_no" />
-                <ScalarProperty Name="vendor_invoice_no" ColumnName="vendor_invoice_no" />
-                <ScalarProperty Name="target_payment_date" ColumnName="target_payment_date" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="vendor_quote" ColumnName="vendor_quote" />
-                <ScalarProperty Name="transfer_date" ColumnName="transfer_date" />
-                <ScalarProperty Name="currency" ColumnName="currency" />
-                <ScalarProperty Name="pr_auth_id" ColumnName="pr_auth_id" />
-                <ScalarProperty Name="total_cost" ColumnName="total_cost" />
-                <ScalarProperty Name="shipping_cost" ColumnName="shipping_cost" />
-                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
-                <ScalarProperty Name="tax" ColumnName="tax" />
-                <ScalarProperty Name="taxable" ColumnName="taxable" />
-                <ScalarProperty Name="misc" ColumnName="misc" />
-                <ScalarProperty Name="date_delivered" ColumnName="date_delivered" />
-                <ScalarProperty Name="net" ColumnName="net" />
-                <ScalarProperty Name="vendor_banking_id" ColumnName="vendor_banking_id" />
-                <ScalarProperty Name="vendor_contact_id" ColumnName="vendor_contact_id" />
-                <ScalarProperty Name="vendor_id" ColumnName="vendor_id" />
-                <ScalarProperty Name="quotaion_id" ColumnName="quotaion_id" />
-                <ScalarProperty Name="project_id" ColumnName="project_id" />
-                <ScalarProperty Name="pr_id" ColumnName="pr_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PR_item">
-            <EntityTypeMapping TypeName="WoWiModel.PR_item">
-              <MappingFragment StoreEntitySet="PR_item">
-                <ScalarProperty Name="quotation_id" ColumnName="quotation_id" />
-                <ScalarProperty Name="quotation_target_id" ColumnName="quotation_target_id" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="currency" ColumnName="currency" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="tax" ColumnName="tax" />
-                <ScalarProperty Name="unit_price" ColumnName="unit_price" />
-                <ScalarProperty Name="model_no" ColumnName="model_no" />
-                <ScalarProperty Name="item_desc" ColumnName="item_desc" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="pr_id" ColumnName="pr_id" />
-                <ScalarProperty Name="pr_item_id" ColumnName="pr_item_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PR_Payment">
-            <EntityTypeMapping TypeName="WoWiModel.PR_Payment">
-              <MappingFragment StoreEntitySet="PR_Payment">
-                <ScalarProperty Name="payment_term" ColumnName="payment_term" />
-                <ScalarProperty Name="remarks" ColumnName="remarks" />
-                <ScalarProperty Name="adjust_total" ColumnName="adjust_total" />
-                <ScalarProperty Name="reasontype" ColumnName="reasontype" />
-                <ScalarProperty Name="reason" ColumnName="reason" />
-                <ScalarProperty Name="pay_date" ColumnName="pay_date" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="adjust_operator" ColumnName="adjust_operator" />
-                <ScalarProperty Name="rate_operator" ColumnName="rate_operator" />
-                <ScalarProperty Name="tocurrency" ColumnName="tocurrency" />
-                <ScalarProperty Name="fromcurrency" ColumnName="fromcurrency" />
-                <ScalarProperty Name="total_amount" ColumnName="total_amount" />
-                <ScalarProperty Name="adjust_amount" ColumnName="adjust_amount" />
-                <ScalarProperty Name="original_amount" ColumnName="original_amount" />
-                <ScalarProperty Name="exchanged_amount" ColumnName="exchanged_amount" />
-                <ScalarProperty Name="exchange_rate" ColumnName="exchange_rate" />
-                <ScalarProperty Name="pr_id" ColumnName="pr_id" />
-                <ScalarProperty Name="pr_pay_id" ColumnName="pr_pay_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2170,66 +2029,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="venderbankings">
-            <EntityTypeMapping TypeName="WoWiModel.venderbanking">
-              <MappingFragment StoreEntitySet="venderbanking">
-                <ScalarProperty Name="payment_type" ColumnName="payment_type" />
-                <ScalarProperty Name="bank_telephone" ColumnName="bank_telephone" />
-                <ScalarProperty Name="wu_destination" ColumnName="wu_destination" />
-                <ScalarProperty Name="wu_last_name" ColumnName="wu_last_name" />
-                <ScalarProperty Name="wu_first_name" ColumnName="wu_first_name" />
-                <ScalarProperty Name="isWestUnit" ColumnName="isWestUnit" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="bank_comments" ColumnName="bank_comments" />
-                <ScalarProperty Name="bank_routing_no" ColumnName="bank_routing_no" />
-                <ScalarProperty Name="bank_beneficiary_name" ColumnName="bank_beneficiary_name" />
-                <ScalarProperty Name="bank_swifcode" ColumnName="bank_swifcode" />
-                <ScalarProperty Name="bank_account_no" ColumnName="bank_account_no" />
-                <ScalarProperty Name="bank_address" ColumnName="bank_address" />
-                <ScalarProperty Name="bank_branch_name" ColumnName="bank_branch_name" />
-                <ScalarProperty Name="bank_name" ColumnName="bank_name" />
-                <ScalarProperty Name="vender_id" ColumnName="vender_id" />
-                <ScalarProperty Name="bank_id" ColumnName="bank_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vendors">
-            <EntityTypeMapping TypeName="WoWiModel.vendor">
-              <MappingFragment StoreEntitySet="vendor">
-                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
-                <ScalarProperty Name="department_id" ColumnName="department_id" />
-                <ScalarProperty Name="paymentdays" ColumnName="paymentdays" />
-                <ScalarProperty Name="payment_balance" ColumnName="payment_balance" />
-                <ScalarProperty Name="payment_term_final" ColumnName="payment_term_final" />
-                <ScalarProperty Name="payment_term3" ColumnName="payment_term3" />
-                <ScalarProperty Name="payment_term2" ColumnName="payment_term2" />
-                <ScalarProperty Name="payment_term1" ColumnName="payment_term1" />
-                <ScalarProperty Name="payment_type" ColumnName="payment_type" />
-                <ScalarProperty Name="ub_license_number" ColumnName="ub_license_number" />
-                <ScalarProperty Name="bank_charge" ColumnName="bank_charge" />
-                <ScalarProperty Name="publish" ColumnName="publish" />
-                <ScalarProperty Name="contract_type" ColumnName="contract_type" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="qualification" ColumnName="qualification" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="c_address" ColumnName="c_address" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="fax2" ColumnName="fax2" />
-                <ScalarProperty Name="fax1" ColumnName="fax1" />
-                <ScalarProperty Name="tel2" ColumnName="tel2" />
-                <ScalarProperty Name="tel1" ColumnName="tel1" />
-                <ScalarProperty Name="c_name" ColumnName="c_name" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vendor_type">
             <EntityTypeMapping TypeName="WoWiModel.vendor_type">
               <MappingFragment StoreEntitySet="vendor_type">
@@ -2293,43 +2092,6 @@
                 <ScalarProperty Name="wowi_product_type_id" ColumnName="wowi_product_type_id" />
                 <ScalarProperty Name="wowi_tech_name" ColumnName="wowi_tech_name" />
                 <ScalarProperty Name="wowi_tech_id" ColumnName="wowi_tech_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="employees">
-            <EntityTypeMapping TypeName="WoWiModel.employee">
-              <MappingFragment StoreEntitySet="employee">
-                <ScalarProperty Name="jobtitle_id" ColumnName="jobtitle_id" />
-                <ScalarProperty Name="pr_authorize_currency" ColumnName="pr_authorize_currency" />
-                <ScalarProperty Name="pr_authorize_amt" ColumnName="pr_authorize_amt" />
-                <ScalarProperty Name="q_authorize_currency" ColumnName="q_authorize_currency" />
-                <ScalarProperty Name="q_authorize_amt" ColumnName="q_authorize_amt" />
-                <ScalarProperty Name="signature" ColumnName="signature" />
-                <ScalarProperty Name="work_ext" ColumnName="work_ext" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="supervisor_id" ColumnName="supervisor_id" />
-                <ScalarProperty Name="accessprivilege" ColumnName="accessprivilege" />
-                <ScalarProperty Name="department_id" ColumnName="department_id" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="cellphone" ColumnName="cellphone" />
-                <ScalarProperty Name="homephone" ColumnName="homephone" />
-                <ScalarProperty Name="workphone" ColumnName="workphone" />
-                <ScalarProperty Name="terminationdate" ColumnName="terminationdate" />
-                <ScalarProperty Name="hiredate" ColumnName="hiredate" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="c_lname" ColumnName="c_lname" />
-                <ScalarProperty Name="c_fname" ColumnName="c_fname" />
-                <ScalarProperty Name="lname" ColumnName="lname" />
-                <ScalarProperty Name="fname" ColumnName="fname" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2450,45 +2212,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PR_authority_history">
-            <EntityTypeMapping TypeName="WoWiModel.PR_authority_history">
-              <MappingFragment StoreEntitySet="PR_authority_history">
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="instruction" ColumnName="instruction" />
-                <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="president_approval" ColumnName="president_approval" />
-                <ScalarProperty Name="president_date" ColumnName="president_date" />
-                <ScalarProperty Name="president" ColumnName="president" />
-                <ScalarProperty Name="president_id" ColumnName="president_id" />
-                <ScalarProperty Name="vp_approval" ColumnName="vp_approval" />
-                <ScalarProperty Name="vp_date" ColumnName="vp_date" />
-                <ScalarProperty Name="vp" ColumnName="vp" />
-                <ScalarProperty Name="vp_id" ColumnName="vp_id" />
-                <ScalarProperty Name="finance_approval" ColumnName="finance_approval" />
-                <ScalarProperty Name="finance_date" ColumnName="finance_date" />
-                <ScalarProperty Name="finance" ColumnName="finance" />
-                <ScalarProperty Name="finance_id" ColumnName="finance_id" />
-                <ScalarProperty Name="manager_approval" ColumnName="manager_approval" />
-                <ScalarProperty Name="manager_date" ColumnName="manager_date" />
-                <ScalarProperty Name="manager" ColumnName="manager" />
-                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
-                <ScalarProperty Name="supervisor_approval" ColumnName="supervisor_approval" />
-                <ScalarProperty Name="supervisor_date" ColumnName="supervisor_date" />
-                <ScalarProperty Name="supervisor" ColumnName="supervisor" />
-                <ScalarProperty Name="supervisor_id" ColumnName="supervisor_id" />
-                <ScalarProperty Name="requisitioner_approval" ColumnName="requisitioner_approval" />
-                <ScalarProperty Name="requisitioner_date" ColumnName="requisitioner_date" />
-                <ScalarProperty Name="requisitioner" ColumnName="requisitioner" />
-                <ScalarProperty Name="requisitioner_id" ColumnName="requisitioner_id" />
-                <ScalarProperty Name="pr_id" ColumnName="pr_id" />
-                <ScalarProperty Name="pr_auth_id" ColumnName="pr_auth_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="countries">
             <EntityTypeMapping TypeName="WoWiModel.country">
               <MappingFragment StoreEntitySet="country">
@@ -2572,6 +2295,283 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="WoWiModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="jobtitle_id" ColumnName="jobtitle_id" />
+                <ScalarProperty Name="pr_authorize_currency" ColumnName="pr_authorize_currency" />
+                <ScalarProperty Name="pr_authorize_amt" ColumnName="pr_authorize_amt" />
+                <ScalarProperty Name="q_authorize_currency" ColumnName="q_authorize_currency" />
+                <ScalarProperty Name="q_authorize_amt" ColumnName="q_authorize_amt" />
+                <ScalarProperty Name="signature" ColumnName="signature" />
+                <ScalarProperty Name="work_ext" ColumnName="work_ext" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="supervisor_id" ColumnName="supervisor_id" />
+                <ScalarProperty Name="accessprivilege" ColumnName="accessprivilege" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="cellphone" ColumnName="cellphone" />
+                <ScalarProperty Name="homephone" ColumnName="homephone" />
+                <ScalarProperty Name="workphone" ColumnName="workphone" />
+                <ScalarProperty Name="terminationdate" ColumnName="terminationdate" />
+                <ScalarProperty Name="hiredate" ColumnName="hiredate" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="c_lname" ColumnName="c_lname" />
+                <ScalarProperty Name="c_fname" ColumnName="c_fname" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="invoices">
+            <EntityTypeMapping TypeName="WoWiModel.invoice">
+              <MappingFragment StoreEntitySet="invoice">
+                <ScalarProperty Name="bankacct_info_id" ColumnName="bankacct_info_id" />
+                <ScalarProperty Name="ar_balance" ColumnName="ar_balance" />
+                <ScalarProperty Name="due_date" ColumnName="due_date" />
+                <ScalarProperty Name="adjust" ColumnName="adjust" />
+                <ScalarProperty Name="final_total" ColumnName="final_total" />
+                <ScalarProperty Name="exchange_operate" ColumnName="exchange_operate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="ocurrency" ColumnName="ocurrency" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="exchange_rate" ColumnName="exchange_rate" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="tax" ColumnName="tax" />
+                <ScalarProperty Name="ototal" ColumnName="ototal" />
+                <ScalarProperty Name="currency" ColumnName="currency" />
+                <ScalarProperty Name="issue_invoice_date" ColumnName="issue_invoice_date" />
+                <ScalarProperty Name="issue_invoice_no" ColumnName="issue_invoice_no" />
+                <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+                <ScalarProperty Name="invoice_no" ColumnName="invoice_no" />
+                <ScalarProperty Name="quotaion_no" ColumnName="quotaion_no" />
+                <ScalarProperty Name="project_no" ColumnName="project_no" />
+                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="invoice_received">
+            <EntityTypeMapping TypeName="WoWiModel.invoice_received">
+              <MappingFragment StoreEntitySet="invoice_received">
+                <ScalarProperty Name="iv_no" ColumnName="iv_no" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="ocurrency" ColumnName="ocurrency" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="received_date" ColumnName="received_date" />
+                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="invoice_target">
+            <EntityTypeMapping TypeName="WoWiModel.invoice_target">
+              <MappingFragment StoreEntitySet="invoice_target">
+                <ScalarProperty Name="invoice_no" ColumnName="invoice_no" />
+                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="percentage" ColumnName="percentage" />
+                <ScalarProperty Name="bill_status" ColumnName="bill_status" />
+                <ScalarProperty Name="target_id" ColumnName="target_id" />
+                <ScalarProperty Name="quotation_id" ColumnName="quotation_id" />
+                <ScalarProperty Name="quotation_target_id" ColumnName="quotation_target_id" />
+                <ScalarProperty Name="invoice_target_id" ColumnName="invoice_target_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRs">
+            <EntityTypeMapping TypeName="WoWiModel.PR">
+              <MappingFragment StoreEntitySet="PR">
+                <ScalarProperty Name="payment_term" ColumnName="payment_term" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="vendor_quotation_no" ColumnName="vendor_quotation_no" />
+                <ScalarProperty Name="vendor_invoice_no" ColumnName="vendor_invoice_no" />
+                <ScalarProperty Name="target_payment_date" ColumnName="target_payment_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="vendor_quote" ColumnName="vendor_quote" />
+                <ScalarProperty Name="transfer_date" ColumnName="transfer_date" />
+                <ScalarProperty Name="currency" ColumnName="currency" />
+                <ScalarProperty Name="pr_auth_id" ColumnName="pr_auth_id" />
+                <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+                <ScalarProperty Name="shipping_cost" ColumnName="shipping_cost" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="tax" ColumnName="tax" />
+                <ScalarProperty Name="taxable" ColumnName="taxable" />
+                <ScalarProperty Name="misc" ColumnName="misc" />
+                <ScalarProperty Name="date_delivered" ColumnName="date_delivered" />
+                <ScalarProperty Name="net" ColumnName="net" />
+                <ScalarProperty Name="vendor_banking_id" ColumnName="vendor_banking_id" />
+                <ScalarProperty Name="vendor_contact_id" ColumnName="vendor_contact_id" />
+                <ScalarProperty Name="vendor_id" ColumnName="vendor_id" />
+                <ScalarProperty Name="quotaion_id" ColumnName="quotaion_id" />
+                <ScalarProperty Name="project_id" ColumnName="project_id" />
+                <ScalarProperty Name="pr_id" ColumnName="pr_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_authority_history">
+            <EntityTypeMapping TypeName="WoWiModel.PR_authority_history">
+              <MappingFragment StoreEntitySet="PR_authority_history">
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="instruction" ColumnName="instruction" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="president_approval" ColumnName="president_approval" />
+                <ScalarProperty Name="president_date" ColumnName="president_date" />
+                <ScalarProperty Name="president" ColumnName="president" />
+                <ScalarProperty Name="president_id" ColumnName="president_id" />
+                <ScalarProperty Name="vp_approval" ColumnName="vp_approval" />
+                <ScalarProperty Name="vp_date" ColumnName="vp_date" />
+                <ScalarProperty Name="vp" ColumnName="vp" />
+                <ScalarProperty Name="vp_id" ColumnName="vp_id" />
+                <ScalarProperty Name="finance_approval" ColumnName="finance_approval" />
+                <ScalarProperty Name="finance_date" ColumnName="finance_date" />
+                <ScalarProperty Name="finance" ColumnName="finance" />
+                <ScalarProperty Name="finance_id" ColumnName="finance_id" />
+                <ScalarProperty Name="manager_approval" ColumnName="manager_approval" />
+                <ScalarProperty Name="manager_date" ColumnName="manager_date" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+                <ScalarProperty Name="supervisor_approval" ColumnName="supervisor_approval" />
+                <ScalarProperty Name="supervisor_date" ColumnName="supervisor_date" />
+                <ScalarProperty Name="supervisor" ColumnName="supervisor" />
+                <ScalarProperty Name="supervisor_id" ColumnName="supervisor_id" />
+                <ScalarProperty Name="requisitioner_approval" ColumnName="requisitioner_approval" />
+                <ScalarProperty Name="requisitioner_date" ColumnName="requisitioner_date" />
+                <ScalarProperty Name="requisitioner" ColumnName="requisitioner" />
+                <ScalarProperty Name="requisitioner_id" ColumnName="requisitioner_id" />
+                <ScalarProperty Name="pr_id" ColumnName="pr_id" />
+                <ScalarProperty Name="pr_auth_id" ColumnName="pr_auth_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_item">
+            <EntityTypeMapping TypeName="WoWiModel.PR_item">
+              <MappingFragment StoreEntitySet="PR_item">
+                <ScalarProperty Name="quotation_id" ColumnName="quotation_id" />
+                <ScalarProperty Name="quotation_target_id" ColumnName="quotation_target_id" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="currency" ColumnName="currency" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="tax" ColumnName="tax" />
+                <ScalarProperty Name="unit_price" ColumnName="unit_price" />
+                <ScalarProperty Name="model_no" ColumnName="model_no" />
+                <ScalarProperty Name="item_desc" ColumnName="item_desc" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="pr_id" ColumnName="pr_id" />
+                <ScalarProperty Name="pr_item_id" ColumnName="pr_item_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_Payment">
+            <EntityTypeMapping TypeName="WoWiModel.PR_Payment">
+              <MappingFragment StoreEntitySet="PR_Payment">
+                <ScalarProperty Name="payment_term" ColumnName="payment_term" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="adjust_total" ColumnName="adjust_total" />
+                <ScalarProperty Name="reasontype" ColumnName="reasontype" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="pay_date" ColumnName="pay_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="adjust_operator" ColumnName="adjust_operator" />
+                <ScalarProperty Name="rate_operator" ColumnName="rate_operator" />
+                <ScalarProperty Name="tocurrency" ColumnName="tocurrency" />
+                <ScalarProperty Name="fromcurrency" ColumnName="fromcurrency" />
+                <ScalarProperty Name="total_amount" ColumnName="total_amount" />
+                <ScalarProperty Name="adjust_amount" ColumnName="adjust_amount" />
+                <ScalarProperty Name="original_amount" ColumnName="original_amount" />
+                <ScalarProperty Name="exchanged_amount" ColumnName="exchanged_amount" />
+                <ScalarProperty Name="exchange_rate" ColumnName="exchange_rate" />
+                <ScalarProperty Name="pr_id" ColumnName="pr_id" />
+                <ScalarProperty Name="pr_pay_id" ColumnName="pr_pay_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="venderbankings">
+            <EntityTypeMapping TypeName="WoWiModel.venderbanking">
+              <MappingFragment StoreEntitySet="venderbanking">
+                <ScalarProperty Name="payment_type" ColumnName="payment_type" />
+                <ScalarProperty Name="bank_telephone" ColumnName="bank_telephone" />
+                <ScalarProperty Name="wu_destination" ColumnName="wu_destination" />
+                <ScalarProperty Name="wu_last_name" ColumnName="wu_last_name" />
+                <ScalarProperty Name="wu_first_name" ColumnName="wu_first_name" />
+                <ScalarProperty Name="isWestUnit" ColumnName="isWestUnit" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="bank_comments" ColumnName="bank_comments" />
+                <ScalarProperty Name="bank_routing_no" ColumnName="bank_routing_no" />
+                <ScalarProperty Name="bank_beneficiary_name" ColumnName="bank_beneficiary_name" />
+                <ScalarProperty Name="bank_swifcode" ColumnName="bank_swifcode" />
+                <ScalarProperty Name="bank_account_no" ColumnName="bank_account_no" />
+                <ScalarProperty Name="bank_address" ColumnName="bank_address" />
+                <ScalarProperty Name="bank_branch_name" ColumnName="bank_branch_name" />
+                <ScalarProperty Name="bank_name" ColumnName="bank_name" />
+                <ScalarProperty Name="vender_id" ColumnName="vender_id" />
+                <ScalarProperty Name="bank_id" ColumnName="bank_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vendors">
+            <EntityTypeMapping TypeName="WoWiModel.vendor">
+              <MappingFragment StoreEntitySet="vendor">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="paymentdays" ColumnName="paymentdays" />
+                <ScalarProperty Name="payment_balance" ColumnName="payment_balance" />
+                <ScalarProperty Name="payment_term_final" ColumnName="payment_term_final" />
+                <ScalarProperty Name="payment_term3" ColumnName="payment_term3" />
+                <ScalarProperty Name="payment_term2" ColumnName="payment_term2" />
+                <ScalarProperty Name="payment_term1" ColumnName="payment_term1" />
+                <ScalarProperty Name="payment_type" ColumnName="payment_type" />
+                <ScalarProperty Name="ub_license_number" ColumnName="ub_license_number" />
+                <ScalarProperty Name="bank_charge" ColumnName="bank_charge" />
+                <ScalarProperty Name="publish" ColumnName="publish" />
+                <ScalarProperty Name="contract_type" ColumnName="contract_type" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="qualification" ColumnName="qualification" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="c_address" ColumnName="c_address" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="fax2" ColumnName="fax2" />
+                <ScalarProperty Name="fax1" ColumnName="fax1" />
+                <ScalarProperty Name="tel2" ColumnName="tel2" />
+                <ScalarProperty Name="tel1" ColumnName="tel1" />
+                <ScalarProperty Name="c_name" ColumnName="c_name" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2592,7 +2592,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="WoWiModel" ZoomLevel="83">
+      <Diagram Name="WoWiModel" ZoomLevel="125">
         <EntityTypeShape EntityType="WoWiModel.access_level" Width="1.5" PointX="0.75" PointY="0.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.Access_Menu" Width="1.5" PointX="2.75" PointY="0.75" Height="1.6734830729166674" />
         <EntityTypeShape EntityType="WoWiModel.Authority" Width="1.5" PointX="0.75" PointY="3.75" Height="2.9050911458333246" />
@@ -2601,9 +2601,6 @@
         <EntityTypeShape EntityType="WoWiModel.contact_role" Width="1.5" PointX="4.75" PointY="6.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.department" Width="1.5" PointX="8.75" PointY="0.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.employee_jobtitle" Width="1.5" PointX="10.75" PointY="0.75" Height="2.2013151041666674" />
-        <EntityTypeShape EntityType="WoWiModel.invoice" Width="1.5" PointX="10.75" PointY="3.75" Height="5.3683072916666674" />
-        <EntityTypeShape EntityType="WoWiModel.invoice_received" Width="1.5" PointX="4.75" PointY="10.75" Height="2.7291471354166674" />
-        <EntityTypeShape EntityType="WoWiModel.invoice_target" Width="1.5" PointX="10.75" PointY="10.75" Height="2.7291471354166674" />
         <EntityTypeShape EntityType="WoWiModel.m_clientappliant_contact" Width="1.5" PointX="6.75" PointY="11.75" Height="1.3215950520833246" />
         <EntityTypeShape EntityType="WoWiModel.m_clientappliant_industry" Width="1.5" PointX="12.75" PointY="0.75" Height="1.3215950520833246" />
         <EntityTypeShape EntityType="WoWiModel.m_clientappliant_technology" Width="1.5" PointX="12.75" PointY="3.75" Height="1.3215950520833246" />
@@ -2614,28 +2611,31 @@
         <EntityTypeShape EntityType="WoWiModel.m_vender_contact" Width="1.5" PointX="14.75" PointY="3.75" Height="1.3215950520833246" />
         <EntityTypeShape EntityType="WoWiModel.m_vender_type" Width="1.5" PointX="4.75" PointY="14.75" Height="1.3215950520833246" />
         <EntityTypeShape EntityType="WoWiModel.Payment_Method" Width="1.5" PointX="14.75" PointY="6.75" Height="1.3215950520833246" />
-        <EntityTypeShape EntityType="WoWiModel.PR" Width="1.5" PointX="6.75" PointY="14.75" Height="5.8961393229166674" />
-        <EntityTypeShape EntityType="WoWiModel.PR_item" Width="1.5" PointX="14.75" PointY="9.75" Height="3.2569791666666674" />
-        <EntityTypeShape EntityType="WoWiModel.PR_Payment" Width="1.5" PointX="14.75" PointY="14.75" Height="4.3126432291666674" />
         <EntityTypeShape EntityType="WoWiModel.Project" Width="1.5" PointX="10.75" PointY="15.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.Project_working_log" Width="1.5" PointX="16.75" PointY="0.75" Height="2.5532031249999818" />
         <EntityTypeShape EntityType="WoWiModel.Quotation_Price" Width="1.5" PointX="0.75" PointY="16.75" Height="3.4329231770833246" />
         <EntityTypeShape EntityType="WoWiModel.Quotation_Status" Width="1.5" PointX="16.75" PointY="4.75" Height="1.3215950520833246" />
         <EntityTypeShape EntityType="WoWiModel.Quotation_Target" Width="1.5" PointX="16.75" PointY="7.75" Height="7.6555794270833246" />
         <EntityTypeShape EntityType="WoWiModel.Target_Rates" Width="1.5" PointX="18.75" PointY="4.75" Height="2.9050911458333246" />
-        <EntityTypeShape EntityType="WoWiModel.venderbanking" Width="1.5" PointX="18.75" PointY="8.75" Height="4.4885872395833246" />
-        <EntityTypeShape EntityType="WoWiModel.vendor" Width="1.5" PointX="10.75" PointY="18.75" Height="5.8961393229166674" />
         <EntityTypeShape EntityType="WoWiModel.vendor_type" Width="1.5" PointX="18.75" PointY="14.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.world_region" Width="1.5" PointX="18.75" PointY="17.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.wowi_bankinfo" Width="1.5" PointX="20.75" PointY="0.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.wowi_product_type" Width="1.5" PointX="2.75" PointY="20.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.wowi_tech" Width="1.5" PointX="20.75" PointY="3.75" Height="2.3772591145833388" />
-        <EntityTypeShape EntityType="WoWiModel.employee" Width="1.5" PointX="13.375" PointY="20.75" Height="6.4239713541666674" />
         <EntityTypeShape EntityType="WoWiModel.contact_info" Width="1.5" PointX="19.375" PointY="20.75" Height="5.19236328125001" />
         <EntityTypeShape EntityType="WoWiModel.Quotation_Version" Width="1.5" PointX="15.375" PointY="20.75" Height="15.22117187500001" />
-        <EntityTypeShape EntityType="WoWiModel.PR_authority_history" Width="1.5" PointX="5.375" PointY="21.75" Height="6.77585937500001" />
         <EntityTypeShape EntityType="WoWiModel.country" Width="1.5" PointX="7.375" PointY="3.75" Height="2.9050911458333246" />
-        <EntityTypeShape EntityType="WoWiModel.clientapplicant" Width="1.5" PointX="21.375" PointY="7.75" Height="11.52634765625001" />
+        <EntityTypeShape EntityType="WoWiModel.clientapplicant" Width="1.5" PointX="7.75" PointY="14.75" Height="11.52634765625001" />
+        <EntityTypeShape EntityType="WoWiModel.employee" Width="1.5" PointX="0.75" PointY="7.75" Height="6.4239713541666674" />
+        <EntityTypeShape EntityType="WoWiModel.invoice" Width="1.5" PointX="9.75" PointY="3.75" Height="5.3683072916666674" />
+        <EntityTypeShape EntityType="WoWiModel.invoice_received" Width="1.5" PointX="2.75" PointY="9.75" Height="2.7291471354166674" />
+        <EntityTypeShape EntityType="WoWiModel.invoice_target" Width="1.5" PointX="9.75" PointY="10.75" Height="2.7291471354166674" />
+        <EntityTypeShape EntityType="WoWiModel.PR" Width="1.5" PointX="9.75" PointY="18.75" Height="5.8961393229166674" />
+        <EntityTypeShape EntityType="WoWiModel.PR_authority_history" Width="1.5" PointX="11.75" PointY="18.75" Height="6.7758593749999818" />
+        <EntityTypeShape EntityType="WoWiModel.PR_item" Width="1.5" PointX="13.75" PointY="15.75" Height="3.2569791666666674" />
+        <EntityTypeShape EntityType="WoWiModel.PR_Payment" Width="1.5" PointX="19.75" PointY="8.75" Height="4.3126432291666674" />
+        <EntityTypeShape EntityType="WoWiModel.venderbanking" Width="1.5" PointX="21.75" PointY="7.75" Height="4.4885872395833246" />
+        <EntityTypeShape EntityType="WoWiModel.vendor" Width="1.5" PointX="21.75" PointY="13.75" Height="5.8961393229166674" />
       </Diagram>
     </Diagrams>
   </Designer>

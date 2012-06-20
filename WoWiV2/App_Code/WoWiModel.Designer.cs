@@ -196,54 +196,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<invoice> invoices
-        {
-            get
-            {
-                if ((_invoices == null))
-                {
-                    _invoices = base.CreateObjectSet<invoice>("invoices");
-                }
-                return _invoices;
-            }
-        }
-        private ObjectSet<invoice> _invoices;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<invoice_received> invoice_received
-        {
-            get
-            {
-                if ((_invoice_received == null))
-                {
-                    _invoice_received = base.CreateObjectSet<invoice_received>("invoice_received");
-                }
-                return _invoice_received;
-            }
-        }
-        private ObjectSet<invoice_received> _invoice_received;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<invoice_target> invoice_target
-        {
-            get
-            {
-                if ((_invoice_target == null))
-                {
-                    _invoice_target = base.CreateObjectSet<invoice_target>("invoice_target");
-                }
-                return _invoice_target;
-            }
-        }
-        private ObjectSet<invoice_target> _invoice_target;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<m_clientappliant_contact> m_clientappliant_contact
         {
             get
@@ -404,54 +356,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<PR> PRs
-        {
-            get
-            {
-                if ((_PRs == null))
-                {
-                    _PRs = base.CreateObjectSet<PR>("PRs");
-                }
-                return _PRs;
-            }
-        }
-        private ObjectSet<PR> _PRs;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<PR_item> PR_item
-        {
-            get
-            {
-                if ((_PR_item == null))
-                {
-                    _PR_item = base.CreateObjectSet<PR_item>("PR_item");
-                }
-                return _PR_item;
-            }
-        }
-        private ObjectSet<PR_item> _PR_item;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<PR_Payment> PR_Payment
-        {
-            get
-            {
-                if ((_PR_Payment == null))
-                {
-                    _PR_Payment = base.CreateObjectSet<PR_Payment>("PR_Payment");
-                }
-                return _PR_Payment;
-            }
-        }
-        private ObjectSet<PR_Payment> _PR_Payment;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Project> Projects
         {
             get
@@ -548,38 +452,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<venderbanking> venderbankings
-        {
-            get
-            {
-                if ((_venderbankings == null))
-                {
-                    _venderbankings = base.CreateObjectSet<venderbanking>("venderbankings");
-                }
-                return _venderbankings;
-            }
-        }
-        private ObjectSet<venderbanking> _venderbankings;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<vendor> vendors
-        {
-            get
-            {
-                if ((_vendors == null))
-                {
-                    _vendors = base.CreateObjectSet<vendor>("vendors");
-                }
-                return _vendors;
-            }
-        }
-        private ObjectSet<vendor> _vendors;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<vendor_type> vendor_type
         {
             get
@@ -660,22 +532,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<employee> employees
-        {
-            get
-            {
-                if ((_employees == null))
-                {
-                    _employees = base.CreateObjectSet<employee>("employees");
-                }
-                return _employees;
-            }
-        }
-        private ObjectSet<employee> _employees;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<contact_info> contact_info
         {
             get
@@ -708,22 +564,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<PR_authority_history> PR_authority_history
-        {
-            get
-            {
-                if ((_PR_authority_history == null))
-                {
-                    _PR_authority_history = base.CreateObjectSet<PR_authority_history>("PR_authority_history");
-                }
-                return _PR_authority_history;
-            }
-        }
-        private ObjectSet<PR_authority_history> _PR_authority_history;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<country> countries
         {
             get
@@ -752,6 +592,166 @@ namespace WoWiModel
             }
         }
         private ObjectSet<clientapplicant> _clientapplicants;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<employee> employees
+        {
+            get
+            {
+                if ((_employees == null))
+                {
+                    _employees = base.CreateObjectSet<employee>("employees");
+                }
+                return _employees;
+            }
+        }
+        private ObjectSet<employee> _employees;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<invoice> invoices
+        {
+            get
+            {
+                if ((_invoices == null))
+                {
+                    _invoices = base.CreateObjectSet<invoice>("invoices");
+                }
+                return _invoices;
+            }
+        }
+        private ObjectSet<invoice> _invoices;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<invoice_received> invoice_received
+        {
+            get
+            {
+                if ((_invoice_received == null))
+                {
+                    _invoice_received = base.CreateObjectSet<invoice_received>("invoice_received");
+                }
+                return _invoice_received;
+            }
+        }
+        private ObjectSet<invoice_received> _invoice_received;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<invoice_target> invoice_target
+        {
+            get
+            {
+                if ((_invoice_target == null))
+                {
+                    _invoice_target = base.CreateObjectSet<invoice_target>("invoice_target");
+                }
+                return _invoice_target;
+            }
+        }
+        private ObjectSet<invoice_target> _invoice_target;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PR> PRs
+        {
+            get
+            {
+                if ((_PRs == null))
+                {
+                    _PRs = base.CreateObjectSet<PR>("PRs");
+                }
+                return _PRs;
+            }
+        }
+        private ObjectSet<PR> _PRs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PR_authority_history> PR_authority_history
+        {
+            get
+            {
+                if ((_PR_authority_history == null))
+                {
+                    _PR_authority_history = base.CreateObjectSet<PR_authority_history>("PR_authority_history");
+                }
+                return _PR_authority_history;
+            }
+        }
+        private ObjectSet<PR_authority_history> _PR_authority_history;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PR_item> PR_item
+        {
+            get
+            {
+                if ((_PR_item == null))
+                {
+                    _PR_item = base.CreateObjectSet<PR_item>("PR_item");
+                }
+                return _PR_item;
+            }
+        }
+        private ObjectSet<PR_item> _PR_item;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PR_Payment> PR_Payment
+        {
+            get
+            {
+                if ((_PR_Payment == null))
+                {
+                    _PR_Payment = base.CreateObjectSet<PR_Payment>("PR_Payment");
+                }
+                return _PR_Payment;
+            }
+        }
+        private ObjectSet<PR_Payment> _PR_Payment;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<venderbanking> venderbankings
+        {
+            get
+            {
+                if ((_venderbankings == null))
+                {
+                    _venderbankings = base.CreateObjectSet<venderbanking>("venderbankings");
+                }
+                return _venderbankings;
+            }
+        }
+        private ObjectSet<venderbanking> _venderbankings;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<vendor> vendors
+        {
+            get
+            {
+                if ((_vendors == null))
+                {
+                    _vendors = base.CreateObjectSet<vendor>("vendors");
+                }
+                return _vendors;
+            }
+        }
+        private ObjectSet<vendor> _vendors;
 
         #endregion
         #region AddTo Methods
@@ -818,30 +818,6 @@ namespace WoWiModel
         public void AddToemployee_jobtitle(employee_jobtitle employee_jobtitle)
         {
             base.AddObject("employee_jobtitle", employee_jobtitle);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the invoices EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToinvoices(invoice invoice)
-        {
-            base.AddObject("invoices", invoice);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the invoice_received EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToinvoice_received(invoice_received invoice_received)
-        {
-            base.AddObject("invoice_received", invoice_received);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the invoice_target EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToinvoice_target(invoice_target invoice_target)
-        {
-            base.AddObject("invoice_target", invoice_target);
         }
     
         /// <summary>
@@ -925,30 +901,6 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the PRs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPRs(PR pR)
-        {
-            base.AddObject("PRs", pR);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the PR_item EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPR_item(PR_item pR_item)
-        {
-            base.AddObject("PR_item", pR_item);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the PR_Payment EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPR_Payment(PR_Payment pR_Payment)
-        {
-            base.AddObject("PR_Payment", pR_Payment);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Projects EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToProjects(Project project)
@@ -997,22 +949,6 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the venderbankings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTovenderbankings(venderbanking venderbanking)
-        {
-            base.AddObject("venderbankings", venderbanking);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the vendors EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTovendors(vendor vendor)
-        {
-            base.AddObject("vendors", vendor);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the vendor_type EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTovendor_type(vendor_type vendor_type)
@@ -1053,14 +989,6 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the employees EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToemployees(employee employee)
-        {
-            base.AddObject("employees", employee);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the contact_info EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTocontact_info(contact_info contact_info)
@@ -1077,14 +1005,6 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the PR_authority_history EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPR_authority_history(PR_authority_history pR_authority_history)
-        {
-            base.AddObject("PR_authority_history", pR_authority_history);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the countries EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTocountries(country country)
@@ -1098,6 +1018,86 @@ namespace WoWiModel
         public void AddToclientapplicants(clientapplicant clientapplicant)
         {
             base.AddObject("clientapplicants", clientapplicant);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the employees EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToemployees(employee employee)
+        {
+            base.AddObject("employees", employee);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the invoices EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToinvoices(invoice invoice)
+        {
+            base.AddObject("invoices", invoice);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the invoice_received EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToinvoice_received(invoice_received invoice_received)
+        {
+            base.AddObject("invoice_received", invoice_received);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the invoice_target EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToinvoice_target(invoice_target invoice_target)
+        {
+            base.AddObject("invoice_target", invoice_target);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PRs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPRs(PR pR)
+        {
+            base.AddObject("PRs", pR);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PR_authority_history EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPR_authority_history(PR_authority_history pR_authority_history)
+        {
+            base.AddObject("PR_authority_history", pR_authority_history);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PR_item EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPR_item(PR_item pR_item)
+        {
+            base.AddObject("PR_item", pR_item);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PR_Payment EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPR_Payment(PR_Payment pR_Payment)
+        {
+            base.AddObject("PR_Payment", pR_Payment);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the venderbankings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTovenderbankings(venderbanking venderbanking)
+        {
+            base.AddObject("venderbankings", venderbanking);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the vendors EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTovendors(vendor vendor)
+        {
+            base.AddObject("vendors", vendor);
         }
 
         #endregion
