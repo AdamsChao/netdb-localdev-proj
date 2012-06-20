@@ -64,13 +64,13 @@
                 temp.ProjectNo = proj.Project_No;
                 temp.Status = proj.Project_Status;
                 String targetDesc = "";
-                if (DropDownList3.SelectedValue != "- All -")
-                {
-                    if (temp.Status != DropDownList3.SelectedValue)
-                    {
-                        continue;
-                    }
-                }
+                //if (DropDownList3.SelectedValue != "- All -")
+                //{
+                //    if (temp.Status != DropDownList3.SelectedValue)
+                //    {
+                //        continue;
+                //    }
+                //}
                 if (ddlProj.SelectedValue != "-1")
                 {
                     String projID = ddlProj.SelectedValue;
@@ -79,31 +79,38 @@
                         continue;
                     }
                 }
+                bool pFlag = false;
+                bool tFlag = false;
                 try
                 {
                     DateTime fromDate = dcProjFrom.GetDate();
-                    if ((fromDate - proj.Create_Date).TotalDays > 0)
+                    if (((fromDate - proj.Create_Date).TotalDays) <= 0)
                     {
-                        continue;
+                        pFlag = true;
                     }
                 }
                 catch (Exception)
                 {
 
-                    //throw;
+                    pFlag = true;
                 }
                 try
                 {
                     DateTime toDate = dcProjTo.GetDate();
-                    if ((toDate - proj.Create_Date).TotalDays < 0)
+                    if ((int)((toDate - proj.Create_Date).TotalDays) >= 0)
                     {
-                        continue;
+                        tFlag = true;
                     }
                 }
                 catch (Exception)
                 {
 
-                    //throw;
+                    tFlag = true;
+                }
+                bool sss = tFlag && pFlag;
+                if (!sss)
+                {
+                    continue;
                 }
                 temp.OpenDate = proj.Create_Date.ToString("yyyy/MM/dd");
 
@@ -138,7 +145,7 @@
                     }
                     WoWiModel.employee sales = (from s in wowidb.employees where s.id == sid select s).First();
                         temp.Sales = String.IsNullOrEmpty(sales.c_fname) ? sales.fname + " " + sales.lname : sales.c_lname + " " + sales.c_fname;
-                    var qids = wowidb.Quotation_Version.Where(c => c.Quotation_No == proj.Quotation_No & c.Quotation_Status == 5);
+                    var qids = wowidb.Quotation_Version.Where(c => c.Quotation_No == proj.Quotation_No);
                     var targets = from qt in wowidb.Quotation_Target from qid1 in qids where qt.quotation_id == qid1.Quotation_Version_Id  select qt;
                     String disIVNo = "";
                     String disIVDate = "";
@@ -161,7 +168,13 @@
                         temp.Status = t.Status;
                         temp2.Status = t.Status;
                         temp2.OpenDate = temp.OpenDate;
-
+                        if (DropDownList3.SelectedValue != "- All -")
+                        {
+                            if (t.Status != DropDownList3.SelectedValue)
+                            {
+                                continue;
+                            }
+                        }
                         if (t.certification_completed.HasValue)
                         {
                             try
@@ -176,31 +189,64 @@
                             }
 
 
+                            //try
+                            //{
+                            //    DateTime fromDate = dcStatusFromDate.GetDate();
+                            //    if ((fromDate - (DateTime)t.certification_completed).TotalDays > 0)
+                            //    {
+                            //        continue;
+                            //    }
+                            //}
+                            //catch (Exception)
+                            //{
+
+                            //    //throw;
+                            //}
+                            //try
+                            //{
+                            //    DateTime toDate = dcStatusToDate.GetDate();
+                            //    if ((toDate - (DateTime)t.certification_completed).TotalDays < 0)
+                            //    {
+                            //        continue;
+                            //    }
+                            //}
+                            //catch (Exception)
+                            //{
+
+                            //    //throw;
+                            //}
+                            bool tpFlag = false;
+                            bool ttFlag = false;
                             try
                             {
                                 DateTime fromDate = dcStatusFromDate.GetDate();
-                                if ((fromDate - (DateTime)t.certification_completed).TotalDays > 0)
+                                if (((fromDate - (DateTime)t.certification_completed).TotalDays) <= 0)
                                 {
-                                    continue;
+                                    tpFlag = true;
                                 }
                             }
                             catch (Exception)
                             {
 
-                                //throw;
+                                tpFlag = true;
                             }
                             try
                             {
                                 DateTime toDate = dcStatusToDate.GetDate();
-                                if ((toDate - (DateTime)t.certification_completed).TotalDays < 0)
+                                if ((int)((toDate - (DateTime)t.certification_completed).TotalDays) >= 0)
                                 {
-                                    continue;
+                                    ttFlag = true;
                                 }
                             }
                             catch (Exception)
                             {
 
-                                //throw;
+                               ttFlag = true;
+                            }
+                            bool tsss = ttFlag && tpFlag;
+                            if (!tsss)
+                            {
+                                continue;
                             }
                         }
                         else
@@ -380,7 +426,11 @@
 
                                         }
                                     }
-                                    //state = flag & isflag;
+                                    state = flag & isflag;
+                                    if (!state)
+                                    {
+                                        continue;
+                                    }
                                     //System.Diagnostics.Debug.WriteLine("INV {0} : {1} : {2} = {3}", inv.issue_invoice_date, flag, isflag, state);
                                     var invtargets = wowidb.invoice_target.Where(c => c.invoice_id == inv.invoice_id);
                                     foreach (var intar in invtargets)
@@ -405,55 +455,54 @@
                                                 
                                                 foreach (var invr in wowidb.invoice_received.Where(c => c.invoice_id == inv.invoice_id))
                                                 {
-                                                    bool isflag2 = false;
-                                                    bool flag2 = false;
+                                                   
                                                     try
                                                     {
                                                         temp2.InvNo += invr.iv_no + " ";
                                                         if (invr.received_date.HasValue)
                                                         {
                                                             temp2.InvDate += ((DateTime)invr.received_date).ToString("yyyy-MM-dd") + " ";
-                                                            if (!state)
-                                                            {
-                                                                try
-                                                                {
-                                                                    DateTime fromDate = dcInvoiceFrom.GetDate();
-                                                                    if ((fromDate - (DateTime)invr.received_date).TotalDays > 0)
-                                                                    {
+                                                            //if (!state)
+                                                            //{
+                                                            //    try
+                                                            //    {
+                                                            //        DateTime fromDate = dcInvoiceFrom.GetDate();
+                                                            //        if ((fromDate - (DateTime)invr.received_date).TotalDays > 0)
+                                                            //        {
 
 
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        isflag2 = true;
-                                                                    }
+                                                            //        }
+                                                            //        else
+                                                            //        {
+                                                            //            isflag2 = true;
+                                                            //        }
 
-                                                                }
-                                                                catch (Exception)
-                                                                {
+                                                            //    }
+                                                            //    catch (Exception)
+                                                            //    {
 
-                                                                    isflag2 = true;
-                                                                }
-                                                                try
-                                                                {
-                                                                    DateTime toDate = dcInvoiceTo.GetDate();
+                                                            //        isflag2 = true;
+                                                            //    }
+                                                            //    try
+                                                            //    {
+                                                            //        DateTime toDate = dcInvoiceTo.GetDate();
 
-                                                                    if ((toDate - (DateTime)invr.received_date).TotalDays < 0)
-                                                                    {
+                                                            //        if ((toDate - (DateTime)invr.received_date).TotalDays < 0)
+                                                            //        {
 
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        flag2 = true;
-                                                                    }
-                                                                }
-                                                                catch (Exception)
-                                                                {
-                                                                    flag2 = true;
-                                                                }
-                                                                state |= (flag2 && isflag2);
-                                                                //System.Diagnostics.Debug.WriteLine("INVR {0} : {1} : {2} = {3}", invr.received_date, flag2, isflag2, state);
-                                                            }                                   
+                                                            //        }
+                                                            //        else
+                                                            //        {
+                                                            //            flag2 = true;
+                                                            //        }
+                                                            //    }
+                                                            //    catch (Exception)
+                                                            //    {
+                                                            //        flag2 = true;
+                                                            //    }
+                                                            //    state |= (flag2 && isflag2);
+                                                            //    //System.Diagnostics.Debug.WriteLine("INVR {0} : {1} : {2} = {3}", invr.received_date, flag2, isflag2, state);
+                                                            //}                                   
                                                         }
                                                         
                                                     }
@@ -496,14 +545,12 @@
                             
                             try
                             {
-                                int eid = (int)t.Country_Manager;
-                                var e = wowidb.employees.First(c => c.id == eid);
-                                temp2.IMA = e.fname + " " + e.lname;
+                                int eid = -1;
                                 if (ddlIMA.SelectedValue != "-1")
                                 {
                                     try
                                     {
-
+                                        eid= (int)t.Country_Manager;
                                         if (eid != int.Parse(ddlIMA.SelectedValue))
                                         {
                                             continue;
@@ -515,6 +562,13 @@
                                     }
 
                                 }
+                                else
+                                {
+                                    eid = (int)t.Country_Manager;
+                                    
+                                }
+                                var e = wowidb.employees.First(c => c.id == eid);
+                                temp2.IMA = e.fname + " " + e.lname;
                             }
                             catch (Exception)
                             {
@@ -527,7 +581,7 @@
                         catch (Exception)
                         {
               
-                            continue;
+                            //continue;
                         }
                         
                         try
@@ -583,10 +637,10 @@
                         catch
                         {
                         }
-                        if (!state)
-                        {
-                            continue;
-                        }
+                        //if (!state)
+                        //{
+                        //    continue;
+                        //}
                         temp2.IMACost = prtot.ToString("F2");
                         temp2.GrossProfitUS = (tarTotal - prtot).ToString("F2");
                         invusd += tarTotal;
@@ -608,7 +662,7 @@
                         tempD.InvDate = disIVDate;
                         //tempD.Model = temp.Model;
                         //tempD.Client = temp.Client;
-                        //tempD.Sales = temp.Sales;
+                        tempD.Sales = temp.Sales;
                         tempD.Country = "Discount";
                         tempD.IMACostCurrency = "USD";
                         tempD.IMACost = 0.0.ToString("F2");
@@ -616,7 +670,81 @@
                         tempD.InvUSD = (-1 * projDisTotal).ToString("F2");
                         invusd -= projDisTotal;
                         profit -= projDisTotal;
-                        list.Add(tempD);
+                        if (DropDownList3.SelectedValue == "- All -")
+                        {
+                            bool disFlag = false;
+                            try
+                            {
+                                DateTime fromDate = dcProjFrom.GetDate();
+                                disFlag = true;
+
+                            }
+                            catch (Exception)
+                            {
+
+                                //throw;
+                            }
+                            try
+                            {
+                                DateTime toDate = dcProjTo.GetDate();
+                                disFlag = true;
+
+                            }
+                            catch (Exception)
+                            {
+
+                                //throw;
+                            }
+                            try
+                            {
+                                DateTime fromDate = dcInvoiceFrom.GetDate();
+                                disFlag = true;
+
+                            }
+                            catch (Exception)
+                            {
+
+                                //throw;
+                            }
+                            try
+                            {
+                                DateTime toDate = dcInvoiceFrom.GetDate();
+                                disFlag = true;
+
+                            }
+                            catch (Exception)
+                            {
+
+                                //throw;
+                            }
+                            try
+                            {
+                                DateTime fromDate = dcStatusFromDate.GetDate();
+                                disFlag = true;
+
+                            }
+                            catch (Exception)
+                            {
+                                
+                                //throw;
+                            }
+                            try
+                            {
+                                DateTime toDate = dcStatusToDate.GetDate();
+                                disFlag = true;
+
+                            }
+                            catch (Exception)
+                            {
+                               
+                                //throw;
+                            }
+                            if (!disFlag)
+                            {
+                                list.Add(tempD);
+                            }
+                        }
+                        
                     }
                     projDisTotal = 0;
                     disIVNo = "";
@@ -1001,6 +1129,7 @@
                        
                    <tr><td colspan="6">
                        <asp:Label ID="lblMsg" runat="server" Text="No matched data found." ></asp:Label>
+                       
                     <cc1:iRowSpanGridView ID="iGridView1" runat="server"  Width="100%" 
                            isMergedHeader="True" SkinID="GridView"
                         AutoGenerateColumns="False" CssClass="Gridview" ShowFooter="true"
@@ -1082,5 +1211,15 @@
             <asp:PostBackTrigger ControlID="btnExport" />
         </Triggers>
    </asp:UpdatePanel>
+   <asp:UpdateProgress ID="UpdateProgress1" runat="server" EnableViewState="False" AssociatedUpdatePanelID="UpdatePanel1">
+        <ProgressTemplate>
+         <div id="processdiv" style="position:absolute;border:#6593cf 1px solid; padding:2px;background:#ccca; z-index:1; left: 40%;
+top: 35%;"> 
+            <div style="line-height:36px;border:#a3bad9 1px solid;background:white;padding:2px 10px 2px 10px">
+             Generating ....
+            </div>
+        </div>
+        </ProgressTemplate>
+    </asp:UpdateProgress>
 </asp:Content>
 
