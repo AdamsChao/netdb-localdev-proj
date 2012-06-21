@@ -696,7 +696,7 @@
                         tempD.InvUSD = (-1 * projDisTotal).ToString("F2");
                         invusd -= projDisTotal;
                         profit -= projDisTotal;
-                        if (DropDownList3.SelectedValue == "- All -")
+                        if (DropDownList3.SelectedValue == "- All -" && ddlCountry.SelectedValue == "-1" )
                         {
                             bool disFlag = false;
                             try
@@ -1107,7 +1107,7 @@
                         </tr>
                         <tr>
                             <th align="left" width="13%">
-                                Project Status :&nbsp;</th>
+                                Status :&nbsp;</th>
                             <td width="20%">
                                 <asp:DropDownList ID="DropDownList3" runat="server" AppendDataBoundItems="True">
                                     <asp:ListItem>- All -</asp:ListItem>
