@@ -495,10 +495,12 @@ public class Quotation_Controller
 
     public static string GetInvoiceNo(int Quotation_ID, int Quotation_Target_Id, int bill_status)
     {
+        //List<int> list = GetAllVersionQuotation(Quotation_ID);
+
         QuotationEntities entity = new QuotationEntities();
         entity = new QuotationEntities();
         var result = from n in entity.invoice_target
-                     where n.quotation_id == Quotation_ID   &&
+                     where 
                         n.quotation_target_id == Quotation_Target_Id  &&
                         n.bill_status == bill_status 
                      select n;
@@ -520,7 +522,7 @@ public class Quotation_Controller
         QuotationEntities entity = new QuotationEntities();
         entity = new QuotationEntities();
         var result = from n in entity.invoice_target
-                     where n.quotation_id == Quotation_ID &&
+                     where
                         n.quotation_target_id == Quotation_Target_Id &&
                         n.bill_status == bill_status
                      select n;
@@ -533,4 +535,20 @@ public class Quotation_Controller
             return "";
 
     }
+
+//    public static List<int> GetAllVersionQuotation(int Quotation_ID)
+//    {
+//        List<int> list = new List<int>();
+//        QuotationEntities entity = new QuotationEntities();
+//        var result = from n in entity.Quotation_Version
+//                     where n.Quotation_Version_Id == Quotation_ID 
+//                     select n.Quotation_No;
+//        String Quotation_No = result.First();
+
+//        var result2 = from n in entity.Quotation_Version
+//                      where n.Quotation_No == Quotation_No
+//                     select n.Quotation_Version_Id;
+//        list = result2.ToList();
+//        return list;
+//    }
 }
