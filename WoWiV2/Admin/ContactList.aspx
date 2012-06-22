@@ -47,6 +47,7 @@
             }
         }
         sqlDataSource.SelectCommand += newCriteria;
+        sqlDataSource.SelectCommand += "order by fname, lname";
         GridView1.DataBind();
 
         
@@ -161,7 +162,7 @@
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
         
-        SelectCommand="SELECT [id], [fname], [lname], [title], [companyname], [c_companyname], [workphone], [ext], [cellphone], [email], [c_fname], [c_lname], [department_id] FROM [contact_info] WHERE 1 = 1">
+        SelectCommand="SELECT [id], [fname], [lname], [title], [companyname], [c_companyname], [workphone], [ext], [cellphone], [email], [c_fname], [c_lname], [department_id] FROM [contact_info] WHERE 1 = 1 ">
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
