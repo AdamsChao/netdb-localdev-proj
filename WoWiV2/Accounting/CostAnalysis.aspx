@@ -1116,13 +1116,12 @@
                             <td width="20%">
                                 <asp:DropDownList ID="DropDownList3" runat="server" AppendDataBoundItems="True">
                                     <asp:ListItem>- All -</asp:ListItem>
-                                    <asp:ListItem>Open</asp:ListItem>
-                                    <asp:ListItem>In-Progress</asp:ListItem>
-                                    <asp:ListItem>On-Hand</asp:ListItem>
-                                    <asp:ListItem>Done</asp:ListItem>
-                                    <asp:ListItem>Cancelled</asp:ListItem>
-                                    <asp:ListItem>Lost</asp:ListItem>
-                                    <asp:ListItem>Void</asp:ListItem>
+                                    <asp:ListItem Value="Open">新開案的案子(Open)</asp:ListItem>
+                                  <asp:ListItem Value="In-Progress">申請中的案子(In-Progress)</asp:ListItem>
+                                  <asp:ListItem Value="On-Hold">暫停的案子(On-Hold)</asp:ListItem>
+                                  <asp:ListItem Value="Done">完成的案子(Done)</asp:ListItem>
+                                  <asp:ListItem Value="Cancelled">取消的案子(Cancelled)</asp:ListItem>
+                                  <asp:ListItem Value="Delay">逾時案件(Delay)</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <th align="left" width="13%">
