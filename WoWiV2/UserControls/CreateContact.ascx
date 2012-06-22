@@ -27,6 +27,23 @@
             {
                 obj.employee_id = -1;
             }
+            if (ViewState["IMA"] != null && ViewState["IMA"] != "-1")
+            {
+                try
+                {
+                    WoWiModel.m_ima_contact mcon = new WoWiModel.m_ima_contact()
+                            {
+                                ima_contact_id = int.Parse(ViewState["IMA"].ToString())
+                            };
+                    wowidb.m_ima_contact.AddObject(mcon);
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
+                
+            }
             wowidb.SaveChanges();
             List<int> roles = (List<int>)ViewState[ContactUtils.Key_ViewState_Roles];
             if (roles.Count != 0)
@@ -92,6 +109,7 @@
                 }
                 Response.Redirect("~/Admin/ClientDetails.aspx?id=" + id);
             }
+            Response.Redirect("~/Common/CreateContact.aspx");
         }
     }
 
@@ -112,81 +130,196 @@
         obj.create_user = HttpContext.Current.User.Identity.Name;
     }
 
+    protected void clearAll()
+    {
+        try
+        {
+                ViewState["IMA"] = "-1";
+                FormView fv = MyContactCreateFormView1;
+                Utils.SetTextBoxValue(fv, "tbFirstName", "");
+                Utils.SetTextBoxValue(fv, "tbLastName", "");
+                Utils.SetTextBoxValue(fv, "tbcLastName", "");
+                Utils.SetTextBoxValue(fv, "tbcFirstName", "");
+                Utils.SetTextBoxValue(fv, "tbTitle", "");
+                Utils.SetTextBoxValue(fv, "tbcTitle", "");
+                Utils.SetTextBoxValue(fv, "tbCompany", "");
+                Utils.SetTextBoxValue(fv, "tbcCompany", "");
+                Utils.SetTextBoxValue(fv, "tbWorkphone", "");
+                Utils.SetTextBoxValue(fv, "tbEmail", "");
+                Utils.SetTextBoxValue(fv, "tbCellPhone", "");
+                Utils.SetTextBoxValue(fv, "tbFax", "");
+                Utils.SetTextBoxValue(fv, "tbAddress", "");
+                Utils.SetTextBoxValue(fv, "tbcAddress", "");
+                try
+                {
+                    (fv.FindControl("dlCountry") as DropDownList).SelectedIndex = 0;
+                }
+                catch (Exception)
+                {
+                    
+                    //throw;
+                }
+                try
+                {
+                    (fv.FindControl("ddlDeptList") as DropDownList).SelectedValue = "-1";
+                    
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
+                try
+                {
+                    (fv.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = "-1";
+                   
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                } 
+                try
+                {
+                    CheckBoxList list = (CheckBoxList)fv.FindControl(ContactUtils.Name_CheckBox_RoleList);
+                    foreach (ListItem item in list.Items)
+                    {
+                        item.Selected = false;
+
+                    }
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
+                
+        }
+        catch (Exception)
+        {
+            
+            //throw;
+        }
+    }
+    
     protected void MyBtnLoad_Click(object sender, EventArgs ea)
     {
+        clearAll();
         FormView fv = this.MyContactCreateFormView1;
         DropDownList list = (DropDownList)fv.FindControl(ContactUtils.Name_DropdownList_RoleList);
         int id = int.Parse(list.SelectedValue);
-        using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+        if (id == -1)
         {
-            FormView FormView1 = MyContactCreateFormView1;
-            var data = db.contact_info.Where(c => c.id == id).First();
-            Utils.SetTextBoxValue(fv, "tbFirstName", data.fname);
-            Utils.SetTextBoxValue(fv, "tbLastName", data.lname);
-            Utils.SetTextBoxValue(fv, "tbcLastName", data.c_lname);
-            Utils.SetTextBoxValue(fv, "tbcFirstName", data.c_fname);
-            Utils.SetTextBoxValue(fv, "tbTitle", data.title);
-            Utils.SetTextBoxValue(fv, "tbcTitle", data.c_title);
-            Utils.SetTextBoxValue(fv, "tbCompany", data.companyname);
-            Utils.SetTextBoxValue(fv, "tbcCompany", data.c_companyname);
-            Utils.SetTextBoxValue(fv, "tbWorkphone", data.workphone);
-            Utils.SetTextBoxValue(fv, "tbEmail", data.email);
-            Utils.SetTextBoxValue(fv, "tbCellPhone", data.cellphone);
-            Utils.SetTextBoxValue(fv, "tbFax", data.fax);
-            Utils.SetTextBoxValue(fv, "tbAddress", data.address);
-            Utils.SetTextBoxValue(fv, "tbcAddress", data.c_address);
-            Utils.SetDropDownListValue(fv, "dlCountry", data.country_id+"");
-            (FormView1.FindControl("lblDept") as Label).Text = data.department_id.HasValue ? data.department_id + "" : "-1";
-            (FormView1.FindControl("lblEmp") as Label).Text = data.employee_id.HasValue ? data.employee_id + "" : "-1";
-            int depid = data.department_id.HasValue ? (int)data.department_id : -1;
+            
+            DropDownList list2 = (DropDownList)fv.FindControl(ContactUtils.IMA_Name_DropdownList_RoleList);
             try
             {
-                (FormView1.FindControl("ddlDeptList") as DropDownList).SelectedValue = data.department_id.HasValue ? data.department_id + "" : "-1";
-                (FormView1.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = data.employee_id.HasValue ? data.employee_id + "" : "-1";
+                list2.SelectedValue = "-1";
             }
             catch (Exception)
             {
 
+                //throw;
+            }
+        }
+        else
+        {
+            using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+            {
+                FormView FormView1 = MyContactCreateFormView1;
+                var data = db.contact_info.Where(c => c.id == id).First();
+                Utils.SetTextBoxValue(fv, "tbFirstName", data.fname);
+                Utils.SetTextBoxValue(fv, "tbLastName", data.lname);
+                Utils.SetTextBoxValue(fv, "tbcLastName", data.c_lname);
+                Utils.SetTextBoxValue(fv, "tbcFirstName", data.c_fname);
+                Utils.SetTextBoxValue(fv, "tbTitle", data.title);
+                Utils.SetTextBoxValue(fv, "tbcTitle", data.c_title);
+                Utils.SetTextBoxValue(fv, "tbCompany", data.companyname);
+                Utils.SetTextBoxValue(fv, "tbcCompany", data.c_companyname);
+                Utils.SetTextBoxValue(fv, "tbWorkphone", data.workphone);
+                Utils.SetTextBoxValue(fv, "tbEmail", data.email);
+                Utils.SetTextBoxValue(fv, "tbCellPhone", data.cellphone);
+                Utils.SetTextBoxValue(fv, "tbFax", data.fax);
+                Utils.SetTextBoxValue(fv, "tbAddress", data.address);
+                Utils.SetTextBoxValue(fv, "tbcAddress", data.c_address);
+                Utils.SetDropDownListValue(fv, "dlCountry", data.country_id + "");
+                (FormView1.FindControl("lblDept") as Label).Text = data.department_id.HasValue ? data.department_id + "" : "-1";
+                (FormView1.FindControl("lblEmp") as Label).Text = data.employee_id.HasValue ? data.employee_id + "" : "-1";
+                int depid = data.department_id.HasValue ? (int)data.department_id : -1;
+                try
+                {
+                    (FormView1.FindControl("ddlDeptList") as DropDownList).SelectedValue = data.department_id.HasValue ? data.department_id + "" : "-1";
+                    (FormView1.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = data.employee_id.HasValue ? data.employee_id + "" : "-1";
+                }
+                catch (Exception)
+                {
+
+
+                }
+
 
             }
+            ContactUtils.InitRoles(id, MyContactCreateFormView1, ContactUtils.Name_CheckBox_RoleList);
+            DropDownList list2 = (DropDownList)fv.FindControl(ContactUtils.IMA_Name_DropdownList_RoleList);
+            try
+            {
+                list2.SelectedValue = "-1";
+            }
+            catch (Exception)
+            {
 
-            
+                //throw;
+            }
         }
-        ContactUtils.InitRoles(id, MyContactCreateFormView1, ContactUtils.Name_CheckBox_RoleList);
     }
 
     protected void MyIMABtnLoad_Click(object sender, EventArgs ea)
     {
+        clearAll();
         FormView fv = this.MyContactCreateFormView1;
+        try
+        {
+            (fv.FindControl("ddlDeptList") as DropDownList).SelectedValue =  "-1";
+            (fv.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = "-1";
+        }
+        catch (Exception)
+        {
+
+
+        }
         DropDownList list = (DropDownList)fv.FindControl(ContactUtils.IMA_Name_DropdownList_RoleList);
         int id = int.Parse(list.SelectedValue);
-        using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+        if (id != -1)
         {
-            FormView FormView1 = MyContactCreateFormView1;
-            var data = db.Ima_Contact.Where(c => c.ContactID == id).First();
-            Utils.SetTextBoxValue(fv, "tbFirstName", data.FirstName);
-            Utils.SetTextBoxValue(fv, "tbLastName", data.LastName);
-            Utils.SetTextBoxValue(fv, "tbTitle", data.Title);
-            Utils.SetTextBoxValue(fv, "tbWorkphone", data.WorkPhone);
-            Utils.SetTextBoxValue(fv, "tbEmail", data.Email);
-            Utils.SetTextBoxValue(fv, "tbCellPhone", data.CellPhone);
-            Utils.SetTextBoxValue(fv, "tbFax", data.Fax);
-            Utils.SetTextBoxValue(fv, "tbAddress", data.Adress);
-            Utils.SetDropDownListValue(fv, "dlCountry", data.CountryID + "");
+            ViewState["IMA"] = list.SelectedValue;
+            using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+            {
+                FormView FormView1 = MyContactCreateFormView1;
+                var data = db.Ima_Contact.Where(c => c.ContactID == id).First();
+                Utils.SetTextBoxValue(fv, "tbFirstName", data.FirstName);
+                Utils.SetTextBoxValue(fv, "tbLastName", data.LastName);
+                Utils.SetTextBoxValue(fv, "tbTitle", data.Title);
+                Utils.SetTextBoxValue(fv, "tbWorkphone", data.WorkPhone);
+                Utils.SetTextBoxValue(fv, "tbEmail", data.Email);
+                Utils.SetTextBoxValue(fv, "tbCellPhone", data.CellPhone);
+                Utils.SetTextBoxValue(fv, "tbFax", data.Fax);
+                Utils.SetTextBoxValue(fv, "tbAddress", data.Adress);
+                Utils.SetDropDownListValue(fv, "dlCountry", data.CountryID + "");
+            }
         }
        
     }
 
     protected void dlContactList_Load(object sender, EventArgs e)
     {
-
+        //if (Page.IsPostBack) return;
         DropDownList dl = (DropDownList)sender;
         String val = dl.SelectedValue;
         dl.Items.Clear();
-        dl.Items.Add(new ListItem("- Select -", "-1"));
+        dl.Items.Add(new ListItem("- Select - (Will clear all fields)", "-1"));
         using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
         {
-            var data = db.contact_info;
+            var data = from cc in db.contact_info orderby cc.fname, cc.lname  select cc;
             foreach (WoWiModel.contact_info contract in data)
             {
                 dl.Items.Add(new ListItem(String.Format("{0,10} {1,10} ( {2,20} )", contract.fname, contract.lname, contract.companyname), contract.id + ""));
@@ -210,7 +343,7 @@
         DropDownList dl = (DropDownList)sender;
         String val = dl.SelectedValue;
         dl.Items.Clear();
-        dl.Items.Add(new ListItem("- Select -", "-1"));
+        dl.Items.Add(new ListItem("- Select - (Will clear all fields)", "-1"));
         using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
         {
             var donelist = from d in db.m_ima_contact select d.ima_contact_id;
@@ -221,7 +354,7 @@
             }
             else
             {
-                data = from d in donelist from c in db.Ima_Contact where (d != c.ContactID) orderby c.FirstName, c.LastName ascending select c;
+                data = from c in db.Ima_Contact where (!donelist.Contains(c.ContactID)) orderby c.FirstName, c.LastName ascending select c;
             }
             foreach (WoWiModel.Ima_Contact contract in (data as IEnumerable))
             {
