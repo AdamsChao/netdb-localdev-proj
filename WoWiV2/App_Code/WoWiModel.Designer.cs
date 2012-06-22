@@ -532,22 +532,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<contact_info> contact_info
-        {
-            get
-            {
-                if ((_contact_info == null))
-                {
-                    _contact_info = base.CreateObjectSet<contact_info>("contact_info");
-                }
-                return _contact_info;
-            }
-        }
-        private ObjectSet<contact_info> _contact_info;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Quotation_Version> Quotation_Version
         {
             get
@@ -752,6 +736,38 @@ namespace WoWiModel
             }
         }
         private ObjectSet<vendor> _vendors;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<contact_info> contact_info
+        {
+            get
+            {
+                if ((_contact_info == null))
+                {
+                    _contact_info = base.CreateObjectSet<contact_info>("contact_info");
+                }
+                return _contact_info;
+            }
+        }
+        private ObjectSet<contact_info> _contact_info;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<m_ima_contact> m_ima_contact
+        {
+            get
+            {
+                if ((_m_ima_contact == null))
+                {
+                    _m_ima_contact = base.CreateObjectSet<m_ima_contact>("m_ima_contact");
+                }
+                return _m_ima_contact;
+            }
+        }
+        private ObjectSet<m_ima_contact> _m_ima_contact;
 
         #endregion
         #region AddTo Methods
@@ -989,14 +1005,6 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the contact_info EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTocontact_info(contact_info contact_info)
-        {
-            base.AddObject("contact_info", contact_info);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Quotation_Version EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToQuotation_Version(Quotation_Version quotation_Version)
@@ -1098,6 +1106,22 @@ namespace WoWiModel
         public void AddTovendors(vendor vendor)
         {
             base.AddObject("vendors", vendor);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the contact_info EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTocontact_info(contact_info contact_info)
+        {
+            base.AddObject("contact_info", contact_info);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the m_ima_contact EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTom_ima_contact(m_ima_contact m_ima_contact)
+        {
+            base.AddObject("m_ima_contact", m_ima_contact);
         }
 
         #endregion
@@ -7528,6 +7552,87 @@ namespace WoWiModel
         private global::System.Int32 _accesslevel_id;
         partial void Onaccesslevel_idChanging(global::System.Int32 value);
         partial void Onaccesslevel_idChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WoWiModel", Name="m_ima_contact")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class m_ima_contact : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new m_ima_contact object.
+        /// </summary>
+        /// <param name="id">Initial value of the id property.</param>
+        /// <param name="ima_contact_id">Initial value of the ima_contact_id property.</param>
+        public static m_ima_contact Createm_ima_contact(global::System.Int32 id, global::System.Int32 ima_contact_id)
+        {
+            m_ima_contact m_ima_contact = new m_ima_contact();
+            m_ima_contact.id = id;
+            m_ima_contact.ima_contact_id = ima_contact_id;
+            return m_ima_contact;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ima_contact_id
+        {
+            get
+            {
+                return _ima_contact_id;
+            }
+            set
+            {
+                Onima_contact_idChanging(value);
+                ReportPropertyChanging("ima_contact_id");
+                _ima_contact_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ima_contact_id");
+                Onima_contact_idChanged();
+            }
+        }
+        private global::System.Int32 _ima_contact_id;
+        partial void Onima_contact_idChanging(global::System.Int32 value);
+        partial void Onima_contact_idChanged();
 
         #endregion
     

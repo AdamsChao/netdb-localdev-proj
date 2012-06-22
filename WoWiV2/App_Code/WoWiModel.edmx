@@ -26,6 +26,7 @@
           <EntitySet Name="m_clientappliant_technology" EntityType="WoWiModel.Store.m_clientappliant_technology" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_contact_role" EntityType="WoWiModel.Store.m_contact_role" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_employee_accesslevel" EntityType="WoWiModel.Store.m_employee_accesslevel" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="m_ima_contact" EntityType="WoWiModel.Store.m_ima_contact" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_quotation_industry" EntityType="WoWiModel.Store.m_quotation_industry" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_quotation_technology" EntityType="WoWiModel.Store.m_quotation_technology" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_vender_contact" EntityType="WoWiModel.Store.m_vender_contact" store:Type="Tables" Schema="dbo" />
@@ -181,22 +182,22 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="fname" Type="nvarchar" MaxLength="30" />
-          <Property Name="lname" Type="nvarchar" MaxLength="30" />
-          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="fname" Type="nvarchar" MaxLength="100" />
+          <Property Name="lname" Type="nvarchar" MaxLength="100" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" />
           <Property Name="companyname" Type="nvarchar" MaxLength="100" />
-          <Property Name="address" Type="nvarchar" MaxLength="250" />
-          <Property Name="c_fname" Type="nvarchar" MaxLength="30" />
-          <Property Name="c_lname" Type="nvarchar" MaxLength="30" />
-          <Property Name="c_title" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="300" />
+          <Property Name="c_fname" Type="nvarchar" MaxLength="100" />
+          <Property Name="c_lname" Type="nvarchar" MaxLength="100" />
+          <Property Name="c_title" Type="nvarchar" MaxLength="100" />
           <Property Name="c_companyname" Type="nvarchar" MaxLength="100" />
-          <Property Name="c_address" Type="nvarchar" MaxLength="250" />
+          <Property Name="c_address" Type="nvarchar" MaxLength="300" />
           <Property Name="country_id" Type="int" />
-          <Property Name="workphone" Type="nvarchar" MaxLength="20" />
+          <Property Name="workphone" Type="nvarchar" MaxLength="200" />
           <Property Name="ext" Type="nvarchar" MaxLength="10" />
-          <Property Name="cellphone" Type="nvarchar" MaxLength="20" />
-          <Property Name="fax" Type="nvarchar" MaxLength="20" />
-          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="cellphone" Type="nvarchar" MaxLength="200" />
+          <Property Name="fax" Type="nvarchar" MaxLength="200" />
+          <Property Name="email" Type="nvarchar" MaxLength="300" />
           <Property Name="create_date" Type="datetime" />
           <Property Name="create_user" Type="nvarchar" MaxLength="26" />
           <Property Name="modify_date" Type="datetime" />
@@ -392,6 +393,13 @@
           </Key>
           <Property Name="employee_id" Type="int" Nullable="false" />
           <Property Name="accesslevel_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_ima_contact">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ima_contact_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="m_quotation_industry">
           <Key>
@@ -895,7 +903,6 @@
           <EntitySet Name="wowi_bankinfo" EntityType="WoWiModel.wowi_bankinfo" />
           <EntitySet Name="wowi_product_type" EntityType="WoWiModel.wowi_product_type" />
           <EntitySet Name="wowi_tech" EntityType="WoWiModel.wowi_tech" />
-          <EntitySet Name="contact_info" EntityType="WoWiModel.contact_info" />
           <EntitySet Name="Quotation_Version" EntityType="WoWiModel.Quotation_Version" />
           <EntitySet Name="countries" EntityType="WoWiModel.country" />
           <EntitySet Name="clientapplicants" EntityType="WoWiModel.clientapplicant" />
@@ -909,6 +916,8 @@
           <EntitySet Name="PR_Payment" EntityType="WoWiModel.PR_Payment" />
           <EntitySet Name="venderbankings" EntityType="WoWiModel.venderbanking" />
           <EntitySet Name="vendors" EntityType="WoWiModel.vendor" />
+          <EntitySet Name="contact_info" EntityType="WoWiModel.contact_info" />
+          <EntitySet Name="m_ima_contact" EntityType="WoWiModel.m_ima_contact" />
         </EntityContainer>
         <EntityType Name="access_level">
           <Key>
@@ -1257,35 +1266,6 @@
           <Property Type="DateTime" Name="create_date" />
           <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
-        </EntityType>
-        <EntityType Name="contact_info">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="fname" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="lname" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="title" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="companyname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="address" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_fname" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_lname" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_title" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_companyname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_address" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="country_id" />
-          <Property Type="String" Name="workphone" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ext" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="cellphone" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="fax" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="email" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="publish" Nullable="false" />
-          <Property Type="Int32" Name="department_id" />
-          <Property Type="Int32" Name="employee_id" />
         </EntityType>
         <EntityType Name="Quotation_Version">
           <Key>
@@ -1721,6 +1701,42 @@
           <Property Type="Int32" Name="department_id" />
           <Property Type="Int32" Name="employee_id" />
         </EntityType>
+        <EntityType Name="contact_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="fname" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="lname" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="title" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="companyname" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="address" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_fname" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_lname" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_title" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_companyname" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_address" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="country_id" />
+          <Property Type="String" Name="workphone" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ext" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="cellphone" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="fax" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="email" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="create_user" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="modify_user" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="publish" Nullable="false" />
+          <Property Type="Int32" Name="department_id" />
+          <Property Type="Int32" Name="employee_id" />
+        </EntityType>
+        <EntityType Name="m_ima_contact">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ima_contact_id" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2092,36 +2108,6 @@
                 <ScalarProperty Name="wowi_product_type_id" ColumnName="wowi_product_type_id" />
                 <ScalarProperty Name="wowi_tech_name" ColumnName="wowi_tech_name" />
                 <ScalarProperty Name="wowi_tech_id" ColumnName="wowi_tech_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="contact_info">
-            <EntityTypeMapping TypeName="WoWiModel.contact_info">
-              <MappingFragment StoreEntitySet="contact_info">
-                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
-                <ScalarProperty Name="department_id" ColumnName="department_id" />
-                <ScalarProperty Name="publish" ColumnName="publish" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="fax" ColumnName="fax" />
-                <ScalarProperty Name="cellphone" ColumnName="cellphone" />
-                <ScalarProperty Name="ext" ColumnName="ext" />
-                <ScalarProperty Name="workphone" ColumnName="workphone" />
-                <ScalarProperty Name="country_id" ColumnName="country_id" />
-                <ScalarProperty Name="c_address" ColumnName="c_address" />
-                <ScalarProperty Name="c_companyname" ColumnName="c_companyname" />
-                <ScalarProperty Name="c_title" ColumnName="c_title" />
-                <ScalarProperty Name="c_lname" ColumnName="c_lname" />
-                <ScalarProperty Name="c_fname" ColumnName="c_fname" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="companyname" ColumnName="companyname" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="lname" ColumnName="lname" />
-                <ScalarProperty Name="fname" ColumnName="fname" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2572,6 +2558,44 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="contact_info">
+            <EntityTypeMapping TypeName="WoWiModel.contact_info">
+              <MappingFragment StoreEntitySet="contact_info">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="publish" ColumnName="publish" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="cellphone" ColumnName="cellphone" />
+                <ScalarProperty Name="ext" ColumnName="ext" />
+                <ScalarProperty Name="workphone" ColumnName="workphone" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="c_address" ColumnName="c_address" />
+                <ScalarProperty Name="c_companyname" ColumnName="c_companyname" />
+                <ScalarProperty Name="c_title" ColumnName="c_title" />
+                <ScalarProperty Name="c_lname" ColumnName="c_lname" />
+                <ScalarProperty Name="c_fname" ColumnName="c_fname" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="companyname" ColumnName="companyname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_ima_contact">
+            <EntityTypeMapping TypeName="WoWiModel.m_ima_contact">
+              <MappingFragment StoreEntitySet="m_ima_contact">
+                <ScalarProperty Name="ima_contact_id" ColumnName="ima_contact_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2592,7 +2616,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="WoWiModel" ZoomLevel="125">
+      <Diagram Name="WoWiModel" ZoomLevel="108">
         <EntityTypeShape EntityType="WoWiModel.access_level" Width="1.5" PointX="0.75" PointY="0.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.Access_Menu" Width="1.5" PointX="2.75" PointY="0.75" Height="1.6734830729166674" />
         <EntityTypeShape EntityType="WoWiModel.Authority" Width="1.5" PointX="0.75" PointY="3.75" Height="2.9050911458333246" />
@@ -2622,7 +2646,6 @@
         <EntityTypeShape EntityType="WoWiModel.wowi_bankinfo" Width="1.5" PointX="6.75" PointY="12.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.wowi_product_type" Width="1.5" PointX="8.75" PointY="12.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.wowi_tech" Width="1.5" PointX="12.75" PointY="9.75" Height="2.3772591145833388" />
-        <EntityTypeShape EntityType="WoWiModel.contact_info" Width="1.5" PointX="10.75" PointY="13.75" Height="5.19236328125001" />
         <EntityTypeShape EntityType="WoWiModel.Quotation_Version" Width="1.5" PointX="12.75" PointY="13.75" Height="15.22117187500001" />
         <EntityTypeShape EntityType="WoWiModel.country" Width="1.5" PointX="14.75" PointY="0.75" Height="2.9050911458333246" />
         <EntityTypeShape EntityType="WoWiModel.clientapplicant" Width="1.5" PointX="14.75" PointY="4.75" Height="11.52634765625001" />
@@ -2636,6 +2659,8 @@
         <EntityTypeShape EntityType="WoWiModel.PR_Payment" Width="1.5" PointX="18.75" PointY="5.75" Height="4.3126432291666674" />
         <EntityTypeShape EntityType="WoWiModel.venderbanking" Width="1.5" PointX="18.75" PointY="11.75" Height="4.4885872395833246" />
         <EntityTypeShape EntityType="WoWiModel.vendor" Width="1.5" PointX="18.75" PointY="17.75" Height="5.8961393229166674" />
+        <EntityTypeShape EntityType="WoWiModel.contact_info" Width="1.5" PointX="9.375" PointY="15.75" Height="5.19236328125001" />
+        <EntityTypeShape EntityType="WoWiModel.m_ima_contact" Width="1.5" PointX="15.375" PointY="19.75" Height="1.3215950520833246" />
       </Diagram>
     </Diagrams>
   </Designer>
