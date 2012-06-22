@@ -58,9 +58,9 @@
                 lblOCurrency1.Text = obj.currency;
                 lblOtotal.Text = ((decimal)obj.total_cost).ToString("F2");
                 QuotationModel.Project proj = (from pj in db.Project where  pj.Project_Id == obj.project_id select pj).First();
-                lblProjectStatus.Text = proj.Project_Status;
+                //lblProjectStatus.Text = proj.Project_Status;
                 lblProjNo.Text = proj.Project_No;
-                lblProjectDate.Text = proj.Create_Date.ToString("yyyy/MM/dd");
+                //lblProjectDate.Text = proj.Create_Date.ToString("yyyy/MM/dd");
                 QuotationModel.Quotation_Version quo = db.Quotation_Version.First(c => c.Quotation_Version_Id == proj.Quotation_Id);
                 lblQuoNo.Text = quo.Quotation_No;
                 int vender_id = (int)obj.vendor_id;
@@ -207,11 +207,30 @@
                     var quot = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select new { h.Currency, h.Model_No, h.CModel_No }).First();
                     String currency = quot.Currency;
                     String ModelNo = String.IsNullOrEmpty(quot.Model_No) ? quot.CModel_No : quot.Model_No;
-                    var idata = from t in db.Target_Rates from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id select new { /*QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id,*/ ItemDescription = qt.target_description, ModelNo = ModelNo, /*Currency = currency,*/  Qty = qt.unit };
+                    var idata = from t in db.Target_Rates from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id select new { /*QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id,*/ ItemDescription = qt.target_description, ModelNo = ModelNo, /*Currency = currency,*/  Qty = qt.unit ,date = qt.certification_completed,status= qt.Status};
                     
                     //lblTotal.Text = lblOtotal.Text;
                     TargetList.DataSource = idata;
                     TargetList.DataBind();
+
+                    //try
+                    //{
+                    //    lblProjectStatus.Text = idata.First().status;
+                    //    if (idata.First().date.HasValue)
+                    //    {
+                    //        lblProjectDate.Text = ((DateTime)idata.First().date).ToString("yyyy/MM/dd");
+                    //    }
+                    //    else
+                    //    {
+                    //        lblProjectDate.Text = "N/A";
+                    //    }
+                    //}
+                    //catch (Exception)
+                    //{
+                        
+                    //    //throw;
+                    //}
+                    
 
                 }
                 catch (Exception ex)
@@ -491,10 +510,10 @@
                     Create date:
                     <asp:Label ID="lblCreateDate" runat="server" Text="lblCreateDate"></asp:Label></p>
                     <p>
-                    Project status:
+                        Target status:
                     <asp:Label ID="lblProjectStatus" runat="server" Text="lblProjectStatus"></asp:Label></p>
                     <p>
-                    Project date:
+                        Target date:
                     <asp:Label ID="lblProjectDate" runat="server" Text="lblProjectDate"></asp:Label></p>
                     <p>
                     Payment term:
