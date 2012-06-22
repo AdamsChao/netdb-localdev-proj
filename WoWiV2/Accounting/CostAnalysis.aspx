@@ -310,6 +310,7 @@
                             {
                                 try
                                 {
+                                    
                                     if (!hs.Contains(inv.invoice_id))
                                     {
                                         hs.Add(inv.invoice_id);
@@ -400,59 +401,7 @@
                                             dstate = dflag & disflag;
                                         }
                                     }
-                                    if (inv.issue_invoice_date.HasValue)
-                                    {
-                                        try
-                                        {
-
-
-                                            DateTime fromDate = dcInvoiceFrom.GetDate();
-                                            if ((fromDate - (DateTime)inv.issue_invoice_date).TotalDays > 0)
-                                            {
-                                                //flag = true;
-                                                //continue;
-
-                                            }
-                                            else
-                                            {
-                                                isflag = true;
-                                            }
-
-
-                                        }
-                                        catch (Exception)
-                                        {
-
-
-                                            isflag = true;
-
-                                        }
-                                        try
-                                        {
-                                            DateTime toDate = dcInvoiceTo.GetDate();
-                                            if ((toDate - (DateTime)inv.issue_invoice_date).TotalDays < 0)
-                                            {
-
-                                            }
-                                            else
-                                            {
-                                                flag = true;
-                                            }
-
-                                        }
-                                        catch (Exception)
-                                        {
-
-
-                                            flag = true;
-
-                                        }
-                                    }
-                                    state = flag & isflag;
-                                    if (!state)
-                                    {
-                                        continue;
-                                    }
+                                    
                                     //System.Diagnostics.Debug.WriteLine("INV {0} : {1} : {2} = {3}", inv.issue_invoice_date, flag, isflag, state);
                                     var invtargets = wowidb.invoice_target.Where(c => c.invoice_id == inv.invoice_id);
                                     foreach (var intar in invtargets)
@@ -474,7 +423,60 @@
 
                                                 temp2.InvDate += ((DateTime)inv.issue_invoice_date).ToString("yyyy-MM-dd") + " ";
 
-                                                
+                                                if (inv.issue_invoice_date.HasValue)
+                                                {
+                                                    try
+                                                    {
+
+
+                                                        DateTime fromDate = dcInvoiceFrom.GetDate();
+                                                        if ((fromDate - (DateTime)inv.issue_invoice_date).TotalDays > 0)
+                                                        {
+                                                            //flag = true;
+                                                            //continue;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            isflag = true;
+                                                        }
+
+
+                                                    }
+                                                    catch (Exception)
+                                                    {
+
+
+                                                        isflag = true;
+
+                                                    }
+                                                    try
+                                                    {
+                                                        DateTime toDate = dcInvoiceTo.GetDate();
+                                                        if ((toDate - (DateTime)inv.issue_invoice_date).TotalDays < 0)
+                                                        {
+
+                                                        }
+                                                        else
+                                                        {
+                                                            flag = true;
+                                                        }
+
+                                                    }
+                                                    catch (Exception)
+                                                    {
+
+
+                                                        flag = true;
+
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    state |= false;
+                                                }
+                                                state |= flag & isflag;
+                                               
                                                 foreach (var invr in wowidb.invoice_received.Where(c => c.invoice_id == inv.invoice_id))
                                                 {
                                                    
@@ -551,7 +553,10 @@
                                     //isflag = true;
                                 }
                             }//end of invoice
-                            
+                            if (!state)
+                            {
+                                continue;
+                            }
                             temp2.InvUSD = tarTotal.ToString("F2");
                         }
                         catch (Exception)
@@ -696,7 +701,7 @@
                         tempD.InvUSD = (-1 * projDisTotal).ToString("F2");
                         invusd -= projDisTotal;
                         profit -= projDisTotal;
-                        if (DropDownList3.SelectedValue == "- All -" && ddlCountry.SelectedValue == "-1" )
+                        if (DropDownList3.SelectedValue == "- All -" && ddlCountry.SelectedValue == "-1" && ddlIMA.SelectedValue == "-1")
                         {
                             bool disFlag = false;
                             try
