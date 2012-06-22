@@ -12,6 +12,7 @@ public class ContactUtils
 {
     public static String Name_CheckBox_RoleList = "clRoleList";
     public static String Name_DropdownList_RoleList = "dlContactList";
+    public static String IMA_Name_DropdownList_RoleList = "dlIMAContactList";
     public static String Key_ViewState_Roles = "Roles";
     public static String Key_ViewState_UpdateMessage = "Update_Message";
     public static String Value_ViewState_UpdateMessage = "Update contact information successfully.";

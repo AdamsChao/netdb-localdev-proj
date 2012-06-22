@@ -155,7 +155,27 @@
         ContactUtils.InitRoles(id, MyContactCreateFormView1, ContactUtils.Name_CheckBox_RoleList);
     }
 
-
+    protected void MyIMABtnLoad_Click(object sender, EventArgs ea)
+    {
+        FormView fv = this.MyContactCreateFormView1;
+        DropDownList list = (DropDownList)fv.FindControl(ContactUtils.IMA_Name_DropdownList_RoleList);
+        int id = int.Parse(list.SelectedValue);
+        using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+        {
+            FormView FormView1 = MyContactCreateFormView1;
+            var data = db.Ima_Contact.Where(c => c.ContactID == id).First();
+            Utils.SetTextBoxValue(fv, "tbFirstName", data.FirstName);
+            Utils.SetTextBoxValue(fv, "tbLastName", data.LastName);
+            Utils.SetTextBoxValue(fv, "tbTitle", data.Title);
+            Utils.SetTextBoxValue(fv, "tbWorkphone", data.WorkPhone);
+            Utils.SetTextBoxValue(fv, "tbEmail", data.Email);
+            Utils.SetTextBoxValue(fv, "tbCellPhone", data.CellPhone);
+            Utils.SetTextBoxValue(fv, "tbFax", data.Fax);
+            Utils.SetTextBoxValue(fv, "tbAddress", data.Adress);
+            Utils.SetDropDownListValue(fv, "dlCountry", data.CountryID + "");
+        }
+       
+    }
 
     protected void dlContactList_Load(object sender, EventArgs e)
     {
@@ -184,7 +204,41 @@
         }
     }
 
+    protected void dlIMAContactList_Load(object sender, EventArgs e)
+    {
 
+        DropDownList dl = (DropDownList)sender;
+        String val = dl.SelectedValue;
+        dl.Items.Clear();
+        dl.Items.Add(new ListItem("- Select -", "-1"));
+        using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+        {
+            var donelist = from d in db.m_ima_contact select d.ima_contact_id;
+            object data = null ;
+            if (donelist.Count() == 0)
+            {
+                data = from c in db.Ima_Contact orderby c.FirstName,c.LastName ascending select c;
+            }
+            else
+            {
+                data = from d in donelist from c in db.Ima_Contact where (d != c.ContactID) orderby c.FirstName, c.LastName ascending select c;
+            }
+            foreach (WoWiModel.Ima_Contact contract in (data as IEnumerable))
+            {
+                dl.Items.Add(new ListItem(String.Format("{0,15} {1,15}", contract.FirstName, contract.LastName), contract.ContactID+ ""));
+            }
+
+        }
+        //Keep State
+        foreach (ListItem item in dl.Items)
+        {
+            if (item.Value == val)
+            {
+                item.Selected = true;
+                break;
+            }
+        }
+    }
     protected void ddlEmployeeList_Load(object sender, EventArgs ea)
     {
 
@@ -287,6 +341,15 @@
                                     AppendDataBoundItems="False" AutoPostBack="True" onload="dlContactList_Load">
                                 </asp:DropDownList>
                                 <asp:Button ID="MyBtnLoad" runat="server" onclick="MyBtnLoad_Click" Text="Load" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="4">
+                                Load from IMA :
+                                <asp:DropDownList ID="dlIMAContactList" runat="server" 
+                                    AppendDataBoundItems="False" AutoPostBack="True" onload="dlIMAContactList_Load">
+                                </asp:DropDownList>
+                                <asp:Button ID="Button1" runat="server" onclick="MyIMABtnLoad_Click" Text="Load" />
                             </td>
                         </tr>
                          <tr><th 

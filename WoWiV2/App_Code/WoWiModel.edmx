@@ -18,6 +18,7 @@
           <EntitySet Name="department" EntityType="WoWiModel.Store.department" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="employee" EntityType="WoWiModel.Store.employee" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="employee_jobtitle" EntityType="WoWiModel.Store.employee_jobtitle" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ima_Contact" EntityType="WoWiModel.Store.Ima_Contact" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="invoice" EntityType="WoWiModel.Store.invoice" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="invoice_received" EntityType="WoWiModel.Store.invoice_received" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="invoice_target" EntityType="WoWiModel.Store.invoice_target" store:Type="Tables" Schema="dbo" />
@@ -293,6 +294,33 @@
           <Property Name="create_user" Type="nvarchar" MaxLength="26" />
           <Property Name="modify_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="26" />
+        </EntityType>
+        <EntityType Name="Ima_Contact">
+          <Key>
+            <PropertyRef Name="ContactID" />
+          </Key>
+          <Property Name="ContactID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="WorkPhone" Type="nvarchar" MaxLength="200" />
+          <Property Name="Ext" Type="nvarchar" MaxLength="10" />
+          <Property Name="CellPhone" Type="nvarchar" MaxLength="200" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="300" />
+          <Property Name="CountryID" Type="int" />
+          <Property Name="DID" Type="int" />
+          <Property Name="Categroy" Type="nvarchar" MaxLength="10" />
+          <Property Name="Fee" Type="decimal" Scale="3" />
+          <Property Name="FeeUnit" Type="nvarchar" MaxLength="20" />
+          <Property Name="LeadTime" Type="int" />
+          <Property Name="CreateUser" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LasterUpdateUser" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="LasterUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="200" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="IsTemp" Type="bit" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="invoice">
           <Key>
@@ -918,6 +946,7 @@
           <EntitySet Name="vendors" EntityType="WoWiModel.vendor" />
           <EntitySet Name="contact_info" EntityType="WoWiModel.contact_info" />
           <EntitySet Name="m_ima_contact" EntityType="WoWiModel.m_ima_contact" />
+          <EntitySet Name="Ima_Contact" EntityType="WoWiModel.Ima_Contact" />
         </EntityContainer>
         <EntityType Name="access_level">
           <Key>
@@ -1736,6 +1765,33 @@
           </Key>
           <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="ima_contact_id" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ima_Contact">
+          <Key>
+            <PropertyRef Name="ContactID" />
+          </Key>
+          <Property Type="Int32" Name="ContactID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="FirstName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Title" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkPhone" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Ext" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CellPhone" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Adress" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CountryID" />
+          <Property Type="Int32" Name="DID" />
+          <Property Type="String" Name="Categroy" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="Fee" Precision="18" Scale="3" />
+          <Property Type="String" Name="FeeUnit" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="LeadTime" />
+          <Property Type="String" Name="CreateUser" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+          <Property Type="String" Name="LasterUpdateUser" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LasterUpdateDate" Nullable="false" />
+          <Property Type="String" Name="Fax" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Remark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsTemp" />
+          <Property Type="String" Name="Email" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2596,6 +2652,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Ima_Contact">
+            <EntityTypeMapping TypeName="WoWiModel.Ima_Contact">
+              <MappingFragment StoreEntitySet="Ima_Contact">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsTemp" ColumnName="IsTemp" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="LasterUpdateDate" ColumnName="LasterUpdateDate" />
+                <ScalarProperty Name="LasterUpdateUser" ColumnName="LasterUpdateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="LeadTime" ColumnName="LeadTime" />
+                <ScalarProperty Name="FeeUnit" ColumnName="FeeUnit" />
+                <ScalarProperty Name="Fee" ColumnName="Fee" />
+                <ScalarProperty Name="Categroy" ColumnName="Categroy" />
+                <ScalarProperty Name="DID" ColumnName="DID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="Ext" ColumnName="Ext" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2661,6 +2745,7 @@
         <EntityTypeShape EntityType="WoWiModel.vendor" Width="1.5" PointX="18.75" PointY="17.75" Height="5.8961393229166674" />
         <EntityTypeShape EntityType="WoWiModel.contact_info" Width="1.5" PointX="9.375" PointY="15.75" Height="5.19236328125001" />
         <EntityTypeShape EntityType="WoWiModel.m_ima_contact" Width="1.5" PointX="15.375" PointY="19.75" Height="1.3215950520833246" />
+        <EntityTypeShape EntityType="WoWiModel.Ima_Contact" Width="1.5" PointX="21.375" PointY="0.75" Height="4.8404752604166674" />
       </Diagram>
     </Diagrams>
   </Designer>
