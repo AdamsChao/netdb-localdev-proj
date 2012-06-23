@@ -366,7 +366,7 @@
                                     </td><th 
                                    align="left" class="style9">&nbsp;&nbsp; Bank Address:&nbsp;</th><td width="30%">
                             <asp:TextBox ID="tbBankAddress" runat="server" 
-                                Text='<%# Bind("bank_address") %>' Width="211px"></asp:TextBox>
+                                Text='<%# Bind("bank_address") %>' Width="360"></asp:TextBox>
                         </td>
                         </tr>
                                 <tr>
@@ -374,7 +374,7 @@
                               <font color="red">*&nbsp;</font> Account No.(IBAN):&nbsp;&nbsp;</th>
                           <td width="30%">
                               <asp:TextBox ID="tbBankAccountNo" runat="server" MaxLength="31" 
-                                  Text='<%# Bind("bank_account_no") %>' Width="211px"></asp:TextBox>
+                                  Text='<%# Bind("bank_account_no") %>' Width="250"></asp:TextBox>
                               <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
                                   ControlToValidate="tbBankAccountNo" ErrorMessage="Have to provide Account No." 
                                   ForeColor="Red">*</asp:RequiredFieldValidator>
@@ -393,13 +393,13 @@
                               &nbsp;&nbsp;&nbsp;Routing No.:&nbsp;&nbsp;</th>
                           <td>
                               <asp:TextBox ID="tbBankRoutingNo" runat="server" MaxLength="50" 
-                                  Text='<%# Bind("bank_routing_no") %>' Width="211px"></asp:TextBox>
+                                  Text='<%# Bind("bank_routing_no") %>' Width="250"></asp:TextBox>
                           </td>
                           <th align="left" class="style7">
                               <font color="red">*&nbsp;</font> Beneficiary Name:</th>
                           <td class="style3" width="30%">
                               <asp:TextBox ID="tbBeneficiaryName" runat="server" 
-                                  Text='<%# Bind("bank_beneficiary_name") %>'></asp:TextBox>
+                                  Text='<%# Bind("bank_beneficiary_name") %>'  Width="300"></asp:TextBox>
                               <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
                                   ControlToValidate="tbBeneficiaryName" 
                                   ErrorMessage="Have to provide Beneficiary Name" ForeColor="Red">*</asp:RequiredFieldValidator>
@@ -597,7 +597,7 @@
                               &nbsp;&nbsp; Bank Address:&nbsp;</th>
                           <td width="30%">
                               <asp:TextBox ID="tbBankAddress" runat="server" 
-                                  Text='<%# Bind("bank_address") %>' Width="211px"></asp:TextBox>
+                                  Text='<%# Bind("bank_address") %>' Width="360"></asp:TextBox>
                           </td>
                       </tr>
                       <tr>
@@ -605,7 +605,7 @@
                               <font color="red">*&nbsp;</font> Account No.(IBAN):&nbsp;&nbsp;</th>
                           <td width="30%">
                               <asp:TextBox ID="tbBankAccountNo" runat="server" MaxLength="31" 
-                                  Text='<%# Bind("bank_account_no") %>' Width="211px"></asp:TextBox>
+                                  Text='<%# Bind("bank_account_no") %>' Width="250"></asp:TextBox>
                               <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
                                   ControlToValidate="tbBankAccountNo" ErrorMessage="Have to provide Account No." 
                                   ForeColor="Red">*</asp:RequiredFieldValidator>
@@ -624,13 +624,13 @@
                               &nbsp;&nbsp;&nbsp;Routing No.:&nbsp;&nbsp;</th>
                           <td>
                               <asp:TextBox ID="tbBankRoutingNo" runat="server" MaxLength="50" 
-                                  Text='<%# Bind("bank_routing_no") %>' Width="211px"></asp:TextBox>
+                                  Text='<%# Bind("bank_routing_no") %>' Width="250"></asp:TextBox>
                           </td>
                           <th align="left" class="style7">
                               <font color="red">*&nbsp;</font> Beneficiary Name:</th>
                           <td class="style3" width="30%">
                               <asp:TextBox ID="tbBeneficiaryName" runat="server" 
-                                  Text='<%# Bind("bank_beneficiary_name") %>'></asp:TextBox>
+                                  Text='<%# Bind("bank_beneficiary_name") %>' Width="300"></asp:TextBox>
                               <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
                                   ControlToValidate="tbBeneficiaryName" 
                                   ErrorMessage="Have to provide Beneficiary Name" ForeColor="Red">*</asp:RequiredFieldValidator>

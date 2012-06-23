@@ -391,7 +391,8 @@
                                    <th align="left" class="style7">
                                        &nbsp;&nbsp;&nbsp;Bank Name:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:TextBox ID="tbBankName" runat="server" Text='<%# Bind("ups_bankname") %>' Enabled="false"></asp:TextBox>
+                                       <asp:TextBox ID="tbBankName" runat="server" Text='<%# Bind("ups_bankname") %>' 
+                                           Enabled="false" Width="250px"></asp:TextBox>
                                    </td>
                                    <th align="left" class="style7">
                                        &nbsp; Bank Branch:&nbsp;</th>
@@ -404,7 +405,7 @@
                                        &nbsp;&nbsp;&nbsp;Bank Address:&nbsp;</th>
                                    <td width="30%">
                                        <asp:TextBox ID="tbBankAddress" runat="server" Enabled="false"
-                                           Text='<%# Bind("ups_bankaddress") %>'></asp:TextBox>
+                                           Text='<%# Bind("ups_bankaddress") %>' Width="360px"></asp:TextBox>
                                    </td>
                                    <th align="left" class="style7">
                                        &nbsp; Swift Code:&nbsp;</th>
@@ -418,7 +419,7 @@
                                        &nbsp;&nbsp;&nbsp;Beneficiary Name:&nbsp;</th>
                                    <td width="30%">
                                        <asp:TextBox ID="tbBanefucuanyName" runat="server" Enabled="false"
-                                           Text='<%# Bind("ups_banefucuanyname") %>'></asp:TextBox>
+                                           Text='<%# Bind("ups_banefucuanyname") %>' Width="300px"></asp:TextBox>
                                    </td>
                                    <th align="left" class="style7">
                                        &nbsp; Passby Bank:&nbsp;</th>
@@ -437,7 +438,7 @@
                                        Text='<%# Bind("contact_name") %>'></asp:TextBox>&#160;&#160;&#160;&#160;&#160;</td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Email:</th><td width="30%">
                                                 <asp:TextBox Enabled="false"
-                                       ID="TextBox5" runat="server" Text='<%# Bind("contact_email") %>'></asp:TextBox></td></tr>
+                                       ID="TextBox5" runat="server" Text='<%# Bind("contact_email") %>' Width="250px"></asp:TextBox></td></tr>
                                        <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Tel:</th><td 
                                    colspan="3"><asp:TextBox ID="tbaccttel" runat="server" Enabled="false"
@@ -460,52 +461,48 @@
                                              <tr>
 
                                
-                                <tr><td align="left" colspan="4">
-                                Contact :
-                                    <asp:GridView ID="GridView1" runat="server" Width="100%"
-                                        onload="GridView1_Load" AutoGenerateColumns="False" >
-                                        <Columns>
-                                           <asp:TemplateField InsertVisible="False" SortExpression="id">
-                <EditItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("id") %>'></asp:Label>
-                </EditItemTemplate>
-                <ItemTemplate>
-                        <asp:HyperLink ID="HyperLink3" runat="server" 
-                        NavigateUrl='<%# Bind("id","~/Common/ContactDetails.aspx?id={0}") %>'>Details</asp:HyperLink>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="Name" SortExpression="fname">
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("fname") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <ItemTemplate>
-                    &nbsp;<asp:Label ID="Label3" runat="server" Text='<%# Eval("fname") %>'></asp:Label>
-                    &nbsp;<asp:Label ID="Label1" runat="server" Text='<%# Eval("lname") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="姓名" SortExpression="lname">
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("lname") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("c_lname") %>'></asp:Label>
-                    &nbsp;<asp:Label ID="Label4" runat="server" Text='<%# Eval("c_fname") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:BoundField DataField="title" SortExpression="title" HeaderText="Title" />
-            <asp:BoundField DataField="email" HeaderText="Email" 
-                SortExpression="email" />
-            <asp:BoundField DataField="workphone" HeaderText="Work Phone" 
-                SortExpression="workphone" />
-            <asp:BoundField DataField="ext" HeaderText="Ext" 
-                SortExpression="ext" />
-            <asp:BoundField DataField="cellphone" HeaderText="Cellphone" 
-                SortExpression="cellphone" />
-                                        </Columns>
-                                    </asp:GridView>
-                                   
-              </td>
-              </tr>
+                                                 <td align="left" colspan="4">
+                                                     Contact :
+                                                     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
+                                                         onload="GridView1_Load" Width="100%">
+                                                         <Columns>
+                                                             <asp:TemplateField InsertVisible="False" SortExpression="id">
+                                                                 <EditItemTemplate>
+                                                                     <asp:Label ID="Label1" runat="server" Text='<%# Eval("id") %>'></asp:Label>
+                                                                 </EditItemTemplate>
+                                                                 <ItemTemplate>
+                                                                     <asp:HyperLink ID="HyperLink3" runat="server" 
+                                                                         NavigateUrl='<%# Bind("id","~/Common/ContactDetails.aspx?id={0}") %>'>Details</asp:HyperLink>
+                                                                 </ItemTemplate>
+                                                             </asp:TemplateField>
+                                                             <asp:TemplateField HeaderText="Name" SortExpression="fname">
+                                                                 <EditItemTemplate>
+                                                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("fname") %>'></asp:TextBox>
+                                                                 </EditItemTemplate>
+                                                                 <ItemTemplate>
+                                                                     &nbsp;<asp:Label ID="Label3" runat="server" Text='<%# Eval("fname") %>'></asp:Label>
+                                                                     &nbsp;<asp:Label ID="Label1" runat="server" Text='<%# Eval("lname") %>'></asp:Label>
+                                                                 </ItemTemplate>
+                                                             </asp:TemplateField>
+                                                             <asp:TemplateField HeaderText="姓名" SortExpression="lname">
+                                                                 <EditItemTemplate>
+                                                                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("lname") %>'></asp:TextBox>
+                                                                 </EditItemTemplate>
+                                                                 <ItemTemplate>
+                                                                     <asp:Label ID="Label2" runat="server" Text='<%# Eval("c_lname") %>'></asp:Label>
+                                                                     &nbsp;<asp:Label ID="Label4" runat="server" Text='<%# Eval("c_fname") %>'></asp:Label>
+                                                                 </ItemTemplate>
+                                                             </asp:TemplateField>
+                                                             <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
+                                                             <asp:BoundField DataField="email" HeaderText="Email" SortExpression="email" />
+                                                             <asp:BoundField DataField="workphone" HeaderText="Work Phone" 
+                                                                 SortExpression="workphone" />
+                                                             <asp:BoundField DataField="ext" HeaderText="Ext" SortExpression="ext" />
+                                                             <asp:BoundField DataField="cellphone" HeaderText="Cellphone" 
+                                                                 SortExpression="cellphone" />
+                                                         </Columns>
+                                                     </asp:GridView>
+                                                 </td>
                <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
                                    <th colspan="4">
                                        Remark</th>

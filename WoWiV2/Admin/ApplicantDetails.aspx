@@ -251,14 +251,15 @@
                                    align="left" class="style11"><font color="red">*&#160;</font>Company:&#160;&#160;</th><td 
                                    class="style12" width="30%">
                                 <asp:TextBox Enabled="false" ID="tbCompany" runat="server"
-                                       Text='<%# Bind("companyname") %>'></asp:TextBox></td><th align="left" 
+                                       Text='<%# Bind("companyname") %>' Width="300px"></asp:TextBox></td><th align="left" 
                                    class="style11">&#160; 公司:&#160;</th><td class="style12" width="30%">
                                 <asp:TextBox Enabled="false"
-                                       ID="tbcCompany" runat="server" Text='<%# Bind("c_companyname") %>'></asp:TextBox></td></tr><tr><th 
+                                       ID="tbcCompany" runat="server" Text='<%# Bind("c_companyname") %>' 
+                                    Width="300px"></asp:TextBox></td></tr><tr><th 
                                    align="left" class="style9">&nbsp;&nbsp; Company URI:</th><td 
                                    width="30%">
                               <asp:TextBox Enabled="false" ID="tbCompanyURL" runat="server" 
-                                       Text='<%# Bind("website") %>'></asp:TextBox>&#160;&#160;&#160;&#160;&#160;</td><th align="left" 
+                                       Text='<%# Bind("website") %>' Width="360px"></asp:TextBox>&#160;&#160;&#160;&#160;&#160;</td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Business Type:</th><td width="30%">
                               <asp:DropDownList ID="DropDownList1" runat="server" Enabled="false"
                                            SelectedValue='<%# Bind("businesstype") %>'>
@@ -277,10 +278,12 @@
                                   <asp:TextBox Enabled="false" 
                                        ID="tbFax" runat="server" Text='<%# Bind("main_fax") %>'></asp:TextBox></td></tr><tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Address:&#160;</th><td 
-                                   width="30%"><asp:TextBox Enabled="false" ID="tbAddress" runat="server" 
-                                       Text='<%# Bind("address") %>' Width="211px"></asp:TextBox></td><th 
-                                   align="left" class="style7">&#160; 地址:&#160;</th><td width="30%"><asp:TextBox Enabled="false" 
-                                       ID="tbcAddress" runat="server" Text='<%# Bind("c_address") %>' Width="211px"></asp:TextBox></td></tr>
+                                   width="30%">
+                                       <asp:TextBox Enabled="false" ID="tbAddress" runat="server" 
+                                       Text='<%# Bind("address") %>' Width="360px"></asp:TextBox></td><th 
+                                   align="left" class="style7">&#160; 地址:&#160;</th><td width="30%">
+                                       <asp:TextBox Enabled="false" 
+                                       ID="tbcAddress" runat="server" Text='<%# Bind("c_address") %>' Width="360px"></asp:TextBox></td></tr>
                                        
                                        
                                        <tr><th 
@@ -343,10 +346,10 @@
                                    align="left" class="style11"><font color="red">*&#160;</font>Company:&#160;&#160;</th><td 
                                    class="style12" width="30%">
                                          <asp:TextBox Enabled="false" ID="tbBillCompany" runat="server" 
-                                       Text='<%# Bind("bill_companyname") %>'></asp:TextBox></td><th align="left" 
+                                       Text='<%# Bind("bill_companyname") %>' Width="300px"></asp:TextBox></td><th align="left" 
                                    class="style11">&#160; 公司:&#160;</th><td class="style12" width="30%">
                                          <asp:TextBox Enabled="false" 
-                                       ID="tbcBillCompany" runat="server" Text='<%# Bind("bill_ccompanyname") %>'></asp:TextBox></td></tr>
+                                       ID="tbcBillCompany" runat="server" Text='<%# Bind("bill_ccompanyname") %>' Width="300px"></asp:TextBox></td></tr>
                                        
                                        <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>First Name:</th><td 
@@ -367,10 +370,10 @@
                                         <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Title:</th><td 
                                    width="30%"><asp:TextBox Enabled="false" ID="tbEmail" runat="server" 
-                                       Text='<%# Bind("bill_title") %>'></asp:TextBox>&#160;&#160;&#160;&#160;&#160;</td><th align="left" 
+                                       Text='<%# Bind("bill_title") %>' Width="250px"></asp:TextBox>&#160;&#160;&#160;&#160;&#160;</td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Email:</th><td width="30%">
                                                 <asp:TextBox Enabled="false" 
-                                       ID="tbBillEmail" runat="server" Text='<%# Bind("bill_email") %>'></asp:TextBox></td></tr>
+                                       ID="tbBillEmail" runat="server" Text='<%# Bind("bill_email") %>' Width="250px"></asp:TextBox></td></tr>
                                        <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Tel:</th><td 
                                    width="30%"><asp:TextBox Enabled="false" ID="tbBillTel" runat="server" 
@@ -385,13 +388,13 @@
                                        <font color="red">*&nbsp;</font>Address:&nbsp;</th>
                                    <td width="30%">
                                        <asp:TextBox Enabled="false" ID="tbBillAddress" runat="server" Text='<%# Bind("bill_address") %>' 
-                                           Width="211px"></asp:TextBox>
+                                           Width="360px"></asp:TextBox>
                                    </td>
                                    <th align="left" class="style7">
                                        &nbsp; 地址:&nbsp;</th>
                                    <td width="30%">
                                        <asp:TextBox Enabled="false" ID="tbCBillAddress" runat="server" Text='<%# Bind("bill_caddress") %>' 
-                                           Width="211px"></asp:TextBox>
+                                           Width="360px"></asp:TextBox>
                                    </td>
                                </tr>
                               <tr>
@@ -408,7 +411,7 @@
                                    </td>
                                     <th 
                                    align="left" class="style7">&nbsp; Payment Type:&nbsp;</th><td width="30%">
-                                               <asp:DropDownList ID="ddlPaymentType" runat="server" 
+                                               <asp:DropDownList ID="ddlPaymentType" runat="server" Enabled="false"
                                                    SelectedValue='<%# Bind("paymentterm") %>' >
                                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                                     <asp:ListItem Value="0">支票 Check</asp:ListItem>
@@ -515,7 +518,7 @@
                                    <th align="left" class="style7">
                                        &nbsp;&nbsp;&nbsp;Bank Name:&nbsp;</th>
                                    <td width="30%">
-                                       <asp:TextBox Enabled="false" ID="tbBankName" runat="server" Text='<%# Bind("ups_bankname") %>'></asp:TextBox>
+                                       <asp:TextBox Enabled="false" ID="tbBankName" runat="server" Text='<%# Bind("ups_bankname") %>' Width="250px"></asp:TextBox>
                                    </td>
                                    <th align="left" class="style7">
                                        &nbsp; Bank Branch:&nbsp;</th>
@@ -528,7 +531,7 @@
                                        &nbsp;&nbsp;&nbsp;Bank Address:&nbsp;</th>
                                    <td width="30%">
                                        <asp:TextBox Enabled="false" ID="tbBankAddress" runat="server" 
-                                           Text='<%# Bind("ups_bankaddress") %>'></asp:TextBox>
+                                           Text='<%# Bind("ups_bankaddress") %>' Width="360px"></asp:TextBox>
                                    </td>
                                    <th align="left" class="style7">
                                        &nbsp; Swift Code:&nbsp;</th>
@@ -542,7 +545,7 @@
                                        &nbsp;&nbsp;&nbsp;Beneficiary Name:&nbsp;</th>
                                    <td width="30%">
                                        <asp:TextBox Enabled="false" ID="tbBanefucuanyName" runat="server" 
-                                           Text='<%# Bind("ups_banefucuanyname") %>'></asp:TextBox>
+                                           Text='<%# Bind("ups_banefucuanyname") %>' Width="300px"></asp:TextBox>
                                    </td>
                                    <th align="left" class="style7">
                                        &nbsp; Passby Bank:&nbsp;</th>
@@ -561,7 +564,7 @@
                                        Text='<%# Bind("contact_name") %>'></asp:TextBox>&#160;&#160;&#160;&#160;&#160;</td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Email:</th><td width="30%">
                                                 <asp:TextBox Enabled="false" 
-                                       ID="TextBox5" runat="server" Text='<%# Bind("contact_email") %>'></asp:TextBox></td></tr>
+                                       ID="TextBox5" runat="server" Text='<%# Bind("contact_email") %>' Width="250px"></asp:TextBox></td></tr>
                                        <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Tel:</th><td 
                                    colspan="3"><asp:TextBox Enabled="false" ID="tbaccttel" runat="server" 

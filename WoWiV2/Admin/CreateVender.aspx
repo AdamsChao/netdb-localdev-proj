@@ -232,9 +232,9 @@
                                    <tr><th 
                                    align="left" class="style11"><font color="red">*&#160;</font>Company:&#160;&#160;</th><td 
                                    class="style12" width="30%"><asp:TextBox ID="tbCompany" runat="server" 
-                                       Text='<%# Bind("name") %>'></asp:TextBox></td><th align="left" 
+                                       Text='<%# Bind("name") %>'  Width="250"></asp:TextBox></td><th align="left" 
                                    class="style11">&#160; 公司:&#160;</th><td class="style12" width="30%"><asp:TextBox 
-                                       ID="tbcCompany" runat="server" Text='<%# Bind("c_name") %>'></asp:TextBox></td></tr>
+                                       ID="tbcCompany" runat="server" Text='<%# Bind("c_name") %>'  Width="250"></asp:TextBox></td></tr>
                                        <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Tel1:</th><td 
                                    width="30%"><asp:TextBox ID="tbTel1" runat="server" 
@@ -247,9 +247,9 @@
                                        ID="tbFax2" runat="server" Text='<%# Bind("fax2") %>'></asp:TextBox></td></tr><tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Address:&#160;</th><td 
                                    width="30%"><asp:TextBox ID="tbAddress" runat="server" 
-                                       Text='<%# Bind("address") %>' Width="211px"></asp:TextBox></td><th 
+                                       Text='<%# Bind("address") %>' Width="360"></asp:TextBox></td><th 
                                    align="left" class="style7">&#160; 地址:&#160;</th><td width="30%"><asp:TextBox 
-                                       ID="tbcAddress" runat="server" Text='<%# Bind("c_address") %>' Width="211px"></asp:TextBox></td></tr><tr><th 
+                                       ID="tbcAddress" runat="server" Text='<%# Bind("c_address") %>' Width="360"></asp:TextBox></td></tr><tr><th 
                                    align="left" class="style9"><font color="red">* </font>Country:&#160;</th>
                                    <td 
                                    width="30%">

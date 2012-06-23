@@ -252,7 +252,7 @@
                             <th align="left" class="style4">
                                 <font color="red">*&nbsp;</font>Email:&nbsp;</th>
                             <td width="40%">
-                                <asp:TextBox ID="tbEmail" runat="server" Text='<%# Bind("email") %>'></asp:TextBox>
+                                <asp:TextBox ID="tbEmail" runat="server" Text='<%# Bind("email") %>' Width="250"></asp:TextBox>
                             </td>
                         </tr>
                          <tr>
@@ -299,7 +299,7 @@
                             <th align="left" class="style4">
                                 &nbsp; Address:&nbsp;</th>
                             <td  class="style7" >
-                                <asp:TextBox ID="tbAddress" runat="server"  Text='<%# Bind("address") %>'></asp:TextBox>
+                                <asp:TextBox ID="tbAddress" runat="server"  Text='<%# Bind("address") %>' Width="360"></asp:TextBox>
                             </td>
                             <th align="left" class="style4">
                                 &nbsp; Country:&nbsp;</th>
