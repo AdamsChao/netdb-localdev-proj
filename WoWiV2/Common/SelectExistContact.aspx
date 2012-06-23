@@ -29,7 +29,13 @@
         String strId = Request.QueryString["id"];
         String type = Request.QueryString["type"];
         SaveContactsToDB();
-        Response.Redirect("~/Common/CreateContact.aspx?id=" + strId + "&type=" + type);
+        String mode = Request.QueryString["mode"];
+        String modeStr = "";
+        if (!String.IsNullOrEmpty(mode))
+        {
+            modeStr = "&mode="+mode;
+        }
+        Response.Redirect("~/Common/CreateContact.aspx?id=" + strId + "&type=" + type + modeStr);
     }
 
     protected void btnFinish_Click(object sender, EventArgs e)
