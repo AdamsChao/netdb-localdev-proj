@@ -293,7 +293,8 @@
                             try
                             {
                                 lbSelectedContacts.Items.Add(item);
-                                lbSystemContacts.Items.Remove(item);
+                                //lbSystemContacts.Items.Remove(item);
+                                removeItem(item.Value);
                             }
                             catch (Exception)
                             {
@@ -360,7 +361,8 @@
                             try
                             {
                                 lbSelectedContacts.Items.Add(item);
-                                lbSystemContacts.Items.Remove(item);
+                                //lbSystemContacts.Items.Remove(item);
+                                removeItem(item.Value);
                             }
                             catch (Exception)
                             {
@@ -374,6 +376,24 @@
         }
     }
 
+    private void removeItem(String id)
+    {
+        try
+        {
+            for (int i = lbSystemContacts.Items.Count -1; i >=0; i--)
+            {
+                if (lbSystemContacts.Items[i].Value == id)
+                {
+                    lbSystemContacts.Items.RemoveAt(i);
+                }
+            }
+        }
+        catch (Exception)
+        {
+            
+            //sthrow;
+        }
+    }
     protected void Label1_Load(object sender, EventArgs e)
     {
         String strId = Request.QueryString["id"];
