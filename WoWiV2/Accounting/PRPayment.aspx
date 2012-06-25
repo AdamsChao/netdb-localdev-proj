@@ -254,23 +254,23 @@
                     TargetList.DataSource = idata;
                     TargetList.DataBind();
 
-                    //try
-                    //{
-                    //    lblProjectStatus.Text = idata.First().status;
-                    //    if (idata.First().date.HasValue)
-                    //    {
-                    //        lblProjectDate.Text = ((DateTime)idata.First().date).ToString("yyyy/MM/dd");
-                    //    }
-                    //    else
-                    //    {
-                    //        lblProjectDate.Text = "N/A";
-                    //    }
-                    //}
-                    //catch (Exception)
-                    //{
+                    try
+                    {
+                        lblProjectStatus.Text = idata.First().status;
+                        if (idata.First().date.HasValue)
+                        {
+                            lblProjectDate.Text = ((DateTime)idata.First().date).ToString("yyyy/MM/dd");
+                        }
+                        else
+                        {
+                            lblProjectDate.Text = "";
+                        }
+                    }
+                    catch (Exception)
+                    {
 
-                    //    //throw;
-                    //}
+                        //throw;
+                    }
 
                 }
                 catch (Exception ex)
