@@ -266,7 +266,7 @@
                         
                         try
                         {
-                            var invList = from inv in wowidb.invoices where inv.project_no == temp2.ProjectNo select inv;
+                            var invList = from inv in wowidb.invoices where inv.project_no == temp2.ProjectNo && inv.status !=(byte)InvoicePaymentStatus.WithDraw select inv;
 
                             bool isflag = false;
                             bool flag = false;

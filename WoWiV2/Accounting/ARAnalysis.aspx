@@ -109,7 +109,7 @@
         ARAnalysisData temp;
         try
         {
-            var data = from i in wowidb.invoices where (int)(decimal)i.ar_balance > 0 select i;
+            var data = from i in wowidb.invoices where (int)(decimal)i.ar_balance > 0 && i.status !=(byte)InvoicePaymentStatus.WithDraw select i;
             try
             {
                 DateTime fromDate = dcFrom.GetDate();

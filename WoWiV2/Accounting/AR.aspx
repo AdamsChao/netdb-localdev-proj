@@ -277,10 +277,10 @@
                 ntdtotal += temp.NTD;
                 ntdissuetotal += temp.NTD;
                 usdtotal += temp.USD;
-                //arntdtotal += (double)ARBalance / (double)item.exchange_rate;
-                //temp.ARBalance = ((decimal)ARBalance / (decimal)item.exchange_rate).ToString("F2");
-                arntdtotal += (double)ARBalance;
-                temp.ARBalance = ((decimal)ARBalance).ToString("F2");
+                arntdtotal += (double)ARBalance / (double)item.exchange_rate;
+                temp.ARBalance = ((decimal)ARBalance / (decimal)item.exchange_rate).ToString("F2");
+                //arntdtotal += (double)ARBalance;
+                //temp.ARBalance = ((decimal)ARBalance).ToString("F2");
             }
 
             //if (item.invoice_date.HasValue)
