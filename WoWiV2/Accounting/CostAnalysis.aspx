@@ -68,13 +68,7 @@
                 temp.ProjectNo = proj.Project_No;
                 temp.Status = proj.Project_Status;
                 String targetDesc = "";
-                //if (DropDownList3.SelectedValue != "- All -")
-                //{
-                //    if (temp.Status != DropDownList3.SelectedValue)
-                //    {
-                //        continue;
-                //    }
-                //}
+               
                 if (ddlProj.SelectedValue != "-1")
                 {
                     String projID = ddlProj.SelectedValue;
@@ -124,7 +118,6 @@
                     int qid = proj.Quotation_Id;
                     WoWiModel.Quotation_Version quo = (from q in wowidb.Quotation_Version where q.Quotation_Version_Id == qid select q).First();
                    
-                    //temp.QutationNo = quo.Quotation_No + " - V" + quo.Vername;
                     temp.QutationId = qid;
                     
                     temp.Model = quo.Model_No;
@@ -191,34 +184,6 @@
 
                                 //throw;
                             }
-
-
-                            //try
-                            //{
-                            //    DateTime fromDate = dcStatusFromDate.GetDate();
-                            //    if ((fromDate - (DateTime)t.certification_completed).TotalDays > 0)
-                            //    {
-                            //        continue;
-                            //    }
-                            //}
-                            //catch (Exception)
-                            //{
-
-                            //    //throw;
-                            //}
-                            //try
-                            //{
-                            //    DateTime toDate = dcStatusToDate.GetDate();
-                            //    if ((toDate - (DateTime)t.certification_completed).TotalDays < 0)
-                            //    {
-                            //        continue;
-                            //    }
-                            //}
-                            //catch (Exception)
-                            //{
-
-                            //    //throw;
-                            //}
                             bool tpFlag = false;
                             bool ttFlag = false;
                             try
@@ -294,7 +259,7 @@
                         temp2.Sales = temp.Sales;
                         targetDesc = t.target_description;
                         temp2.Country = t.target_description;
-                        //continue;
+                        
                         //Get all invoices
                         decimal tarTotal = 0;
                         bool isflag = false;
@@ -553,7 +518,7 @@
                                     //isflag = true;
                                 }
                             }//end of invoice
-                            if (!state)
+                            if (!dstate)
                             {
                                 continue;
                             }
@@ -613,14 +578,12 @@
                         
                         try
                         {
-                            //var prs = wowidb.PRs.Where(c => c.project_id == proj.Project_Id);
-
+                            temp2.IMACostCurrency = "USD";
                             var prs = from pp in wowidb.PRs from aa in wowidb.PR_authority_history where pp.project_id == proj.Project_Id & pp.pr_auth_id == aa.pr_auth_id & (aa.status == 6 || aa.status == 8) select pp;
                             foreach (var pr in prs)
                             {
                                 //temp2.IMA = pr.create_user;
-                                temp2.IMACostCurrency = pr.currency;
-
+                                //temp2.IMACostCurrency = pr.currency;
                                 try
                                 {
                                     var item = wowidb.PR_item.First(c => c.pr_id == pr.pr_id);
@@ -664,10 +627,6 @@
                         catch
                         {
                         }
-                        //if (!state)
-                        //{
-                        //    continue;
-                        //}
                         temp2.IMACost = prtot.ToString("F2");
                         temp2.GrossProfitUS = (tarTotal - prtot).ToString("F2");
                         invusd += tarTotal;
