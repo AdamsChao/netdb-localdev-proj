@@ -262,15 +262,15 @@
                         
                         //Get all invoices
                         decimal tarTotal = 0;
-                        bool isflag = false;
-                        bool flag = false;
-                        bool state = false;
+                        
                         
                         try
                         {
                             var invList = from inv in wowidb.invoices where inv.project_no == temp2.ProjectNo select inv;
-                            
-                            
+
+                            bool isflag = false;
+                            bool flag = false;
+                            bool state = false;
                             foreach (var inv in invList)
                             {
                                 try
@@ -322,13 +322,7 @@
 
 
                                                 DateTime fromDate = dcInvoiceFrom.GetDate();
-                                                if ((fromDate - (DateTime)inv.issue_invoice_date).TotalDays > 0)
-                                                {
-                                                    //flag = true;
-                                                    //continue;
-
-                                                }
-                                                else
+                                                if ((fromDate - (DateTime)inv.issue_invoice_date).TotalDays <= 0)
                                                 {
                                                     disflag = true;
                                                 }
@@ -345,11 +339,7 @@
                                             try
                                             {
                                                 DateTime toDate = dcInvoiceTo.GetDate();
-                                                if ((toDate - (DateTime)inv.issue_invoice_date).TotalDays < 0)
-                                                {
-
-                                                }
-                                                else
+                                                if (((int)(toDate - (DateTime)inv.issue_invoice_date).TotalDays)>= 0)
                                                 {
                                                     dflag = true;
                                                 }
@@ -367,6 +357,38 @@
                                         }
                                     }
                                     
+                                    try
+                                    {
+
+
+                                        DateTime fromDate = dcInvoiceFrom.GetDate();
+
+
+                                    }
+                                    catch (Exception)
+                                    {
+
+
+                                        isflag = true;
+
+                                    }
+                                    try
+                                    {
+                                        DateTime toDate = dcInvoiceTo.GetDate();
+
+
+                                    }
+                                    catch (Exception)
+                                    {
+
+
+                                        flag = true;
+
+                                    }
+                                    
+                                    state = isflag & flag;
+                                    flag = false;
+                                    isflag = false;
                                     //System.Diagnostics.Debug.WriteLine("INV {0} : {1} : {2} = {3}", inv.issue_invoice_date, flag, isflag, state);
                                     var invtargets = wowidb.invoice_target.Where(c => c.invoice_id == inv.invoice_id);
                                     foreach (var intar in invtargets)
@@ -386,22 +408,17 @@
                                                 }
                                                 temp2.InvNo += inv.issue_invoice_no + " ";
 
-                                                temp2.InvDate += ((DateTime)inv.issue_invoice_date).ToString("yyyy-MM-dd") + " ";
+                                                
 
                                                 if (inv.issue_invoice_date.HasValue)
                                                 {
+                                                    temp2.InvDate += ((DateTime)inv.issue_invoice_date).ToString("yyyy-MM-dd") + " ";
                                                     try
                                                     {
 
 
                                                         DateTime fromDate = dcInvoiceFrom.GetDate();
-                                                        if ((fromDate - (DateTime)inv.issue_invoice_date).TotalDays > 0)
-                                                        {
-                                                            //flag = true;
-                                                            //continue;
-
-                                                        }
-                                                        else
+                                                        if ((fromDate - (DateTime)inv.issue_invoice_date).TotalDays <= 0)
                                                         {
                                                             isflag = true;
                                                         }
@@ -418,11 +435,7 @@
                                                     try
                                                     {
                                                         DateTime toDate = dcInvoiceTo.GetDate();
-                                                        if ((toDate - (DateTime)inv.issue_invoice_date).TotalDays < 0)
-                                                        {
-
-                                                        }
-                                                        else
+                                                        if (((int)(toDate - (DateTime)inv.issue_invoice_date).TotalDays) >= 0)
                                                         {
                                                             flag = true;
                                                         }
@@ -436,12 +449,13 @@
 
                                                     }
                                                 }
-                                                else
+                                                if (!state)
                                                 {
-                                                    state |= false;
+                                                    state |= (flag & isflag);
                                                 }
-                                                state |= flag & isflag;
-                                               
+                                                //System.Diagnostics.Debug.WriteLine("{0} = {1} & {2}",state,isflag,flag);
+                                                //flag = false;
+                                                //isflag = false;
                                                 foreach (var invr in wowidb.invoice_received.Where(c => c.invoice_id == inv.invoice_id))
                                                 {
                                                    
@@ -451,47 +465,7 @@
                                                         if (invr.received_date.HasValue)
                                                         {
                                                             temp2.InvDate += ((DateTime)invr.received_date).ToString("yyyy-MM-dd") + " ";
-                                                            //if (!state)
-                                                            //{
-                                                            //    try
-                                                            //    {
-                                                            //        DateTime fromDate = dcInvoiceFrom.GetDate();
-                                                            //        if ((fromDate - (DateTime)invr.received_date).TotalDays > 0)
-                                                            //        {
-
-
-                                                            //        }
-                                                            //        else
-                                                            //        {
-                                                            //            isflag2 = true;
-                                                            //        }
-
-                                                            //    }
-                                                            //    catch (Exception)
-                                                            //    {
-
-                                                            //        isflag2 = true;
-                                                            //    }
-                                                            //    try
-                                                            //    {
-                                                            //        DateTime toDate = dcInvoiceTo.GetDate();
-
-                                                            //        if ((toDate - (DateTime)invr.received_date).TotalDays < 0)
-                                                            //        {
-
-                                                            //        }
-                                                            //        else
-                                                            //        {
-                                                            //            flag2 = true;
-                                                            //        }
-                                                            //    }
-                                                            //    catch (Exception)
-                                                            //    {
-                                                            //        flag2 = true;
-                                                            //    }
-                                                            //    state |= (flag2 && isflag2);
-                                                            //    //System.Diagnostics.Debug.WriteLine("INVR {0} : {1} : {2} = {3}", invr.received_date, flag2, isflag2, state);
-                                                            //}                                   
+                                                                             
                                                         }
                                                         
                                                     }
@@ -518,7 +492,7 @@
                                     //isflag = true;
                                 }
                             }//end of invoice
-                            if (!dstate)
+                            if (!state)
                             {
                                 continue;
                             }
