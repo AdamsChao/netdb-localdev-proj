@@ -339,4 +339,14 @@ public class IMAUtil
         return Contents;
     }
 
+
+    public void dlTech_ItemDataBound(object sender, DataListItemEventArgs e)
+    {
+        DataList dl = (DataList)sender;
+        string strID = dl.ClientID.Replace("MainContent_dlTech", "");
+        CheckBox cb = (CheckBox)e.Item.FindControl("cb" + strID + "Fee");
+        cb.Attributes.Add("onclick", "TechFeeAll(this);");
+        TextBox tb = (TextBox)e.Item.FindControl("tb" + strID + "Fee");
+        tb.Attributes.Add("onkeyup", "SetTechFeeAll(this);");
+    }
 }
