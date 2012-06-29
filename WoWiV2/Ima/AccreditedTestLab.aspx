@@ -425,7 +425,7 @@
                                 <tr>
                                     <td colspan="2">
                                         <asp:DataList ID="dlTechRF" runat="server" DataSourceID="sdsTechRF" DataKeyField="wowi_tech_id"
-                                            RepeatColumns="2" RepeatDirection="Horizontal">
+                                            RepeatColumns="2" RepeatDirection="Horizontal" OnItemDataBound="dlTech_ItemDataBound">
                                             <ItemTemplate>
                                                 <table border="0">
                                                     <tr>
@@ -479,7 +479,7 @@
                                 <tr>
                                     <td colspan="2">
                                         <asp:DataList ID="dlTechEMC" runat="server" DataSourceID="sdsTechEMC" DataKeyField="wowi_tech_id"
-                                            RepeatColumns="2" RepeatDirection="Horizontal">
+                                            RepeatColumns="2" RepeatDirection="Horizontal" OnItemDataBound="dlTech_ItemDataBound">
                                             <ItemTemplate>
                                                 <table border="0">
                                                     <tr>
@@ -533,7 +533,7 @@
                                 <tr>
                                     <td colspan="2">
                                         <asp:DataList ID="dlTechSafety" runat="server" DataSourceID="sdsTechSafety" DataKeyField="wowi_tech_id"
-                                            RepeatColumns="2" RepeatDirection="Horizontal">
+                                            RepeatColumns="2" RepeatDirection="Horizontal" OnItemDataBound="dlTech_ItemDataBound">
                                             <ItemTemplate>
                                                 <table border="0">
                                                     <tr>
@@ -588,7 +588,7 @@
                                 <tr>
                                     <td colspan="2">
                                         <asp:DataList ID="dlTechTelecom" runat="server" DataSourceID="sdsTechTelecom" DataKeyField="wowi_tech_id"
-                                            RepeatColumns="2" RepeatDirection="Horizontal">
+                                            RepeatColumns="2" RepeatDirection="Horizontal" OnItemDataBound="dlTech_ItemDataBound">
                                             <ItemTemplate>
                                                 <table border="0">
                                                     <tr>

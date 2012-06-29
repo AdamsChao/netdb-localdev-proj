@@ -443,4 +443,16 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
             ddlCountry.SelectedValue = lblCountryID.Text.Trim();
         }
     }
+
+    protected void dlTech_ItemDataBound(object sender, DataListItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            if (e.Item.ItemIndex == 0)
+            {
+                imau.dlTech_ItemDataBound(sender, e);
+            }
+        }
+    }
+
 }

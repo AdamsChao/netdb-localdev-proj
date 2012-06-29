@@ -194,7 +194,7 @@
                                                             <table border="0">
                                                                 <tr>
                                                                     <td>
-                                                                        <asp:CheckBox ID="cbRFFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>' onclick="TechFee(this);" />
+                                                                        <asp:CheckBox ID="cbRFFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>' onclick="TechDesc(this);" />
                                                                     </td>
                                                                     <td>
                                                                         <asp:Label ID="lblTechRF" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
@@ -238,7 +238,7 @@
                                                                 <tr>
                                                                     <td>
                                                                         <asp:CheckBox ID="cbEMCFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                                            onclick="TechFee(this);" />
+                                                                            onclick="TechDesc(this);" />
                                                                     </td>
                                                                     <td>
                                                                         <asp:Label ID="lblTechEMC" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
@@ -282,7 +282,7 @@
                                                                 <tr>
                                                                     <td>
                                                                         <asp:CheckBox ID="cbSafetyFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                                            onclick="TechFee(this);" />
+                                                                            onclick="TechDesc(this);" />
                                                                     </td>
                                                                     <td>
                                                                         <asp:Label ID="lblTechSafety" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
@@ -327,7 +327,7 @@
                                                                 <tr>
                                                                     <td>
                                                                         <asp:CheckBox ID="cbTelecomFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                                            onclick="TechFee(this);" />
+                                                                            onclick="TechDesc(this);" />
                                                                     </td>
                                                                     <td>
                                                                         <asp:Label ID="lblTechTelecom" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
