@@ -334,7 +334,8 @@ WHERE (Quotation_Target.quotation_id in
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="SqlDataSourceVender" runat="server" 
                             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                            SelectCommand="SELECT [id], [name] FROM [vendor] Where Publish=0">
+                            
+                          SelectCommand="SELECT [id], [name] FROM [vendor] Where Publish=0 Order by name">
                         </asp:SqlDataSource>
                     </EditItemTemplate>
                     <InsertItemTemplate>
