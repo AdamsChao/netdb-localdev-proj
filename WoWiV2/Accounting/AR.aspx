@@ -216,9 +216,25 @@
                         temp.OverDueDays = days.ToString();
                         temp.OverDueInterval = ARUtils.GetARInterval(-1 * days);
                     }
-                    int countryid = (int)client.country_id;
-                    var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
-                    temp.Country = country.country_name;
+                    //int countryid = (int)client.country_id;
+                    //var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
+                    //temp.Country = country.country_name;
+                    try
+                    {
+                        var itlist = wowidb.invoice_target.Where(c => c.invoice_id == item.invoice_id);
+                        foreach (var kk in itlist)
+                        {
+                            var ddd = wowidb.Quotation_Target.First(c => c.Quotation_Target_Id == kk.quotation_target_id);
+                            int countryid = (int)ddd.country_id;
+                            var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
+                            temp.Country += country.country_name + "/ ";
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        //throw;
+                    }
                     WoWiModel.contact_info contact;
                     int contactid;
                     if (quo.Client_Contact != null)
@@ -277,8 +293,8 @@
                 ntdtotal += temp.NTD;
                 ntdissuetotal += temp.NTD;
                 usdtotal += temp.USD;
-                arntdtotal += (double)ARBalance / (double)item.exchange_rate;
-                temp.ARBalance = ((decimal)ARBalance / (decimal)item.exchange_rate).ToString("F2");
+                arntdtotal += (double)ARBalance ;
+                temp.ARBalance = ((decimal)ARBalance ).ToString("F2");
                 //arntdtotal += (double)ARBalance;
                 //temp.ARBalance = ((decimal)ARBalance).ToString("F2");
             }
