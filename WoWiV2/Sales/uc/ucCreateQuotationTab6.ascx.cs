@@ -139,46 +139,31 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             HtmlInputHidden hid_ddlPR_Flag = (HtmlInputHidden)e.Row.FindControl("hid_ddlPR_Flag");
 
 
-            if (txtBill1.Text != "")
-            {
-                TotalBilled += decimal.Parse(txtBill1.Text);             
-            }
-            else
+            if (txtBill1.Text == "")
             {
                 txtBill1.Text = "0";
                 hidBill1.Value = "0";
             }
 
-            if (txtBill2.Text != "")
+            if (txtBill2.Text == "")
             {
-                TotalBilled += decimal.Parse(txtBill2.Text);
-            }
-            else {
                 txtBill2.Text = "0";
                 hidBill2.Value = "0";
             }
 
-            if (txtBill3.Text != "")
+            if (txtBill3.Text == "")
             {
-                TotalBilled += decimal.Parse(txtBill3.Text);
-            }
-            else {
                 txtBill3.Text = "0";
                 hidBill3.Value = "0";
             }
 
-            if (txtBillE.Text != "")
-            {
-                TotalBilled += decimal.Parse(txtBillE.Text);
-            }
-            else
+            if (txtBillE.Text == "")
             {
                 txtBillE.Text = "0";
                 hidBillE.Value = "0";
             }          
            
-            lblTotalBilled.Text = TotalBilled.ToString();
-            lblBlance.Text = (Decimal.Parse(lblSubTotal.Text) - TotalBilled).ToString("F2");
+   
             
             Label lblFPrice = (Label)e.Row.FindControl("lblFPrice");
             Label lblQuotation_Target_Id = (Label)e.Row.FindControl("lblQuotation_Target_Id");
@@ -190,6 +175,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             Literal lblInvoiceDate2 = (Literal)e.Row.FindControl("lblInvoiceDate2");
             Literal lblInvoiceDate3 = (Literal)e.Row.FindControl("lblInvoiceDate3");
             Literal lblInvoiceDateE = (Literal)e.Row.FindControl("lblInvoiceDateE");
+
             txtBalace.Text = (Decimal.Parse(lblFPrice.Text) - Decimal.Parse(txtBill1.Text) - Decimal.Parse(txtBill2.Text) - Decimal.Parse(txtBill3.Text) - Decimal.Parse(txtBillE.Text)).ToString();
 
             DropDownList ddlPR_Flag = (DropDownList)e.Row.FindControl("ddlPR_Flag");
@@ -208,6 +194,17 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
             lblInvoiceDate2.Text = Quotation_Controller.GetInvoiceDate(quotation_Id, target_Id, 1);
             lblInvoiceDate3.Text = Quotation_Controller.GetInvoiceDate(quotation_Id, target_Id, 2);
             lblInvoiceDateE.Text = Quotation_Controller.GetInvoiceDate(quotation_Id, target_Id, 3);
+
+            if (lblInvoiceNo1.Text != "")
+                TotalBilled += decimal.Parse(txtBill1.Text);
+            if (lblInvoiceNo2.Text != "")
+                TotalBilled += decimal.Parse(txtBill2.Text);
+            if (lblInvoiceNo3.Text != "")
+                TotalBilled += decimal.Parse(txtBill3.Text);
+            if (lblInvoiceNoE.Text != "")
+                TotalBilled += decimal.Parse(txtBillE.Text);
+            lblTotalBilled.Text = TotalBilled.ToString();
+            lblBlance.Text = (Decimal.Parse(lblSubTotal.Text) - TotalBilled).ToString("F2");
 
             hidPR_Flag.Value = "0";
             //如果已開發票，就鎖住textbox不讓user修改
