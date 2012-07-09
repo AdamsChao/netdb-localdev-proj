@@ -126,6 +126,7 @@
             {
 
                 var list = (from c in wowidb.vendors from country in wowidb.countries from a in wowidb.access_level where c.country == country.country_id && data.Contains((int)c.department_id) && c.department_id == a.id select new { Id = c.id, Text = String.IsNullOrEmpty(c.name) ? c.c_name + " - [ " + country.country_name + " ]" : c.name + " - [ " + country.country_name + " ] - [ Access Level = " + a.name + " ]" });
+                list = list.OrderBy(c => c.Text);
                 (sender as DropDownList).DataSource = list;
                 (sender as DropDownList).DataTextField = "Text";
                 (sender as DropDownList).DataValueField = "Id";
