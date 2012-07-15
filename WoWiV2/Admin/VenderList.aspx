@@ -113,6 +113,7 @@
                     SkinID="GridView" Width="100%" PageSize="50" 
                     DataKeyNames="id" DataSourceID="SqlDataSource1" AllowPaging="True" 
                     AllowSorting="True">
+                    <HeaderStyle Wrap="false" />
                     <Columns>
                         <asp:TemplateField InsertVisible="False" SortExpression="id" Visible="true">
                             <EditItemTemplate>

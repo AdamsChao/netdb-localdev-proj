@@ -196,6 +196,19 @@ public class Utils
 
         return ret;
     }
+
+    public static void CellWrap(GridViewRow row)
+    {
+        CellWrap(row, 0);
+    }
+    
+    public static void CellWrap(GridViewRow row,int from)
+    {
+        for (int i = from; i < row.Cells.Count - 1; i++)
+        {
+            row.Cells[i].Attributes.Add("style", "WORD-BREAK:BREAK-ALL");
+        }
+    }
 }
 
 public delegate void CustomLogic();

@@ -4,6 +4,7 @@
     WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities();
     protected void Page_Load(object sender, EventArgs e)
     {
+        widestData = 0;
         String name = tbName.Text;
         String comapnyName = tbCompanyName.Text;
         GridView1.AllowSorting = true;
@@ -52,7 +53,33 @@
 
         
     }
+    protected int widestData;
+    protected void GridView1_RowDataBound(object sender,
+        GridViewRowEventArgs e)
+    {
+        System.Data.DataRowView drv;
+        drv = (System.Data.DataRowView)e.Row.DataItem;
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            if (drv != null)
+            {
+                String catName = drv[1].ToString();
+                Response.Write(catName + "/");
 
+                int catNameLen = catName.Length;
+                if (catNameLen > widestData)
+                {
+                    widestData = catNameLen;
+                    GridView1.Columns[2].ItemStyle.Width =
+                      widestData * 30;
+                    GridView1.Columns[2].ItemStyle.Wrap = false;
+                }
+
+            }
+        }
+    }
+
+   
     protected void GridView1_PreRender(object sender, EventArgs e)
     {
         foreach (GridViewRow row in GridView1.Rows)
@@ -70,6 +97,8 @@
                 {
                     row.Cells[10].Text = (from p in db.access_level where p.id == depid select p.name).First();
                 }
+                //Utils.CellWrap(row,1);
+                
             }
             catch (Exception)
             {
@@ -79,6 +108,8 @@
 
         }
     }
+
+
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -108,9 +139,10 @@
         NavigateUrl="~/Common/CreateContact.aspx">Create</asp:HyperLink>--%><asp:Button ID="Button1"
             runat="server" Text="Create" PostBackUrl="~/Common/CreateContact.aspx" />
 
-    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" SkinID="GridView"  Width="100%"
-        AutoGenerateColumns="False" DataKeyNames="id" AllowSorting="True"
+    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" SkinID="GridView"
+        AutoGenerateColumns="False" DataKeyNames="id" AllowSorting="True"  Width ="100%"
         DataSourceID="SqlDataSource1" PageSize="50" onprerender="GridView1_PreRender" >
+         <HeaderStyle Wrap="false" />
         <Columns>
             <asp:TemplateField InsertVisible="False" SortExpression="id">
                 <EditItemTemplate>
