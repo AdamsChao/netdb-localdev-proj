@@ -381,6 +381,7 @@
                                 ar_balance /= (decimal)item.exchange_rate;
                             }
                         }
+                        ar_balance = decimal.Parse(ar_balance.ToString("F2"));
                         if (days < 0)
                         {
                             d0 += ar_balance;

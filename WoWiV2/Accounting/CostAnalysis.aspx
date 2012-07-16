@@ -1099,6 +1099,7 @@
                          onsorting="iGridView1_Sorting" 
                            SkipColNum="0" onrowdatabound="iGridView1_RowDataBound" onprerender="iGridView1_PreRender" 
                            >
+                           <HeaderStyle Wrap="false" />
                         <Columns>
                             <asp:BoundField DataField="ProjectNo" HeaderText="Project No" SortExpression="ProjectNo"/>
                             <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" SortExpression="QutationNo"/>
