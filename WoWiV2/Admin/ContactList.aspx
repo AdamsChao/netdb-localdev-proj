@@ -4,7 +4,7 @@
     WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities();
     protected void Page_Load(object sender, EventArgs e)
     {
-        widestData = 0;
+
         String name = tbName.Text;
         String comapnyName = tbCompanyName.Text;
         GridView1.AllowSorting = true;
@@ -53,49 +53,24 @@
 
         
     }
-    protected int widestData;
-    protected void GridView1_RowDataBound(object sender,
-        GridViewRowEventArgs e)
-    {
-        System.Data.DataRowView drv;
-        drv = (System.Data.DataRowView)e.Row.DataItem;
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            if (drv != null)
-            {
-                String catName = drv[1].ToString();
-                Response.Write(catName + "/");
-
-                int catNameLen = catName.Length;
-                if (catNameLen > widestData)
-                {
-                    widestData = catNameLen;
-                    GridView1.Columns[2].ItemStyle.Width =
-                      widestData * 30;
-                    GridView1.Columns[2].ItemStyle.Wrap = false;
-                }
-
-            }
-        }
-    }
-
+    
    
     protected void GridView1_PreRender(object sender, EventArgs e)
     {
         foreach (GridViewRow row in GridView1.Rows)
         {
 
-            String depidStr = row.Cells[10].Text;
+            String depidStr = row.Cells[7].Text;
             try
             {
                 int depid = int.Parse(depidStr);
                 if (depid == -1)
                 {
-                    row.Cells[10].Text = "Not set yet";
+                    row.Cells[7].Text = "Not set yet";
                 }
                 else
                 {
-                    row.Cells[10].Text = (from p in db.access_level where p.id == depid select p.name).First();
+                    row.Cells[7].Text = (from p in db.access_level where p.id == depid select p.name).First();
                 }
                 //Utils.CellWrap(row,1);
                 
@@ -174,19 +149,19 @@
                     <asp:Label ID="Label2" runat="server" Text='<%# Eval("c_lname") %>'></asp:Label><asp:Label ID="Label4" runat="server" Text='<%# Eval("c_fname") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField DataField="title" SortExpression="title" HeaderText="Title" />
+           <%-- <asp:BoundField DataField="title" SortExpression="title" HeaderText="Title" />--%>
             <asp:BoundField DataField="companyname" HeaderText="Company Name" 
                 SortExpression="companyname" />
             <asp:BoundField DataField="c_companyname" HeaderText="公司名稱" 
                 SortExpression="c_companyname" />
-            <asp:BoundField DataField="email" HeaderText="Email" 
-                SortExpression="email" />
+            <%--<asp:BoundField DataField="email" HeaderText="Email" 
+                SortExpression="email" />--%>
             <asp:BoundField DataField="workphone" HeaderText="Work Phone" 
                 SortExpression="workphone" />
             <asp:BoundField DataField="ext" HeaderText="Ext" 
                 SortExpression="ext" />
-            <asp:BoundField DataField="cellphone" HeaderText="Cellphone" 
-                SortExpression="cellphone" />
+           <%-- <asp:BoundField DataField="cellphone" HeaderText="Cellphone" 
+                SortExpression="cellphone" />--%>
             <asp:BoundField DataField="department_id" HeaderText="Access Level" 
                 SortExpression="department_id" />
         </Columns>
