@@ -349,4 +349,20 @@ public class IMAUtil
         TextBox tb = (TextBox)e.Item.FindControl("tb" + strID + "Fee");
         tb.Attributes.Add("onkeyup", "SetTechFeeAll(this);");
     }
+
+    //控制可刪除的按鈕
+    public static bool IsDeleteOn()
+    {
+        string strUserName = HttpContext.Current.User.Identity.Name.ToLower().Trim();
+        if (strUserName == "shirley" || strUserName == "scott") { return true; }
+        return false;
+    }
+
+    //控制Sales不能新增、編輯按妞
+    public static bool IsEditOn()
+    {
+        string strUserName = HttpContext.Current.User.Identity.Name.ToLower().Trim();
+        if (strUserName == "amy" || strUserName == "timur") { return false; }
+        return true;
+    }
 }
