@@ -13,12 +13,26 @@ public partial class Ima_ImaList : System.Web.UI.Page
     {
         if (!Page.IsPostBack) 
         {
+            SetDocCategoryItems();
             if (Request["categroy"] != null) 
             {
                 ddlDocCategory.SelectedValue = Request["categroy"].ToString();
                 SetDDlChanged();
             }            
             SetControlInit();
+        }
+    }
+
+    //設定Document Categories選項
+    protected void SetDocCategoryItems()
+    {
+        if (!IMAUtil.IsEditOn())
+        {
+            ddlDocCategory.Items.RemoveAt(15);
+            ddlDocCategory.Items.RemoveAt(7);
+            ddlDocCategory.Items.RemoveAt(4);
+            ddlDocCategory.Items.RemoveAt(3);
+            ddlDocCategory.Items.RemoveAt(1);
         }
     }
 
@@ -80,7 +94,6 @@ public partial class Ima_ImaList : System.Web.UI.Page
     {
         btnAdd.Visible = false;
         btnAddDocument.Visible = false;
-
         if (ddlDocCategory.SelectedValue == "H" || ddlDocCategory.SelectedValue == "L")
         {
             btnAdd.Visible = true;
@@ -89,8 +102,41 @@ public partial class Ima_ImaList : System.Web.UI.Page
         {
             btnAddDocument.Visible = true;
         }
-    }
 
+
+        //設定權限(顯示按鈕)
+        if (!IMAUtil.IsEditOn())
+        {
+            btnGeneral.Visible = false;
+            trCopy.Visible = false;
+            btnAddDocument.Visible = false;
+            btnAdd.Visible = false;
+            gvE.Columns[0].Visible = false;
+            gvO.Columns[0].Visible = false;
+            gvC.Columns[0].ItemStyle.Width=60;
+            gvC.Columns[0].HeaderStyle.Width = 60;
+            gvG.Columns[0].ItemStyle.Width = 60;
+            gvG.Columns[0].HeaderStyle.Width = 60;
+            gvH.Columns[0].ItemStyle.Width = 60;
+            gvH.Columns[0].HeaderStyle.Width = 60;
+            gvJ.Columns[0].ItemStyle.Width = 60;
+            gvJ.Columns[0].HeaderStyle.Width = 60;
+            gvK.Columns[0].ItemStyle.Width = 60;
+            gvK.Columns[0].HeaderStyle.Width = 60;
+            gvM.Columns[0].ItemStyle.Width = 60;
+            gvM.Columns[0].HeaderStyle.Width = 60;
+            gvN.Columns[0].ItemStyle.Width = 60;
+            gvN.Columns[0].HeaderStyle.Width = 60;
+            gvP.Columns[0].ItemStyle.Width = 60;
+            gvP.Columns[0].HeaderStyle.Width = 60;
+            if (!hlGeneral.Visible && !btnGeneral.Visible) 
+            {
+                hlGeneral.Visible = true;
+                hlGeneral.Enabled = false;
+                hlGeneral.Text = "No Datas";
+            }
+        }
+    }
 
     //新增文件
     protected void btnAddDocument_Click(object sender, EventArgs e)
@@ -438,4 +484,6 @@ public partial class Ima_ImaList : System.Web.UI.Page
         dic.Add("categroy", ddlDocCategory.SelectedValue);
         return IMAUtil.SetQueryString(isClear, dic, dicAdd, strRemove);
     }
+
+    protected bool bb() { return false; }
 }

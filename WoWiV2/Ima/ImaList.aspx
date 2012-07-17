@@ -91,7 +91,7 @@
                                                 </act:ValidatorCalloutExtender>--%>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr id="trCopy" runat="server">
                                             <td align="right">Copy to：</td>
                                             <td>
                                                 <asp:CheckBoxList ID="cbProductType" runat="server" RepeatDirection="Horizontal"
@@ -129,9 +129,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditB" Text="Edit" CommandArgument='<%# Eval("GovernmentAuthorityID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyB" Text="Copy" CommandArgument='<%# Eval("GovernmentAuthorityID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditB" Text="Edit" CommandArgument='<%# Eval("GovernmentAuthorityID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyB" Text="Copy" CommandArgument='<%# Eval("GovernmentAuthorityID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaB.aspx" + GetQueryString(true, null, null) + "&gaid="+Eval("GovernmentAuthorityID").ToString() %>'>Detail</asp:HyperLink>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
@@ -183,9 +183,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditC" Text="Edit" CommandArgument='<%# Eval("NationalGovID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("NationalGovID") %>'></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyC" Text="Copy" CommandArgument='<%# Eval("NationalGovID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditC" Text="Edit" CommandArgument='<%# Eval("NationalGovID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("NationalGovID") %>' Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyC" Text="Copy" CommandArgument='<%# Eval("NationalGovID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaC.aspx" + GetQueryString(true, null, null) + "&ngid="+Eval("NationalGovID").ToString() %>'>Detail</asp:HyperLink>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
@@ -224,9 +224,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditD" Text="Edit" CommandArgument='<%# Eval("CertificationBodiesID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyD" Text="Copy" CommandArgument='<%# Eval("CertificationBodiesID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditD" Text="Edit" CommandArgument='<%# Eval("CertificationBodiesID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyD" Text="Copy" CommandArgument='<%# Eval("CertificationBodiesID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailD.aspx" + GetQueryString(true, null, null) + "&cbwid="+Eval("CertificationBodiesID").ToString() %>'>Detail</asp:HyperLink>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
@@ -294,9 +294,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditQ" Text="Edit" CommandArgument='<%# Eval("AccreditedTestID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyQ" Text="Copy" CommandArgument='<%# Eval("AccreditedTestID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditQ" Text="Edit" CommandArgument='<%# Eval("AccreditedTestID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyQ" Text="Copy" CommandArgument='<%# Eval("AccreditedTestID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailQ.aspx" + GetQueryString(true, null, null) + "&atid="+Eval("AccreditedTestID").ToString() %>'>Detail</asp:HyperLink>
                                                             <%--<asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailQ.aspx?" + Request.QueryString.ToString() + "&atid="+Eval("AccreditedTestID").ToString() %>'>Detail</asp:HyperLink>--%>
                                                         </ItemTemplate>
@@ -346,9 +346,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditG" Text="Edit" CommandArgument='<%# Eval("ProductControlID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyG" Text="Copy" CommandArgument='<%# Eval("ProductControlID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditG" Text="Edit" CommandArgument='<%# Eval("ProductControlID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyG" Text="Copy" CommandArgument='<%# Eval("ProductControlID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailG.aspx" + GetQueryString(true, null, null) + "&fid="+Eval("ProductControlID").ToString() %>'>Detail</asp:HyperLink>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
@@ -386,9 +386,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditF" Text="Edit" CommandArgument='<%# Eval("LocalAgentID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyF" Text="Copy" CommandArgument='<%# Eval("LocalAgentID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditF" Text="Edit" CommandArgument='<%# Eval("LocalAgentID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyF" Text="Copy" CommandArgument='<%# Eval("LocalAgentID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailF.aspx" + GetQueryString(true, null, null) + "&laid="+Eval("LocalAgentID").ToString() %>'>Detail</asp:HyperLink>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
@@ -449,9 +449,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditN" Text="Edit" CommandArgument='<%# Eval("PeriodicID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("PeriodicID") %>'></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyN" Text="Copy" CommandArgument='<%# Eval("PeriodicID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditN" Text="Edit" CommandArgument='<%# Eval("PeriodicID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("PeriodicID") %>' Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyN" Text="Copy" CommandArgument='<%# Eval("PeriodicID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailN.aspx" + GetQueryString(true, null, null) + "&pfiid="+Eval("PeriodicID").ToString() %>'>Detail</asp:HyperLink>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
@@ -495,9 +495,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditO" Text="Edit" CommandArgument='<%# Eval("CertificateID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyO" Text="Copy" CommandArgument='<%# Eval("CertificateID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditO" Text="Edit" CommandArgument='<%# Eval("CertificateID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyO" Text="Copy" CommandArgument='<%# Eval("CertificateID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="100px" />
                                                         <ItemStyle HorizontalAlign="Center" Width="100px" />
@@ -541,9 +541,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditP" Text="Edit" CommandArgument='<%# Eval("PostID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("PostID") %>'></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyP" Text="Copy" CommandArgument='<%# Eval("PostID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditP" Text="Edit" CommandArgument='<%# Eval("PostID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("PostID") %>' Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyP" Text="Copy" CommandArgument='<%# Eval("PostID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailP.aspx" + GetQueryString(true, null, null) + "&pcid="+Eval("PostID").ToString() %>'>Detail</asp:HyperLink>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
@@ -585,9 +585,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditE" Text="Edit" CommandArgument='<%# Eval("EnforcementID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyE" Text="Copy" CommandArgument='<%# Eval("EnforcementID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditE" Text="Edit" CommandArgument='<%# Eval("EnforcementID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyE" Text="Copy" CommandArgument='<%# Eval("EnforcementID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="100px" />
                                                         <ItemStyle HorizontalAlign="Center" Width="100px" />
@@ -632,9 +632,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditL" Text="Edit" CommandArgument='<%# Eval("FeeScheduleID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditL" Text="Edit" CommandArgument='<%# Eval("FeeScheduleID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <%--<asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyL" Text="Copy" CommandArgument='<%# Eval("FeeScheduleID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>--%>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailL.aspx" + GetQueryString(true, null, null) + "&fsid="+Eval("FeeScheduleID").ToString() %>'>Detail</asp:HyperLink>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="110px" />
@@ -687,9 +687,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditK" Text="Edit" CommandArgument='<%# Eval("TestingID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("TestingID") %>'></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyK" Text="Copy" CommandArgument='<%# Eval("TestingID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditK" Text="Edit" CommandArgument='<%# Eval("TestingID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("TestingID") %>' Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyK" Text="Copy" CommandArgument='<%# Eval("TestingID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailK.aspx" + GetQueryString(true, null, null) + "&tid="+Eval("TestingID").ToString() %>'>Detail</asp:HyperLink>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
@@ -747,9 +747,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditH" Text="Edit" CommandArgument='<%# Eval("StandardID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("StandardID") %>'></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyH" Text="Copy" CommandArgument='<%# Eval("StandardID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditH" Text="Edit" CommandArgument='<%# Eval("StandardID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" CommandArgument='<%# Eval("StandardID") %>' Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyH" Text="Copy" CommandArgument='<%# Eval("StandardID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailH.aspx" + GetQueryString(true, null, null) + "&sid="+Eval("StandardID").ToString() %>'>Detail</asp:HyperLink>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
@@ -794,9 +794,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditJ" Text="Edit" CommandArgument='<%# Eval("ApplicationID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyJ" Text="Copy" CommandArgument='<%# Eval("ApplicationID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditJ" Text="Edit" CommandArgument='<%# Eval("ApplicationID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyJ" Text="Copy" CommandArgument='<%# Eval("ApplicationID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailJ.aspx" + GetQueryString(true, null, null) + "&aid="+Eval("ApplicationID").ToString() %>'>Detail</asp:HyperLink>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
@@ -852,9 +852,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditM" Text="Edit" CommandArgument='<%# Eval("SampleShippingID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyM" Text="Copy" CommandArgument='<%# Eval("SampleShippingID") %>' OnClick="lbtnEdit_Click"></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditM" Text="Edit" CommandArgument='<%# Eval("SampleShippingID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyM" Text="Copy" CommandArgument='<%# Eval("SampleShippingID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetailM.aspx" + GetQueryString(true, null, null) + "&ssid="+Eval("SampleShippingID").ToString() %>'>Detail</asp:HyperLink>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
