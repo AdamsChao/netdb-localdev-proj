@@ -168,7 +168,7 @@
                                 <Columns>
                                     <asp:TemplateField ShowHeader="False">
                                         <ItemTemplate>
-                                            <asp:HyperLink ID="hlEdit" runat="server" Target="_blank" NavigateUrl='<%#Eval("EditURL") %>'>Edit</asp:HyperLink>
+                                            <asp:HyperLink ID="hlEdit" runat="server" Target="_blank" NavigateUrl='<%#Eval("EditURL") %>' Visible='<%#IMAUtil.IsEditOn() %>'>Edit</asp:HyperLink>
                                             <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%# SetDetailUrl(Eval("DetailURL")) %>'>Detail</asp:HyperLink>
                                         </ItemTemplate>
                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="100px" />

@@ -14,6 +14,13 @@ public partial class Ima_ImaSearch : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             //Bind();
+            if (!IMAUtil.IsEditOn()) 
+            {
+                cbCategory.Items.RemoveAt(6);
+                cbCategory.Items.RemoveAt(3);
+                cbCategory.Items.RemoveAt(2);
+                cbCategory.Items.RemoveAt(0);
+            }
         }
     }
 
@@ -30,11 +37,19 @@ public partial class Ima_ImaSearch : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@CID", lblCountrys.Text.Trim());
         cmd.Parameters.AddWithValue("@PTID", lblPTID.Text.Trim());
         cmd.Parameters.AddWithValue("@Category", lblCategory.Text.Trim());
-        DataTable dt = new DataTable();
-        dt = SQLUtil.QueryDS(cmd).Tables[0];
-        gvImaSearch.DataSource = dt;
+        //DataTable dt = new DataTable();
+        //dt = SQLUtil.QueryDS(cmd).Tables[0];
+        DataView dv = new DataView();
+        dv = SQLUtil.QueryDS(cmd).Tables[0].DefaultView;
+        //業務不可看到1,3,4,7,15的資料
+        if (!IMAUtil.IsEditOn()) 
+        {
+            dv.RowFilter = "Category not in ('B','D','Q','F')";
+        }
+        gvImaSearch.DataSource = dv;
         gvImaSearch.DataBind();
-        lblMsg.Text = "Search Results：" + dt.Rows.Count.ToString() + " Datas";
+        //lblMsg.Text = "Search Results：" + dt.Rows.Count.ToString() + " Datas";
+        lblMsg.Text = "Search Results：" + dv.Count.ToString() + " Datas";
     }
 
     //查詢
