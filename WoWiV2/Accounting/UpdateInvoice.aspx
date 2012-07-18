@@ -357,6 +357,46 @@
             foreach(var item in wowidb.invoice_target.Where(c=>c.invoice_id == id)){
                 item.invoice_id = id * -1;
                 item.quotation_target_id *= -1;
+                try
+                {
+                    int tid = item.quotation_target_id*-1;
+                    String status = "1";
+                    if (item.bill_status == (byte)InvoicePaymentStatus.PrePaid1)
+                    {
+                        status = "1";
+                    }
+                    else if (item.bill_status == (byte)InvoicePaymentStatus.PrePaid2)
+                    {
+                        status = "2";
+                    }
+                    else if (item.bill_status == (byte)InvoicePaymentStatus.PrePaid3)
+                    {
+                        status = "3";
+                    }
+                    else if (item.bill_status == (byte)InvoicePaymentStatus.FinalPaid)
+                    {
+                        status = "E";
+                    }
+                    try
+                    {
+                        WoWiModel.Quotation_Target target = wowidb.Quotation_Target.First(c => c.Quotation_Target_Id == tid);
+                        target.PR_Flag = status;
+                        wowidb.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+                        
+                        //throw;
+                    }
+                    
+                }
+                catch (Exception)
+                {
+                    
+                    //throw;
+                }
+                
+                
             }
             wowidb.SaveChanges();
             Response.Redirect("~/Accounting/InvoiceDetails.aspx?id=" + id * -1);
@@ -484,7 +524,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
- Invoice ID = 
+    Invoice ID = 
     <asp:Label ID="lblInvoiceID" runat="server" Text=""></asp:Label>,&nbsp;&nbsp;Status = <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>&nbsp;&nbsp;<asp:HyperLink 
                            ID="HyperLink1" runat="server" NavigateUrl="~/Accounting/Invoice.aspx">Invoice List</asp:HyperLink>
                      <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">

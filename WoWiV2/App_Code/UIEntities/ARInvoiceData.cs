@@ -14,5 +14,5 @@ public class ARInvoiceData : InvoiceData
     public String OverDueDays { get; set; }
     public String OverDueInterval { get; set; }
     public String ARBalance { get; set; }
-    
+    public String OCurrency { get; set; }
 }

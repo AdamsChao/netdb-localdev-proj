@@ -48,7 +48,8 @@
         
         foreach (GridViewRow row in iGridView1.Rows)
         {
-            if ((row.Cells[17].FindControl("Label5") as Label).Text == "USD")
+            //if ((row.Cells[17].FindControl("Label5") as Label).Text == "USD")
+            if (row.Cells[17].Text == "USD")
             {
                 row.Cells[5].CssClass = "HighLight";
             }
@@ -274,19 +275,20 @@
                 //throw;
             }
 
-            temp.Currency = item.ocurrency;
+            temp.OCurrency = item.ocurrency;
+            temp.Currency = item.currency;
             decimal ARBalance = ((decimal)item.ar_balance);
             if (item.ocurrency != item.currency)
             {
                 if (temp.Currency == "USD")
                 {
-                    temp.USD = ((double)item.total);
-                    temp.NTD = ((double)item.final_total);
+                    temp.NTD = ((double)item.total);
+                    temp.USD = ((double)item.final_total);
                     usdtotal += temp.USD;
                     usdissuetotal += temp.USD;
                     ntdtotal += temp.NTD;
-                    arusdtotal += (double)ARBalance;
-                    temp.ARBalance = ((decimal)ARBalance).ToString("F2");
+                    arusdtotal += (double)ARBalance /(double)item.exchange_rate;
+                    temp.ARBalance = ((decimal)ARBalance/(decimal)item.exchange_rate).ToString("F2");
                 }
                 else
                 {
@@ -295,10 +297,8 @@
                     ntdtotal += temp.NTD;
                     ntdissuetotal += temp.NTD;
                     usdtotal += temp.USD;
-                    arntdtotal += (double)ARBalance;
-                    temp.ARBalance = ((decimal)ARBalance).ToString("F2");
-                    //arntdtotal += (double)ARBalance;
-                    //temp.ARBalance = ((decimal)ARBalance).ToString("F2");
+                    arntdtotal += (double)ARBalance * (double)item.exchange_rate;
+                    temp.ARBalance = ((decimal)ARBalance * (decimal)item.exchange_rate).ToString("F2");
                 }
             }
             else
@@ -315,7 +315,7 @@
                 }
                 else
                 {
-                    temp.NTD = ((double)item.ototal);
+                    temp.NTD = ((double)item.total);
                     temp.USD = ((double)item.total / (double)item.exchange_rate);
                     ntdtotal += temp.NTD;
                     ntdissuetotal += temp.NTD;
@@ -363,6 +363,12 @@
                     break;
                 case "Model":
                     slist = slist.OrderBy(c => c.Model);
+                    break;
+                case "Currency":
+                    slist = slist.OrderBy(c => c.Currency);
+                    break;
+                case "OCurrency":
+                    slist = slist.OrderBy(c => c.OCurrency);
                     break;
             }
             iGridView1.DataSource = slist;
@@ -550,7 +556,8 @@
                             <asp:BoundField DataField="PlanDueDate" HeaderText="預計收款日" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" SortExpression="OverDueDays" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="OverDueInterval" HeaderText="逾期區間" SortExpression="OverDueInterval" />
-                            <asp:TemplateField HeaderText="Currency"  ItemStyle-HorizontalAlign="Right">
+                            <asp:BoundField DataField="OCurrency" HeaderText="Currency" SortExpression="OCurrency" />
+                            <asp:TemplateField HeaderText="Pay Currency"  ItemStyle-HorizontalAlign="Right" SortExpression="Currency">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Currency") %>'></asp:TextBox>
                                 </EditItemTemplate>

@@ -372,7 +372,7 @@
                     {
                         try
                         {
-                            var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.PrePaid1 select it;
+                            var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.PrePaid1 && it.invoice_id > 0 select it;
                             if (invoiceTarget.Count() != 0)
                             {
                                 continue;
@@ -409,7 +409,7 @@
                     {
                         try
                         {
-                            var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.PrePaid2 select it;
+                            var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.PrePaid2 && it.invoice_id > 0 select it;
                             if (invoiceTarget.Count() != 0)
                             {
                                 continue;
@@ -446,7 +446,7 @@
                     {
                         try
                         {
-                            var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.PrePaid3 select it;
+                            var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.PrePaid3 && it.invoice_id > 0 select it;
                             if (invoiceTarget.Count() != 0)
                             {
                                 continue;
@@ -483,7 +483,7 @@
                     {
                         try
                         {
-                            var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.FinalPaid select it;
+                            var invoiceTarget = from it in wowidb.invoice_target where it.quotation_target_id == i.tid && it.bill_status == (byte)InvoicePaymentStatus.FinalPaid && it.invoice_id > 0 select it;
                             if (invoiceTarget.Count() != 0)
                             {
                                 continue;

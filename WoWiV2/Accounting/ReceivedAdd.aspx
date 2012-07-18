@@ -21,18 +21,37 @@
             decimal rate = (decimal)invoice.exchange_rate;
             currency = invoice.ocurrency;
             lblCurrency.Text = currency;
-            if (currency == "USD")
+            if (invoice.ocurrency != invoice.currency)
             {
+                if (currency == "USD")
+                {
 
-                lblUSD.Text = "$" + ((decimal)invoice.total).ToString("F2");
-                lblUSD.ForeColor = System.Drawing.Color.Blue;
-                lblNTD.Text = "$" + ((decimal)invoice.final_total).ToString("F2");
+                    lblUSD.Text = "$" + ((decimal)invoice.total).ToString("F2");
+                    lblUSD.ForeColor = System.Drawing.Color.Blue;
+                    lblNTD.Text = "$" + ((decimal)invoice.final_total).ToString("F2");
+                }
+                else
+                {
+                    lblNTD.Text = "$" + ((decimal)invoice.total).ToString("F2");
+                    lblNTD.ForeColor = System.Drawing.Color.Blue;
+                    lblUSD.Text = "$" + ((decimal)invoice.final_total).ToString("F2");
+                }
             }
             else
             {
-                lblNTD.Text = "$" + ((decimal)invoice.total).ToString("F2");
-                lblNTD.ForeColor = System.Drawing.Color.Blue;
-                lblUSD.Text = "$" + ((decimal)invoice.final_total).ToString("F2");
+                if (currency == "USD")
+                {
+
+                    lblUSD.Text = "$" + ((decimal)invoice.total).ToString("F2");
+                    lblUSD.ForeColor = System.Drawing.Color.Blue;
+                    lblNTD.Text = "$" + ((decimal)invoice.final_total * (decimal) invoice.exchange_rate).ToString("F2");
+                }
+                else
+                {
+                    lblNTD.Text = "$" + ((decimal)invoice.total).ToString("F2");
+                    lblNTD.ForeColor = System.Drawing.Color.Blue;
+                    lblUSD.Text = "$" + ((decimal)invoice.final_total / (decimal) invoice.exchange_rate).ToString("F2");
+                }
             }
             GetAllItems(id);
         }
