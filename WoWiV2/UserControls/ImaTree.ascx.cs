@@ -21,17 +21,18 @@ public partial class UserControls_ImaTree : System.Web.UI.UserControl
     {
         tvCatalog.Nodes.Clear();
         //建立節點
-        GetRegionNode(this.tvCatalog.Nodes);
+        //GetRegionNode(this.tvCatalog.Nodes);
+        GetRegionNode();
     }
 
     //區域
-    protected void GetRegionNode(System.Web.UI.WebControls.TreeNodeCollection tnc)
+    protected void GetRegionNode()
     {
         string strTsql = "select world_region_id,world_region_name from world_region ";
-        strTsql += "where world_region_id in(select world_region_id from vw_ImaAccess where id=@EmpID) order by world_region_name";       
+        strTsql += "where world_region_id in(select world_region_id from vw_ImaAccess where id=@EmpID) order by world_region_name";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
-        cmd.Parameters.AddWithValue("@EmpID", Session["Session_User_Id"]);
+        cmd.Parameters.AddWithValue("@EmpID", IMAUtil.GetEmpIDbyLoginName());
         SqlDataReader sdr = SQLUtil.QueryDR(cmd);
         while (sdr.Read())
         {
@@ -40,20 +41,20 @@ public partial class UserControls_ImaTree : System.Web.UI.UserControl
             tn.Value = sdr["world_region_id"].ToString();
             tn.NavigateUrl = "~/Ima/ImaList.aspx?rid=" + tn.Value;
             tn.ImageUrl = "~/images/46.gif";
-            tn.SelectAction = TreeNodeSelectAction.SelectExpand;
+            //tn.SelectAction = TreeNodeSelectAction.SelectExpand;
             if ((Request.Params["rid"] != null))
             {
                 CheckSelect(tn, tn.Value, "", "");
             }
             tvCatalog.SelectedNodeStyle.BackColor = System.Drawing.Color.FromArgb(160, 190, 220);
-            tnc.Add(tn);
-            GetContryNode(tn.ChildNodes, Convert.ToInt32(tn.Value));
+            tvCatalog.Nodes.Add(tn);
+            GetContryNode(tn, Convert.ToInt32(tn.Value));
         }
         sdr.Close();
     }
 
     //國別
-    protected void GetContryNode(System.Web.UI.WebControls.TreeNodeCollection tnc, int intRegionID)
+    protected void GetContryNode(TreeNode tnc, int intRegionID)
     {
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = "select country_id,country_name from country where world_region_id=@RegionID order by country_name";
@@ -66,20 +67,20 @@ public partial class UserControls_ImaTree : System.Web.UI.UserControl
             tn.Value = sdr["country_id"].ToString();
             tn.NavigateUrl = "~/Ima/ImaList.aspx?rid=" + intRegionID.ToString() + "&cid=" + tn.Value;
             tn.ImageUrl = "~/images/46.gif";
-            tn.SelectAction = TreeNodeSelectAction.SelectExpand;
+            //tn.SelectAction = TreeNodeSelectAction.SelectExpand;
             if ((Request.Params["cid"] != null))
             {
                 CheckSelect(tn, intRegionID.ToString(), tn.Value, "");
             }
             tvCatalog.SelectedNodeStyle.BackColor = System.Drawing.Color.FromArgb(160, 190, 220);
-            tnc.Add(tn);
-            GetProductTypeNode(tn.ChildNodes, intRegionID.ToString(), tn.Value);
+            tnc.ChildNodes.Add(tn);
+            GetProductTypeNode(tn, intRegionID.ToString(), tn.Value);
         }
         sdr.Close();
     }
 
     //四大分類
-    protected void GetProductTypeNode(System.Web.UI.WebControls.TreeNodeCollection tnc, string strRegionID, string strContryID)
+    protected void GetProductTypeNode(TreeNode tnc, string strRegionID, string strContryID)
     {
         SqlCommand cmd = new SqlCommand("STP_IMAGetProductType");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -92,13 +93,13 @@ public partial class UserControls_ImaTree : System.Web.UI.UserControl
             tn.Value = sdr["wowi_product_type_id"].ToString();
             tn.NavigateUrl = "~/Ima/ImaList.aspx?rid=" + strRegionID + "&cid=" + strContryID + "&pid=" + tn.Value;
             tn.ImageUrl = "~/images/46.gif";
-            tn.SelectAction = TreeNodeSelectAction.SelectExpand;
+            //tn.SelectAction = TreeNodeSelectAction.SelectExpand;
             if ((Request.Params["pid"] != null))
             {
                 CheckSelect(tn, strRegionID, strContryID, tn.Value);
             }
             tvCatalog.SelectedNodeStyle.BackColor = System.Drawing.Color.FromArgb(160, 190, 220);
-            tnc.Add(tn);
+            tnc.ChildNodes.Add(tn);
         }
         sdr.Close();
     }
