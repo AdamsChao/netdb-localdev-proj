@@ -975,7 +975,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
   <ContentTemplate>
-  Gross Profit Analysiss
+      Gross Profit Analysis
                     <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
                        <tr>
                             <th align="left" width="13%">

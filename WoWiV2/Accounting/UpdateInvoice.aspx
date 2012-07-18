@@ -409,13 +409,18 @@
         }
         TextBox tbTotal = (iGridView2.FooterRow.FindControl("tbTotal") as TextBox);
         decimal tot = decimal.Parse((iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text);
-        if ((sender as DropDownList).SelectedValue == "*")
+        String currency = (iGridView2.FooterRow.FindControl("lblOCurrency") as Label).Text ;
+        String covertCurrency = (iGridView2.FooterRow.FindControl("ddlCurrency") as DropDownList).SelectedValue;
+        if (currency != covertCurrency)
         {
-            tot *= rate;
-        }
-        else
-        {
-            tot /= rate;
+            if ((sender as DropDownList).SelectedValue == "*")
+            {
+                tot *= rate;
+            }
+            else
+            {
+                tot /= rate;
+            }
         }
         tbTotal.Text = tot.ToString("F2");
     }
@@ -435,13 +440,18 @@
         }
         TextBox tbTotal = (iGridView2.FooterRow.FindControl("tbTotal") as TextBox);
         decimal tot = decimal.Parse((iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text);
-        if ((iGridView2.FooterRow.FindControl("ddloperate") as DropDownList).SelectedValue == "*")
+        String currency = (iGridView2.FooterRow.FindControl("lblOCurrency") as Label).Text ;
+        String covertCurrency = (iGridView2.FooterRow.FindControl("ddlCurrency") as DropDownList).SelectedValue;
+        if (currency != covertCurrency)
         {
-            tot *= rate;
-        }
-        else
-        {
-            tot /= rate;
+            if ((iGridView2.FooterRow.FindControl("ddloperate") as DropDownList).SelectedValue == "*")
+            {
+                tot *= rate;
+            }
+            else
+            {
+                tot /= rate;
+            }
         }
         tbTotal.Text = tot.ToString("F2");
     }

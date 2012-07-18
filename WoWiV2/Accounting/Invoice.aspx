@@ -284,21 +284,44 @@
             }
 
             temp.Currency = item.ocurrency;
-            if (temp.Currency == "USD")
+
+            if (item.ocurrency != item.currency)
             {
-                temp.USD = ((double)item.total);
-                temp.NTD = ((double)item.final_total);
-                usdtotal += temp.USD;
-                usdissuetotal += temp.USD;
-                ntdtotal += temp.NTD;
+                if (temp.Currency == "USD")
+                {
+                    temp.USD = ((double)item.total);
+                    temp.NTD = ((double)item.final_total);
+                    usdtotal += temp.USD;
+                    usdissuetotal += temp.USD;
+                    ntdtotal += temp.NTD;
+                }
+                else
+                {
+                    temp.NTD = ((double)item.ototal);
+                    temp.USD = ((double)item.final_total);
+                    ntdtotal += temp.NTD;
+                    ntdissuetotal += temp.NTD;
+                    usdtotal += temp.USD;
+                }
             }
             else
             {
-                temp.NTD = ((double)item.ototal);
-                temp.USD = ((double)item.final_total);
-                ntdtotal += temp.NTD;
-                ntdissuetotal += temp.NTD;
-                usdtotal += temp.USD;
+                if (temp.Currency == "USD")
+                {
+                    temp.USD = ((double)item.total);
+                    temp.NTD = ((double)item.total * (double)item.exchange_rate);
+                    usdtotal += temp.USD;
+                    usdissuetotal += temp.USD;
+                    ntdtotal += temp.NTD;
+                }
+                else
+                {
+                    temp.NTD = ((double)item.ototal);
+                    temp.USD = ((double)item.total / (double)item.exchange_rate);
+                    ntdtotal += temp.NTD;
+                    ntdissuetotal += temp.NTD;
+                    usdtotal += temp.USD;
+                }
             }
 
             //if (item.invoice_date.HasValue)
