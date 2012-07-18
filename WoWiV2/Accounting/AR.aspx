@@ -48,8 +48,8 @@
         
         foreach (GridViewRow row in iGridView1.Rows)
         {
-            //if ((row.Cells[17].FindControl("Label5") as Label).Text == "USD")
-            if (row.Cells[17].Text == "USD")
+            if ((row.Cells[17].FindControl("Label5") as Label).Text == "USD")
+            //if (row.Cells[17].Text == "USD")
             {
                 row.Cells[5].CssClass = "HighLight";
             }
@@ -276,32 +276,32 @@
             }
 
             temp.OCurrency = item.ocurrency;
-            temp.Currency = item.currency;
+            temp.Currency = item.ocurrency;
             decimal ARBalance = ((decimal)item.ar_balance);
-            if (item.ocurrency != item.currency)
-            {
-                if (temp.Currency == "USD")
-                {
-                    temp.NTD = ((double)item.total);
-                    temp.USD = ((double)item.final_total);
-                    usdtotal += temp.USD;
-                    usdissuetotal += temp.USD;
-                    ntdtotal += temp.NTD;
-                    arusdtotal += (double)ARBalance /(double)item.exchange_rate;
-                    temp.ARBalance = ((decimal)ARBalance/(decimal)item.exchange_rate).ToString("F2");
-                }
-                else
-                {
-                    temp.NTD = ((double)item.total);
-                    temp.USD = ((double)item.final_total);
-                    ntdtotal += temp.NTD;
-                    ntdissuetotal += temp.NTD;
-                    usdtotal += temp.USD;
-                    arntdtotal += (double)ARBalance * (double)item.exchange_rate;
-                    temp.ARBalance = ((decimal)ARBalance * (decimal)item.exchange_rate).ToString("F2");
-                }
-            }
-            else
+            //if (item.ocurrency != item.currency)
+            //{
+            //    //if (temp.Currency == "USD")
+            //    //{
+            //    //    temp.NTD = ((double)item.total / (double)item.exchange_rate);
+            //    //    temp.USD = ((double)item.final_total);
+            //    //    usdtotal += temp.USD;
+            //    //    usdissuetotal += temp.USD;
+            //    //    ntdtotal += temp.NTD;
+            //    //    arusdtotal += (double)ARBalance /(double)item.exchange_rate;
+            //    //    temp.ARBalance = ((decimal)ARBalance/(decimal)item.exchange_rate).ToString("F2");
+            //    //}
+            //    //else
+            //    //{
+            //    //    temp.NTD = ((double)item.total);
+            //    //    temp.USD = ((double)item.final_total);
+            //    //    ntdtotal += temp.NTD;
+            //    //    ntdissuetotal += temp.NTD;
+            //    //    usdtotal += temp.USD;
+            //    //    arntdtotal += (double)ARBalance * (double)item.exchange_rate;
+            //    //    temp.ARBalance = ((decimal)ARBalance * (decimal)item.exchange_rate).ToString("F2");
+            //    //}
+            //}
+            //else
             {
                 if (temp.Currency == "USD")
                 {
@@ -557,8 +557,8 @@
                             <asp:BoundField DataField="PlanDueDate" HeaderText="預計收款日" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" SortExpression="OverDueDays" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="OverDueInterval" HeaderText="逾期區間" SortExpression="OverDueInterval" />
-                            <asp:BoundField DataField="OCurrency" HeaderText="Currency" SortExpression="OCurrency" ItemStyle-HorizontalAlign="Right"/>
-                            <asp:TemplateField HeaderText="Pay Currency"  ItemStyle-HorizontalAlign="Right" SortExpression="Currency">
+                           <%-- <asp:BoundField DataField="OCurrency" HeaderText="Currency" SortExpression="OCurrency" ItemStyle-HorizontalAlign="Right"/>
+                           --%> <asp:TemplateField HeaderText="Currency"  ItemStyle-HorizontalAlign="Right" SortExpression="Currency">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Currency") %>'></asp:TextBox>
                                 </EditItemTemplate>

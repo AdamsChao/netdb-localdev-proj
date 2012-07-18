@@ -657,7 +657,7 @@
         decimal tot = decimal.Parse((iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text);
         String currency = (iGridView2.FooterRow.FindControl("lblOCurrency") as Label).Text ;
         String covertCurrency = (iGridView2.FooterRow.FindControl("ddlCurrency") as DropDownList).SelectedValue;
-        if (currency != covertCurrency)
+        //if (currency != covertCurrency)
         {
             if ((sender as DropDownList).SelectedValue == "*")
             {
@@ -688,7 +688,7 @@
         decimal tot = decimal.Parse((iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text);
         String currency = (iGridView2.FooterRow.FindControl("lblOCurrency") as Label).Text ;
         String covertCurrency = (iGridView2.FooterRow.FindControl("ddlCurrency") as DropDownList).SelectedValue;
-        if (currency != covertCurrency)
+        //if (currency != covertCurrency)
         {
             if ((iGridView2.FooterRow.FindControl("ddloperate") as DropDownList).SelectedValue == "*")
             {
@@ -753,8 +753,8 @@
                 
                 invoice.total = decimal.Parse((iGridView2.FooterRow.FindControl("lblAmountDue") as Label).Text);
                 invoice.final_total = decimal.Parse((iGridView2.FooterRow.FindControl("tbTotal") as TextBox).Text);
-                invoice.ar_balance = invoice.final_total;
-                invoice.adjust = invoice.final_total - (decimal)invoice.total;
+                invoice.ar_balance = invoice.total;
+                //invoice.adjust = invoice.final_total - (decimal)invoice.total;
             }
             catch (Exception)
             {
