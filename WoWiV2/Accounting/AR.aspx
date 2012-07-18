@@ -480,10 +480,11 @@
                        
                     </table><asp:Label ID="lblMsg" runat="server" Text="No match data found." ></asp:Label>
                     <asp:GridView ID="iGridView1" runat="server" Height="150px" 
-          Width="100%" SkinID="GridView" PageSize="50"
+         SkinID="GridView" PageSize="50"
                          AutoGenerateColumns="False" 
           onprerender="iGridView1_PreRender" ShowFooter="True" onsorting="iGridView1_Sorting" 
                        >
+                       <HeaderStyle Wrap="false" />
                         <Columns>
                             <asp:TemplateField HeaderText="Invoice No">
                                 <EditItemTemplate>
@@ -556,7 +557,7 @@
                             <asp:BoundField DataField="PlanDueDate" HeaderText="預計收款日" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" SortExpression="OverDueDays" ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField DataField="OverDueInterval" HeaderText="逾期區間" SortExpression="OverDueInterval" />
-                            <asp:BoundField DataField="OCurrency" HeaderText="Currency" SortExpression="OCurrency" />
+                            <asp:BoundField DataField="OCurrency" HeaderText="Currency" SortExpression="OCurrency" ItemStyle-HorizontalAlign="Right"/>
                             <asp:TemplateField HeaderText="Pay Currency"  ItemStyle-HorizontalAlign="Right" SortExpression="Currency">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Currency") %>'></asp:TextBox>
