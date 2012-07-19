@@ -314,7 +314,7 @@
         ARAnalysisData temp;
         try
         {
-            var datas = from i in wowidb.invoices where (int)(decimal)i.ar_balance > 0 select new { pNo = i.project_no, invoice_id = i.invoice_id, qNo = i.quotaion_no, invoice_date = i.issue_invoice_date };
+            var datas = from i in wowidb.invoices where (int)(decimal)i.ar_balance > 0 && i.status !=(byte)InvoicePaymentStatus.WithDraw select new { pNo = i.project_no, invoice_id = i.invoice_id, qNo = i.quotaion_no, invoice_date = i.issue_invoice_date };
             try
             {
                 DateTime fromDate = dcFrom.GetDate();
