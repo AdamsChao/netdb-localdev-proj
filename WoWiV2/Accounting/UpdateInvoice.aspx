@@ -698,7 +698,8 @@
                                                     <asp:ListItem>/</asp:ListItem>
                                                     </asp:DropDownList>
                                                     <asp:TextBox ID="tbExchangeRate" runat="server" Width="100px" 
-                                                        ontextchanged="tbExchangeRate_TextChanged" AutoPostBack="True" ></asp:TextBox>
+                                                        ontextchanged="tbExchangeRate_TextChanged" AutoPostBack="True" ></asp:TextBox><asp:RequiredFieldValidator
+                                                            ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter exchange rate." ControlToValidate="tbExchangeRate" Text="*" Font-Bold="True"></asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -731,6 +732,9 @@
                             </asp:TemplateField>
                         </Columns>
                     </asp:Gridview>
+                                                         <asp:ValidationSummary
+                                                                ID="ValidationSummary1" runat="server" ShowMessageBox="True" ShowSummary="False" />
+
                              </td>
                         </tr>
                         <tr align="center">
