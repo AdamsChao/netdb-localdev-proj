@@ -365,4 +365,14 @@ public class IMAUtil
         if (strUserName == "amy" || strUserName == "timur") { return false; }
         return true;
     }
+
+    //依LoginName取得EmpId
+    static public string GetEmpIDbyLoginName()
+    {
+        string strTsql = "select id from Employee where username=@username";
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = strTsql;
+        cmd.Parameters.AddWithValue("@username", HttpContext.Current.User.Identity.Name);
+        return SQLUtil.ExecuteScalar(cmd).ToString();
+    }
 }
