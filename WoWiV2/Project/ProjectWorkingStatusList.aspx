@@ -36,7 +36,7 @@
                                             <asp:TreeNode Text="暫停的案子(On-Hold)" Value="On-Hold"></asp:TreeNode>
                                             <asp:TreeNode Text="完成的案子(Done)" Value="Done"></asp:TreeNode>
                                             <asp:TreeNode Text="取消的案子(Cancelled)" Value="Cancelled"></asp:TreeNode>
-                                            <asp:TreeNode Text="逾時案件(Delay)" Value="Void"></asp:TreeNode>
+                                            <asp:TreeNode Text="逾時案件(Delay)" Value="Delay"></asp:TreeNode>
                                         </asp:TreeNode>
                                         <asp:TreeNode Text="案件總覽" Value="%"></asp:TreeNode>
                                     </Nodes>
