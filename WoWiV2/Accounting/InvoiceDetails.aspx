@@ -388,11 +388,11 @@
                                         </tr>
                                         <tr>
                                              <td align="right">
-                                                Subtotal before taxes : </td>
+                                                Subtotal before taxs : </td>
                                                 <td><asp:Label ID="lblOCurrency" runat="server" Text=""></asp:Label>$ <asp:Label ID="lblOTotal" runat="server" Text=""></asp:Label>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr
                                              <td align="right">
                                                 (-)Discount : </td>
                                                 <td><asp:Label ID="lblOCurrency1" runat="server" Text=""></asp:Label>$ <asp:TextBox ID="tbdiscount" runat="server" Enabled="false"
@@ -401,7 +401,7 @@
                                         </tr>
                                         <tr>
                                              <td align="right">
-                                                Total taxes : </td>
+                                                Total tax : </td>
                                                 <td><asp:Label ID="lblOCurrency2" runat="server" Text=""></asp:Label>$ <asp:TextBox ID="tbTax" runat="server" Enabled="false"
                                                         AutoPostBack="True" ></asp:TextBox>
                                             </td>

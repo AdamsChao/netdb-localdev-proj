@@ -495,7 +495,7 @@
                                         </tr>
                                         <tr>
                                              <td align="right">
-                                                 Subtotal before taxes : </td>
+                                                 Subtotal before tax : </td>
                                                 <td> <asp:Label ID="lblOCurrency" runat="server" Text=""/>$</td>
                                                 <td align="right"> <asp:Label ID="lblOTotal" runat="server" Text="" ></asp:Label>
                                             </td>
@@ -511,7 +511,7 @@
                         </asp:Panel>
                                         <tr>
                                              <td align="right">
-                                                Total taxes : </td>
+                                                Total tax : </td>
                                                 <td> <asp:Label ID="lblOCurrency1" runat="server" Text=""/>$</td>
                                                 <td align="right"> <asp:Label ID="tbTax" runat="server"  ></asp:Label>
                                             </td>
