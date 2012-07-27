@@ -36,8 +36,8 @@ public class MailUtil
             mail.BodyEncoding = Encoding.UTF8;
 
             //for test
-            String mailcc = "rose@netdb.com.tw";
-            mail.CC.Add(mailcc);
+            //String mailcc = "rose@netdb.com.tw";
+            //mail.CC.Add(mailcc);
 
             StringWriter sw = new StringWriter();
             HtmlTextWriter hw = new HtmlTextWriter(sw);
