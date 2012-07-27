@@ -204,7 +204,8 @@
             <asp:GridView ID="gvTestTargetList" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1"
                 CellPadding="4" ForeColor="#333333" Width="100%" GridLines="None" Caption='<table border="1" width="100%" cellpadding="0" cellspacing="0" bgcolor="yellow"><tr bgcolor="#bbbbbb"><th colspan="7"><font color="red">Test Target List</font></th></tr></table>'
                 CaptionAlign="Top" OnRowDataBound="gvTestTargetList_RowDataBound" 
-                Style="text-align: left" EmptyDataText="此報價單中尚未有已經Confirmed後的Target可設定">
+                Style="text-align: left" EmptyDataText="此報價單中尚未有已經Confirmed後的Target可設定" 
+                ondatabound="gvTestTargetList_DataBound">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:TemplateField HeaderText="T.No"> 
@@ -292,7 +293,7 @@
                                 <asp:ListItem Text="預收2" Value="2"></asp:ListItem>
                                 <asp:ListItem Text="預收3" Value="3"></asp:ListItem>
                                 <asp:ListItem Text="尾款" Value="E"></asp:ListItem>
-                                <asp:ListItem Text="作廢" Value="A"></asp:ListItem>
+                                <asp:ListItem Text="取消" Value="A"></asp:ListItem>
                             </asp:DropDownList>                            
                             <%-- <asp:CheckBox ID="chkPR_Flag" runat="server" Checked='<%# CheckPR_Flag(Eval("PR_Flag")) %>' 
                                 Enabled="true" />--%>

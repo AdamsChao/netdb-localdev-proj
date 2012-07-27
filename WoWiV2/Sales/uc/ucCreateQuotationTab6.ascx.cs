@@ -47,7 +47,7 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
         //txtFinalTotalPrice.Text = Quotation_Controller.GetTotalPrice(quotation_id);
         //txtTotal_Disc_Amt.Text = quo.Total_disc_amt.ToString();
         //txtRemark.Text = quo.Remark;
-       
+     
 
         //if (quotation_id != 0)
         //{
@@ -203,8 +203,10 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
                 TotalBilled += decimal.Parse(txtBill3.Text);
             if (lblInvoiceNoE.Text != "")
                 TotalBilled += decimal.Parse(txtBillE.Text);
-            lblTotalBilled.Text = TotalBilled.ToString();
-            lblBlance.Text = (Decimal.Parse(lblSubTotal.Text) - TotalBilled).ToString("F2");
+
+          
+            //lblTotalBilled.Text = TotalBilled.ToString();
+            //lblBlance.Text = (Decimal.Parse(lblSubTotal.Text) - TotalBilled).ToString("F2");
 
             hidPR_Flag.Value = "0";
             //如果已開發票，就鎖住textbox不讓user修改
@@ -291,4 +293,10 @@ public partial class Sales_uc_ucCreateQuotationTab6 : System.Web.UI.UserControl
 
 
 
+    protected void gvTestTargetList_DataBound(object sender, EventArgs e)
+    {
+        TotalBilled = TotalBilled - Decimal.Parse(lblDiscount.Text);
+        lblTotalBilled.Text = TotalBilled.ToString();
+        lblBlance.Text = (Decimal.Parse(lblSubTotal.Text) - TotalBilled).ToString("F2");
+    }
 }
