@@ -19,11 +19,11 @@
         if (e.Exception == null)
         {
             WoWiModel.contact_info obj = (WoWiModel.contact_info)e.Entity;
-            if (obj.department_id == null)
+            if (!obj.department_id.HasValue)
             {
                 obj.department_id = -1;
             }
-            if (obj.employee_id == null)
+            if (!obj.employee_id.HasValue)
             {
                 obj.employee_id = -1;
             }
@@ -270,6 +270,7 @@
                 {
                     (FormView1.FindControl("ddlDeptList") as DropDownList).SelectedValue = data.department_id.HasValue ? data.department_id + "" : "-1";
                     (FormView1.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = data.employee_id.HasValue ? data.employee_id + "" : "-1";
+                    
                 }
                 catch (Exception)
                 {
@@ -301,6 +302,8 @@
         {
             (fv.FindControl("ddlDeptList") as DropDownList).SelectedValue =  "-1";
             (fv.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = "-1";
+            (MyContactCreateFormView1.FindControl("lblDept") as Label).Text = "-1";
+            (MyContactCreateFormView1.FindControl("lblEmp") as Label).Text = "-1";
         }
         catch (Exception)
         {
@@ -583,7 +586,7 @@
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
                                             <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlEmployeeList_SelectedIndexChanged"
-                                                onload="ddlEmployeeList_Load" AppendDataBoundItems="True">
+                                                onload="ddlEmployeeList_Load" AppendDataBoundItems="True" > 
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                             </asp:DropDownList>
                                             <asp:Label ID="lblEmp" runat="server" Text='<%# Bind("employee_id") %>'  CssClass="hidden"></asp:Label>

@@ -191,22 +191,22 @@
                             <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
-                                            <asp:DropDownList ID="ddlDeptList" runat="server" AutoPostBack="True" 
+                                            <netdb:DropDownList2 ID="ddlDeptList" runat="server" AutoPostBack="True" 
                                                 DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id" 
                                                 onselectedindexchanged="ddlDeptList_SelectedIndexChanged" AppendDataBoundItems="True" SelectedValue='<%# Bind("department_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                            </asp:DropDownList>
+                                            </netdb:DropDownList2>
 
                                             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                                 SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name]"></asp:SqlDataSource>
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
-                                            <asp:DropDownList ID="ddlEmployeeList" runat="server" AutoPostBack="True" AppendDataBoundItems="true"
+                                            <netdb:DropDownList2 ID="ddlEmployeeList" runat="server" AutoPostBack="True" AppendDataBoundItems="true"
                                                 onselectedindexchanged="ddlEmployeeList_SelectedIndexChanged"  SelectedValue='<%# Bind("employee_id") %>'
                                                 onload="ddlEmployeeList_Load" >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                            </asp:DropDownList>
+                                            </netdb:DropDownList2>
                                         </td></tr>
                                 <tr>
                                     <th align="left" class="style9">
