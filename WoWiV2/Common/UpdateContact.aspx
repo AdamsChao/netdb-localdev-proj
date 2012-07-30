@@ -236,14 +236,14 @@
                                     <th align="left" class="style2">
                                         <font color="red">*&nbsp;</font>Title:&nbsp;</th>
                                     <td class="style3" width="35%">
-                                        <asp:TextBox ID="tbTitle" runat="server" Text='<%# Bind("title") %>' 
+                                        <asp:TextBox ID="tbTitle" runat="server" Text='<%# Bind("title") %>' Width="250"
                                             MaxLength="50"></asp:TextBox>
                                         <asp:Label ID="Label5" runat="server" ForeColor="Red" Text="(Max Length : 50)"></asp:Label>
                                     </td>
                                     <th align="left" class="style8">
                                         &nbsp; 職稱:</th>
                                     <td class="style3" width="35%">
-                                        <asp:TextBox ID="tbcTitle" runat="server" Text='<%# Bind("c_title") %>'></asp:TextBox>
+                                        <asp:TextBox ID="tbcTitle" runat="server" Text='<%# Bind("c_title") %>' Width="250"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
