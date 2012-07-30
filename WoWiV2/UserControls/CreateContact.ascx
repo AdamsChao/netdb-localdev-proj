@@ -638,12 +638,12 @@
                             <th align="left" class="style9">
                                 <font color="red">*&nbsp;</font>Company:&nbsp;&nbsp;</th>
                             <td width="35%">
-                                <asp:TextBox ID="tbCompany" runat="server" Text='<%# Bind("companyname") %>'></asp:TextBox>
+                                <asp:TextBox ID="tbCompany" runat="server" Text='<%# Bind("companyname") %>' Width="300"></asp:TextBox>
                             </td>
                             <th align="left" class="style7">
                                 &nbsp; 公司:&nbsp;</th>
                             <td width="35%">
-                                <asp:TextBox ID="tbcCompany" runat="server" Text='<%# Bind("c_companyname") %>'></asp:TextBox>
+                                <asp:TextBox ID="tbcCompany" runat="server" Text='<%# Bind("c_companyname") %>' Width="300"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -657,7 +657,7 @@
                             <th align="left" class="style7">
                                 <font color="red">*&nbsp;</font>Email:&nbsp;</th>
                             <td width="35%">
-                                <asp:TextBox ID="tbEmail" runat="server" Text='<%# Bind("email") %>'></asp:TextBox>
+                                <asp:TextBox ID="tbEmail" runat="server" Text='<%# Bind("email") %>' Width="250"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -677,13 +677,13 @@
                                 <font color="red">*&nbsp;</font>Address:&nbsp;</th>
                             <td width="35%">
                                 <asp:TextBox ID="tbAddress" runat="server" Text='<%# Bind("address") %>' 
-                                    Width="211px"></asp:TextBox>
+                                    Width="360px"></asp:TextBox>
                             </td>
                             <th align="left" class="style7">
                                 &nbsp; 地址:&nbsp;</th>
                             <td width="35%">
                                 <asp:TextBox ID="tbcAddress" runat="server" Text='<%# Bind("c_address") %>' 
-                                    Width="211px"></asp:TextBox>
+                                    Width="360px"></asp:TextBox>
                             </td>
                         </tr>
                        <%-- <tr>
