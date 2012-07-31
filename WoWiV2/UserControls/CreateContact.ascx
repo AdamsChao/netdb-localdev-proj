@@ -182,6 +182,7 @@
                 try
                 {
                     (fv.FindControl("ddlDeptList") as DropDownList).SelectedValue = "-1";
+                    (fv.FindControl("ddlDept") as Label).Text = "-1";
                     
                 }
                 catch (Exception)
@@ -192,6 +193,7 @@
                 try
                 {
                     (fv.FindControl("ddlEmployeeList") as DropDownList).SelectedValue = "-1";
+                    (fv.FindControl("ddlEmp") as Label).Text = "-1";
                    
                 }
                 catch (Exception)
@@ -415,7 +417,7 @@
         (sender as DropDownList).DataSource = list;
         (sender as DropDownList).DataTextField = "name";
         (sender as DropDownList).DataValueField = "id";
-        //(MyContactCreateFormView1.FindControl("lblDept") as Label).Text = "-1";
+        (MyContactCreateFormView1.FindControl("lblEmp") as Label).Text = "-1";
 
     }
 
