@@ -509,8 +509,8 @@
                                </tr>
                                <tr>
                                    <td colspan="4">
-                                       <asp:Label ID="tbRemarks" runat="server" Height="70" TextMode="MultiLine" Text='<%# Bind("remark") %>' Enabled="false"
-                                           Width="100%"></asp:Label>
+                                       <asp:TextBox ID="tbRemarks" runat="server" Height="70" TextMode="MultiLine" Text='<%# Bind("remark") %>' Enabled="false"
+                                           Width="100%"></asp:TextBox>
                                    </td>
                                </tr>
                                              <tr>

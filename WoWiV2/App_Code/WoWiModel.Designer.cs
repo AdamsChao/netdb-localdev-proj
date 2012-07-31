@@ -564,22 +564,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<clientapplicant> clientapplicants
-        {
-            get
-            {
-                if ((_clientapplicants == null))
-                {
-                    _clientapplicants = base.CreateObjectSet<clientapplicant>("clientapplicants");
-                }
-                return _clientapplicants;
-            }
-        }
-        private ObjectSet<clientapplicant> _clientapplicants;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<employee> employees
         {
             get
@@ -784,6 +768,22 @@ namespace WoWiModel
             }
         }
         private ObjectSet<Ima_Contact> _Ima_Contact;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<clientapplicant> clientapplicants
+        {
+            get
+            {
+                if ((_clientapplicants == null))
+                {
+                    _clientapplicants = base.CreateObjectSet<clientapplicant>("clientapplicants");
+                }
+                return _clientapplicants;
+            }
+        }
+        private ObjectSet<clientapplicant> _clientapplicants;
 
         #endregion
         #region AddTo Methods
@@ -1037,14 +1037,6 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the clientapplicants EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToclientapplicants(clientapplicant clientapplicant)
-        {
-            base.AddObject("clientapplicants", clientapplicant);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the employees EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToemployees(employee employee)
@@ -1146,6 +1138,14 @@ namespace WoWiModel
         public void AddToIma_Contact(Ima_Contact ima_Contact)
         {
             base.AddObject("Ima_Contact", ima_Contact);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the clientapplicants EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToclientapplicants(clientapplicant clientapplicant)
+        {
+            base.AddObject("clientapplicants", clientapplicant);
         }
 
         #endregion

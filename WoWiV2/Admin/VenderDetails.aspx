@@ -153,7 +153,7 @@
                                            <netdb:DropDownList2 ID="ddlDeptList" runat="server" AutoPostBack="True" Enabled="false"
                                                 DataSourceID="SqlDataSource2" DataTextField="name" DataValueField="id"  AppendDataBoundItems="True" SelectedValue='<%# Bind("department_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                            </netdb:DropDownList2
+                                            </netdb:DropDownList2>
 
                                             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 

@@ -125,7 +125,7 @@
           <Property Name="creditlimit" Type="money" />
           <Property Name="paymentterm" Type="int" />
           <Property Name="clientstatus" Type="tinyint" />
-          <Property Name="remark" Type="text" />
+          <Property Name="remark" Type="nvarchar" MaxLength="500" />
           <Property Name="create_user" Type="nvarchar" MaxLength="50" />
           <Property Name="create_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
@@ -933,7 +933,6 @@
           <EntitySet Name="wowi_tech" EntityType="WoWiModel.wowi_tech" />
           <EntitySet Name="Quotation_Version" EntityType="WoWiModel.Quotation_Version" />
           <EntitySet Name="countries" EntityType="WoWiModel.country" />
-          <EntitySet Name="clientapplicants" EntityType="WoWiModel.clientapplicant" />
           <EntitySet Name="employees" EntityType="WoWiModel.employee" />
           <EntitySet Name="invoices" EntityType="WoWiModel.invoice" />
           <EntitySet Name="invoice_received" EntityType="WoWiModel.invoice_received" />
@@ -947,6 +946,7 @@
           <EntitySet Name="contact_info" EntityType="WoWiModel.contact_info" />
           <EntitySet Name="m_ima_contact" EntityType="WoWiModel.m_ima_contact" />
           <EntitySet Name="Ima_Contact" EntityType="WoWiModel.Ima_Contact" />
+          <EntitySet Name="clientapplicants" EntityType="WoWiModel.clientapplicant" />
         </EntityContainer>
         <EntityType Name="access_level">
           <Key>
@@ -1398,71 +1398,6 @@
           <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
         </EntityType>
-        <EntityType Name="clientapplicant">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="code" MaxLength="8" FixedLength="false" Unicode="true" />
-          <Property Type="Byte" Name="clientapplicant_type" Nullable="false" />
-          <Property Type="String" Name="companyname" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_companyname" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="website" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="address" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_address" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="country_id" />
-          <Property Type="String" Name="main_tel" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="main_fax" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Byte" Name="businesstype" />
-          <Property Type="Int32" Name="billing_id" />
-          <Property Type="String" Name="bill_ccompanyname" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_companyname" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_firstname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_lastname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_title" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_bill_firstname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="c_bill_lastname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_workphone" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_ext" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_fax" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_email" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_address" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bill_caddress" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="owner" />
-          <Property Type="Int32" Name="acct_manager" />
-          <Property Type="String" Name="acctno" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="creditlimit" Precision="19" Scale="4" />
-          <Property Type="Int32" Name="paymentterm" />
-          <Property Type="Byte" Name="clientstatus" />
-          <Property Type="String" Name="remark" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="create_date" />
-          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="modify_date" />
-          <Property Type="String" Name="fedex_acct" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="dhl_acct" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ups_acct" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="potential_client" Nullable="false" />
-          <Property Type="Int32" Name="acct_contact_id" />
-          <Property Type="String" Name="ups_bankname" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ups_bankaddress" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ups_swiftcode" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ups_accountno" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ups_banefucuanyname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ups_passbybank" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Byte" Name="grant_rank" />
-          <Property Type="Boolean" Name="publish" Nullable="false" />
-          <Property Type="Int32" Name="paymentdays" />
-          <Property Type="String" Name="business_registration_number" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="department_id" />
-          <Property Type="Int32" Name="employee_id" />
-          <Property Type="String" Name="ups_bankbranch" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="contact_name" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="contact_email" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="contact_tel" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="contact_ext" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="billcountry_id" />
-        </EntityType>
         <EntityType Name="employee">
           <Key>
             <PropertyRef Name="id" />
@@ -1792,6 +1727,71 @@
           <Property Type="String" Name="Remark" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsTemp" />
           <Property Type="String" Name="Email" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="clientapplicant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="code" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="clientapplicant_type" Nullable="false" />
+          <Property Type="String" Name="companyname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_companyname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="website" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="address" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_address" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="country_id" />
+          <Property Type="String" Name="main_tel" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="main_fax" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="businesstype" />
+          <Property Type="Int32" Name="billing_id" />
+          <Property Type="String" Name="bill_ccompanyname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_companyname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_firstname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_lastname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_title" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_bill_firstname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_bill_lastname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_workphone" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_ext" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_fax" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_email" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_address" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bill_caddress" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="owner" />
+          <Property Type="Int32" Name="acct_manager" />
+          <Property Type="String" Name="acctno" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="creditlimit" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="paymentterm" />
+          <Property Type="Byte" Name="clientstatus" />
+          <Property Type="String" Name="remark" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="fedex_acct" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dhl_acct" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ups_acct" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="potential_client" Nullable="false" />
+          <Property Type="Int32" Name="acct_contact_id" />
+          <Property Type="String" Name="ups_bankname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ups_bankaddress" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ups_swiftcode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ups_accountno" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ups_banefucuanyname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ups_passbybank" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="grant_rank" />
+          <Property Type="Boolean" Name="publish" Nullable="false" />
+          <Property Type="Int32" Name="paymentdays" />
+          <Property Type="String" Name="business_registration_number" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="department_id" />
+          <Property Type="Int32" Name="employee_id" />
+          <Property Type="String" Name="ups_bankbranch" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="contact_name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="contact_email" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="contact_tel" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="contact_ext" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="billcountry_id" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2271,72 +2271,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="clientapplicants">
-            <EntityTypeMapping TypeName="WoWiModel.clientapplicant">
-              <MappingFragment StoreEntitySet="clientapplicant">
-                <ScalarProperty Name="billcountry_id" ColumnName="billcountry_id" />
-                <ScalarProperty Name="contact_ext" ColumnName="contact_ext" />
-                <ScalarProperty Name="contact_tel" ColumnName="contact_tel" />
-                <ScalarProperty Name="contact_email" ColumnName="contact_email" />
-                <ScalarProperty Name="contact_name" ColumnName="contact_name" />
-                <ScalarProperty Name="ups_bankbranch" ColumnName="ups_bankbranch" />
-                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
-                <ScalarProperty Name="department_id" ColumnName="department_id" />
-                <ScalarProperty Name="business_registration_number" ColumnName="business_registration_number" />
-                <ScalarProperty Name="paymentdays" ColumnName="paymentdays" />
-                <ScalarProperty Name="publish" ColumnName="publish" />
-                <ScalarProperty Name="grant_rank" ColumnName="grant_rank" />
-                <ScalarProperty Name="ups_passbybank" ColumnName="ups_passbybank" />
-                <ScalarProperty Name="ups_banefucuanyname" ColumnName="ups_banefucuanyname" />
-                <ScalarProperty Name="ups_accountno" ColumnName="ups_accountno" />
-                <ScalarProperty Name="ups_swiftcode" ColumnName="ups_swiftcode" />
-                <ScalarProperty Name="ups_bankaddress" ColumnName="ups_bankaddress" />
-                <ScalarProperty Name="ups_bankname" ColumnName="ups_bankname" />
-                <ScalarProperty Name="acct_contact_id" ColumnName="acct_contact_id" />
-                <ScalarProperty Name="potential_client" ColumnName="potential_client" />
-                <ScalarProperty Name="ups_acct" ColumnName="ups_acct" />
-                <ScalarProperty Name="dhl_acct" ColumnName="dhl_acct" />
-                <ScalarProperty Name="fedex_acct" ColumnName="fedex_acct" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="create_user" ColumnName="create_user" />
-                <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="clientstatus" ColumnName="clientstatus" />
-                <ScalarProperty Name="paymentterm" ColumnName="paymentterm" />
-                <ScalarProperty Name="creditlimit" ColumnName="creditlimit" />
-                <ScalarProperty Name="acctno" ColumnName="acctno" />
-                <ScalarProperty Name="acct_manager" ColumnName="acct_manager" />
-                <ScalarProperty Name="owner" ColumnName="owner" />
-                <ScalarProperty Name="bill_caddress" ColumnName="bill_caddress" />
-                <ScalarProperty Name="bill_address" ColumnName="bill_address" />
-                <ScalarProperty Name="bill_email" ColumnName="bill_email" />
-                <ScalarProperty Name="bill_fax" ColumnName="bill_fax" />
-                <ScalarProperty Name="bill_ext" ColumnName="bill_ext" />
-                <ScalarProperty Name="bill_workphone" ColumnName="bill_workphone" />
-                <ScalarProperty Name="c_bill_lastname" ColumnName="c_bill_lastname" />
-                <ScalarProperty Name="c_bill_firstname" ColumnName="c_bill_firstname" />
-                <ScalarProperty Name="bill_title" ColumnName="bill_title" />
-                <ScalarProperty Name="bill_lastname" ColumnName="bill_lastname" />
-                <ScalarProperty Name="bill_firstname" ColumnName="bill_firstname" />
-                <ScalarProperty Name="bill_companyname" ColumnName="bill_companyname" />
-                <ScalarProperty Name="bill_ccompanyname" ColumnName="bill_ccompanyname" />
-                <ScalarProperty Name="billing_id" ColumnName="billing_id" />
-                <ScalarProperty Name="businesstype" ColumnName="businesstype" />
-                <ScalarProperty Name="main_fax" ColumnName="main_fax" />
-                <ScalarProperty Name="main_tel" ColumnName="main_tel" />
-                <ScalarProperty Name="country_id" ColumnName="country_id" />
-                <ScalarProperty Name="c_address" ColumnName="c_address" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="website" ColumnName="website" />
-                <ScalarProperty Name="c_companyname" ColumnName="c_companyname" />
-                <ScalarProperty Name="companyname" ColumnName="companyname" />
-                <ScalarProperty Name="clientapplicant_type" ColumnName="clientapplicant_type" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="employees">
             <EntityTypeMapping TypeName="WoWiModel.employee">
               <MappingFragment StoreEntitySet="employee">
@@ -2680,6 +2614,72 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="clientapplicants">
+            <EntityTypeMapping TypeName="WoWiModel.clientapplicant">
+              <MappingFragment StoreEntitySet="clientapplicant">
+                <ScalarProperty Name="billcountry_id" ColumnName="billcountry_id" />
+                <ScalarProperty Name="contact_ext" ColumnName="contact_ext" />
+                <ScalarProperty Name="contact_tel" ColumnName="contact_tel" />
+                <ScalarProperty Name="contact_email" ColumnName="contact_email" />
+                <ScalarProperty Name="contact_name" ColumnName="contact_name" />
+                <ScalarProperty Name="ups_bankbranch" ColumnName="ups_bankbranch" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="business_registration_number" ColumnName="business_registration_number" />
+                <ScalarProperty Name="paymentdays" ColumnName="paymentdays" />
+                <ScalarProperty Name="publish" ColumnName="publish" />
+                <ScalarProperty Name="grant_rank" ColumnName="grant_rank" />
+                <ScalarProperty Name="ups_passbybank" ColumnName="ups_passbybank" />
+                <ScalarProperty Name="ups_banefucuanyname" ColumnName="ups_banefucuanyname" />
+                <ScalarProperty Name="ups_accountno" ColumnName="ups_accountno" />
+                <ScalarProperty Name="ups_swiftcode" ColumnName="ups_swiftcode" />
+                <ScalarProperty Name="ups_bankaddress" ColumnName="ups_bankaddress" />
+                <ScalarProperty Name="ups_bankname" ColumnName="ups_bankname" />
+                <ScalarProperty Name="acct_contact_id" ColumnName="acct_contact_id" />
+                <ScalarProperty Name="potential_client" ColumnName="potential_client" />
+                <ScalarProperty Name="ups_acct" ColumnName="ups_acct" />
+                <ScalarProperty Name="dhl_acct" ColumnName="dhl_acct" />
+                <ScalarProperty Name="fedex_acct" ColumnName="fedex_acct" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="clientstatus" ColumnName="clientstatus" />
+                <ScalarProperty Name="paymentterm" ColumnName="paymentterm" />
+                <ScalarProperty Name="creditlimit" ColumnName="creditlimit" />
+                <ScalarProperty Name="acctno" ColumnName="acctno" />
+                <ScalarProperty Name="acct_manager" ColumnName="acct_manager" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="bill_caddress" ColumnName="bill_caddress" />
+                <ScalarProperty Name="bill_address" ColumnName="bill_address" />
+                <ScalarProperty Name="bill_email" ColumnName="bill_email" />
+                <ScalarProperty Name="bill_fax" ColumnName="bill_fax" />
+                <ScalarProperty Name="bill_ext" ColumnName="bill_ext" />
+                <ScalarProperty Name="bill_workphone" ColumnName="bill_workphone" />
+                <ScalarProperty Name="c_bill_lastname" ColumnName="c_bill_lastname" />
+                <ScalarProperty Name="c_bill_firstname" ColumnName="c_bill_firstname" />
+                <ScalarProperty Name="bill_title" ColumnName="bill_title" />
+                <ScalarProperty Name="bill_lastname" ColumnName="bill_lastname" />
+                <ScalarProperty Name="bill_firstname" ColumnName="bill_firstname" />
+                <ScalarProperty Name="bill_companyname" ColumnName="bill_companyname" />
+                <ScalarProperty Name="bill_ccompanyname" ColumnName="bill_ccompanyname" />
+                <ScalarProperty Name="billing_id" ColumnName="billing_id" />
+                <ScalarProperty Name="businesstype" ColumnName="businesstype" />
+                <ScalarProperty Name="main_fax" ColumnName="main_fax" />
+                <ScalarProperty Name="main_tel" ColumnName="main_tel" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="c_address" ColumnName="c_address" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="c_companyname" ColumnName="c_companyname" />
+                <ScalarProperty Name="companyname" ColumnName="companyname" />
+                <ScalarProperty Name="clientapplicant_type" ColumnName="clientapplicant_type" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2704,7 +2704,7 @@
         <EntityTypeShape EntityType="WoWiModel.access_level" Width="1.5" PointX="0.75" PointY="0.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.Access_Menu" Width="1.5" PointX="2.75" PointY="0.75" Height="1.6734830729166674" />
         <EntityTypeShape EntityType="WoWiModel.Authority" Width="1.5" PointX="0.75" PointY="3.75" Height="2.9050911458333246" />
-        <EntityTypeShape EntityType="WoWiModel.clientapplicant_industry" Width="1.5" PointX="2.75" PointY="3.75" Height="2.2013151041666674" />
+        <EntityTypeShape EntityType="WoWiModel.clientapplicant_industry" Width="1.75" PointX="2.75" PointY="3.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.clientapplicant_technology" Width="1.5" PointX="4.75" PointY="0.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.contact_role" Width="1.5" PointX="4.75" PointY="3.75" Height="2.2013151041666674" />
         <EntityTypeShape EntityType="WoWiModel.department" Width="1.5" PointX="6.75" PointY="0.75" Height="2.2013151041666674" />
@@ -2732,7 +2732,6 @@
         <EntityTypeShape EntityType="WoWiModel.wowi_tech" Width="1.5" PointX="12.75" PointY="9.75" Height="2.3772591145833388" />
         <EntityTypeShape EntityType="WoWiModel.Quotation_Version" Width="1.5" PointX="12.75" PointY="13.75" Height="15.22117187500001" />
         <EntityTypeShape EntityType="WoWiModel.country" Width="1.5" PointX="14.75" PointY="0.75" Height="2.9050911458333246" />
-        <EntityTypeShape EntityType="WoWiModel.clientapplicant" Width="1.5" PointX="14.75" PointY="4.75" Height="11.52634765625001" />
         <EntityTypeShape EntityType="WoWiModel.employee" Width="1.5" PointX="2.75" PointY="15.75" Height="6.4239713541666674" />
         <EntityTypeShape EntityType="WoWiModel.invoice" Width="1.5" PointX="4.75" PointY="15.75" Height="5.3683072916666674" />
         <EntityTypeShape EntityType="WoWiModel.invoice_received" Width="1.5" PointX="6.75" PointY="15.75" Height="2.7291471354166674" />
@@ -2746,6 +2745,7 @@
         <EntityTypeShape EntityType="WoWiModel.contact_info" Width="1.5" PointX="9.375" PointY="15.75" Height="5.19236328125001" />
         <EntityTypeShape EntityType="WoWiModel.m_ima_contact" Width="1.5" PointX="15.375" PointY="19.75" Height="1.3215950520833246" />
         <EntityTypeShape EntityType="WoWiModel.Ima_Contact" Width="1.5" PointX="21.375" PointY="0.75" Height="4.8404752604166674" />
+        <EntityTypeShape EntityType="WoWiModel.clientapplicant" Width="1.5" PointX="21.375" PointY="6.75" Height="11.526347656250003" IsExpanded="true" />
       </Diagram>
     </Diagrams>
   </Designer>
