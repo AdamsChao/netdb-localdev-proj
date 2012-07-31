@@ -133,7 +133,7 @@
         (sender as DropDownList).DataSource = from c in wowidb.Projects orderby c.Project_No descending select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_Id };
         (sender as DropDownList).DataTextField = "Project_No";
         (sender as DropDownList).DataValueField = "Project_Id";
-        (sender as DropDownList).DataBind();
+        //(sender as DropDownList).DataBind();
     }
 
     
