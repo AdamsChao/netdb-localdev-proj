@@ -388,11 +388,11 @@
                                         </tr>
                                         <tr>
                                              <td align="right">
-                                                Subtotal before taxs : </td>
+                                                Subtotal before tax : </td>
                                                 <td><asp:Label ID="lblOCurrency" runat="server" Text=""></asp:Label>$ <asp:Label ID="lblOTotal" runat="server" Text=""></asp:Label>
                                             </td>
                                         </tr>
-                                        <tr
+                                        <tr>
                                              <td align="right">
                                                 (-)Discount : </td>
                                                 <td><asp:Label ID="lblOCurrency1" runat="server" Text=""></asp:Label>$ <asp:TextBox ID="tbdiscount" runat="server" Enabled="false"

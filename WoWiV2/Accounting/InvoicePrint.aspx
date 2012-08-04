@@ -1,5 +1,6 @@
 ﻿ <%@ Page Language="C#" %>
 <%@ Import Namespace="System.Collections.Generic" %>
+<%@ Register assembly="iServerControls" namespace="iControls.Web" tagprefix="cc1" %>
 <script  runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
@@ -377,7 +378,7 @@
                     
                     <tr>
                         <td colspan="2">
-                             <asp:Gridview ID="iGridView" runat="server"  Width="100%" 
+                             <cc1:iRowSpanGridView ID="iGridView" runat="server"  Width="100%" 
                          AutoGenerateColumns="False" CssClass="Gridview"  
                          ShowFooter="False"  >
                         <Columns>                    
@@ -428,12 +429,12 @@
                                         </tr>
                                         <tr>
                                              <td align='right'>
-                                                Subtotal before taxes : </td>
+                                                Subtotal before tax : </td>
                                               
                                         </tr>
                                         <tr>
                                              <td align='right'>
-                                                Total taxes : </td>
+                                                Total tax : </td>
                                             
                                         </tr>
                                         <tr>
@@ -475,7 +476,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                    </asp:Gridview>
+                    </cc1:iRowSpanGridView>
                          
                         </td>
                     </tr>
