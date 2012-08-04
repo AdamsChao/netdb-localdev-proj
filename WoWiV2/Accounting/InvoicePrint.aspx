@@ -266,6 +266,10 @@
             background: #dddddd;
             font-size: 9pt;
         }
+        .noscrollBar
+        {
+            overflow-y:hidden;
+        }
         </style>
 </head>
 <body>
@@ -380,7 +384,7 @@
                         <td colspan="2">
                              <cc1:iRowSpanGridView ID="iGridView" runat="server"  Width="100%" 
                          AutoGenerateColumns="False" CssClass="Gridview"  
-                         ShowFooter="False"  >
+                         ShowFooter="False" Font-Size="X-Small"  >
                         <Columns>                    
                             <asp:TemplateField HeaderText="Description/Comments">
                                 <EditItemTemplate>
@@ -482,8 +486,9 @@
                     </tr>
                     <tr>
                     <td style="width:70%">
-                    <asp:TextBox ID="tbbankAcct" runat="server" Height="150" Width="480" ReadOnly="true"
-                            TextMode="MultiLine" Font-Size="12px" ></asp:TextBox>
+                    <asp:TextBox ID="tbbankAcct" runat="server" Height="150" Width="500px" 
+                            ReadOnly="true" CssClass="noscrollBar"
+                            TextMode="MultiLine" Font-Size="X-Small" BorderStyle="None" ></asp:TextBox>
                   <%--  <asp:Label ID="tbbankAcct" runat="server" Height="180px" Width="480px" 
                             TextMode="MultiLine" Font-Size="Small" ></asp:Label>--%>
                     </td>
