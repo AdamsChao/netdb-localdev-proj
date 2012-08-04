@@ -268,7 +268,16 @@
         }
         .noscrollBar
         {
-            overflow-y:hidden;
+            overflow-y:hidden;            
+            font-style: normal;            
+            font-size: 8pt;
+            font-weight: bold;
+        }
+        .TotalPrice
+        {               
+            font-style: normal;            
+            font-size: 8pt;
+            font-weight: bold;
         }
         </style>
 </head>
@@ -351,7 +360,8 @@
         </tr>
         <tr>
         <td colspan="2">
-        <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
+        <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%" 
+                style="font-size: small">
         <tr>
         <th width="20%">Reference - P.O. #</th> <th width="20%">Sales Person</th> <th width="20%">WoWi Quotation No.</th><th width="20%">WoWi Project No.</th><th width="20%">Model No.</th>
         </tr>
@@ -384,7 +394,7 @@
                         <td colspan="2">
                              <cc1:iRowSpanGridView ID="iGridView" runat="server"  Width="100%" 
                          AutoGenerateColumns="False" CssClass="Gridview"  
-                         ShowFooter="False" Font-Size="X-Small"  >
+                         ShowFooter="False" Font-Size="Small"  >
                         <Columns>                    
                             <asp:TemplateField HeaderText="Description/Comments">
                                 <EditItemTemplate>
@@ -400,8 +410,14 @@
                                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("TDescription") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField DataField="Qty" HeaderText="Qty" ItemStyle-HorizontalAlign="Right" />
-                            <asp:BoundField DataField="UOM" HeaderText="Unit" ItemStyle-HorizontalAlign="Right"  />
+                            <asp:BoundField DataField="Qty" HeaderText="Qty" 
+                                ItemStyle-HorizontalAlign="Right" >
+<ItemStyle HorizontalAlign="Right"></ItemStyle>
+                            </asp:BoundField>
+                            <asp:BoundField DataField="UOM" HeaderText="Unit" 
+                                ItemStyle-HorizontalAlign="Right"  >
+<ItemStyle HorizontalAlign="Right"></ItemStyle>
+                            </asp:BoundField>
                             <asp:TemplateField HeaderText="Unit Price"  ItemStyle-HorizontalAlign="Right" >
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:TextBox>
@@ -409,6 +425,8 @@
                                 <ItemTemplate>
                                     <asp:Label ID="Label1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:Label>
                                 </ItemTemplate>
+
+<ItemStyle HorizontalAlign="Right"></ItemStyle>
                             </asp:TemplateField>
                             <%--<asp:TemplateField HeaderText="F. Price" >
                                 <EditItemTemplate>
@@ -467,6 +485,8 @@
                                    <asp:Label ID="lblPayType" runat="server" Text='<%# Bind("PayType") %>'></asp:Label>
                                    
                                 </ItemTemplate>
+
+<ItemStyle HorizontalAlign="Center"></ItemStyle>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Amount"  ItemStyle-HorizontalAlign="Right" >
                                 <EditItemTemplate>
@@ -478,6 +498,8 @@
                                 <ItemTemplate>
                                     &nbsp;$<asp:Label ID="lblPayAmount" runat="server" Text='<%# Bind("PayAmount") %>'></asp:Label>
                                 </ItemTemplate>
+
+<ItemStyle HorizontalAlign="Right"></ItemStyle>
                             </asp:TemplateField>
                         </Columns>
                     </cc1:iRowSpanGridView>
@@ -485,15 +507,16 @@
                         </td>
                     </tr>
                     <tr>
-                    <td style="width:70%">
+                    <td style="width:60%">
                     <asp:TextBox ID="tbbankAcct" runat="server" Height="150" Width="500px" 
                             ReadOnly="true" CssClass="noscrollBar"
-                            TextMode="MultiLine" Font-Size="X-Small" BorderStyle="None" ></asp:TextBox>
+                            TextMode="MultiLine" BorderStyle="None" ></asp:TextBox>
                   <%--  <asp:Label ID="tbbankAcct" runat="server" Height="180px" Width="480px" 
                             TextMode="MultiLine" Font-Size="Small" ></asp:Label>--%>
                     </td>
-                    <td style="width:35%" valign="top">
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <td style="width:40%; font-size: x-small;" valign="top">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" 
+                            style="font-size: small" class="TotalPrice">
                                         <tr>
                                             <td align="right" colspan="3">
                                               &nbsp
