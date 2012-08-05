@@ -585,9 +585,9 @@
                                                 <Columns>
                                                     <asp:TemplateField ShowHeader="False">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditE" Text="Edit" CommandArgument='<%# Eval("EnforcementID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEditE" Text="Edit" CommandArgument='<%# Eval("EnforcementID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                             <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
-                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyE" Text="Copy" CommandArgument='<%# Eval("EnforcementID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnCopy" runat="server" CausesValidation="False" CommandName="GoCopyE" Text="Copy" CommandArgument='<%# Eval("EnforcementID") %>' OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="100px" />
                                                         <ItemStyle HorizontalAlign="Center" Width="100px" />
