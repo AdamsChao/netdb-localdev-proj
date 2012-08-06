@@ -45,7 +45,7 @@
                         <td class="tdRowValue">
                             <asp:CheckBox ID="cbTypeApproval" runat="server" Text="Type Approval" />
                             <asp:CheckBox ID="cbRegistration" runat="server" Text="Registration" />
-                            <asp:CheckBox ID="cbDispensationLitter" runat="server" Text="Dispensation Litter" />
+                            <asp:CheckBox ID="cbDispensationLitter" runat="server" Text="Dispensation Letter" />
                             <asp:CheckBox ID="cbHomologation" runat="server" Text="Homologation" /><br />
                             Other：<asp:TextBox ID="tbOtherApprovalMethod" runat="server" Width="90%"></asp:TextBox>
                             <asp:TextBox ID="tbApprovalMethod" runat="server" Width="90%" Visible="false"></asp:TextBox>
