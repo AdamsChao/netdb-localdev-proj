@@ -46,7 +46,8 @@
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:TextBox ID="tbbankAccount" runat="server" Enabled="False" Font-Size="12px"
-                        Text='<%# Bind("info") %>' TextMode="MultiLine"  Height="180" Width="320" ></asp:TextBox>
+                        Text='<%# Bind("info") %>' TextMode="MultiLine"  Height="180" 
+                        Width="400px" ></asp:TextBox>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>

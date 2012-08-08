@@ -270,7 +270,7 @@
         {
             overflow-y:hidden;            
             font-style: normal;            
-            font-size: 8pt;
+            font-size: 9pt;
             font-weight: bold;
         }
         .TotalPrice
@@ -361,12 +361,12 @@
         <tr>
         <td colspan="2">
         <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%" 
-                style="font-size: small">
+                style="font-size: small;border-style: solid;border-width: 1px;">
         <tr>
         <th width="20%">Reference - P.O. #</th> <th width="20%">Sales Person</th> <th width="20%">WoWi Quotation No.</th><th width="20%">WoWi Project No.</th><th width="20%">Model No.</th>
         </tr>
         <tr>
-            <td align="center">
+            <td align="center">　
                 <asp:Label ID="lblpono" runat="server" Text="Label"></asp:Label>
             </td>
             <td align="center">
@@ -385,6 +385,7 @@
     </table>
         </td>
         </tr>
+        <tr><td></td></tr>
         <tr>
             <td colspan="2">
                 <!-- start target -->
@@ -393,7 +394,7 @@
                     <tr>
                         <td colspan="2">
                              <cc1:iRowSpanGridView ID="iGridView" runat="server"  Width="100%" 
-                         AutoGenerateColumns="False" CssClass="Gridview"  
+                         AutoGenerateColumns="False"  
                          ShowFooter="False" Font-Size="Small"  >
                         <Columns>                    
                             <asp:TemplateField HeaderText="Description/Comments">
@@ -507,14 +508,15 @@
                         </td>
                     </tr>
                     <tr>
-                    <td style="width:60%">
-                    <asp:TextBox ID="tbbankAcct" runat="server" Height="150" Width="500px" 
+                    <tr><td><br/></td></tr>
+                    <td style="width:50%">
+                    <asp:TextBox ID="tbbankAcct" runat="server" Height="180px" Width="400px" 
                             ReadOnly="true" CssClass="noscrollBar"
                             TextMode="MultiLine" BorderStyle="None" ></asp:TextBox>
                   <%--  <asp:Label ID="tbbankAcct" runat="server" Height="180px" Width="480px" 
                             TextMode="MultiLine" Font-Size="Small" ></asp:Label>--%>
                     </td>
-                    <td style="width:40%; font-size: x-small;" valign="top">
+                    <td style="width:50%; font-size: x-small;" valign="top">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" 
                             style="font-size: small" class="TotalPrice">
                                         <tr>
