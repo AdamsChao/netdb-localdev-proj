@@ -23,14 +23,14 @@
                 int id = int.Parse(Request.QueryString["id"]);
                 int aid = Math.Abs(id);
                 WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == aid select i).First();
-                OTotal = ((decimal)invoice.ototal).ToString("F2");
+                OTotal = ((decimal)invoice.ototal).ToString("F0");
                 OriginalCurrency = invoice.ocurrency;
                 PayCurrency = invoice.currency;
-                Tax = ((decimal)invoice.tax).ToString("F2");
-                AmountDue = ((decimal)invoice.total).ToString("F2");
-                ExchangeRate = ((decimal)invoice.exchange_rate).ToString("F2");
-                Total = ((decimal)invoice.final_total).ToString("F2");
-                Adjust = ((decimal)invoice.adjust).ToString("F2");
+                Tax = ((decimal)invoice.tax).ToString("F0");
+                AmountDue = ((decimal)invoice.total).ToString("F0");
+                ExchangeRate = ((decimal)invoice.exchange_rate).ToString("F0");
+                Total = ((decimal)invoice.final_total).ToString("F0");
+                Adjust = ((decimal)invoice.adjust).ToString("F0");
                 lblInvNo.Text = invoice.issue_invoice_no;
                 lblDate.Text = ((DateTime)invoice.issue_invoice_date).ToString("yyyy/MM/dd");
                 Tax = Format(Tax);
@@ -43,15 +43,17 @@
                 {
                     DisPanel.Visible = true;
                     lblOCurrency3.Text = invoice.ocurrency;
-                    lblDiscount.Text = ((decimal)invoice.adjust).ToString("F2");
+                    lblDiscount.Text = ((decimal)invoice.adjust).ToString("F0");
                 }
                 else
                 {
                     DisPanel.Visible = false;
                 }
-                tbTax.Text = ((decimal)invoice.tax).ToString("F2");
-                lblAmountDue.Text = ((decimal)invoice.total).ToString("F2");
-                tbbankAcct.Text = InvoiceUtils.WoWi_Bank_Info1;
+                tbTax.Text = ((decimal)invoice.tax).ToString("F0");
+                lblAmountDue.Text = ((decimal)invoice.total).ToString("F0");
+                //tbbankAcct.Text = InvoiceUtils.WoWi_Bank_Info1;                
+                lblbankAcct.Text = Regex.Replace(InvoiceUtils.WoWi_Bank_Info1, "[\r\n\t]", "<br />", RegexOptions.IgnoreCase); 
+                
                 Total = PayCurrency+Format(Total);
                
                 String pNo = invoice.project_no;
@@ -167,7 +169,8 @@
                     int bid = (int)invoice.bankacct_info_id;
                     
                     WoWiModel.wowi_bankinfo b = wowidb.wowi_bankinfo.First(c => c.id == bid);
-                    tbbankAcct.Text = b.info;
+                    //tbbankAcct.Text = b.info;                    
+                    lblbankAcct.Text = Regex.Replace(b.info, "[\r\n\t]", "<br />", RegexOptions.IgnoreCase);                     
                 }
                 catch (Exception)
                 {
@@ -216,6 +219,19 @@
         sb.Replace("Adjust", Adjust);
         sb.Replace("Total", Total);
         return sb.ToString();
+    }
+    int counter = 0;
+    protected void iGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+    {        
+        if (e.Row.RowType==DataControlRowType.DataRow)
+        {
+            counter += 1;
+            Label lblbr = (Label)e.Row.FindControl("lblbr");
+            if (counter==37)
+            {                
+                //lblbr.Text = @"<p style='page-break-before: always'>";                 
+            }
+        }
     }
 </script>
 
@@ -358,6 +374,7 @@
                     <asp:Label ID="lblContactEmail" runat="server" Text="lblContact"></asp:Label></p> --%> 
             </td>
         </tr>
+        
         <tr>
         <td colspan="2">
         <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%" 
@@ -366,7 +383,7 @@
         <th width="20%">Reference - P.O. #</th> <th width="20%">Sales Person</th> <th width="20%">WoWi Quotation No.</th><th width="20%">WoWi Project No.</th><th width="20%">Model No.</th>
         </tr>
         <tr>
-            <td align="center">　
+            <td align="cent">　　　
                 <asp:Label ID="lblpono" runat="server" Text="Label"></asp:Label>
             </td>
             <td align="center">
@@ -385,17 +402,27 @@
     </table>
         </td>
         </tr>
-        <tr><td></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
         <tr>
             <td colspan="2">
                 <!-- start target -->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">                    
                     <tr>
                         <td colspan="2">
                              <cc1:iRowSpanGridView ID="iGridView" runat="server"  Width="100%" 
                          AutoGenerateColumns="False"  
-                         ShowFooter="False" Font-Size="Small"  >
+                         ShowFooter="False" Font-Size="Small" onrowdatabound="iGridView_RowDataBound"  >
                         <Columns>                    
                             <asp:TemplateField HeaderText="Description/Comments">
                                 <EditItemTemplate>
@@ -409,6 +436,7 @@
                                 </FooterTemplate>
                                 <ItemTemplate>
                                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("TDescription") %>'></asp:Label>
+                                    <asp:Label ID="lblbr" runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Qty" HeaderText="Qty" 
@@ -503,30 +531,19 @@
 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                             </asp:TemplateField>
                         </Columns>
-                    </cc1:iRowSpanGridView>
-                         
+                    </cc1:iRowSpanGridView>                         
                         </td>
                     </tr>
-                    <tr>
                     <tr><td><br/></td></tr>
-                    <td style="width:50%">
-                    <asp:TextBox ID="tbbankAcct" runat="server" Height="180px" Width="400px" 
-                            ReadOnly="true" CssClass="noscrollBar"
-                            TextMode="MultiLine" BorderStyle="None" ></asp:TextBox>
-                  <%--  <asp:Label ID="tbbankAcct" runat="server" Height="180px" Width="480px" 
-                            TextMode="MultiLine" Font-Size="Small" ></asp:Label>--%>
+                    <td style="width:65%" valign="top">
+                        <asp:Label ID="lblbankAcct" runat="server" Font-Size="10pt"></asp:Label>               
                     </td>
-                    <td style="width:50%; font-size: x-small;" valign="top">
+                    <td style="width:35%; font-size: x-small;" valign="top">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" 
-                            style="font-size: small" class="TotalPrice">
-                                        <tr>
-                                            <td align="right" colspan="3">
-                                              &nbsp
-                                            </td>
-                                        </tr>
+                            style="font-size: small" class="TotalPrice">                                       
                                         <tr>
                                              <td align="right">
-                                                 Subtotal before tax : </td>
+                                                 Subtotal before tax :</td>
                                                 <td> <asp:Label ID="lblOCurrency" runat="server" Text=""/>$</td>
                                                 <td align="right"> <asp:Label ID="lblOTotal" runat="server" Text="" ></asp:Label>
                                             </td>
