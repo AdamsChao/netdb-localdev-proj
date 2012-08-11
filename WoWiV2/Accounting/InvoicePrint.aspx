@@ -23,14 +23,14 @@
                 int id = int.Parse(Request.QueryString["id"]);
                 int aid = Math.Abs(id);
                 WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == aid select i).First();
-                OTotal = ((decimal)invoice.ototal).ToString("F0");
+                OTotal = ((decimal)invoice.ototal).ToString("N2");
                 OriginalCurrency = invoice.ocurrency;
                 PayCurrency = invoice.currency;
-                Tax = ((decimal)invoice.tax).ToString("F0");
-                AmountDue = ((decimal)invoice.total).ToString("F0");
-                ExchangeRate = ((decimal)invoice.exchange_rate).ToString("F0");
-                Total = ((decimal)invoice.final_total).ToString("F0");
-                Adjust = ((decimal)invoice.adjust).ToString("F0");
+                Tax = ((decimal)invoice.tax).ToString("N2");
+                AmountDue = ((decimal)invoice.total).ToString("N2");
+                ExchangeRate = ((decimal)invoice.exchange_rate).ToString("N2");
+                Total = ((decimal)invoice.final_total).ToString("N2");
+                Adjust = ((decimal)invoice.adjust).ToString("N2");
                 lblInvNo.Text = invoice.issue_invoice_no;
                 lblDate.Text = ((DateTime)invoice.issue_invoice_date).ToString("yyyy/MM/dd");
                 Tax = Format(Tax);
@@ -43,16 +43,16 @@
                 {
                     DisPanel.Visible = true;
                     lblOCurrency3.Text = invoice.ocurrency;
-                    lblDiscount.Text = ((decimal)invoice.adjust).ToString("F0");
+                    lblDiscount.Text = ((decimal)invoice.adjust).ToString("N2");
                 }
                 else
                 {
                     DisPanel.Visible = false;
                 }
-                tbTax.Text = ((decimal)invoice.tax).ToString("F0");
-                lblAmountDue.Text = ((decimal)invoice.total).ToString("F0");
+                tbTax.Text = ((decimal)invoice.tax).ToString("N2");
+                lblAmountDue.Text = ((decimal)invoice.total).ToString("N2");
                 //tbbankAcct.Text = InvoiceUtils.WoWi_Bank_Info1;                
-                lblbankAcct.Text = Regex.Replace(InvoiceUtils.WoWi_Bank_Info1, "[\r\n\t]", "<br />", RegexOptions.IgnoreCase); 
+                //lblbankAcct.Text = Regex.Replace(InvoiceUtils.WoWi_Bank_Info1, "[\r\n\t]", "<br/>", RegexOptions.IgnoreCase); 
                 
                 Total = PayCurrency+Format(Total);
                
@@ -169,8 +169,8 @@
                     int bid = (int)invoice.bankacct_info_id;
                     
                     WoWiModel.wowi_bankinfo b = wowidb.wowi_bankinfo.First(c => c.id == bid);
-                    //tbbankAcct.Text = b.info;                    
-                    lblbankAcct.Text = Regex.Replace(b.info, "[\r\n\t]", "<br />", RegexOptions.IgnoreCase);                     
+                    //lblbankAcct.Text = b.info;                    
+                    lblbankAcct.Text = Regex.Replace(b.info, "[[\r\t]", "<br/>", RegexOptions.IgnoreCase);                     
                 }
                 catch (Exception)
                 {
@@ -226,11 +226,16 @@
         if (e.Row.RowType==DataControlRowType.DataRow)
         {
             counter += 1;
-            Label lblbr = (Label)e.Row.FindControl("lblbr");
-            if (counter==37)
-            {                
-                //lblbr.Text = @"<p style='page-break-before: always'>";                 
-            }
+            //Label lblbr = (Label)e.Row.FindControl("lblbr");
+            if (counter == 37 || counter == 90)
+            {
+                GridViewRow gv_row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Normal);
+                TableCell tc = new TableCell();
+                tc.Text = @"<p style='page-break-before: always'>";
+                tc.ColumnSpan = 6;
+                gv_row.Cells.Add(tc);
+                e.Row.Parent.Controls.AddAt(counter + 1, gv_row);
+            } 
         }
     }
 </script>
@@ -342,39 +347,34 @@
             </td>
          </tr>
     </table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
-   
-        <tr>
-            <td class="ccstextboxh" valign="top">
-            <u>Bill Infomation </u><br />
-                Name:
-                <asp:Label ID="lblBillName" runat="server" Text="lblName" Font-Size="Small" ></asp:Label>
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">   
+        <tr >
+            <td valign="top" style="height:130px;position: fixed">
+            <B><u>Bill Information </u></B><br />
+                Name :
+                <asp:Label ID="lblBillName" runat="server" Text="lblName" ></asp:Label>
                 <p>
-                    Address:
-                    <asp:Label ID="lblBillAddress" runat="server" Text="lblAddress" Font-Size="Small" ></asp:Label></p>
+                    Address :
+                    <asp:Label ID="lblBillAddress" runat="server" Text="lblAddress"  ></asp:Label></p>
                 <p>
-                    Contact:
-                    <asp:Label ID="lblBillContact" runat="server" Text="lblContact" Font-Size="Small" ></asp:Label></p>    
+                    Contact :
+                    <asp:Label ID="lblBillContact" runat="server" Text="lblContact"  ></asp:Label></p>    
             </td>
-            <td valign="top" class="ccstextboxh">
-            <u>Client Infomation </u><br />
-                Name:
-                <asp:Label ID="lblName" runat="server" Text="lblName" Font-Size="Small" ></asp:Label>
+            <td valign="top" style="height:130px;position: fixed">
+            <B><u>Client Information </u></B><br />
+                Name :
+                <asp:Label ID="lblName" runat="server" Text="lblName"  ></asp:Label>
                 <p>
-                    Address:
-                    <asp:Label ID="lblAddress" runat="server" Text="lblAddress" Font-Size="Small" ></asp:Label></p>
+                    Address :
+                    <asp:Label ID="lblAddress" runat="server" Text="lblAddress"  ></asp:Label></p>
                 <p>
-                    Contact:
-                    <asp:Label ID="lblContact" runat="server" Text="lblContact" Font-Size="Small" ></asp:Label></p>    
-                <%--<p>
-                    Phone:
-                   <asp:Label ID="lblContactPhone" runat="server" Text="lblClientPhone"></asp:Label></p> 
-                <p>
-                    Email:
-                    <asp:Label ID="lblContactEmail" runat="server" Text="lblContact"></asp:Label></p> --%> 
+                    Contact :
+                    <asp:Label ID="lblContact" runat="server" Text="lblContact"  ></asp:Label></p>                   
             </td>
         </tr>
-        
+       
+        <tr><td colspan="2"></td></tr>
+       
         <tr>
         <td colspan="2">
         <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%" 
@@ -401,17 +401,8 @@
         </tr>
     </table>
         </td>
-        </tr>
-        <tr><td colspan="2"></td></tr>
-        <tr><td colspan="2"></td></tr>
-        <tr><td colspan="2"></td></tr>
-        <tr><td colspan="2"></td></tr>
-        <tr><td colspan="2"></td></tr>
-        <tr><td colspan="2"></td></tr>
-        <tr><td colspan="2"></td></tr>
-        <tr><td colspan="2"></td></tr>
-        <tr><td colspan="2"></td></tr>
-        <tr><td colspan="2"></td></tr>
+        </tr>  
+       
         <tr><td colspan="2"></td></tr>
         <tr><td colspan="2"></td></tr>
         <tr>
@@ -429,14 +420,11 @@
                                     <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("TDescription") %>'></asp:TextBox>
                                 </EditItemTemplate>
                                 <FooterTemplate>
-                                    <asp:Label ID="tbbankAccount" runat="server" ></asp:Label>
-                                  <%--  <br>
-                                    <asp:Label ID="lblmsg" runat="server" Text="Label"></asp:Label>
-                                    <br />--%>
+                                    <asp:Label ID="tbbankAccount" runat="server" ></asp:Label>                                  
                                 </FooterTemplate>
                                 <ItemTemplate>
                                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("TDescription") %>'></asp:Label>
-                                    <asp:Label ID="lblbr" runat="server"></asp:Label>
+                                    <%--<asp:Label ID="lblbr" runat="server"></asp:Label>--%>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Qty" HeaderText="Qty" 
