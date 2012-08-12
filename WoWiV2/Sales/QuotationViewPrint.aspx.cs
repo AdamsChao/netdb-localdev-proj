@@ -105,4 +105,23 @@ public partial class Sales_QuotationViewPrint : System.Web.UI.Page
         SubTotal += Price;
         return Price;
     }
+
+    int counter = 0;
+    protected void gvTestTargetList_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            counter += 1;
+            
+            if (counter == 44)
+            {
+                GridViewRow gv_row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Normal);
+                TableCell tc = new TableCell();
+                tc.Text = @"<p style='page-break-before: always'>";
+                tc.ColumnSpan = 6;
+                gv_row.Cells.Add(tc);
+                e.Row.Parent.Controls.AddAt(counter + 1, gv_row);
+            }
+        }
+    }
 }

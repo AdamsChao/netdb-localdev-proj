@@ -302,7 +302,8 @@
                         <td>
                             <asp:GridView ID="gvTestTargetList" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1"
                                 Width="100%" CaptionAlign="Top" ShowFooter="True" Style="text-align: left" 
-                              Font-Size="XX-Small" BorderStyle="None" GridLines="Horizontal">
+                              Font-Size="XX-Small" BorderStyle="None" GridLines="Horizontal" 
+                                onrowdatabound="gvTestTargetList_RowDataBound">
                                 <Columns>
                                     <asp:TemplateField HeaderText="No.">
                                         <ItemTemplate>
