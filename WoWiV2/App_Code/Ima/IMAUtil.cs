@@ -52,7 +52,7 @@ public class IMAUtil
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
         cmd.Parameters.AddWithValue("@country_id", strcountry_id);
-        return SQLUtil.ExecuteScalar(cmd).ToString();
+        return SQLUtil.ExecuteScalar(cmd).ToString().Trim();
     }
 
     //依國別編號取得國別資料
