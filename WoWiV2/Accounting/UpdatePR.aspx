@@ -1360,6 +1360,11 @@
             height: 24px;
         }
         
+        .style12
+        {
+            color: #000000;
+        }
+        
     </style>
     <script type="text/javascript">
         function openAttachWin() {
@@ -1437,10 +1442,10 @@
                                                 SelectCommand="SELECT [id], ([fname]+[lname] )as name FROM [employee] WHERE [status] = 'Active'"></asp:SqlDataSource>
                                         </td></tr>
                         <tr><th 
-                                   align="left" class="style11">&nbsp;&nbsp;&nbsp; Project No.:&nbsp;&nbsp;</th><td 
+                                   align="left" class="style11">&nbsp;&nbsp;&nbsp; <span class="style12">Project No.:&nbsp;</span>&nbsp;</th><td 
                                    class="style12" width="30%">
                                      <asp:Label ID="lblProjectNo" runat="server" Text="Label" 
-                                         onload="lblProjectNo_Load" ></asp:Label>
+                                         onload="lblProjectNo_Load" Font-Bold="True" ></asp:Label>
                             </td><th align="left" 
                                    class="style11">&nbsp; Quotation No.:&nbsp;</th><td class="style12" width="30%">
                                      <asp:Label ID="lblQuotationNo" runat="server" Text="Label" 
@@ -1457,10 +1462,10 @@
                                          ></asp:TextBox>
                             </td></tr>
                              <tr><th 
-                                   align="left" class="style11">&nbsp;&nbsp; Payment Term:&nbsp;&nbsp;</th><td 
+                                   align="left" class="style11">&nbsp;&nbsp; <span class="style12">Payment Term:&nbsp;</span>&nbsp;</th><td 
                                    class="style12" colspan="3">
                                        <asp:DropDownList ID="ddlPaymentTerm" runat="server" 
-                                                   SelectedValue='<%# Bind("payment_term") %>' >
+                                                   SelectedValue='<%# Bind("payment_term") %>' Font-Bold="True" >
                                                    <asp:ListItem Value="0">Prepayment 1</asp:ListItem>
                                                    <asp:ListItem Value="1">Prepayment 2</asp:ListItem>
                                                    <asp:ListItem Value="2">Prepayment 3</asp:ListItem>
@@ -1476,11 +1481,11 @@
                                        <asp:PlaceHolder ID="PlaceHolder1" runat="server" OnLoad="PlaceHolder1_Load"></asp:PlaceHolder>
                             </td></tr>
                             <tr><th 
-                                   align="left" class="style11">&nbsp;&nbsp; Target:&nbsp;&nbsp;</th><td 
+                                   align="left" class="style11">&nbsp;<span class="style12">&nbsp; Target:&nbsp;</span>&nbsp;</th><td 
                                    class="style12" colspan="3">
                                <asp:DropDownList ID="ddlTarget" runat="server" 
                                       OnLoad="ddlTarget_Load" AppendDataBoundItems="true"                
-                                        ValidationGroup="VenderGroupT">
+                                        ValidationGroup="VenderGroupT" Font-Bold="True">
                                      <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                </asp:DropDownList>&nbsp;<asp:Button ID="btnAddItem" runat="server" Text="Add" 
                                         onclick="AddItem_Click" CausesValidation="False"  Visible="false"
@@ -1512,22 +1517,24 @@
                                 
                             </td></tr>
                              <tr><th 
-                                   align="left" class="style11">&nbsp;&nbsp;&nbsp;Original Currency:&nbsp;&nbsp;</th><td 
+                                   align="left" class="style11">&nbsp;&nbsp;&nbsp;<span class="Currency">Original Currency:&nbsp;</span>&nbsp;</th><td 
                                    class="style12" width="30%">
-                                     <asp:TextBox ID="tbCurrency" runat="server" Text='<%# Bind("currency")%>' 
+                                     <asp:TextBox ID="tbCurrency" runat="server" Text='<%# Bind("currency")%>' ForeColor="Blue" 
                                          ></asp:TextBox>
                             </td><th align="left" 
-                                   class="style11">&nbsp; Total:&nbsp;</th><td class="style12" width="30%">
-                                    <asp:TextBox ID="tbTotalAmount" runat="server"  Text='<%# Bind("total_cost")%>' 
+                                   class="style11">&nbsp; <span class="Currency">Total:</span>&nbsp;</th><td class="style12" width="30%">
+                                    <asp:TextBox ID="tbTotalAmount" runat="server"  Text='<%# Bind("total_cost")%>' ForeColor="Blue" 
                                          ></asp:TextBox>
                             </td></tr>
                             <tr><th 
-                                   align="left" class="style11">&nbsp;&nbsp;&nbsp;Authorization Currency:&nbsp;&nbsp;</th><td 
+                                   align="left" class="style11">&nbsp;&nbsp;&nbsp;<span class="Currency">Authorization 
+                                Currency:&nbsp;</span>&nbsp;</th><td 
                                    class="style12" width="30%">
-                                    USD
+                                    <span class="Currency">USD</span>
                             </td><th align="left" 
-                                   class="style11"><font color="red">*&#160;</font>Authorization Total:&nbsp;</th><td class="style12" width="30%">
-                                    <asp:TextBox ID="TextBox4" runat="server"  Text='<%# Bind("shipping_cost")%>'
+                                   class="style11"><font color="red">*&#160;</font><span class="Currency">Authorization 
+                                    Total:</span>&nbsp;</th><td class="style12" width="30%">
+                                    <asp:TextBox ID="TextBox4" runat="server"  Text='<%# Bind("shipping_cost")%>' ForeColor="Blue"
                                          ></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
                                         ControlToValidate="TextBox4" 

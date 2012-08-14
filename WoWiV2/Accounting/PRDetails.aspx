@@ -531,7 +531,24 @@
         }
         .style11
         {
+            height: 24px;            
+        }
+        
+       
+        .style13
+        {
             height: 24px;
+            color: #0000CC;
+        }
+        
+        .style14
+        {
+            font-weight: normal;
+            color: #000000;
+        }
+        .style15
+        {
+            color: #000000;
         }
         
     </style>
@@ -591,10 +608,10 @@
                                             </asp:DropDownList>
                                         </td></tr>
                         <tr><th 
-                                   align="left" class="style11">&nbsp;&nbsp;&nbsp; Project No.:&nbsp;&nbsp;</th><td 
-                                   class="style12" width="30%">
+                                   align="left">&nbsp;&nbsp;&nbsp; <span class="style14"><strong>Project No.:&nbsp;</strong></span>&nbsp;</th>
+                            <td width="30%">
                                      <asp:Label ID="lblProjectNo" runat="server" Text="Label" 
-                                         onload="lblProjectNo_Load"></asp:Label>
+                                         onload="lblProjectNo_Load" Font-Bold="True"></asp:Label>
                             </td><th align="left" 
                                    class="style11">&nbsp; Quotation No.:&nbsp;</th><td class="style12" width="30%">
                                      <asp:Label ID="lblQuotationNo" runat="server" Text="Label" 
@@ -611,10 +628,10 @@
                                          ></asp:Label>
                             </td></tr>
                              <tr><th 
-                                   align="left" class="style11">&nbsp;&nbsp; Payment Term:&nbsp;&nbsp;</th><td 
-                                   class="style12" colspan="3">
+                                   align="left">&nbsp;&nbsp; <span class="style15">Payment Term:&nbsp;</span>&nbsp;</th>
+                                 <td colspan="3">
                                        <asp:DropDownList ID="ddlPaymentTerm" runat="server" Enabled="false"
-                                                   SelectedValue='<%# Bind("payment_term") %>' >
+                                                   SelectedValue='<%# Bind("payment_term") %>' Font-Bold="True" >
                                                    <asp:ListItem Value="0">Prepayment 1</asp:ListItem>
                                                    <asp:ListItem Value="1">Prepayment 2</asp:ListItem>
                                                    <asp:ListItem Value="2">Prepayment 3</asp:ListItem>
@@ -628,10 +645,9 @@
                                        <asp:PlaceHolder ID="PlaceHolder1" runat="server" OnLoad="PlaceHolder1_Load"></asp:PlaceHolder>
                             </td></tr>
                             <tr><th 
-                                   align="left" class="style11">&nbsp;&nbsp; Target:&nbsp;&nbsp;</th><td 
-                                   class="style12" colspan="3">
+                                   align="left">&nbsp;&nbsp; <span class="style15">Target:&nbsp;</span>&nbsp;</th><td colspan="3">
                                 <asp:DropDownList ID="ddlTarget" runat="server"  AppendDataBoundItems="True"
-                                    AutoPostBack="True"  OnLoad="ddlTarget_Load" Enabled="false"
+                                    AutoPostBack="True"  OnLoad="ddlTarget_Load" Enabled="false" Font-Bold="True"
                                        >
                                      <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                </asp:DropDownList>&nbsp;
@@ -653,22 +669,30 @@
                                 </asp:GridView>
                             </td></tr>
                              <tr><th 
-                                   align="left" class="style11">&nbsp;&nbsp;&nbsp;Original Currency:&nbsp;&nbsp;</th><td 
-                                   class="style12" width="30%">
-                                     <asp:TextBox ID="tbCurrency" runat="server" Enabled="false" Text='<%# Eval("Currency") %>'
+                                   align="left" class="style13">&nbsp;&nbsp;&nbsp;Original Currency:&nbsp;&nbsp;</th>
+                                 <td 
+                                   class="style13" width="30%">
+                                     <asp:TextBox ID="tbCurrency" runat="server" Enabled="false" 
+                                         Text='<%# Eval("Currency") %>' CssClass="style12" ForeColor="Blue"
                                          ></asp:TextBox>
                             </td><th align="left" 
-                                   class="style11">&nbsp; Total:&nbsp;</th><td class="style12" width="30%"  >
-                                    <asp:TextBox ID="tbTotalAmount" runat="server" Text='<%# Eval("total_cost") %>' Enabled="false" 
+                                   class="style13">&nbsp; Total:&nbsp;</th><td class="style13" width="30%"  >
+                                    <asp:TextBox ID="tbTotalAmount" runat="server" Text='<%# Eval("total_cost") %>' 
+                                         Enabled="false" CssClass="style12" ForeColor="Blue" 
                                          ></asp:TextBox>
                             </td></tr>
                             <tr><th 
-                                   align="left" class="style11">&nbsp;&nbsp;&nbsp;Authorization Currency:&nbsp;&nbsp;</th><td 
-                                   class="style12" width="30%">
+                                   align="left" class="style13"><span class="style12">&nbsp;&nbsp;&nbsp;Authorization 
+                                Currency:&nbsp;&nbsp;</span></th>
+                                <td 
+                                   class="style13" width="30%">
                                     USD
+                            </span>
                             </td><th align="left" 
-                                   class="style11"><font color="red">*&#160;</font>Authorization Total:&nbsp;</th><td class="style12" width="30%">
-                                    <asp:TextBox ID="TextBox4" runat="server"  Text='<%# Eval("shipping_cost")%>' Enabled="false" 
+                                   class="style13">*&nbsp;Authorization Total:&nbsp;</th><td class="style13" 
+                                    width="30%">
+                                    <asp:TextBox ID="TextBox4" runat="server"  Text='<%# Eval("shipping_cost")%>' 
+                                        Enabled="false" CssClass="style12" ForeColor="Blue" 
                                          ></asp:TextBox>
                                    
                             </td></tr>
