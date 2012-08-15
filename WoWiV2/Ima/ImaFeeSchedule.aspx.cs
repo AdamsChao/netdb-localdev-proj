@@ -53,45 +53,53 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@wowi_product_type_id", lblProType.Text.Trim());
         DataSet ds = SQLUtil.QueryDS(cmd);
         //LocalAgent
-        tbAgentFee.Text = "";
-        if (ds.Tables[0].Rows.Count > 0)
-        {
-            tbAgentFee.Text = ds.Tables[0].Rows[0]["Fee"].ToString();
-        }        
         ddlLocalAgent.DataSource = ds.Tables[0];
         ddlLocalAgent.DataTextField = "Name";
         ddlLocalAgent.DataValueField = "LocalAgentID";
         ddlLocalAgent.DataBind();
-        //Authority
-        tbAuthorityFee.Text = "";
-        if (ds.Tables[1].Rows.Count > 0)
+        tbAgentFee.Text = "";
+        if (ds.Tables[0].Rows.Count > 0)
         {
-            tbAuthorityFee.Text = ds.Tables[1].Rows[0]["Fee"].ToString();           
-        }
+            //tbAgentFee.Text = ds.Tables[0].Rows[0]["Fee"].ToString();
+            ddlLocalAgent.Items.Insert(0, new ListItem("-Select-", "-1"));
+        }        
+        
+        //Authority
         ddlAuthority.DataSource = ds.Tables[1];
         ddlAuthority.DataTextField = "AbbreviatedAuthorityName";
         ddlAuthority.DataValueField = "GovernmentAuthorityID";
         ddlAuthority.DataBind();
-        //Certification Body
-        tbCertificationBodyFee.Text = "";
-        if (ds.Tables[2].Rows.Count > 0)
+        tbAuthorityFee.Text = "";
+        if (ds.Tables[1].Rows.Count > 0)
         {
-            tbCertificationBodyFee.Text = ds.Tables[2].Rows[0]["Fee"].ToString();            
+            //tbAuthorityFee.Text = ds.Tables[1].Rows[0]["Fee"].ToString();
+            ddlAuthority.Items.Insert(0, new ListItem("-Select-", "-1"));
         }
+       
+        //Certification Body
         ddlCertification.DataSource = ds.Tables[2];
         ddlCertification.DataTextField = "Name";
         ddlCertification.DataValueField = "CertificationBodiesID";
         ddlCertification.DataBind();
-        //Accredited Test Lab
-        tbLabTestFee.Text = "";
-        if (ds.Tables[3].Rows.Count > 0)
+        tbCertificationBodyFee.Text = "";
+        if (ds.Tables[2].Rows.Count > 0)
         {
-            tbLabTestFee.Text = ds.Tables[3].Rows[0]["Fee"].ToString();
+            //tbCertificationBodyFee.Text = ds.Tables[2].Rows[0]["Fee"].ToString();
+            ddlCertification.Items.Insert(0, new ListItem("-Select-", "-1"));
         }
+        
+        //Accredited Test Lab
         ddlAccredited.DataSource = ds.Tables[3];
         ddlAccredited.DataTextField = "AccreditedLab";
         ddlAccredited.DataValueField = "AccreditedTestID";
         ddlAccredited.DataBind();
+        tbLabTestFee.Text = "";
+        if (ds.Tables[3].Rows.Count > 0)
+        {
+            //tbLabTestFee.Text = ds.Tables[3].Rows[0]["Fee"].ToString();
+            ddlAccredited.Items.Insert(0, new ListItem("-Select-", "-1"));
+        }
+        
         //Factory Inspection Fee
         tbDocumentFee.Text = "";
         tbOneTimeFee.Text = "";
