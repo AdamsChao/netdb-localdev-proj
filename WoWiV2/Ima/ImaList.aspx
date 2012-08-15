@@ -648,6 +648,18 @@
                                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:BoundField>
+                                                    <asp:BoundField DataField="CBName" HeaderText="Certification Body">
+                                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:BoundField>
+                                                    <asp:BoundField DataField="AbbreviatedAuthorityName" HeaderText="Authority Name">
+                                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:BoundField>
+                                                    <asp:BoundField DataField="AccreditedLab" HeaderText="Accredited Test Lab">
+                                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:BoundField>
                                                     <asp:BoundField DataField="Name" HeaderText="Local Agent">
                                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
