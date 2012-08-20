@@ -19,6 +19,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
             BindItem();
             LoadData();
             SetControlVisible();
+            CheckLocalRep();
         }
     }
 
@@ -92,6 +93,8 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
                 tbSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
                 tbTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
                 tbLeadT.Text = dt.Rows[0]["LeadTime"].ToString();
+                if (dt.Rows[0]["LocalRep"].ToString().Trim().ToLower() == "true") { rblLocalRep.SelectedValue = "1"; tbLocalRepFee.Enabled = true; }
+                if (dt.Rows[0]["LocalRepFee"].ToString().Trim().Length > 0) { tbLocalRepFee.Text = dt.Rows[0]["LocalRepFee"].ToString().Trim(); }
                 foreach (ListItem li in cbProductType.Items)
                 {
                     if (li.Text.Trim() == "RF")
@@ -176,8 +179,8 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
     //儲存
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        string strTsql = "insert into Ima_LocalAgent (world_region_id,country_id,Name,RF,Telecom,EMC,Safety,CreateUser,LasterUpdateUser,Professional,Individual,OtherBusiness,Responsive,Knowledgeable,Slow,NDAYes,NDAChoose,MOUYes,MOUChoose,RFRemark,EMCRemark,SafetyRemark,TelecomRemark,ProductTypeID,ProductTypeName,LeadTime) ";
-        strTsql += "values(@world_region_id,@country_id,@Name,@RF,@Telecom,@EMC,@Safety,@CreateUser,@LasterUpdateUser,@Professional,@Individual,@OtherBusiness,@Responsive,@Knowledgeable,@Slow,@NDAYes,@NDAChoose,@MOUYes,@MOUChoose,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark,@ProductTypeID,@ProductTypeName,@LeadTime)";
+        string strTsql = "insert into Ima_LocalAgent (world_region_id,country_id,Name,RF,Telecom,EMC,Safety,CreateUser,LasterUpdateUser,Professional,Individual,OtherBusiness,Responsive,Knowledgeable,Slow,NDAYes,NDAChoose,MOUYes,MOUChoose,RFRemark,EMCRemark,SafetyRemark,TelecomRemark,ProductTypeID,ProductTypeName,LeadTime,LocalRep,LocalRepFee) ";
+        strTsql += "values(@world_region_id,@country_id,@Name,@RF,@Telecom,@EMC,@Safety,@CreateUser,@LasterUpdateUser,@Professional,@Individual,@OtherBusiness,@Responsive,@Knowledgeable,@Slow,@NDAYes,@NDAChoose,@MOUYes,@MOUChoose,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark,@ProductTypeID,@ProductTypeName,@LeadTime,@LocalRep,@LocalRepFee)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -237,6 +240,10 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@ProductTypeName", DBNull.Value); }
         if (tbLeadT.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadT.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
+        cmd.Parameters.AddWithValue("@LocalRep", Convert.ToInt32(rblLocalRep.SelectedValue));
+        if (tbLocalRepFee.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LocalRepFee", tbLocalRepFee.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LocalRepFee", DBNull.Value); }
+
         //SQLUtil.ExecuteSql(cmd);
         int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
         //文件上傳
@@ -480,7 +487,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_LocalAgent set Name=@Name,RF=@RF,Telecom=@Telecom,EMC=@EMC,Safety=@Safety,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Professional=@Professional,Individual=@Individual,OtherBusiness=@OtherBusiness,Responsive=@Responsive,Knowledgeable=@Knowledgeable,Slow=@Slow,NDAYes=@NDAYes,NDAChoose=@NDAChoose,MOUYes=@MOUYes,MOUChoose=@MOUChoose,RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark,ProductTypeID=@ProductTypeID,ProductTypeName=@ProductTypeName,LeadTime=@LeadTime ";
+        string strTsql = "Update Ima_LocalAgent set Name=@Name,RF=@RF,Telecom=@Telecom,EMC=@EMC,Safety=@Safety,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Professional=@Professional,Individual=@Individual,OtherBusiness=@OtherBusiness,Responsive=@Responsive,Knowledgeable=@Knowledgeable,Slow=@Slow,NDAYes=@NDAYes,NDAChoose=@NDAChoose,MOUYes=@MOUYes,MOUChoose=@MOUChoose,RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark,ProductTypeID=@ProductTypeID,ProductTypeName=@ProductTypeName,LeadTime=@LeadTime,LocalRep=@LocalRep,LocalRepFee=@LocalRepFee ";
         strTsql += "where LocalAgentID=@LocalAgentID ";
         //if (lblContactID.Text.Trim().Length > 0)
         //{
@@ -542,6 +549,9 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@ProductTypeName", DBNull.Value); }
         if (tbLeadT.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadT.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
+        cmd.Parameters.AddWithValue("@LocalRep", Convert.ToInt32(rblLocalRep.SelectedValue));
+        if (tbLocalRepFee.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LocalRepFee", tbLocalRepFee.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LocalRepFee", DBNull.Value); }
         //if (lblContactID.Text.Trim().Length > 0)
         //{
         //    cmd.Parameters.AddWithValue("@FirstName", tbFirstName.Text.Trim());
@@ -708,4 +718,21 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         }
     }
 
+    protected void rblLocalRep_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        CheckLocalRep();
+    }
+
+    private void CheckLocalRep() 
+    {
+        plLocalRepFee.Visible = false;
+        if (rblLocalRep.SelectedValue == "0")
+        {
+            tbLocalRepFee.Text = "";
+        }
+        else 
+        {
+            plLocalRepFee.Visible = true;
+        }
+    }
 }

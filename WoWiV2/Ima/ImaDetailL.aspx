@@ -462,6 +462,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="tdRowName" valign="top">Lead Time：</td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblLeadTime" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="2" align="center" class="tdFooter">
                         </td>
                     </tr>

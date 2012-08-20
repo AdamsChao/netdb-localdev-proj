@@ -743,6 +743,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="tdRowName" valign="top">Lead Time：</td>
+                        <td class="tdRowValue">
+                            <asp:TextBox ID="tbLeadTime" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="2" align="center" class="tdFooter">
                             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
                             <asp:Button ID="btnSaveCopy" runat="server" Text="Save(Copy)" OnClick="btnSave_Click" />

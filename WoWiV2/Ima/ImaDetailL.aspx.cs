@@ -113,6 +113,7 @@ public partial class Ima_ImaDetailL : System.Web.UI.Page
                 if (dt.Rows[0]["RenewalWTest"].ToString().Trim().Length > 0) { lblRenewalWTest.Text = "W/Test：" + dt.Rows[0]["RenewalWTest"].ToString() + " USD"; }
                 if (dt.Rows[0]["RenewalWOTest"].ToString().Trim().Length > 0) { lblRenewalWOTest.Text = " W/O Test：" + dt.Rows[0]["RenewalWOTest"].ToString() + " USD"; }
                 if (dt.Rows[0]["TotalCostFee"].ToString().Trim().Length > 0) { lblTotalCostFee.Text = dt.Rows[0]["TotalCostFee"].ToString() + " USD"; }
+                lblLeadTime.Text = dt.Rows[0]["LeadTime"].ToString().Trim();
                 //lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 //cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);

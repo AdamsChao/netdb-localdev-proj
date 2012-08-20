@@ -20,6 +20,7 @@ public partial class Ima_ImaList : System.Web.UI.Page
                 SetDDlChanged();
             }            
             SetControlInit();
+            if (Request["page"] != null) { gv99.PageIndex = Convert.ToInt32(Request["page"]); }
         }
     }
 
@@ -94,7 +95,7 @@ public partial class Ima_ImaList : System.Web.UI.Page
     {
         btnAdd.Visible = false;
         btnAddDocument.Visible = false;
-        if (ddlDocCategory.SelectedValue == "H" || ddlDocCategory.SelectedValue == "L")
+        if (ddlDocCategory.SelectedValue == "H" || ddlDocCategory.SelectedValue == "L" || ddlDocCategory.SelectedValue == "99")
         {
             btnAdd.Visible = true;
         }
@@ -129,6 +130,8 @@ public partial class Ima_ImaList : System.Web.UI.Page
             gvN.Columns[0].HeaderStyle.Width = 60;
             gvP.Columns[0].ItemStyle.Width = 60;
             gvP.Columns[0].HeaderStyle.Width = 60;
+            gv99.Columns[0].ItemStyle.Width = 60;
+            gv99.Columns[0].HeaderStyle.Width = 60;
             if (!hlGeneral.Visible && !btnGeneral.Visible) 
             {
                 hlGeneral.Visible = true;
@@ -166,7 +169,7 @@ public partial class Ima_ImaList : System.Web.UI.Page
         Dictionary<string, string> dic = new Dictionary<string, string>();
         string strURL = "";
         string strParm = "";
-        if (ddlDocCategory.SelectedValue == "H" || ddlDocCategory.SelectedValue == "L")
+        if (ddlDocCategory.SelectedValue == "H" || ddlDocCategory.SelectedValue == "L" || ddlDocCategory.SelectedValue == "99")
         {
             strParm = rblProductType.SelectedValue;
             dic.Add("pt", strParm);
@@ -247,6 +250,22 @@ public partial class Ima_ImaList : System.Web.UI.Page
         {
             strURL = "ImaSampleShipping.aspx";
         }
+        else if (ddlDocCategory.SelectedValue == "99" && rblProductType.SelectedItem.Text == "RF")
+        {
+            strURL = "ImaTechRF.aspx";
+        }
+        else if (ddlDocCategory.SelectedValue == "99" && rblProductType.SelectedItem.Text == "Telecom")
+        {
+            strURL = "ImaTechTelecom.aspx";
+        }
+        else if (ddlDocCategory.SelectedValue == "99" && rblProductType.SelectedItem.Text == "EMC")
+        {
+            return;
+        }
+        else if (ddlDocCategory.SelectedValue == "99" && rblProductType.SelectedItem.Text == "Safety")
+        {
+            return;
+        }
         Response.Redirect(strURL + GetQueryString(true, dic, null));
     }
 
@@ -281,6 +300,8 @@ public partial class Ima_ImaList : System.Web.UI.Page
     {
         trImaGover.Visible = false;
         trDL.Visible = false;
+        lblCType.Text = "Copy to：";
+        btnAdd.Text = "Create Documents";
         //lblTitle.Text = "";
         if (ddlDocCategory.SelectedValue != "0")
         {
@@ -289,14 +310,19 @@ public partial class Ima_ImaList : System.Web.UI.Page
             //lblTitle.Text = "Country：" + IMAUtil.GetCountryName(Request.Params["cid"]) + @" \ Document Categories--> ";
             //lblTitle.Text += ddlDocCategory.SelectedItem.Text + @" \ Data：";
         }
-        if (ddlDocCategory.SelectedValue == "H" || ddlDocCategory.SelectedValue == "L")
+        if (ddlDocCategory.SelectedValue == "H" || ddlDocCategory.SelectedValue == "L" || ddlDocCategory.SelectedValue == "99")
         {
             rblProductType.DataBind();
             rblProductType.Visible = true;
             rblProductType.SelectedIndex = 0;
             cbProductType.Visible = false;
+            if (ddlDocCategory.SelectedValue == "99") 
+            {
+                lblCType.Text = "Certification Type：";
+                btnAdd.Text = "Edit Frequency";
+            }
         }
-        else 
+        else
         {
             rblProductType.Visible = false;
             cbProductType.Visible = true;
@@ -316,9 +342,6 @@ public partial class Ima_ImaList : System.Web.UI.Page
     {
         //if (ddlDocCategory.SelectedValue == "C") { lblCount.Text = e.AffectedRows.ToString(); }
     }
-
-
-
 
     //前往修改或複制
     protected void lbtnEdit_Click(object sender, EventArgs e)
@@ -463,8 +486,50 @@ public partial class Ima_ImaList : System.Web.UI.Page
                 dic.Add("copy", "1");
                 strURL = "ImaSampleShipping.aspx";
                 break;
+            case "GoEdit99":
+                string strID = lbtn.CommandArgument;
+                dic.Add("group", strID.Split(',')[0].ToString());
+                dic.Add("pt", strID.Split(',')[2].ToString());
+                dic.Add("page", gv99.PageIndex.ToString());
+                strURL = "ImaTech" + strID.Split(',')[1].ToString() + ".aspx";
+                break;
         }
         Response.Redirect(strURL + GetQueryString(true, dic, null));
+    }
+
+    /// <summary>
+    /// 合併儲存格
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void gv_PreRender(object sender, System.EventArgs e)
+    {
+        int i = 1;
+        foreach (GridViewRow gvRow in gv99.Rows)
+        {
+            if (Convert.ToInt32(gvRow.RowIndex) == 0)
+            {
+                gvRow.Cells[0].RowSpan = 1;
+                gvRow.Cells[1].RowSpan = 1;
+            }
+            else
+            {
+                if (gvRow.Cells[1].Text.Trim() == gv99.Rows[Convert.ToInt32(gvRow.RowIndex) - i].Cells[1].Text.Trim())
+                {
+                    gv99.Rows[Convert.ToInt32(gvRow.RowIndex) - i].Cells[0].RowSpan += 1;
+                    gv99.Rows[Convert.ToInt32(gvRow.RowIndex) - i].Cells[1].RowSpan += 1;
+                    i += 1;
+                    gvRow.Cells[0].Visible = false;
+                    gvRow.Cells[1].Visible = false;
+                }
+                else
+                {
+                    gv99.Rows[Convert.ToInt32(gvRow.RowIndex)].Cells[0].RowSpan = 1;
+                    gv99.Rows[Convert.ToInt32(gvRow.RowIndex)].Cells[1].RowSpan = 1;
+                    i = 1;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -485,5 +550,4 @@ public partial class Ima_ImaList : System.Web.UI.Page
         return IMAUtil.SetQueryString(isClear, dic, dicAdd, strRemove);
     }
 
-    protected bool bb() { return false; }
 }

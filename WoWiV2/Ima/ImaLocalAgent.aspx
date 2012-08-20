@@ -570,6 +570,46 @@
                     </tr>
                     <tr>
                         <td class="tdRowName">
+                            Local Rep. Service：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:UpdatePanel ID="upLocalRep" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <table border="0" >
+                                        <tr>
+                                            <td>
+                                                <asp:RadioButtonList ID="rblLocalRep" runat="server" 
+                                                    RepeatDirection="Horizontal" AutoPostBack="true" 
+                                                    onselectedindexchanged="rblLocalRep_SelectedIndexChanged">
+                                                    <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
+                                                    <asp:ListItem Text="No" Value="0" Selected="True"></asp:ListItem>
+                                                </asp:RadioButtonList>
+                                            </td>
+                                            <td style="padding-left:10px;">
+                                                <asp:Panel ID="plLocalRepFee" runat="server">
+                                                    <table border="0" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td>Local Rep. Service fee：</td>
+                                                            <td>
+                                                                <asp:TextBox ID="tbLocalRepFee" runat="server" Width="60px"></asp:TextBox>&nbsp;USD
+                                                                <asp:RegularExpressionValidator ID="revLocalRepFee" runat="server" ControlToValidate="tbLocalRepFee"
+                                                                    ErrorMessage="Input Numeric" Display="None" ValidationExpression="^\d+(\.\d+)?$"
+                                                                    SetFocusOnError="True"></asp:RegularExpressionValidator>
+                                                                <act:ValidatorCalloutExtender ID="vceLocalRepFee" runat="server" TargetControlID="revLocalRepFee">
+                                                                </act:ValidatorCalloutExtender>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </asp:Panel>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName">
                             Lead Time：
                         </td>
                         <td class="tdRowValue">

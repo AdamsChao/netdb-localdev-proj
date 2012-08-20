@@ -93,6 +93,9 @@ public partial class Ima_ImaDetailF : System.Web.UI.Page
                 if (dt.Rows[0]["SafetyRemark"].ToString().Trim().Length > 0) { lblSafetyRemark.Text = "Remark：" + dt.Rows[0]["SafetyRemark"].ToString(); }
                 if (dt.Rows[0]["TelecomRemark"].ToString().Trim().Length > 0) { lblTelecomRemark.Text = "Remark：" + dt.Rows[0]["TelecomRemark"].ToString(); }
                 if (dt.Rows[0]["LeadTime"].ToString().Trim().Length > 0) { lblLeadT.Text = dt.Rows[0]["LeadTime"].ToString() + "&nbsp;Weeks"; }
+                if (dt.Rows[0]["LocalRep"].ToString().Trim().ToLower() == "true") { lblLocalRep.Text = "Yes"; }
+                if (dt.Rows[0]["LocalRepFee"].ToString().Trim().Length > 0) { lblLocalRep.Text += "  ；  Local Rep. Service fee：" + dt.Rows[0]["LocalRepFee"].ToString().Trim() + " USD"; }
+
                 foreach (ListItem li in cbProductType.Items)
                 {
                     if (li.Text.Trim() == "RF")

@@ -84,6 +84,7 @@
                                                     <asp:ListItem Value="P">13.Label and Renewal</asp:ListItem>
                                                     <asp:ListItem Value="E">14.Enforcement & Importation–Market Inspection</asp:ListItem>
                                                     <asp:ListItem Value="L">15.Fee schedule</asp:ListItem>
+                                                    <%--<asp:ListItem Value="99">16.Frequency allocation,power limit by Technologies</asp:ListItem>--%>
                                                 </asp:DropDownList>
                                                 <%--<asp:RequiredFieldValidator ID="rfvDocCategory" runat="server" ControlToValidate="ddlDocCategory"
                                                     ErrorMessage="Please Select Category" Display="None" SetFocusOnError="true" InitialValue="0"></asp:RequiredFieldValidator>
@@ -92,7 +93,7 @@
                                             </td>
                                         </tr>
                                         <tr id="trCopy" runat="server">
-                                            <td align="right">Copy to：</td>
+                                            <td align="right"><asp:Label ID="lblCType" runat="server" Text="Copy to："></asp:Label></td>
                                             <td>
                                                 <asp:CheckBoxList ID="cbProductType" runat="server" RepeatDirection="Horizontal"
                                                     DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" DataValueField="wowi_product_type_id">
@@ -676,6 +677,10 @@
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:BoundField>
+                                                    <asp:BoundField DataField="LeadTime" HeaderText="Lead Time">
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:BoundField>
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsL" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
@@ -896,12 +901,68 @@
                                                 <SelectParameters>
                                                     <asp:QueryStringParameter Name="world_region_id" QueryStringField="rid" Type="Int32" />
                                                     <asp:QueryStringParameter Name="country_id" QueryStringField="cid" Type="Int32" />
-                                                    <asp:QueryStringParameter Name="wowi_product_type_id" QueryStringField="pid" Type="Int32"
-                                                        DefaultValue="0" />
+                                                    <asp:QueryStringParameter Name="wowi_product_type_id" QueryStringField="pid" Type="Int32" DefaultValue="0" />
                                                     <asp:ControlParameter ControlID="ddlDocCategory" Name="DocCategory" PropertyName="SelectedValue" />
                                                 </SelectParameters>
                                                 <DeleteParameters>
                                                     <asp:Parameter Name="SampleShippingID" Type="Int32" />
+                                                </DeleteParameters>
+                                            </asp:SqlDataSource>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                    <asp:UpdatePanel ID="up99" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <asp:GridView ID="gv99" runat="server" DataKeyNames="world_region_id,country_id,wowi_product_type_id,GID"
+                                                SkinID="gvList" DataSourceID="sds99" OnPreRender="gv_PreRender" PageSize="20">
+                                                <Columns>
+                                                    <asp:TemplateField ShowHeader="False">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="GoEdit99"
+                                                                Text="Edit" CommandArgument='<%# Eval("GID").ToString()+","+Eval("wowi_product_type_name").ToString()+","+Eval("wowi_product_type_id").ToString() %>'
+                                                                OnClick="lbtnEdit_Click" Visible='<%#IMAUtil.IsEditOn() %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lbtnDel" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Delete？')" Visible='<%#IMAUtil.IsDeleteOn() %>'></asp:LinkButton>
+                                                            <asp:HyperLink ID="hlDetail" runat="server" Target="_blank" NavigateUrl='<%#"ImaDetail99"+Eval("wowi_product_type_name").ToString()+".aspx" + GetQueryString(true, null, null) + "&pt="+Eval("wowi_product_type_id").ToString() + "&group="+Eval("GID").ToString() %>'>Detail</asp:HyperLink>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
+                                                        <ItemStyle HorizontalAlign="Center" Width="140px" />
+                                                    </asp:TemplateField>
+                                                    <asp:BoundField DataField="TechName" HeaderText="Technology">
+                                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:BoundField>
+                                                    <asp:BoundField DataField="Frequency" HeaderText="Frequency">
+                                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Left" />
+                                                    </asp:BoundField>
+                                                    <asp:BoundField DataField="Allowed" HeaderText="Allowed/Not Allowed">
+                                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:BoundField>
+                                                    <asp:BoundField DataField="PowerLimit" HeaderText="Power Limit">
+                                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:BoundField>
+                                                    <asp:BoundField DataField="wowi_product_type_name" HeaderText="Certification Type">
+                                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:BoundField>
+                                                </Columns>
+                                            </asp:GridView>
+                                            <asp:SqlDataSource ID="sds99" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                SelectCommand="STP_IMATechAttributeGetByPK" SelectCommandType="StoredProcedure"
+                                                DeleteCommand="delete from Ima_TechAttribute where world_region_id=@world_region_id and country_id=@country_id and wowi_product_type_id=@wowi_product_type_id and GID=@GID"
+                                                DeleteCommandType="Text">
+                                                <SelectParameters>
+                                                    <asp:QueryStringParameter Name="world_region_id" QueryStringField="rid" Type="Int32" />
+                                                    <asp:QueryStringParameter Name="country_id" QueryStringField="cid" Type="Int32" />
+                                                    <asp:QueryStringParameter Name="wowi_product_type_id" QueryStringField="pid" Type="Int32" DefaultValue="0" />
+                                                    <asp:ControlParameter ControlID="ddlDocCategory" Name="DocCategory" PropertyName="SelectedValue" />
+                                                </SelectParameters>
+                                                <DeleteParameters>
+                                                    <asp:Parameter Name="world_region_id" Type="Int32" />
+                                                    <asp:Parameter Name="country_id" Type="Int32" />
+                                                    <asp:Parameter Name="wowi_product_type_id" Type="Int32" />
+                                                    <asp:Parameter Name="GID" Type="Int32" />
                                                 </DeleteParameters>
                                             </asp:SqlDataSource>
                                         </ContentTemplate>

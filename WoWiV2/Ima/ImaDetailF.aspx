@@ -351,6 +351,12 @@
                         </tr>--%>
                         <tr>
                             <td class="tdRowName">
+                                Local Rep. Service：
+                            </td>
+                            <td class="tdRowValue"><asp:Label ID="lblLocalRep" runat="server" Text="No"></asp:Label></td>
+                        </tr>
+                        <tr>
+                            <td class="tdRowName">
                                 Lead Time：
                             </td>
                             <td class="tdRowValue">
