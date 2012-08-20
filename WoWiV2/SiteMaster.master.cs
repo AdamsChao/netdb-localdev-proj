@@ -7,13 +7,14 @@ using System.Web.UI.WebControls;
 
 public partial class SiteMaster : System.Web.UI.MasterPage
 {
-    SecurityModel.SecurityEntities sm = new SecurityModel.SecurityEntities();
+   
     List<string> ShowMenu = new List<string>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {
+            SecurityModel.SecurityEntities sm = new SecurityModel.SecurityEntities();
             var results = from am in sm.Access_Menu
                           where am.Username == HttpContext.Current.User.Identity.Name
                           select am;
@@ -22,7 +23,6 @@ public partial class SiteMaster : System.Web.UI.MasterPage
                 ShowMenu.Add(item.MenuValuePath);
             }
         }
-
     }
     protected void NavigationMenu_MenuItemDataBound(object sender, MenuEventArgs e)
     {       
