@@ -42,9 +42,9 @@
                     </Items>
                 </asp:Menu>--%>
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" 
-                    EnableViewState="False" IncludeStyleBlock="False" Orientation="Horizontal" 
+                    IncludeStyleBlock="False" Orientation="Horizontal" 
                     DataSourceID="webSiteMapDataSource" StaticDisplayLevels="2" 
-                  onmenuitemdatabound="NavigationMenu_MenuItemDataBound">                   
+                  onmenuitemdatabound="NavigationMenu_MenuItemDataBound" DisappearAfter="100">                   
                 </asp:Menu>
                 <asp:SiteMapDataSource ID="webSiteMapDataSource" runat="server" />
             </div>
