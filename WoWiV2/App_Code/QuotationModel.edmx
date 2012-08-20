@@ -49,7 +49,8 @@
       [vw_Quotation_Print].[Bill_Country] AS [Bill_Country], 
       [vw_Quotation_Print].[Bill_Address] AS [Bill_Address], 
       [vw_Quotation_Print].[title] AS [title], 
-      [vw_Quotation_Print].[Remark] AS [Remark]
+      [vw_Quotation_Print].[Remark] AS [Remark], 
+      [vw_Quotation_Print].[jobtitle_name] AS [jobtitle_name]
       FROM [dbo].[vw_Quotation_Print] AS [vw_Quotation_Print]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_Quotation_Print_Chinese" EntityType="QuotationModel.Store.vw_Quotation_Print_Chinese" store:Type="Views" store:Schema="dbo" store:Name="vw_Quotation_Print_Chinese">
@@ -161,36 +162,36 @@
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="code" Type="nvarchar" MaxLength="8" />
           <Property Name="clientapplicant_type" Type="tinyint" Nullable="false" />
-          <Property Name="companyname" Type="nvarchar" MaxLength="50" />
-          <Property Name="c_companyname" Type="nvarchar" MaxLength="50" />
-          <Property Name="website" Type="nvarchar" MaxLength="50" />
-          <Property Name="address" Type="nvarchar" MaxLength="50" />
-          <Property Name="c_address" Type="nvarchar" MaxLength="50" />
+          <Property Name="companyname" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_companyname" Type="nvarchar" MaxLength="255" />
+          <Property Name="website" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_address" Type="nvarchar" MaxLength="255" />
           <Property Name="country_id" Type="int" />
           <Property Name="main_tel" Type="nvarchar" MaxLength="50" />
           <Property Name="main_fax" Type="nvarchar" MaxLength="50" />
           <Property Name="businesstype" Type="tinyint" />
           <Property Name="billing_id" Type="int" />
-          <Property Name="bill_ccompanyname" Type="nvarchar" MaxLength="50" />
-          <Property Name="bill_companyname" Type="nvarchar" MaxLength="50" />
+          <Property Name="bill_ccompanyname" Type="nvarchar" MaxLength="255" />
+          <Property Name="bill_companyname" Type="nvarchar" MaxLength="255" />
           <Property Name="bill_firstname" Type="nvarchar" MaxLength="50" />
-          <Property Name="bill_lastname" Type="nvarchar" MaxLength="25" />
-          <Property Name="bill_title" Type="nvarchar" MaxLength="50" />
+          <Property Name="bill_lastname" Type="nvarchar" MaxLength="50" />
+          <Property Name="bill_title" Type="nvarchar" MaxLength="100" />
           <Property Name="c_bill_firstname" Type="nvarchar" MaxLength="50" />
           <Property Name="c_bill_lastname" Type="nvarchar" MaxLength="50" />
           <Property Name="bill_workphone" Type="nvarchar" MaxLength="50" />
           <Property Name="bill_ext" Type="nvarchar" MaxLength="50" />
           <Property Name="bill_fax" Type="nvarchar" MaxLength="50" />
           <Property Name="bill_email" Type="nvarchar" MaxLength="100" />
-          <Property Name="bill_address" Type="nvarchar" MaxLength="100" />
-          <Property Name="bill_caddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="bill_address" Type="nvarchar" MaxLength="255" />
+          <Property Name="bill_caddress" Type="nvarchar" MaxLength="255" />
           <Property Name="owner" Type="int" />
           <Property Name="acct_manager" Type="int" />
-          <Property Name="acctno" Type="nvarchar" MaxLength="50" />
+          <Property Name="acctno" Type="nvarchar" MaxLength="100" />
           <Property Name="creditlimit" Type="money" />
           <Property Name="paymentterm" Type="int" />
           <Property Name="clientstatus" Type="tinyint" />
-          <Property Name="remark" Type="text" />
+          <Property Name="remark" Type="nvarchar" MaxLength="500" />
           <Property Name="create_user" Type="nvarchar" MaxLength="50" />
           <Property Name="create_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
@@ -200,8 +201,8 @@
           <Property Name="ups_acct" Type="nvarchar" MaxLength="50" />
           <Property Name="potential_client" Type="bit" Nullable="false" />
           <Property Name="acct_contact_id" Type="int" />
-          <Property Name="ups_bankname" Type="nvarchar" MaxLength="100" />
-          <Property Name="ups_bankaddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="ups_bankname" Type="nvarchar" MaxLength="255" />
+          <Property Name="ups_bankaddress" Type="nvarchar" MaxLength="255" />
           <Property Name="ups_swiftcode" Type="nvarchar" MaxLength="50" />
           <Property Name="ups_accountno" Type="nvarchar" MaxLength="50" />
           <Property Name="ups_banefucuanyname" Type="nvarchar" MaxLength="50" />
@@ -212,7 +213,7 @@
           <Property Name="business_registration_number" Type="nvarchar" MaxLength="50" />
           <Property Name="department_id" Type="int" />
           <Property Name="employee_id" Type="int" />
-          <Property Name="ups_bankbranch" Type="nvarchar" MaxLength="100" />
+          <Property Name="ups_bankbranch" Type="nvarchar" MaxLength="255" />
           <Property Name="contact_name" Type="nvarchar" MaxLength="100" />
           <Property Name="contact_email" Type="nvarchar" MaxLength="100" />
           <Property Name="contact_tel" Type="nvarchar" MaxLength="100" />
@@ -236,22 +237,22 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="fname" Type="nvarchar" MaxLength="30" />
-          <Property Name="lname" Type="nvarchar" MaxLength="30" />
-          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="fname" Type="nvarchar" MaxLength="100" />
+          <Property Name="lname" Type="nvarchar" MaxLength="100" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" />
           <Property Name="companyname" Type="nvarchar" MaxLength="100" />
-          <Property Name="address" Type="nvarchar" MaxLength="250" />
-          <Property Name="c_fname" Type="nvarchar" MaxLength="30" />
-          <Property Name="c_lname" Type="nvarchar" MaxLength="30" />
-          <Property Name="c_title" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="300" />
+          <Property Name="c_fname" Type="nvarchar" MaxLength="100" />
+          <Property Name="c_lname" Type="nvarchar" MaxLength="100" />
+          <Property Name="c_title" Type="nvarchar" MaxLength="100" />
           <Property Name="c_companyname" Type="nvarchar" MaxLength="100" />
-          <Property Name="c_address" Type="nvarchar" MaxLength="250" />
+          <Property Name="c_address" Type="nvarchar" MaxLength="300" />
           <Property Name="country_id" Type="int" />
-          <Property Name="workphone" Type="nvarchar" MaxLength="20" />
+          <Property Name="workphone" Type="nvarchar" MaxLength="200" />
           <Property Name="ext" Type="nvarchar" MaxLength="10" />
-          <Property Name="cellphone" Type="nvarchar" MaxLength="20" />
-          <Property Name="fax" Type="nvarchar" MaxLength="20" />
-          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="cellphone" Type="nvarchar" MaxLength="200" />
+          <Property Name="fax" Type="nvarchar" MaxLength="200" />
+          <Property Name="email" Type="nvarchar" MaxLength="300" />
           <Property Name="create_date" Type="datetime" />
           <Property Name="create_user" Type="nvarchar" MaxLength="26" />
           <Property Name="modify_date" Type="datetime" />
@@ -281,20 +282,20 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="nvarchar" MaxLength="26" />
+          <Property Name="username" Type="nvarchar" MaxLength="100" />
           <Property Name="password" Type="nvarchar" MaxLength="50" />
           <Property Name="fname" Type="nvarchar" MaxLength="25" />
           <Property Name="lname" Type="nvarchar" MaxLength="25" />
           <Property Name="c_fname" Type="nvarchar" MaxLength="25" />
           <Property Name="c_lname" Type="nvarchar" MaxLength="25" />
-          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" />
           <Property Name="hiredate" Type="datetime" />
           <Property Name="terminationdate" Type="datetime" />
           <Property Name="workphone" Type="nvarchar" MaxLength="100" />
           <Property Name="homephone" Type="nvarchar" MaxLength="100" />
           <Property Name="cellphone" Type="nvarchar" MaxLength="100" />
           <Property Name="email" Type="nvarchar" MaxLength="100" />
-          <Property Name="address" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
           <Property Name="country" Type="int" />
           <Property Name="status" Type="nvarchar" MaxLength="10" />
           <Property Name="department_id" Type="int" />
@@ -325,7 +326,7 @@
           <Property Name="modify_date" Type="datetime" Nullable="false" />
           <Property Name="amount" Type="decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="invoice_id" Type="int" Nullable="false" />
-          <Property Name="invoice_no" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="invoice_no" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="m_employee_accesslevel">
           <Key>
@@ -526,8 +527,8 @@
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
         </EntityType>
-        <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Product_Type' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'WoWi.dbo.vw_Product_Type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -537,8 +538,8 @@
           <Property Name="wowi_product_type_name" Type="varchar" MaxLength="50" />
           <Property Name="country_id" Type="int" />
         </EntityType>
-        <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Quotation_Print' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'WoWi.dbo.vw_Quotation_Print' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Quotation_Print">
           <Key>
@@ -549,8 +550,8 @@
           <Property Name="fname" Type="nvarchar" MaxLength="25" />
           <Property Name="lname" Type="nvarchar" MaxLength="25" />
           <Property Name="Bill_Companyname" Type="nvarchar" MaxLength="100" />
-          <Property Name="Client" Type="nvarchar" MaxLength="50" />
-          <Property Name="Applicant" Type="nvarchar" MaxLength="50" />
+          <Property Name="Client" Type="nvarchar" MaxLength="255" />
+          <Property Name="Applicant" Type="nvarchar" MaxLength="255" />
           <Property Name="workphone" Type="nvarchar" MaxLength="100" />
           <Property Name="email" Type="nvarchar" MaxLength="100" />
           <Property Name="work_ext" Type="nvarchar" MaxLength="5" />
@@ -558,15 +559,16 @@
           <Property Name="Model_No" Type="nvarchar" MaxLength="50" />
           <Property Name="Brand_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Bill_Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Bill_Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Bill_Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Bill_Email" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_Country" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_Address" Type="nvarchar" MaxLength="100" />
-          <Property Name="title" Type="nvarchar" MaxLength="50" />
-          <Property Name="Remark" Type="text" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="jobtitle_name" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Quotation_Print_Chinese' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'WoWi.dbo.vw_Quotation_Print_Chinese' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Quotation_Print_Chinese">
           <Key>
@@ -608,8 +610,8 @@
           <Property Name="jobtitle_id" Type="int" />
           <Property Name="jobtitle_name" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Target' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'WoWi.dbo.vw_Target' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Target">
           <Key>
@@ -633,8 +635,8 @@
           <Property Name="local_agent_name" Type="nvarchar" MaxLength="50" />
           <Property Name="Publish" Type="bit" />
         </EntityType>
-        <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Test_Target_List' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'WoWi.dbo.vw_Test_Target_List' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Test_Target_List">
           <Key>
@@ -742,6 +744,7 @@
           <Property Type="String" Name="work_ext" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Client" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Remark" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="jobtitle_name" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="invoice_target">
           <Key>
@@ -1242,6 +1245,7 @@
           <EntitySetMapping Name="vw_Quotation_Print">
             <EntityTypeMapping TypeName="QuotationModel.vw_Quotation_Print">
               <MappingFragment StoreEntitySet="vw_Quotation_Print">
+                <ScalarProperty Name="jobtitle_name" ColumnName="jobtitle_name" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Client" ColumnName="Client" />
                 <ScalarProperty Name="work_ext" ColumnName="work_ext" />

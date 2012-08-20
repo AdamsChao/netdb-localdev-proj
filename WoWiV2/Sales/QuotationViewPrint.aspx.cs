@@ -55,7 +55,7 @@ public partial class Sales_QuotationViewPrint : System.Web.UI.Page
                 lblCleintCountry.Text = quo.Bill_Country;
                 lblCleintCountry0.Text = quo.Bill_Country;
                 imgSign.ImageUrl = "../Images/sign/" + quo.fname + "." + quo.lname + ".bmp";
-                lblTitle.Text = quo.title;
+                lblTitle.Text = quo.jobtitle_name;
 
                 //Add by Adams 2012/5/1
                 lblext.Text = quo.work_ext;

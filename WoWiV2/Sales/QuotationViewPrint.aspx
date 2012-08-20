@@ -754,7 +754,7 @@
                             </td>
                             <td class="style2">
                                 <b>Title:<asp:Label ID="lblTitle" 
-                                    runat="server" Text="lblTitle"></asp:Label>
+                                    runat="server"></asp:Label>
                                 </b>
                             </td>
                         </tr>
