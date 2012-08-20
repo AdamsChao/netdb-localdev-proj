@@ -1,5 +1,4 @@
-﻿body {
-}
+﻿body {color: #696969;}
 
 .tdStatSubject{font-size:10pt;color:#0066FF;font-weight:bold;height:30px}
 .fontR{color:Red;}
@@ -48,3 +47,28 @@
 .tbSearch .tdRowName {font-size: 10pt; text-align: right; padding-left: 10px;background-color:#84E7FF}
 .tbSearch .tdRowValue {font-size: 10pt; padding-right: 10px; }
 .tbSearch .tdFooter {background-color: #11CFFF; padding: 4px 0px 0px 1px;}
+
+/* MsgBox */
+.tbMsgBox
+{
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	min-width: 300px; /* Dialog will be no smaller than this */
+	max-width: 600px; /* Dialog will wrap after this width */
+	background: #FFFFFF;
+	border: solid 2px #999999;
+	color: #111111;
+}
+.MsgBoxTitle {
+	font-size: 10pt;
+	font-weight: bold;
+	text-align: center;
+	line-height: 25px;
+	color: #666666;
+	background: #CCCCCC url(/WoWiV2/images/IMA/MsgBox/title.gif) top repeat-x;
+	border: solid 1px #FFFFFF;
+	border-bottom: solid 1px #999999;
+	padding: 0px;
+	margin: 0px;
+}
+.btnHidden{	display: none}

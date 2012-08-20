@@ -22,3 +22,5 @@
     <SortedDescendingCellStyle BackColor="#CAC9C9" />
     <SortedDescendingHeaderStyle BackColor="#00547E" />
 </asp:GridView>
+
+<asp:ImageButton SkinID="ibtnOK" runat="server" ImageUrl="~/images/IMA/btnOK.gif" AlternateText="確定" />
