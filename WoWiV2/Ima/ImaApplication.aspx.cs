@@ -176,8 +176,10 @@ public partial class Ima_ImaApplication : System.Web.UI.Page
                 tbProvisionalYears.Text = dt.Rows[0]["ProvisionalYears"].ToString();
                 tbProvisionalMonths.Text = dt.Rows[0]["ProvisionalMonths"].ToString();
                 rblPeriodic.SelectedValue = dt.Rows[0]["Periodic"].ToString();
-                tbPeriodicSDate.Text = string.Format("{0:yyyy/MM/dd}", dt.Rows[0]["PeriodicSDate"]);
-                tbPeriodicSEnd.Text = string.Format("{0:yyyy/MM/dd}", dt.Rows[0]["PeriodicSEnd"]);
+                //tbPeriodicSDate.Text = string.Format("{0:yyyy/MM/dd}", dt.Rows[0]["PeriodicSDate"]);
+                //tbPeriodicSEnd.Text = string.Format("{0:yyyy/MM/dd}", dt.Rows[0]["PeriodicSEnd"]);
+                tbPeriodicSDate.Text = dt.Rows[0]["PeriodicSDate"].ToString();
+                tbPeriodicSEnd.Text = dt.Rows[0]["PeriodicSEnd"].ToString();
                 tbShipment.Text = dt.Rows[0]["Shipment"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
                 if (Request.Params["copy"] != null)
@@ -317,8 +319,8 @@ public partial class Ima_ImaApplication : System.Web.UI.Page
         cmd.Parameters.Add("@ProvisionalYears", SqlDbType.NVarChar);
         cmd.Parameters.Add("@ProvisionalMonths", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Periodic", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@PeriodicSDate", SqlDbType.DateTime);
-        cmd.Parameters.Add("@PeriodicSEnd", SqlDbType.DateTime);
+        cmd.Parameters.Add("@PeriodicSDate", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@PeriodicSEnd", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Shipment", SqlDbType.NVarChar);
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null)
@@ -409,9 +411,13 @@ public partial class Ima_ImaApplication : System.Web.UI.Page
                 cmd.Parameters["@ProvisionalYears"].Value = tbProvisionalYears.Text.Trim();
                 cmd.Parameters["@ProvisionalMonths"].Value = tbProvisionalMonths.Text.Trim();
                 cmd.Parameters["@Periodic"].Value = rblPeriodic.SelectedValue;
-                if (tbPeriodicSDate.Text.Trim().Length > 0) { cmd.Parameters["@PeriodicSDate"].Value = Convert.ToDateTime(tbPeriodicSDate.Text.Trim()); }
+                //if (tbPeriodicSDate.Text.Trim().Length > 0) { cmd.Parameters["@PeriodicSDate"].Value = Convert.ToDateTime(tbPeriodicSDate.Text.Trim()); }
+                //else { cmd.Parameters["@PeriodicSDate"].Value = DBNull.Value; }
+                //if (tbPeriodicSEnd.Text.Trim().Length > 0) { cmd.Parameters["@PeriodicSEnd"].Value = Convert.ToDateTime(tbPeriodicSEnd.Text.Trim()); }
+                //else { cmd.Parameters["@PeriodicSEnd"].Value = DBNull.Value; }
+                if (tbPeriodicSDate.Text.Trim().Length > 0) { cmd.Parameters["@PeriodicSDate"].Value = tbPeriodicSDate.Text.Trim(); }
                 else { cmd.Parameters["@PeriodicSDate"].Value = DBNull.Value; }
-                if (tbPeriodicSEnd.Text.Trim().Length > 0) { cmd.Parameters["@PeriodicSEnd"].Value = Convert.ToDateTime(tbPeriodicSEnd.Text.Trim()); }
+                if (tbPeriodicSEnd.Text.Trim().Length > 0) { cmd.Parameters["@PeriodicSEnd"].Value = tbPeriodicSEnd.Text.Trim(); }
                 else { cmd.Parameters["@PeriodicSEnd"].Value = DBNull.Value; }
                 cmd.Parameters["@Shipment"].Value = tbShipment.Text.Trim();
                 int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
@@ -684,9 +690,13 @@ public partial class Ima_ImaApplication : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@ProvisionalYears", tbProvisionalYears.Text.Trim());
         cmd.Parameters.AddWithValue("@ProvisionalMonths", tbProvisionalMonths.Text.Trim());
         cmd.Parameters.AddWithValue("@Periodic", rblPeriodic.SelectedValue);
-        if (tbPeriodicSDate.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@PeriodicSDate", Convert.ToDateTime(tbPeriodicSDate.Text.Trim())); }
+        //if (tbPeriodicSDate.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@PeriodicSDate", Convert.ToDateTime(tbPeriodicSDate.Text.Trim())); }
+        //else { cmd.Parameters.AddWithValue("@PeriodicSDate", DBNull.Value); }
+        //if (tbPeriodicSEnd.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@PeriodicSEnd", Convert.ToDateTime(tbPeriodicSEnd.Text.Trim())); }
+        //else { cmd.Parameters.AddWithValue("@PeriodicSEnd", DBNull.Value); }
+        if (tbPeriodicSDate.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@PeriodicSDate", tbPeriodicSDate.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@PeriodicSDate", DBNull.Value); }
-        if (tbPeriodicSEnd.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@PeriodicSEnd", Convert.ToDateTime(tbPeriodicSEnd.Text.Trim())); }
+        if (tbPeriodicSEnd.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@PeriodicSEnd", tbPeriodicSEnd.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@PeriodicSEnd", DBNull.Value); }
         cmd.Parameters.AddWithValue("@Shipment", tbShipment.Text.Trim());
         SQLUtil.ExecuteSql(cmd);

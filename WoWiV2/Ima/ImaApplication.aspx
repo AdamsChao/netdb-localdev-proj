@@ -1121,19 +1121,19 @@
                                                     <act:CalendarExtender ID="cePeriodicSDate" runat="server" PopupButtonID="tbPeriodicSDate"
                                                         Format="yyyy/MM/dd" TargetControlID="tbPeriodicSDate">
                                                     </act:CalendarExtender>
-                                                    <asp:RegularExpressionValidator ID="revPeriodicSDate" runat="server" ControlToValidate="tbPeriodicSDate"
+                                                    <%--<asp:RegularExpressionValidator ID="revPeriodicSDate" runat="server" ControlToValidate="tbPeriodicSDate"
                                                         ErrorMessage="Input Date" Display="None" ValidationExpression="^(19|20)\d\d[-/.]((0[1-9])|([1-9])|(1[0-2]))[-/.](([0-2][1-9])|([1-2]0)|(3[0-1])|([1-9]))"
-                                                        SetFocusOnError="True"></asp:RegularExpressionValidator>
-                                                    <act:ValidatorCalloutExtender ID="vcePeriodicSDate" runat="server" TargetControlID="revPeriodicSDate">
-                                                    </act:ValidatorCalloutExtender>
+                                                        SetFocusOnError="True"></asp:RegularExpressionValidator>--%>
+                                                    <%--<act:ValidatorCalloutExtender ID="vcePeriodicSDate" runat="server" TargetControlID="revPeriodicSDate">
+                                                    </act:ValidatorCalloutExtender>--%>
                                                     <act:CalendarExtender ID="cePeriodicSEnd" runat="server" PopupButtonID="tbPeriodicSEnd"
                                                         Format="yyyy/MM/dd" TargetControlID="tbPeriodicSEnd">
                                                     </act:CalendarExtender>
-                                                    <asp:RegularExpressionValidator ID="revPeriodicSEnd" runat="server" ControlToValidate="tbPeriodicSEnd"
+                                                    <%--<asp:RegularExpressionValidator ID="revPeriodicSEnd" runat="server" ControlToValidate="tbPeriodicSEnd"
                                                         ErrorMessage="Input Date" Display="None" ValidationExpression="^(19|20)\d\d[-/.]((0[1-9])|([1-9])|(1[0-2]))[-/.](([0-2][1-9])|([1-2]0)|(3[0-1])|([1-9]))"
-                                                        SetFocusOnError="True"></asp:RegularExpressionValidator>
-                                                    <act:ValidatorCalloutExtender ID="vcePeriodicSEnd" runat="server" TargetControlID="revPeriodicSEnd">
-                                                    </act:ValidatorCalloutExtender>
+                                                        SetFocusOnError="True"></asp:RegularExpressionValidator>--%>
+                                                    <%--<act:ValidatorCalloutExtender ID="vcePeriodicSEnd" runat="server" TargetControlID="revPeriodicSEnd">
+                                                    </act:ValidatorCalloutExtender>--%>
                                                 </td>
                                             </tr>
                                         </table>
