@@ -195,13 +195,25 @@ public partial class Ima_ImaDetailJ : System.Web.UI.Page
                 lblPeriodic.Text = dt.Rows[0]["Periodic"].ToString();
                 if (dt.Rows[0]["PeriodicSDate"].ToString() != "")
                 {
-                    lblPeriodicDate.Text = "；From&nbsp;&nbsp;" + string.Format("{0:yyyy/MM/dd}", dt.Rows[0]["PeriodicSDate"]);
+                    //lblPeriodicDate.Text = "；From&nbsp;&nbsp;" + string.Format("{0:yyyy/MM/dd}", dt.Rows[0]["PeriodicSDate"]);
+                    lblPeriodicDate.Text = "；From&nbsp;&nbsp;" + dt.Rows[0]["PeriodicSDate"].ToString();
                 }
                 if (lblPeriodicDate.Text.Trim() == "")
                 {
-                    if (dt.Rows[0]["PeriodicSEnd"].ToString() != "") { lblPeriodicDate.Text = "；TO&nbsp;&nbsp;" + string.Format("{0:yyyy/MM/dd}", dt.Rows[0]["PeriodicSEnd"]); }
+                    if (dt.Rows[0]["PeriodicSEnd"].ToString() != "") 
+                    {
+                        //lblPeriodicDate.Text = "；To&nbsp;&nbsp;" + string.Format("{0:yyyy/MM/dd}", dt.Rows[0]["PeriodicSEnd"]); 
+                        lblPeriodicDate.Text = "；To&nbsp;&nbsp;" + dt.Rows[0]["PeriodicSEnd"].ToString(); 
+                    }
                 }
-                else { if (dt.Rows[0]["PeriodicSEnd"].ToString() != "") { lblPeriodicDate.Text += "&nbsp;&nbsp;TO&nbsp;&nbsp;" + string.Format("{0:yyyy/MM/dd}", dt.Rows[0]["PeriodicSEnd"]); } }
+                else 
+                { 
+                    if (dt.Rows[0]["PeriodicSEnd"].ToString() != "") 
+                    {
+                        //lblPeriodicDate.Text += "&nbsp;&nbsp;To&nbsp;&nbsp;" + string.Format("{0:yyyy/MM/dd}", dt.Rows[0]["PeriodicSEnd"]); 
+                        lblPeriodicDate.Text += "&nbsp;&nbsp;To&nbsp;&nbsp;" + dt.Rows[0]["PeriodicSEnd"].ToString(); 
+                    }
+                }
                 lblShipment.Text = dt.Rows[0]["Shipment"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
