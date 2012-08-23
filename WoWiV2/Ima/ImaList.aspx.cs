@@ -39,6 +39,11 @@ public partial class Ima_ImaList : System.Web.UI.Page
 
     protected void SetControlInit() 
     {
+        hlDetailRF.NavigateUrl = "ImaDetailAll.aspx?rid=" + Request.Params["rid"] + "&cid=" + Request.Params["cid"] + "&pid=10000";
+        hlDetailEMC.NavigateUrl = "ImaDetailAll.aspx?rid=" + Request.Params["rid"] + "&cid=" + Request.Params["cid"] + "&pid=10001";
+        hlDetailSafety.NavigateUrl = "ImaDetailAll.aspx?rid=" + Request.Params["rid"] + "&cid=" + Request.Params["cid"] + "&pid=10002";
+        hlDetailTelecom.NavigateUrl = "ImaDetailAll.aspx?rid=" + Request.Params["rid"] + "&cid=" + Request.Params["cid"] + "&pid=10003";
+
         trDoc1.Visible = false;
         trDoc2.Visible = false;
         trDoc3.Visible = false;

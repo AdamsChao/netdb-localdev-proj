@@ -84,7 +84,7 @@
                                                     <asp:ListItem Value="P">13.Label and Renewal</asp:ListItem>
                                                     <asp:ListItem Value="E">14.Enforcement & Importation–Market Inspection</asp:ListItem>
                                                     <asp:ListItem Value="L">15.Fee schedule</asp:ListItem>
-                                                    <%--<asp:ListItem Value="99">16.Frequency allocation,power limit by Technologies</asp:ListItem>--%>
+                                                    <asp:ListItem Value="99">16.Frequency allocation,power limit by Technologies</asp:ListItem>
                                                 </asp:DropDownList>
                                                 <%--<asp:RequiredFieldValidator ID="rfvDocCategory" runat="server" ControlToValidate="ddlDocCategory"
                                                     ErrorMessage="Please Select Category" Display="None" SetFocusOnError="true" InitialValue="0"></asp:RequiredFieldValidator>
@@ -104,6 +104,19 @@
                                                 <asp:SqlDataSource ID="sdsProductType" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                     SelectCommand="STP_IMAGetProductType" SelectCommandType="StoredProcedure">
                                                 </asp:SqlDataSource>
+                                            </td>
+                                        </tr>
+                                        <tr id="trDe" runat="server" visible="false">
+                                            <td></td>
+                                            <td>
+                                                <table border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td><asp:HyperLink ID="hlDetailRF" runat="server" Target="_blank">View all RF datas</asp:HyperLink></td>
+                                                        <td style="padding-left:6px"><asp:HyperLink ID="hlDetailEMC" runat="server" Target="_blank">View all EMC datas</asp:HyperLink></td>
+                                                        <td style="padding-left:6px"><asp:HyperLink ID="hlDetailSafety" runat="server" Target="_blank">View all Safety datas</asp:HyperLink></td>
+                                                        <td style="padding-left:6px"><asp:HyperLink ID="hlDetailTelecom" runat="server" Target="_blank">View all Telecom datas</asp:HyperLink></td>
+                                                    </tr>
+                                                </table>
                                             </td>
                                         </tr>
                                         <tr>
