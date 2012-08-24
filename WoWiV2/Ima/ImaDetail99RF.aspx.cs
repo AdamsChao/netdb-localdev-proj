@@ -54,10 +54,10 @@ public partial class Ima_ImaDetail99RF : System.Web.UI.Page
         GetTechFrequency(cmd, plTech, "FM Transmitter");
         //Below 1G SRD
         plTech = (Panel)Form.FindControl("plBelow1GSRD");
-        GetTechFrequency(cmd, plTech, "Below 1G SRD");
+        GetTechFrequency(cmd, plTech, "Below 1GHz SRD");
         //Above 1G SRD
         plTech = (Panel)Form.FindControl("plAbove1GSRD");
-        GetTechFrequency(cmd, plTech, "Above 1G SRD");
+        GetTechFrequency(cmd, plTech, "Above 1GHz SRD");
         //Zigbee
         plTech = (Panel)Form.FindControl("plZigbee");
         GetTechFrequency(cmd, plTech, "Zigbee");
@@ -94,6 +94,8 @@ public partial class Ima_ImaDetail99RF : System.Web.UI.Page
             Label lblODA;
             Label lblHT20;
             Label lblHT40;
+            Label lblHT80;
+            Label lblHT160;
             Label lblHT;
             Label lblDFS;
             Label lblTPC;
@@ -124,6 +126,16 @@ public partial class Ima_ImaDetail99RF : System.Web.UI.Page
                 if (lblHT40 != null) 
                 {
                     if (Convert.ToBoolean(dtTech.Rows[i - 1]["HT40"])) { lblHT40.Text = "HT40"; }
+                }
+                lblHT80 = (Label)plTech.FindControl("lbl" + strTechName + "HT80" + i.ToString());
+                if (lblHT80 != null)
+                {
+                    if (Convert.ToBoolean(dtTech.Rows[i - 1]["HT80"])) { lblHT80.Text = "HT80"; }
+                }
+                lblHT160 = (Label)plTech.FindControl("lbl" + strTechName + "HT160" + i.ToString());
+                if (lblHT160 != null)
+                {
+                    if (Convert.ToBoolean(dtTech.Rows[i - 1]["HT160"])) { lblHT160.Text = "HT160"; }
                 }
                 lblHT = (Label)plTech.FindControl("lbl" + strTechName + "HT" + i.ToString());
                 if (lblHT != null) 
