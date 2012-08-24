@@ -235,16 +235,16 @@
                                         <td class="tdRowValue">
                                             <table border="0" cellpadding="0" cellspacing="0" align="left">
                                                 <tr>
-                                                    <td align="left"><asp:Label ID="lblWiFiHT201" runat="server" Visible="false" ></asp:Label></td>
+                                                    <td align="left"><asp:Label ID="lblWiFiHT201" runat="server" ></asp:Label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="left"><asp:Label ID="lblWiFiHT401" runat="server" Visible="false"></asp:Label></td>
+                                                    <td align="left"><asp:Label ID="lblWiFiHT401" runat="server" ></asp:Label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="left"><asp:Label ID="lblWiFiHT801" runat="server" Visible="false"></asp:Label></td>
+                                                    <td align="left"><asp:Label ID="lblWiFiHT801" runat="server" ></asp:Label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="left"><asp:Label ID="lblWiFiHT1601" runat="server" Visible="false"></asp:Label></td>
+                                                    <td align="left"><asp:Label ID="lblWiFiHT1601" runat="server" ></asp:Label></td>
                                                 </tr>
                                                 <tr>
                                                     <td align="left"><asp:Label ID="lblWiFiHT1" runat="server"></asp:Label></td>
