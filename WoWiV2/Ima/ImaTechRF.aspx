@@ -61,8 +61,8 @@
             else if (ddlTech.val() == 'Bluetooth') { plBluetooth.css("display", ""); }
             else if (ddlTech.val() == 'RFID') { plRFID.css("display", ""); }
             else if (ddlTech.val() == 'FM Transmitter') { plFMTransmitter.css("display", ""); }
-            else if (ddlTech.val() == 'Below 1G SRD') { plBelow1GSRD.css("display", ""); }
-            else if (ddlTech.val() == 'Above 1G SRD') { plAbove1GSRD.css("display", ""); }
+            else if (ddlTech.val() == 'Below 1GHz SRD') { plBelow1GSRD.css("display", ""); }
+            else if (ddlTech.val() == 'Above 1GHz SRD') { plAbove1GSRD.css("display", ""); }
             else if (ddlTech.val() == 'Zigbee') { plZigbee.css("display", ""); }
             else if (ddlTech.val() == 'UWB') { plUWB.css("display", ""); }
             else if (ddlTech.val() == '2G GSM/GPRS/EDGE/EDGE Evolution') { pl2G.css("display", ""); }
@@ -103,8 +103,8 @@
                                             <asp:ListItem Text="Bluetooth" Value="Bluetooth"></asp:ListItem>
                                             <asp:ListItem Text="RFID" Value="RFID"></asp:ListItem>
                                             <asp:ListItem Text="FM Transmitter" Value="FM Transmitter"></asp:ListItem>
-                                            <asp:ListItem Text="Below 1G SRD" Value="Below 1G SRD"></asp:ListItem>
-                                            <asp:ListItem Text="Above 1G SRD" Value="Above 1G SRD"></asp:ListItem>
+                                            <asp:ListItem Text="Below 1GHz SRD" Value="Below 1GHz SRD"></asp:ListItem>
+                                            <asp:ListItem Text="Above 1GHz SRD" Value="Above 1GHz SRD"></asp:ListItem>
                                             <asp:ListItem Text="Zigbee" Value="Zigbee"></asp:ListItem>
                                             <asp:ListItem Text="UWB" Value="UWB"></asp:ListItem>
                                             <asp:ListItem Text="2G GSM/GPRS/EDGE/EDGE Evolution" Value="2G GSM/GPRS/EDGE/EDGE Evolution"></asp:ListItem>
@@ -127,12 +127,21 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Frequency</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblWiFiF1" runat="server" Text="2400-2483.5 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblWiFiF2" runat="server" Text="5150-5250 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblWiFiF3" runat="server" Text="5250-5350 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblWiFiF4" runat="server" Text="5470-5725 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblWiFiF5" runat="server" Text="5725-5825 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblWiFiF6" runat="server" Text="5825-5850 MHZ"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblWiFiF1" runat="server" Text="2400-2483.5 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblWiFiF2" runat="server" Text="5150-5250 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblWiFiF3" runat="server" Text="5250-5350 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblWiFiF4" runat="server" Text="5470-5725 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblWiFiF5" runat="server" Text="5725-5825 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblWiFiF6" runat="server" Text="5825-5850 MHz"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName">Allowed/Not Allowed</td>
+                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA1" runat="server" /></td>
+                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA2" runat="server" /></td>
+                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA3" runat="server" /></td>
+                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA4" runat="server" /></td>
+                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA5" runat="server" /></td>
+                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA6" runat="server" /></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Power limit</td>
@@ -207,12 +216,16 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowName">HT20/HT40</td>
+                                        <td class="tdRowName">HT20/HT40/HT80/HT160</td>
                                         <td class="tdRowValue1">
                                             <table border="0" cellpadding="0" cellspacing="0" align="center">
                                                 <tr>
-                                                    <td><asp:CheckBox ID="cbWiFiHT201" runat="server" Text="HT20" /></td>
-                                                    <td><asp:CheckBox ID="cbWiFiHT401" runat="server" Text="HT40" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiHT201" runat="server" Text="HT20" Visible="false" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiHT401" runat="server" Text="HT40" Visible="false" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><asp:CheckBox ID="cbWiFiHT801" runat="server" Text="HT80" Visible="false" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiHT1601" runat="server" Text="HT160" Visible="false" /></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2"><asp:TextBox ID="tbWiFiHT1" runat="server" Width="120px" TextMode="MultiLine" Rows="2"></asp:TextBox></td>
@@ -226,6 +239,10 @@
                                                     <td><asp:CheckBox ID="cbWiFiHT402" runat="server" Text="HT40" /></td>
                                                 </tr>
                                                 <tr>
+                                                    <td><asp:CheckBox ID="cbWiFiHT802" runat="server" Text="HT80" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiHT1602" runat="server" Text="HT160" /></td>
+                                                </tr>
+                                                <tr>
                                                     <td colspan="2"><asp:TextBox ID="tbWiFiHT2" runat="server" Width="120px" TextMode="MultiLine" Rows="2"></asp:TextBox></td>
                                                 </tr>
                                             </table>
@@ -235,6 +252,10 @@
                                                 <tr>
                                                     <td><asp:CheckBox ID="cbWiFiHT203" runat="server" Text="HT20" /></td>
                                                     <td><asp:CheckBox ID="cbWiFiHT403" runat="server" Text="HT40" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><asp:CheckBox ID="cbWiFiHT803" runat="server" Text="HT80" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiHT1603" runat="server" Text="HT160" /></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2"><asp:TextBox ID="tbWiFiHT3" runat="server" Width="120px" TextMode="MultiLine" Rows="2"></asp:TextBox></td>
@@ -248,6 +269,10 @@
                                                     <td><asp:CheckBox ID="cbWiFiHT404" runat="server" Text="HT40" /></td>
                                                 </tr>
                                                 <tr>
+                                                    <td><asp:CheckBox ID="cbWiFiHT804" runat="server" Text="HT80" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiHT1604" runat="server" Text="HT160" /></td>
+                                                </tr>
+                                                <tr>
                                                     <td colspan="2"><asp:TextBox ID="tbWiFiHT4" runat="server" Width="120px" TextMode="MultiLine" Rows="2"></asp:TextBox></td>
                                                 </tr>
                                             </table>
@@ -257,6 +282,10 @@
                                                 <tr>
                                                     <td><asp:CheckBox ID="cbWiFiHT205" runat="server" Text="HT20" /></td>
                                                     <td><asp:CheckBox ID="cbWiFiHT405" runat="server" Text="HT40" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><asp:CheckBox ID="cbWiFiHT805" runat="server" Text="HT80" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiHT1605" runat="server" Text="HT160" /></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2"><asp:TextBox ID="tbWiFiHT5" runat="server" Width="120px" TextMode="MultiLine" Rows="2"></asp:TextBox></td>
@@ -270,6 +299,10 @@
                                                     <td><asp:CheckBox ID="cbWiFiHT406" runat="server" Text="HT40" /></td>
                                                 </tr>
                                                 <tr>
+                                                    <td><asp:CheckBox ID="cbWiFiHT806" runat="server" Text="HT80" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiHT1606" runat="server" Text="HT160" /></td>
+                                                </tr>
+                                                <tr>
                                                     <td colspan="2"><asp:TextBox ID="tbWiFiHT6" runat="server" Width="120px" TextMode="MultiLine" Rows="2"></asp:TextBox></td>
                                                 </tr>
                                             </table>
@@ -280,8 +313,8 @@
                                         <td class="tdRowValue1">
                                             <table border="0" cellpadding="0" cellspacing="0" align="center">
                                                 <tr>
-                                                    <td><asp:CheckBox ID="cbWiFiDFS1" runat="server" Text="DFS" /></td>
-                                                    <td><asp:CheckBox ID="cbWiFiTPC1" runat="server" Text="TPC" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiDFS1" runat="server" Text="DFS" Visible="false" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiTPC1" runat="server" Text="TPC" Visible="false" /></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2"><asp:TextBox ID="tbWiFiDFS1" runat="server" Width="120px" TextMode="MultiLine" Rows="2"></asp:TextBox></td>
@@ -345,15 +378,6 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowName">Allowed/Not Allowed</td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA1" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA2" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA3" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA4" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA5" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA6" runat="server" /></td>
-                                    </tr>
-                                    <tr>
                                         <td class="tdRowName" valign="top">Remark</td>
                                         <td colspan="6" class="tdRowValue">
                                             <asp:TextBox ID="tbWiFiRemark" runat="server" TextMode="MultiLine" Rows="2" Width="96%"></asp:TextBox>
@@ -384,7 +408,7 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Frequency</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblBluetoothF1" runat="server" Text="2400-2483.5 MHZ"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblBluetoothF1" runat="server" Text="2400-2483.5 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Power limit</td>
@@ -426,13 +450,13 @@
                                     <tr>
                                         <td class="tdRowName">Frequency</td>
                                         <td class="tdRowName1"><asp:Label ID="lblRFIDF1" runat="server" Text="120-150 KHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF2" runat="server" Text="13.56 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF3" runat="server" Text="433 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF4" runat="server" Text="868-870 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF5" runat="server" Text="902-928 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF6" runat="server" Text="2400-2500 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF7" runat="server" Text="2450-5800 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF8" runat="server" Text="5725-5875 MHZ"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF2" runat="server" Text="13.56 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF3" runat="server" Text="433 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF4" runat="server" Text="868-870 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF5" runat="server" Text="902-928 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF6" runat="server" Text="2400-2500 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF7" runat="server" Text="2450-5800 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblRFIDF8" runat="server" Text="5725-5875 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Power limit</td>
@@ -490,7 +514,7 @@
                                         <td class="tdRowName1">
                                             <table border="0" align="center" >
                                                 <tr>
-                                                    <td><asp:Label ID="lblFMTransmitterF1" runat="server" Text="88-108 MHZ"></asp:Label></td>
+                                                    <td><asp:Label ID="lblFMTransmitterF1" runat="server" Text="88-108 MHz"></asp:Label></td>
                                                     <td><asp:TextBox ID="tbFMTransmitterFDesc1" runat="server" Width="200px"></asp:TextBox></td>
                                                 </tr>
                                             </table>
@@ -527,18 +551,18 @@
                     </tr>
                     <tr>
                         <td>
-                            <%-- Below 1G SRD--%>
+                            <%-- Below 1GHz SRD--%>
                             <asp:Panel ID="plBelow1GSRD" runat="server" ScrollBars="Auto">
                                 <table cellpadding="1" cellspacing="1" border="0" class="tbEditItem" align="left">
                                     <tr>
-                                        <td colspan="5" class="tdHeader">Below 1G SRD Edit</td>
+                                        <td colspan="5" class="tdHeader">Below 1GHz SRD Edit</td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Frequency</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblBelow1GSRDF1" runat="server" Text="13.56 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblBelow1GSRDF2" runat="server" Text="88-108 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblBelow1GSRDF3" runat="server" Text="300/400/800 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblBelow1GSRDF4" runat="server" Text="900 MHZ"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblBelow1GSRDF1" runat="server" Text="13.56 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblBelow1GSRDF2" runat="server" Text="88-108 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblBelow1GSRDF3" runat="server" Text="300/400/800 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblBelow1GSRDF4" runat="server" Text="900 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Power limit</td>
@@ -581,14 +605,14 @@
                             <asp:Panel ID="plAbove1GSRD" runat="server" ScrollBars="Auto">
                                 <table cellpadding="1" cellspacing="1" border="0" class="tbEditItem" align="left">
                                     <tr>
-                                        <td colspan="3" class="tdHeader">Above 1G SRD Edit</td>
+                                        <td colspan="3" class="tdHeader">Above 1GHz SRD Edit</td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Frequency</td>
                                         <td class="tdRowName1">
                                             <table border="0" align="center">
                                                 <tr>
-                                                    <td><asp:Label ID="lblAbove1GSRDF1" runat="server" Text="2.4 GHZ"></asp:Label></td>
+                                                    <td><asp:Label ID="lblAbove1GSRDF1" runat="server" Text="2.4 GHz"></asp:Label></td>
                                                     <td><asp:TextBox ID="tbAbove1GSRDFDesc1" runat="server" Width="200px"></asp:TextBox></td>
                                                 </tr>
                                             </table>
@@ -596,7 +620,7 @@
                                         <td class="tdRowName1">
                                             <table border="0" align="center">
                                                 <tr>
-                                                    <td><asp:Label ID="lblAbove1GSRDF2" runat="server" Text="5 GHZ"></asp:Label></td>
+                                                    <td><asp:Label ID="lblAbove1GSRDF2" runat="server" Text="5 GHz"></asp:Label></td>
                                                     <td><asp:TextBox ID="tbAbove1GSRDFDesc2" runat="server" Width="200px"></asp:TextBox></td>
                                                 </tr>
                                             </table>
@@ -643,9 +667,9 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Frequency</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblZigbeeF1" runat="server" Text="2400-2483.5 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblZigbeeF2" runat="server" Text="898 MHZ"></asp:Label></td>
-                                        <td class="tdRowName1"><asp:Label ID="lblZigbeeF3" runat="server" Text="915 MHZ"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblZigbeeF1" runat="server" Text="2400-2483.5 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblZigbeeF2" runat="server" Text="898 MHz"></asp:Label></td>
+                                        <td class="tdRowName1"><asp:Label ID="lblZigbeeF3" runat="server" Text="915 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Power limit</td>
@@ -690,13 +714,13 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Frequency</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF1" runat="server" Text="3168-3696 MHZ"></asp:Label><br />(Band#1)</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF2" runat="server" Text="3696-4224 MHZ"></asp:Label><br />(Band#2)</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF3" runat="server" Text="4224-4752 MHZ"></asp:Label><br />(Band#3)</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF4" runat="server" Text="4752-5280 MHZ"></asp:Label><br />(Band#4)</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF5" runat="server" Text="5280-5808 MHZ"></asp:Label><br />(Band#5)</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF6" runat="server" Text="5808-6336 MHZ"></asp:Label><br />(Band#6)</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF7" runat="server" Text="6336-6864 MHZ"></asp:Label><br />(Band#7)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF1" runat="server" Text="3168-3696 MHz"></asp:Label><br />(Band#1)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF2" runat="server" Text="3696-4224 MHz"></asp:Label><br />(Band#2)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF3" runat="server" Text="4224-4752 MHz"></asp:Label><br />(Band#3)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF4" runat="server" Text="4752-5280 MHz"></asp:Label><br />(Band#4)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF5" runat="server" Text="5280-5808 MHz"></asp:Label><br />(Band#5)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF6" runat="server" Text="5808-6336 MHz"></asp:Label><br />(Band#6)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF7" runat="server" Text="6336-6864 MHz"></asp:Label><br />(Band#7)</td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Power limit</td>
@@ -723,13 +747,13 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Frequency</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF8" runat="server" Text="6864-7392 MHZ"></asp:Label><br />(Band#8)</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF9" runat="server" Text="7392-7920 MHZ"></asp:Label><br />(Band#9)</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF10" runat="server" Text="7920-8448 MHZ"></asp:Label><br />(Band#10)</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF11" runat="server" Text="8448-8976 MHZ"></asp:Label><br />(Band#11)</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF12" runat="server" Text="8976-9504 MHZ"></asp:Label><br />(Band#12)</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF13" runat="server" Text="9504-10032 MHZ"></asp:Label><br />(Band#13)</td>
-                                        <td class="tdRowName1"><asp:Label ID="lblUWBF14" runat="server" Text="10032-10560 MHZ"></asp:Label><br />(Band#14)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF8" runat="server" Text="6864-7392 MHz"></asp:Label><br />(Band#8)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF9" runat="server" Text="7392-7920 MHz"></asp:Label><br />(Band#9)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF10" runat="server" Text="7920-8448 MHz"></asp:Label><br />(Band#10)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF11" runat="server" Text="8448-8976 MHz"></asp:Label><br />(Band#11)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF12" runat="server" Text="8976-9504 MHz"></asp:Label><br />(Band#12)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF13" runat="server" Text="9504-10032 MHz"></asp:Label><br />(Band#13)</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblUWBF14" runat="server" Text="10032-10560 MHz"></asp:Label><br />(Band#14)</td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Power limit</td>
@@ -784,13 +808,13 @@
                                         <td colspan="4" class="tdHeader1">
                                             <table cellpadding="0" cellspacing="0" border="0" align="left">
                                                 <tr>
-                                                    <td>North America：850-1900 MHZ</td>
+                                                    <td>North America：850-1900 MHz</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Europe：900-1800 MHZ</td>
+                                                    <td>Europe：900-1800 MHz</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>power Limit：850,900：33dBM；900,1800：30dBM</td>
+                                                    <td>Power Limit：850,900：33dBm；900,1800：30dBm</td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -804,86 +828,86 @@
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA1" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF1" runat="server" Text="T-GSM-380"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL1" runat="server" Text="380.2-389.8"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL1" runat="server" Text="390.2-399.8"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL1" runat="server" Text="380.2-389.8 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL1" runat="server" Text="390.2-399.8 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA2" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF2" runat="server" Text="T-GSM-410"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL2" runat="server" Text="410.2-419.8"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL2" runat="server" Text="420.2-429.8"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL2" runat="server" Text="410.2-419.8 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL2" runat="server" Text="420.2-429.8 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA3" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF3" runat="server" Text="GSM-450"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL3" runat="server" Text="450.4-457.6"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL3" runat="server" Text="460.4-467.6"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL3" runat="server" Text="450.4-457.6 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL3" runat="server" Text="460.4-467.6 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA4" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF4" runat="server" Text="GSM-480"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL4" runat="server" Text="479.0-486.0"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL4" runat="server" Text="489.0-496.0"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL4" runat="server" Text="479.0-486.0 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL4" runat="server" Text="489.0-496.0 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA5" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF5" runat="server" Text="GSM-710"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL5" runat="server" Text="698.0-716.0"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL5" runat="server" Text="728.0-746.0"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL5" runat="server" Text="698.0-716.0 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL5" runat="server" Text="728.0-746.0 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA6" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF6" runat="server" Text="GSM-750"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL6" runat="server" Text="747.0-762.0"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL6" runat="server" Text="777.0-792.0"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL6" runat="server" Text="747.0-762.0 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL6" runat="server" Text="777.0-792.0 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA7" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF7" runat="server" Text="T-GSM-810"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL7" runat="server" Text="806.0-821.0"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL7" runat="server" Text="851.0-866.0"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL7" runat="server" Text="806.0-821.0 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL7" runat="server" Text="851.0-866.0 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA8" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF8" runat="server" Text="GSM-850"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL8" runat="server" Text="824.0-849.0"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL8" runat="server" Text="869.0-894.0"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL8" runat="server" Text="824.0-849.0 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL8" runat="server" Text="869.0-894.0 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA9" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF9" runat="server" Text="P-GSM-900"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL9" runat="server" Text="890.2-914.8"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL9" runat="server" Text="935.2-959.8"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL9" runat="server" Text="890.2-914.8 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL9" runat="server" Text="935.2-959.8 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA10" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF10" runat="server" Text="E-GSM-900"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL10" runat="server" Text="880.0-914.8"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL10" runat="server" Text="925.2-959.8"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL10" runat="server" Text="880.0-914.8 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL10" runat="server" Text="925.2-959.8 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA11" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF11" runat="server" Text="R-GSM-900"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL11" runat="server" Text="876.0-914.8"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL11" runat="server" Text="921.0-959.8"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL11" runat="server" Text="876.0-914.8 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL11" runat="server" Text="921.0-959.8 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA12" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF12" runat="server" Text="T-GSM-900"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL12" runat="server" Text="870.4-876.0"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL12" runat="server" Text="915.4-921.0"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL12" runat="server" Text="870.4-876.0 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL12" runat="server" Text="915.4-921.0 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA13" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF13" runat="server" Text="DCS-1800"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL13" runat="server" Text="1710.2-1784.8"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL13" runat="server" Text="1805.2-1879.8"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL13" runat="server" Text="1710.2-1784.8 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL13" runat="server" Text="1805.2-1879.8 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb2GANA14" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GF14" runat="server" Text="PCS-1900"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL14" runat="server" Text="1850.0-1910.0"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL14" runat="server" Text="1930.0-1990.0"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GUL14" runat="server" Text="1850.0-1910.0 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl2GDL14" runat="server" Text="1930.0-1990.0 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td colspan="4" align="center" class="tdFooter">
@@ -909,7 +933,7 @@
                                         <td colspan="4" class="tdHeader">3G W-CDMA/HSPA(HSDPA and HSUPA)/HSPA+ Edit</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4" class="tdHeader1">power Limit：24dBM,class 3</td>
+                                        <td colspan="4" class="tdHeader1">Power Limit：24dBm,class 3</td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName1"></td>
@@ -920,104 +944,104 @@
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA1" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF1" runat="server" Text="Band1"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL1" runat="server" Text="1920-1980 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL1" runat="server" Text="2110-2170 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL1" runat="server" Text="1920-1980 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL1" runat="server" Text="2110-2170 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA2" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF2" runat="server" Text="Band2"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL2" runat="server" Text="1850-1910 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL2" runat="server" Text="1930-1990 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL2" runat="server" Text="1850-1910 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL2" runat="server" Text="1930-1990 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA3" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF3" runat="server" Text="Band3"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL3" runat="server" Text="1710-1785 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL3" runat="server" Text="1805-1880 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL3" runat="server" Text="1710-1785 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL3" runat="server" Text="1805-1880 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA4" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF4" runat="server" Text="Band4"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL4" runat="server" Text="1710-1755 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL4" runat="server" Text="2110-2155 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL4" runat="server" Text="1710-1755 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL4" runat="server" Text="2110-2155 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA5" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF5" runat="server" Text="Band5"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL5" runat="server" Text="824-849 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL5" runat="server" Text="869-894 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL5" runat="server" Text="824-849 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL5" runat="server" Text="869-894 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA6" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF6" runat="server" Text="Band6"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL6" runat="server" Text="830-840 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL6" runat="server" Text="875-885 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL6" runat="server" Text="830-840 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL6" runat="server" Text="875-885 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA7" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF7" runat="server" Text="Band7"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL7" runat="server" Text="2500-2570 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL7" runat="server" Text="2620-2690 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL7" runat="server" Text="2500-2570 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL7" runat="server" Text="2620-2690 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA8" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF8" runat="server" Text="Band8"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL8" runat="server" Text="880-915 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL8" runat="server" Text="925-960 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL8" runat="server" Text="880-915 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL8" runat="server" Text="925-960 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA9" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF9" runat="server" Text="Band9"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL9" runat="server" Text="1749.9-1784.9 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL9" runat="server" Text="1844.9-1879.9 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL9" runat="server" Text="1749.9-1784.9 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL9" runat="server" Text="1844.9-1879.9 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA10" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF10" runat="server" Text="Band10"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL10" runat="server" Text="1710-1770 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL10" runat="server" Text="2110-2170 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL10" runat="server" Text="1710-1770 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL10" runat="server" Text="2110-2170 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA11" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF11" runat="server" Text="Band11"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL11" runat="server" Text="1427.9-1452.9 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL11" runat="server" Text="1475.9-1500.9 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL11" runat="server" Text="1427.9-1452.9 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL11" runat="server" Text="1475.9-1500.9 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA12" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF12" runat="server" Text="Band12"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL12" runat="server" Text="698-716 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL12" runat="server" Text="728-746 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL12" runat="server" Text="698-716 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL12" runat="server" Text="728-746 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA13" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF13" runat="server" Text="Band13"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL13" runat="server" Text="777-787 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL13" runat="server" Text="746-756 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL13" runat="server" Text="777-787 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL13" runat="server" Text="746-756 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA14" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF14" runat="server" Text="Band14"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL14" runat="server" Text="788-798 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL14" runat="server" Text="758-768 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL14" runat="server" Text="788-798 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL14" runat="server" Text="758-768 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA15" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF15" runat="server" Text="Band19"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL15" runat="server" Text="830-845 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL15" runat="server" Text="875-890 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL15" runat="server" Text="830-845 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL15" runat="server" Text="875-890 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA16" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF16" runat="server" Text="Band20"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL16" runat="server" Text="832-862 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL16" runat="server" Text="791-821 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL16" runat="server" Text="832-862 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL16" runat="server" Text="791-821 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb3GANA17" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GF17" runat="server" Text="Band21"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL17" runat="server" Text="1447.9-1462.9 MHZ"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL17" runat="server" Text="1495.9-1510.9 MHZ"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GUL17" runat="server" Text="1447.9-1462.9 MHz"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl3GDL17" runat="server" Text="1495.9-1510.9 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td colspan="4" align="center" class="tdFooter">
@@ -1043,7 +1067,7 @@
                                         <td colspan="4" class="tdHeader">4G LTE Edit</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4" class="tdHeader1">power Limit：24dBM,class 3</td>
+                                        <td colspan="4" class="tdHeader1">Power Limit：24dBm,class 3</td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName1"></td>
@@ -1054,86 +1078,86 @@
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA1" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF1" runat="server" Text="Band17"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL1" runat="server" Text="704-716 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL1" runat="server" Text="734-746 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL1" runat="server" Text="704-716 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL1" runat="server" Text="734-746 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA2" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF2" runat="server" Text="Band18"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL2" runat="server" Text="815-830 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL2" runat="server" Text="860-875 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL2" runat="server" Text="815-830 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL2" runat="server" Text="860-875 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA3" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF3" runat="server" Text="Band24"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL3" runat="server" Text="1626.5-1660.5 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL3" runat="server" Text="1525-1559 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL3" runat="server" Text="1626.5-1660.5 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL3" runat="server" Text="1525-1559 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA4" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF4" runat="server" Text="Band33"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL4" runat="server" Text="1900-1920 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL4" runat="server" Text="1900-1920 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL4" runat="server" Text="1900-1920 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL4" runat="server" Text="1900-1920 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA5" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF5" runat="server" Text="Band34"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL5" runat="server" Text="2010-2025 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL5" runat="server" Text="2010-2025 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL5" runat="server" Text="2010-2025 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL5" runat="server" Text="2010-2025 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA6" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF6" runat="server" Text="Band35"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL6" runat="server" Text="1850-1910 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL6" runat="server" Text="1850-1910 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL6" runat="server" Text="1850-1910 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL6" runat="server" Text="1850-1910 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA7" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF7" runat="server" Text="Band36"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL7" runat="server" Text="1930-1990 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL7" runat="server" Text="1930-1990 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL7" runat="server" Text="1930-1990 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL7" runat="server" Text="1930-1990 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA8" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF8" runat="server" Text="Band37"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL8" runat="server" Text="1910-1930 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL8" runat="server" Text="1910-1930 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL8" runat="server" Text="1910-1930 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL8" runat="server" Text="1910-1930 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA9" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF9" runat="server" Text="Band38"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL9" runat="server" Text="2570-2620 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL9" runat="server" Text="2570-2620 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL9" runat="server" Text="2570-2620 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL9" runat="server" Text="2570-2620 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA10" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF10" runat="server" Text="Band39"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL10" runat="server" Text="1880-1920 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL10" runat="server" Text="1880-1920 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL10" runat="server" Text="1880-1920 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL10" runat="server" Text="1880-1920 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA11" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF11" runat="server" Text="Band40"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL11" runat="server" Text="2300-2400 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL11" runat="server" Text="2300-2400 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL11" runat="server" Text="2300-2400 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL11" runat="server" Text="2300-2400 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA12" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF12" runat="server" Text="Band41"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL12" runat="server" Text="2496-2690 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL12" runat="server" Text="2496-2690 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL12" runat="server" Text="2496-2690 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL12" runat="server" Text="2496-2690 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA13" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF13" runat="server" Text="Band42"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL13" runat="server" Text="3400-3600 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL13" runat="server" Text="3400-3600 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL13" runat="server" Text="3400-3600 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL13" runat="server" Text="3400-3600 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cb4GANA14" runat="server" /></td>
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GF14" runat="server" Text="Band43"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL14" runat="server" Text="3600-3800 MHZ(FDD)"></asp:Label></td>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL14" runat="server" Text="3600-3800 MHZ(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GUL14" runat="server" Text="3600-3800 MHz(FDD)"></asp:Label></td>
+                                        <td class="tdRowValue1"><asp:Label ID="lbl4GDL14" runat="server" Text="3600-3800 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td colspan="4" align="center" class="tdFooter">
@@ -1159,82 +1183,82 @@
                                         <td colspan="4" class="tdHeader">cdmaOne/CDMA2000 Edit</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4" class="tdHeader1">cdmaOne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; power Limit：24dBM</td>
+                                        <td colspan="4" class="tdHeader1">cdmaOne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Power Limit：24dBm</td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMAOneANA1" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF1" runat="server" Text="824-849 MHZ(MS Tx：US,Korea)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF1" runat="server" Text="824-849 MHz(MS Tx：US,Korea)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMAOneANA2" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF2" runat="server" Text="869-894 MHZ(BS Tx：US,Korea)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF2" runat="server" Text="869-894 MHz(BS Tx：US,Korea)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMAOneANA3" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF3" runat="server" Text="887-925 MHZ(MS Tx：Japan)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF3" runat="server" Text="887-925 MHz(MS Tx：Japan)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMAOneANA4" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF4" runat="server" Text="832-870 MHZ(BS Tx：Japan)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF4" runat="server" Text="832-870 MHz(BS Tx：Japan)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMAOneANA5" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF5" runat="server" Text="1850-1910 MHZ(MS Tx：US)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF5" runat="server" Text="1850-1910 MHz(MS Tx：US)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMAOneANA6" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF6" runat="server" Text="1930-1990 MHZ(BS Tx：US)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF6" runat="server" Text="1930-1990 MHz(BS Tx：US)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMAOneANA7" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF7" runat="server" Text="1750-1780 MHZ(MS Tx：Korea)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF7" runat="server" Text="1750-1780 MHz(MS Tx：Korea)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMAOneANA8" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF8" runat="server" Text="1840-1870 MHZ(BS Tx：Korea)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMAOneF8" runat="server" Text="1840-1870 MHz(BS Tx：Korea)"></asp:Label></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4" class="tdHeader1">CDMA2000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; power Limit：24dBM</td>
+                                        <td colspan="4" class="tdHeader1">CDMA2000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Power Limit：24dBm</td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMA2000ANA1" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F1" runat="server" Text="410-430 MHZ(MS Tx)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F1" runat="server" Text="410-430 MHz(MS Tx)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMA2000ANA2" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F2" runat="server" Text="450-470 MHZ(BS Tx)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F2" runat="server" Text="450-470 MHz(BS Tx)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMA2000ANA3" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F3" runat="server" Text="824-849 MHZ(MS Tx)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F3" runat="server" Text="824-849 MHz(MS Tx)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMA2000ANA4" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F4" runat="server" Text="869-894 MHZ(BS Tx)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F4" runat="server" Text="869-894 MHz(BS Tx)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMA2000ANA5" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F5" runat="server" Text="1710-1755 MHZ(MS Tx)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F5" runat="server" Text="1710-1755 MHz(MS Tx)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMA2000ANA6" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F6" runat="server" Text="2110-2155 MHZ(BS Tx)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F6" runat="server" Text="2110-2155 MHz(BS Tx)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMA2000ANA7" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F7" runat="server" Text="1850-1910 MHZ(MS Tx)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F7" runat="server" Text="1850-1910 MHz(MS Tx)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMA2000ANA8" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F8" runat="server" Text="1930-1990 MHZ(BS Tx)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F8" runat="server" Text="1930-1990 MHz(BS Tx)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMA2000ANA9" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F9" runat="server" Text="1920-1980 MHZ(MS Tx)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F9" runat="server" Text="1920-1980 MHz(MS Tx)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowValue1"><asp:CheckBox ID="cbCDMA2000ANA10" runat="server" /></td>
-                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F10" runat="server" Text="2110-2170 MHZ(BS Tx)"></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblCDMA2000F10" runat="server" Text="2110-2170 MHz(BS Tx)"></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td colspan="4" align="center" class="tdFooter">

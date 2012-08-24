@@ -55,12 +55,12 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
         //FM Transmitter
         plTech = (Panel)cph.FindControl("plFMTransmitter");
         GetTechFrequency(cmd, plTech, "FM Transmitter");
-        //Below 1G SRD
+        //Below 1GHz SRD
         plTech = (Panel)cph.FindControl("plBelow1GSRD");
-        GetTechFrequency(cmd, plTech, "Below 1G SRD");
-        //Above 1G SRD
+        GetTechFrequency(cmd, plTech, "Below 1GHz SRD");
+        //Above 1GHz SRD
         plTech = (Panel)cph.FindControl("plAbove1GSRD");
-        GetTechFrequency(cmd, plTech, "Above 1G SRD");
+        GetTechFrequency(cmd, plTech, "Above 1GHz SRD");
         //Zigbee
         plTech = (Panel)cph.FindControl("plZigbee");
         GetTechFrequency(cmd, plTech, "Zigbee");
@@ -97,6 +97,8 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
             CheckBox cbODA;
             CheckBox cbHT20;
             CheckBox cbHT40;
+            CheckBox cbHT80;
+            CheckBox cbHT160;
             TextBox tbHT;
             CheckBox cbDFS;
             CheckBox cbTPC;
@@ -116,6 +118,10 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
                 if (cbHT20 != null) { cbHT20.Checked = Convert.ToBoolean(dtTech.Rows[i - 1]["HT20"]); }
                 cbHT40 = (CheckBox)plTech.FindControl("cb" + strTechName + "HT40" + i.ToString());
                 if (cbHT40 != null) { cbHT40.Checked = Convert.ToBoolean(dtTech.Rows[i - 1]["HT40"]); }
+                cbHT80 = (CheckBox)plTech.FindControl("cb" + strTechName + "HT80" + i.ToString());
+                if (cbHT80 != null) { cbHT80.Checked = Convert.ToBoolean(dtTech.Rows[i - 1]["HT80"]); }
+                cbHT160 = (CheckBox)plTech.FindControl("cb" + strTechName + "HT160" + i.ToString());
+                if (cbHT160 != null) { cbHT160.Checked = Convert.ToBoolean(dtTech.Rows[i - 1]["HT160"]); }
                 tbHT = (TextBox)plTech.FindControl("tb" + strTechName + "HT" + i.ToString());
                 if (tbHT != null) { tbHT.Text = dtTech.Rows[i - 1]["HTDesc"].ToString(); }
                 cbDFS = (CheckBox)plTech.FindControl("cb" + strTechName + "DFS" + i.ToString());
@@ -167,6 +173,8 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
         cmd.Parameters.Add("@OutdoorAllowed", SqlDbType.Bit);
         cmd.Parameters.Add("@HT20", SqlDbType.Bit);
         cmd.Parameters.Add("@HT40", SqlDbType.Bit);
+        cmd.Parameters.Add("@HT80", SqlDbType.Bit);
+        cmd.Parameters.Add("@HT160", SqlDbType.Bit);
         cmd.Parameters.Add("@HTDesc", SqlDbType.NVarChar);
         cmd.Parameters.Add("@DFS", SqlDbType.Bit);
         cmd.Parameters.Add("@TPC", SqlDbType.Bit);
@@ -201,13 +209,13 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
             AddTechFrequency(cmd, plTech, "FMTransmitter", 1);
             mbMsgFMTransmitter.Show("Successfully saved!");
         }
-        else if (ddlTech.SelectedValue == "Below 1G SRD")
+        else if (ddlTech.SelectedValue == "Below 1GHz SRD")
         {
             plTech = (Panel)cph.FindControl("plBelow1GSRD");
             AddTechFrequency(cmd, plTech, "Below1GSRD", 4);
             mbMsgBelow1GSRD.Show("Successfully saved!");
         }
-        else if (ddlTech.SelectedValue == "Above 1G SRD")
+        else if (ddlTech.SelectedValue == "Above 1GHz SRD")
         {
             plTech = (Panel)cph.FindControl("plAbove1GSRD");
             AddTechFrequency(cmd, plTech, "Above1GSRD", 2);
@@ -262,6 +270,8 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
         CheckBox cbWiFiODA;
         CheckBox cbWiFiHT20;
         CheckBox cbWiFiHT40;
+        CheckBox cbWiFiHT80;
+        CheckBox cbWiFiHT160;
         TextBox tbWiFiHT;
         CheckBox cbWiFiDFS;
         CheckBox cbWiFiTPC;
@@ -275,6 +285,8 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
             cbWiFiODA = (CheckBox)plTech.FindControl("cbWiFiODA" + i.ToString());
             cbWiFiHT20 = (CheckBox)plTech.FindControl("cbWiFiHT20" + i.ToString());
             cbWiFiHT40 = (CheckBox)plTech.FindControl("cbWiFiHT40" + i.ToString());
+            cbWiFiHT80 = (CheckBox)plTech.FindControl("cbWiFiHT80" + i.ToString());
+            cbWiFiHT160 = (CheckBox)plTech.FindControl("cbWiFiHT160" + i.ToString());
             tbWiFiHT = (TextBox)plTech.FindControl("tbWiFiHT" + i.ToString());
             cbWiFiDFS = (CheckBox)plTech.FindControl("cbWiFiDFS" + i.ToString());
             cbWiFiTPC = (CheckBox)plTech.FindControl("cbWiFiTPC" + i.ToString());
@@ -288,6 +300,8 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
             cmd.Parameters["@OutdoorAllowed"].Value = cbWiFiODA.Checked;
             cmd.Parameters["@HT20"].Value = cbWiFiHT20.Checked;
             cmd.Parameters["@HT40"].Value = cbWiFiHT40.Checked;
+            cmd.Parameters["@HT80"].Value = cbWiFiHT80.Checked;
+            cmd.Parameters["@HT160"].Value = cbWiFiHT160.Checked;
             cmd.Parameters["@HTDesc"].Value = tbWiFiHT.Text.Trim();
             cmd.Parameters["@DFS"].Value = cbWiFiDFS.Checked;
             cmd.Parameters["@TPC"].Value = cbWiFiTPC.Checked;
@@ -315,6 +329,8 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
         cmd.Parameters["@OutdoorAllowed"].Value = DBNull.Value;
         cmd.Parameters["@HT20"].Value = DBNull.Value;
         cmd.Parameters["@HT40"].Value = DBNull.Value;
+        cmd.Parameters["@HT80"].Value = DBNull.Value;
+        cmd.Parameters["@HT160"].Value = DBNull.Value;
         cmd.Parameters["@HTDesc"].Value = DBNull.Value;
         cmd.Parameters["@DFS"].Value = DBNull.Value;
         cmd.Parameters["@TPC"].Value = DBNull.Value;
