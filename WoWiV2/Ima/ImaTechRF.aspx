@@ -220,12 +220,12 @@
                                         <td class="tdRowValue1">
                                             <table border="0" cellpadding="0" cellspacing="0" align="center">
                                                 <tr>
-                                                    <td><asp:CheckBox ID="cbWiFiHT201" runat="server" Text="HT20" Visible="false" /></td>
-                                                    <td><asp:CheckBox ID="cbWiFiHT401" runat="server" Text="HT40" Visible="false" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiHT201" runat="server" Text="HT20" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiHT401" runat="server" Text="HT40" /></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><asp:CheckBox ID="cbWiFiHT801" runat="server" Text="HT80" Visible="false" /></td>
-                                                    <td><asp:CheckBox ID="cbWiFiHT1601" runat="server" Text="HT160" Visible="false" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiHT801" runat="server" Text="HT80" /></td>
+                                                    <td><asp:CheckBox ID="cbWiFiHT1601" runat="server" Text="HT160" /></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2"><asp:TextBox ID="tbWiFiHT1" runat="server" Width="120px" TextMode="MultiLine" Rows="2"></asp:TextBox></td>
