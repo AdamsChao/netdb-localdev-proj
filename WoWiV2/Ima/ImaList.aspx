@@ -106,7 +106,7 @@
                                                 </asp:SqlDataSource>
                                             </td>
                                         </tr>
-                                        <tr id="trTDetail" runat="server">
+                                        <tr id="trTDetail" runat="server" visible="false">
                                             <td></td>
                                             <td>
                                                 <table border="0" cellpadding="0" cellspacing="0">
