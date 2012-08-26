@@ -176,7 +176,7 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Test Report/Certification
+                            Test Report/Certification：
                         </td>
                         <td class="tdRowValue" align="left">
                             <table border="0" cellpadding="0" cellspacing="0">

@@ -106,15 +106,15 @@
                                                 </asp:SqlDataSource>
                                             </td>
                                         </tr>
-                                        <tr id="trDe" runat="server" visible="false">
+                                        <tr id="trTDetail" runat="server">
                                             <td></td>
                                             <td>
                                                 <table border="0" cellpadding="0" cellspacing="0">
                                                     <tr>
-                                                        <td><asp:HyperLink ID="hlDetailRF" runat="server" Target="_blank">View all RF datas</asp:HyperLink></td>
-                                                        <td style="padding-left:6px"><asp:HyperLink ID="hlDetailEMC" runat="server" Target="_blank">View all EMC datas</asp:HyperLink></td>
-                                                        <td style="padding-left:6px"><asp:HyperLink ID="hlDetailSafety" runat="server" Target="_blank">View all Safety datas</asp:HyperLink></td>
-                                                        <td style="padding-left:6px"><asp:HyperLink ID="hlDetailTelecom" runat="server" Target="_blank">View all Telecom datas</asp:HyperLink></td>
+                                                        <td><asp:HyperLink ID="hlDetailRF" runat="server" Target="_blank">1.View all RF datas</asp:HyperLink></td>
+                                                        <td style="padding-left:6px"><asp:HyperLink ID="hlDetailEMC" runat="server" Target="_blank">2.View all EMC datas</asp:HyperLink></td>
+                                                        <td style="padding-left:6px"><asp:HyperLink ID="hlDetailSafety" runat="server" Target="_blank">3.View all Safety datas</asp:HyperLink></td>
+                                                        <td style="padding-left:6px"><asp:HyperLink ID="hlDetailTelecom" runat="server" Target="_blank">4.View all Telecom datas</asp:HyperLink></td>
                                                     </tr>
                                                 </table>
                                             </td>

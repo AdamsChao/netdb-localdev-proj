@@ -73,6 +73,8 @@ public partial class Ima_ImaTechTelecom : System.Web.UI.Page
             CheckBox cbODA;
             CheckBox cbHT20;
             CheckBox cbHT40;
+            CheckBox cbHT80;
+            CheckBox cbHT160;
             TextBox tbHT;
             CheckBox cbDFS;
             CheckBox cbTPC;
@@ -92,6 +94,10 @@ public partial class Ima_ImaTechTelecom : System.Web.UI.Page
                 if (cbHT20 != null) { cbHT20.Checked = Convert.ToBoolean(dtTech.Rows[i - 1]["HT20"]); }
                 cbHT40 = (CheckBox)plTech.FindControl("cb" + strTechName + "HT40" + i.ToString());
                 if (cbHT40 != null) { cbHT40.Checked = Convert.ToBoolean(dtTech.Rows[i - 1]["HT40"]); }
+                cbHT80 = (CheckBox)plTech.FindControl("cb" + strTechName + "HT80" + i.ToString());
+                if (cbHT80 != null) { cbHT80.Checked = Convert.ToBoolean(dtTech.Rows[i - 1]["HT80"]); }
+                cbHT160 = (CheckBox)plTech.FindControl("cb" + strTechName + "HT160" + i.ToString());
+                if (cbHT160 != null) { cbHT160.Checked = Convert.ToBoolean(dtTech.Rows[i - 1]["HT160"]); }
                 tbHT = (TextBox)plTech.FindControl("tb" + strTechName + "HT" + i.ToString());
                 if (tbHT != null) { tbHT.Text = dtTech.Rows[i - 1]["HTDesc"].ToString(); }
                 cbDFS = (CheckBox)plTech.FindControl("cb" + strTechName + "DFS" + i.ToString());
@@ -137,6 +143,8 @@ public partial class Ima_ImaTechTelecom : System.Web.UI.Page
         cmd.Parameters.Add("@OutdoorAllowed", SqlDbType.Bit);
         cmd.Parameters.Add("@HT20", SqlDbType.Bit);
         cmd.Parameters.Add("@HT40", SqlDbType.Bit);
+        cmd.Parameters.Add("@HT80", SqlDbType.Bit);
+        cmd.Parameters.Add("@HT160", SqlDbType.Bit);
         cmd.Parameters.Add("@HTDesc", SqlDbType.NVarChar);
         cmd.Parameters.Add("@DFS", SqlDbType.Bit);
         cmd.Parameters.Add("@TPC", SqlDbType.Bit);
@@ -192,6 +200,8 @@ public partial class Ima_ImaTechTelecom : System.Web.UI.Page
         cmd.Parameters["@OutdoorAllowed"].Value = DBNull.Value;
         cmd.Parameters["@HT20"].Value = DBNull.Value;
         cmd.Parameters["@HT40"].Value = DBNull.Value;
+        cmd.Parameters["@HT80"].Value = DBNull.Value;
+        cmd.Parameters["@HT160"].Value = DBNull.Value;
         cmd.Parameters["@HTDesc"].Value = DBNull.Value;
         cmd.Parameters["@DFS"].Value = DBNull.Value;
         cmd.Parameters["@TPC"].Value = DBNull.Value;

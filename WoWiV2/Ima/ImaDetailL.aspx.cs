@@ -54,21 +54,37 @@ public partial class Ima_ImaDetailL : System.Web.UI.Page
         ddlLocalAgent.DataTextField = "Name";
         ddlLocalAgent.DataValueField = "LocalAgentID";
         ddlLocalAgent.DataBind();
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            ddlLocalAgent.Items.Insert(0, new ListItem("-Select-", "-1"));
+        } 
         //Authority
         ddlAuthority.DataSource = ds.Tables[1];
         ddlAuthority.DataTextField = "AbbreviatedAuthorityName";
         ddlAuthority.DataValueField = "GovernmentAuthorityID";
         ddlAuthority.DataBind();
+        if (ds.Tables[1].Rows.Count > 0)
+        {
+            ddlAuthority.Items.Insert(0, new ListItem("-Select-", "-1"));
+        }
         //Certification Body
         ddlCertification.DataSource = ds.Tables[2];
         ddlCertification.DataTextField = "Name";
         ddlCertification.DataValueField = "CertificationBodiesID";
         ddlCertification.DataBind();
+        if (ds.Tables[2].Rows.Count > 0)
+        {
+            ddlCertification.Items.Insert(0, new ListItem("-Select-", "-1"));
+        }
         //Accredited Test Lab
         ddlAccredited.DataSource = ds.Tables[3];
         ddlAccredited.DataTextField = "AccreditedLab";
         ddlAccredited.DataValueField = "AccreditedTestID";
         ddlAccredited.DataBind();
+        if (ds.Tables[3].Rows.Count > 0)
+        {
+            ddlAccredited.Items.Insert(0, new ListItem("-Select-", "-1"));
+        }
     }
 
     //取得General資料
@@ -89,13 +105,13 @@ public partial class Ima_ImaDetailL : System.Web.UI.Page
                 ddlTech.SelectedValue = dt.Rows[0]["wowi_tech_id"].ToString();
                 if (dt.Rows[0]["wowi_tech_id"].ToString().Length > 0) { lblTechName.Text = ddlTech.SelectedItem.Text; }
                 ddlLocalAgent.SelectedValue = dt.Rows[0]["LocalAgentID"].ToString();
-                if (dt.Rows[0]["LocalAgentID"].ToString() != "0") { lblLocalAgent.Text = ddlLocalAgent.SelectedItem.Text; }
+                if (dt.Rows[0]["LocalAgentID"].ToString() != "0" && dt.Rows[0]["LocalAgentID"].ToString() != "-1") { lblLocalAgent.Text = ddlLocalAgent.SelectedItem.Text; }
                 ddlAuthority.SelectedValue = dt.Rows[0]["GovernmentAuthorityID"].ToString();
-                if (dt.Rows[0]["GovernmentAuthorityID"].ToString() != "0") { lblAuthority.Text = ddlAuthority.SelectedItem.Text; }
+                if (dt.Rows[0]["GovernmentAuthorityID"].ToString() != "0" && dt.Rows[0]["GovernmentAuthorityID"].ToString() != "-1") { lblAuthority.Text = ddlAuthority.SelectedItem.Text; }
                 ddlCertification.SelectedValue = dt.Rows[0]["CertificationBodiesID"].ToString();
-                if (dt.Rows[0]["CertificationBodiesID"].ToString() != "0") { lblCertification.Text = ddlCertification.SelectedItem.Text; }
+                if (dt.Rows[0]["CertificationBodiesID"].ToString() != "0" && dt.Rows[0]["CertificationBodiesID"].ToString() != "-1") { lblCertification.Text = ddlCertification.SelectedItem.Text; }
                 ddlAccredited.SelectedValue = dt.Rows[0]["AccreditedTestID"].ToString();
-                if (dt.Rows[0]["AccreditedTestID"].ToString() != "0") { lblAccredited.Text = ddlAccredited.SelectedItem.Text; }
+                if (dt.Rows[0]["AccreditedTestID"].ToString() != "0" && dt.Rows[0]["AccreditedTestID"].ToString() != "-1") { lblAccredited.Text = ddlAccredited.SelectedItem.Text; }
                 if (dt.Rows[0]["AgentFee"].ToString().Trim().Length > 0) { lblAgentFee.Text = dt.Rows[0]["AgentFee"].ToString() + " USD"; }
                 if (dt.Rows[0]["AuthorityFee"].ToString().Trim().Length > 0) { lblAuthorityFee.Text = dt.Rows[0]["AuthorityFee"].ToString() + " USD"; }
                 if (dt.Rows[0]["CertificationBodyFee"].ToString().Trim().Length > 0) { lblCertificationBodyFee.Text = dt.Rows[0]["CertificationBodyFee"].ToString() + " USD"; }
