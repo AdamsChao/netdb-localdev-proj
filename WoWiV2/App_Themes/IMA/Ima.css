@@ -43,9 +43,9 @@
 .tdContactRowValue{width:120px;}
 
 /* Search  */
-.tbSearch {border: solid 2px #11CFFF; line-height: 17pt;background-color:#FFFFFF;}
+.tbSearch {border: solid 1px #11CFFF; line-height: 17pt;background-color:#11CFFF;}
 .tbSearch .tdRowName {font-size: 10pt; text-align: right; padding-left: 10px;background-color:#84E7FF}
-.tbSearch .tdRowValue {font-size: 10pt; padding-right: 10px; }
+.tbSearch .tdRowValue {font-size: 10pt; padding-right: 10px; background-color: #FFFFFF;}
 .tbSearch .tdFooter {background-color: #11CFFF; padding: 4px 0px 0px 1px;}
 
 /* MsgBox */
