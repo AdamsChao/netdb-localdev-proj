@@ -7,7 +7,7 @@
         <ContentTemplate>
             <%-- Search --%>
             <div style="width: 90%; margin: 5px auto">
-                <table border="0" cellpadding="2" cellspacing="0" class="tbSearch" width="90%" align="center">
+                <table border="0" cellpadding="1" cellspacing="1" class="tbSearch" width="90%" align="center">
                     <tr>
                         <td class="tdRowName">KeyWords：</td>
                         <td class="tdRowValue" align="left">
