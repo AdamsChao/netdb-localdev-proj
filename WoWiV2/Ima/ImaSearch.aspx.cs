@@ -14,6 +14,7 @@ public partial class Ima_ImaSearch : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             //Bind();
+            lblEmpID.Text = IMAUtil.GetEmpIDbyLoginName();
             if (!IMAUtil.IsEditOn()) 
             {
                 cbCategory.Items.RemoveAt(6);
@@ -31,7 +32,7 @@ public partial class Ima_ImaSearch : System.Web.UI.Page
         SetCondition(cbCategory, lblCategory, true);
         SqlCommand cmd = new SqlCommand("STP_GetFullText");
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("@EmpID", IMAUtil.GetEmpIDbyLoginName());
+        cmd.Parameters.AddWithValue("@EmpID", lblEmpID.Text.Trim());
         cmd.Parameters.AddWithValue("@keyword", tbKeyWord.Text.Trim());
         cmd.Parameters.AddWithValue("@RID", lblRegion.Text.Trim());
         cmd.Parameters.AddWithValue("@CID", lblCountrys.Text.Trim());

@@ -28,10 +28,12 @@
                                 SelectCommand="select world_region_id,world_region_name from world_region where world_region_id in(select world_region_id from vw_ImaAccess where id=@EmpID) order by world_region_name"
                                 SelectCommandType="Text">
                                 <SelectParameters>
-                                    <asp:SessionParameter Name="EmpID" SessionField="Session_User_Id" />
+                                    <%--<asp:SessionParameter Name="EmpID" SessionField="Session_User_Id" />--%>
+                                    <asp:ControlParameter Name="EmpID" ControlID="lblEmpID" />
                                 </SelectParameters>
                             </asp:SqlDataSource>
                             <asp:Label ID="lblRegion" runat="server" Visible="false"></asp:Label>
+                            <asp:Label ID="lblEmpID" runat="server" Visible="false"></asp:Label>
                         </td>
                     </tr>
                     <tr>
