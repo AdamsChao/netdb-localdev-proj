@@ -119,7 +119,7 @@
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [Target_Rates] WHERE [Target_rate_id] = @Target_rate_id" 
             InsertCommand="INSERT INTO [Target_Rates] ([country_id], [product_type_id], [authority_name], [Technology_id], [rate]) VALUES (@country_id, @product_type_id, @authority_name, @Technology_id, @rate)" 
-            SelectCommand="SELECT Target_Rates.Target_rate_id, Target_Rates.country_id, Target_Rates.product_type_id, Target_Rates.authority_name, Target_Rates.Technology_id, Target_Rates.rate, country.country_name, wowi_product_type.wowi_product_type_name, wowi_tech.wowi_tech_name, Target_Rates.target_cost_currency, Target_Rates.target_cost, Target_Rates.local_agent_name, Target_Rates.Publish, Authority.Target_Description 
+            SelectCommand="SELECT Target_Rates.Target_rate_id, Target_Rates.country_id, Target_Rates.product_type_id, Authority.authority_name, Target_Rates.Technology_id, Target_Rates.rate, country.country_name, wowi_product_type.wowi_product_type_name, wowi_tech.wowi_tech_name, Target_Rates.target_cost_currency, Target_Rates.target_cost, Target_Rates.local_agent_name, Target_Rates.Publish, Authority.Target_Description 
 FROM Target_Rates INNER JOIN country ON Target_Rates.country_id = country.country_id 
 LEFT JOIN wowi_product_type ON Target_Rates.product_type_id = wowi_product_type.wowi_product_type_id 
 LEFT JOIN wowi_tech ON Target_Rates.Technology_id = wowi_tech.wowi_tech_id 
@@ -130,7 +130,8 @@ order by  country.country_name"
           
           
           
-          UpdateCommand="UPDATE [Target_Rates] SET [rate] = @rate,[target_cost_currency]=@target_cost_currency,[target_cost]=@target_cost,[local_agent_name]=@local_agent_name,[Publish]=@Publish WHERE [Target_rate_id] = @Target_rate_id">
+          
+            UpdateCommand="UPDATE [Target_Rates] SET [rate] = @rate,[target_cost_currency]=@target_cost_currency,[target_cost]=@target_cost,[local_agent_name]=@local_agent_name,[Publish]=@Publish WHERE [Target_rate_id] = @Target_rate_id">
             <DeleteParameters>
                 <asp:Parameter Name="Target_rate_id" Type="Int32" />
             </DeleteParameters>

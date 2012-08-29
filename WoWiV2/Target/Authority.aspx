@@ -1,4 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" MaintainScrollPositionOnPostback="true" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Data.SqlClient" %>
+<%@ Import Namespace="System.Configuration" %>
+
 
 <script runat="server">
 
@@ -13,6 +17,22 @@
     else
     {
       Message.Text = "Authority Update Successful!";
+      try
+      {
+          using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["WoWiConnectionString"].ConnectionString))
+          {
+              cn.Open();
+              SqlCommand cmd =
+                  new SqlCommand("Update Target_Rates Set authority_name=@authority_name Where authority_id=@authority_id", cn);
+              cmd.Parameters.AddWithValue("@authority_name", e.NewValues["authority_name"].ToString());
+              cmd.Parameters.AddWithValue("@authority_id", e.Keys["authority_id"].ToString());
+              cmd.ExecuteNonQuery();
+          }
+      }
+      catch (Exception ex)
+      {
+          Message.Text = ex.Message + " , Please try again!";
+      }      
     }
   }
 </script>
