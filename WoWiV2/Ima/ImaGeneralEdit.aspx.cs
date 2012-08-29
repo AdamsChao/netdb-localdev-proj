@@ -316,7 +316,7 @@ public partial class Ima_ImaGeneralEdit : System.Web.UI.Page
             {
                 string strImageNum = (Convert.ToInt32(hfImageNum.Value) + 1).ToString();
                 //string strUploadPath = IMAUtil.GetIMAUploadPath() + @"\" + IMAUtil.GetCountryName(Request["cid"]) + @"\GeneralImages";
-                string strUploadPath = @"~/Images/IMA/" + IMAUtil.GetCountryName(Request["cid"]) + @"/GeneralImages";
+                string strUploadPath = @"~/Images/IMA/" + IMAUtil.GetCountryName(Request["cid"]).Replace(":", "") + @"/GeneralImages";
                 //檢查上傳檔案路徑是否存在，若不存在就自動建立
                 //IMAUtil.CheckURL(strUploadPath);
                 IMAUtil.CheckURL(Server.MapPath(strUploadPath));
