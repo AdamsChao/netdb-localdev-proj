@@ -18,15 +18,8 @@
     {
         if (e.Exception == null)
         {
-            WoWiModel.contact_info obj = (WoWiModel.contact_info)e.Entity;
-            if (!obj.department_id.HasValue)
-            {
-                obj.department_id = -1;
-            }
-            if (!obj.employee_id.HasValue)
-            {
-                obj.employee_id = -1;
-            }
+            WoWiModel.contact_info o = (WoWiModel.contact_info)e.Entity;
+            WoWiModel.contact_info obj = wowidb.contact_info.First(c => c.id == o.id);
             if (ViewState["IMA"] != null && ViewState["IMA"] != "-1")
             {
                 try
@@ -36,12 +29,57 @@
                                 ima_contact_id = int.Parse(ViewState["IMA"].ToString())
                             };
                     wowidb.m_ima_contact.AddObject(mcon);
+                    
                 }
                 catch (Exception)
                 {
 
                     //throw;
                 }
+
+                try
+                {
+
+                    if (!obj.department_id.HasValue)
+                    {
+                        obj.department_id = -1;
+                    }
+                    if (!obj.employee_id.HasValue)
+                    {
+                        obj.employee_id = -1;
+                    }
+                    obj.ima_contract_id = int.Parse(ViewState["IMA"].ToString());
+
+                    try
+                    {
+                        if (obj.ima_contract_id != -1)
+                        {
+                            WoWiModel.Ima_Contact contact = wowidb.Ima_Contact.First(c => c.ContactID == obj.ima_contract_id);
+                            contact.FirstName = obj.fname;
+                            contact.LastName = obj.lname;
+                            contact.Title = obj.title;
+                            contact.WorkPhone = obj.workphone;
+                            contact.Email = obj.email;
+                            contact.CellPhone = obj.cellphone;
+                            contact.Adress = obj.address;
+                            contact.CountryID = obj.country_id;
+                            contact.Fax = obj.fax;
+                            wowidb.SaveChanges();
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        //throw;
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
+                    
                 
             }
             wowidb.SaveChanges();
@@ -395,9 +433,9 @@
             }
             foreach (WoWiModel.Ima_Contact contract in (data as IEnumerable))
             {
-                dl.Items.Add(new ListItem(String.Format("{0,15} {1,15}", contract.FirstName, contract.LastName), contract.ContactID+ ""));
+                dl.Items.Add(new ListItem(String.Format("{0,15} {1,15} ( {2} )", contract.FirstName, contract.LastName, contract.DID), contract.ContactID+ ""));
             }
-
+            
         }
         //Keep State
         foreach (ListItem item in dl.Items)
@@ -511,6 +549,12 @@
             (MyContactCreateFormView1.FindControl("lblEmp") as Label).Text = "-1";
         }
     }
+
+    protected void dlIMAContactList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        //DropDownList list = sender as DropDownList;
+        //ViewState["IMA"] = list.SelectedValue;
+    }
 </script>
 
 <asp:FormView ID="MyContactCreateFormView1" runat="server" DataKeyNames="id" SkinID="FormView"
@@ -546,8 +590,10 @@
                         <tr>
                             <td align="left" colspan="4">
                                 Load from IMA :
-                                <asp:DropDownList ID="dlIMAContactList" runat="server" 
-                                    AppendDataBoundItems="False" AutoPostBack="True" onload="dlIMAContactList_Load">
+                                <asp:DropDownList ID="dlIMAContactList" runat="server"
+                                    AppendDataBoundItems="False" AutoPostBack="True" 
+                                    onload="dlIMAContactList_Load" 
+                                    onselectedindexchanged="dlIMAContactList_SelectedIndexChanged">
                                 </asp:DropDownList>
                                 <asp:Button ID="Button1" runat="server" onclick="MyIMABtnLoad_Click" Text="Load" CausesValidation="False" />
                             </td>

@@ -724,22 +724,6 @@ namespace WoWiModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<contact_info> contact_info
-        {
-            get
-            {
-                if ((_contact_info == null))
-                {
-                    _contact_info = base.CreateObjectSet<contact_info>("contact_info");
-                }
-                return _contact_info;
-            }
-        }
-        private ObjectSet<contact_info> _contact_info;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<m_ima_contact> m_ima_contact
         {
             get
@@ -784,6 +768,22 @@ namespace WoWiModel
             }
         }
         private ObjectSet<clientapplicant> _clientapplicants;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<contact_info> contact_info
+        {
+            get
+            {
+                if ((_contact_info == null))
+                {
+                    _contact_info = base.CreateObjectSet<contact_info>("contact_info");
+                }
+                return _contact_info;
+            }
+        }
+        private ObjectSet<contact_info> _contact_info;
 
         #endregion
         #region AddTo Methods
@@ -1117,14 +1117,6 @@ namespace WoWiModel
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the contact_info EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTocontact_info(contact_info contact_info)
-        {
-            base.AddObject("contact_info", contact_info);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the m_ima_contact EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTom_ima_contact(m_ima_contact m_ima_contact)
@@ -1146,6 +1138,14 @@ namespace WoWiModel
         public void AddToclientapplicants(clientapplicant clientapplicant)
         {
             base.AddObject("clientapplicants", clientapplicant);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the contact_info EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTocontact_info(contact_info contact_info)
+        {
+            base.AddObject("contact_info", contact_info);
         }
 
         #endregion
@@ -4282,6 +4282,30 @@ namespace WoWiModel
         private Nullable<global::System.Int32> _employee_id;
         partial void Onemployee_idChanging(Nullable<global::System.Int32> value);
         partial void Onemployee_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ima_contract_id
+        {
+            get
+            {
+                return _ima_contract_id;
+            }
+            set
+            {
+                Onima_contract_idChanging(value);
+                ReportPropertyChanging("ima_contract_id");
+                _ima_contract_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ima_contract_id");
+                Onima_contract_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ima_contract_id;
+        partial void Onima_contract_idChanging(Nullable<global::System.Int32> value);
+        partial void Onima_contract_idChanged();
 
         #endregion
     

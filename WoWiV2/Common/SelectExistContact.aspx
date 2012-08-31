@@ -60,16 +60,17 @@
     }
     private void SaveContactsToDB()
     {
+        String strId = Request.QueryString["id"];
+        int id = int.Parse(strId);
         if (lbSelectedContacts.Items.Count != 0)
         {
-            String strId = Request.QueryString["id"];
-            int id = int.Parse(strId);
+            
             String type = Request.QueryString["type"];
             if (type == "vender")
             {
                 using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
                 {
-                   
+
                     var data = db.m_vender_contact;
                     var delList = from d in data where d.vender_id == id select d;
                     foreach (var di in delList)
@@ -121,6 +122,26 @@
                     catch
                     {
                     }
+                }
+            }
+        }
+        else
+        {
+            using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
+            {
+
+                var data = db.m_vender_contact;
+                var delList = from d in data where d.vender_id == id select d;
+                foreach (var di in delList)
+                {
+                    data.DeleteObject(di);
+                }
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch
+                {
                 }
             }
         }

@@ -20,6 +20,32 @@
         if (e.Exception == null)
         {
             WoWiModel.contact_info obj = (WoWiModel.contact_info)e.Entity;
+            WoWiModel.contact_info o = wowidb.contact_info.First(c => c.id == obj.id);
+            if (o.ima_contract_id.HasValue)
+            {
+                int imacontactid = (int)o.ima_contract_id;
+                try
+                {
+                    if(imacontactid!=-1){
+                        WoWiModel.Ima_Contact contact = wowidb.Ima_Contact.First(c => c.ContactID == imacontactid);
+                        contact.FirstName = obj.fname;
+                        contact.LastName = obj.lname;
+                        contact.Title = obj.title;
+                        contact.WorkPhone = obj.workphone;
+                        contact.Email = obj.email;
+                        contact.CellPhone = obj.cellphone;
+                        contact.Adress = obj.address;
+                        contact.CountryID = obj.country_id;
+                        contact.Fax = obj.fax;
+                        wowidb.SaveChanges();
+                    }
+                }
+                catch (Exception)
+                {
+                    
+                    //throw;
+                }
+            }
             List<int> roles = (List<int>)ViewState[ContactUtils.Key_ViewState_Roles];
             using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
             {
