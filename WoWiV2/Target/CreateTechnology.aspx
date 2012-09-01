@@ -67,6 +67,27 @@
                     Text='<%# Bind("wowi_product_type_id") %>'></asp:Label>
                 </ItemTemplate>
               </asp:TemplateField>
+                <asp:TemplateField HeaderText="Technology Category">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox3" runat="server" 
+                            Text='<%# Bind("technology_category_id") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <InsertItemTemplate>
+                        <asp:DropDownList ID="ddlTechCategory" runat="server" 
+                            DataSourceID="SqlDataSourceImaTech" DataTextField="TechnologyCategoryName" 
+                            DataValueField="TechnologyCategoryID" 
+                            SelectedValue='<%# Bind("technology_category_id") %>'>
+                        </asp:DropDownList>
+                        <asp:SqlDataSource ID="SqlDataSourceImaTech" runat="server" 
+                            ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
+                            SelectCommand="SELECT [TechnologyCategoryID], [TechnologyCategoryName] FROM [Ima_Technology_Category]">
+                        </asp:SqlDataSource>
+                    </InsertItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label3" runat="server" 
+                            Text='<%# Bind("technology_category_id") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
               <asp:CheckBoxField DataField="publish" HeaderText="Publish" 
                 SortExpression="publish" />
               <asp:BoundField DataField="create_user" HeaderText="create_user" 
@@ -83,12 +104,13 @@
         <asp:SqlDataSource ID="SqlDataSourceTechnology" runat="server" 
             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
             DeleteCommand="DELETE FROM [wowi_tech] WHERE [wowi_tech_id] = @wowi_tech_id" 
-            InsertCommand="INSERT INTO [wowi_tech] ([wowi_tech_name], [wowi_product_type_id], [publish], [create_user], [create_date], [modify_user], [modify_date]) VALUES (@wowi_tech_name, @wowi_product_type_id, @publish, @create_user, @create_date, @modify_user, @modify_date)" 
+            InsertCommand="INSERT INTO [wowi_tech] ([wowi_tech_name], [wowi_product_type_id], [publish], [create_user], [create_date], [modify_user], [modify_date],[technology_category_id]) VALUES (@wowi_tech_name, @wowi_product_type_id, @publish, @create_user, @create_date, @modify_user, @modify_date,@technology_category_id)" 
             SelectCommand="SELECT * FROM [wowi_tech]" 
             
             
             
-          UpdateCommand="UPDATE [wowi_tech] SET [wowi_tech_name] = @wowi_tech_name, [wowi_product_type_id] = @wowi_product_type_id, [publish] = @publish, [create_user] = @create_user, [create_date] = @create_date, [modify_user] = @modify_user, [modify_date] = @modify_date WHERE [wowi_tech_id] = @wowi_tech_id">
+          
+            UpdateCommand="UPDATE [wowi_tech] SET [wowi_tech_name] = @wowi_tech_name, [wowi_product_type_id] = @wowi_product_type_id, [publish] = @publish, [create_user] = @create_user, [create_date] = @create_date, [modify_user] = @modify_user, [modify_date] = @modify_date WHERE [wowi_tech_id] = @wowi_tech_id">
             <DeleteParameters>
                 <asp:Parameter Name="wowi_tech_id" Type="Int32" />
             </DeleteParameters>
@@ -100,6 +122,7 @@
                 <asp:Parameter Name="create_date" Type="DateTime" />
                 <asp:Parameter Name="modify_user" Type="String" />
                 <asp:Parameter Name="modify_date" Type="DateTime" />
+                <asp:Parameter Name="technology_category_id" />
             </InsertParameters>
             <UpdateParameters>
                 <asp:Parameter Name="wowi_tech_name" Type="String" />
