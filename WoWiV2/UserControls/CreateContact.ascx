@@ -421,15 +421,15 @@
         dl.Items.Add(new ListItem("- Select - (Will clear all fields)", "-1"));
         using (WoWiModel.WoWiEntities db = new WoWiModel.WoWiEntities())
         {
-            var donelist = from d in db.m_ima_contact select d.ima_contact_id;
+            var donelist = from d in db.m_ima_contact select d.ima_contact_id ;
             object data = null ;
             if (donelist.Count() == 0)
             {
-                data = from c in db.Ima_Contact orderby c.FirstName,c.LastName ascending select c;
+                data = from c in db.Ima_Contact where c.IsTemp == false orderby c.FirstName,c.LastName ascending select c;
             }
             else
             {
-                data = from c in db.Ima_Contact where (!donelist.Contains(c.ContactID)) orderby c.FirstName, c.LastName ascending select c;
+                data = from c in db.Ima_Contact where (!donelist.Contains(c.ContactID) & c.IsTemp == false) orderby c.FirstName, c.LastName ascending select c;
             }
             foreach (WoWiModel.Ima_Contact contract in (data as IEnumerable))
             {
