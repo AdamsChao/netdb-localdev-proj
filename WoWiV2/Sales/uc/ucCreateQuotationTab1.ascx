@@ -72,7 +72,7 @@
             Product Name
         </th>
         <td>
-            <asp:TextBox ID="txtProductName" runat="server" Width="97%" MaxLength="50"></asp:TextBox>
+            <asp:TextBox ID="txtProductName" runat="server" Width="97%" MaxLength="500"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -80,7 +80,7 @@
             產品名稱
         </th>
         <td>
-            <asp:TextBox ID="txtCProductName" runat="server" Width="97%" MaxLength="50"></asp:TextBox>
+            <asp:TextBox ID="txtCProductName" runat="server" Width="97%" MaxLength="500"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -88,7 +88,7 @@
             Model No.
         </th>
         <td>
-            <asp:TextBox ID="txtModelNo" runat="server" Width="97%" MaxLength="50"></asp:TextBox>
+            <asp:TextBox ID="txtModelNo" runat="server" Width="97%" MaxLength="500"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -96,7 +96,7 @@
             型號
         </th>
         <td>
-            <asp:TextBox ID="txtCModelNo" runat="server" Width="97%" MaxLength="50"></asp:TextBox>
+            <asp:TextBox ID="txtCModelNo" runat="server" Width="97%" MaxLength="500"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -104,7 +104,7 @@
             Brand Name
         </th>
         <td>
-            <asp:TextBox ID="txtBrandName" runat="server" Width="97%" MaxLength="50"></asp:TextBox>
+            <asp:TextBox ID="txtBrandName" runat="server" Width="97%" MaxLength="500"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -112,7 +112,7 @@
             廠牌
         </th>
         <td>
-            <asp:TextBox ID="txtCBrandName" runat="server" Width="97%" MaxLength="50"></asp:TextBox>
+            <asp:TextBox ID="txtCBrandName" runat="server" Width="97%" MaxLength="500"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -121,7 +121,7 @@
         </th>
         <td>
             <asp:TextBox ID="txtModelDifference" runat="server" Width="97%" 
-                MaxLength="50"></asp:TextBox>
+                MaxLength="500"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -130,7 +130,7 @@
         </th>
         <td>
             <asp:TextBox ID="txtCModelDifferencev" runat="server" Width="97%" 
-                MaxLength="50"></asp:TextBox>
+                MaxLength="500"></asp:TextBox>
         </td>
     </tr>
     <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
