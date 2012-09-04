@@ -18,7 +18,11 @@
           <EntitySet Name="department" EntityType="WoWiModel.Store.department" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="employee" EntityType="WoWiModel.Store.employee" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="employee_jobtitle" EntityType="WoWiModel.Store.employee_jobtitle" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ima_AccreditedTestLab" EntityType="WoWiModel.Store.Ima_AccreditedTestLab" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ima_CertificationBodies" EntityType="WoWiModel.Store.Ima_CertificationBodies" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Ima_Contact" EntityType="WoWiModel.Store.Ima_Contact" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ima_GovernmentAuthority" EntityType="WoWiModel.Store.Ima_GovernmentAuthority" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ima_LocalAgent" EntityType="WoWiModel.Store.Ima_LocalAgent" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="invoice" EntityType="WoWiModel.Store.invoice" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="invoice_received" EntityType="WoWiModel.Store.invoice_received" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="invoice_target" EntityType="WoWiModel.Store.invoice_target" store:Type="Tables" Schema="dbo" />
@@ -296,6 +300,57 @@
           <Property Name="modify_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="26" />
         </EntityType>
+        <EntityType Name="Ima_AccreditedTestLab">
+          <Key>
+            <PropertyRef Name="AccreditedTestID" />
+          </Key>
+          <Property Name="AccreditedTestID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="world_region_id" Type="tinyint" Nullable="false" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+          <Property Name="wowi_product_type_id" Type="int" Nullable="false" />
+          <Property Name="AccreditedLab" Type="nvarchar(max)" />
+          <Property Name="VolumePerYear" Type="nvarchar" MaxLength="200" />
+          <Property Name="Publish" Type="bit" Nullable="false" />
+          <Property Name="Website" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreateUser" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LasterUpdateUser" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="LasterUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="RFRemark" Type="nvarchar(max)" />
+          <Property Name="EMCRemark" Type="nvarchar(max)" />
+          <Property Name="SafetyRemark" Type="nvarchar(max)" />
+          <Property Name="TelecomRemark" Type="nvarchar(max)" />
+          <Property Name="LeadTime" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Ima_CertificationBodies">
+          <Key>
+            <PropertyRef Name="CertificationBodiesID" />
+          </Key>
+          <Property Name="CertificationBodiesID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="world_region_id" Type="tinyint" Nullable="false" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+          <Property Name="wowi_product_type_id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Authority" Type="bit" Nullable="false" />
+          <Property Name="CertificationBody" Type="bit" Nullable="false" />
+          <Property Name="VolumePerYear" Type="nvarchar" MaxLength="200" />
+          <Property Name="Publish" Type="bit" Nullable="false" />
+          <Property Name="AccredidedLab" Type="nvarchar" MaxLength="200" />
+          <Property Name="VolumePerYear1" Type="nvarchar" MaxLength="200" />
+          <Property Name="Publish1" Type="bit" Nullable="false" />
+          <Property Name="Website" Type="nvarchar" MaxLength="500" />
+          <Property Name="Website1" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreateUser" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LasterUpdateUser" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="LasterUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="AccreditedTest" Type="nvarchar" MaxLength="10" />
+          <Property Name="RFRemark" Type="nvarchar(max)" />
+          <Property Name="EMCRemark" Type="nvarchar(max)" />
+          <Property Name="SafetyRemark" Type="nvarchar(max)" />
+          <Property Name="TelecomRemark" Type="nvarchar(max)" />
+          <Property Name="LeadTime" Type="nvarchar" MaxLength="30" />
+        </EntityType>
         <EntityType Name="Ima_Contact">
           <Key>
             <PropertyRef Name="ContactID" />
@@ -322,6 +377,76 @@
           <Property Name="Remark" Type="nvarchar(max)" />
           <Property Name="IsTemp" Type="bit" />
           <Property Name="Email" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Ima_GovernmentAuthority">
+          <Key>
+            <PropertyRef Name="GovernmentAuthorityID" />
+          </Key>
+          <Property Name="GovernmentAuthorityID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="world_region_id" Type="tinyint" Nullable="false" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+          <Property Name="FullAuthorityName" Type="nvarchar" MaxLength="500" />
+          <Property Name="AbbreviatedAuthorityName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Website" Type="nvarchar" MaxLength="200" />
+          <Property Name="Mandatory" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsRF" Type="bit" />
+          <Property Name="IsTelecom" Type="bit" />
+          <Property Name="IsEMC" Type="bit" />
+          <Property Name="IsSafety" Type="bit" />
+          <Property Name="wowi_product_type_id" Type="int" Nullable="false" />
+          <Property Name="CertificateValid" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsTransfer" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="CreateUser" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LasterUpdateUser" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="LasterUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="CertificationBody" Type="nvarchar" MaxLength="10" />
+          <Property Name="AccreditedTest" Type="nvarchar" MaxLength="10" />
+          <Property Name="RFRemark" Type="nvarchar(max)" />
+          <Property Name="EMCRemark" Type="nvarchar(max)" />
+          <Property Name="SafetyRemark" Type="nvarchar(max)" />
+          <Property Name="TelecomRemark" Type="nvarchar(max)" />
+          <Property Name="LeadTime" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Ima_LocalAgent">
+          <Key>
+            <PropertyRef Name="LocalAgentID" />
+          </Key>
+          <Property Name="LocalAgentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="world_region_id" Type="tinyint" Nullable="false" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="RF" Type="bit" Nullable="false" />
+          <Property Name="Telecom" Type="bit" Nullable="false" />
+          <Property Name="EMC" Type="bit" Nullable="false" />
+          <Property Name="Safety" Type="bit" Nullable="false" />
+          <Property Name="Credit" Type="nvarchar" MaxLength="200" />
+          <Property Name="Communication" Type="nvarchar" MaxLength="200" />
+          <Property Name="Volume" Type="nvarchar" MaxLength="300" />
+          <Property Name="CreateUser" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LasterUpdateUser" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="LasterUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="Professional" Type="bit" />
+          <Property Name="Individual" Type="bit" />
+          <Property Name="OtherBusiness" Type="bit" />
+          <Property Name="Responsive" Type="bit" />
+          <Property Name="Knowledgeable" Type="bit" />
+          <Property Name="Slow" Type="bit" />
+          <Property Name="NDAYes" Type="bit" />
+          <Property Name="NDAChoose" Type="bit" />
+          <Property Name="MOUYes" Type="bit" />
+          <Property Name="MOUChoose" Type="bit" />
+          <Property Name="RFRemark" Type="nvarchar(max)" />
+          <Property Name="EMCRemark" Type="nvarchar(max)" />
+          <Property Name="SafetyRemark" Type="nvarchar(max)" />
+          <Property Name="TelecomRemark" Type="nvarchar(max)" />
+          <Property Name="ProductTypeID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductTypeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LeadTime" Type="nvarchar" MaxLength="30" />
+          <Property Name="LocalRep" Type="bit" />
+          <Property Name="LocalRepFee" Type="decimal" Scale="3" />
         </EntityType>
         <EntityType Name="invoice">
           <Key>
@@ -897,6 +1022,7 @@
           <Property Name="create_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
+          <Property Name="technology_category_id" Type="int" />
         </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -948,6 +1074,10 @@
           <EntitySet Name="Ima_Contact" EntityType="WoWiModel.Ima_Contact" />
           <EntitySet Name="clientapplicants" EntityType="WoWiModel.clientapplicant" />
           <EntitySet Name="contact_info" EntityType="WoWiModel.contact_info" />
+          <EntitySet Name="Ima_AccreditedTestLab" EntityType="WoWiModel.Ima_AccreditedTestLab" />
+          <EntitySet Name="Ima_CertificationBodies" EntityType="WoWiModel.Ima_CertificationBodies" />
+          <EntitySet Name="Ima_GovernmentAuthority" EntityType="WoWiModel.Ima_GovernmentAuthority" />
+          <EntitySet Name="Ima_LocalAgent" EntityType="WoWiModel.Ima_LocalAgent" />
         </EntityContainer>
         <EntityType Name="access_level">
           <Key>
@@ -1296,6 +1426,7 @@
           <Property Type="DateTime" Name="create_date" />
           <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
+          <Property Type="Int32" Name="technology_category_id" />
         </EntityType>
         <EntityType Name="Quotation_Version">
           <Key>
@@ -1795,6 +1926,127 @@
           <Property Type="Int32" Name="employee_id" />
           <Property Type="Int32" Name="ima_contract_id" />
         </EntityType>
+        <EntityType Name="Ima_AccreditedTestLab">
+          <Key>
+            <PropertyRef Name="AccreditedTestID" />
+          </Key>
+          <Property Type="Int32" Name="AccreditedTestID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Byte" Name="world_region_id" Nullable="false" />
+          <Property Type="Int32" Name="country_id" Nullable="false" />
+          <Property Type="Int32" Name="wowi_product_type_id" Nullable="false" />
+          <Property Type="String" Name="AccreditedLab" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="VolumePerYear" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Publish" Nullable="false" />
+          <Property Type="String" Name="Website" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreateUser" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+          <Property Type="String" Name="LasterUpdateUser" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LasterUpdateDate" Nullable="false" />
+          <Property Type="String" Name="RFRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EMCRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SafetyRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TelecomRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LeadTime" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Ima_CertificationBodies">
+          <Key>
+            <PropertyRef Name="CertificationBodiesID" />
+          </Key>
+          <Property Type="Int32" Name="CertificationBodiesID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Byte" Name="world_region_id" Nullable="false" />
+          <Property Type="Int32" Name="country_id" Nullable="false" />
+          <Property Type="Int32" Name="wowi_product_type_id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Authority" Nullable="false" />
+          <Property Type="Boolean" Name="CertificationBody" Nullable="false" />
+          <Property Type="String" Name="VolumePerYear" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Publish" Nullable="false" />
+          <Property Type="String" Name="AccredidedLab" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="VolumePerYear1" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Publish1" Nullable="false" />
+          <Property Type="String" Name="Website" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Website1" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreateUser" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+          <Property Type="String" Name="LasterUpdateUser" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LasterUpdateDate" Nullable="false" />
+          <Property Type="String" Name="AccreditedTest" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="RFRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EMCRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SafetyRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TelecomRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LeadTime" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Ima_GovernmentAuthority">
+          <Key>
+            <PropertyRef Name="GovernmentAuthorityID" />
+          </Key>
+          <Property Type="Int32" Name="GovernmentAuthorityID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Byte" Name="world_region_id" Nullable="false" />
+          <Property Type="Int32" Name="country_id" Nullable="false" />
+          <Property Type="String" Name="FullAuthorityName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AbbreviatedAuthorityName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Website" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Mandatory" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsRF" />
+          <Property Type="Boolean" Name="IsTelecom" />
+          <Property Type="Boolean" Name="IsEMC" />
+          <Property Type="Boolean" Name="IsSafety" />
+          <Property Type="Int32" Name="wowi_product_type_id" Nullable="false" />
+          <Property Type="String" Name="CertificateValid" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="IsTransfer" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreateUser" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+          <Property Type="String" Name="LasterUpdateUser" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LasterUpdateDate" Nullable="false" />
+          <Property Type="String" Name="CertificationBody" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AccreditedTest" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="RFRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EMCRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SafetyRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TelecomRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LeadTime" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Ima_LocalAgent">
+          <Key>
+            <PropertyRef Name="LocalAgentID" />
+          </Key>
+          <Property Type="Int32" Name="LocalAgentID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Byte" Name="world_region_id" Nullable="false" />
+          <Property Type="Int32" Name="country_id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="RF" Nullable="false" />
+          <Property Type="Boolean" Name="Telecom" Nullable="false" />
+          <Property Type="Boolean" Name="EMC" Nullable="false" />
+          <Property Type="Boolean" Name="Safety" Nullable="false" />
+          <Property Type="String" Name="Credit" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Communication" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Volume" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreateUser" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+          <Property Type="String" Name="LasterUpdateUser" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LasterUpdateDate" Nullable="false" />
+          <Property Type="Boolean" Name="Professional" />
+          <Property Type="Boolean" Name="Individual" />
+          <Property Type="Boolean" Name="OtherBusiness" />
+          <Property Type="Boolean" Name="Responsive" />
+          <Property Type="Boolean" Name="Knowledgeable" />
+          <Property Type="Boolean" Name="Slow" />
+          <Property Type="Boolean" Name="NDAYes" />
+          <Property Type="Boolean" Name="NDAChoose" />
+          <Property Type="Boolean" Name="MOUYes" />
+          <Property Type="Boolean" Name="MOUChoose" />
+          <Property Type="String" Name="RFRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EMCRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SafetyRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TelecomRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProductTypeID" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProductTypeName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LeadTime" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="LocalRep" />
+          <Property Type="Decimal" Name="LocalRepFee" Precision="18" Scale="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2158,6 +2410,7 @@
           <EntitySetMapping Name="wowi_tech">
             <EntityTypeMapping TypeName="WoWiModel.wowi_tech">
               <MappingFragment StoreEntitySet="wowi_tech">
+                <ScalarProperty Name="technology_category_id" ColumnName="technology_category_id" />
                 <ScalarProperty Name="modify_date" ColumnName="modify_date" />
                 <ScalarProperty Name="modify_user" ColumnName="modify_user" />
                 <ScalarProperty Name="create_date" ColumnName="create_date" />
@@ -2683,6 +2936,131 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Ima_AccreditedTestLab">
+            <EntityTypeMapping TypeName="WoWiModel.Ima_AccreditedTestLab">
+              <MappingFragment StoreEntitySet="Ima_AccreditedTestLab">
+                <ScalarProperty Name="LeadTime" ColumnName="LeadTime" />
+                <ScalarProperty Name="TelecomRemark" ColumnName="TelecomRemark" />
+                <ScalarProperty Name="SafetyRemark" ColumnName="SafetyRemark" />
+                <ScalarProperty Name="EMCRemark" ColumnName="EMCRemark" />
+                <ScalarProperty Name="RFRemark" ColumnName="RFRemark" />
+                <ScalarProperty Name="LasterUpdateDate" ColumnName="LasterUpdateDate" />
+                <ScalarProperty Name="LasterUpdateUser" ColumnName="LasterUpdateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Publish" ColumnName="Publish" />
+                <ScalarProperty Name="VolumePerYear" ColumnName="VolumePerYear" />
+                <ScalarProperty Name="AccreditedLab" ColumnName="AccreditedLab" />
+                <ScalarProperty Name="wowi_product_type_id" ColumnName="wowi_product_type_id" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="world_region_id" ColumnName="world_region_id" />
+                <ScalarProperty Name="AccreditedTestID" ColumnName="AccreditedTestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ima_CertificationBodies">
+            <EntityTypeMapping TypeName="WoWiModel.Ima_CertificationBodies">
+              <MappingFragment StoreEntitySet="Ima_CertificationBodies">
+                <ScalarProperty Name="LeadTime" ColumnName="LeadTime" />
+                <ScalarProperty Name="TelecomRemark" ColumnName="TelecomRemark" />
+                <ScalarProperty Name="SafetyRemark" ColumnName="SafetyRemark" />
+                <ScalarProperty Name="EMCRemark" ColumnName="EMCRemark" />
+                <ScalarProperty Name="RFRemark" ColumnName="RFRemark" />
+                <ScalarProperty Name="AccreditedTest" ColumnName="AccreditedTest" />
+                <ScalarProperty Name="LasterUpdateDate" ColumnName="LasterUpdateDate" />
+                <ScalarProperty Name="LasterUpdateUser" ColumnName="LasterUpdateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="Website1" ColumnName="Website1" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Publish1" ColumnName="Publish1" />
+                <ScalarProperty Name="VolumePerYear1" ColumnName="VolumePerYear1" />
+                <ScalarProperty Name="AccredidedLab" ColumnName="AccredidedLab" />
+                <ScalarProperty Name="Publish" ColumnName="Publish" />
+                <ScalarProperty Name="VolumePerYear" ColumnName="VolumePerYear" />
+                <ScalarProperty Name="CertificationBody" ColumnName="CertificationBody" />
+                <ScalarProperty Name="Authority" ColumnName="Authority" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="wowi_product_type_id" ColumnName="wowi_product_type_id" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="world_region_id" ColumnName="world_region_id" />
+                <ScalarProperty Name="CertificationBodiesID" ColumnName="CertificationBodiesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ima_GovernmentAuthority">
+            <EntityTypeMapping TypeName="WoWiModel.Ima_GovernmentAuthority">
+              <MappingFragment StoreEntitySet="Ima_GovernmentAuthority">
+                <ScalarProperty Name="LeadTime" ColumnName="LeadTime" />
+                <ScalarProperty Name="TelecomRemark" ColumnName="TelecomRemark" />
+                <ScalarProperty Name="SafetyRemark" ColumnName="SafetyRemark" />
+                <ScalarProperty Name="EMCRemark" ColumnName="EMCRemark" />
+                <ScalarProperty Name="RFRemark" ColumnName="RFRemark" />
+                <ScalarProperty Name="AccreditedTest" ColumnName="AccreditedTest" />
+                <ScalarProperty Name="CertificationBody" ColumnName="CertificationBody" />
+                <ScalarProperty Name="LasterUpdateDate" ColumnName="LasterUpdateDate" />
+                <ScalarProperty Name="LasterUpdateUser" ColumnName="LasterUpdateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsTransfer" ColumnName="IsTransfer" />
+                <ScalarProperty Name="CertificateValid" ColumnName="CertificateValid" />
+                <ScalarProperty Name="wowi_product_type_id" ColumnName="wowi_product_type_id" />
+                <ScalarProperty Name="IsSafety" ColumnName="IsSafety" />
+                <ScalarProperty Name="IsEMC" ColumnName="IsEMC" />
+                <ScalarProperty Name="IsTelecom" ColumnName="IsTelecom" />
+                <ScalarProperty Name="IsRF" ColumnName="IsRF" />
+                <ScalarProperty Name="Mandatory" ColumnName="Mandatory" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="AbbreviatedAuthorityName" ColumnName="AbbreviatedAuthorityName" />
+                <ScalarProperty Name="FullAuthorityName" ColumnName="FullAuthorityName" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="world_region_id" ColumnName="world_region_id" />
+                <ScalarProperty Name="GovernmentAuthorityID" ColumnName="GovernmentAuthorityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ima_LocalAgent">
+            <EntityTypeMapping TypeName="WoWiModel.Ima_LocalAgent">
+              <MappingFragment StoreEntitySet="Ima_LocalAgent">
+                <ScalarProperty Name="LocalRepFee" ColumnName="LocalRepFee" />
+                <ScalarProperty Name="LocalRep" ColumnName="LocalRep" />
+                <ScalarProperty Name="LeadTime" ColumnName="LeadTime" />
+                <ScalarProperty Name="ProductTypeName" ColumnName="ProductTypeName" />
+                <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
+                <ScalarProperty Name="TelecomRemark" ColumnName="TelecomRemark" />
+                <ScalarProperty Name="SafetyRemark" ColumnName="SafetyRemark" />
+                <ScalarProperty Name="EMCRemark" ColumnName="EMCRemark" />
+                <ScalarProperty Name="RFRemark" ColumnName="RFRemark" />
+                <ScalarProperty Name="MOUChoose" ColumnName="MOUChoose" />
+                <ScalarProperty Name="MOUYes" ColumnName="MOUYes" />
+                <ScalarProperty Name="NDAChoose" ColumnName="NDAChoose" />
+                <ScalarProperty Name="NDAYes" ColumnName="NDAYes" />
+                <ScalarProperty Name="Slow" ColumnName="Slow" />
+                <ScalarProperty Name="Knowledgeable" ColumnName="Knowledgeable" />
+                <ScalarProperty Name="Responsive" ColumnName="Responsive" />
+                <ScalarProperty Name="OtherBusiness" ColumnName="OtherBusiness" />
+                <ScalarProperty Name="Individual" ColumnName="Individual" />
+                <ScalarProperty Name="Professional" ColumnName="Professional" />
+                <ScalarProperty Name="LasterUpdateDate" ColumnName="LasterUpdateDate" />
+                <ScalarProperty Name="LasterUpdateUser" ColumnName="LasterUpdateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Communication" ColumnName="Communication" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Safety" ColumnName="Safety" />
+                <ScalarProperty Name="EMC" ColumnName="EMC" />
+                <ScalarProperty Name="Telecom" ColumnName="Telecom" />
+                <ScalarProperty Name="RF" ColumnName="RF" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="world_region_id" ColumnName="world_region_id" />
+                <ScalarProperty Name="LocalAgentID" ColumnName="LocalAgentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2749,6 +3127,10 @@
         <EntityTypeShape EntityType="WoWiModel.Ima_Contact" Width="1.5" PointX="21.375" PointY="0.75" Height="4.8404752604166674" />
         <EntityTypeShape EntityType="WoWiModel.clientapplicant" Width="1.5" PointX="21.375" PointY="6.75" Height="11.526347656250003" IsExpanded="true" />
         <EntityTypeShape EntityType="WoWiModel.contact_info" Width="1.5" PointX="9.375" PointY="15.75" Height="5.3683072916666674" />
+        <EntityTypeShape EntityType="WoWiModel.Ima_AccreditedTestLab" Width="1.5" PointX="21.375" PointY="19.75" Height="3.9607552083333246" />
+        <EntityTypeShape EntityType="WoWiModel.Ima_CertificationBodies" Width="1.5" PointX="5.375" PointY="22.75" Height="5.1923632812499818" />
+        <EntityTypeShape EntityType="WoWiModel.Ima_GovernmentAuthority" Width="1.5" PointX="7.375" PointY="22.75" Height="5.5442513020833246" />
+        <EntityTypeShape EntityType="WoWiModel.Ima_LocalAgent" Width="1.5" PointX="9.375" PointY="22.75" Height="6.9518033854166674" />
       </Diagram>
     </Diagrams>
   </Designer>

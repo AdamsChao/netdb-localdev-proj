@@ -433,7 +433,230 @@
             }
             foreach (WoWiModel.Ima_Contact contract in (data as IEnumerable))
             {
-                dl.Items.Add(new ListItem(String.Format("{0,15} {1,15} ( {2} )", contract.FirstName, contract.LastName, contract.DID), contract.ContactID+ ""));
+                String output = "";
+                try
+                {
+                    String countryName = wowidb.countries.First(c => c.country_id == contract.CountryID).country_name;
+                    output += countryName;
+                }
+                catch (Exception)
+                {
+                    
+                    //throw;
+                }
+                    
+                    
+                    
+                String category = contract.Categroy;
+//Categroy        IMA模組名稱                           Table
+//B                    1.Government Authority          Ima_GovernmentAuthority
+//D                    3.Certification bodies              Ima_CertificationBodies
+//Q                    4.Accredited Test Lab             Ima_AccreditedTestLab
+//F                    7.Local Agent                          Ima_LocalAgent
+                switch (category)
+                {
+                    case "B":
+                        
+                        try
+                        {
+                            WoWiModel.Ima_GovernmentAuthority ga = wowidb.Ima_GovernmentAuthority.First(c => c.GovernmentAuthorityID == contract.DID);
+                            String gaStr = "";
+                            //if (ga.RFRemark != null)
+                            //{
+                            //    gaStr += " "+ga.RFRemark;
+                            //}
+                            //if (ga.EMCRemark != null)
+                            //{
+                            //    gaStr += " " + ga.EMCRemark;
+                            //}
+                            //if (ga.SafetyRemark != null)
+                            //{
+                            //    gaStr += " " + ga.SafetyRemark;
+                            //}
+                            //if (ga.TelecomRemark != null)
+                            //{
+                            //    gaStr += " " + ga.TelecomRemark;
+                            //}
+                            //if (gaStr.Trim().Length != 0)
+                            //{
+                            //    output += " /" + gaStr;
+                            //}
+                            if (ga.RFRemark != null)
+                            {
+                                gaStr += ",RF";
+                            }
+                            if (ga.EMCRemark != null)
+                            {
+                                gaStr += ",EMC";
+                            }
+                            if (ga.SafetyRemark != null)
+                            {
+                                gaStr += ",Safety";
+                            }
+                            if (ga.TelecomRemark != null)
+                            {
+                                gaStr += ",Telecom";
+                            }
+                            if (gaStr.Trim().Length != 0)
+                            {
+                                output += " / " + gaStr.Substring(1);
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            
+                            //throw;
+                        }
+                        output += " / 1.Government Authority";
+                        break;
+                    case "D":
+                        
+                        try
+                        {
+                            WoWiModel.Ima_CertificationBodies ga = wowidb.Ima_CertificationBodies.First(c => c.CertificationBodiesID == contract.DID);
+                            String gaStr = "";
+                            //if (cb.RFRemark != null)
+                            //{
+                            //    gaStr += " " + cb.RFRemark;
+                            //}
+                            //if (cb.EMCRemark != null)
+                            //{
+                            //    gaStr += " " + cb.EMCRemark;
+                            //}
+                            //if (cb.SafetyRemark != null)
+                            //{
+                            //    gaStr += " " + cb.SafetyRemark;
+                            //}
+                            //if (cb.TelecomRemark != null)
+                            //{
+                            //    gaStr += " " + cb.TelecomRemark;
+                            //}
+                            //if (gaStr.Trim().Length != 0)
+                            //{
+                            //    output += " /" + gaStr;
+                            //}
+                            if (ga.RFRemark != null)
+                            {
+                                gaStr += ",RF";
+                            }
+                            if (ga.EMCRemark != null)
+                            {
+                                gaStr += ",EMC";
+                            }
+                            if (ga.SafetyRemark != null)
+                            {
+                                gaStr += ",Safety";
+                            }
+                            if (ga.TelecomRemark != null)
+                            {
+                                gaStr += ",Telecom";
+                            }
+                            if (gaStr.Trim().Length != 0)
+                            {
+                                output += " / " + gaStr.Substring(1);
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+                            //throw;
+                        }
+                        output += " / 3.Certification bodies";
+                        break;
+                    case "Q":
+                       
+                        try
+                        {
+                            WoWiModel.Ima_AccreditedTestLab ga = wowidb.Ima_AccreditedTestLab.First(c => c.AccreditedTestID == contract.DID);
+                            String gaStr = "";
+                            //if (at.RFRemark != null)
+                            //{
+                            //    gaStr += " " + at.RFRemark;
+                            //}
+                            //if (at.EMCRemark != null)
+                            //{
+                            //    gaStr += " " + at.EMCRemark;
+                            //}
+                            //if (at.SafetyRemark != null)
+                            //{
+                            //    gaStr += " " + at.SafetyRemark;
+                            //}
+                            //if (at.TelecomRemark != null)
+                            //{
+                            //    gaStr += " " + at.TelecomRemark;
+                            //}
+                            //if (gaStr.Trim().Length != 0)
+                            //{
+                            //    output += " /" + gaStr;
+                            //}
+                            if (ga.RFRemark != null)
+                            {
+                                gaStr += ",RF";
+                            }
+                            if (ga.EMCRemark != null)
+                            {
+                                gaStr += ",EMC";
+                            }
+                            if (ga.SafetyRemark != null)
+                            {
+                                gaStr += ",Safety";
+                            }
+                            if (ga.TelecomRemark != null)
+                            {
+                                gaStr += ",Telecom";
+                            }
+                            if (gaStr.Trim().Length != 0)
+                            {
+                                output += " / " + gaStr.Substring(1);
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+                            //throw;
+                        }
+                        output += " / 4.Accredited Test Lab";
+                        break;
+                    case "F":
+                        
+                        try
+                        {
+                            WoWiModel.Ima_LocalAgent ga = wowidb.Ima_LocalAgent.First(c => c.LocalAgentID == contract.DID);
+                            //if (la.ProductTypeName != null)
+                            //{
+                            //    output += " / "+la.ProductTypeName;
+                            //}
+                            String gaStr = "";
+                            if (ga.RFRemark != null)
+                            {
+                                gaStr += ",RF";
+                            }
+                            if (ga.EMCRemark != null)
+                            {
+                                gaStr += ",EMC";
+                            }
+                            if (ga.SafetyRemark != null)
+                            {
+                                gaStr += ",Safety";
+                            }
+                            if (ga.TelecomRemark != null)
+                            {
+                                gaStr += ",Telecom";
+                            }
+                            if (gaStr.Trim().Length != 0)
+                            {
+                                output += " / " + gaStr.Substring(1);
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+                            //throw;
+                        }
+                        output += " / 7.Local Agent";
+                        break;
+                }
+                dl.Items.Add(new ListItem(String.Format("{0,15} {1,15} ( {2} )", contract.FirstName, contract.LastName, output), contract.ContactID+ ""));
             }
             
         }
