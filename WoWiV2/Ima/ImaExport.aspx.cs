@@ -171,7 +171,7 @@ public partial class Ima_ImaExport : System.Web.UI.Page
         ICellStyle icsHeader = workbook.CreateCellStyle();
         icsHeader.Alignment = HorizontalAlignment.CENTER;
         icsHeader.VerticalAlignment = VerticalAlignment.CENTER;
-        icsHeader.WrapText = false;
+        icsHeader.WrapText = true;
         icsHeader.FillForegroundColor = HSSFColor.LIGHT_TURQUOISE.index;
         icsHeader.FillPattern = FillPatternType.SOLID_FOREGROUND;
         icsHeader.BorderBottom = CellBorderType.THIN;
@@ -243,7 +243,7 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                             //因為換行所以將Row的高度變成4倍
                             row.HeightInPoints = 4 * sheet.DefaultRowHeight / 20;
                         }
-                        else { icsHeader.WrapText = false; }
+                        else { icsHeader.WrapText = true; }
 
 
                         cell.SetCellValue(strValue);
