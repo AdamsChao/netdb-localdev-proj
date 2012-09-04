@@ -6,13 +6,20 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.UI.HtmlControls;
 
 public partial class Ima_ImaDetailAll : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
-    {
+    {        
         if (!Page.IsPostBack)
         {
+            // Set 以IE8文件模式解析
+            HtmlMeta htmlMeta = new HtmlMeta();
+            htmlMeta.HttpEquiv = "X-UA-Compatible";
+            htmlMeta.Content = "IE=EmulateIE8";
+            //Master.Page.Header.Controls.AddAt(0, htmlMeta);
+            Page.Header.Controls.AddAt(0, htmlMeta);
             SetVisible();
             GetGeneralData();
             LoadData();

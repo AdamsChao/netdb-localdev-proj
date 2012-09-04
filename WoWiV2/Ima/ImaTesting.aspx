@@ -223,7 +223,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tdRowName" valign="top">Test Report/Certification</td>
+                        <td class="tdRowName" valign="top">Test Report/Certification：</td>
                         <td class="tdRowValue">
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
