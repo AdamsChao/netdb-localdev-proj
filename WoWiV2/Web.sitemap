@@ -60,6 +60,7 @@
     <siteMapNode url="" title="IMA System"  description=""   >
       <siteMapNode url="~/Ima/ImaList.aspx" title="Documents Manage"  description="" />
       <siteMapNode url="~/Ima/ImaSearch.aspx" title="Documents Search"  description="" />
+      <siteMapNode url="~/Ima/ImaExport.aspx" title="Documents Export"  description="" />      
     </siteMapNode>
   </siteMapNode>
 </siteMap>
