@@ -3896,7 +3896,7 @@
                                                 <td class="tdRowName1">DL</td>
                                             </tr>
                                             <tr>
-                                                <td class="tdRowValue1"><asp:Label ID="lbl2GANA1" runat="server"></asp:Label></td>
+                                                <td class="tdRowValue1" style="width: 100px;"><asp:Label ID="lbl2GANA1" runat="server"></asp:Label></td>
                                                 <td class="tdRowValue1"><asp:Label ID="lbl2GF1" runat="server" Text="T-GSM-380"></asp:Label></td>
                                                 <td class="tdRowValue1"><asp:Label ID="lbl2GUL1" runat="server" Text="380.2-389.8 MHz"></asp:Label></td>
                                                 <td class="tdRowValue1"><asp:Label ID="lbl2GDL1" runat="server" Text="390.2-399.8 MHz"></asp:Label></td>
@@ -4004,7 +4004,7 @@
                                                 <td class="tdRowName1">DL</td>
                                             </tr>
                                             <tr>
-                                                <td class="tdRowValue1"><asp:Label ID="lbl3GANA1" runat="server"></asp:Label></td>
+                                                <td class="tdRowValue1" style="width: 100px;"><asp:Label ID="lbl3GANA1" runat="server"></asp:Label></td>
                                                 <td class="tdRowValue1"><asp:Label ID="lbl3GF1" runat="server" Text="Band1"></asp:Label></td>
                                                 <td class="tdRowValue1"><asp:Label ID="lbl3GUL1" runat="server" Text="1920-1980 MHz"></asp:Label></td>
                                                 <td class="tdRowValue1"><asp:Label ID="lbl3GDL1" runat="server" Text="2110-2170 MHz"></asp:Label></td>
@@ -4130,7 +4130,7 @@
                                                 <td class="tdRowName1">DL</td>
                                             </tr>
                                             <tr>
-                                                <td class="tdRowValue1"><asp:Label ID="lbl4GANA1" runat="server"></asp:Label></td>
+                                                <td class="tdRowValue1" style="width: 100px;"><asp:Label ID="lbl4GANA1" runat="server"></asp:Label></td>
                                                 <td class="tdRowValue1"><asp:Label ID="lbl4GF1" runat="server" Text="Band17"></asp:Label></td>
                                                 <td class="tdRowValue1"><asp:Label ID="lbl4GUL1" runat="server" Text="704-716 MHz(FDD)"></asp:Label></td>
                                                 <td class="tdRowValue1"><asp:Label ID="lbl4GDL1" runat="server" Text="734-746 MHz(FDD)"></asp:Label></td>
@@ -4232,7 +4232,7 @@
                                                 <td colspan="2" class="tdHeader1">cdmaOne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Power Limit：24dBm</td>
                                             </tr>
                                             <tr>
-                                                <td class="tdRowValue1"><asp:Label ID="lblCDMAOneANA1" runat="server"></asp:Label></td>
+                                                <td class="tdRowValue1" style="width:100px;"><asp:Label ID="lblCDMAOneANA1" runat="server"></asp:Label></td>
                                                 <td class="tdRowValue"><asp:Label ID="lblCDMAOneF1" runat="server" Text="824-849 MHz(MS Tx：US,Korea)"></asp:Label></td>
                                             </tr>
                                             <tr>
