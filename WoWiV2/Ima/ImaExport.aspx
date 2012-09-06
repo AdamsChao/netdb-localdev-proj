@@ -7,8 +7,8 @@
     <asp:UpdatePanel ID="upExport" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <%-- Search --%>
-            <div style="width: 80%; margin: 5px auto">
-                <table border="0" cellpadding="1" cellspacing="1" class="tbSearch" width="90%" align="center">
+            <div style="width: 90%; margin: 5px auto">
+                <table border="0" cellpadding="1" cellspacing="1" class="tbSearch" width="100%" align="center">
                     <tr>
                         <td class="tdRowName" valign="top">
                             Region：
@@ -118,7 +118,7 @@
                         <td class="tdRowValue" align="left">
                             <asp:UpdatePanel ID="upTechnology" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
-                                    <asp:CheckBoxList ID="cbTechnology" runat="server" RepeatColumns="4" RepeatDirection="Horizontal"
+                                    <asp:CheckBoxList ID="cbTechnology" runat="server" RepeatColumns="5" RepeatDirection="Horizontal"
                                         DataSourceID="sdsTechnology" DataTextField="wowi_tech_name" DataValueField="wowi_tech_id">
                                     </asp:CheckBoxList>
                                     <asp:SqlDataSource ID="sdsTechnology" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
@@ -138,7 +138,7 @@
                     <tr>
                         <td class="tdRowName" valign="top">Export Data：</td>
                         <td class="tdRowValue" align="left">
-                            <asp:CheckBoxList ID="chExportData" runat="server" RepeatColumns="2" RepeatDirection="Horizontal">
+                            <asp:CheckBoxList ID="chExportData" runat="server" RepeatColumns="3" RepeatDirection="Horizontal">
                             </asp:CheckBoxList>
                         </td>
                     </tr>
