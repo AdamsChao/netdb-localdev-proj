@@ -375,6 +375,8 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         Button btn = (Button)sender;
         GridViewRow gvr = gvContact.Rows[Convert.ToInt32(btn.CommandArgument)];
         string strTsql = "Update Ima_Contact set FirstName=@FirstName,LastName=@LastName,Title=@Title,WorkPhone=@WorkPhone,Ext=@Ext,CellPhone=@CellPhone,Adress=@Adress,CountryID=@CountryID,DID=@DID,Categroy=@Categroy,LeadTime=@LeadTime,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Fax=@Fax,Remark=@Remark,Email=@Email where ContactID=@ContactID ";
+        //同步更新 Basic Infomation 的 Contact
+        strTsql += "update contact_info set fname=@FirstName,lname=@LastName,title=@Title,[address]=@Adress,country_id=@CountryID,workphone=@WorkPhone,ext=@Ext,cellphone=@CellPhone,fax=@Fax,email=@Email,modify_date=getdate(),modify_user=@LasterUpdateUser where ima_contract_id=@ContactID ";
         SqlCommand cmd = new SqlCommand(strTsql);
         cmd.Parameters.AddWithValue("@FirstName", ((TextBox)gvr.FindControl("tbFirstName")).Text.Trim());
         cmd.Parameters.AddWithValue("@LastName", ((TextBox)gvr.FindControl("tbLastName")).Text.Trim());
