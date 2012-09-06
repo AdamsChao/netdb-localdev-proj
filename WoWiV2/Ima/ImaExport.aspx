@@ -118,7 +118,7 @@
                         <td class="tdRowValue" align="left">
                             <asp:UpdatePanel ID="upTechnology" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
-                                    <asp:CheckBoxList ID="cbTechnology" runat="server" RepeatColumns="5" RepeatDirection="Horizontal"
+                                    <asp:CheckBoxList ID="cbTechnology" runat="server" RepeatColumns="4" RepeatDirection="Horizontal"
                                         DataSourceID="sdsTechnology" DataTextField="wowi_tech_name" DataValueField="wowi_tech_id">
                                     </asp:CheckBoxList>
                                     <asp:SqlDataSource ID="sdsTechnology" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"

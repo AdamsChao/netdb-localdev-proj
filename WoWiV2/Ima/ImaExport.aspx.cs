@@ -287,9 +287,14 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                                 case "1":
                                 case "2":
                                 case "3":
+                                case "8":
                                     //CountryID及TechnologyID篩選
                                     dv = dsTech.Tables[Convert.ToInt32(strValue.Split('／')[1])].DefaultView;
-                                    dv.RowFilter = "country_id=" + strCountryID + " and wowi_tech_id=" + liTechnology.Value;
+                                    //dv.RowFilter = "country_id=" + strCountryID + " and wowi_tech_id=" + liTechnology.Value;
+                                    dv.RowFilter = "country_id=" + strCountryID;
+                                    //判斷是否為Fee schedule 加入 wowi_tech_id is null
+                                    if (strValue.Split('／')[1].ToString().Trim() == "8") { dv.RowFilter += " and (wowi_tech_id is null or wowi_tech_id=" + liTechnology.Value + ")"; }
+                                    else { dv.RowFilter += " and wowi_tech_id=" + liTechnology.Value; }
                                     dt = dv.ToTable();                                    
                                     foreach (DataRow dr in dt.Rows) 
                                     {
