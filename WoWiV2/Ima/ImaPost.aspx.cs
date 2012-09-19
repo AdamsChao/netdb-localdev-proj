@@ -124,7 +124,8 @@ public partial class Ima_ImaPost : System.Web.UI.Page
                 tbRemark.Text = dt.Rows[0]["Remark"].ToString();
                 tbRequiredDoc.Text = dt.Rows[0]["RequiredDoc"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
-                cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
+                //2012/09/13會議取消copy預設
+                //cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
                 if (Request.Params["copy"] != null)
                 {

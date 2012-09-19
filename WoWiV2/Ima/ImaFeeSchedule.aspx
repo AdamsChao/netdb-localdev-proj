@@ -714,9 +714,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        W/O Test：
-                                    </td>
+                                    <td>W/O Test：</td>
                                     <td>
                                         <asp:TextBox ID="tbRenewalWOTest" runat="server" Width="80px"></asp:TextBox>USD
                                         <asp:RegularExpressionValidator ID="revRenewalWOTest" runat="server" ControlToValidate="tbRenewalWOTest"
@@ -726,6 +724,13 @@
                                         </act:ValidatorCalloutExtender>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td valign="top">Remark：</td>
+                                    <td>
+                                        <asp:TextBox ID="tbRenewalRemark" runat="server" Width="100%" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                                    </td>
+                                </tr>
+
                             </table>
                         </td>
                     </tr>

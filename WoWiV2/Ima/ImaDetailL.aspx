@@ -450,6 +450,11 @@
                                         <asp:Label ID="lblRenewalWOTest" runat="server"></asp:Label>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="lblRenewalRemark" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
                             </table>
                         </td>
                     </tr>

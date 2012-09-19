@@ -76,7 +76,8 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
                 rblPublish.SelectedValue = Convert.ToInt32(dt.Rows[0]["Publish"]).ToString();
                 tbWebsite.Text = dt.Rows[0]["Website"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
-                cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
+                //2012/09/13會議取消copy預設
+                //cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
                 tbRFRemark.Text = dt.Rows[0]["RFRemark"].ToString();
                 tbEMCRemark.Text = dt.Rows[0]["EMCRemark"].ToString();

@@ -96,7 +96,8 @@ public partial class Ima_ImaNationalGoverned : System.Web.UI.Page
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 //trProductType.Visible = true;
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
-                cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
+                //2012/09/13會議取消copy預設
+                //cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;

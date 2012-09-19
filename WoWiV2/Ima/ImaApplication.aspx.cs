@@ -170,7 +170,8 @@ public partial class Ima_ImaApplication : System.Web.UI.Page
                 if (dt.Rows[0]["Homologation"] != DBNull.Value) { cbHomologation.Checked = Convert.ToBoolean(dt.Rows[0]["Homologation"]); }
                 tbOtherApprovalMethod.Text = dt.Rows[0]["OtherApprovalMethod"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
-                cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
+                //2012/09/13會議取消copy預設
+                //cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 if (dt.Rows[0]["Other"] != DBNull.Value) { cbOther.Checked = Convert.ToBoolean(dt.Rows[0]["Other"]); }
                 rblProvisional.SelectedValue = dt.Rows[0]["Provisional"].ToString();
                 tbProvisionalYears.Text = dt.Rows[0]["ProvisionalYears"].ToString();

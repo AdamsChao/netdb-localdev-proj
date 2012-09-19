@@ -20,7 +20,8 @@ public partial class Ima_ImaList : System.Web.UI.Page
                 SetDDlChanged();
             }            
             SetControlInit();
-            if (Request["page"] != null) { gv99.PageIndex = Convert.ToInt32(Request["page"]); }
+            if (Request["page"] != null && Request["categroy"] == "99") { gv99.PageIndex = Convert.ToInt32(Request["page"]); }
+            else if (Request["page"] != null && Request["categroy"] == "L") { gvL.PageIndex = Convert.ToInt32(Request["page"]); }
         }
     }
 
@@ -421,6 +422,7 @@ public partial class Ima_ImaList : System.Web.UI.Page
                 break;
             case "GoEditL":
                 dic.Add("fsid", lbtn.CommandArgument);
+                dic.Add("page", gvL.PageIndex.ToString());
                 strURL = "ImaFeeSchedule.aspx";
                 break;
             case "GoCopyL":

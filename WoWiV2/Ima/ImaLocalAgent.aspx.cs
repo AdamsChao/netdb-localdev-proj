@@ -95,26 +95,30 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
                 tbLeadT.Text = dt.Rows[0]["LeadTime"].ToString();
                 if (dt.Rows[0]["LocalRep"].ToString().Trim().ToLower() == "true") { rblLocalRep.SelectedValue = "1"; tbLocalRepFee.Enabled = true; }
                 if (dt.Rows[0]["LocalRepFee"].ToString().Trim().Length > 0) { tbLocalRepFee.Text = dt.Rows[0]["LocalRepFee"].ToString().Trim(); }
-                foreach (ListItem li in cbProductType.Items)
+                //2012/09/13會議取消copy預設
+                if (Request.Params["copy"] == null) 
                 {
-                    if (li.Text.Trim() == "RF")
+                    foreach (ListItem li in cbProductType.Items)
                     {
-                        li.Selected = Convert.ToBoolean(dt.Rows[0]["RF"]);
+                        if (li.Text.Trim() == "RF")
+                        {
+                            li.Selected = Convert.ToBoolean(dt.Rows[0]["RF"]);
+                        }
+                        else if (li.Text.Trim() == "Telecom")
+                        {
+                            li.Selected = Convert.ToBoolean(dt.Rows[0]["Telecom"]);
+                        }
+                        else if (li.Text.Trim() == "EMC")
+                        {
+                            li.Selected = Convert.ToBoolean(dt.Rows[0]["EMC"]);
+                        }
+                        else if (li.Text.Trim() == "Safety")
+                        {
+                            li.Selected = Convert.ToBoolean(dt.Rows[0]["Safety"]);
+                        }
+                        if (li.Selected) { lblProTypeName.Text += "," + li.Text; }
                     }
-                    else if (li.Text.Trim() == "Telecom")
-                    {
-                        li.Selected = Convert.ToBoolean(dt.Rows[0]["Telecom"]);
-                    }
-                    else if (li.Text.Trim() == "EMC")
-                    {
-                        li.Selected = Convert.ToBoolean(dt.Rows[0]["EMC"]);
-                    }
-                    else if (li.Text.Trim() == "Safety")
-                    {
-                        li.Selected = Convert.ToBoolean(dt.Rows[0]["Safety"]);
-                    }
-                    if (li.Selected) { lblProTypeName.Text += "," + li.Text; }
-                }
+                }                
 
                 if (Request.Params["copy"] != null)
                 {

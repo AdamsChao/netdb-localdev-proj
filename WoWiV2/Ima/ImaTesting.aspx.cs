@@ -134,8 +134,8 @@ public partial class Ima_Testing : System.Web.UI.Page
                 if (dt.Rows[0]["FTP"] != DBNull.Value) { cbFTP.Checked = Convert.ToBoolean(dt.Rows[0]["FTP"]); }
                 tbTestNote.Text = dt.Rows[0]["TestNote"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
-                cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
-
+                //2012/09/13會議取消copy預設
+                //cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 if (dt.Rows[0]["TestMark"] != DBNull.Value) { rblTestMark.SelectedValue = Convert.ToInt32(dt.Rows[0]["TestMark"]).ToString(); }
                 tbTestMarkRemark.Text = dt.Rows[0]["TestMarkRemark"].ToString();
                 if (dt.Rows[0]["BOM1"] != DBNull.Value) { cbBOM1.Checked = Convert.ToBoolean(dt.Rows[0]["BOM1"]); }

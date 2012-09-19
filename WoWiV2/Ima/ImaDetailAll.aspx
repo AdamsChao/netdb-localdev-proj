@@ -3178,6 +3178,9 @@
                                                 <tr>
                                                     <td><asp:Label ID="lblRenewalWOTest" runat="server" Text='<%#Eval("RenewalWOTest1")%>'></asp:Label></td>
                                                 </tr>
+                                                <tr>
+                                                    <td><asp:Label ID="lblRenewalRemark" runat="server" Text='<%# Eval("RenewalRemark").ToString().Trim().Length>0 ? "Remark："+Eval("RenewalRemark").ToString() : "" %>'></asp:Label></td>
+                                                </tr>
                                             </table>
                                         </td>
                                     </tr>

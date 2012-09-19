@@ -83,7 +83,8 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
                 tbWebsite.Text = dt.Rows[0]["Website"].ToString();
                 tbWebsite1.Text = dt.Rows[0]["Website1"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
-                cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
+                //2012/09/13會議取消copy預設
+                //cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
                 tbRFRemark.Text = dt.Rows[0]["RFRemark"].ToString();
                 tbEMCRemark.Text = dt.Rows[0]["EMCRemark"].ToString();

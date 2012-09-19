@@ -686,6 +686,10 @@
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:BoundField>
+                                                    <asp:BoundField DataField="RenewalRemark" HeaderText="Remark(Renew)">
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Left" />
+                                                    </asp:BoundField>
                                                     <asp:BoundField DataField="TotalCostFee" HeaderText="Sub Total Cost(USD)">
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />

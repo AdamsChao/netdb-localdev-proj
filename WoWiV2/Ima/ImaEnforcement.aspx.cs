@@ -41,7 +41,8 @@ public partial class Ima_ImaEnforcement : System.Web.UI.Page
                 cbFactory.Checked = Convert.ToBoolean(dt.Rows[0]["Factory"]);
                 tbRemark.Text = dt.Rows[0]["Remark"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
-                cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
+                //2012/09/13會議取消copy預設
+                //cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
                 if (Request.Params["copy"] != null)
                 {

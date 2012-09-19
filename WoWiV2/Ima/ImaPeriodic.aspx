@@ -31,8 +31,10 @@
                             <asp:CheckBoxList ID="cbProductType" runat="server" RepeatDirection="Horizontal" DataSourceID="sdsProductType" DataTextField="wowi_product_type_name" DataValueField="wowi_product_type_id" onclick="CertificationSelect(this);">
                             </asp:CheckBoxList>
                             <asp:SqlDataSource ID="sdsProductType" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="STP_IMAGetProductType" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+                            <%--<asp:SqlDataSource ID="sdsProductType" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                 SelectCommand="select wowi_product_type_id,wowi_product_type_name from wowi_product_type where publish=1">
-                            </asp:SqlDataSource>
+                            </asp:SqlDataSource>--%>
                             <asp:Label ID="lblProType" runat="server" Visible="false"></asp:Label>
                         </td>
                     </tr>
