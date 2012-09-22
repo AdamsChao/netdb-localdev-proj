@@ -244,8 +244,6 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                             row.HeightInPoints = 4 * sheet.DefaultRowHeight / 20;
                         }
                         else { icsHeader.WrapText = true; }
-
-
                         cell.SetCellValue(strValue);
                         cell.CellStyle = icsHeader;
                         //自動設定欄位寬度
