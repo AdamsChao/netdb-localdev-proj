@@ -130,7 +130,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="tdRowValue1">
+                                            <td class="tdRowValue1" style="width: 100px;">
                                                 <asp:Label ID="lbl2GANA1" runat="server"></asp:Label>
                                             </td>
                                             <td class="tdRowValue1">
@@ -362,7 +362,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="tdRowValue1">
+                                            <td class="tdRowValue1" style="width: 100px;">
                                                 <asp:Label ID="lbl3GANA1" runat="server"></asp:Label>
                                             </td>
                                             <td class="tdRowValue1">
@@ -636,7 +636,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="tdRowValue1">
+                                            <td class="tdRowValue1" style="width: 100px;">
                                                 <asp:Label ID="lbl4GANA1" runat="server"></asp:Label>
                                             </td>
                                             <td class="tdRowValue1">
@@ -857,7 +857,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="tdRowValue1">
+                                            <td class="tdRowValue1" style="width: 100px;">
                                                 <asp:Label ID="lblCDMAOneANA1" runat="server"></asp:Label>
                                             </td>
                                             <td class="tdRowValue">

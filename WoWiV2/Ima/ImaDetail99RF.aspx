@@ -957,7 +957,7 @@
                                         <td class="tdRowName1">DL</td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl2GANA1" runat="server"></asp:Label></td>
+                                        <td class="tdRowValue1" style="width: 100px;"><asp:Label ID="lbl2GANA1" runat="server"></asp:Label></td>
                                         <td class="tdRowValue1">
                                             <asp:Label ID="lbl2GF1" runat="server" Text="T-GSM-380"></asp:Label>
                                         </td>
@@ -1162,7 +1162,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl3GANA1" runat="server"></asp:Label></td>
+                                        <td class="tdRowValue1" style="width: 100px;"><asp:Label ID="lbl3GANA1" runat="server"></asp:Label></td>
                                         <td class="tdRowValue1">
                                             <asp:Label ID="lbl3GF1" runat="server" Text="Band1"></asp:Label>
                                         </td>
@@ -1403,7 +1403,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowValue1"><asp:Label ID="lbl4GANA1" runat="server"></asp:Label></td>
+                                        <td class="tdRowValue1" style="width: 100px;"><asp:Label ID="lbl4GANA1" runat="server"></asp:Label></td>
                                         <td class="tdRowValue1">
                                             <asp:Label ID="lbl4GF1" runat="server" Text="Band17"></asp:Label>
                                         </td>
@@ -1597,7 +1597,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowValue1"><asp:Label ID="lblCDMAOneANA1" runat="server"></asp:Label></td>
+                                        <td class="tdRowValue1" style="width: 100px;"><asp:Label ID="lblCDMAOneANA1" runat="server"></asp:Label></td>
                                         <td class="tdRowValue">
                                             <asp:Label ID="lblCDMAOneF1" runat="server" Text="824-849 MHz(MS Tx：US,Korea)"></asp:Label>
                                         </td>

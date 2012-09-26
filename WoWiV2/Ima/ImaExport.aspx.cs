@@ -39,6 +39,11 @@ public partial class Ima_ImaExport : System.Web.UI.Page
         {
             chExportData.Items.Insert(i, new ListItem(dt.Rows[i]["ShowName"].ToString(), dt.Rows[i]["ExportID"].ToString() + "／" + dt.Rows[i]["TableIndex"].ToString() + "／" + dt.Rows[i]["ExcelTitleName"].ToString()));
         }
+        //加入第16個模組選項
+        if (chExportData.Items.Count > 0) 
+        {
+            chExportData.Items.Insert(chExportData.Items.Count, new ListItem("Frequency allocation,power limit by Technologies", "0"));
+        }
     }
 
     protected void btnSelect_Click(object sender, EventArgs e)
@@ -206,6 +211,10 @@ public partial class Ima_ImaExport : System.Web.UI.Page
         iFont1.FontHeightInPoints = 9;
         iFont1.FontName = "Arial";
         icsTxt.SetFont(iFont1);
+        //判斷第16個模組是否有勾選匯出
+        bool blnFrequency = chExportData.Items[chExportData.Items.Count - 1].Selected;
+        DataTable dtFreqTitle;
+        DataTable dtFreq;
         //選擇匯出的Technology
         foreach (ListItem liTechnology in cbTechnology.Items) 
         {
@@ -218,8 +227,8 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                 string strExportData = "";
                 string strValue = "";
                 foreach(ListItem liExportData in chExportData.Items)
-                { 
-                    if (liExportData.Selected) 
+                {
+                    if (liExportData.Selected && liExportData.Value != "0")
                     {
                         //記錄勾選要匯出的欄位
                         strExportData += "；" + liExportData.Value;
@@ -241,7 +250,8 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                             icsHeader.WrapText = true;
                             strValue = strValue.Replace("#br#", "\n");
                             //因為換行所以將Row的高度變成4倍
-                            row.HeightInPoints = 4 * sheet.DefaultRowHeight / 20;
+                            //row.HeightInPoints = 2 * sheet.DefaultRowHeight / 20;
+                            row.HeightInPoints = 24;
                         }
                         else { icsHeader.WrapText = true; }
                         cell.SetCellValue(strValue);
@@ -251,14 +261,101 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                         j++;
                     }
                 }
+                
+                //建立第16個模組表頭
+                int intTitleIndex = j;
+                string[] strTitle3 = { };
+                if (blnFrequency)
+                {
+                    cmd = new SqlCommand("STP_ImaFrequencyTitle");
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@wowi_tech_id", liTechnology.Value);
+                    dtFreqTitle = SQLUtil.QueryDS(cmd).Tables[0];
+                    if (dtFreqTitle.Rows.Count > 0) 
+                    {
+                        //int intTitleIndex = j;
+                        int intTitle2Index = 0;
+                        IRow row1 = sheet.CreateRow(1);
+                        IRow row2 = sheet.CreateRow(2);
+                        ICell cell;                        
+                        foreach (DataRow dr in dtFreqTitle.Rows)
+                        {
+                            strTitle3 = dr["Title3"].ToString().Split(';');
+                            for (int i = 0; i <= strTitle3.Length - 1; i++) 
+                            {
+                                //第0列
+                                cell = row.CreateCell(intTitleIndex + i);
+                                cell.SetCellValue(dr["TechnologyCategoryName"].ToString());
+                                cell.CellStyle = icsHeader;
 
+                                cell = row1.CreateCell(intTitleIndex + i);
+                                cell.SetCellValue(dr["Frequency"].ToString().Replace("#br#", "\n"));
+                                cell.CellStyle = icsHeader;
+                                if (dr["Frequency"].ToString().Contains("#br#"))
+                                {
+                                    //因為換行所以將Row的高度變成3倍
+                                    row1.HeightInPoints = 3 * sheet.DefaultRowHeight / 20;
+                                }
+                                else 
+                                {
+                                    row1.HeightInPoints = 24;
+                                }
+                                cell = row2.CreateCell(intTitleIndex + i);
+                                cell.SetCellValue(strTitle3.GetValue(i).ToString());
+                                cell.CellStyle = icsHeader;
+                                row2.HeightInPoints = 24;
+                                //自動設定欄位寬度
+                                sheet.AutoSizeColumn(intTitleIndex + i);
+                            }
+                            intTitleIndex += strTitle3.Length;
+                            //合併第二列的欄位
+                            sheet.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(1, 1, j + intTitle2Index * strTitle3.Length, intTitleIndex-1));
+                            intTitle2Index++;
+                            //建立備註欄位
+                            if (intTitle2Index == dtFreqTitle.Rows.Count && Convert.ToBoolean(dr["IsRemark"])) 
+                            {
+                                cell = row.CreateCell(intTitleIndex);
+                                cell.CellStyle = icsHeader;                                
+                                cell = row1.CreateCell(intTitleIndex);
+                                cell.SetCellValue("Remark");
+                                cell.CellStyle = icsHeader;
+                                cell = row2.CreateCell(intTitleIndex);
+                                cell.CellStyle = icsHeader;
+                                sheet.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(1, 2, intTitleIndex, intTitleIndex));
+                                //自動設定欄位寬度
+                                sheet.AutoSizeColumn(intTitleIndex);
+                                //再加1是因為合併第一列欄位時減1的原因
+                                intTitleIndex += 1;
+                            }
+                        }
+                        //合併第一列欄位
+                        sheet.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(0, 0, j, intTitleIndex - 1));
+                        //建立第2及第3列前n欄表頭，並且上下欄位合併
+                        for (int i = 1; i <= 2; i++)
+                        {
+                            row = sheet.GetRow(i);
+                            for (int k = 0; k < j; k++)
+                            {
+                                cell = row.CreateCell(k);
+                                cell.CellStyle = icsHeader;
+                                sheet.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(0, 2, k, k));
+                            }
+                        }                        
+                    }
+                }
+                
+                //若沒有勾選模組16則資料從第1列開始寫入，若有則從第3列開始寫入
+                int intRowIndex = 1;
+                if (blnFrequency)
+                {
+                    intRowIndex = 3;
+                }
                 //將要匯出的欄位寫入一維陣列
                 if (strExportData.Length > 0) { strExportData = strExportData.Remove(0, 1); }
-                string[] strColumn = strExportData.Split('；');
-                int intRowIndex = 1;
+                string[] strColumn = strExportData.Split('；');                
                 DataView dv;
                 string strCountryID;
-                //建立資料
+                //建立資料intTitleIndex
                 for (int i = 0; i <= dsTech.Tables[0].Rows.Count - 1; i++)
                 {
                     strCountryID = dsTech.Tables[0].Rows[i]["country_id"].ToString();
@@ -277,7 +374,7 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                             strValue = strColumn[k - 1].ToString();
                             DataTable dt;
                             string str = "";
-                            switch (strValue.Split('／')[1].ToString()) 
+                            switch (strValue.Split('／')[1].ToString())
                             {
                                 case "0":
                                     strValue = dsTech.Tables[Convert.ToInt32(strValue.Split('／')[1])].Rows[i][strValue.Split('／')[2].ToString()].ToString();
@@ -293,8 +390,8 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                                     //判斷是否為Fee schedule 加入 wowi_tech_id is null
                                     if (strValue.Split('／')[1].ToString().Trim() == "8") { dv.RowFilter += " and (wowi_tech_id is null or wowi_tech_id=" + liTechnology.Value + ")"; }
                                     else { dv.RowFilter += " and wowi_tech_id=" + liTechnology.Value; }
-                                    dt = dv.ToTable();                                    
-                                    foreach (DataRow dr in dt.Rows) 
+                                    dt = dv.ToTable();
+                                    foreach (DataRow dr in dt.Rows)
                                     {
                                         str += "\n" + dr[strValue.Split('／')[2].ToString()].ToString();
                                     }
@@ -318,7 +415,7 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                                     break;
                             }
                             //判斷是否有換行符號
-                            if (strValue.Contains("#br#")) 
+                            if (strValue.Contains("#br#"))
                             {
                                 if (strValue.Substring(0, 4) == "#br#")
                                 {
@@ -328,6 +425,148 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                             cell.SetCellValue(strValue.Replace("#br#", "\n"));
                         }
                         cell.CellStyle = icsTxt;
+                    }
+                    //第16個模組資料
+                    if (blnFrequency) 
+                    {
+                        cmd = new SqlCommand("STP_ImaFrequencyGet");
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@country_id", strCountryID);
+                        cmd.Parameters.AddWithValue("@wowi_tech_id", liTechnology.Value);
+                        dtFreq = SQLUtil.QueryDS(cmd).Tables[0];
+                        ICell cell;
+                        if (dtFreq.Rows.Count > 0)
+                        {
+                            int intTechnologyCategoryID = Convert.ToInt32(dtFreq.Rows[0]["TechnologyCategoryID"]);
+                            int intShowColumn = 0;
+                            int intCalcRow = 0;//記錄dtFreq跑迴圈到第幾筆資料
+                            string[] strFreColumn = { "IsAllowedN", "PowerLimit", "DoorAllowed", "HT", "TPCDFS" };
+                            //strTitle3 = dtFreq.Rows[0]["Title3"].ToString().Split(';');
+                            intShowColumn = strTitle3.Length;
+                            foreach (DataRow dr in dtFreq.Rows)
+                            {
+                                for (int l = strColumn.Length + 1 + intShowColumn * intCalcRow; l <= strColumn.Length + intShowColumn + intShowColumn * intCalcRow; l++)
+                                {
+                                    string strFreqValue = "";
+                                    for (int intK = 0; intK <= intShowColumn - 1; intK++)
+                                    {
+                                        cell = row.CreateCell(l);
+                                        strFreqValue = dr[strFreColumn.GetValue(intK).ToString()].ToString().Trim();
+                                        if (strFreqValue.Contains("#br#"))
+                                        {
+                                            if (strFreqValue.Substring(0, 4) == "#br#")
+                                            {
+                                                strFreqValue = strFreqValue.Remove(0, 4);
+                                                strFreqValue = strFreqValue.Replace("#br#", "\n");
+                                            }
+                                        }
+                                        cell.SetCellValue(strFreqValue);
+                                        cell.CellStyle = icsTxt;
+                                        l++;
+                                    }
+                                }
+                                intCalcRow++;
+                            }
+                            //判斷是否有Remark備註資料
+                            if (Convert.ToBoolean(dtFreq.Rows[0]["IsRemark"]))
+                            {
+                                cell = row.CreateCell(strColumn.Length + intShowColumn * intCalcRow + 1);
+                                cell.SetCellValue(dtFreq.Rows[0]["Remark"].ToString());
+                                cell.CellStyle = icsTxt;
+                            }
+                            //else 
+                            //{
+                            //    cell = row.CreateCell(strColumn.Length + intShowColumn * intCalcRow + 1);
+                            //    cell.CellStyle = icsTxt;
+                            //}
+
+
+                            //switch (intTechnologyCategoryID)
+                            //{
+                            //    case 1:
+                            //        //intShowColumn = 5;
+                            //        //intShowColumn = strFreColumn.Length;
+                            //        intShowColumn = strTitle3.Length;                                    
+                            //        foreach (DataRow dr in dtFreq.Rows)
+                            //        {
+                            //            for (int l = strColumn.Length + 1 + intShowColumn * intCalcRow; l <= strColumn.Length + 5 + intShowColumn * intCalcRow; l++) 
+                            //            {
+                            //                string strFreqValue = "";
+                            //                for (int intK = 0; intK <= intShowColumn - 1; intK++) 
+                            //                {
+                            //                    cell = row.CreateCell(l);
+                            //                    strFreqValue = dr[strFreColumn.GetValue(intK).ToString()].ToString().Trim();
+                            //                    if (strFreqValue.Length > 0)
+                            //                    {
+                            //                        if (strFreqValue.Substring(0, 4) == "#br#")
+                            //                        {
+                            //                            strFreqValue = strFreqValue.Remove(0, 4);
+                            //                        }
+                            //                    }
+                            //                    cell.SetCellValue(strFreqValue.Replace("#br#", "\n"));
+                            //                    cell.CellStyle = icsTxt;
+                            //                    l++;
+                            //                }
+                                            
+
+                            //                //cell = row.CreateCell(l);
+                            //                //cell.SetCellValue(dr["IsAllowedN"].ToString());
+                            //                //cell.CellStyle = icsTxt;
+                            //                //l++;
+                            //                //cell = row.CreateCell(l);
+                            //                //cell.SetCellValue(dr["PowerLimit"].ToString());
+                            //                //cell.CellStyle = icsTxt;
+                            //                //l++;
+                            //                //cell = row.CreateCell(l);
+                            //                //if (dr["DoorAllowed"].ToString().Trim().Length > 0) 
+                            //                //{
+                            //                //    strFreqValue = dr["DoorAllowed"].ToString().Trim();
+                            //                //    if (strFreqValue.Substring(0, 4) == "#br#")
+                            //                //    {
+                            //                //        strFreqValue = strFreqValue.Remove(0, 4);
+                            //                //    }
+                            //                //}
+                            //                //cell.SetCellValue(strFreqValue.Replace("#br#", "\n"));
+                            //                //cell.CellStyle = icsTxt;
+                            //                //l++;
+                            //                //cell = row.CreateCell(l);
+                            //                //if (dr["HT"].ToString().Trim().Length > 0)
+                            //                //{
+                            //                //    strFreqValue = dr["HT"].ToString().Trim();
+                            //                //    if (strFreqValue.Substring(0, 4) == "#br#")
+                            //                //    {
+                            //                //        strFreqValue = strFreqValue.Remove(0, 4);
+                            //                //    }
+                            //                //}
+                            //                //cell.SetCellValue(strFreqValue.Replace("#br#", "\n"));
+                            //                //cell.CellStyle = icsTxt;
+                            //                //l++;
+                            //                //cell = row.CreateCell(l);
+
+                            //                //if (dr["TPCDFS"].ToString().Trim().Length > 0)
+                            //                //{
+                            //                //    strFreqValue = dr["TPCDFS"].ToString().Trim();
+                            //                //    if (strFreqValue.Substring(0, 4) == "#br#")
+                            //                //    {
+                            //                //        strFreqValue = strFreqValue.Remove(0, 4);
+                            //                //    }
+                            //                //}
+                            //                //cell.SetCellValue(strFreqValue.Replace("#br#", "\n"));
+                            //                //cell.CellStyle = icsTxt;
+                            //            }
+                            //            intCalcRow++;
+                            //        }
+                            //        break;
+                            //}
+                        }
+                        else 
+                        {
+                            for (int l = strColumn.Length + 1; l <= intTitleIndex - 1; l++)
+                            {                                
+                                cell = row.CreateCell(l);
+                                cell.CellStyle = icsTxt;
+                            }
+                        }
                     }
                     intRowIndex++;
                 }

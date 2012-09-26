@@ -13,9 +13,12 @@ public partial class Ima_ImaTechTelecom : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
-            int intGID = Convert.ToInt32(Request["group"]);
-            if (intGID == 5) { intGID = 4; }
-            ddlTech.SelectedIndex = intGID - 1;
+            if (Request["group"] != null) 
+            {
+                int intGID = Convert.ToInt32(Request["group"]);
+                if (intGID == 5 + 8) { intGID = 4 + 8; }
+                ddlTech.SelectedIndex = intGID - 1 - 8;
+            }
             LoadData();
         }
     }
@@ -151,7 +154,7 @@ public partial class Ima_ImaTechTelecom : System.Web.UI.Page
         cmd.Parameters.Add("@DFSDesc", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Seq", SqlDbType.SmallInt);
         cmd.Parameters.Add("@GID", SqlDbType.SmallInt);
-        cmd.Parameters["@GID"].Value = ddlTech.SelectedIndex + 1;
+        cmd.Parameters["@GID"].Value = ddlTech.SelectedIndex + 1 + 8;
 
         ContentPlaceHolder cph = (ContentPlaceHolder)Master.FindControl("MainContent");
         Panel plTech;
@@ -187,7 +190,7 @@ public partial class Ima_ImaTechTelecom : System.Web.UI.Page
         if (plTech.ID.Replace("pl", "") == "CDMA")
         {
             cmd.Parameters["@TechName"].Value = strTechName;
-            if (strTechName == "CDMA2000") { cmd.Parameters["@GID"].Value = ddlTech.SelectedIndex + 2; }
+            if (strTechName == "CDMA2000") { cmd.Parameters["@GID"].Value = ddlTech.SelectedIndex + 2 + 8; }
         }
         else
         {

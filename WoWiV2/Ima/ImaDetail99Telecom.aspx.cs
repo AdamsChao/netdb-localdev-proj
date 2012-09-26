@@ -13,9 +13,15 @@ public partial class Ima_ImaDetail99Telecom : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
-            int intGID = Convert.ToInt32(Request["group"]);
-            if (intGID == 5) { intGID = 4; }
-            ddlTech.SelectedIndex = intGID;
+            //int intGID = Convert.ToInt32(Request["group"]);
+            //if (intGID == 5) { intGID = 4; }
+            //ddlTech.SelectedIndex = intGID;
+            if (Request["group"] != null)
+            {
+                int intGID = Convert.ToInt32(Request["group"]);
+                if (intGID == 5 + 8) { intGID = 4 + 8; }
+                ddlTech.SelectedIndex = intGID - 8;
+            }
             LoadData();
         }
     }
