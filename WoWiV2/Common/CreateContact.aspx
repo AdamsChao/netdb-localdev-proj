@@ -14,11 +14,11 @@
      <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
         </asp:ScriptManagerProxy>
        
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-            <ContentTemplate>
+<%--        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>--%>
              <uc1:CreateContact ID="CreateContact1" runat="server" />
-        </ContentTemplate>
-        </asp:UpdatePanel>
+<%--        </ContentTemplate>
+        </asp:UpdatePanel>--%>
         <%--<asp:UpdateProgress ID="UpdateProgress1" runat="server" EnableViewState="False" >
         <ProgressTemplate>--%>
          <div id="processdiv" style="position:absolute;border:#6593cf 1px solid; padding:2px;background:#ccca; z-index:1; left: 40%;

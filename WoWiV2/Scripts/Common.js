@@ -13,4 +13,8 @@
             );
 
      return flag;
-}
+ }
+
+ function dis(obj) {
+     obj.disabled = true;
+ }

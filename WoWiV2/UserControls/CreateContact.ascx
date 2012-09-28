@@ -409,7 +409,7 @@
 
     protected void dlIMAContactList_Load(object sender, EventArgs e)
     {
-
+        //if (Page.IsPostBack) return;
         DropDownList dl = (DropDownList)sender;
         String val = dl.SelectedValue;
         dl.Items.Clear();
@@ -693,6 +693,7 @@
 
     protected void lblAccessLevel_Load(object sender, EventArgs e)
     {
+        if (Page.IsPostBack) return;
         String strId = Request.QueryString["id"];
         (sender as Label).Text = "";
         if (String.IsNullOrEmpty(strId))
@@ -768,11 +769,6 @@
         }
     }
 
-    protected void dlIMAContactList_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        //DropDownList list = sender as DropDownList;
-        //ViewState["IMA"] = list.SelectedValue;
-    }
 </script>
 
 <asp:FormView ID="MyContactCreateFormView1" runat="server" DataKeyNames="id" SkinID="FormView"
@@ -809,10 +805,9 @@
                                 Load from IMA :
                                 <asp:DropDownList ID="dlIMAContactList" runat="server"
                                     AppendDataBoundItems="False" AutoPostBack="True" 
-                                    onload="dlIMAContactList_Load" 
-                                    onselectedindexchanged="dlIMAContactList_SelectedIndexChanged">
+                                    onload="dlIMAContactList_Load" >
                                 </asp:DropDownList>
-                                <asp:Button ID="Button1" runat="server" onclick="MyIMABtnLoad_Click" Text="Load" CausesValidation="False" />
+                                <asp:Button ID="MyIMABtnLoad" runat="server" onclick="MyIMABtnLoad_Click" Text="Load" CausesValidation="False" />
                             </td>
                         </tr>
                          <tr><th 
@@ -1001,7 +996,7 @@
                         <tr align="center">
                             <td>
                                 <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" 
-                                    CommandName="Insert" Text="Create" />
+                                    CommandName="Insert" Text="Create" OnClientClick="dis(this);" />
                                 &nbsp;
                                 <asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" 
                                     CommandName="Cancel" Text="Cancel" />
