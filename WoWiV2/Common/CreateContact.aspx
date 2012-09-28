@@ -35,7 +35,7 @@ top: 35%;">
     var found = false;
     function BeginRequestHandler(sender, args) {
         var elem = args.get_postBackElement();
-        if (elem.id.indexOf("InsertButton") != -1) {
+        if (elem.id.indexOf("InsertButton") != -1 || elem.id.indexOf("MyBtnLoad") != -1 || elem.id.indexOf("MyIMABtnLoad") != -1 ) {
             document.getElementById("processdiv").style.display = "block";
             elem.disabled = true;
             targetElem = elem;
