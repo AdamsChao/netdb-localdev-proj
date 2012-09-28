@@ -7,11 +7,6 @@
         HyperLink hl = (HyperLink)MyContactCreateFormView1.FindControl("hlContactList");
         hl.Visible = visible;
     }
-   
-    protected void MyContactCreateFormView1_ItemInserted(object sender, FormViewInsertedEventArgs e)
-    {
-        
-    }
 
 
     protected void MyContactCreateFormEnttityDataSource1_Inserted(object sender, EntityDataSourceChangedEventArgs e)
@@ -781,8 +776,7 @@
 </script>
 
 <asp:FormView ID="MyContactCreateFormView1" runat="server" DataKeyNames="id" SkinID="FormView"
-    DataSourceID="MyContactCreateFormEnttityDataSource1" DefaultMode="Insert" 
-    oniteminserted="MyContactCreateFormView1_ItemInserted" 
+    DataSourceID="MyContactCreateFormEnttityDataSource1" DefaultMode="Insert"  
     oniteminserting="MyContactCreateFormView1_ItemInserting" Width="100%" >
     <InsertItemTemplate>
         <table align="left" border="0" cellpadding="2" cellspacing="0" 
