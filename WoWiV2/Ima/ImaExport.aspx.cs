@@ -379,9 +379,9 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                                 case "0":
                                     strValue = dsTech.Tables[Convert.ToInt32(strValue.Split('／')[1])].Rows[i][strValue.Split('／')[2].ToString()].ToString();
                                     break;
-                                case "1":
-                                case "2":
-                                case "3":
+                                //case "1":2012/10/05取消與Technology的關連
+                                //case "2":2012/10/05取消與Technology的關連
+                                //case "3":2012/10/05取消與Technology的關連
                                 case "8":
                                     //CountryID及TechnologyID篩選
                                     dv = dsTech.Tables[Convert.ToInt32(strValue.Split('／')[1])].DefaultView;
@@ -398,6 +398,9 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                                     if (str.Length > 0) { strValue = str.Remove(0, 1); }
                                     else { strValue = ""; }
                                     break;
+                                case "1"://2012/10/05取消與Technology的關連
+                                case "2"://2012/10/05取消與Technology的關連
+                                case "3"://2012/10/05取消與Technology的關連
                                 case "4":
                                 case "5":
                                 case "6":
