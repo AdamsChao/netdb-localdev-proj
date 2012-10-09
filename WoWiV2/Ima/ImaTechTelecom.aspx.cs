@@ -113,7 +113,9 @@ public partial class Ima_ImaTechTelecom : System.Web.UI.Page
                 if (cbANA != null) { cbANA.Checked = Convert.ToBoolean(dtTech.Rows[i - 1]["IsAllowed"]); }
                 if (i == 1)
                 {
-                    TextBox tbRemark = (TextBox)plTech.FindControl("tb" + strTechName + "Remark");
+                    TextBox tbRemark;
+                    if (plTech.ID.Replace("pl", "") != "CDMA") { tbRemark = (TextBox)plTech.FindControl("tb" + strTechName + "Remark"); }
+                    else { tbRemark = tbCDMRemark; }
                     if (tbRemark != null) { tbRemark.Text = dtTech.Rows[i - 1]["Remark"].ToString(); }
                 }
             }
@@ -196,7 +198,15 @@ public partial class Ima_ImaTechTelecom : System.Web.UI.Page
         {
             cmd.Parameters["@TechName"].Value = ddlTech.SelectedValue;
         }
-        TextBox tbRemark = (TextBox)plTech.FindControl("tb" + strTechName + "Remark");
+        TextBox tbRemark;
+        if (plTech.ID.Replace("pl", "") == "CDMA")
+        {
+            tbRemark = (TextBox)plTech.FindControl("tbCDMRemark");
+        }
+        else
+        {
+            tbRemark = (TextBox)plTech.FindControl("tb" + strTechName + "Remark");
+        }
         if (tbRemark != null) { cmd.Parameters["@Remark"].Value = tbRemark.Text.Trim(); }
         else { cmd.Parameters["@Remark"].Value = DBNull.Value; }
         cmd.Parameters["@IndoorAllowed"].Value = DBNull.Value;

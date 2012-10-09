@@ -1125,6 +1125,16 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td class="tdRowValue1" colspan="4">
+                                            <table border="0" width="100%">
+                                                <tr>
+                                                    <td style="width: 50px;">Remark：</td>
+                                                    <td align="left"><asp:Label ID="lbl2GRemark" runat="server"></asp:Label></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td colspan="4" align="center" class="tdFooter">
                                             
                                         </td>
@@ -1366,6 +1376,16 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td class="tdRowValue1" colspan="4">
+                                            <table border="0" width="100%">
+                                                <tr>
+                                                    <td style="width: 50px;">Remark：</td>
+                                                    <td align="left"><asp:Label ID="lbl3GRemark" runat="server"></asp:Label></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td colspan="4" align="center" class="tdFooter">
                                             
                                         </td>
@@ -1571,6 +1591,16 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td class="tdRowValue1" colspan="4">
+                                            <table border="0" width="100%">
+                                                <tr>
+                                                    <td style="width: 50px;">Remark：</td>
+                                                    <td align="left"><asp:Label ID="lbl4GRemark" runat="server"></asp:Label></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td colspan="4" align="center" class="tdFooter">
                                             
                                         </td>
@@ -1708,6 +1738,16 @@
                                         <td class="tdRowValue1"><asp:Label ID="lblCDMA2000ANA10" runat="server"></asp:Label></td>
                                         <td class="tdRowValue">
                                             <asp:Label ID="lblCDMA2000F10" runat="server" Text="2110-2170 MHz(BS Tx)"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowValue1" colspan="2">
+                                            <table border="0" width="100%">
+                                                <tr>
+                                                    <td style="width: 50px;">Remark：</td>
+                                                    <td align="left"><asp:Label ID="lblCDMRemark" runat="server"></asp:Label></td>
+                                                </tr>
+                                            </table>
                                         </td>
                                     </tr>
                                     <tr>

@@ -910,6 +910,16 @@
                                         <td class="tdRowValue1"><asp:Label ID="lbl2GDL14" runat="server" Text="1930.0-1990.0 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
+                                        <td class="tdRowValue1" colspan="4">
+                                            <table border="0" width="100%">
+                                                <tr>
+                                                    <td  style="width:50px;">Remark：</td>
+                                                    <td align="left"><asp:TextBox ID="tb2GRemark" runat="server" TextMode="MultiLine" Rows="3" Width="96%"></asp:TextBox></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td colspan="4" align="center" class="tdFooter">
                                             <asp:UpdatePanel ID="up2G" runat="server">
                                                 <ContentTemplate>
@@ -1044,6 +1054,16 @@
                                         <td class="tdRowValue1"><asp:Label ID="lbl3GDL17" runat="server" Text="1495.9-1510.9 MHz"></asp:Label></td>
                                     </tr>
                                     <tr>
+                                        <td class="tdRowValue1" colspan="4">
+                                            <table border="0" width="100%">
+                                                <tr>
+                                                    <td style="width: 50px;">Remark：</td>
+                                                    <td align="left"><asp:TextBox ID="tb3GRemark" runat="server" TextMode="MultiLine" Rows="3" Width="96%"></asp:TextBox></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td colspan="4" align="center" class="tdFooter">
                                             <asp:UpdatePanel ID="up3G" runat="server">
                                                 <ContentTemplate>
@@ -1160,6 +1180,16 @@
                                         <td class="tdRowValue1"><asp:Label ID="lbl4GDL14" runat="server" Text="3600-3800 MHz(FDD)"></asp:Label></td>
                                     </tr>
                                     <tr>
+                                        <td class="tdRowValue1" colspan="4">
+                                            <table border="0" width="100%">
+                                                <tr>
+                                                    <td style="width: 50px;">Remark：</td>
+                                                    <td align="left"><asp:TextBox ID="tb4GRemark" runat="server" TextMode="MultiLine" Rows="3" Width="96%"></asp:TextBox></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td colspan="4" align="center" class="tdFooter">
                                             <asp:UpdatePanel ID="up4G" runat="server">
                                                 <ContentTemplate>
@@ -1261,7 +1291,17 @@
                                         <td class="tdRowValue"><asp:Label ID="lblCDMA2000F10" runat="server" Text="2110-2170 MHz(BS Tx)"></asp:Label></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4" align="center" class="tdFooter">
+                                        <td class="tdRowValue1" colspan="2">
+                                            <table border="0" width="100%">
+                                                <tr>
+                                                    <td style="width: 50px;">Remark：</td>
+                                                    <td align="left"><asp:TextBox ID="tbCDMRemark" runat="server" TextMode="MultiLine" Rows="3" Width="96%"></asp:TextBox></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="center" class="tdFooter">
                                             <asp:UpdatePanel ID="upCDMA" runat="server">
                                                 <ContentTemplate>
                                                     <uc2:MsgBox ID="mbMsgCDMA" runat="server" />

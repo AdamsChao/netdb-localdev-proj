@@ -233,7 +233,9 @@ public partial class Ima_ImaDetailAll : System.Web.UI.Page
                 }
                 if (i == 1)
                 {
-                    Label lblRemark = (Label)plTech.FindControl("lbl" + strTechName + "Remark");
+                    Label lblRemark;
+                    if (plTech.ID.Replace("pl", "") != "CDMA") { lblRemark = (Label)plTech.FindControl("lbl" + strTechName + "Remark"); }
+                    else { lblRemark = lblCDMRemark; }
                     if (lblRemark != null) { lblRemark.Text = dtTech.Rows[i - 1]["Remark"].ToString(); }
                 }
             }
