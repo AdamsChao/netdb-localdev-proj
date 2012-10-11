@@ -223,9 +223,9 @@
                     (FormView1.FindControl("ddlContractType") as DropDownList).SelectedValue = data.contract_type;
                     (FormView1.FindControl("ddlBankCharge") as DropDownList).SelectedValue = data.bank_charge.ToString();
                     (FormView1.FindControl("ddlPaymentType") as DropDownList).SelectedValue = data.payment_type.ToString();
-                    (FormView1.FindControl("ddlPaymentTerm1") as DropDownList).SelectedValue = data.payment_term1.ToString();
-                    (FormView1.FindControl("ddlPaymentTerm2") as DropDownList).SelectedValue = data.payment_term2.ToString();
-                    (FormView1.FindControl("ddlPaymentTerm3") as DropDownList).SelectedValue = data.payment_term3.ToString();
+                    (FormView1.FindControl("ddlPaymentTerm1") as DropDownList).SelectedValue = data.payment_term1.HasValue?data.payment_term1.ToString():"0";
+                    (FormView1.FindControl("ddlPaymentTerm2") as DropDownList).SelectedValue = data.payment_term2.HasValue ? data.payment_term2.ToString() : "0";
+                    (FormView1.FindControl("ddlPaymentTerm3") as DropDownList).SelectedValue = data.payment_term3.HasValue ? data.payment_term3.ToString() : "0";
                     (FormView1.FindControl("ddlPaymentTermF") as DropDownList).SelectedValue = data.payment_term_final.ToString();
                 }
                 catch (Exception ex)
@@ -386,7 +386,7 @@
         DropDownList list = (DropDownList)sender;
         int[] data = { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
         list.DataSource = data;//Enumerable.Range(0, 101);
-        //list.DataBind();
+        list.DataBind();
     }
     protected void btnShow_Click(object sender, EventArgs e)
     {
@@ -1345,6 +1345,11 @@
     {
         //lbljs.Text = "<script type=\"text/javascript\">openAttachWin()</"+"script"+">";
     }
+
+    protected void FormView1_PageIndexChanging(object sender, FormViewPageEventArgs e)
+    {
+
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -1808,12 +1813,38 @@
                                     </asp:GridView>
               </td>
               </tr>              </asp:Panel>
+               
                <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
                             <th colspan="4">
                                 Authority Owner</th>
                         </tr>
                             <tr><td colspan="4">
                             <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                          <td colspan="2">
+                                     Internal Remarks:
+                          <td colspan="2">
+                                 External Instruction:
+                                 </td>
+                                 
+                          </tr>
+                            <tr align="center">
+                          <td colspan="2"><%--
+                                     Internal Remarks:<br/>--%>
+                                     <asp:TextBox ID="tbInternalMarksHis" runat="server" TextMode="MultiLine" 
+                                         Width="510px" Height="100px" ReadOnly="true" OnLoad="AuthLabel_Load"></asp:TextBox><br/>
+                                     <asp:TextBox ID="tbInternalMarks" runat="server" Height="50px" 
+                                         TextMode="MultiLine" Width="510px" OnLoad="AuthLabel_Load"></asp:TextBox>
+                                 </td>
+                          <td colspan="2"><%--
+                                 External Instruction:<br/>--%>
+                                     <asp:TextBox ID="tbInstructionHis" runat="server" TextMode="MultiLine" Width="510" ReadOnly="true"
+                                         Height="100px" OnLoad="AuthLabel_Load" ></asp:TextBox><br/>
+                                     <asp:TextBox ID="tbInstruction" runat="server" Height="50px" 
+                                         TextMode="MultiLine" Width="510" OnLoad="AuthLabel_Load"></asp:TextBox>
+                                 </td>
+                                 
+                          </tr>
                           <tr >
                                  <td>
                                     Requisitioner
@@ -1830,13 +1861,13 @@
                                  <td>
                                     Date : <asp:Label ID="lblRequisitionerDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
-                                 <td rowspan="3">
+                                 <%--<td rowspan="3">
                                      Internal Remarks:<br/>
                                      <asp:TextBox ID="tbInternalMarksHis" runat="server" TextMode="MultiLine" 
                                          Width="200px" Height="55px" ReadOnly="true" OnLoad="AuthLabel_Load"></asp:TextBox><br/>
                                      <asp:TextBox ID="tbInternalMarks" runat="server" Height="36px" 
                                          TextMode="MultiLine" Width="200px" OnLoad="AuthLabel_Load"></asp:TextBox>
-                                 </td>
+                                 </td>--%>
                           </tr>
                            <tr >
                                  <td>
@@ -1888,13 +1919,13 @@
                                  <td>
                                     Date : <asp:Label ID="lblPresidentDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
-                                 <td rowspan="3">
+                                 <%--<td rowspan="3">
                                  External Instruction:<br/>
                                      <asp:TextBox ID="tbInstructionHis" runat="server" TextMode="MultiLine" Width="200" ReadOnly="true"
                                          Height="55px" OnLoad="AuthLabel_Load" ></asp:TextBox><br/>
                                      <asp:TextBox ID="tbInstruction" runat="server" Height="36px" 
                                          TextMode="MultiLine" Width="200" OnLoad="AuthLabel_Load"></asp:TextBox>
-                                 </td>
+                                 </td>--%>
                           </tr>
                         <%--  <tr >
                                  <td>
@@ -1931,6 +1962,7 @@
                                    <asp:Label ID="lblStatus" runat="server" OnLoad="AuthLabel_Load" Font-Bold="True" ForeColor="Black"></asp:Label>
                                  </td>
                           </tr>
+                         
                       </table>
 
                             </td></tr>

@@ -145,9 +145,24 @@
                 }
                 int auth_id = (int)obj.pr_auth_id;
                 WoWiModel.PR_authority_history auth = (from a in wowidb.PR_authority_history where a.pr_auth_id == auth_id select a).First();
-                tbInstruction.Text = auth.instruction;
-                tbRemarks.Text = auth.remark;
-                if (auth.president_date.HasValue)
+                if (String.IsNullOrEmpty(auth.instruction))
+                {
+                    tbInstruction.Text = "N/A";
+                }
+                else
+                {
+                    tbInstruction.Text = auth.instruction.Replace("\n", "<br>");
+
+                }
+
+                if (String.IsNullOrEmpty(auth.remark))
+                {
+                    tbRemarks.Text = "N/A";
+                }
+                else
+                {
+                    tbRemarks.Text = auth.remark.Replace("\n", "<br>");
+                }
                 {
                     try
                     {
@@ -714,13 +729,17 @@
                            <tr>
             <td class="ccstextboxh" valign="top"colspan="2" align="left" >
                 <u>Internal Remarks</u><br />
-                <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px"   TextMode="MultiLine"
-                   ReadOnly="true"></asp:TextBox>
+               <%-- <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px"   TextMode="MultiLine"
+                   ReadOnly="true"></asp:TextBox>--%>
+                   <asp:Label ID="tbRemarks" runat="server" 
+                    ></asp:Label>
             </td>
             <td class="ccstextboxh" valign="top"colspan="2" align="left"  >
                 <u>External Instruction</u><br />
-                <asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px"  TextMode="MultiLine"
-                   ReadOnly="true"></asp:TextBox>
+                <%--<asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px"  TextMode="MultiLine"
+                   ReadOnly="true"></asp:TextBox>--%>
+                   <asp:Label ID="tbInstruction" runat="server" 
+                    ></asp:Label>
             </td>
              </tr>
              

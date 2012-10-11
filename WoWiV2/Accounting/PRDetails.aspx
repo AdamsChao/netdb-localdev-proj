@@ -959,6 +959,31 @@
                         </tr>
                             <tr><td colspan="4">
                             <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                          <td colspan="2">
+                                     Internal Remarks:
+                          <td colspan="2">
+                                 External Instruction:
+                                 </td>
+                                 
+                          </tr>
+                            <tr align="center">
+                          <td colspan="2"><%--
+                                     Internal Remarks:<br/>--%>
+                                     <asp:TextBox ID="tbInternalMarksHis" runat="server" TextMode="MultiLine" 
+                                         Width="510px" Height="100px" ReadOnly="true" OnLoad="AuthLabel_Load"></asp:TextBox><br/>
+                                     <asp:TextBox ID="TextBox3" runat="server" Height="50px" 
+                                         TextMode="MultiLine" Width="510px" OnLoad="AuthLabel_Load"></asp:TextBox>
+                                 </td>
+                          <td colspan="2"><%--
+                                 External Instruction:<br/>--%>
+                                     <asp:TextBox ID="tbInstructionHis" runat="server" TextMode="MultiLine" Width="510" ReadOnly="true"
+                                         Height="100px" OnLoad="AuthLabel_Load" ></asp:TextBox><br/>
+                                     <asp:TextBox ID="TextBox5" runat="server" Height="50px" 
+                                         TextMode="MultiLine" Width="510" OnLoad="AuthLabel_Load"></asp:TextBox>
+                                 </td>
+                                 
+                          </tr>
                           <tr >
                                  <td>
                                     Requisitioner
@@ -974,10 +999,10 @@
                                  <td>
                                     Date : <asp:Label ID="lblRequisitionerDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
-                                 <td rowspan="3">
+                                <%-- <td rowspan="3">
                                      Internal Remarks:<br/>
                                      <asp:TextBox ID="tbInternalMarks" runat="server" TextMode="MultiLine" Width="200" Height="100" OnLoad="AuthLabel_Load" ReadOnly="true"></asp:TextBox>
-                                 </td>
+                                 </td>--%>
                           </tr>
                            <tr >
                                  <td>
@@ -1029,10 +1054,10 @@
                                  <td>
                                     Date : <asp:Label ID="lblPresidentDate" runat="server" Text="" OnLoad="AuthLabel_Load"></asp:Label>
                                  </td>
-                                 <td rowspan="3">
+                                 <%--<td rowspan="3">
                                  External Instruction:<br/>
                                      <asp:TextBox ID="tbInstruction" runat="server" TextMode="MultiLine" Width="200" Height="100" OnLoad="AuthLabel_Load" ReadOnly="true"></asp:TextBox>
-                                 </td>
+                                 </td>--%>
                           </tr>
                           <%--<tr >
                                  <td>
