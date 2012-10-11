@@ -1821,25 +1821,33 @@
                             <tr><td colspan="4">
                             <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
                             <tr>
-                          <td colspan="2">
-                                     Internal Remarks:
-                          <td colspan="2">
-                                 External Instruction:
+                          <td align="right">
+                                     Internal Remarks:</td><td>
+                          <td align="right">
+                                 External Instruction:</td><td>
                                  </td>
                                  
                           </tr>
                             <tr align="center">
-                          <td colspan="2"><%--
-                                     Internal Remarks:<br/>--%>
+                          <td align="right">History:</td><td>
                                      <asp:TextBox ID="tbInternalMarksHis" runat="server" TextMode="MultiLine" 
                                          Width="510px" Height="100px" ReadOnly="true" OnLoad="AuthLabel_Load"></asp:TextBox><br/>
-                                     <asp:TextBox ID="tbInternalMarks" runat="server" Height="50px" 
-                                         TextMode="MultiLine" Width="510px" OnLoad="AuthLabel_Load"></asp:TextBox>
+                                     
                                  </td>
-                          <td colspan="2"><%--
-                                 External Instruction:<br/>--%>
+                         <td align="right">History:</td><td>
                                      <asp:TextBox ID="tbInstructionHis" runat="server" TextMode="MultiLine" Width="510" ReadOnly="true"
                                          Height="100px" OnLoad="AuthLabel_Load" ></asp:TextBox><br/>
+                                     
+                                 </td>
+                                 
+                          </tr>
+                          </tr>
+                            <tr align="center">
+                          <td ></td><td>
+                                    <asp:TextBox ID="tbInternalMarks" runat="server" Height="50px" 
+                                         TextMode="MultiLine" Width="510px" OnLoad="AuthLabel_Load"></asp:TextBox>
+                                 </td>
+                          <td ></td><td>
                                      <asp:TextBox ID="tbInstruction" runat="server" Height="50px" 
                                          TextMode="MultiLine" Width="510" OnLoad="AuthLabel_Load"></asp:TextBox>
                                  </td>
