@@ -96,7 +96,7 @@
                 lblOCurrency1.Text = obj.currency;
                 lblOtotal.Text = ((decimal)obj.total_cost).ToString("F2");
                 QuotationModel.Project proj = (from pj in db.Project where  pj.Project_Id == obj.project_id select pj).First();
-                //lblProjNo.Text = proj.Project_No;
+                lblProjNo.Text = proj.Project_No;
                 lblProjectStatus.Text = proj.Project_Status;
                 //lblProjectDate.Text = proj.Create_Date.ToString("yyyy/MM/dd");
                 QuotationModel.Quotation_Version quo = db.Quotation_Version.First(c => c.Quotation_Version_Id == proj.Quotation_Id);
