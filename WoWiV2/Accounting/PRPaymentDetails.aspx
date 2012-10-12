@@ -151,7 +151,7 @@
                 }
                 else
                 {
-                    tbInstruction.Text = Regex.Replace(auth.instruction, "[[\r\t]", "<br/>", RegexOptions.IgnoreCase); //auth.instruction.Replace("\n", "<br>");
+                    tbInstruction.Text = auth.instruction.Replace("\n", "<br>");
 
                 }
 
@@ -161,7 +161,7 @@
                 }
                 else
                 {
-                    tbRemarks.Text = Regex.Replace(auth.remark, "[[\r\t]", "<br/>", RegexOptions.IgnoreCase);// auth.remark.Replace("\n", "<br>");
+                    tbRemarks.Text = auth.remark.Replace("\n", "<br>"); //Regex.Replace(auth.remark, "[[\r\t]", "<br/>", RegexOptions.IgnoreCase);//
                 }
                 {
                     try
