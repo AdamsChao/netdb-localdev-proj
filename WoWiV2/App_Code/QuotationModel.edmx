@@ -12,6 +12,7 @@
           <EntitySet Name="contact_info" EntityType="QuotationModel.Store.contact_info" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="country" EntityType="QuotationModel.Store.country" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="employee" EntityType="QuotationModel.Store.employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="invoice" EntityType="QuotationModel.Store.invoice" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="invoice_target" EntityType="QuotationModel.Store.invoice_target" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="m_employee_accesslevel" EntityType="QuotationModel.Store.m_employee_accesslevel" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Project" EntityType="QuotationModel.Store.Project" store:Type="Tables" Schema="dbo" />
@@ -138,6 +139,14 @@
       [vw_Test_Target_List].[Quotation_Status] AS [Quotation_Status]
       FROM [dbo].[vw_Test_Target_List] AS [vw_Test_Target_List]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_Project_Quotation_Version" Association="QuotationModel.Store.FK_Project_Quotation_Version">
+            <End Role="Quotation_Version" EntitySet="Quotation_Version" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Target_Quotation_Version" Association="QuotationModel.Store.FK_Quotation_Target_Quotation_Version">
+            <End Role="Quotation_Version" EntitySet="Quotation_Version" />
+            <End Role="Quotation_Target" EntitySet="Quotation_Target" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Authority">
           <Key>
@@ -260,6 +269,7 @@
           <Property Name="publish" Type="bit" Nullable="false" />
           <Property Name="department_id" Type="int" />
           <Property Name="employee_id" Type="int" />
+          <Property Name="ima_contract_id" Type="int" />
         </EntityType>
         <EntityType Name="country">
           <Key>
@@ -312,6 +322,36 @@
           <Property Name="pr_authorize_amt" Type="int" />
           <Property Name="pr_authorize_currency" Type="nvarchar" MaxLength="10" />
           <Property Name="jobtitle_id" Type="int" />
+        </EntityType>
+        <EntityType Name="invoice">
+          <Key>
+            <PropertyRef Name="invoice_id" />
+          </Key>
+          <Property Name="invoice_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="project_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="quotaion_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="invoice_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="invoice_date" Type="datetime" />
+          <Property Name="issue_invoice_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="issue_invoice_date" Type="datetime" />
+          <Property Name="currency" Type="nvarchar" MaxLength="5" />
+          <Property Name="ototal" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="tax" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="total" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="exchange_rate" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="create_user" Type="nvarchar" MaxLength="50" />
+          <Property Name="create_date" Type="datetime" />
+          <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
+          <Property Name="modify_date" Type="datetime" />
+          <Property Name="ocurrency" Type="nvarchar" MaxLength="5" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="255" />
+          <Property Name="status" Type="tinyint" />
+          <Property Name="exchange_operate" Type="nvarchar" MaxLength="1" />
+          <Property Name="final_total" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="adjust" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="due_date" Type="datetime" />
+          <Property Name="ar_balance" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="bankacct_info_id" Type="int" />
         </EntityType>
         <EntityType Name="invoice_target">
           <Key>
@@ -427,14 +467,14 @@
           <Property Name="paymentlimit" Type="nvarchar" MaxLength="10" />
           <Property Name="SalesId" Type="int" />
           <Property Name="Currency" Type="nvarchar" MaxLength="3" />
-          <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="CProduct_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Model_No" Type="nvarchar" MaxLength="50" />
-          <Property Name="CModel_No" Type="nvarchar" MaxLength="50" />
-          <Property Name="Brand_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="CBrand_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Model_Difference" Type="nvarchar" MaxLength="50" />
-          <Property Name="CModel_Difference" Type="nvarchar" MaxLength="50" />
+          <Property Name="Product_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="CProduct_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="Model_No" Type="nvarchar" MaxLength="100" />
+          <Property Name="CModel_No" Type="nvarchar" MaxLength="100" />
+          <Property Name="Brand_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="CBrand_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Model_Difference" Type="nvarchar" MaxLength="500" />
+          <Property Name="CModel_Difference" Type="nvarchar" MaxLength="500" />
           <Property Name="Client_Id" Type="int" />
           <Property Name="Client_Contact" Type="int" />
           <Property Name="Applicant_Id" Type="int" />
@@ -526,6 +566,7 @@
           <Property Name="create_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
+          <Property Name="technology_category_id" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'WoWi.dbo.vw_Product_Type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -667,6 +708,34 @@
           <Property Name="BillE" Type="decimal" Precision="20" Scale="2" />
           <Property Name="Quotation_Status" Type="int" />
         </EntityType>
+        <Association Name="FK_Project_Quotation_Version">
+          <End Role="Quotation_Version" Type="QuotationModel.Store.Quotation_Version" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Project" Type="QuotationModel.Store.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Version">
+              <PropertyRef Name="Quotation_Version_Id" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="Quotation_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Target_Quotation_Version">
+          <End Role="Quotation_Version" Type="QuotationModel.Store.Quotation_Version" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Quotation_Target" Type="QuotationModel.Store.Quotation_Target" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Version">
+              <PropertyRef Name="Quotation_Version_Id" />
+            </Principal>
+            <Dependent Role="Quotation_Target">
+              <PropertyRef Name="quotation_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -692,6 +761,15 @@
           <EntitySet Name="Quotation_Version" EntityType="QuotationModel.Quotation_Version" />
           <EntitySet Name="country" EntityType="QuotationModel.country" />
           <EntitySet Name="vw_Quotation_Print_Chinese" EntityType="QuotationModel.vw_Quotation_Print_Chinese" />
+          <EntitySet Name="invoice" EntityType="QuotationModel.invoice" />
+          <AssociationSet Name="FK_Project_Quotation_Version" Association="QuotationModel.FK_Project_Quotation_Version">
+            <End Role="Quotation_Version" EntitySet="Quotation_Version" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Target_Quotation_Version" Association="QuotationModel.FK_Quotation_Target_Quotation_Version">
+            <End Role="Quotation_Version" EntitySet="Quotation_Version" />
+            <End Role="Quotation_Target" EntitySet="Quotation_Target" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -803,6 +881,7 @@
           <Property Type="Decimal" Name="Bill2" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="Bill3" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="BillE" Precision="20" Scale="2" />
+          <NavigationProperty Name="Quotation_Version" Relationship="QuotationModel.FK_Quotation_Target_Quotation_Version" FromRole="Quotation_Target" ToRole="Quotation_Version" />
         </EntityType>
         <EntityType Name="Target_Rates">
           <Key>
@@ -847,6 +926,7 @@
           <Property Type="DateTime" Name="Create_Date" Nullable="false" />
           <Property Type="Int32" Name="Quotation_Id" Nullable="false" />
           <Property Type="String" Name="Quotation_No" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quotation_Version" Relationship="QuotationModel.FK_Project_Quotation_Version" FromRole="Project" ToRole="Quotation_Version" />
         </EntityType>
         <EntityType Name="wowi_tech">
           <Key>
@@ -860,6 +940,7 @@
           <Property Type="DateTime" Name="create_date" />
           <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="modify_date" />
+          <Property Type="Int32" Name="technology_category_id" />
         </EntityType>
         <EntityType Name="vw_Target">
           <Key>
@@ -1027,6 +1108,7 @@
           <Property Type="Boolean" Name="publish" Nullable="false" />
           <Property Type="Int32" Name="department_id" />
           <Property Type="Int32" Name="employee_id" />
+          <Property Type="Int32" Name="ima_contract_id" />
         </EntityType>
         <EntityType Name="employee">
           <Key>
@@ -1149,6 +1231,8 @@
           <Property Type="Decimal" Name="FinalTotalPrice" Precision="20" Scale="2" />
           <Property Type="String" Name="Probability" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Access_Level_ID" />
+          <NavigationProperty Name="Project" Relationship="QuotationModel.FK_Project_Quotation_Version" FromRole="Quotation_Version" ToRole="Project" />
+          <NavigationProperty Name="Quotation_Target" Relationship="QuotationModel.FK_Quotation_Target_Quotation_Version" FromRole="Quotation_Version" ToRole="Quotation_Target" />
         </EntityType>
         <EntityType Name="country">
           <Key>
@@ -1206,6 +1290,60 @@
           <Property Type="Int32" Name="jobtitle_id" />
           <Property Type="String" Name="jobtitle_name" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="invoice">
+          <Key>
+            <PropertyRef Name="invoice_id" />
+          </Key>
+          <Property Type="Int32" Name="invoice_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="project_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="quotaion_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="invoice_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="invoice_date" />
+          <Property Type="String" Name="issue_invoice_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="issue_invoice_date" />
+          <Property Type="String" Name="currency" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="ototal" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="tax" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="total" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="exchange_rate" Precision="6" Scale="2" />
+          <Property Type="String" Name="create_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="String" Name="modify_user" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="modify_date" />
+          <Property Type="String" Name="ocurrency" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="remarks" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="status" />
+          <Property Type="String" Name="exchange_operate" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="final_total" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="adjust" Precision="10" Scale="2" />
+          <Property Type="DateTime" Name="due_date" />
+          <Property Type="Decimal" Name="ar_balance" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="bankacct_info_id" />
+        </EntityType>
+        <Association Name="FK_Project_Quotation_Version">
+          <End Type="QuotationModel.Quotation_Version" Role="Quotation_Version" Multiplicity="1" />
+          <End Type="QuotationModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Version">
+              <PropertyRef Name="Quotation_Version_Id" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="Quotation_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Target_Quotation_Version">
+          <End Type="QuotationModel.Quotation_Version" Role="Quotation_Version" Multiplicity="0..1" />
+          <End Type="QuotationModel.Quotation_Target" Role="Quotation_Target" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Version">
+              <PropertyRef Name="Quotation_Version_Id" />
+            </Principal>
+            <Dependent Role="Quotation_Target">
+              <PropertyRef Name="quotation_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1379,6 +1517,7 @@
           <EntitySetMapping Name="wowi_tech">
             <EntityTypeMapping TypeName="QuotationModel.wowi_tech">
               <MappingFragment StoreEntitySet="wowi_tech">
+                <ScalarProperty Name="technology_category_id" ColumnName="technology_category_id" />
                 <ScalarProperty Name="modify_date" ColumnName="modify_date" />
                 <ScalarProperty Name="modify_user" ColumnName="modify_user" />
                 <ScalarProperty Name="create_date" ColumnName="create_date" />
@@ -1532,6 +1671,7 @@
           <EntitySetMapping Name="contact_info">
             <EntityTypeMapping TypeName="QuotationModel.contact_info">
               <MappingFragment StoreEntitySet="contact_info">
+                <ScalarProperty Name="ima_contract_id" ColumnName="ima_contract_id" />
                 <ScalarProperty Name="employee_id" ColumnName="employee_id" />
                 <ScalarProperty Name="department_id" ColumnName="department_id" />
                 <ScalarProperty Name="publish" ColumnName="publish" />
@@ -1741,6 +1881,37 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="invoice">
+            <EntityTypeMapping TypeName="QuotationModel.invoice">
+              <MappingFragment StoreEntitySet="invoice">
+                <ScalarProperty Name="bankacct_info_id" ColumnName="bankacct_info_id" />
+                <ScalarProperty Name="ar_balance" ColumnName="ar_balance" />
+                <ScalarProperty Name="due_date" ColumnName="due_date" />
+                <ScalarProperty Name="adjust" ColumnName="adjust" />
+                <ScalarProperty Name="final_total" ColumnName="final_total" />
+                <ScalarProperty Name="exchange_operate" ColumnName="exchange_operate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="ocurrency" ColumnName="ocurrency" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="exchange_rate" ColumnName="exchange_rate" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="tax" ColumnName="tax" />
+                <ScalarProperty Name="ototal" ColumnName="ototal" />
+                <ScalarProperty Name="currency" ColumnName="currency" />
+                <ScalarProperty Name="issue_invoice_date" ColumnName="issue_invoice_date" />
+                <ScalarProperty Name="issue_invoice_no" ColumnName="issue_invoice_no" />
+                <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+                <ScalarProperty Name="invoice_no" ColumnName="invoice_no" />
+                <ScalarProperty Name="quotaion_no" ColumnName="quotaion_no" />
+                <ScalarProperty Name="project_no" ColumnName="project_no" />
+                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1782,6 +1953,16 @@
         <EntityTypeShape EntityType="QuotationModel.Quotation_Version" Width="1.5" PointX="0.75" PointY="12.75" Height="15.221171875000009" />
         <EntityTypeShape EntityType="QuotationModel.country" Width="1.5" PointX="3.375" PointY="9.75" Height="2.9050911458333317" />
         <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print_Chinese" Width="1.5" PointX="11.375" PointY="13.75" Height="7.7493294270833353" />
+        <EntityTypeShape EntityType="QuotationModel.invoice" Width="1.5" PointX="13.375" PointY="13.75" Height="5.3683072916666674" />
+        <AssociationConnector Association="QuotationModel.FK_Project_Quotation_Version" >
+          <ConnectorPoint PointX="1.5" PointY="12.75" />
+          <ConnectorPoint PointX="1.5" PointY="12.127259114583332" />
+        </AssociationConnector>
+        <AssociationConnector Association="QuotationModel.FK_Quotation_Target_Quotation_Version" >
+          <ConnectorPoint PointX="2.25" PointY="23.751933593750003" />
+          <ConnectorPoint PointX="7.59375" PointY="23.751933593750003" />
+          <ConnectorPoint PointX="7.59375" PointY="12.581523437500001" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>

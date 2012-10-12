@@ -528,8 +528,21 @@ public class Quotation_Controller
                      select n;
         if ((result.ToList()).Count > 0)
         {
-        
-            return result.First().modify_date.ToString("yyyy/MM/dd");
+            try
+            {
+                int invoiceid = result.First().invoice_id;
+                var data = from inv in entity.invoice 
+                           where inv.invoice_id == invoiceid 
+                           select inv;
+                
+                return ((DateTime)data.First().issue_invoice_date).ToString("yyyy/MM/dd");
+            }
+            catch (Exception)
+            {
+
+                return "";
+            }
+
         }
         else
             return "";
