@@ -66,6 +66,9 @@
                     lblmodelno.Text = quotation.Model_No;
                     lblpono.Text = quotation.pocheckno;
                     lblquono.Text = quotation.Quotation_No;
+                    lblBillName.Text = quotation.Bill_Companyname;
+                    lblBillAddress.Text = quotation.Bill_Address;
+                    lblBillContact.Text = quotation.Bill_Name;
                     int sid = (int)quotation.SalesId;
                     try
                     {
@@ -80,9 +83,9 @@
                     int clientid = (int)quotation.Client_Id;
                     WoWiModel.clientapplicant client = (from c in wowidb.clientapplicants where c.id == clientid select c).First();
                     lblName.Text = String.IsNullOrEmpty(client.companyname) ? client.c_companyname : client.companyname;
-                    lblBillName.Text = String.IsNullOrEmpty(client.bill_companyname) ? client.bill_ccompanyname : client.bill_companyname;
+                    //lblBillName.Text = String.IsNullOrEmpty(client.bill_companyname) ? client.bill_ccompanyname : client.bill_companyname;
                     lblAddress.Text = String.IsNullOrEmpty(client.address) ? client.c_address : client.address;
-                    lblBillAddress.Text = String.IsNullOrEmpty(client.bill_address) ? client.bill_caddress : client.bill_address;
+                    //lblBillAddress.Text = String.IsNullOrEmpty(client.bill_address) ? client.bill_caddress : client.bill_address;
                     try
                     {
                         WoWiModel.contact_info contact;
@@ -97,7 +100,7 @@
                         }
                         contact = (from c in wowidb.contact_info where c.id == contactid select c).First();
                         lblContact.Text = String.IsNullOrEmpty(contact.fname) ? contact.c_lname + " " + contact.c_fname : contact.fname + " " + contact.lname;
-                        lblBillContact.Text = String.IsNullOrEmpty(client.bill_firstname) ? client.c_bill_lastname + " " + client.c_bill_firstname : client.bill_firstname + " " + client.bill_lastname;
+                        //lblBillContact.Text = String.IsNullOrEmpty(client.bill_firstname) ? client.c_bill_lastname + " " + client.c_bill_firstname : client.bill_firstname + " " + client.bill_lastname;
                         //lblContactEmail.Text = contact.email;
                         //lblContactPhone.Text = contact.workphone;
                     }
@@ -106,6 +109,7 @@
 
 
                     }
+                    
                 }
                 catch (Exception)
                 {

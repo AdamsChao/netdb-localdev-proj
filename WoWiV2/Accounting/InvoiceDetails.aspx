@@ -113,43 +113,45 @@
             lblQuotationNo.Text = quotation.Quotation_No;
             GetAllItems(lblQuotationNo.Text);
             lblModel.Text = quotation.Model_No;
-           
-            try
-            {
+            lblClient.Text = quotation.Bill_Companyname;
+            lblAddress.Text = quotation.Bill_Address;
+            lblContact.Text = quotation.Bill_Name;
+            //try
+            //{
 
-                int clientid = (int)quotation.Client_Id;
-                WoWiModel.clientapplicant client = (from c in wowidb.clientapplicants where c.id == clientid select c).First();
-                lblClient.Text = String.IsNullOrEmpty(client.companyname) ? client.c_companyname : client.companyname;
-                lblAddress.Text = String.IsNullOrEmpty(client.address) ? client.c_address : client.address;
+            //    int clientid = (int)quotation.Client_Id;
+            //    WoWiModel.clientapplicant client = (from c in wowidb.clientapplicants where c.id == clientid select c).First();
+            //    lblClient.Text = String.IsNullOrEmpty(client.companyname) ? client.c_companyname : client.companyname;
+            //    lblAddress.Text = String.IsNullOrEmpty(client.address) ? client.c_address : client.address;
                 
-            }
-            catch (Exception)
-            {
+            //}
+            //catch (Exception)
+            //{
                 
                 
-            }
+            //}
             
           
-            try
-            {
-                WoWiModel.contact_info contact;
-                int contactid;
-                if (quotation.Client_Contact != null)
-                {
-                    contactid = (int)quotation.Client_Contact;
-                }
-                else
-                {
-                    contactid = (from c in wowidb.m_clientappliant_contact where c.clientappliant_id  == quotation.Client_Id select c.contact_id).First();
-                }
-                contact= (from c in wowidb.contact_info where c.id == contactid select c).First();
-                lblContact.Text = String.IsNullOrEmpty(contact.fname) ? contact.c_lname + " " + contact.c_fname : contact.fname + " " + contact.lname;
-            }
-            catch (Exception)
-            {
+            //try
+            //{
+            //    WoWiModel.contact_info contact;
+            //    int contactid;
+            //    if (quotation.Client_Contact != null)
+            //    {
+            //        contactid = (int)quotation.Client_Contact;
+            //    }
+            //    else
+            //    {
+            //        contactid = (from c in wowidb.m_clientappliant_contact where c.clientappliant_id  == quotation.Client_Id select c.contact_id).First();
+            //    }
+            //    contact= (from c in wowidb.contact_info where c.id == contactid select c).First();
+            //    lblContact.Text = String.IsNullOrEmpty(contact.fname) ? contact.c_lname + " " + contact.c_fname : contact.fname + " " + contact.lname;
+            //}
+            //catch (Exception)
+            //{
 
 
-            }
+            //}
             
         }
         catch (Exception)
