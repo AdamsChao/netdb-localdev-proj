@@ -462,6 +462,7 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                                                 strFreqValue = strFreqValue.Remove(0, 4);
                                                 strFreqValue = strFreqValue.Replace("#br#", "\n");
                                             }
+                                            else { strFreqValue = strFreqValue.Replace("#br#", "\n"); }
                                         }
                                         cell.SetCellValue(strFreqValue);
                                         cell.CellStyle = icsTxt;
