@@ -82,28 +82,29 @@ function TechFee(a) {
         b.disabled = 'disabled';
         b.value = '';
     }
-    var c = a.id.substring(0, a.id.lastIndexOf("_"));
-    var d = c.substring(0, c.lastIndexOf("_"));
-    var ControlRef = document.getElementById(d);
-    var CheckBoxListArray = ControlRef.getElementsByTagName('input');
-    var checkBoxRef;
-    var bln = true;
-    if (!a.checked) {
-        bln = false;
-    }
-    else {
-        for (var i = 3; i < CheckBoxListArray.length; i++) {
-            checkBoxRef = CheckBoxListArray[i];
-            if (checkBoxRef.type=='checkbox' && !checkBoxRef.checked) { bln = false; break; }
-        }
-    }
-    checkBoxRef = CheckBoxListArray[0];
-    checkBoxRef.checked = bln;
-    checkBoxRef = CheckBoxListArray[1];
-    if (checkBoxRef.type == 'text') {
-        if (bln) { checkBoxRef.disabled = ''; }
-        else { checkBoxRef.disabled = 'disabled'; checkBoxRef.value = ''; }
-     }
+    //取消某一個勾選時All也不勾選
+//    var c = a.id.substring(0, a.id.lastIndexOf("_"));
+//    var d = c.substring(0, c.lastIndexOf("_"));
+//    var ControlRef = document.getElementById(d);
+//    var CheckBoxListArray = ControlRef.getElementsByTagName('input');
+//    var checkBoxRef;
+//    var bln = true;
+//    if (!a.checked) {
+//        bln = false;
+//    }
+//    else {
+//        for (var i = 3; i < CheckBoxListArray.length; i++) {
+//            checkBoxRef = CheckBoxListArray[i];
+//            if (checkBoxRef.type=='checkbox' && !checkBoxRef.checked) { bln = false; break; }
+//        }
+//    }
+//    checkBoxRef = CheckBoxListArray[0];
+//    checkBoxRef.checked = bln;
+//    checkBoxRef = CheckBoxListArray[1];
+//    if (checkBoxRef.type == 'text') {
+//        if (bln) { checkBoxRef.disabled = ''; }
+//        else { checkBoxRef.disabled = 'disabled'; checkBoxRef.value = ''; }
+//     }
 }
 
 //勾選All Technologies
@@ -131,7 +132,9 @@ function SetTechFeeAll(a) {
     for (var i = 0; i < CheckBoxListArray.length; i++) {
         var checkBoxRef = CheckBoxListArray[i];
         if (checkBoxRef.type == 'text') {
-            checkBoxRef.value = a.value;
+            if (document.getElementById(checkBoxRef.id.replace('tb', 'cb')).checked) {
+                checkBoxRef.value = a.value;
+            }
         }
     }
 }
