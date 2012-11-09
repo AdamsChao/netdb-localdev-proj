@@ -3185,11 +3185,19 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowName" valign="top">Sub Total Cost：</td>
+                                        <td class="tdRowName" valign="top">Sub Total Cost(New Application)：</td>
+                                        <td class="tdRowValue"><asp:Label ID="lblTotalCostFeeNA" runat="server" Text='<%#Eval("TotalCostFeeNA1")%>'></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName" valign="top">Lead Time(New Application)：</td>
+                                        <td class="tdRowValue"><asp:Label ID="lblLeadTimeNA" runat="server" Text='<%#Eval("LeadTimeNA")%>'></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName" valign="top">Sub Total Cost(Renewal)：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblTotalCostFee" runat="server" Text='<%#Eval("TotalCostFee1")%>'></asp:Label></td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowName" valign="top">Lead Time：</td>
+                                        <td class="tdRowName" valign="top">Lead Time(Renewal)：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblLeadTime" runat="server" Text='<%#Eval("LeadTime")%>'></asp:Label></td>
                                     </tr>
                                     <tr>

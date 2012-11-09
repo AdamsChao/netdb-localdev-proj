@@ -188,6 +188,8 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
                 tbRenewalWOTest.Text = dt.Rows[0]["RenewalWOTest"].ToString();
                 tbTotalCostFee.Text = dt.Rows[0]["TotalCostFee"].ToString();
                 tbLeadTime.Text = dt.Rows[0]["LeadTime"].ToString();
+                tbTotalCostFeeNA.Text = dt.Rows[0]["TotalCostFeeNA"].ToString();
+                tbLeadTimeNA.Text = dt.Rows[0]["LeadTimeNA"].ToString();
                 tbRenewalRemark.Text = dt.Rows[0]["RenewalRemark"].ToString();
                 //lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
@@ -237,8 +239,8 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_FeeSchedule (world_region_id,country_id,wowi_product_type_id,wowi_tech_id,AgentFee,LocalAgentID,GovernmentAuthorityID,AuthorityFee,CertificationBodiesID,CertificationBodyFee,AccreditedTestID,LabTestFee,DocTranslationFee,BankFee,ClearanceFee,SampleReturnFee,LabelPurchaseFee,OtherFee,CreateUser,LasterUpdateUser,DocumentFee,OneTimeFee,PeriodicFee,RenewalWTest,RenewalWOTest,TotalCostFee,LeadTime,RenewalRemark) ";
-        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@wowi_tech_id,@AgentFee,@LocalAgentID,@GovernmentAuthorityID,@AuthorityFee,@CertificationBodiesID,@CertificationBodyFee,@AccreditedTestID,@LabTestFee,@DocTranslationFee,@BankFee,@ClearanceFee,@SampleReturnFee,@LabelPurchaseFee,@OtherFee,@CreateUser,@LasterUpdateUser,@DocumentFee,@OneTimeFee,@PeriodicFee,@RenewalWTest,@RenewalWOTest,@TotalCostFee,@LeadTime,@RenewalRemark)";
+        string strTsql = "insert into Ima_FeeSchedule (world_region_id,country_id,wowi_product_type_id,wowi_tech_id,AgentFee,LocalAgentID,GovernmentAuthorityID,AuthorityFee,CertificationBodiesID,CertificationBodyFee,AccreditedTestID,LabTestFee,DocTranslationFee,BankFee,ClearanceFee,SampleReturnFee,LabelPurchaseFee,OtherFee,CreateUser,LasterUpdateUser,DocumentFee,OneTimeFee,PeriodicFee,RenewalWTest,RenewalWOTest,TotalCostFee,LeadTime,RenewalRemark,TotalCostFeeNA,LeadTimeNA) ";
+        strTsql += "values(@world_region_id,@country_id,@wowi_product_type_id,@wowi_tech_id,@AgentFee,@LocalAgentID,@GovernmentAuthorityID,@AuthorityFee,@CertificationBodiesID,@CertificationBodyFee,@AccreditedTestID,@LabTestFee,@DocTranslationFee,@BankFee,@ClearanceFee,@SampleReturnFee,@LabelPurchaseFee,@OtherFee,@CreateUser,@LasterUpdateUser,@DocumentFee,@OneTimeFee,@PeriodicFee,@RenewalWTest,@RenewalWOTest,@TotalCostFee,@LeadTime,@RenewalRemark,@TotalCostFeeNA,@LeadTimeNA)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -270,6 +272,8 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
         cmd.Parameters.Add("@TotalCostFee", SqlDbType.Decimal);
         cmd.Parameters.Add("@LeadTime", SqlDbType.NVarChar);
         cmd.Parameters.Add("@RenewalRemark", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@TotalCostFeeNA", SqlDbType.Decimal);
+        cmd.Parameters.Add("@LeadTimeNA", SqlDbType.NVarChar);
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null)
         {
@@ -322,9 +326,11 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
                 else { cmd.Parameters["@RenewalWTest"].Value = DBNull.Value; }
                 if (tbRenewalWOTest.Text.Trim().Length > 0) { cmd.Parameters["@RenewalWOTest"].Value = tbRenewalWOTest.Text.Trim(); }
                 else { cmd.Parameters["@RenewalWOTest"].Value = DBNull.Value; }
-                cmd.Parameters["@TotalCostFee"].Value = GetTotalCost();
+                cmd.Parameters["@TotalCostFee"].Value = GetTotalCost("Renewal");
                 cmd.Parameters["@LeadTime"].Value = tbLeadTime.Text.Trim();
                 cmd.Parameters["@RenewalRemark"].Value = tbRenewalRemark.Text.Trim();
+                cmd.Parameters["@TotalCostFeeNA"].Value = GetTotalCost("NA");
+                cmd.Parameters["@LeadTimeNA"].Value = tbLeadTimeNA.Text.Trim();
                 int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
                 //文件上傳
                 GeneralFileUpload(intGeneralID);
@@ -496,7 +502,7 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
     protected void btnUpd_Click(object sender, EventArgs e)
     {
         string strTsql = "Update Ima_FeeSchedule set wowi_tech_id=@wowi_tech_id,AgentFee=@AgentFee,LocalAgentID=@LocalAgentID,GovernmentAuthorityID=@GovernmentAuthorityID,AuthorityFee=@AuthorityFee,CertificationBodiesID=@CertificationBodiesID,CertificationBodyFee=@CertificationBodyFee,AccreditedTestID=@AccreditedTestID,LabTestFee=@LabTestFee,DocTranslationFee=@DocTranslationFee";
-        strTsql += ",BankFee=@BankFee,ClearanceFee=@ClearanceFee,SampleReturnFee=@SampleReturnFee,LabelPurchaseFee=@LabelPurchaseFee,OtherFee=@OtherFee,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),DocumentFee=@DocumentFee,OneTimeFee=@OneTimeFee,PeriodicFee=@PeriodicFee,RenewalWTest=@RenewalWTest,RenewalWOTest=@RenewalWOTest,TotalCostFee=@TotalCostFee,LeadTime=@LeadTime,RenewalRemark=@RenewalRemark where FeeScheduleID=@FeeScheduleID";
+        strTsql += ",BankFee=@BankFee,ClearanceFee=@ClearanceFee,SampleReturnFee=@SampleReturnFee,LabelPurchaseFee=@LabelPurchaseFee,OtherFee=@OtherFee,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),DocumentFee=@DocumentFee,OneTimeFee=@OneTimeFee,PeriodicFee=@PeriodicFee,RenewalWTest=@RenewalWTest,RenewalWOTest=@RenewalWOTest,TotalCostFee=@TotalCostFee,LeadTime=@LeadTime,RenewalRemark=@RenewalRemark,TotalCostFeeNA=@TotalCostFeeNA,LeadTimeNA=@LeadTimeNA where FeeScheduleID=@FeeScheduleID";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
         cmd.Parameters.AddWithValue("@FeeScheduleID", Request["fsid"]);
@@ -536,9 +542,11 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@RenewalWTest", DBNull.Value); }
         if (tbRenewalWOTest.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@RenewalWOTest", tbRenewalWOTest.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@RenewalWOTest", DBNull.Value); }
-        cmd.Parameters.AddWithValue("@TotalCostFee", GetTotalCost());
+        cmd.Parameters.AddWithValue("@TotalCostFee", GetTotalCost("Renewal"));
         cmd.Parameters.AddWithValue("@LeadTime", tbLeadTime.Text.Trim());
         cmd.Parameters.AddWithValue("@RenewalRemark", tbRenewalRemark.Text.Trim());
+        cmd.Parameters.AddWithValue("@TotalCostFeeNA", GetTotalCost("NA"));
+        cmd.Parameters.AddWithValue("@LeadTimeNA", tbLeadTimeNA.Text.Trim());
         SQLUtil.ExecuteSql(cmd);
         //文件上傳
         GeneralFileUpload(Convert.ToInt32(Request["fsid"]));
@@ -630,10 +638,18 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
     //計算TotalCost
     protected void btnCalculate_Click(object sender, EventArgs e)
     {
-        tbTotalCostFee.Text = GetTotalCost().ToString();
+        Button btn = (Button)sender;
+        if (btn.CommandName == "Renewal")
+        {
+            tbTotalCostFee.Text = GetTotalCost(btn.CommandName).ToString();
+        }
+        else if (btn.CommandName == "NA")
+        {
+            tbTotalCostFeeNA.Text = GetTotalCost(btn.CommandName).ToString();
+        }
     }
 
-    protected decimal GetTotalCost() 
+    protected decimal GetTotalCost(string strCommand)
     {
         decimal dTotalCost = 0;
         Regex regNumber = new Regex("^(-?\\d+)(\\.\\d+)?$");
@@ -689,14 +705,17 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
         {
             dTotalCost += Convert.ToDecimal(tbPeriodicFee.Text.Trim());
         }
-        if (tbRenewalWTest.Text.Trim().Length > 0 && regNumber.IsMatch(tbRenewalWTest.Text.Trim()))
+        if (strCommand == "Renewal") 
         {
-            dTotalCost += Convert.ToDecimal(tbRenewalWTest.Text.Trim());
-        }
-        if (tbRenewalWOTest.Text.Trim().Length > 0 && regNumber.IsMatch(tbRenewalWOTest.Text.Trim()))
-        {
-            dTotalCost += Convert.ToDecimal(tbRenewalWOTest.Text.Trim());
-        }
+            if (tbRenewalWTest.Text.Trim().Length > 0 && regNumber.IsMatch(tbRenewalWTest.Text.Trim()))
+            {
+                dTotalCost += Convert.ToDecimal(tbRenewalWTest.Text.Trim());
+            }
+            if (tbRenewalWOTest.Text.Trim().Length > 0 && regNumber.IsMatch(tbRenewalWOTest.Text.Trim()))
+            {
+                dTotalCost += Convert.ToDecimal(tbRenewalWOTest.Text.Trim());
+            }
+        }        
         return dTotalCost;
     }
 }

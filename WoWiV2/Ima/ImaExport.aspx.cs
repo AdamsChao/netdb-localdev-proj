@@ -244,7 +244,7 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                             j++;
                         }
                         cell = row.CreateCell(j);
-                        strValue = liExportData.Value.Split('／')[2].ToString().Replace("_", " ").Replace("$", "/").Replace("@", ".").Replace("#td#", "-");
+                        strValue = liExportData.Value.Split('／')[2].ToString().Replace("_", " ").Replace("$", "/").Replace("@", ".").Replace("#td#", "-").Replace("#thl#", "(").Replace("#thr#", ")");
                         if (strValue.Contains("#br#"))
                         {
                             icsHeader.WrapText = true;
@@ -271,17 +271,17 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@wowi_tech_id", liTechnology.Value);
                     dtFreqTitle = SQLUtil.QueryDS(cmd).Tables[0];
-                    if (dtFreqTitle.Rows.Count > 0) 
+                    if (dtFreqTitle.Rows.Count > 0)
                     {
                         //int intTitleIndex = j;
                         int intTitle2Index = 0;
                         IRow row1 = sheet.CreateRow(1);
                         IRow row2 = sheet.CreateRow(2);
-                        ICell cell;                        
+                        ICell cell;
                         foreach (DataRow dr in dtFreqTitle.Rows)
                         {
                             strTitle3 = dr["Title3"].ToString().Split(';');
-                            for (int i = 0; i <= strTitle3.Length - 1; i++) 
+                            for (int i = 0; i <= strTitle3.Length - 1; i++)
                             {
                                 //第0列
                                 cell = row.CreateCell(intTitleIndex + i);
@@ -296,7 +296,7 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                                     //因為換行所以將Row的高度變成3倍
                                     row1.HeightInPoints = 3 * sheet.DefaultRowHeight / 20;
                                 }
-                                else 
+                                else
                                 {
                                     row1.HeightInPoints = 24;
                                 }
@@ -309,13 +309,13 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                             }
                             intTitleIndex += strTitle3.Length;
                             //合併第二列的欄位
-                            sheet.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(1, 1, j + intTitle2Index * strTitle3.Length, intTitleIndex-1));
+                            sheet.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(1, 1, j + intTitle2Index * strTitle3.Length, intTitleIndex - 1));
                             intTitle2Index++;
                             //建立備註欄位
-                            if (intTitle2Index == dtFreqTitle.Rows.Count && Convert.ToBoolean(dr["IsRemark"])) 
+                            if (intTitle2Index == dtFreqTitle.Rows.Count && Convert.ToBoolean(dr["IsRemark"]))
                             {
                                 cell = row.CreateCell(intTitleIndex);
-                                cell.CellStyle = icsHeader;                                
+                                cell.CellStyle = icsHeader;
                                 cell = row1.CreateCell(intTitleIndex);
                                 cell.SetCellValue("Remark");
                                 cell.CellStyle = icsHeader;
@@ -340,7 +340,11 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                                 cell.CellStyle = icsHeader;
                                 sheet.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(0, 2, k, k));
                             }
-                        }                        
+                        }
+                    }
+                    else//Technology沒有對應的Frequency
+                    {
+                        blnFrequency = false;
                     }
                 }
                 

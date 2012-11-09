@@ -690,11 +690,19 @@
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Left" />
                                                     </asp:BoundField>
-                                                    <asp:BoundField DataField="TotalCostFee" HeaderText="Sub Total Cost(USD)">
+                                                    <asp:BoundField DataField="TotalCostFeeNA" HeaderText="Sub Total Cost(New Application)(USD)">
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:BoundField>
-                                                    <asp:BoundField DataField="LeadTime" HeaderText="Lead Time">
+                                                    <asp:BoundField DataField="LeadTimeNA" HeaderText="Lead Time(New Application)">
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:BoundField>
+                                                    <asp:BoundField DataField="TotalCostFee" HeaderText="Sub Total Cost(Renewal)(USD)">
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:BoundField>
+                                                    <asp:BoundField DataField="LeadTime" HeaderText="Lead Time(Renewal)">
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:BoundField>

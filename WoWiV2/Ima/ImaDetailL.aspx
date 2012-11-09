@@ -460,14 +460,28 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Sub Total Cost：
+                            Sub Total Cost(New Application)：
+                        </td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblTotalCostFeeNA" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">Lead Time(New Application)：</td>
+                        <td class="tdRowValue">
+                            <asp:Label ID="lblLeadTimeNA" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Sub Total Cost(Renewal)：
                         </td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblTotalCostFee" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tdRowName" valign="top">Lead Time：</td>
+                        <td class="tdRowName" valign="top">Lead Time(Renewal)：</td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblLeadTime" runat="server"></asp:Label>
                         </td>
