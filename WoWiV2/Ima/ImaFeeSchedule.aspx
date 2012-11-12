@@ -741,7 +741,7 @@
                         <td class="tdRowValue">
                             <asp:UpdatePanel ID="upTotalCostNA" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
-                                    <asp:TextBox ID="tbTotalCostFeeNA" runat="server" Width="100px" Enabled="False"></asp:TextBox>USD
+                                    <asp:TextBox ID="tbTotalCostFeeNA" runat="server" Width="100px"></asp:TextBox>USD
                                     <asp:Button ID="btnCalculateNA" runat="server" Text="Calculate" OnClick="btnCalculate_Click" CommandName="NA" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
@@ -760,7 +760,7 @@
                         <td class="tdRowValue">
                             <asp:UpdatePanel ID="upTotalCost" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
-                                    <asp:TextBox ID="tbTotalCostFee" runat="server" Width="100px" Enabled="False"></asp:TextBox>USD
+                                    <asp:TextBox ID="tbTotalCostFee" runat="server" Width="100px"></asp:TextBox>USD
                                     <asp:Button ID="btnCalculate" runat="server" Text="Calculate" OnClick="btnCalculate_Click" CommandName="Renewal" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>

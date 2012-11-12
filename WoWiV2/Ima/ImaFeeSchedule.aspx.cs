@@ -326,10 +326,14 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
                 else { cmd.Parameters["@RenewalWTest"].Value = DBNull.Value; }
                 if (tbRenewalWOTest.Text.Trim().Length > 0) { cmd.Parameters["@RenewalWOTest"].Value = tbRenewalWOTest.Text.Trim(); }
                 else { cmd.Parameters["@RenewalWOTest"].Value = DBNull.Value; }
-                cmd.Parameters["@TotalCostFee"].Value = GetTotalCost("Renewal");
+                //cmd.Parameters["@TotalCostFee"].Value = GetTotalCost("Renewal");
+                if (tbTotalCostFee.Text.Trim().Length > 0) { cmd.Parameters["@TotalCostFee"].Value = tbTotalCostFee.Text.Trim(); }
+                else { cmd.Parameters["@TotalCostFee"].Value = DBNull.Value; }
                 cmd.Parameters["@LeadTime"].Value = tbLeadTime.Text.Trim();
                 cmd.Parameters["@RenewalRemark"].Value = tbRenewalRemark.Text.Trim();
-                cmd.Parameters["@TotalCostFeeNA"].Value = GetTotalCost("NA");
+                //cmd.Parameters["@TotalCostFeeNA"].Value = GetTotalCost("NA");
+                if (tbTotalCostFeeNA.Text.Trim().Length > 0) { cmd.Parameters["@TotalCostFeeNA"].Value = tbTotalCostFeeNA.Text.Trim(); }
+                else { cmd.Parameters["@TotalCostFeeNA"].Value = DBNull.Value; }
                 cmd.Parameters["@LeadTimeNA"].Value = tbLeadTimeNA.Text.Trim();
                 int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
                 //文件上傳
@@ -542,10 +546,14 @@ public partial class Ima_ImaFeeSchedule : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@RenewalWTest", DBNull.Value); }
         if (tbRenewalWOTest.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@RenewalWOTest", tbRenewalWOTest.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@RenewalWOTest", DBNull.Value); }
-        cmd.Parameters.AddWithValue("@TotalCostFee", GetTotalCost("Renewal"));
+        //cmd.Parameters.AddWithValue("@TotalCostFee", GetTotalCost("Renewal"));
+        if (tbTotalCostFee.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@TotalCostFee", tbTotalCostFee.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@TotalCostFee", DBNull.Value); }
         cmd.Parameters.AddWithValue("@LeadTime", tbLeadTime.Text.Trim());
         cmd.Parameters.AddWithValue("@RenewalRemark", tbRenewalRemark.Text.Trim());
-        cmd.Parameters.AddWithValue("@TotalCostFeeNA", GetTotalCost("NA"));
+        //cmd.Parameters.AddWithValue("@TotalCostFeeNA", GetTotalCost("NA"));
+        if (tbTotalCostFeeNA.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@TotalCostFeeNA", tbTotalCostFeeNA.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@TotalCostFeeNA", DBNull.Value); }
         cmd.Parameters.AddWithValue("@LeadTimeNA", tbLeadTimeNA.Text.Trim());
         SQLUtil.ExecuteSql(cmd);
         //文件上傳

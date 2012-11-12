@@ -245,13 +245,14 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                         }
                         cell = row.CreateCell(j);
                         strValue = liExportData.Value.Split('／')[2].ToString().Replace("_", " ").Replace("$", "/").Replace("@", ".").Replace("#td#", "-").Replace("#thl#", "(").Replace("#thr#", ")");
+                        row.HeightInPoints = 24;
                         if (strValue.Contains("#br#"))
                         {
                             icsHeader.WrapText = true;
                             strValue = strValue.Replace("#br#", "\n");
                             //因為換行所以將Row的高度變成4倍
                             //row.HeightInPoints = 2 * sheet.DefaultRowHeight / 20;
-                            row.HeightInPoints = 24;
+                            //row.HeightInPoints = 24;
                         }
                         else { icsHeader.WrapText = true; }
                         cell.SetCellValue(strValue);
@@ -359,10 +360,12 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                 string[] strColumn = strExportData.Split('；');                
                 DataView dv;
                 string strCountryID;
-                //建立資料intTitleIndex
+                string strRegionID;
+                //建立資料intTitleIndex 
                 for (int i = 0; i <= dsTech.Tables[0].Rows.Count - 1; i++)
                 {
                     strCountryID = dsTech.Tables[0].Rows[i]["country_id"].ToString();
+                    strRegionID = dsTech.Tables[0].Rows[i]["world_region_id"].ToString();
                     row = sheet.CreateRow(intRowIndex);
                     for (int k = 0; k <= strColumn.Length; k++)
                     {
@@ -438,6 +441,7 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                     {
                         cmd = new SqlCommand("STP_ImaFrequencyGet");
                         cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@world_region_id", strRegionID);
                         cmd.Parameters.AddWithValue("@country_id", strCountryID);
                         cmd.Parameters.AddWithValue("@wowi_tech_id", liTechnology.Value);
                         dtFreq = SQLUtil.QueryDS(cmd).Tables[0];
