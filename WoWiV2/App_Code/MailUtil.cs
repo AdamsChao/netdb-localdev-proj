@@ -107,4 +107,25 @@ public class MailUtil
             throw ex;
         }
     }
+
+    public static void SendMailWithAttachment(string mailfrom, string mailto, string mailSubject, string mailBody, string AttachmentFile)
+    {
+      try
+      {
+        MailMessage mail = new MailMessage(mailfrom, mailto);
+        mail.IsBodyHtml = true;
+        mail.Subject = mailSubject;
+        mail.BodyEncoding = Encoding.UTF8;       
+        mail.Body = mailBody;
+        Attachment AF = new Attachment(AttachmentFile);
+        mail.Attachments.Add(AF);
+
+        SmtpClient smtpClient = new SmtpClient(); //從WEB.CONFIG讀SMTP CONFIG
+        smtpClient.Send(mail);
+      }
+      catch (Exception ex)
+      {
+        throw ex;
+      }
+    }
 }

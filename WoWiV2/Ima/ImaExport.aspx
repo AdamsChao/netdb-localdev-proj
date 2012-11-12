@@ -8,6 +8,9 @@
         <ContentTemplate>
             <%-- Search --%>
             <div style="width: 90%; margin: 5px auto">
+                <center>
+                <asp:Label ID="Message" runat="server" Text="" ForeColor="Blue"></asp:Label>
+                </center>
                 <table border="0" cellpadding="1" cellspacing="1" class="tbSearch" width="100%" align="center">
                     <tr>
                         <td class="tdRowName" valign="top">
@@ -62,7 +65,8 @@
                                                     <td align="center">
                                                         <asp:Panel ID="plCountryList" runat="server" ScrollBars="Vertical" Height="300px">
                                                             <asp:GridView ID="gvCountryList" runat="server" SkinID="gvList" AutoGenerateColumns="False"
-                                                                DataKeyNames="country_id,country_name" AllowPaging="false" OnRowDataBound="gvCountryList_RowDataBound">
+                                                                DataKeyNames="country_id,country_name" AllowPaging="false" 
+                                                              OnRowDataBound="gvCountryList_RowDataBound" EnableViewState="False">
                                                                 <Columns>
                                                                     <asp:TemplateField HeaderText="Choose">
                                                                         <ItemTemplate>
