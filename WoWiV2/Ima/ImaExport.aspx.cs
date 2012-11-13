@@ -631,8 +631,8 @@ public partial class Ima_ImaExport : System.Web.UI.Page
     string mailBody = 
       "<br/> Dear Approvor:" +
       "<br/> The IMA Export Excel File has two Password：" + 
-      "<br/> Open Excel Password : <B>" + openPassword + "</B>" +
-      "<br/> Write Excel Password : <B>" + writePassword + "</B>" +
+      "<br/> Open Excel Password : " + openPassword + 
+      "<br/> Write Excel Password : " + writePassword + 
       "<br/> Please Reference the attachment file.";
     MailUtil.SendMailWithAttachment(mailfrom, mailTo, mailSubject, mailBody, ExportPathWithEncrypt + strFile);
     //Add Export Flow by Adams 2012/11/12======================================================
