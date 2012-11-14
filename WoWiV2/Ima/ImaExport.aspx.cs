@@ -623,17 +623,15 @@ public partial class Ima_ImaExport : System.Web.UI.Page
     ExcelEncrypt.EncryptExcelByPassword(ExportPathNoEncrypt + strFile,
       ExportPathWithEncrypt + strFile,
       openPassword,
-      writePassword);
+      openPassword);
     //傳送MAIL
     string mailfrom = "dbService@wowiapproval.com";
     string mailTo = System.Configuration.ConfigurationManager.AppSettings["IMAExportApprovor"].ToString();
     string mailSubject = "[IMA Notice]" + User.Identity.Name +  " had Export IMA Document at " + DateTime.Now.ToString();    
-    string mailBody = 
-      "<br/> Dear Approvor:" +
-      "<br/> The IMA Export Excel File has two Password：" + 
-      "<br/> Open Excel Password : " + openPassword + 
-      "<br/> Write Excel Password : " + writePassword + 
-      "<br/> Please Reference the attachment file.";
+    string mailBody =
+      "<br/> Dear Approver:" +
+      "<br/> The password of IMA Export Excel File：" + openPassword +
+      "<br/> Please refer to the attachment file";
     MailUtil.SendMailWithAttachment(mailfrom, mailTo, mailSubject, mailBody, ExportPathWithEncrypt + strFile);
     //Add Export Flow by Adams 2012/11/12======================================================
     Message.Text = "檔案 : " + strFile + " 匯出完成，請待主管審核確認!";  
