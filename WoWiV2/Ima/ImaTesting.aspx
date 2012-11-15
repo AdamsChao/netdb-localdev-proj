@@ -482,7 +482,7 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Consummer Sample for review only：
+                            Consumer Sample for review only：
                         </td>
                         <td class="tdRowValue">
                             <asp:TextBox ID="tbReviewOnly" runat="server" Width="60px"></asp:TextBox>pieces

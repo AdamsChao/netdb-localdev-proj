@@ -2210,7 +2210,7 @@
                                         <td class="tdRowValue"><asp:Label ID="lblNormalLink" runat="server" Text='<%#Eval("NormalLink1")%>'></asp:Label></td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowName" valign="top">Consummer Sample for review only：</td>
+                                        <td class="tdRowName" valign="top">Consumer Sample for review only：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblReviewOnly" runat="server" Text='<%#Eval("ReviewOnly1")%>'></asp:Label></td>
                                     </tr>
                                     <tr>
