@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.HSSF.Util;
+using System.Web.UI.HtmlControls;
 
 public partial class Ima_ImaExport : System.Web.UI.Page
 {
@@ -18,8 +19,15 @@ public partial class Ima_ImaExport : System.Web.UI.Page
   {
     if (!Page.IsPostBack)
     {
-      lblEmpID.Text = IMAUtil.GetEmpIDbyLoginName();
-      GetExport();
+        // Set 以IE8文件模式解析
+        HtmlMeta htmlMeta = new HtmlMeta();
+        htmlMeta.HttpEquiv = "X-UA-Compatible";
+        htmlMeta.Content = "IE=EmulateIE8";
+        //Master.Page.Header.Controls.AddAt(0, htmlMeta);
+        Page.Header.Controls.AddAt(0, htmlMeta);
+
+        lblEmpID.Text = IMAUtil.GetEmpIDbyLoginName();
+        GetExport();
     }
   }
 
@@ -145,12 +153,34 @@ public partial class Ima_ImaExport : System.Web.UI.Page
   {
     try
     {
-      Export();      
+        if (!CheckExportData(cbTechnology)) 
+        {
+            Message.Text = "請選擇要匯出的Technology!";
+            return;
+        }
+        if (!CheckExportData(chExportData))
+        {
+            Message.Text = "請選擇要匯出的Export Datas!";
+            return;
+        }
+        Export();
     }
     catch (Exception ex)
     {
       Message.Text = "檔案匯出錯誤，錯誤訊息為：" + ex.Message + "，請通知系統管理員!";       
     }
+  }
+
+
+  //檢查是否有勾選要匯出的Technology或匯出的欄位
+  private bool CheckExportData(CheckBoxList cb)
+  {
+      bool IsSelect = false;
+      foreach (ListItem li in cb.Items) 
+      {
+          if (li.Selected) { IsSelect = true; break; }
+      }
+      return IsSelect;
   }
 
   private void Export()

@@ -65,8 +65,7 @@
                                                     <td align="center">
                                                         <asp:Panel ID="plCountryList" runat="server" ScrollBars="Vertical" Height="300px">
                                                             <asp:GridView ID="gvCountryList" runat="server" SkinID="gvList" AutoGenerateColumns="False"
-                                                                DataKeyNames="country_id,country_name" AllowPaging="false" 
-                                                              OnRowDataBound="gvCountryList_RowDataBound" EnableViewState="False">
+                                                                DataKeyNames="country_id,country_name" AllowPaging="false" OnRowDataBound="gvCountryList_RowDataBound">
                                                                 <Columns>
                                                                     <asp:TemplateField HeaderText="Choose">
                                                                         <ItemTemplate>
