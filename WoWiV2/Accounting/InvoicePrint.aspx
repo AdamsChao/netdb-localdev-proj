@@ -235,7 +235,7 @@
             {
                 GridViewRow gv_row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Normal);
                 TableCell tc = new TableCell();
-                tc.Text = @"<p style='page-break-before: always'>";
+                tc.Text = @"<div style='page-break-before: always' />";
                 tc.ColumnSpan = 6;
                 gv_row.Cells.Add(tc);
                 e.Row.Parent.Controls.AddAt(counter + 1, gv_row);
