@@ -319,36 +319,16 @@
                 <font face="verdana" size="1">3F., No.79, Zhouzi St., Neihu Dist.,<br />
                     Taipei City 114, Taiwan (R.O.C.)<br />
                     T: 886-2-2799-8382 &nbsp; F: 886-2-2799-8387<br />
-                    Http://www.WoWiApproval.com</font>
+                    Http://www.WoWiApproval.com<br/>
+                    <B>Number:<asp:Label ID="lblInvNo" runat="server" ></asp:Label></B><br/>
+                    <B>Date:<asp:Label ID="lblDate" runat="server" Text="lblDate" ></asp:Label></B>
+                 </font>
             </td>
          </tr>
-        <tr>
-         <td align="middle" class="ccsh1" colspan="1" valign="top">
-             
-            </td>
-            <td align="middle" class="ccsh1" colspan="1" valign="top">
+        <tr>        
+            <td align="middle" class="ccsh1" colspan="3" valign="top">
                 <h2>INVOICE</h2>
-            </td>
-            <td align="right" valign="top">
-                <table border="0" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td align="right" class="ccstextboxh">
-                            Number:
-                        </td>
-                        <td align="right" class="ccstextboxh">
-                            &nbsp;&nbsp;&nbsp;<asp:Label ID="lblInvNo" runat="server" Font-Size="Small" ></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="ccstextboxh">
-                            Date:
-                        </td>
-                        <td align="right" class="ccstextboxh">
-                            &nbsp;&nbsp;&nbsp;<asp:Label ID="lblDate" runat="server" Text="lblDate" Font-Size="Small" ></asp:Label>
-                        </td>
-                    </tr>
-                </table>
-            </td>
+            </td>            
          </tr>
     </table>
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">   

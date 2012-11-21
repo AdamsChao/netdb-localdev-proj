@@ -978,7 +978,7 @@
       Gross Profit Analysis
                     <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
                        <tr>
-                            <th align="left" width="13%">
+                            <th align="left" width="200px">
                                 AE :&nbsp;</th>
                             <td width="20%">
                                 <asp:DropDownList ID="ddlSales" runat="server"  AppendDataBoundItems="True" 
@@ -986,32 +986,35 @@
                                     <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
-                            <th align="left" width="13%">
+                            <th align="left" >
                                 IMA :&nbsp;</th>
-                            <td width="20%">
+                            <td width="100%">
                                 <asp:DropDownList ID="ddlIMA" runat="server"  AppendDataBoundItems="True" 
                                     onload="ddlIMA_Load">
                                     <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
-                            </td>
-                             <th align="left" width="13%">
+                            </td>                            
+                        </tr>
+                        <tr> <th align="left" width="13%">
                                  Project No. :&nbsp;</th>
-                            <td width="20%">
+                            <td colspan="3">
                                 <asp:DropDownList ID="ddlProj" runat="server" AppendDataBoundItems="True" 
                                     onload="ddlProj_Load">
                                      <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
-                        </tr>
-                        <tr>
+                            </tr>
+                            <tr>
                             <th align="left" width="13%">
                                 Client :&nbsp;</th>
-                            <td width="20%">
+                            <td colspan="3">
                                 <asp:DropDownList ID="ddlClient" runat="server" AppendDataBoundItems="True" 
                                     onload="ddlClient_Load">
                                      <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
+                            </tr>
+                        <tr>                            
                             <th align="left" width="13%">
                                 Open Project Date From : </th>
                             <td width="20%">
@@ -1024,14 +1027,16 @@
                             </td>
                         </tr>
                         <tr>
-                            <th align="left" width="13%">
+                         <th align="left" width="13%">
                                 Target :&nbsp;</th>
-                            <td width="20%">
+                            <td colspan="3">
                                 <asp:DropDownList ID="ddlCountry" runat="server" AppendDataBoundItems="True" 
                                     onload="ddlCountry_Load">
                                      <asp:ListItem Value="-1">- All -</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
+                        </tr>
+                        <tr>                           
                             <th align="left" width="13%">
                                 Issue Invoice Date From : </th>
                             <td width="20%">
@@ -1044,9 +1049,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <th align="left" width="13%">
+                             <th align="left" width="13%">
                                 Status :&nbsp;</th>
-                            <td width="20%">
+                            <td colspan="3">
                                 <asp:DropDownList ID="DropDownList3" runat="server" AppendDataBoundItems="True">
                                     <asp:ListItem>- All -</asp:ListItem>
                                     <asp:ListItem Value="Open">新開案的案子(Open)</asp:ListItem>
@@ -1057,6 +1062,9 @@
                                   <asp:ListItem Value="Delay">逾時案件(Delay)</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
+                        </tr>
+                        <tr>
+                           
                             <th align="left" width="13%">
                                 Status Date From : </th>
                             <td width="20%">
@@ -1071,25 +1079,17 @@
                         <tr>
                             <th align="left" width="13%">
                                <%-- Keyword Search :&nbsp;--%></th>
-                            <td width="20%">
+                            <td align="right" width="20%">
                                <%-- <asp:TextBox ID="tbkey" runat="server" Text="" 
                                     ></asp:TextBox>--%>
+                                <asp:Button ID="btnSearch" runat="server" onclick="btnSearch_Click" 
+                                    Text="Search" />
                             </td>
-                            <td align="right" colspan="2">
-                                
-                                <asp:Button ID="btnSearch" runat="server" Text="Search" 
-                                    onclick="btnSearch_Click" />
-                                
-                            </td>
-                            <td align="right" colspan="2">
-                                
-                                <asp:Button ID="btnExport" runat="server" Text="Excel" 
-                                    onclick="btnExport_Click" Enabled="False" />
-                                
-                            </td>
+                            <td align="right" colspan="2">                                
+                                <asp:Button ID="btnExport" runat="server" Enabled="False" 
+                                    onclick="btnExport_Click" Text="Excel" />                                
+                            </td>                            
                         </tr>
-                        
-                       
                    <tr><td colspan="6">
                        <asp:Label ID="lblMsg" runat="server" Text="No matched data found." ></asp:Label>
                        
