@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true" CodeFile="ImaExport.aspx.cs" Inherits="Ima_ImaExport" StylesheetTheme="IMA" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true" CodeFile="ImaExport.aspx.cs" Inherits="Ima_ImaExport" StylesheetTheme="IMA" MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="act" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -64,26 +64,30 @@
                                                 <tr>
                                                     <td align="center">
                                                         <asp:Panel ID="plCountryList" runat="server" ScrollBars="Vertical" Height="300px">
-                                                            <asp:GridView ID="gvCountryList" runat="server" SkinID="gvList" AutoGenerateColumns="False"
-                                                                DataKeyNames="country_id,country_name" AllowPaging="false" OnRowDataBound="gvCountryList_RowDataBound">
-                                                                <Columns>
-                                                                    <asp:TemplateField HeaderText="Choose">
-                                                                        <ItemTemplate>
-                                                                            <asp:CheckBox ID="cbChoose" runat="server" />
-                                                                        </ItemTemplate>
-                                                                        <HeaderStyle HorizontalAlign="Center" Width="50px" />
-                                                                        <ItemStyle HorizontalAlign="Center" Width="50px" />
-                                                                    </asp:TemplateField>
-                                                                    <asp:BoundField DataField="world_region_name" HeaderText="Region">
-                                                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
-                                                                        <ItemStyle HorizontalAlign="Left" />
-                                                                    </asp:BoundField>
-                                                                    <asp:BoundField DataField="country_name" HeaderText="Country">
-                                                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
-                                                                        <ItemStyle HorizontalAlign="Left" />
-                                                                    </asp:BoundField>
-                                                                </Columns>
-                                                            </asp:GridView>
+                                                            <asp:UpdatePanel ID="upCountryList" runat="server" UpdateMode="Conditional">
+                                                                <ContentTemplate>
+                                                                    <asp:GridView ID="gvCountryList" runat="server" SkinID="gvList" AutoGenerateColumns="False"
+                                                                        DataKeyNames="country_id,country_name" AllowPaging="false" OnRowDataBound="gvCountryList_RowDataBound">
+                                                                        <Columns>
+                                                                            <asp:TemplateField HeaderText="Choose">
+                                                                                <ItemTemplate>
+                                                                                    <asp:CheckBox ID="cbChoose" runat="server" AutoPostBack="true" OnCheckedChanged="cb_CheckedChanged" ToolTip='<%#Eval("country_id") %>' />
+                                                                                </ItemTemplate>
+                                                                                <HeaderStyle HorizontalAlign="Center" Width="50px" />
+                                                                                <ItemStyle HorizontalAlign="Center" Width="50px" />
+                                                                            </asp:TemplateField>
+                                                                            <asp:BoundField DataField="world_region_name" HeaderText="Region">
+                                                                                <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                                                <ItemStyle HorizontalAlign="Left" />
+                                                                            </asp:BoundField>
+                                                                            <asp:BoundField DataField="country_name" HeaderText="Country">
+                                                                                <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                                                <ItemStyle HorizontalAlign="Left" />
+                                                                            </asp:BoundField>
+                                                                        </Columns>
+                                                                    </asp:GridView>
+                                                                </ContentTemplate>
+                                                            </asp:UpdatePanel>
                                                         </asp:Panel>
                                                     </td>
                                                 </tr>
@@ -91,6 +95,7 @@
                                                     <td class="tdHeader" align="center">
                                                         <asp:Button ID="btnCSelect" runat="server" Text="Select" CausesValidation="false" OnClick="btnCSelect_Click" />
                                                         <asp:Button ID="btnCCancel" runat="server" Text="Cancel" CausesValidation="false" />
+                                                        <asp:Label ID="lblCCountrys" runat="server" Visible="false"></asp:Label>
                                                     </td>
                                                 </tr>
                                             </table>
