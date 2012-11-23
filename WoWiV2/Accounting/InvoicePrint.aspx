@@ -232,7 +232,7 @@
         {
             counter += 1;
             //Label lblbr = (Label)e.Row.FindControl("lblbr");
-            if (counter == 37 || counter == 90)
+            if (counter == 30 || counter == 80)
             {
                 GridViewRow gv_row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Normal);
                 TableCell tc = new TableCell();
@@ -351,7 +351,8 @@
                     Contact :
                     <asp:Label ID="lblBillContact" runat="server" Text="lblContact"></asp:Label></p>
             </td>
-            <td style="width: 20">
+            <td style="width:20px;position: fixed">
+            
             </td>
             <td valign="top" style="height: 130px; position: fixed">
                 <b><u>Client Information </u></b>
@@ -368,7 +369,7 @@
         </tr>
         <tr>
             <td colspan="3">
-                <p />
+                　<br />
             </td>
         </tr>
         <tr>
