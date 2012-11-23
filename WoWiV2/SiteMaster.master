@@ -13,7 +13,7 @@
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>    
 </head>
-<body  oncontextmenu="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()">
+<body  oncontextmenu="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()" oncut="return false">
     <form runat="server">
     <div class="page">
         <div class="header">
