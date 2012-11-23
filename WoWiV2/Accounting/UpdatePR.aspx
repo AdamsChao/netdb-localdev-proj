@@ -1677,8 +1677,19 @@
                                    <td width="40%" align="right">1st Prepayment : </td>
                                    <td width="10%" > </td>
                                    <td width="50%" > 
-                                       <netdb:DropDownList2 ID="ddlPaymentTerm1" runat="server" onload="DropDownList1_Load"  Enabled="false"
+                                       <netdb:DropDownList2 ID="ddlPaymentTerm1" runat="server"   Enabled="false"
                                       >
+                                      <asp:ListItem>0</asp:ListItem>
+                                          <asp:ListItem>10</asp:ListItem>
+                                          <asp:ListItem>20</asp:ListItem>
+                                          <asp:ListItem>30</asp:ListItem>
+                                          <asp:ListItem>40</asp:ListItem>
+                                          <asp:ListItem>50</asp:ListItem>
+                                          <asp:ListItem>60</asp:ListItem>
+                                          <asp:ListItem>70</asp:ListItem>
+                                          <asp:ListItem>80</asp:ListItem>
+                                          <asp:ListItem>90</asp:ListItem>
+                                          <asp:ListItem>100</asp:ListItem>
                                        </netdb:DropDownList2> % 
                                        <asp:CheckBox ID="CheckBox1" runat="server" Visible="false" /></td>
                                        
@@ -1688,8 +1699,19 @@
                                    <td width="10%" > </td>
 
                                    <td width="50%" >
-                                   <netdb:DropDownList2 ID="ddlPaymentTerm2" runat="server" onload="DropDownList1_Load"  Enabled="false"
+                                   <netdb:DropDownList2 ID="ddlPaymentTerm2" runat="server"   Enabled="false"
                                            >
+                                           <asp:ListItem>0</asp:ListItem>
+                                          <asp:ListItem>10</asp:ListItem>
+                                          <asp:ListItem>20</asp:ListItem>
+                                          <asp:ListItem>30</asp:ListItem>
+                                          <asp:ListItem>40</asp:ListItem>
+                                          <asp:ListItem>50</asp:ListItem>
+                                          <asp:ListItem>60</asp:ListItem>
+                                          <asp:ListItem>70</asp:ListItem>
+                                          <asp:ListItem>80</asp:ListItem>
+                                          <asp:ListItem>90</asp:ListItem>
+                                          <asp:ListItem>100</asp:ListItem>
                                        </netdb:DropDownList2> % 
                                        <asp:CheckBox ID="CheckBox2" runat="server" Visible="false" /></td>
                                    </tr>
@@ -1698,8 +1720,19 @@
                                    <td width="10%" > </td>
 
                                    <td width="50%" >
-                                   <netdb:DropDownList2 ID="ddlPaymentTerm3" runat="server" onload="DropDownList1_Load"  Enabled="false"
+                                   <netdb:DropDownList2 ID="ddlPaymentTerm3" runat="server"  Enabled="false"
                                          >
+                                         <asp:ListItem>0</asp:ListItem>
+                                          <asp:ListItem>10</asp:ListItem>
+                                          <asp:ListItem>20</asp:ListItem>
+                                          <asp:ListItem>30</asp:ListItem>
+                                          <asp:ListItem>40</asp:ListItem>
+                                          <asp:ListItem>50</asp:ListItem>
+                                          <asp:ListItem>60</asp:ListItem>
+                                          <asp:ListItem>70</asp:ListItem>
+                                          <asp:ListItem>80</asp:ListItem>
+                                          <asp:ListItem>90</asp:ListItem>
+                                          <asp:ListItem>100</asp:ListItem>
                                        </netdb:DropDownList2> % 
                                        <asp:CheckBox ID="CheckBox3" runat="server" Visible="false" /></td>
                                    </tr>
@@ -1707,8 +1740,19 @@
                                    
                                    <td width="40%" align="right" >Final Prepayment : </td><td width="10%" > </td>
                                    <td width="50%" >
-                                   <netdb:DropDownList2 ID="ddlPaymentTermF" runat="server" onload="DropDownList1_Load"  Enabled="false"
+                                   <netdb:DropDownList2 ID="ddlPaymentTermF" runat="server"   Enabled="false"
                                           >
+                                          <asp:ListItem>0</asp:ListItem>
+                                          <asp:ListItem>10</asp:ListItem>
+                                          <asp:ListItem>20</asp:ListItem>
+                                          <asp:ListItem>30</asp:ListItem>
+                                          <asp:ListItem>40</asp:ListItem>
+                                          <asp:ListItem>50</asp:ListItem>
+                                          <asp:ListItem>60</asp:ListItem>
+                                          <asp:ListItem>70</asp:ListItem>
+                                          <asp:ListItem>80</asp:ListItem>
+                                          <asp:ListItem>90</asp:ListItem>
+                                          <asp:ListItem>100</asp:ListItem>
                                        </netdb:DropDownList2> % 
                                        <asp:CheckBox ID="CheckBox5" runat="server" Visible="false" />
                                    </td>
