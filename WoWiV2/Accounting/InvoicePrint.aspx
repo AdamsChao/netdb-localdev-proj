@@ -606,7 +606,8 @@
                                 </tr>
                                 <tr>
                                     <td class="ccstextboxh" align="center" colspan="2">
-                                        Issued by Accounting<br />
+                                        Issued by Accounting
+                                        <p />
                                         <asp:Image ID="imgF" runat="server" Height="31" Width="114" />
                                     </td>
                                 </tr>
