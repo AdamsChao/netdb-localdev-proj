@@ -1,7 +1,8 @@
-﻿ <%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" %>
+
 <%@ Import Namespace="System.Collections.Generic" %>
-<%@ Register assembly="iServerControls" namespace="iControls.Web" tagprefix="cc1" %>
-<script  runat="server">
+<%@ Register Assembly="iServerControls" Namespace="iControls.Web" TagPrefix="cc1" %>
+<script runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     static String Prepayment1 = "Prepayment1";
@@ -10,14 +11,14 @@
     static String Finalpayment = "Finalpayment";
     public String Format(String s)
     {
-        return ("$"+s.PadLeft(7,'u').Replace("u","&nbsp;"));
+        return ("$" + s.PadLeft(7, 'u').Replace("u", "&nbsp;"));
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-       
+
         if (!String.IsNullOrEmpty(Request.QueryString["id"]))
         {
-            
+
             try
             {
                 int id = int.Parse(Request.QueryString["id"]);
@@ -35,7 +36,7 @@
                 lblDate.Text = ((DateTime)invoice.issue_invoice_date).ToString("yyyy/MM/dd");
                 Tax = Format(Tax);
                 AmountDue = Format(AmountDue);
-                lblOCurrency.Text = invoice.ocurrency ;
+                lblOCurrency.Text = invoice.ocurrency;
                 lblOCurrency1.Text = invoice.ocurrency;
                 lblOCurrency2.Text = invoice.ocurrency;
                 lblOTotal.Text = OTotal;
@@ -53,9 +54,9 @@
                 lblAmountDue.Text = ((decimal)invoice.total).ToString("N2");
                 //tbbankAcct.Text = InvoiceUtils.WoWi_Bank_Info1;                
                 //lblbankAcct.Text = Regex.Replace(InvoiceUtils.WoWi_Bank_Info1, "[\r\n\t]", "<br/>", RegexOptions.IgnoreCase); 
-                
-                Total = PayCurrency+Format(Total);
-               
+
+                Total = PayCurrency + Format(Total);
+
                 String pNo = invoice.project_no;
                 lblprojno.Text = pNo;
                 var pro = (from p in db.Project where p.Project_No == pNo select p).First();
@@ -77,7 +78,7 @@
                     }
                     catch (Exception)
                     {
-                        
+
                         //throw;
                     }
                     int clientid = (int)quotation.Client_Id;
@@ -109,7 +110,7 @@
 
 
                     }
-                    
+
                 }
                 catch (Exception)
                 {
@@ -125,7 +126,7 @@
                 {
                     temp = new ProjectInvoiceData()
                     {
-                      
+
                         FPrice = (decimal)i.amount,
                         PayAmount = i.amount + ""
                     };
@@ -159,7 +160,7 @@
                     }
                     else if (i.bill_status == (byte)InvoicePaymentStatus.FinalPaid)
                     {
-                        temp.PayType = Finalpayment ;
+                        temp.PayType = Finalpayment;
                     }
                     items.Add(temp);
                 }
@@ -169,12 +170,12 @@
 
                 try
                 {
-                    
+
                     int bid = (int)invoice.bankacct_info_id;
-                    
+
                     WoWiModel.wowi_bankinfo b = wowidb.wowi_bankinfo.First(c => c.id == bid);
                     //lblbankAcct.Text = b.info;                    
-                    lblbankAcct.Text = Regex.Replace(b.info, "[[\r\t]", "<br/>", RegexOptions.IgnoreCase);                     
+                    lblbankAcct.Text = Regex.Replace(b.info, "[[\r\t]", "<br/>", RegexOptions.IgnoreCase);
                 }
                 catch (Exception)
                 {
@@ -197,8 +198,8 @@
             catch
             {
             }
-            
-           
+
+
         }
 
     }
@@ -212,11 +213,11 @@
                                             "Amount Due</td></tr><tr><td align='right'>" +
                                             "Pay Currency</td></tr><tr><td align='right'>" +
                                             "Exchange Rate</td></tr><tr><td align='right'>" +
-                                            //"Adjust</td></tr><tr><td align='right'>" +
+            //"Adjust</td></tr><tr><td align='right'>" +
                                             "<u>Total</u></td></td></tr></table>");
         sb.Replace("OTotal", OTotal);
         sb.Replace("Tax", Tax);
-        sb.Replace("Original Currency",OriginalCurrency);
+        sb.Replace("Original Currency", OriginalCurrency);
         sb.Replace("Amount Due", AmountDue);
         sb.Replace("Exchange Rate", ExchangeRate);
         sb.Replace("Pay Currency", PayCurrency);
@@ -226,8 +227,8 @@
     }
     int counter = 0;
     protected void iGridView_RowDataBound(object sender, GridViewRowEventArgs e)
-    {        
-        if (e.Row.RowType==DataControlRowType.DataRow)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
         {
             counter += 1;
             //Label lblbr = (Label)e.Row.FindControl("lblbr");
@@ -239,12 +240,10 @@
                 tc.ColumnSpan = 6;
                 gv_row.Cells.Add(tc);
                 e.Row.Parent.Controls.AddAt(counter + 1, gv_row);
-            } 
+            }
         }
     }
 </script>
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
@@ -293,143 +292,171 @@
         }
         .noscrollBar
         {
-            overflow-y:hidden;            
-            font-style: normal;            
+            overflow-y: hidden;
+            font-style: normal;
             font-size: 9pt;
             font-weight: bold;
         }
         .TotalPrice
-        {               
-            font-style: normal;            
+        {
+            font-style: normal;
             font-size: 8pt;
             font-weight: bold;
         }
-        </style>
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
- 
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td align="left">
                 <img border="0" height="90" src="../Images/Quotation/WoWilogoname.jpg" />
             </td>
-            <td align="right" valign="top" width="35%"></td>
+            <td align="right" valign="top" width="35%">
+            </td>
             <td align="right" class="ccsh1">
                 <font face="verdana" size="1">3F., No.79, Zhouzi St., Neihu Dist.,<br />
                     Taipei City 114, Taiwan (R.O.C.)<br />
                     T: 886-2-2799-8382 &nbsp; F: 886-2-2799-8387<br />
-                    Http://www.WoWiApproval.com<br/>
-                    <B>Number:<asp:Label ID="lblInvNo" runat="server" ></asp:Label></B><br/>
-                    <B>Date:<asp:Label ID="lblDate" runat="server" Text="lblDate" ></asp:Label></B>
-                 </font>
+                    Http://www.WoWiApproval.com<br />
+                    <p />
+                    <b>Number:<asp:Label ID="lblInvNo" runat="server"></asp:Label></b><br />
+                    <b>Date:<asp:Label ID="lblDate" runat="server" Text="lblDate"></asp:Label></b>
+                </font>
             </td>
-         </tr>
-        <tr>        
+        </tr>
+        <tr>
             <td align="middle" class="ccsh1" colspan="3" valign="top">
-                <h2>INVOICE</h2>
-            </td>            
-         </tr>
-    </table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">   
-        <tr >
-            <td valign="top" style="height:130px;position: fixed">
-            <B><u>Bill Information </u></B><br />
-                Name :
-                <asp:Label ID="lblBillName" runat="server" Text="lblName" ></asp:Label>
-                <p>
-                    Address :
-                    <asp:Label ID="lblBillAddress" runat="server" Text="lblAddress"  ></asp:Label></p>
-                <p>
-                    Contact :
-                    <asp:Label ID="lblBillContact" runat="server" Text="lblContact"  ></asp:Label></p>    
-            </td>
-            <td valign="top" style="height:130px;position: fixed">
-            <B><u>Client Information </u></B><br />
-                Name :
-                <asp:Label ID="lblName" runat="server" Text="lblName"  ></asp:Label>
-                <p>
-                    Address :
-                    <asp:Label ID="lblAddress" runat="server" Text="lblAddress"  ></asp:Label></p>
-                <p>
-                    Contact :
-                    <asp:Label ID="lblContact" runat="server" Text="lblContact"  ></asp:Label></p>                   
+                <h2>
+                    INVOICE</h2>
             </td>
         </tr>
-       
-        <tr><td colspan="2"></td></tr>
-       
         <tr>
-        <td colspan="2">
-        <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%" 
-                style="font-size: small;border-style: solid;border-width: 1px;">
-        <tr>
-        <th width="20%">Reference - P.O. #</th> <th width="20%">Sales Person</th> <th width="20%">WoWi Quotation No.</th><th width="20%">WoWi Project No.</th><th width="20%">Model No.</th>
-        </tr>
-        <tr>
-            <td align="cent">　　　
-                <asp:Label ID="lblpono" runat="server" Text="Label"></asp:Label>
-            </td>
-            <td align="center">
-                <asp:Label ID="lblSales" runat="server" Text="Label"></asp:Label>
-            </td>
-            <td align="center">
-                <asp:Label ID="lblquono" runat="server" Text="Label"></asp:Label>
-            </td>
-            <td align="center">
-                <asp:Label ID="lblprojno" runat="server" Text="Label"></asp:Label>
-            </td>
-            <td align="center">
-                <asp:Label ID="lblmodelno" runat="server" Text="Label"></asp:Label>
+            <td align="middle" class="ccsh1" colspan="3" valign="top">
+                <br />
             </td>
         </tr>
     </table>
-        </td>
-        </tr>  
-       
-        <tr><td colspan="2"></td></tr>
-        <tr><td colspan="2"></td></tr>
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td colspan="2">
+            <td valign="top" style="height: 130px; position: fixed">
+                <b><u>Bill Information </u></b>
+                <br />
+                Name :
+                <asp:Label ID="lblBillName" runat="server" Text="lblName"></asp:Label>
+                <p>
+                    Address :
+                    <asp:Label ID="lblBillAddress" runat="server" Text="lblAddress"></asp:Label></p>
+                <p>
+                    Contact :
+                    <asp:Label ID="lblBillContact" runat="server" Text="lblContact"></asp:Label></p>
+            </td>
+            <td style="width: 20">
+            </td>
+            <td valign="top" style="height: 130px; position: fixed">
+                <b><u>Client Information </u></b>
+                <br />
+                Name :
+                <asp:Label ID="lblName" runat="server" Text="lblName"></asp:Label>
+                <p>
+                    Address :
+                    <asp:Label ID="lblAddress" runat="server" Text="lblAddress"></asp:Label></p>
+                <p>
+                    Contact :
+                    <asp:Label ID="lblContact" runat="server" Text="lblContact"></asp:Label></p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <p />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%" style="font-size: small;
+                    border-style: solid; border-width: 1px;">
+                    <tr>
+                        <th width="20%">
+                            Reference - P.O. #
+                        </th>
+                        <th width="20%">
+                            Sales Person
+                        </th>
+                        <th width="20%">
+                            WoWi Quotation No.
+                        </th>
+                        <th width="20%">
+                            WoWi Project No.
+                        </th>
+                        <th width="20%">
+                            Model No.
+                        </th>
+                    </tr>
+                    <tr>
+                        <td align="cent">
+                            <asp:Label ID="lblpono" runat="server" Text="Label"></asp:Label>
+                        </td>
+                        <td align="center">
+                            <asp:Label ID="lblSales" runat="server" Text="Label"></asp:Label>
+                        </td>
+                        <td align="center">
+                            <asp:Label ID="lblquono" runat="server" Text="Label"></asp:Label>
+                        </td>
+                        <td align="center">
+                            <asp:Label ID="lblprojno" runat="server" Text="Label"></asp:Label>
+                        </td>
+                        <td align="center">
+                            <asp:Label ID="lblmodelno" runat="server" Text="Label"></asp:Label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
                 <!-- start target -->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">                    
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <td colspan="2">
-                             <cc1:iRowSpanGridView ID="iGridView" runat="server"  Width="100%" 
-                         AutoGenerateColumns="False"  
-                         ShowFooter="False" Font-Size="Small" onrowdatabound="iGridView_RowDataBound"  >
-                        <Columns>                    
-                            <asp:TemplateField HeaderText="Description/Comments">
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("TDescription") %>'></asp:TextBox>
-                                </EditItemTemplate>
-                                <FooterTemplate>
-                                    <asp:Label ID="tbbankAccount" runat="server" ></asp:Label>                                  
-                                </FooterTemplate>
-                                <ItemTemplate>
-                                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("TDescription") %>'></asp:Label>
-                                    <%--<asp:Label ID="lblbr" runat="server"></asp:Label>--%>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:BoundField DataField="Qty" HeaderText="Qty" 
-                                ItemStyle-HorizontalAlign="Right" >
-<ItemStyle HorizontalAlign="Right"></ItemStyle>
-                            </asp:BoundField>
-                            <asp:BoundField DataField="UOM" HeaderText="Unit" 
-                                ItemStyle-HorizontalAlign="Right"  >
-<ItemStyle HorizontalAlign="Right"></ItemStyle>
-                            </asp:BoundField>
-                            <asp:TemplateField HeaderText="Unit Price"  ItemStyle-HorizontalAlign="Right" >
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:TextBox>
-                                </EditItemTemplate>
-                                <ItemTemplate>
-                                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:Label>
-                                </ItemTemplate>
-
-<ItemStyle HorizontalAlign="Right"></ItemStyle>
-                            </asp:TemplateField>
-                            <%--<asp:TemplateField HeaderText="F. Price" >
+                            <cc1:iRowSpanGridView ID="iGridView" runat="server" Width="100%" AutoGenerateColumns="False"
+                                ShowFooter="False" Font-Size="Small" OnRowDataBound="iGridView_RowDataBound">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Description/Comments">
+                                        <EditItemTemplate>
+                                            <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("TDescription") %>'></asp:TextBox>
+                                        </EditItemTemplate>
+                                        <FooterTemplate>
+                                            <asp:Label ID="tbbankAccount" runat="server"></asp:Label>
+                                        </FooterTemplate>
+                                        <ItemTemplate>
+                                            <asp:Label ID="Label2" runat="server" Text='<%# Bind("TDescription") %>'></asp:Label>
+                                            <%--<asp:Label ID="lblbr" runat="server"></asp:Label>--%>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="Qty" HeaderText="Qty" ItemStyle-HorizontalAlign="Right">
+                                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="UOM" HeaderText="Unit" ItemStyle-HorizontalAlign="Right">
+                                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                    </asp:BoundField>
+                                    <asp:TemplateField HeaderText="Unit Price" ItemStyle-HorizontalAlign="Right">
+                                        <EditItemTemplate>
+                                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:TextBox>
+                                        </EditItemTemplate>
+                                        <ItemTemplate>
+                                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("UnitPrice") %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                    </asp:TemplateField>
+                                    <%--<asp:TemplateField HeaderText="F. Price" >
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("FPrice") %>'></asp:TextBox>
                                 </EditItemTemplate>
@@ -438,141 +465,159 @@
                                     <asp:Label ID="lblFPrice" runat="server" Text='<%# Bind("FPrice") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>--%>
-                            <asp:TemplateField HeaderText="Bill"  ItemStyle-HorizontalAlign="Center" >
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Bill") %>'></asp:TextBox>
-                                </EditItemTemplate>
-                               <FooterTemplate  >
-                                    <table align='right'>
-                                        <tr>
-                                            <td align='right'>
-                                                Original Currency : 
-                                                </td>
-                                             
-                                        </tr>
-                                        <tr>
-                                             <td align='right'>
-                                                Subtotal before tax : </td>
-                                              
-                                        </tr>
-                                        <tr>
-                                             <td align='right'>
-                                                Total tax : </td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td align='right'>
-                                                Amount Due : </td>
-                                             
-                                        </tr>
-                                        <tr>
-                                             <td align='right'>
-                                                Currency :</td>
-                                               
-                                        </tr>
-                                        <tr>
-                                             <td align='right'>
-                                                Exchange Rate : </td>
-                                             
-                                        </tr>
-                                        <tr>
-                                            <td align='right'>
-                                                Total : </td>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </FooterTemplate>
-                                <ItemTemplate>
-                                   <asp:Label ID="lblPayType" runat="server" Text='<%# Bind("PayType") %>'></asp:Label>
-                                   
-                                </ItemTemplate>
-
-<ItemStyle HorizontalAlign="Center"></ItemStyle>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Amount"  ItemStyle-HorizontalAlign="Right" >
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Bill") %>'></asp:TextBox>
-                                </EditItemTemplate>
-                                <FooterTemplate>
-                                       <asp:Literal ID="Literal1" runat="server" Text="<%# GetPrice()%>"></asp:Literal>
-                                </FooterTemplate>
-                                <ItemTemplate>
-                                    &nbsp;$<asp:Label ID="lblPayAmount" runat="server" Text='<%# Bind("PayAmount") %>'></asp:Label>
-                                </ItemTemplate>
-
-<ItemStyle HorizontalAlign="Right"></ItemStyle>
-                            </asp:TemplateField>
-                        </Columns>
-                    </cc1:iRowSpanGridView>                         
+                                    <asp:TemplateField HeaderText="Bill" ItemStyle-HorizontalAlign="Center">
+                                        <EditItemTemplate>
+                                            <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Bill") %>'></asp:TextBox>
+                                        </EditItemTemplate>
+                                        <FooterTemplate>
+                                            <table align='right'>
+                                                <tr>
+                                                    <td align='right'>
+                                                        Original Currency :
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align='right'>
+                                                        Subtotal before tax :
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align='right'>
+                                                        Total tax :
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align='right'>
+                                                        Amount Due :
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align='right'>
+                                                        Currency :
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align='right'>
+                                                        Exchange Rate :
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align='right'>
+                                                        Total :
+                                                    </td>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </FooterTemplate>
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblPayType" runat="server" Text='<%# Bind("PayType") %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Amount" ItemStyle-HorizontalAlign="Right">
+                                        <EditItemTemplate>
+                                            <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Bill") %>'></asp:TextBox>
+                                        </EditItemTemplate>
+                                        <FooterTemplate>
+                                            <asp:Literal ID="Literal1" runat="server" Text="<%# GetPrice()%>"></asp:Literal>
+                                        </FooterTemplate>
+                                        <ItemTemplate>
+                                            &nbsp;$<asp:Label ID="lblPayAmount" runat="server" Text='<%# Bind("PayAmount") %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </cc1:iRowSpanGridView>
                         </td>
                     </tr>
-                    <tr><td><br/></td></tr>
-                    <td style="width:65%" valign="top">
-                        <asp:Label ID="lblbankAcct" runat="server" Font-Size="10pt"></asp:Label>               
-                    </td>
-                    <td style="width:35%; font-size: x-small;" valign="top">
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" 
-                            style="font-size: small" class="TotalPrice">                                       
-                                        <tr>
-                                             <td align="right">
-                                                 Subtotal before tax :</td>
-                                                <td> <asp:Label ID="lblOCurrency" runat="server" Text=""/>$</td>
-                                                <td align="right"> <asp:Label ID="lblOTotal" runat="server" Text="" ></asp:Label>
-                                            </td>
-                                        </tr>
-                        <asp:Panel ID="DisPanel" runat="server">
-                        <tr>
-                                             <td align="right">
-                                                (-) Discount : </td>
-                                                <td> <asp:Label ID="lblOCurrency3" runat="server" Text=""/>$</td>
-                                                <td align="right"> <asp:Label ID="lblDiscount" runat="server"  ></asp:Label>
-                                            </td>
-                                        </tr>
-                        </asp:Panel>
-                                        <tr>
-                                             <td align="right">
-                                                Total tax : </td>
-                                                <td> <asp:Label ID="lblOCurrency1" runat="server" Text=""/>$</td>
-                                                <td align="right"> <asp:Label ID="tbTax" runat="server"  ></asp:Label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right">
-                                                Amount due : </td>
-                                                <td> <asp:Label ID="lblOCurrency2" runat="server" Text=""/>$</td>
-                                                <td align="right"> <asp:Label ID="lblAmountDue" runat="server" Text=""></asp:Label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right" colspan="3">
-                                              &nbsp
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right" colspan="3">
-                                              &nbsp
-                                            </td>
-                                        </tr>
-                                         <tr>
-                                            <td align="right" colspan="3">
-                                              &nbsp
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ccstextboxh" align="center" colspan="2">
-                                                Issued by Accounting<br/><asp:Image ID="imgF" runat="server" Height="31" Width="114"  /> 
-                                            </td>
-                                        </tr>
-                                    </table>
-                    </td>
+                    <tr>
+                        <td>
+                            <br />
+                        </td>
                     </tr>
-                </table>
-                <!-- end target -->
-            </td>
+                    <tr>
+                        <td style="width: 65%" valign="top">
+                            <asp:Label ID="lblbankAcct" runat="server" Font-Size="10pt"></asp:Label>
+                        </td>
+                        <td style="width: 35%; font-size: x-small;" valign="top">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size: small"
+                                class="TotalPrice">
+                                <tr>
+                                    <td align="right">
+                                        Subtotal before tax :
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="lblOCurrency" runat="server" Text="" />$
+                                    </td>
+                                    <td align="right">
+                                        <asp:Label ID="lblOTotal" runat="server" Text=""></asp:Label>
+                                    </td>
+                                </tr>
+                                <asp:Panel ID="DisPanel" runat="server">
+                                    <tr>
+                                        <td align="right">
+                                            (-) Discount :
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblOCurrency3" runat="server" Text="" />$
+                                        </td>
+                                        <td align="right">
+                                            <asp:Label ID="lblDiscount" runat="server"></asp:Label>
+                                        </td>
+                                    </tr>
+                                </asp:Panel>
+                                <tr>
+                                    <td align="right">
+                                        Total tax :
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="lblOCurrency1" runat="server" Text="" />$
+                                    </td>
+                                    <td align="right">
+                                        <asp:Label ID="tbTax" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        Amount due :
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="lblOCurrency2" runat="server" Text="" />$
+                                    </td>
+                                    <td align="right">
+                                        <asp:Label ID="lblAmountDue" runat="server" Text=""></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" colspan="3">
+                                        &nbsp
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" colspan="3">
+                                        &nbsp
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" colspan="3">
+                                        &nbsp
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ccstextboxh" align="center" colspan="2">
+                                        Issued by Accounting<br />
+                                        <asp:Image ID="imgF" runat="server" Height="31" Width="114" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
         </tr>
-        <!-- end cost summary service -->
     </table>
-    
-     </form>
+    <!-- end target -->
+    </td> </tr>
+    <!-- end cost summary service -->
+    </table>
+    </form>
 </body>
 </html>
