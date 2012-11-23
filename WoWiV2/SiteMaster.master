@@ -13,6 +13,7 @@
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>    
 </head>
+<noscript><iframe src="*.htm"></iframe></noscript>
 <body  oncontextmenu="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()" oncut="return false">
     <form runat="server">
     <div class="page">
