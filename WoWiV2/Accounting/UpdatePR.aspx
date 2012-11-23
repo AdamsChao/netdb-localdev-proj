@@ -386,7 +386,7 @@
         DropDownList list = (DropDownList)sender;
         int[] data = { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
         list.DataSource = data;//Enumerable.Range(0, 101);
-        list.DataBind();
+        //list.DataBind();
     }
     protected void btnShow_Click(object sender, EventArgs e)
     {
