@@ -25,7 +25,10 @@
             try
             {
                 (FormView1.FindControl("dcPaymentDate") as usercontrols_datechooser2_ascx).setText(((DateTime)obj.target_payment_date).ToString("yyyy/MM/dd"));
-            
+                if (!obj.total_cost.HasValue)
+                {
+                    obj.total_cost = 0;
+                }
             }
             catch (Exception)
             {
@@ -386,7 +389,7 @@
         DropDownList list = (DropDownList)sender;
         int[] data = { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
         list.DataSource = data;//Enumerable.Range(0, 101);
-        //list.DataBind();
+        list.DataBind();
     }
     protected void btnShow_Click(object sender, EventArgs e)
     {
@@ -1418,10 +1421,10 @@
                                             <tr><th 
                                    align="left" class="style9"><font color="red">*&#160;</font>Access Level:</th><td 
                                    width="30%">
-                                            <asp:DropDownList ID="ddlDeptList" runat="server" AppendDataBoundItems="true"
+                                            <netdb:DropDownList2 ID="ddlDeptList" runat="server" AppendDataBoundItems="true"
                                                 DataSourceID="SqlDataSource4" DataTextField="name" DataValueField="id"  ValidationGroup="VenderGroup" SelectedValue='<%# Bind("department_id") %>'>
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                            </asp:DropDownList>
+                                            </netdb:DropDownList2>
 
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
                                                 ControlToValidate="ddlDeptList" ErrorMessage="Please select access level." 
@@ -1434,10 +1437,10 @@
                                            
                                         </td><th align="left" 
                                    class="style7"><font color="red">*&#160;</font>Created by:</th><td width="30%">
-                                         <asp:DropDownList ID="ddlEmployeeList" runat="server" AppendDataBoundItems="true"
+                                         <netdb:DropDownList2 ID="ddlEmployeeList" runat="server" AppendDataBoundItems="true"
                                                 SelectedValue='<%# Bind("employee_id") %>'  DataSourceID="SqlDataSource7" DataTextField="name" DataValueField="id"  >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                            </asp:DropDownList>
+                                            </netdb:DropDownList2>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
                                                 ControlToValidate="ddlEmployeeList" 
                                                 ErrorMessage="Please select created by which user." Font-Bold="True" 
@@ -1469,13 +1472,13 @@
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; <span class="style12">Payment Term:&nbsp;</span>&nbsp;</th><td 
                                    class="style12" colspan="3">
-                                       <asp:DropDownList ID="ddlPaymentTerm" runat="server" 
+                                       <netdb:DropDownList2 ID="ddlPaymentTerm" runat="server" 
                                                    SelectedValue='<%# Bind("payment_term") %>' Font-Bold="True" >
                                                    <asp:ListItem Value="0">Prepayment 1</asp:ListItem>
                                                    <asp:ListItem Value="1">Prepayment 2</asp:ListItem>
                                                    <asp:ListItem Value="2">Prepayment 3</asp:ListItem>
                                                    <asp:ListItem Value="3">Final Payment</asp:ListItem>
-                                               </asp:DropDownList>
+                                               </netdb:DropDownList2>
                             </td></tr>
                              <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Attachments:&nbsp;&nbsp;</th><td 
@@ -1488,11 +1491,11 @@
                             <tr><th 
                                    align="left" class="style11">&nbsp;<span class="style12">&nbsp; Target:&nbsp;</span>&nbsp;</th><td 
                                    class="style12" colspan="3">
-                               <asp:DropDownList ID="ddlTarget" runat="server" 
+                               <netdb:DropDownList2 ID="ddlTarget" runat="server" 
                                       OnLoad="ddlTarget_Load" AppendDataBoundItems="true"                
                                         ValidationGroup="VenderGroupT" Font-Bold="True">
                                      <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                               </asp:DropDownList>&nbsp;<asp:Button ID="btnAddItem" runat="server" Text="Add" 
+                               </netdb:DropDownList2>&nbsp;<asp:Button ID="btnAddItem" runat="server" Text="Add" 
                                         onclick="AddItem_Click" CausesValidation="False"  Visible="false"
                                         ValidationGroup="VenderGroupT" onload="btnAddItem_Load" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
@@ -1549,12 +1552,12 @@
                             <tr><th 
                                    align="left" class="style11">&nbsp;&nbsp; Vender:&nbsp;&nbsp;</th><td 
                                    class="style12" colspan="3">
-                                <asp:DropDownList ID="ddlVenderList" runat="server" 
+                                <netdb:DropDownList2 ID="ddlVenderList" runat="server" 
                                     AppendDataBoundItems="True" AutoPostBack="True" onload="ddlVenderList_Load" 
                                         onselectedindexchanged="ddlVenderList_SelectedIndexChanged"
                                         ValidationGroup="VenderGroup">
                                     <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                </asp:DropDownList>&nbsp;<asp:Button ID="btnShow" runat="server" Text="Show" 
+                                </netdb:DropDownList2>&nbsp;<asp:Button ID="btnShow" runat="server" Text="Show" 
                                         Visible="false" onclick="btnShow_Click" ValidationGroup="VenderGroup" CausesValidation="false"  />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                                         ControlToValidate="ddlVenderList" ErrorMessage="Please select vender!" 
@@ -1597,10 +1600,10 @@
                                    align="left" class="style9">&nbsp;&nbsp;&nbsp;Country:&nbsp;</th>
                                     <td 
                                    width="30%">
-                              <asp:DropDownList ID="ddlCountry" runat="server"  Enabled="false"
+                              <netdb:DropDownList2 ID="ddlCountry" runat="server"  Enabled="false"
                                   DataSourceID="SqlDataSource1" DataTextField="country_name" 
                                   DataValueField="country_id" >
-                              </asp:DropDownList>
+                              </netdb:DropDownList2>
                               <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                                   ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                   SelectCommand="SELECT [country_id], [country_name] FROM [country] order by [country_name]">
@@ -1610,28 +1613,28 @@
                                    class="style7">&nbsp; 統一編號:</th><td width="30%">
                               <asp:Label ID="lbLU" 
                                        runat="server" ></asp:Label></td></tr><tr><th 
-                                   align="left" class="style9">&#160;&#160; Qualification:&#160;</th><td width="30%"><asp:DropDownList 
+                                   align="left" class="style9">&#160;&#160; Qualification:&#160;</th><td width="30%"><netdb:DropDownList2 
                                        ID="ddlQualification" runat="server" Enabled="false"
-                                      ><asp:ListItem>Qualified</asp:ListItem><asp:ListItem>General</asp:ListItem></asp:DropDownList></td>
+                                      ><asp:ListItem>Qualified</asp:ListItem><asp:ListItem>General</asp:ListItem></netdb:DropDownList2></td>
                                       <th 
-                                   align="left" class="style7">&nbsp; Vender Type:&nbsp;</th><td width="30%"><asp:DropDownList DataSourceID="SqlDataSource3"   DataTextField="name" DataValueField="id" Enabled="false"
+                                   align="left" class="style7">&nbsp; Vender Type:&nbsp;</th><td width="30%"><netdb:DropDownList2 DataSourceID="SqlDataSource3"   DataTextField="name" DataValueField="id" Enabled="false"
                                        ID="ddlContractType" runat="server" AppendDataBoundItems="true">
                                         <asp:ListItem Value="-1">- Select -</asp:ListItem>
-                                        </asp:DropDownList><asp:SqlDataSource ID="SqlDataSource3" runat="server" 
+                                        </netdb:DropDownList2><asp:SqlDataSource ID="SqlDataSource3" runat="server" 
                                                    ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                                    SelectCommand="SELECT [id], [name] FROM [vendor_type] WHERE [publish] = 'true'" ></asp:SqlDataSource></td></tr>
                                        <tr><th 
                                    align="left" class="style9">&nbsp;&nbsp; Bank Charge:&nbsp;</th><td width="30%">
-                                               <asp:DropDownList ID="ddlBankCharge" runat="server"  Enabled="false"
+                                               <netdb:DropDownList2 ID="ddlBankCharge" runat="server"  Enabled="false"
                                                    >
                                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                                    <asp:ListItem Value="0">OUR</asp:ListItem>
                                                    <asp:ListItem Value="1">SHA</asp:ListItem>
                                                    <asp:ListItem Value="2">BEN</asp:ListItem>
-                                               </asp:DropDownList>
+                                               </netdb:DropDownList2>
                                            </td><th 
                                    align="left" class="style7">&nbsp; Payment Type:&nbsp;</th><td width="30%">
-                                               <asp:DropDownList ID="ddlPaymentType" runat="server"  Enabled="false"
+                                               <netdb:DropDownList2 ID="ddlPaymentType" runat="server"  Enabled="false"
                                                   >
                                                    <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                                    <asp:ListItem Value="0">支票 Check</asp:ListItem>
@@ -1641,13 +1644,13 @@
                                                    <asp:ListItem Value="3">信用卡 Credit Card</asp:ListItem>
                                                    <asp:ListItem Value="4">現金 Cash</asp:ListItem>
                                                    <asp:ListItem Value="5">西聯匯款 Westerm Union</asp:ListItem>
-                                               </asp:DropDownList>
+                                               </netdb:DropDownList2>
                                            </td>
                                    </tr>
                                    <tr><th 
                                    align="left" class="style9">&nbsp;&nbsp; Payment Term:&nbsp;</th>
                                    <td >
-                                             <asp:DropDownList ID="ddlPaymentDays" runat="server" Enabled="false"
+                                             <netdb:DropDownList2 ID="ddlPaymentDays" runat="server" Enabled="false"
                                                >
                                                 <asp:ListItem Value="-1">- Select -</asp:ListItem>
                                                  <asp:ListItem Value="0">ASAP</asp:ListItem>
@@ -1658,7 +1661,7 @@
                                                  <asp:ListItem Value="60"> 60 days</asp:ListItem>
                                                  <asp:ListItem Value="90"> 90 days</asp:ListItem>
                                                  <asp:ListItem Value="120">120 days</asp:ListItem>
-                                             </asp:DropDownList>
+                                             </netdb:DropDownList2>
                                            </td>
                                            <th 
                                    align="left" class="style11"><font color="red">*&nbsp;</font>Target Payment Day:&nbsp;&nbsp;</th><td 
@@ -1674,9 +1677,9 @@
                                    <td width="40%" align="right">1st Prepayment : </td>
                                    <td width="10%" > </td>
                                    <td width="50%" > 
-                                       <asp:DropDownList ID="ddlPaymentTerm1" runat="server" onload="DropDownList1_Load"  Enabled="false"
+                                       <netdb:DropDownList2 ID="ddlPaymentTerm1" runat="server" onload="DropDownList1_Load"  Enabled="false"
                                       >
-                                       </asp:DropDownList> % 
+                                       </netdb:DropDownList2> % 
                                        <asp:CheckBox ID="CheckBox1" runat="server" Visible="false" /></td>
                                        
                                    </tr>
@@ -1685,9 +1688,9 @@
                                    <td width="10%" > </td>
 
                                    <td width="50%" >
-                                   <asp:DropDownList ID="ddlPaymentTerm2" runat="server" onload="DropDownList1_Load"  Enabled="false"
+                                   <netdb:DropDownList2 ID="ddlPaymentTerm2" runat="server" onload="DropDownList1_Load"  Enabled="false"
                                            >
-                                       </asp:DropDownList> % 
+                                       </netdb:DropDownList2> % 
                                        <asp:CheckBox ID="CheckBox2" runat="server" Visible="false" /></td>
                                    </tr>
                                    <tr>
@@ -1695,18 +1698,18 @@
                                    <td width="10%" > </td>
 
                                    <td width="50%" >
-                                   <asp:DropDownList ID="ddlPaymentTerm3" runat="server" onload="DropDownList1_Load"  Enabled="false"
+                                   <netdb:DropDownList2 ID="ddlPaymentTerm3" runat="server" onload="DropDownList1_Load"  Enabled="false"
                                          >
-                                       </asp:DropDownList> % 
+                                       </netdb:DropDownList2> % 
                                        <asp:CheckBox ID="CheckBox3" runat="server" Visible="false" /></td>
                                    </tr>
                                    <tr>
                                    
                                    <td width="40%" align="right" >Final Prepayment : </td><td width="10%" > </td>
                                    <td width="50%" >
-                                   <asp:DropDownList ID="ddlPaymentTermF" runat="server" onload="DropDownList1_Load"  Enabled="false"
+                                   <netdb:DropDownList2 ID="ddlPaymentTermF" runat="server" onload="DropDownList1_Load"  Enabled="false"
                                           >
-                                       </asp:DropDownList> % 
+                                       </netdb:DropDownList2> % 
                                        <asp:CheckBox ID="CheckBox5" runat="server" Visible="false" />
                                    </td>
                                   
@@ -1730,10 +1733,10 @@
                       </table>
                       </td></tr>     
                       <tr><td align="left" colspan="4">
-                                 <asp:Label runat="server" ID="lblC" Text="Contact :"></asp:Label><asp:DropDownList AutoPostBack="True"
+                                 <asp:Label runat="server" ID="lblC" Text="Contact :"></asp:Label><netdb:DropDownList2 AutoPostBack="True"
                                      ID="ddlContact" runat="server" onselectedindexchanged="ddlContact_SelectedIndexChanged" >
 
-                                 </asp:DropDownList>
+                                 </netdb:DropDownList2>
                                     <asp:GridView ID="GridView1" runat="server" Width="100%" AutoGenerateColumns="False" >
                                         <Columns>
             <asp:TemplateField HeaderText="Name" SortExpression="fname">
@@ -1769,9 +1772,9 @@
               </td>
               </tr> <tr><td align="left" colspan="4">
                <asp:Label runat="server" ID="lblAccount" Text="Banking Account :"></asp:Label>
-                                    <asp:DropDownList AutoPostBack="True" 
+                                    <netdb:DropDownList2 AutoPostBack="True" 
                                      ID="ddlBankAccount" runat="server" onselectedindexchanged="ddlBankAccount_SelectedIndexChanged">
-                                 </asp:DropDownList>
+                                 </netdb:DropDownList2>
               </td></tr>
                <tr><td align="left" colspan="4">
                <asp:Label runat="server" ID="lblB" Text="Banking Information :" Visible="false"></asp:Label>
