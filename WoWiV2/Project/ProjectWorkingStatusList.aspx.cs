@@ -38,6 +38,7 @@ public partial class Project_ProjectWorkingStatusList : System.Web.UI.Page
 
     protected void ButtonSearch_Click(object sender, EventArgs e)
     {
+      SqlDataSourceTarget.SelectCommand += " ORDER BY Project.Project_Id Desc ";
       GridViewProjectTarget.DataBind();
     }
     //protected void GridViewProjectTarget_RowDataBound(object sender, GridViewRowEventArgs e)
