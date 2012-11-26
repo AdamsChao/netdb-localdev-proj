@@ -766,6 +766,10 @@
                                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:BoundField>
+                                                    <asp:BoundField DataField="Remark" HeaderText="Remark">
+                                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Left" />
+                                                    </asp:BoundField>
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsK" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
