@@ -19,17 +19,6 @@
             }
         }
     </style>
-    <script type="text/javascript">
-        function clipboard() {
-            try {
-                if (!(clipboardData.getData("URL") || clipboardData.getData("Text")))
-                    window.clipboardData.clearData();
-            } catch (e) {
-                window.clipboardData.clearData();
-            }
-            setTimeout(function () { clipboard(); }, 500)
-        }
-    </script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
