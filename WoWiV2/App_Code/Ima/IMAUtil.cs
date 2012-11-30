@@ -271,8 +271,7 @@ public class IMAUtil
                     }
                     lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
                 }
-
-
+                //Control在tr內
                 if (ctl is System.Web.UI.HtmlControls.HtmlTableRow)
                 {
                     foreach (System.Web.UI.Control tc in ctl.Controls)
@@ -295,6 +294,45 @@ public class IMAUtil
                         }
                     }
                 }
+                //Control在Panel內
+                if (ctl is Panel)
+                {
+                    foreach (System.Web.UI.Control tc in ctl.Controls)
+                    {
+                        if (tc is Label)
+                        {
+                            lbl = (Label)tc;
+                            lbl.Text = HighlightString(lbl.Text, strKW);
+                            foreach (string str in arrKW)
+                            {
+                                lbl.Text = HighlightString(lbl.Text, str);
+                            }
+                            lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
+                        }
+                        if (tc is System.Web.UI.HtmlControls.HtmlTableRow)
+                        {
+                            foreach (System.Web.UI.Control pltc in tc.Controls)
+                            {
+                                if (pltc is System.Web.UI.HtmlControls.HtmlTableCell)
+                                {
+                                    foreach (System.Web.UI.Control c in pltc.Controls)
+                                    {
+                                        if (c is Label)
+                                        {
+                                            lbl = (Label)c;
+                                            lbl.Text = HighlightString(lbl.Text, strKW);
+                                            foreach (string str in arrKW)
+                                            {
+                                                lbl.Text = HighlightString(lbl.Text, str);
+                                            }
+                                            lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         else 
@@ -305,8 +343,8 @@ public class IMAUtil
                 {
                     lbl = (Label)ctl;
                     lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
-                }
-
+                }                
+                //Control在tr內
                 if (ctl is System.Web.UI.HtmlControls.HtmlTableRow)
                 {
                     foreach (System.Web.UI.Control tc in ctl.Controls)
@@ -319,6 +357,35 @@ public class IMAUtil
                                 {
                                     lbl = (Label)c;
                                     lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
+                                }
+                            }
+                        }
+                    }
+                }
+                //Control在Panel內
+                if (ctl is Panel)
+                {
+                    foreach (System.Web.UI.Control tc in ctl.Controls)
+                    {
+                        if (tc is Label)
+                        {
+                            lbl = (Label)tc;
+                            lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
+                        }
+                        if (tc is System.Web.UI.HtmlControls.HtmlTableRow)
+                        {
+                            foreach (System.Web.UI.Control pltc in tc.Controls)
+                            {
+                                if (pltc is System.Web.UI.HtmlControls.HtmlTableCell)
+                                {
+                                    foreach (System.Web.UI.Control c in pltc.Controls)
+                                    {
+                                        if (c is Label)
+                                        {
+                                            lbl = (Label)c;
+                                            lbl.Text = lbl.Text.Replace(Convert.ToChar(10).ToString(), "<br>");
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -374,5 +441,14 @@ public class IMAUtil
         cmd.CommandText = strTsql;
         cmd.Parameters.AddWithValue("@username", HttpContext.Current.User.Identity.Name);
         return SQLUtil.ExecuteScalar(cmd).ToString();
+    }
+
+    //設定Sales不能進入編輯頁
+    public void CheckIsSales()
+    {
+        if (!IsEditOn())
+        {
+            HttpContext.Current.Response.Redirect("~/Home.aspx");
+        }
     }
 }
