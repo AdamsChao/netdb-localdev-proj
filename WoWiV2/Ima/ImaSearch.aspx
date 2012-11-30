@@ -128,18 +128,18 @@
                             <asp:UpdatePanel ID="upCategory" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
                                     <asp:CheckBoxList ID="cbCategory" runat="server" RepeatColumns="4" RepeatDirection="Horizontal">
-                                        <asp:ListItem Value="B">1.Government Authority</asp:ListItem>
-                                        <asp:ListItem Value="C">2.National governed rules and regulation</asp:ListItem>
-                                        <asp:ListItem Value="D">3.Certification bodies</asp:ListItem>
-                                        <asp:ListItem Value="Q">4.Accredited Test Lab</asp:ListItem>
-                                        <asp:ListItem Value="G">5.Products Control</asp:ListItem>
-                                        <asp:ListItem Value="H">6.Test Standards</asp:ListItem>
-                                        <asp:ListItem Value="F">7.Local Agent</asp:ListItem>
-                                        <asp:ListItem Value="J">8.Application Procedures</asp:ListItem>
-                                        <asp:ListItem Value="K">9.Testing and submission preparation</asp:ListItem>
-                                        <asp:ListItem Value="M">10.Sample shipping</asp:ListItem>
-                                        <asp:ListItem Value="N">11.Periodic Factory inspection</asp:ListItem>
-                                        <asp:ListItem Value="P">13.Label and Renewal</asp:ListItem>
+                                        <asp:ListItem Value="B">Government Authority</asp:ListItem>
+                                        <asp:ListItem Value="C">National governed rules and regulation</asp:ListItem>
+                                        <asp:ListItem Value="D">Certification bodies</asp:ListItem>
+                                        <asp:ListItem Value="Q">Accredited Test Lab</asp:ListItem>
+                                        <asp:ListItem Value="G">Products Control</asp:ListItem>
+                                        <asp:ListItem Value="H">Test Standards</asp:ListItem>
+                                        <asp:ListItem Value="F">Local Agent</asp:ListItem>
+                                        <asp:ListItem Value="J">Application Procedures</asp:ListItem>
+                                        <asp:ListItem Value="K">Testing and submission preparation</asp:ListItem>
+                                        <asp:ListItem Value="M">Sample shipping</asp:ListItem>
+                                        <asp:ListItem Value="N">Periodic Factory inspection</asp:ListItem>
+                                        <asp:ListItem Value="P">Label and Renewal</asp:ListItem>
                                     </asp:CheckBoxList>
                                     <asp:Label ID="lblCategory" runat="server" Visible="false"></asp:Label>
                                 </ContentTemplate>

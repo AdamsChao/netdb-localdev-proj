@@ -16,6 +16,8 @@ public partial class Ima_ImaStandard : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
+            //設定業務人員不可進入編輯Page
+            imau.CheckIsSales();
             BindItem();
             LoadData();
             SetControlVisible();

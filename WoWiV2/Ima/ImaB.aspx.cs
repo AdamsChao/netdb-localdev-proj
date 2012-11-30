@@ -13,9 +13,24 @@ public partial class Ima_ImaB : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
+            SetControlVisible();
             BindItem();
             LoadData();
             SetKW();
+        }
+    }
+
+    //設定顯示的控制項
+    protected void SetControlVisible()
+    {
+        //設定為業務或其他使用者可以看的Detail項
+        if (!IMAUtil.IsEditOn())
+        {
+            plDetailSales.Visible = true;
+        }
+        else
+        {
+            plDetail.Visible = true;
         }
     }
 
@@ -42,17 +57,26 @@ public partial class Ima_ImaB : System.Web.UI.Page
             if (dt.Rows.Count > 0)
             {
                 lblFullAuthorityName.Text = dt.Rows[0]["FullAuthorityName"].ToString();
+                lblFullAuthorityNameS.Text = lblFullAuthorityName.Text;
                 lblAbbreviatedAuthorityName.Text = dt.Rows[0]["AbbreviatedAuthorityName"].ToString();
+                lblAbbreviatedAuthorityNameS.Text = lblAbbreviatedAuthorityName.Text;
                 lblWebsite.Text = dt.Rows[0]["Website"].ToString();
                 lblMandatory.Text = dt.Rows[0]["Mandatory"].ToString();
                 lblCertificateValid.Text = dt.Rows[0]["CertificateValid"].ToString() + " Importer";
                 lblTransfer.Text = dt.Rows[0]["IsTransfer"].ToString();
-                if (dt.Rows[0]["Description"].ToString().Trim().Length > 0) { lblDescription.Text = "<br>Remark：" + dt.Rows[0]["Description"].ToString(); }
+                lblTransferS.Text = lblTransfer.Text;
+                if (dt.Rows[0]["Description"].ToString().Trim().Length > 0) 
+                {
+                    lblDescription.Text = "<br>Remark：" + dt.Rows[0]["Description"].ToString();
+                    lblDescriptionS.Text = lblDescription.Text;
+                }
                 lblCertificationBody.Text = dt.Rows[0]["CertificationBody"].ToString();
                 lblAccreditedTest.Text = dt.Rows[0]["AccreditedTest"].ToString();
                 trProductType.Visible = true;
                 lblCountry.Text = IMAUtil.GetCountryName(Request.Params["cid"]);
+                lblCountryS.Text = lblCountry.Text;
                 lblProTypeName.Text = IMAUtil.GetProductType(dt.Rows[0]["wowi_product_type_id"].ToString());
+                lblProTypeNameS.Text = lblProTypeName.Text;
                 if (dt.Rows[0]["RFRemark"].ToString().Trim().Length > 0) { lblRFRemark.Text = "Remark：" + dt.Rows[0]["RFRemark"].ToString(); }
                 if (dt.Rows[0]["EMCRemark"].ToString().Trim().Length > 0) { lblEMCRemark.Text = "Remark：" + dt.Rows[0]["EMCRemark"].ToString(); }
                 if (dt.Rows[0]["SafetyRemark"].ToString().Trim().Length > 0) { lblSafetyRemark.Text = "Remark：" + dt.Rows[0]["SafetyRemark"].ToString(); }

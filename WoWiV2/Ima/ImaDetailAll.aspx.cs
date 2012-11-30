@@ -33,11 +33,11 @@ public partial class Ima_ImaDetailAll : System.Web.UI.Page
     {
         if (!IMAUtil.IsEditOn()) 
         {
-            trImaB.Visible = false;
+            //trImaB.Visible = false;
             trImaD.Visible = false;
             trImaQ.Visible = false;
             trImaF.Visible = false;
-            trImaL.Visible = false;
+            //trImaL.Visible = false;
         }
     }
 
@@ -240,6 +240,23 @@ public partial class Ima_ImaDetailAll : System.Web.UI.Page
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// 設定是否顯示Technology的資料
+    /// </summary>
+    protected bool SetTechVisible(object objTech) 
+    {
+        bool blTech = false;
+        if (!IMAUtil.IsEditOn())
+        {
+            blTech = false;
+        }
+        else
+        {
+            blTech = Convert.ToBoolean(Eval("trTechRF"));
+        }
+        return blTech;
     }
 
 }

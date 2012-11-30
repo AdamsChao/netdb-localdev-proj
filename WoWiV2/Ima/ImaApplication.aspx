@@ -572,7 +572,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tdRowName" valign="top">Control by：</td>
+                        <td class="tdRowName" valign="top">Certification Control by：</td>
                         <td class="tdRowValue">
                             <asp:CheckBox ID="cbControlByCertificate" runat="server" Text="Certificate # / Approval #" />
                             <asp:CheckBox ID="cbControlByModel" runat="server" Text="Model #" />
@@ -952,7 +952,7 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Provisional Certificate：
+                            Provisional Certificate Y/N & Validity：
                         </td>
                         <td class="tdRowValue">
                             <table border="0" cellpadding="0" cellspacing="0">
@@ -1101,7 +1101,7 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Periodic Certificate：
+                            Periodic Certificate Y/N & Validity：
                         </td>
                         <td class="tdRowValue">
                             <table border="0" cellpadding="0" cellspacing="0">

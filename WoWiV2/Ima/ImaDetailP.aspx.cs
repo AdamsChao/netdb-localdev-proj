@@ -13,8 +13,23 @@ public partial class Ima_ImaDetailP : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
+            SetControlVisible();
             LoadData();
             SetKW();
+        }
+    }
+
+    //設定顯示的控制項
+    protected void SetControlVisible()
+    {
+        //設定為業務或其他使用者可以看的Detail項
+        if (!IMAUtil.IsEditOn())
+        {
+            plDetailSales.Visible = true;
+        }
+        else
+        {
+            plDetail.Visible = true;
         }
     }
 
@@ -156,6 +171,16 @@ public partial class Ima_ImaDetailP : System.Web.UI.Page
                 lblCountry.Text = IMAUtil.GetCountryName(Request.Params["cid"]);
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
                 trProductType.Visible = true;
+
+                //業務人員可以檢視的欄位
+                lblCountryS.Text = lblCountry.Text;
+                lblProTypeNameS.Text = lblProTypeName.Text;
+                lblRequirementS.Text = lblRequirement.Text;
+                lblProductS.Text = lblProduct.Text;
+                lblEUTS.Text = lblEUT.Text;
+                lblRenewalS.Text = lblRenewal.Text;
+                lblYearMonthS.Text = lblYearMonth.Text;
+                lblRequiredDocS.Text = lblRequiredDoc.Text;
             }
             ////Technology
             //cmd = new SqlCommand();

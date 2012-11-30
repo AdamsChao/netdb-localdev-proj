@@ -30,11 +30,28 @@ public partial class Ima_ImaList : System.Web.UI.Page
     {
         if (!IMAUtil.IsEditOn())
         {
-            ddlDocCategory.Items.RemoveAt(15);
+            //ddlDocCategory.Items.RemoveAt(15);
             ddlDocCategory.Items.RemoveAt(7);
             ddlDocCategory.Items.RemoveAt(4);
             ddlDocCategory.Items.RemoveAt(3);
-            ddlDocCategory.Items.RemoveAt(1);
+            //ddlDocCategory.Items.RemoveAt(1);
+            gvImaGover.Columns[2].Visible = false;
+            gvImaGover.Columns[3].Visible = false;
+            gvJ.Columns[1].Visible = false;
+            gvJ.Columns[2].Visible = false;
+            gvK.Columns[4].Visible = false;
+            gvL.Columns[0].Visible = false;
+            gvL.Columns[1].Visible = false;
+            gvL.Columns[2].Visible = false;
+            gvL.Columns[3].Visible = false;
+            gvL.Columns[4].Visible = false;
+            gvL.Columns[5].Visible = false;
+            gvL.Columns[6].Visible = false;
+            gvL.Columns[7].Visible = false;
+            gvL.Columns[8].Visible = false;
+            gvL.Columns[9].Visible = false;
+            gvL.Columns[10].Visible = false;
+            gvL.Columns[12].Visible = false;
         }
     }
 

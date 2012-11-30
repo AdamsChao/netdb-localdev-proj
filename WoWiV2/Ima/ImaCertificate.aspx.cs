@@ -9,10 +9,13 @@ using System.Data.SqlClient;
 
 public partial class Ima_ImaCertificate : System.Web.UI.Page
 {
+    IMAUtil imau = new IMAUtil();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {
+            //設定業務人員不可進入編輯Page
+            imau.CheckIsSales();
             LoadData();
         }
     }

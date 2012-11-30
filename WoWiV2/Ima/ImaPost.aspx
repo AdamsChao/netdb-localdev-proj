@@ -367,7 +367,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tdRowName" valign="top">Validity：</td>
+                        <td class="tdRowName" valign="top">Renewal Validity：</td>
                         <td class="tdRowValue">
                             <asp:TextBox ID="tbYear" runat="server" Width="50px"></asp:TextBox>year(s)
                             <asp:RegularExpressionValidator ID="revYear" runat="server" ControlToValidate="tbYear"
@@ -385,7 +385,7 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Required documents：
+                            Renewal Required Document：
                         </td>
                         <td class="tdRowValue">
                             <asp:TextBox ID="tbRequiredDoc" runat="server" Width="500px" TextMode="MultiLine" Rows="2"></asp:TextBox>

@@ -190,7 +190,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailB" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailB" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailB" runat="server">1.Government Authority</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailB" runat="server">Government Authority</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailB" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailB" runat="server">
@@ -212,15 +212,15 @@
                                         <td class="tdRowName">Abbreviated Authority Name：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblAbbreviatedAuthorityName" runat="server" Text='<%#Eval("AbbreviatedAuthorityName") %>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trWebsite" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Website：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblWebsite" runat="server" Text='<%#Eval("Website") %>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trMandatory" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Mandatory or Voluntary：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblMandatory" runat="server" Text='<%#Eval("Mandatory") %>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trAttach" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Attach sample certificate：</td>
                                         <td class="tdRowValue">
                                             <asp:GridView ID="gvImaBFiles1" runat="server" DataKeyNames="GoverAuthFileID" SkinID="gvList" DataSourceID="sdsImaBFiles1">
@@ -249,16 +249,16 @@
                                             </asp:SqlDataSource>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trCertificationBody" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Also certification body：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblCertificationBody" runat="server" Text='<%#Eval("CertificationBody") %>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trAccreditedTest" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Also accredited test lab：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblAccreditedTest" runat="server" Text='<%#Eval("AccreditedTest") %>'></asp:Label></td>
                                     </tr>
-                                    <tr>
-                                        <td class="tdRowName">Certificate is valid for：</td>
+                                    <tr id="trCertificateValid" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                        <td class="tdRowName">Certificate is valid for<br />Single Importer / Any Importer：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblCertificateValid" runat="server" Text='<%#Eval("CertificateValid1") %>'></asp:Label></td>
                                     </tr>
                                     <tr>
@@ -266,7 +266,7 @@
                                         <td class="tdRowValue">
                                             <asp:Label ID="lblTransfer" runat="server" Text='<%#Eval("IsTransfer") %>'></asp:Label>
                                             <asp:Label ID="lblDescription" runat="server" Text='<%#Eval("Description1").ToString().Replace(Convert.ToChar(10).ToString(), "<br>") %>'></asp:Label>
-                                            <asp:GridView ID="gvImaBFiles" runat="server" DataKeyNames="GoverAuthFileID" SkinID="gvList" DataSourceID="sdsImaBFiles">
+                                            <asp:GridView ID="gvImaBFiles" runat="server" DataKeyNames="GoverAuthFileID" SkinID="gvList" DataSourceID="sdsImaBFiles" Visible='<%#IMAUtil.IsEditOn() %>'>
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="NO">
                                                         <ItemTemplate>
@@ -293,7 +293,7 @@
                                             </asp:SqlDataSource>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trContact" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Contact：</td>
                                         <td class="tdRowValue">
                                             <asp:DataList ID="dlImaBContact" runat="server" DataSourceID="sdsImaBContact" CellPadding="4" ForeColor="#333333">
@@ -347,14 +347,14 @@
                                             </asp:SqlDataSource>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trLeadTime" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Lead Time：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblLeadT" runat="server" Text='<%#Eval("LeadTime1") %>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trSubmission" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td colspan="2" class="tdHeader1">Submission Fee By Technologies</td>
                                     </tr>
-                                    <tr id="trTechRF" runat="server" visible='<%# Convert.ToBoolean(Eval("trTechRF")) %>'>
+                                    <tr id="trTechRF" runat="server" visible='<%# SetTechVisible(Eval("trTechRF")) %>'>
                                         <td class="tdRowName">RF：</td>
                                         <td class="tdRowValue">
                                             <asp:DataList ID="dlImaBTechRF" runat="server" DataSourceID="sdsImaBTechRF" DataKeyField="wowi_tech_id" RepeatColumns="3" RepeatDirection="Horizontal">
@@ -377,7 +377,7 @@
                                             <asp:Label ID="lblImaBRFRemark" runat="server" Text='<%#Eval("RFRemark1").ToString().Replace(Convert.ToChar(10).ToString(), "<br>") %>'></asp:Label>
                                         </td>
                                     </tr>
-                                    <tr id="trTechEMC" runat="server" visible='<%# Convert.ToBoolean(Eval("trTechEMC")) %>'>
+                                    <tr id="trTechEMC" runat="server" visible='<%# SetTechVisible(Eval("trTechEMC")) %>'>
                                         <td class="tdRowName">EMC：</td>
                                         <td class="tdRowValue">
                                             <asp:DataList ID="dlImaBTechEMC" runat="server" DataSourceID="sdsImaBTechEMC" DataKeyField="wowi_tech_id" RepeatColumns="3" RepeatDirection="Horizontal">
@@ -400,7 +400,7 @@
                                             <asp:Label ID="lblImaBEMCRemark" runat="server" Text='<%#Eval("EMCRemark1").ToString().Replace(Convert.ToChar(10).ToString(), "<br>") %>'></asp:Label>
                                         </td>
                                     </tr>
-                                    <tr id="trTechSafety" runat="server" visible='<%# Convert.ToBoolean(Eval("trTechSafety")) %>'>
+                                    <tr id="trTechSafety" runat="server" visible='<%# SetTechVisible(Eval("trTechSafety")) %>'>
                                         <td class="tdRowName">Safety：</td>
                                         <td class="tdRowValue">
                                             <asp:DataList ID="dlImaBTechSafety" runat="server" DataSourceID="sdsImaBTechSafety" DataKeyField="wowi_tech_id" RepeatColumns="3" RepeatDirection="Horizontal">
@@ -424,7 +424,7 @@
                                             <asp:Label ID="lblImaBSafetyRemark" runat="server" Text='<%#Eval("SafetyRemark1").ToString().Replace(Convert.ToChar(10).ToString(), "<br>") %>'></asp:Label>
                                         </td>
                                     </tr>
-                                    <tr id="trTechTelecom" runat="server" visible='<%# Convert.ToBoolean(Eval("trTechTelecom")) %>'>
+                                    <tr id="trTechTelecom" runat="server" visible='<%# SetTechVisible(Eval("trTechTelecom")) %>'>
                                         <td class="tdRowName">Telecom：</td>
                                         <td class="tdRowValue">
                                             <asp:DataList ID="dlImaBTechTelecom" runat="server" DataSourceID="sdsImaBTechTelecom" DataKeyField="wowi_tech_id" RepeatColumns="3" RepeatDirection="Horizontal">
@@ -474,7 +474,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailC" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailC" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailC" runat="server">2.National governed rules and regulation</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailC" runat="server">National governed rules and regulation</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailC" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailC" runat="server">
@@ -550,7 +550,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailD" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailD" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailD" runat="server">3.Certification bodies</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailD" runat="server">Certification bodies</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailD" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailD" runat="server">
@@ -769,7 +769,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailQ" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailQ" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailQ" runat="server">4.Accredited Test Lab</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailQ" runat="server">Accredited Test Lab</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailQ" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailQ" runat="server">
@@ -976,7 +976,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailG" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailG" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailG" runat="server">5.Products Control</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailG" runat="server">Products Control</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailG" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailG" runat="server">
@@ -1062,7 +1062,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailH" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailH" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailH" runat="server">6.Test Standards</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailH" runat="server">Test Standards</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailH" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailH" runat="server">
@@ -1088,7 +1088,7 @@
                                         <td class="tdRowName" valign="top">List harmonizes standards：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblStandardDesc" runat="server" Text='<%#Eval("StandardDesc")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trLocalStandards" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Files：</td>
                                         <td class="tdRowValue" align="left">
                                             <asp:Label ID="lblLocalStandards" runat="server" Visible="false" Text='<%#Eval("LocalStandards")%>'></asp:Label>
@@ -1127,10 +1127,10 @@
                                             </asp:SqlDataSource>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trTechStandards" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td colspan="2" class="tdHeader1">Local Standards by Technologies</td>
                                     </tr>
-                                    <tr id="trTechRF" runat="server" visible='<%# Convert.ToBoolean(Eval("trTechRF")) %>'>
+                                    <tr id="trTechRF" runat="server" visible='<%# SetTechVisible(Eval("trTechRF")) %>'>
                                         <td class="tdRowName" valign="top">RF：</td>
                                         <td class="tdRowValue">
                                             <asp:DataList ID="dlImaHTechRF" runat="server" DataSourceID="sdsImaHTechRF" DataKeyField="wowi_tech_id" RepeatColumns="2" RepeatDirection="Horizontal">
@@ -1154,7 +1154,7 @@
                                             <asp:Label ID="lblImaHRFRemark" runat="server" Text='<%#Eval("RFRemark1").ToString().Replace(Convert.ToChar(10).ToString(), "<br>") %>'></asp:Label>
                                         </td>
                                     </tr>
-                                    <tr id="trTechEMC" runat="server" visible='<%# Convert.ToBoolean(Eval("trTechEMC")) %>'>
+                                    <tr id="trTechEMC" runat="server" visible='<%# SetTechVisible(Eval("trTechEMC")) %>'>
                                         <td class="tdRowName" valign="top">EMC：</td>
                                         <td class="tdRowValue">
                                             <asp:DataList ID="dlImaHTechEMC" runat="server" DataSourceID="sdsImaHTechEMC" DataKeyField="wowi_tech_id" RepeatColumns="2" RepeatDirection="Horizontal">
@@ -1178,7 +1178,7 @@
                                             <asp:Label ID="lblImaHEMCRemark" runat="server" Text='<%#Eval("EMCRemark1").ToString().Replace(Convert.ToChar(10).ToString(), "<br>") %>'></asp:Label>
                                         </td>
                                     </tr>
-                                    <tr id="trTechSafety" runat="server" visible='<%# Convert.ToBoolean(Eval("trTechSafety")) %>'>
+                                    <tr id="trTechSafety" runat="server" visible='<%# SetTechVisible(Eval("trTechSafety")) %>'>
                                         <td class="tdRowName" valign="top">Safety：</td>
                                         <td class="tdRowValue">
                                             <asp:DataList ID="dlImaHTechSafety" runat="server" DataSourceID="sdsImaHTechSafety" DataKeyField="wowi_tech_id" RepeatColumns="2" RepeatDirection="Horizontal">
@@ -1202,7 +1202,7 @@
                                             <asp:Label ID="lblImaHSafetyRemark" runat="server" Text='<%#Eval("SafetyRemark1").ToString().Replace(Convert.ToChar(10).ToString(), "<br>") %>'></asp:Label>
                                         </td>
                                     </tr>
-                                    <tr id="trTechTelecom" runat="server" visible='<%# Convert.ToBoolean(Eval("trTechTelecom")) %>'>
+                                    <tr id="trTechTelecom" runat="server" visible='<%# SetTechVisible(Eval("trTechTelecom")) %>'>
                                         <td class="tdRowName" valign="top">Telecom：</td>
                                         <td class="tdRowValue">
                                             <asp:DataList ID="dlImaHTechTelecom" runat="server" DataSourceID="sdsImaHTechTelecom" DataKeyField="wowi_tech_id" RepeatColumns="2" RepeatDirection="Horizontal">
@@ -1253,7 +1253,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailF" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailF" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailF" runat="server">7.Local Agent</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailF" runat="server">Local Agent</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailF" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailF" runat="server">
@@ -1558,7 +1558,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailJ" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailJ" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailJ" runat="server">8.Application Procedures</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailJ" runat="server">Application Procedures</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailJ" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailJ" runat="server">
@@ -1569,7 +1569,7 @@
                                     <tr>
                                         <td colspan="2" class="tdHeader">Application Procedures Detail</td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trApprovalMethod" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Name of approval method：</td>
                                         <td class="tdRowValue">
                                             <asp:Label ID="lblApprovalMethod" runat="server" Text='<%#Eval("ApprovalMethod1") %>'></asp:Label>
@@ -1577,27 +1577,27 @@
                                             <asp:Label ID="lblApplicationID" runat="server" Text='<%#Eval("ApplicationID") %>' Visible="false"></asp:Label>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trSubmissMenthod" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Submission Methods：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblSubmissMenthod" runat="server" Text='<%#Eval("SubmissMenthod") %>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trInPerson" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Submission in-person：</td>
                                         <td class="tdRowValue" align="left"><asp:Label ID="lblInPerson" runat="server" Text='<%#Eval("InPerson") %>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trHardCopy" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Submission w/ Hard Copy：</td>
                                         <td class="tdRowValue" align="left"><asp:Label ID="lblHardCopy" runat="server" Text='<%#Eval("HardCopy") %>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trSubmissionWebsite" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Submission w/ Website：</td>
                                         <td class="tdRowValue" align="left"><asp:Label ID="lblWebsite" runat="server" Text='<%#Eval("Website") %>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trEmail" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Submission w/ Email：</td>
                                         <td class="tdRowValue" align="left"><asp:Label ID="lblEmail" runat="server" Text='<%#Eval("Email") %>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trCD" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Submission w/ CD：</td>
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellpadding="0" cellspacing="0">
@@ -1664,7 +1664,7 @@
                                                 <tr>
                                                     <td><asp:Label ID="lblModularDesc" runat="server" Text='<%#Eval("ModularDesc").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trModularFiles" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td>
                                                         <asp:GridView ID="gvImaJFile2" runat="server" SkinID="gvList" DataKeyNames="ApplicationFileID" DataSourceID="sdsImaJFile2">
                                                             <Columns>
@@ -1713,7 +1713,7 @@
                                                 <tr>
                                                     <td><asp:Label ID="lblRepresentativeDesc" runat="server" Text='<%#Eval("RepresentativeDesc").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trLocalFile" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td>
                                                         <asp:GridView ID="gvImaJFile3" runat="server" SkinID="gvList" DataKeyNames="ApplicationFileID" DataSourceID="sdsImaJFile3">
                                                             <Columns>
@@ -1762,7 +1762,7 @@
                                                 <tr>
                                                     <td><asp:Label ID="lblExpeditedProcessDesc" runat="server" Text='<%#Eval("ExpeditedProcessDesc").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trExpeditedFile" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td>
                                                         <asp:GridView ID="gvImaJFile4" runat="server" SkinID="gvList" DataKeyNames="ApplicationFileID" DataSourceID="sdsImaJFile4">
                                                             <Columns>
@@ -1802,7 +1802,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowName" valign="top">Control by：</td>
+                                        <td class="tdRowName" valign="top">Certification Control by：</td>
                                         <td class="tdRowValue" align="left">
                                             <asp:Label ID="lblControlBy" runat="server" Text='<%#Eval("ControlBy")%>'></asp:Label>
                                             <asp:Label ID="lblControlByOther" runat="server" Text='<%#Eval("ControlByOther1")%>'></asp:Label>
@@ -1822,7 +1822,7 @@
                                                 <tr>
                                                     <td><asp:Label ID="lblModelDesc" runat="server" Text='<%#Eval("ModelDesc").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trAfterApprovalFile" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td>
                                                         <asp:GridView ID="gvImaJFile5" runat="server" SkinID="gvList" DataKeyNames="ApplicationFileID" DataSourceID="sdsImaJFile5">
                                                             <Columns>
@@ -1861,15 +1861,15 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trOriginRequired" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Declaration of Origin required：</td>
                                         <td class="tdRowValue" align="left"><asp:Label ID="lblOriginRequired" runat="server" Text='<%#Eval("OriginRequired")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trContractRequired" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Contract required<br />with Local Agent：</td>
                                         <td class="tdRowValue" align="left"><asp:Label ID="lblContractRequired" runat="server" Text='<%#Eval("ContractRequired")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trNotarizedPoARequired" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Notarized PoA required<br />with Local Agent：</td>
                                         <td class="tdRowValue" align="left"><asp:Label ID="lblNotarizedPoARequired" runat="server" Text='<%#Eval("NotarizedPoARequired")%>'></asp:Label></td>
                                     </tr>
@@ -1882,7 +1882,7 @@
                                         <td class="tdRowValue" align="left"><asp:Label ID="lblGetCertificateNumber" runat="server" Text='<%#Eval("GetCertificateNumber")%>'></asp:Label></td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowName" valign="top">Provisional Certificate：</td>
+                                        <td class="tdRowName" valign="top">Provisional Certificate Y/N & Validity：</td>
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellpadding="0" cellspacing="0">
                                                 <tr>
@@ -1916,7 +1916,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowName" valign="top">Periodic Certificate：</td>
+                                        <td class="tdRowName" valign="top">Periodic Certificate Y/N & Validity：</td>
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellpadding="0" cellspacing="0">
                                                 <tr>
@@ -1932,7 +1932,7 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trShipment" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Certificate by Shipment/Quantity：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblShipment" runat="server" Text='<%#Eval("Shipment")%>'></asp:Label></td>
                                     </tr>
@@ -1963,7 +1963,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailK" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailK" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailK" runat="server">9.Testing and submission preparation</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailK" runat="server">Testing and submission preparation</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailK" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailK" runat="server">
@@ -1988,7 +1988,7 @@
                                                 <tr>
                                                     <td><asp:Label ID="lblLanguageDesc" runat="server" Text='<%#Eval("LanguageDesc")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trTestingFile1" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td>
                                                         <asp:GridView ID="gvImaKFile1" runat="server" SkinID="gvList" DataKeyNames="TestingFileID" DataSourceID="sdsImaKFile1">
                                                             <Columns>
@@ -2037,7 +2037,7 @@
                                                         <asp:Label ID="lblTestMarkRemark" runat="server" Text='<%#Eval("TestMarkRemark1")%>'></asp:Label>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trTestMark" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td>
                                                         <asp:GridView ID="gvImaKFile4" runat="server" SkinID="gvList" DataKeyNames="TestingFileID" DataSourceID="sdsImaKFile4">
                                                             <Columns>
@@ -2076,7 +2076,7 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trEUTInfo" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">EUT Info：</td>
                                         <td class="tdRowValue">
                                             <asp:Label ID="lblEUTInfo" runat="server" Text='<%#Eval("EUTInfo")%>'></asp:Label>
@@ -2093,7 +2093,7 @@
                                                 <tr>
                                                     <td><asp:Label ID="lblOtherInternationally" runat="server" Text='<%#Eval("OtherInternationally1")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trCertificationReport" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td>
                                                         <asp:GridView ID="gvImaKFile2" runat="server" SkinID="gvList" DataKeyNames="TestingFileID" DataSourceID="sdsImaKFile2">
                                                             <Columns>
@@ -2158,7 +2158,7 @@
                                                 <tr>
                                                     <td><asp:Label ID="lblOtherDocRequest" runat="server" Text='<%#Eval("OtherDocRequest1").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trOtherFile" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td>
                                                         <asp:GridView ID="gvImaJFile3" runat="server" SkinID="gvList" DataKeyNames="TestingFileID" DataSourceID="sdsImaJFile3">
                                                             <Columns>
@@ -2213,14 +2213,14 @@
                                         <td class="tdRowName" valign="top">Consumer Sample for review only：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblReviewOnly" runat="server" Text='<%#Eval("ReviewOnly1")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trPreInstalled" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Pre-install test software<br />or send by CD, email, or FTP：</td>
                                         <td class="tdRowValue">
                                             <asp:Label ID="lblPreInstalled" runat="server" Text='<%#Eval("PreInstalled1")%>'></asp:Label>
                                             <asp:Label ID="lblTestNote" runat="server" Text='<%#Eval("TestNote1")%>'></asp:Label>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trRemark" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Remark：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblRemark" runat="server" Text='<%#Eval("Remark")%>'></asp:Label></td>
                                     </tr>
@@ -2251,7 +2251,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailM" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailM" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailM" runat="server">10.Sample shipping</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailM" runat="server">Sample shipping</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailM" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailM" runat="server">
@@ -2367,7 +2367,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailN" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailN" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailN" runat="server">11.Periodic Factory inspection</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailN" runat="server">Periodic Factory inspection</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailN" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailN" runat="server">
@@ -2480,7 +2480,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailO" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailO" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailO" runat="server">12.Certificate Deliver</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailO" runat="server">Certificate Deliver</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailO" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailO" runat="server">
@@ -2540,7 +2540,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailP" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailP" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailP" runat="server">13.Label and Renewal</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailP" runat="server">Label and Renewal</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailP" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailP" runat="server">
@@ -2561,10 +2561,10 @@
                                                         <asp:Label ID="lblPostID" runat="server" Text='<%#Eval("PostID")%>' Visible="false"></asp:Label>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trRequirementDesc" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td><asp:Label ID="lblRequirementDesc" runat="server" Text='<%#Eval("RequirementDesc1").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trRequirementFile" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td>
                                                         <asp:GridView ID="gvImaPFile1" runat="server" SkinID="gvList" DataKeyNames="PostFileID" DataSourceID="sdsImaPFile1">
                                                             <Columns>
@@ -2600,19 +2600,19 @@
                                                         </asp:SqlDataSource>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trPrint" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td><asp:Label ID="lblPrint" runat="server" Text='<%#Eval("Print1")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trPurchase" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td><asp:Label ID="lblPurchase" runat="server" Text='<%#Eval("Purchase1")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trManufacturer" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td><asp:Label ID="lblManufacturer" runat="server" Text='<%#Eval("Manufacturer1")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trImportation" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td><asp:Label ID="lblImportation" runat="server" Text='<%#Eval("Importation1")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trLabelsDesc" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td><asp:Label ID="lblLabelsDesc" runat="server" Text='<%#Eval("LabelsDesc1").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                                 </tr>
                                             </table>
@@ -2649,7 +2649,7 @@
                                                 <tr>
                                                     <td><asp:Label ID="lblEUT8" runat="server" Text='<%#Eval("EUT81")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trLabelLocationFile" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td>
                                                         <asp:GridView ID="gvImaPFile2" runat="server" SkinID="gvList" DataKeyNames="PostFileID" DataSourceID="sdsImaPFile2">
                                                             <Columns>
@@ -2688,7 +2688,7 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trWarningStatement" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Warning Statement：</td>
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellpadding="0" cellspacing="0">
@@ -2738,11 +2738,11 @@
                                         <td class="tdRowName" valign="top">Renewal：</td>
                                         <td class="tdRowValue" align="left"><asp:Label ID="lblRenewal" runat="server" Text='<%#Eval("Renewal1")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trRequired" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Test Required：</td>
                                         <td class="tdRowValue" align="left"><asp:Label ID="lblRequired" runat="server" Text='<%#Eval("Required1")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trCostTest1" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Cost W/Test：</td>
                                         <td class="tdRowValue">
                                             <table border="0" cellpadding="0" cellspacing="0">
@@ -2753,7 +2753,7 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trCostTest2" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Cost W/O Test：</td>
                                         <td class="tdRowValue">
                                             <table border="0" cellpadding="0" cellspacing="0">
@@ -2765,14 +2765,14 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowName" valign="top">Validity：</td>
+                                        <td class="tdRowName" valign="top">Renewal Validity：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblYearMonth" runat="server" Text='<%#Eval("YearMonth")%>'></asp:Label></td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowName" valign="top">Required documents：</td>
+                                        <td class="tdRowName" valign="top">Renewal Required Document：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblRequiredDoc" runat="server" Text='<%#Eval("RequiredDoc").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trLabelRenewalRemark" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Remark：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblRemark" runat="server" Text='<%#Eval("Remark").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                     </tr>
@@ -2803,7 +2803,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailE" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailE" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailE" runat="server">14.Enforcement & Importation–Market Inspection</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailE" runat="server">Enforcement & Importation–Market Inspection</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailE" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailE" runat="server">
@@ -2861,7 +2861,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetailL" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetailL" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetailL" runat="server">15.Fee schedule</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetailL" runat="server">Fee schedule</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetailL" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetailL" runat="server">
@@ -2872,23 +2872,23 @@
                                     <tr>
                                         <td colspan="2" class="tdHeader">Fee schedule Detail</td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trTechName" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Technologies：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblTechName" runat="server" Text='<%#Eval("wowi_tech_name")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trLocalAgent" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Local Agent Name：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblLocalAgent" runat="server" Text='<%#Eval("Name")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trAgentFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Agent handling Fee：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblAgentFee" runat="server" Text='<%#Eval("AgentFee1")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trAuthority" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Authority Name：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblAuthority" runat="server" Text='<%#Eval("AbbreviatedAuthorityName")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trAuthorityFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Authority submission Fee：</td>
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellpadding="0" cellspacing="0">
@@ -2938,11 +2938,11 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trCBName" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Certification Body Name：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblCertification" runat="server" Text='<%#Eval("CBName")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trCBFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Certification Body<br />submission Fee：</td>
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellpadding="0" cellspacing="0">
@@ -2991,11 +2991,11 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trAccreditedLab" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Accredited Test Lab Name：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblAccredited" runat="server" Text='<%#Eval("AccreditedLab")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trLabTestFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Lab Testing Fee：</td>
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellspacing="0" cellpadding="0">
@@ -3042,23 +3042,23 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trDocTranslationFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Document translation Fee：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblDocTranslationFee" runat="server" Text='<%#Eval("DocTranslationFee1")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trBankFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Bank Fee：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblBankFee" runat="server" Text='<%#Eval("BankFee1")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trClearanceFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Custom clearance Fee：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblClearanceFee" runat="server" Text='<%#Eval("ClearanceFee1")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trSampleReturnFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Sample return Fee：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblSampleReturnFee" runat="server" Text='<%#Eval("SampleReturnFee1")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trLabelPurchaseFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Label purchase Fee：</td>
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellpadding="0" cellspacing="0">
@@ -3105,7 +3105,7 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trOtherFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Other Fee：</td>
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellpadding="0" cellspacing="0">
@@ -3152,7 +3152,7 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trFactoryInspectionFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Factory Inspection Fee：</td>
                                         <td class="tdRowValue">
                                             <table border="0" cellpadding="0" cellspacing="0" align="left">
@@ -3168,7 +3168,7 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trRenewalFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Renewal Fee：</td>
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellpadding="0" cellspacing="0">
@@ -3184,21 +3184,21 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trTotalCostFeeNA" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Sub Total Cost(New Application)：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblTotalCostFeeNA" runat="server" Text='<%#Eval("TotalCostFeeNA1")%>'></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName" valign="top">Lead Time(New Application)：</td>
-                                        <td class="tdRowValue"><asp:Label ID="lblLeadTimeNA" runat="server" Text='<%#Eval("LeadTimeNA")%>'></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblLeadTimeNA" runat="server" Text='<%#Eval("LeadTimeNA1")%>'></asp:Label></td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trTotalCostFee" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Sub Total Cost(Renewal)：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblTotalCostFee" runat="server" Text='<%#Eval("TotalCostFee1")%>'></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName" valign="top">Lead Time(Renewal)：</td>
-                                        <td class="tdRowValue"><asp:Label ID="lblLeadTime" runat="server" Text='<%#Eval("LeadTime")%>'></asp:Label></td>
+                                        <td class="tdRowValue"><asp:Label ID="lblLeadTime" runat="server" Text='<%#Eval("LeadTime1")%>'></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" align="center" class="tdFooter"></td>
@@ -3227,7 +3227,7 @@
                 <td>
                     <asp:Panel ID="plInfoImaDetail99" runat="server" CssClass="collapsePanelHeader" Width="80%">
                         <asp:Image ID="imgExpImaDetail99" runat="server" ImageUrl="~/images/IMA/exp.gif" />&nbsp;
-                        <asp:Label ID="lblModuleImaDetail99" runat="server">16.Frequency allocation,power limit by Technologies</asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblModuleImaDetail99" runat="server">Frequency allocation,power limit by Technologies</asp:Label>&nbsp;&nbsp;
                         <asp:Label ID="lblMsgImaDetail99" runat="server">(Show Details...)</asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="plImaDetail99" runat="server">

@@ -69,22 +69,22 @@
                                                 <asp:DropDownList ID="ddlDocCategory" runat="server" AutoPostBack="True" 
                                                     onselectedindexchanged="ddlDocCategory_SelectedIndexChanged">
                                                     <asp:ListItem Value="0">--Please Select Category--</asp:ListItem>
-                                                    <asp:ListItem Value="B">1.Government Authority</asp:ListItem>
-                                                    <asp:ListItem Value="C">2.National governed rules and regulation</asp:ListItem>
-                                                    <asp:ListItem Value="D">3.Certification bodies</asp:ListItem>
-                                                    <asp:ListItem Value="Q">4.Accredited Test Lab</asp:ListItem>
-                                                    <asp:ListItem Value="G">5.Products Control</asp:ListItem>
-                                                    <asp:ListItem Value="H">6.Test Standards</asp:ListItem>
-                                                    <asp:ListItem Value="F">7.Local Agent</asp:ListItem>
-                                                    <asp:ListItem Value="J">8.Application Procedures</asp:ListItem>
-                                                    <asp:ListItem Value="K">9.Testing and submission preparation</asp:ListItem>
-                                                    <asp:ListItem Value="M">10.Sample shipping</asp:ListItem>
-                                                    <asp:ListItem Value="N">11.Periodic Factory inspection</asp:ListItem>
-                                                    <asp:ListItem Value="O">12.Certificate Deliver</asp:ListItem>
-                                                    <asp:ListItem Value="P">13.Label and Renewal</asp:ListItem>
-                                                    <asp:ListItem Value="E">14.Enforcement & Importation–Market Inspection</asp:ListItem>
-                                                    <asp:ListItem Value="L">15.Fee schedule</asp:ListItem>
-                                                    <asp:ListItem Value="99">16.Frequency allocation,power limit by Technologies</asp:ListItem>
+                                                    <asp:ListItem Value="B">Government Authority</asp:ListItem>
+                                                    <asp:ListItem Value="C">National governed rules and regulation</asp:ListItem>
+                                                    <asp:ListItem Value="D">Certification bodies</asp:ListItem>
+                                                    <asp:ListItem Value="Q">Accredited Test Lab</asp:ListItem>
+                                                    <asp:ListItem Value="G">Products Control</asp:ListItem>
+                                                    <asp:ListItem Value="H">Test Standards</asp:ListItem>
+                                                    <asp:ListItem Value="F">Local Agent</asp:ListItem>
+                                                    <asp:ListItem Value="J">Application Procedures</asp:ListItem>
+                                                    <asp:ListItem Value="K">Testing and submission preparation</asp:ListItem>
+                                                    <asp:ListItem Value="M">Sample shipping</asp:ListItem>
+                                                    <asp:ListItem Value="N">Periodic Factory inspection</asp:ListItem>
+                                                    <asp:ListItem Value="O">Certificate Deliver</asp:ListItem>
+                                                    <asp:ListItem Value="P">Label and Renewal</asp:ListItem>
+                                                    <asp:ListItem Value="E">Enforcement & Importation–Market Inspection</asp:ListItem>
+                                                    <asp:ListItem Value="L">Fee schedule</asp:ListItem>
+                                                    <asp:ListItem Value="99">Frequency allocation,power limit by Technologies</asp:ListItem>
                                                 </asp:DropDownList>
                                                 <%--<asp:RequiredFieldValidator ID="rfvDocCategory" runat="server" ControlToValidate="ddlDocCategory"
                                                     ErrorMessage="Please Select Category" Display="None" SetFocusOnError="true" InitialValue="0"></asp:RequiredFieldValidator>
@@ -155,14 +155,14 @@
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblFullAuthorityName" runat="server" Text='<%#Eval("FullAuthorityName") %>'></asp:Label>
                                                         </ItemTemplate>
-                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="200px" />
-                                                        <ItemStyle HorizontalAlign="Center" Wrap="true" Width="200px" />
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" Wrap="true" />
                                                     </asp:TemplateField>
                                                     <asp:BoundField DataField="Website" HeaderText="Website" >
                                                     <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="Left" />
                                                     </asp:BoundField>
-                                                    <asp:TemplateField HeaderText="Valid">
+                                                    <asp:TemplateField HeaderText="Certificate is valid for Single Importer / Any Importer">
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblCertificateValid" runat="server" Text='<%# Eval("CertificateValid").ToString()!="" ? Eval("CertificateValid").ToString()+" Importer" : "" %>'></asp:Label>
                                                         </ItemTemplate>
@@ -565,9 +565,9 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Label Requirement">
                                                         <ItemTemplate>
-                                                            <asp:Label ID="lblRequirement" runat="server" Text='<%# Eval("Requirement") %>'></asp:Label>；
-                                                            <asp:CheckBox ID="cbPrint" runat="server" Checked='<%# Convert.ToBoolean(Eval("Print")) %>' Enabled="false" Text="Labels can be self-printed" />
-                                                            <asp:CheckBox ID="cbPurchase" runat="server" Checked='<%# Convert.ToBoolean(Eval("Purchase")) %>' Enabled="false" Text="Labels need to be purchase from authority" />
+                                                            <asp:Label ID="lblRequirement" runat="server" Text='<%# Eval("Requirement") %>'></asp:Label>　
+                                                            <asp:CheckBox ID="cbPrint" runat="server" Checked='<%# Convert.ToBoolean(Eval("Print")) %>' Enabled="false" Text="Labels can be self-printed" Visible='<%#IMAUtil.IsEditOn() %>' />
+                                                            <asp:CheckBox ID="cbPurchase" runat="server" Checked='<%# Convert.ToBoolean(Eval("Purchase")) %>' Enabled="false" Text="Labels need to be purchase from authority" Visible='<%#IMAUtil.IsEditOn() %>' />
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Left" />
@@ -694,18 +694,32 @@
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:BoundField>
-                                                    <asp:BoundField DataField="LeadTimeNA" HeaderText="Lead Time(New Application)">
+                                                    <%--<asp:BoundField DataField="LeadTimeNA" HeaderText="Lead Time(New Application)">
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
-                                                    </asp:BoundField>
+                                                    </asp:BoundField>--%>
+                                                    <asp:TemplateField HeaderText="Lead Time(New Application)">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblLeadTimeNA" runat="server" Text='<%# Eval("LeadTimeNA").ToString()!="" ? Eval("LeadTimeNA").ToString()+" week(s)" : "" %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
                                                     <asp:BoundField DataField="TotalCostFee" HeaderText="Sub Total Cost(Renewal)(USD)">
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:BoundField>
-                                                    <asp:BoundField DataField="LeadTime" HeaderText="Lead Time(Renewal)">
+                                                    <%--<asp:BoundField DataField="LeadTime" HeaderText="Lead Time(Renewal)">
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
-                                                    </asp:BoundField>
+                                                    </asp:BoundField>--%>
+                                                    <asp:TemplateField HeaderText="Lead Time(Renewal)">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblLeadTime" runat="server" Text='<%# Eval("LeadTime").ToString()!="" ? Eval("LeadTime").ToString()+" week(s)" : "" %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsL" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
@@ -848,7 +862,7 @@
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
                                                         <ItemStyle HorizontalAlign="Center" Width="140px" />
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Name of Approval Method ">
+                                                    <asp:TemplateField HeaderText="Name of Approval Method">
                                                         <ItemTemplate>
                                                             <asp:CheckBox ID="cbTypeApproval" runat="server" Text="Type Approval" Checked='<%# Eval("TypeApproval") %>' Enabled="false" />
                                                             <asp:CheckBox ID="cbRegistration" runat="server" Text="Registration" Checked='<%# Eval("Registration") %>' Enabled="false" />
@@ -860,12 +874,23 @@
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Left" />
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Submission Methods ">
+                                                    <asp:TemplateField HeaderText="Submission Methods">
                                                         <ItemTemplate>
                                                             <asp:CheckBox ID="cbDirect" runat="server" Text="Direct Submission" Checked='<%# Eval("Direct") %>'
                                                                 Enabled="false" />
                                                             <asp:CheckBox ID="cbLocalAgent" runat="server" Text="Local Agent Submission" Checked='<%# Eval("LocalAgent") %>'
                                                                 Enabled="false" />
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Left" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Accepts">
+                                                        <ItemTemplate>
+                                                            <asp:CheckBox ID="cbFCCTest" runat="server" Text="FCC Test Report" Checked='<%# Eval("FCCTest") %>' Enabled="false" />
+                                                            <asp:CheckBox ID="cbCETest" runat="server" Text="CE Test Report" Checked='<%# Eval("CETest") %>' Enabled="false" />
+                                                            <br />
+                                                            <asp:CheckBox ID="cbLocalTest" runat="server" Text="Local Testing" Checked='<%# Eval("LocalTest") %>' Enabled="false" />
+                                                            <asp:CheckBox ID="cbOther" runat="server" Text="Other" Checked='<%# Eval("Other") %>' Enabled="false" />
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Left" />

@@ -750,7 +750,7 @@
                     <tr>
                         <td class="tdRowName" valign="top">Lead Time(New Application)：</td>
                         <td class="tdRowValue">
-                            <asp:TextBox ID="tbLeadTimeNA" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="tbLeadTimeNA" runat="server"></asp:TextBox>week(s)
                         </td>
                     </tr>
                     <tr>
@@ -769,7 +769,7 @@
                     <tr>
                         <td class="tdRowName" valign="top">Lead Time(Renewal)：</td>
                         <td class="tdRowValue">
-                            <asp:TextBox ID="tbLeadTime" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="tbLeadTime" runat="server"></asp:TextBox>week(s)
                         </td>
                     </tr>
                     <tr>

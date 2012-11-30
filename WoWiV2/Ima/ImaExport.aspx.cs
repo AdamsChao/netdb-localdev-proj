@@ -27,17 +27,22 @@ public partial class Ima_ImaExport : System.Web.UI.Page
             Page.Header.Controls.AddAt(0, htmlMeta);
 
             lblEmpID.Text = IMAUtil.GetEmpIDbyLoginName();
-            GetExport();
+            //GetExport();
+            GetExportData();
         }
     }
 
+    /// <summary>
+    /// 取得可匯出的欄位
+    /// </summary>
     private void GetExport()
     {
         string strTsql = "select * from Ima_Export where [Enable]=1 ";
         if (!IMAUtil.IsEditOn())
         {
             //Sales排除可閱覽的模組編號
-            strTsql += "and MID not in(1,3,4,7,15) ";
+            //strTsql += "and MID not in(1,3,4,7,15) ";
+            strTsql += "and SaleAccess=1 ";
         }
         strTsql += "order by MID,Seq";
         SqlCommand cmd = new SqlCommand(strTsql);
@@ -53,6 +58,25 @@ public partial class Ima_ImaExport : System.Web.UI.Page
             chExportData.Items.Insert(chExportData.Items.Count, new ListItem("Frequency allocation,power limit by Technologies", "0"));
         }
     }
+
+    /// <summary>
+    /// 取得可匯出的欄位
+    /// </summary>
+    private void GetExportData()
+    {
+        string strTsql = "select * from (select a.MID,a.MName,count(a.MID) as MCount";
+        strTsql += ",(select count(ExportID) from Ima_Export where MID=a.MID and [Enable]=1 and SaleAccess=1) as SMCount ";
+        strTsql += "from Ima_Export a where a.[Enable]=1 group by a.MID,a.MName union select 16,'Frequency allocation,power limit by Technologies',1,1)b where ";
+        if (!IMAUtil.IsEditOn()) { strTsql += "SMCount>0 "; }
+        else { strTsql += "MCount>0 "; }
+        strTsql += "order by MID";
+        SqlCommand cmd = new SqlCommand(strTsql);
+        cmd.CommandType = CommandType.Text;
+        gvExportData.DataSource = SQLUtil.QueryDS(cmd).Tables[0];
+        gvExportData.DataBind();
+        gvExportData.HeaderRow.Visible = false;
+    }
+
 
     protected void btnSelect_Click(object sender, EventArgs e)
     {
@@ -204,7 +228,12 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                 Message.Text = "請選擇要匯出的Technology!";
                 return;
             }
-            if (!CheckExportData(chExportData))
+            //if (!CheckExportData(chExportData))
+            //{
+            //    Message.Text = "請選擇要匯出的Export Datas!";
+            //    return;
+            //}
+            if (!CheckExportData())
             {
                 Message.Text = "請選擇要匯出的Export Datas!";
                 return;
@@ -229,6 +258,31 @@ public partial class Ima_ImaExport : System.Web.UI.Page
         return IsSelect;
     }
 
+    //檢查是否有勾選要匯出的Technology或匯出的欄位
+    private bool CheckExportData()
+    {
+        bool IsSelect = false;
+        foreach (GridViewRow gvr in gvExportData.Rows)
+        {
+            CheckBoxList cblExportData = (CheckBoxList)gvr.FindControl("chExportData");
+            if (cblExportData != null)
+            {
+                foreach (ListItem liExportData in cblExportData.Items)
+                {
+                    if (liExportData.Selected)
+                    {
+                        IsSelect = true; break;
+                    }
+                }
+            }
+        }
+        return IsSelect;
+    }
+
+
+    /// <summary>
+    /// 開始匯出資料
+    /// </summary>
     private void Export()
     {
         SetCondition(cbRegion, lblRegion, false);
@@ -306,58 +360,108 @@ public partial class Ima_ImaExport : System.Web.UI.Page
         iFont1.FontName = "Arial";
         icsTxt.SetFont(iFont1);
         //判斷第16個模組是否有勾選匯出
-        bool blnFrequency = chExportData.Items[chExportData.Items.Count - 1].Selected;
-        DataTable dtFreqTitle;
-        DataTable dtFreq;
+        //bool blnFrequency = chExportData.Items[chExportData.Items.Count - 1].Selected;
+        bool blnFrequency;
         //選擇匯出的Technology
         foreach (ListItem liTechnology in cbTechnology.Items)
         {
             if (liTechnology.Selected)
             {
+                blnFrequency = ((CheckBoxList)gvExportData.Rows[gvExportData.Rows.Count - 1].FindControl("chExportData")).Items[0].Selected;
                 sheet = workbook.CreateSheet(liTechnology.Text.Replace("/", " "));
                 row = sheet.CreateRow(0);
                 //建立表頭
                 int j = 0;
                 string strExportData = "";
                 string strValue = "";
-                foreach (ListItem liExportData in chExportData.Items)
+                //foreach (ListItem liExportData in chExportData.Items)
+                //{
+                //    if (liExportData.Selected && liExportData.Value != "0")
+                //    {
+                //        //記錄勾選要匯出的欄位
+                //        strExportData += "；" + liExportData.Value;
+                //        ICell cell;
+                //        if (j == 0)
+                //        {
+                //            cell = row.CreateCell(j);
+                //            strValue = "No.";
+                //            cell.SetCellValue(strValue);
+                //            cell.CellStyle = icsHeader;
+                //            //自動設定欄位寬度
+                //            sheet.AutoSizeColumn(j);
+                //            j++;
+                //        }
+                //        cell = row.CreateCell(j);
+                //        strValue = liExportData.Value.Split('／')[2].ToString().Replace("_", " ").Replace("$", "/").Replace("@", ".").Replace("#td#", "-").Replace("#thl#", "(").Replace("#thr#", ")").Replace("#a#", "&");
+                //        row.HeightInPoints = 24;
+                //        if (strValue.Contains("#br#"))
+                //        {
+                //            icsHeader.WrapText = true;
+                //            strValue = strValue.Replace("#br#", "\n");
+                //            //因為換行所以將Row的高度變成4倍
+                //            //row.HeightInPoints = 2 * sheet.DefaultRowHeight / 20;
+                //            //row.HeightInPoints = 24;
+                //        }
+                //        else { icsHeader.WrapText = true; }
+                //        cell.SetCellValue(strValue);
+                //        cell.CellStyle = icsHeader;
+                //        //自動設定欄位寬度
+                //        sheet.AutoSizeColumn(j);
+                //        j++;
+                //    }
+                //}                
+
+                foreach (GridViewRow gvr in gvExportData.Rows) 
                 {
-                    if (liExportData.Selected && liExportData.Value != "0")
+                    CheckBoxList cblExportData = (CheckBoxList)gvr.FindControl("chExportData");
+                    int intMID = Convert.ToInt32(gvExportData.DataKeys[gvr.RowIndex].Value);
+                    if (cblExportData != null) 
                     {
-                        //記錄勾選要匯出的欄位
-                        strExportData += "；" + liExportData.Value;
-                        ICell cell;
-                        if (j == 0)
+                        if (intMID != 16)//建立非第16個模組的Excel表頭
                         {
-                            cell = row.CreateCell(j);
-                            strValue = "No.";
-                            cell.SetCellValue(strValue);
-                            cell.CellStyle = icsHeader;
-                            //自動設定欄位寬度
-                            sheet.AutoSizeColumn(j);
-                            j++;
+                            foreach (ListItem liExportData in cblExportData.Items)
+                            {
+                                if (liExportData.Selected && liExportData.Value != "0")
+                                {
+                                    //記錄勾選要匯出的欄位
+                                    strExportData += "；" + liExportData.Value;
+                                    ICell cell;
+                                    if (j == 0)
+                                    {
+                                        cell = row.CreateCell(j);
+                                        strValue = "No.";
+                                        cell.SetCellValue(strValue);
+                                        cell.CellStyle = icsHeader;
+                                        //自動設定欄位寬度
+                                        sheet.AutoSizeColumn(j);
+                                        j++;
+                                    }
+                                    cell = row.CreateCell(j);
+                                    strValue = liExportData.Value.Split('／')[2].ToString().Replace("_", " ").Replace("$", "/").Replace("@", ".").Replace("#td#", "-").Replace("#thl#", "(").Replace("#thr#", ")").Replace("#a#", "&");
+                                    row.HeightInPoints = 24;
+                                    if (strValue.Contains("#br#"))
+                                    {
+                                        icsHeader.WrapText = true;
+                                        strValue = strValue.Replace("#br#", "\n");
+                                        //因為換行所以將Row的高度變成4倍
+                                        //row.HeightInPoints = 2 * sheet.DefaultRowHeight / 20;
+                                        //row.HeightInPoints = 24;
+                                    }
+                                    else { icsHeader.WrapText = true; }
+                                    cell.SetCellValue(strValue);
+                                    cell.CellStyle = icsHeader;
+                                    //自動設定欄位寬度
+                                    sheet.AutoSizeColumn(j);
+                                    j++;
+                                }
+                            }
                         }
-                        cell = row.CreateCell(j);
-                        strValue = liExportData.Value.Split('／')[2].ToString().Replace("_", " ").Replace("$", "/").Replace("@", ".").Replace("#td#", "-").Replace("#thl#", "(").Replace("#thr#", ")");
-                        row.HeightInPoints = 24;
-                        if (strValue.Contains("#br#"))
-                        {
-                            icsHeader.WrapText = true;
-                            strValue = strValue.Replace("#br#", "\n");
-                            //因為換行所以將Row的高度變成4倍
-                            //row.HeightInPoints = 2 * sheet.DefaultRowHeight / 20;
-                            //row.HeightInPoints = 24;
-                        }
-                        else { icsHeader.WrapText = true; }
-                        cell.SetCellValue(strValue);
-                        cell.CellStyle = icsHeader;
-                        //自動設定欄位寬度
-                        sheet.AutoSizeColumn(j);
-                        j++;
                     }
                 }
 
                 //建立第16個模組表頭
+                DataTable dtFreqTitle;
+                DataTable dtFreq;
                 int intTitleIndex = j;
                 string[] strTitle3 = { };
                 if (blnFrequency)
@@ -653,5 +757,38 @@ public partial class Ima_ImaExport : System.Web.UI.Page
             }
         }
         if (lbl.Text.Trim().Length > 0) { lbl.Text = lbl.Text.Trim().Remove(0, 1); }
-    }    
+    }
+
+    /// <summary>
+    /// 載入每個模組可匯出的欄位
+    /// </summary>
+    protected void gvExportData_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow) 
+        {
+            CheckBoxList chExportData = (CheckBoxList)e.Row.FindControl("chExportData");
+            int intMID = Convert.ToInt32(gvExportData.DataKeys[e.Row.RowIndex].Value);
+            if (chExportData != null) 
+            {
+                if (intMID != 16)
+                {
+                    string strTsql = "select * from Ima_Export where [Enable]=1 and MID=@MID ";
+                    if (!IMAUtil.IsEditOn()) { strTsql += "and SaleAccess=1 "; }
+                    strTsql += "order by MID,Seq";
+                    SqlCommand cmd = new SqlCommand(strTsql);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@MID", intMID);
+                    DataTable dt = SQLUtil.QueryDS(cmd).Tables[0];
+                    for (int i = 0; i <= dt.Rows.Count - 1; i++)
+                    {
+                        chExportData.Items.Insert(i, new ListItem(dt.Rows[i]["ShowName"].ToString(), dt.Rows[i]["ExportID"].ToString() + "／" + dt.Rows[i]["TableIndex"].ToString() + "／" + dt.Rows[i]["ExcelTitleName"].ToString()));
+                    }
+                }
+                else//加入第16個模組選項
+                {
+                    chExportData.Items.Insert(chExportData.Items.Count, new ListItem("Frequency allocation,power limit by Technologies", "0"));
+                }
+            }
+        }
+    }
 }

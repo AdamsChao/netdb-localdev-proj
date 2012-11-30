@@ -13,8 +13,23 @@ public partial class Ima_ImaDetailJ : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
+            SetControlVisible();
             LoadData();
             SetKW();
+        }
+    }
+
+    //設定顯示的控制項
+    protected void SetControlVisible()
+    {
+        //設定為業務或其他使用者可以看的Detail項
+        if (!IMAUtil.IsEditOn())
+        {
+            plDetailSales.Visible = true;
+        }
+        else
+        {
+            plDetail.Visible = true;
         }
     }
 
@@ -218,6 +233,31 @@ public partial class Ima_ImaDetailJ : System.Web.UI.Page
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
+                //業務人員可以檢視的欄位
+                lblProTypeNameS.Text = lblProTypeName.Text;
+                lblAcceptS.Text = lblAccept.Text;
+                lblSamplesRequiredS.Text = lblSamplesRequired.Text;
+                lblModularS.Text = lblModular.Text;
+                lblModularDescS.Text = lblModularDesc.Text;
+                lblRepresentativeS.Text = lblRepresentative.Text;
+                lblRepresentativeDescS.Text = lblRepresentativeDesc.Text;
+                lblExpeditedProcessS.Text = lblExpeditedProcess.Text;
+                lblExpeditedProcessDescS.Text = lblExpeditedProcessDesc.Text;
+                lblControlByS.Text = lblControlBy.Text;
+                lblControlByOtherS.Text = lblControlByOther.Text;
+                lblMMNamesListedS.Text = lblMMNamesListed.Text;
+                lblAfterApprovalS.Text = lblAfterApproval.Text;
+                lblModelDescS.Text = lblModelDesc.Text;
+                lblCertificateIDCreateByS.Text = lblCertificateIDCreateBy.Text;
+                lblGetCertificateNumberS.Text = lblGetCertificateNumber.Text;
+                lblProvisionalS.Text = lblProvisional.Text;
+                lblProvisionalYearsMonthsS.Text = lblProvisionalYearsMonths.Text;
+                lblValidityS.Text = lblValidity.Text;
+                lblYearsMonthsS.Text = lblYearsMonths.Text;
+                lblValidityDescS.Text = lblValidityDesc.Text;
+                lblPeriodicS.Text = lblPeriodic.Text;
+                lblPeriodicDateS.Text = lblPeriodicDate.Text;
+
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;

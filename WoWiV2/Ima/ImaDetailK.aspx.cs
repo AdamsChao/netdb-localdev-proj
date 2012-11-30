@@ -13,8 +13,23 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
+            SetControlVisible();
             LoadData();
             SetKW();
+        }
+    }
+
+    //設定顯示的控制項
+    protected void SetControlVisible()
+    {
+        //設定為業務或其他使用者可以看的Detail項
+        if (!IMAUtil.IsEditOn())
+        {
+            plDetailSales.Visible = true;
+        }
+        else
+        {
+            plDetail.Visible = true;
         }
     }
 
@@ -236,6 +251,25 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
+
+                //業務人員可以檢視的欄位
+                lblProTypeNameS.Text = lblProTypeName.Text;
+                lblLanguageS.Text = lblLanguage.Text;
+                lblLanguageDescS.Text = lblLanguageDesc.Text;
+                lblTestMarkS.Text = lblTestMark.Text;
+                lblTestMarkRemarkS.Text = lblTestMarkRemark.Text;
+                lblCertificationS.Text = lblCertification.Text;
+                lblOtherInternationallyS.Text = lblOtherInternationally.Text;
+                lblTechnicalDocsS.Text = lblTechnicalDocs.Text;
+                lblTechnicalS.Text = lblTechnical.Text;
+                lblAntennaS.Text = lblAntenna.Text;
+                lblOtherDoc1S.Text = lblOtherDoc1.Text;
+                lblOtherDocRequestS.Text = lblOtherDocRequest.Text;
+                lblRadiatedS.Text = lblRadiated.Text;
+                lblConductedS.Text = lblConducted.Text;
+                lblNormalLinkS.Text = lblNormalLink.Text;
+                lblReviewOnlyS.Text = lblReviewOnly.Text;
+
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;

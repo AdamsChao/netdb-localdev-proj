@@ -145,8 +145,27 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">Export Data：</td>
-                        <td class="tdRowValue" align="left">
-                            <asp:CheckBoxList ID="chExportData" runat="server" RepeatColumns="3" RepeatDirection="Horizontal">
+                        <td class="tdRowValue" align="left" style="padding:4px;">
+                            <asp:GridView ID="gvExportData" runat="server" DataKeyNames="MID" AutoGenerateColumns="False"
+                                BackColor="White" BorderColor="#11CFFF" BorderStyle="None" BorderWidth="1px"
+                                CellPadding="4" ForeColor="#696969" GridLines="Horizontal" OnRowDataBound="gvExportData_RowDataBound"
+                                Width="100%" SkinID="gvList1">
+                                <Columns>
+                                    <asp:BoundField DataField="MName" HeaderText="模組名稱">
+                                        <HeaderStyle Font-Bold="false" HorizontalAlign="Center" Width="200px" />
+                                        <ItemStyle HorizontalAlign="Left" Width="200px" VerticalAlign="Top" ForeColor="#0066FF" BorderColor="#11CFFF" Font-Bold="true" Font-Italic="true" Font-Underline="true" />
+                                    </asp:BoundField>
+                                    <asp:TemplateField HeaderText="滙出欄位名稱">
+                                        <ItemTemplate>
+                                            <asp:CheckBoxList ID="chExportData" runat="server" RepeatColumns="3" RepeatDirection="Horizontal">
+                                            </asp:CheckBoxList>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Left" BorderColor="#11CFFF" />
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:CheckBoxList ID="chExportData" runat="server" RepeatColumns="3" RepeatDirection="Horizontal" Visible="false">
                             </asp:CheckBoxList>
                         </td>
                     </tr>

@@ -13,15 +13,30 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
+            SetControlVisible();
             LoadData();
             SetKW();
+        }
+    }
+
+    //設定顯示的控制項
+    protected void SetControlVisible()
+    {
+        //設定為業務或其他使用者可以看的Detail項
+        if (!IMAUtil.IsEditOn())
+        {
+            plDetailSales.Visible = true;
+        }
+        else
+        {
+            plDetail.Visible = true;
         }
     }
 
     //取得General資料
     protected void LoadData()
     {
-        lblTitle.Text = "Standards Detail";
+        lblTitle.Text = "Test Standards Detail";
         string strID = Request["sid"];
         trProductType.Visible = false;
         trCopyTo.Visible = false;   
@@ -39,7 +54,9 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
             if (dt.Rows.Count > 0)
             {
                 lblRequired.Text = dt.Rows[0]["Required"].ToString();
+                lblRequiredS.Text = lblRequired.Text;
                 lblStandardDesc.Text = dt.Rows[0]["StandardDesc"].ToString();
+                lblStandardDescS.Text = lblStandardDesc.Text;
                 lblLocalStandards.Text = dt.Rows[0]["LocalStandards"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 rblProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
@@ -57,7 +74,7 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
                     cbIEC.Visible = true;
                     lblRequiredTitle.Text = "EMC Required";
                 }
-
+                lblRequiredTitleS.Text = lblRequiredTitle.Text;
                 if (Convert.ToBoolean(dt.Rows[0]["FCC"]) && cbFCC.Visible) { lblFCCorIECorCE.Text = "FCC"; }
                 else if (Convert.ToBoolean(dt.Rows[0]["FCC"]) && cbIEC.Visible) { lblFCCorIECorCE.Text = "IEC"; }
 
@@ -70,7 +87,7 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
 
                 if (dt.Rows[0]["Others"].ToString().Trim().Length > 0 && lblFCCorIECorCE.Text.Trim().Length > 0) { lblOthers.Text = "<br>Others：" + dt.Rows[0]["Others"].ToString(); }
                 else if (dt.Rows[0]["Others"].ToString().Trim().Length > 0 && lblFCCorIECorCE.Text.Trim().Length == 0) { lblOthers.Text = "Others：" + dt.Rows[0]["Others"].ToString(); }
-
+                lblOthersS.Text = lblOthers.Text;
                 if (dt.Rows[0]["RFRemark"].ToString().Trim().Length > 0) { lblRFRemark.Text = "Remark：" + dt.Rows[0]["RFRemark"].ToString(); }
                 if (dt.Rows[0]["EMCRemark"].ToString().Trim().Length > 0) { lblEMCRemark.Text = "Remark：" + dt.Rows[0]["EMCRemark"].ToString(); }
                 if (dt.Rows[0]["SafetyRemark"].ToString().Trim().Length > 0) { lblSafetyRemark.Text = "Remark：" + dt.Rows[0]["SafetyRemark"].ToString(); }
@@ -84,6 +101,10 @@ public partial class Ima_ImaDetailH : System.Web.UI.Page
                 {
                     trProductType.Visible = true;
                 }
+                lblFCCorIECorCES.Text = lblFCCorIECorCE.Text;
+                lblFCCTitleS.Text = lblFCCTitle.Text;
+                lblProTypeNameS.Text = lblProTypeName.Text;
+                lblCountryS.Text = lblCountry.Text;
             }
             //Technology
             cmd = new SqlCommand();

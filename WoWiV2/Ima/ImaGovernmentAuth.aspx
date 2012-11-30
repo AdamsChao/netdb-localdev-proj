@@ -227,7 +227,7 @@
                     </tr>
                     <tr>
                         <td class="tdRowName">
-                            Certificate is valid for：
+                            Certificate is valid for<br />Single Importer / Any Importer：
                         </td>
                         <td class="tdRowValue">
                             <asp:RadioButtonList ID="rblCertificateValid" runat="server" 

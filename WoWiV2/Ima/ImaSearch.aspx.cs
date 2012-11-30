@@ -20,7 +20,7 @@ public partial class Ima_ImaSearch : System.Web.UI.Page
                 cbCategory.Items.RemoveAt(6);
                 cbCategory.Items.RemoveAt(3);
                 cbCategory.Items.RemoveAt(2);
-                cbCategory.Items.RemoveAt(0);
+                //cbCategory.Items.RemoveAt(0);
             }
         }
     }
@@ -45,7 +45,8 @@ public partial class Ima_ImaSearch : System.Web.UI.Page
         //業務不可看到1,3,4,7,15的資料
         if (!IMAUtil.IsEditOn()) 
         {
-            dv.RowFilter = "Category not in ('B','D','Q','F')";
+            //dv.RowFilter = "Category not in ('B','D','Q','F')";
+            dv.RowFilter = "Category not in ('D','Q','F')";
         }
         gvImaSearch.DataSource = dv;
         gvImaSearch.DataBind();
