@@ -227,7 +227,8 @@ Order by Project.Project_Id Desc">
 	When 0 Then Substring(CONVERT(char(10), log_date, 111) , 6,10) + ':' + log_content 
 	End AS 'Status' 
 FROM Project_working_log
-WHERE (target_id = @Quotation_Version_Id)">
+WHERE (target_id = @Quotation_Version_Id)
+Order by log_date">
                                                         <SelectParameters>
                                                             <asp:ControlParameter ControlID="Label_Quotation_Target_Id" 
                                                                 Name="Quotation_Version_Id" PropertyName="Text" />

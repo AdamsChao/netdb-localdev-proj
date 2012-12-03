@@ -215,7 +215,8 @@
                                                     <asp:SqlDataSource ID="SqlDataSourceStatus" runat="server" 
                                                         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                                                         
-                                                        SelectCommand="SELECT Substring(CONVERT(char(10), log_date, 111) , 6,10) + ':' + log_content  AS 'Status' FROM Project_working_log WHERE external_use = 1 AND (target_id = @Quotation_Version_Id)">
+                                                        
+                                                      SelectCommand="SELECT Substring(CONVERT(char(10), log_date, 111) , 6,10) + ':' + log_content  AS 'Status' FROM Project_working_log WHERE external_use = 1 AND (target_id = @Quotation_Version_Id) Order by log_date">
                                                         <SelectParameters>
                                                             <asp:ControlParameter ControlID="Label_Quotation_Target_Id" 
                                                                 Name="Quotation_Version_Id" PropertyName="Text" />
