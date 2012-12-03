@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <script src="../Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+    <script src="../Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>    
+    <script src="../Scripts/DenyPageCopy.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             var ddlTech = $("#ddlTech");
