@@ -375,34 +375,77 @@
                                 RF：
                             </td>
                             <td class="tdRowValue">
-                                <asp:DataList ID="dlTechRF" runat="server" DataSourceID="sdsTechRF" DataKeyField="wowi_tech_id"
-                                    RepeatColumns="3" RepeatDirection="Horizontal">
-                                    <ItemTemplate>
-                                        <table border="0">
-                                            <tr>
-                                                <%--<td>
-                                                    <asp:CheckBox ID="cbRFFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                        onclick="TechFee(this);" Enabled="false" />
-                                                </td>--%>
-                                                <td>
-                                                    <asp:Label ID="lblTechRF" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox ID="tbRFFee" runat="server" Width="60px" Enabled="false" Text='<%#Eval("Fee") %>'></asp:TextBox>USD
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </ItemTemplate>
-                                </asp:DataList>
-                                <asp:SqlDataSource ID="sdsTechRF" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                    SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure" FilterExpression="DID is not null">
-                                    <SelectParameters>
-                                        <asp:Parameter DefaultValue="10000" Name="wowi_product_type_id" Type="Int32" />
-                                        <asp:QueryStringParameter Name="DID" QueryStringField="laid" Type="Int32" DefaultValue="0" />
-                                        <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
-                                    </SelectParameters>
-                                </asp:SqlDataSource>
-                                <asp:Label ID="lblRFRemark" runat="server"></asp:Label>
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            <asp:DataList ID="dlTechRF" runat="server" DataSourceID="sdsTechRF" DataKeyField="wowi_tech_id"
+                                                RepeatColumns="3" RepeatDirection="Horizontal">
+                                                <ItemTemplate>
+                                                    <table border="0">
+                                                        <tr>
+                                                            <%--<td>
+                                                                <asp:CheckBox ID="cbRFFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                    onclick="TechFee(this);" Enabled="false" />
+                                                            </td>--%>
+                                                            <td>
+                                                                <asp:Label ID="lblTechRF" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
+                                                            </td>
+                                                            <td>
+                                                                <asp:TextBox ID="tbRFFee" runat="server" Width="60px" Enabled="false" Text='<%#Eval("Fee") %>'></asp:TextBox>USD
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </ItemTemplate>
+                                            </asp:DataList>
+                                            <asp:SqlDataSource ID="sdsTechRF" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure" FilterExpression="DID is not null">
+                                                <SelectParameters>
+                                                    <asp:Parameter DefaultValue="10000" Name="wowi_product_type_id" Type="Int32" />
+                                                    <asp:QueryStringParameter Name="DID" QueryStringField="laid" Type="Int32" DefaultValue="0" />
+                                                    <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
+                                                </SelectParameters>
+                                            </asp:SqlDataSource>
+                                            <asp:Label ID="lblRFRemark" runat="server"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:GridView ID="gvFile3" runat="server" SkinID="gvList" DataKeyNames="FileID" DataSourceID="sdsFile3">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="NO">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                        <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FileName">
+                                                        <ItemTemplate>
+                                                            <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "File.ashx?fid="+Eval("FileID").ToString() %>'
+                                                                Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" />
+                                                        <ItemStyle HorizontalAlign="Left" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
+                                            <asp:SqlDataSource ID="sdsFile3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='C'">
+                                                <SelectParameters>
+                                                    <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
+                                                    <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
+                                                </SelectParameters>
+                                            </asp:SqlDataSource>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                         <tr id="trTechEMC" runat="server" visible="false">
@@ -410,34 +453,77 @@
                                 EMC：
                             </td>
                             <td class="tdRowValue">
-                                <asp:DataList ID="dlTechEMC" runat="server" DataSourceID="sdsTechEMC" DataKeyField="wowi_tech_id"
-                                    RepeatColumns="3" RepeatDirection="Horizontal">
-                                    <ItemTemplate>
-                                        <table border="0">
-                                            <tr>
-                                                <%--<td>
-                                                    <asp:CheckBox ID="cbEMCFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                        Enabled="false" />
-                                                </td>--%>
-                                                <td>
-                                                    <asp:Label ID="lblTechEMC" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox ID="tbEMCFee" runat="server" Width="60px" Enabled="false" Text='<%#Eval("Fee") %>'></asp:TextBox>USD
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </ItemTemplate>
-                                </asp:DataList>
-                                <asp:SqlDataSource ID="sdsTechEMC" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                    SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure" FilterExpression="DID is not null">
-                                    <SelectParameters>
-                                        <asp:Parameter DefaultValue="10001" Name="wowi_product_type_id" Type="Int32" />
-                                        <asp:QueryStringParameter Name="DID" QueryStringField="laid" Type="Int32" DefaultValue="0" />
-                                        <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
-                                    </SelectParameters>
-                                </asp:SqlDataSource>
-                                <asp:Label ID="lblEMCRemark" runat="server"></asp:Label>
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            <asp:DataList ID="dlTechEMC" runat="server" DataSourceID="sdsTechEMC" DataKeyField="wowi_tech_id"
+                                                RepeatColumns="3" RepeatDirection="Horizontal">
+                                                <ItemTemplate>
+                                                    <table border="0">
+                                                        <tr>
+                                                            <%--<td>
+                                                                <asp:CheckBox ID="cbEMCFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                    Enabled="false" />
+                                                            </td>--%>
+                                                            <td>
+                                                                <asp:Label ID="lblTechEMC" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
+                                                            </td>
+                                                            <td>
+                                                                <asp:TextBox ID="tbEMCFee" runat="server" Width="60px" Enabled="false" Text='<%#Eval("Fee") %>'></asp:TextBox>USD
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </ItemTemplate>
+                                            </asp:DataList>
+                                            <asp:SqlDataSource ID="sdsTechEMC" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure" FilterExpression="DID is not null">
+                                                <SelectParameters>
+                                                    <asp:Parameter DefaultValue="10001" Name="wowi_product_type_id" Type="Int32" />
+                                                    <asp:QueryStringParameter Name="DID" QueryStringField="laid" Type="Int32" DefaultValue="0" />
+                                                    <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
+                                                </SelectParameters>
+                                            </asp:SqlDataSource>
+                                            <asp:Label ID="lblEMCRemark" runat="server"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:GridView ID="gvFile4" runat="server" SkinID="gvList" DataKeyNames="FileID" DataSourceID="sdsFile4">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="NO">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                        <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FileName">
+                                                        <ItemTemplate>
+                                                            <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "File.ashx?fid="+Eval("FileID").ToString() %>'
+                                                                Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" />
+                                                        <ItemStyle HorizontalAlign="Left" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
+                                            <asp:SqlDataSource ID="sdsFile4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='D'">
+                                                <SelectParameters>
+                                                    <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
+                                                    <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
+                                                </SelectParameters>
+                                            </asp:SqlDataSource>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                         <tr id="trTechSafety" runat="server" visible="false">
@@ -445,34 +531,77 @@
                                 Safety：
                             </td>
                             <td class="tdRowValue">
-                                <asp:DataList ID="dlTechSafety" runat="server" DataSourceID="sdsTechSafety" DataKeyField="wowi_tech_id"
-                                    RepeatColumns="3" RepeatDirection="Horizontal">
-                                    <ItemTemplate>
-                                        <table border="0">
-                                            <tr>
-                                                <%--<td>
-                                                    <asp:CheckBox ID="cbSafetyFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                        Enabled="false" />
-                                                </td>--%>
-                                                <td>
-                                                    <asp:Label ID="lblTechSafety" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox ID="tbSafetyFee" runat="server" Width="60px" Enabled="false" Text='<%#Eval("Fee") %>'></asp:TextBox>USD
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </ItemTemplate>
-                                </asp:DataList>
-                                <asp:SqlDataSource ID="sdsTechSafety" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                    SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure" FilterExpression="DID is not null">
-                                    <SelectParameters>
-                                        <asp:Parameter DefaultValue="10002" Name="wowi_product_type_id" Type="Int32" />
-                                        <asp:QueryStringParameter Name="DID" QueryStringField="laid" Type="Int32" DefaultValue="0" />
-                                        <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
-                                    </SelectParameters>
-                                </asp:SqlDataSource>
-                                <asp:Label ID="lblSafetyRemark" runat="server"></asp:Label>
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            <asp:DataList ID="dlTechSafety" runat="server" DataSourceID="sdsTechSafety" DataKeyField="wowi_tech_id"
+                                                RepeatColumns="3" RepeatDirection="Horizontal">
+                                                <ItemTemplate>
+                                                    <table border="0">
+                                                        <tr>
+                                                            <%--<td>
+                                                                <asp:CheckBox ID="cbSafetyFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                    Enabled="false" />
+                                                            </td>--%>
+                                                            <td>
+                                                                <asp:Label ID="lblTechSafety" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
+                                                            </td>
+                                                            <td>
+                                                                <asp:TextBox ID="tbSafetyFee" runat="server" Width="60px" Enabled="false" Text='<%#Eval("Fee") %>'></asp:TextBox>USD
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </ItemTemplate>
+                                            </asp:DataList>
+                                            <asp:SqlDataSource ID="sdsTechSafety" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure" FilterExpression="DID is not null">
+                                                <SelectParameters>
+                                                    <asp:Parameter DefaultValue="10002" Name="wowi_product_type_id" Type="Int32" />
+                                                    <asp:QueryStringParameter Name="DID" QueryStringField="laid" Type="Int32" DefaultValue="0" />
+                                                    <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
+                                                </SelectParameters>
+                                            </asp:SqlDataSource>
+                                            <asp:Label ID="lblSafetyRemark" runat="server"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:GridView ID="gvFile5" runat="server" SkinID="gvList" DataKeyNames="FileID" DataSourceID="sdsFile5">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="NO">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                        <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FileName">
+                                                        <ItemTemplate>
+                                                            <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "File.ashx?fid="+Eval("FileID").ToString() %>'
+                                                                Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" />
+                                                        <ItemStyle HorizontalAlign="Left" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
+                                            <asp:SqlDataSource ID="sdsFile5" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='E'">
+                                                <SelectParameters>
+                                                    <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
+                                                    <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
+                                                </SelectParameters>
+                                            </asp:SqlDataSource>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                         <tr id="trTechTelecom" runat="server" visible="false">
@@ -480,34 +609,77 @@
                                 Telecom：
                             </td>
                             <td class="tdRowValue">
-                                <asp:DataList ID="dlTechTelecom" runat="server" DataSourceID="sdsTechTelecom" DataKeyField="wowi_tech_id"
-                                    RepeatColumns="3" RepeatDirection="Horizontal">
-                                    <ItemTemplate>
-                                        <table border="0">
-                                            <tr>
-                                                <%--<td>
-                                                    <asp:CheckBox ID="cbTelecomFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
-                                                        Enabled="false" />
-                                                </td>--%>
-                                                <td>
-                                                    <asp:Label ID="lblTechTelecom" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox ID="tbTelecomFee" runat="server" Width="60px" Enabled="false" Text='<%#Eval("Fee") %>'></asp:TextBox>USD
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </ItemTemplate>
-                                </asp:DataList>
-                                <asp:SqlDataSource ID="sdsTechTelecom" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                    SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure" FilterExpression="DID is not null">
-                                    <SelectParameters>
-                                        <asp:Parameter DefaultValue="10003" Name="wowi_product_type_id" Type="Int32" />
-                                        <asp:QueryStringParameter Name="DID" QueryStringField="laid" Type="Int32" DefaultValue="0" />
-                                        <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
-                                    </SelectParameters>
-                                </asp:SqlDataSource>
-                                <asp:Label ID="lblTelecomRemark" runat="server"></asp:Label>
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            <asp:DataList ID="dlTechTelecom" runat="server" DataSourceID="sdsTechTelecom" DataKeyField="wowi_tech_id"
+                                                RepeatColumns="3" RepeatDirection="Horizontal">
+                                                <ItemTemplate>
+                                                    <table border="0">
+                                                        <tr>
+                                                            <%--<td>
+                                                                <asp:CheckBox ID="cbTelecomFee" runat="server" Checked='<%# Eval("DID").ToString()!="" ? true : false %>'
+                                                                    Enabled="false" />
+                                                            </td>--%>
+                                                            <td>
+                                                                <asp:Label ID="lblTechTelecom" runat="server" Text='<%#Eval("wowi_tech_name") %>'></asp:Label>
+                                                            </td>
+                                                            <td>
+                                                                <asp:TextBox ID="tbTelecomFee" runat="server" Width="60px" Enabled="false" Text='<%#Eval("Fee") %>'></asp:TextBox>USD
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </ItemTemplate>
+                                            </asp:DataList>
+                                            <asp:SqlDataSource ID="sdsTechTelecom" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                SelectCommand="STP_IMAGetTechList" SelectCommandType="StoredProcedure" FilterExpression="DID is not null">
+                                                <SelectParameters>
+                                                    <asp:Parameter DefaultValue="10003" Name="wowi_product_type_id" Type="Int32" />
+                                                    <asp:QueryStringParameter Name="DID" QueryStringField="laid" Type="Int32" DefaultValue="0" />
+                                                    <asp:QueryStringParameter Name="Categroy" QueryStringField="categroy" Type="String" />
+                                                </SelectParameters>
+                                            </asp:SqlDataSource>
+                                            <asp:Label ID="lblTelecomRemark" runat="server"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:GridView ID="gvFile6" runat="server" SkinID="gvList" DataKeyNames="FileID" DataSourceID="sdsFile6">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="NO">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                        <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FileName">
+                                                        <ItemTemplate>
+                                                            <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "File.ashx?fid="+Eval("FileID").ToString() %>'
+                                                                Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" />
+                                                        <ItemStyle HorizontalAlign="Left" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
+                                            <asp:SqlDataSource ID="sdsFile6" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='F'">
+                                                <SelectParameters>
+                                                    <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
+                                                    <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
+                                                </SelectParameters>
+                                            </asp:SqlDataSource>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                         <%--<tr id="trTechRF" runat="server" visible="false">

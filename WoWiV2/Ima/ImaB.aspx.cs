@@ -82,6 +82,9 @@ public partial class Ima_ImaB : System.Web.UI.Page
                 if (dt.Rows[0]["SafetyRemark"].ToString().Trim().Length > 0) { lblSafetyRemark.Text = "Remark：" + dt.Rows[0]["SafetyRemark"].ToString(); }
                 if (dt.Rows[0]["TelecomRemark"].ToString().Trim().Length > 0) { lblTelecomRemark.Text = "Remark：" + dt.Rows[0]["TelecomRemark"].ToString(); }
                 if (dt.Rows[0]["LeadTime"].ToString().Trim().Length > 0) { lblLeadT.Text = dt.Rows[0]["LeadTime"].ToString() + "&nbsp;Weeks"; }
+                lblBodyListWebsite.Text = "Website：" + dt.Rows[0]["BodyListWebsite"].ToString();
+                lblLabListWebsite.Text = "Website：" + dt.Rows[0]["LabListWebsite"].ToString();
+                lblFeeListWebsite.Text = "Website：" + dt.Rows[0]["FeeListWebsite"].ToString();
             }
 
             //Ima_Contact

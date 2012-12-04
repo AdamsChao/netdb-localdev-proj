@@ -168,6 +168,39 @@
                                 <asp:ListItem Text="No" Value="No"></asp:ListItem>
                             </asp:RadioButtonList>--%>
                             <asp:Label ID="lblReturnedNote" runat="server"></asp:Label>
+                            <asp:GridView ID="gvFile2" runat="server" SkinID="gvList" DataKeyNames="SampleShippingFileID"
+                                DataSourceID="sdsFile2">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="NO">
+                                        <ItemTemplate>
+                                            <%#Container.DataItemIndex+1 %>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                        <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="FileName">
+                                        <ItemTemplate>
+                                            <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "SampleShippingFile.ashx?fid="+Eval("SampleShippingFileID").ToString() %>'
+                                                Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" />
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="sdsFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                SelectCommand="SELECT * FROM [Ima_SampleShipping_Files] WHERE ([SampleShippingID] = @SampleShippingID) and FileCategory='B'">
+                                <SelectParameters>
+                                    <asp:QueryStringParameter Name="SampleShippingID" QueryStringField="ssid" Type="Int32" />
+                                </SelectParameters>
+                            </asp:SqlDataSource>
                         </td>
                     </tr>
                     <tr>

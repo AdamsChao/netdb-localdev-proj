@@ -200,6 +200,73 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="tdRowName" valign="top">
+                                Accreditation certification<br />body list：
+                            </td>
+                            <td class="tdRowValue">
+                                <asp:Label ID="lblBodyListWebsite" runat="server"></asp:Label>
+                                <asp:GridView ID="gvImaFiles2" runat="server" DataKeyNames="GoverAuthFileID" SkinID="gvList" DataSourceID="sdsImaFiles2">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="NO">
+                                            <ItemTemplate>
+                                                <%#Container.DataItemIndex+1 %>
+                                            </ItemTemplate>
+                                            <HeaderStyle Font-Bold="False" Width="50px" HorizontalAlign="Center" />
+                                            <ItemStyle Width="50px" HorizontalAlign="Center" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="FileName">
+                                            <ItemTemplate>
+                                                <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "GoverFile.ashx?fid="+Eval("GoverAuthFileID").ToString() %>'
+                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                            </ItemTemplate>
+                                            <HeaderStyle Font-Bold="False" />
+                                            <ItemStyle HorizontalAlign="Left" />
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                                <asp:SqlDataSource ID="sdsImaFiles2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='C'">
+                                    <SelectParameters>
+                                        <asp:QueryStringParameter Name="GovernmentAuthorityID" QueryStringField="gaid" Type="Int32" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdRowName" valign="top">
+                                Accreditation test lab list：
+                            </td>
+                            <td class="tdRowValue">
+                                <asp:Label ID="lblLabListWebsite" runat="server"></asp:Label>
+                                <asp:GridView ID="gvImaFiles3" runat="server" DataKeyNames="GoverAuthFileID" SkinID="gvList"
+                                    DataSourceID="sdsImaFiles3">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="NO">
+                                            <ItemTemplate>
+                                                <%#Container.DataItemIndex+1 %>
+                                            </ItemTemplate>
+                                            <HeaderStyle Font-Bold="False" Width="50px" HorizontalAlign="Center" />
+                                            <ItemStyle Width="50px" HorizontalAlign="Center" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="FileName">
+                                            <ItemTemplate>
+                                                <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "GoverFile.ashx?fid="+Eval("GoverAuthFileID").ToString() %>'
+                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                            </ItemTemplate>
+                                            <HeaderStyle Font-Bold="False" />
+                                            <ItemStyle HorizontalAlign="Left" />
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                                <asp:SqlDataSource ID="sdsImaFiles3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='D'">
+                                    <SelectParameters>
+                                        <asp:QueryStringParameter Name="GovernmentAuthorityID" QueryStringField="gaid" Type="Int32" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="tdRowName">
                                 Certificate is valid for<br />
                                 Single Importer / Any Importer：
@@ -529,6 +596,40 @@
                                     </SelectParameters>
                                 </asp:SqlDataSource>
                                 <asp:Label ID="lblTelecomRemark" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdRowName" valign="top">
+                                Submission fee list：
+                            </td>
+                            <td class="tdRowValue">
+                                <asp:Label ID="lblFeeListWebsite" runat="server"></asp:Label>
+                                <asp:GridView ID="gvImaFiles4" runat="server" DataKeyNames="GoverAuthFileID" SkinID="gvList"
+                                    DataSourceID="sdsImaFiles4">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="NO">
+                                            <ItemTemplate>
+                                                <%#Container.DataItemIndex+1 %>
+                                            </ItemTemplate>
+                                            <HeaderStyle Font-Bold="False" Width="50px" HorizontalAlign="Center" />
+                                            <ItemStyle Width="50px" HorizontalAlign="Center" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="FileName">
+                                            <ItemTemplate>
+                                                <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "GoverFile.ashx?fid="+Eval("GoverAuthFileID").ToString() %>'
+                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                            </ItemTemplate>
+                                            <HeaderStyle Font-Bold="False" />
+                                            <ItemStyle HorizontalAlign="Left" />
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                                <asp:SqlDataSource ID="sdsImaFiles4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='E'">
+                                    <SelectParameters>
+                                        <asp:QueryStringParameter Name="GovernmentAuthorityID" QueryStringField="gaid" Type="Int32" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
                             </td>
                         </tr>
                         <tr>
