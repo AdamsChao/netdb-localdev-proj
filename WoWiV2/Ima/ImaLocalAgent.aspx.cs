@@ -97,6 +97,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
                 tbLeadT.Text = dt.Rows[0]["LeadTime"].ToString();
                 if (dt.Rows[0]["LocalRep"].ToString().Trim().ToLower() == "true") { rblLocalRep.SelectedValue = "1"; tbLocalRepFee.Enabled = true; }
                 if (dt.Rows[0]["LocalRepFee"].ToString().Trim().Length > 0) { tbLocalRepFee.Text = dt.Rows[0]["LocalRepFee"].ToString().Trim(); }
+                tbLocalRepRemark.Text = dt.Rows[0]["LocalRepRemark"].ToString();
                 //2012/09/13會議取消copy預設
                 if (Request.Params["copy"] == null) 
                 {
@@ -185,8 +186,8 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
     //儲存
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        string strTsql = "insert into Ima_LocalAgent (world_region_id,country_id,Name,RF,Telecom,EMC,Safety,CreateUser,LasterUpdateUser,Professional,Individual,OtherBusiness,Responsive,Knowledgeable,Slow,NDAYes,NDAChoose,MOUYes,MOUChoose,RFRemark,EMCRemark,SafetyRemark,TelecomRemark,ProductTypeID,ProductTypeName,LeadTime,LocalRep,LocalRepFee) ";
-        strTsql += "values(@world_region_id,@country_id,@Name,@RF,@Telecom,@EMC,@Safety,@CreateUser,@LasterUpdateUser,@Professional,@Individual,@OtherBusiness,@Responsive,@Knowledgeable,@Slow,@NDAYes,@NDAChoose,@MOUYes,@MOUChoose,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark,@ProductTypeID,@ProductTypeName,@LeadTime,@LocalRep,@LocalRepFee)";
+        string strTsql = "insert into Ima_LocalAgent (world_region_id,country_id,Name,RF,Telecom,EMC,Safety,CreateUser,LasterUpdateUser,Professional,Individual,OtherBusiness,Responsive,Knowledgeable,Slow,NDAYes,NDAChoose,MOUYes,MOUChoose,RFRemark,EMCRemark,SafetyRemark,TelecomRemark,ProductTypeID,ProductTypeName,LeadTime,LocalRep,LocalRepFee,LocalRepRemark) ";
+        strTsql += "values(@world_region_id,@country_id,@Name,@RF,@Telecom,@EMC,@Safety,@CreateUser,@LasterUpdateUser,@Professional,@Individual,@OtherBusiness,@Responsive,@Knowledgeable,@Slow,@NDAYes,@NDAChoose,@MOUYes,@MOUChoose,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark,@ProductTypeID,@ProductTypeName,@LeadTime,@LocalRep,@LocalRepFee,@LocalRepRemark)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -249,7 +250,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@LocalRep", Convert.ToInt32(rblLocalRep.SelectedValue));
         if (tbLocalRepFee.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LocalRepFee", tbLocalRepFee.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@LocalRepFee", DBNull.Value); }
-
+        cmd.Parameters.AddWithValue("@LocalRepRemark", tbLocalRepRemark.Text.Trim());
         //SQLUtil.ExecuteSql(cmd);
         int intGeneralID = Convert.ToInt32(SQLUtil.ExecuteScalar(cmd));
         //文件上傳
@@ -288,6 +289,26 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
                 imau.FileUpload(intGeneralID, FileUpload3, "B", strUploadPath);
                 imau.FileUpload(intGeneralID, FileUpload4, "B", strUploadPath);
                 imau.FileUpload(intGeneralID, FileUpload5, "B", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload6, "C", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload7, "C", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload8, "C", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload9, "C", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload10, "C", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload11, "D", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload12, "D", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload13, "D", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload14, "D", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload15, "D", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload16, "E", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload17, "E", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload18, "E", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload19, "E", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload20, "E", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload21, "F", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload22, "F", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload23, "F", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload24, "F", strUploadPath);
+                imau.FileUpload(intGeneralID, FileUpload25, "F", strUploadPath);
                 //將上傳的文件記錄在第1個ProductType上(其他有勾選的ProductType共同，若刪除則全部刪除)PS：只適用在Local Agent
                 break;
             }
@@ -493,7 +514,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_LocalAgent set Name=@Name,RF=@RF,Telecom=@Telecom,EMC=@EMC,Safety=@Safety,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Professional=@Professional,Individual=@Individual,OtherBusiness=@OtherBusiness,Responsive=@Responsive,Knowledgeable=@Knowledgeable,Slow=@Slow,NDAYes=@NDAYes,NDAChoose=@NDAChoose,MOUYes=@MOUYes,MOUChoose=@MOUChoose,RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark,ProductTypeID=@ProductTypeID,ProductTypeName=@ProductTypeName,LeadTime=@LeadTime,LocalRep=@LocalRep,LocalRepFee=@LocalRepFee ";
+        string strTsql = "Update Ima_LocalAgent set Name=@Name,RF=@RF,Telecom=@Telecom,EMC=@EMC,Safety=@Safety,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),Professional=@Professional,Individual=@Individual,OtherBusiness=@OtherBusiness,Responsive=@Responsive,Knowledgeable=@Knowledgeable,Slow=@Slow,NDAYes=@NDAYes,NDAChoose=@NDAChoose,MOUYes=@MOUYes,MOUChoose=@MOUChoose,RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark,ProductTypeID=@ProductTypeID,ProductTypeName=@ProductTypeName,LeadTime=@LeadTime,LocalRep=@LocalRep,LocalRepFee=@LocalRepFee,LocalRepRemark=@LocalRepRemark ";
         strTsql += "where LocalAgentID=@LocalAgentID ";
         //if (lblContactID.Text.Trim().Length > 0)
         //{
@@ -558,6 +579,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@LocalRep", Convert.ToInt32(rblLocalRep.SelectedValue));
         if (tbLocalRepFee.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LocalRepFee", tbLocalRepFee.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@LocalRepFee", DBNull.Value); }
+        cmd.Parameters.AddWithValue("@LocalRepRemark", tbLocalRepRemark.Text.Trim());
         //if (lblContactID.Text.Trim().Length > 0)
         //{
         //    cmd.Parameters.AddWithValue("@FirstName", tbFirstName.Text.Trim());
@@ -737,6 +759,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         if (rblLocalRep.SelectedValue == "0")
         {
             tbLocalRepFee.Text = "";
+            tbLocalRepRemark.Text = "";
         }
         else 
         {
