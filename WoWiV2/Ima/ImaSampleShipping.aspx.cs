@@ -233,6 +233,12 @@ public partial class Ima_SampleShipping : System.Web.UI.Page
         GeneralFileUpload(intGeneralID, fuGeneral3, "A");
         GeneralFileUpload(intGeneralID, fuGeneral4, "A");
         GeneralFileUpload(intGeneralID, fuGeneral5, "A");
+        //Samples can be returned附件
+        GeneralFileUpload(intGeneralID, FileUpload1, "B");
+        GeneralFileUpload(intGeneralID, FileUpload2, "B");
+        GeneralFileUpload(intGeneralID, FileUpload3, "B");
+        GeneralFileUpload(intGeneralID, FileUpload4, "B");
+        GeneralFileUpload(intGeneralID, FileUpload5, "B");
     }
 
     protected void GeneralFileUpload(int intID, FileUpload fu, string strFileCatetory)
