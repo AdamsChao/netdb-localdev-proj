@@ -226,6 +226,164 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="tdRowName" valign="top">
+                            Accreditation certification<br /> body list：
+                        </td>
+                        <td class="tdRowValue">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>Website：</td>
+                                    <td>
+                                        <asp:TextBox ID="tbBodyListWebsite" runat="server" Width="500px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        1.<asp:FileUpload ID="FileUpload6" runat="server" Width="90%" /><br />
+                                        2.<asp:FileUpload ID="FileUpload7" runat="server" Width="90%" /><br />
+                                        3.<asp:FileUpload ID="FileUpload8" runat="server" Width="90%" /><br />
+                                        4.<asp:FileUpload ID="FileUpload9" runat="server" Width="90%" /><br />
+                                        5.<asp:FileUpload ID="FileUpload10" runat="server" Width="90%" />
+                                        <asp:UpdatePanel ID="upFile3" runat="server" UpdateMode="Conditional">
+                                            <ContentTemplate>
+                                                <asp:GridView ID="gvImaFiles2" runat="server" SkinID="gvList" DataKeyNames="GoverAuthFileID" DataSourceID="sdsImaFiles2">
+                                                    <Columns>
+                                                        <asp:TemplateField ShowHeader="False">
+                                                            <ItemTemplate>
+                                                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
+                                                                    Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Copy to">
+                                                            <ItemTemplate>
+                                                                <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="NO" Visible="false">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                            <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileName">
+                                                            <ItemTemplate>
+                                                                <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "GoverFile.ashx?fid="+Eval("GoverAuthFileID").ToString() %>'
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" />
+                                                            <ItemStyle HorizontalAlign="Left" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+                                                <asp:SqlDataSource ID="sdsImaFiles2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                    DeleteCommand="DELETE FROM [Ima_GoverAuth_Files] WHERE [GoverAuthFileID] = @GoverAuthFileID"
+                                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='C'">
+                                                    <DeleteParameters>
+                                                        <asp:Parameter Name="GoverAuthFileID" Type="Int32" />
+                                                    </DeleteParameters>
+                                                    <SelectParameters>
+                                                        <asp:QueryStringParameter Name="GovernmentAuthorityID" QueryStringField="gaid" Type="Int32" />
+                                                    </SelectParameters>
+                                                </asp:SqlDataSource>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Accreditation test lab list：
+                        </td>
+                        <td class="tdRowValue">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>Website：</td>
+                                    <td>
+                                        <asp:TextBox ID="tbLabListWebsite" runat="server" Width="500px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        1.<asp:FileUpload ID="FileUpload11" runat="server" Width="90%" /><br />
+                                        2.<asp:FileUpload ID="FileUpload12" runat="server" Width="90%" /><br />
+                                        3.<asp:FileUpload ID="FileUpload13" runat="server" Width="90%" /><br />
+                                        4.<asp:FileUpload ID="FileUpload14" runat="server" Width="90%" /><br />
+                                        5.<asp:FileUpload ID="FileUpload15" runat="server" Width="90%" />
+                                        <asp:UpdatePanel ID="upFile4" runat="server" UpdateMode="Conditional">
+                                            <ContentTemplate>
+                                                <asp:GridView ID="gvImaFiles3" runat="server" SkinID="gvList" DataKeyNames="GoverAuthFileID" DataSourceID="sdsImaFiles3">
+                                                    <Columns>
+                                                        <asp:TemplateField ShowHeader="False">
+                                                            <ItemTemplate>
+                                                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
+                                                                    Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Copy to">
+                                                            <ItemTemplate>
+                                                                <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="NO" Visible="false">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                            <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileName">
+                                                            <ItemTemplate>
+                                                                <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "GoverFile.ashx?fid="+Eval("GoverAuthFileID").ToString() %>'
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" />
+                                                            <ItemStyle HorizontalAlign="Left" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+                                                <asp:SqlDataSource ID="sdsImaFiles3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                    DeleteCommand="DELETE FROM [Ima_GoverAuth_Files] WHERE [GoverAuthFileID] = @GoverAuthFileID"
+                                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='D'">
+                                                    <DeleteParameters>
+                                                        <asp:Parameter Name="GoverAuthFileID" Type="Int32" />
+                                                    </DeleteParameters>
+                                                    <SelectParameters>
+                                                        <asp:QueryStringParameter Name="GovernmentAuthorityID" QueryStringField="gaid" Type="Int32" />
+                                                    </SelectParameters>
+                                                </asp:SqlDataSource>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="tdRowName">
                             Certificate is valid for<br />Single Importer / Any Importer：
                         </td>
@@ -777,6 +935,86 @@
                             </table>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="tdRowName" valign="top">
+                            Submission fee list：
+                        </td>
+                        <td class="tdRowValue">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>Website：</td>
+                                    <td>
+                                        <asp:TextBox ID="tbFeeListWebsite" runat="server" Width="500px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        1.<asp:FileUpload ID="FileUpload16" runat="server" Width="90%" /><br />
+                                        2.<asp:FileUpload ID="FileUpload17" runat="server" Width="90%" /><br />
+                                        3.<asp:FileUpload ID="FileUpload18" runat="server" Width="90%" /><br />
+                                        4.<asp:FileUpload ID="FileUpload19" runat="server" Width="90%" /><br />
+                                        5.<asp:FileUpload ID="FileUpload20" runat="server" Width="90%" />
+                                        <asp:UpdatePanel ID="upFile5" runat="server" UpdateMode="Conditional">
+                                            <ContentTemplate>
+                                                <asp:GridView ID="gvImaFiles4" runat="server" SkinID="gvList" DataKeyNames="GoverAuthFileID" DataSourceID="sdsImaFiles4">
+                                                    <Columns>
+                                                        <asp:TemplateField ShowHeader="False">
+                                                            <ItemTemplate>
+                                                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
+                                                                    Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Copy to">
+                                                            <ItemTemplate>
+                                                                <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="NO" Visible="false">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                            <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileName">
+                                                            <ItemTemplate>
+                                                                <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "GoverFile.ashx?fid="+Eval("GoverAuthFileID").ToString() %>'
+                                                                    Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" />
+                                                            <ItemStyle HorizontalAlign="Left" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                            </ItemTemplate>
+                                                            <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+                                                <asp:SqlDataSource ID="sdsImaFiles4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                    DeleteCommand="DELETE FROM [Ima_GoverAuth_Files] WHERE [GoverAuthFileID] = @GoverAuthFileID"
+                                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='E'">
+                                                    <DeleteParameters>
+                                                        <asp:Parameter Name="GoverAuthFileID" Type="Int32" />
+                                                    </DeleteParameters>
+                                                    <SelectParameters>
+                                                        <asp:QueryStringParameter Name="GovernmentAuthorityID" QueryStringField="gaid" Type="Int32" />
+                                                    </SelectParameters>
+                                                </asp:SqlDataSource>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td colspan="2" align="center" class="tdFooter">
                             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />

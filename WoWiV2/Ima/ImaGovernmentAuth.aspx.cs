@@ -130,6 +130,9 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
                 tbSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
                 tbTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
                 tbLeadT.Text = dt.Rows[0]["LeadTime"].ToString();
+                tbBodyListWebsite.Text = dt.Rows[0]["BodyListWebsite"].ToString();
+                tbLabListWebsite.Text = dt.Rows[0]["LabListWebsite"].ToString();
+                tbFeeListWebsite.Text = dt.Rows[0]["FeeListWebsite"].ToString();
                 if (Request.Params["copy"] != null)
                 {
                     trCopyTo.Visible = true;
@@ -284,8 +287,8 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         lblProType.Text = "";
-        string strTsql = "insert into Ima_GovernmentAuthority (world_region_id,country_id,FullAuthorityName,AbbreviatedAuthorityName,Website,Mandatory,wowi_product_type_id,CertificateValid,IsTransfer,Description,CreateUser,LasterUpdateUser,CertificationBody,AccreditedTest,RFRemark,EMCRemark,SafetyRemark,TelecomRemark,LeadTime) ";
-        strTsql += "values(@world_region_id,@country_id,@FullAuthorityName,@AbbreviatedAuthorityName,@Website,@Mandatory,@wowi_product_type_id,@CertificateValid,@IsTransfer,@Description,@CreateUser,@LasterUpdateUser,@CertificationBody,@AccreditedTest,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark,@LeadTime)";
+        string strTsql = "insert into Ima_GovernmentAuthority (world_region_id,country_id,FullAuthorityName,AbbreviatedAuthorityName,Website,Mandatory,wowi_product_type_id,CertificateValid,IsTransfer,Description,CreateUser,LasterUpdateUser,CertificationBody,AccreditedTest,RFRemark,EMCRemark,SafetyRemark,TelecomRemark,LeadTime,BodyListWebsite,LabListWebsite,FeeListWebsite) ";
+        strTsql += "values(@world_region_id,@country_id,@FullAuthorityName,@AbbreviatedAuthorityName,@Website,@Mandatory,@wowi_product_type_id,@CertificateValid,@IsTransfer,@Description,@CreateUser,@LasterUpdateUser,@CertificationBody,@AccreditedTest,@RFRemark,@EMCRemark,@SafetyRemark,@TelecomRemark,@LeadTime,@BodyListWebsite,@LabListWebsite,@FeeListWebsite)";
         strTsql += ";select @@identity";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = strTsql;
@@ -314,6 +317,12 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@TelecomRemark", DBNull.Value); }
         if (tbLeadT.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadT.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
+        if (tbBodyListWebsite.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@BodyListWebsite", tbBodyListWebsite.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@BodyListWebsite", DBNull.Value); }
+        if (tbLabListWebsite.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LabListWebsite", tbLabListWebsite.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LabListWebsite", DBNull.Value); }
+        if (tbFeeListWebsite.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@FeeListWebsite", tbFeeListWebsite.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@FeeListWebsite", DBNull.Value); }
         string strCopyTo = HttpUtility.UrlDecode(Request["pt"]);
         if (Request["copy"] != null) 
         {
@@ -429,6 +438,24 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
         GeneralFileUpload(intGeneralID, FileUpload3, "B");
         GeneralFileUpload(intGeneralID, FileUpload4, "B");
         GeneralFileUpload(intGeneralID, FileUpload5, "B");
+        //Accreditation certification body list附件
+        GeneralFileUpload(intGeneralID, FileUpload6, "C");
+        GeneralFileUpload(intGeneralID, FileUpload7, "C");
+        GeneralFileUpload(intGeneralID, FileUpload8, "C");
+        GeneralFileUpload(intGeneralID, FileUpload9, "C");
+        GeneralFileUpload(intGeneralID, FileUpload10, "C");
+        //Accreditation test lab list附件
+        GeneralFileUpload(intGeneralID, FileUpload11, "D");
+        GeneralFileUpload(intGeneralID, FileUpload12, "D");
+        GeneralFileUpload(intGeneralID, FileUpload13, "D");
+        GeneralFileUpload(intGeneralID, FileUpload14, "D");
+        GeneralFileUpload(intGeneralID, FileUpload15, "D");
+        //Submission fee list附件
+        GeneralFileUpload(intGeneralID, FileUpload16, "E");
+        GeneralFileUpload(intGeneralID, FileUpload17, "E");
+        GeneralFileUpload(intGeneralID, FileUpload18, "E");
+        GeneralFileUpload(intGeneralID, FileUpload19, "E");
+        GeneralFileUpload(intGeneralID, FileUpload20, "E");
     }
 
     protected void GeneralFileUpload(int intID, FileUpload fu, string strFileCatetory)
@@ -602,7 +629,8 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
 
     protected void btnUpd_Click(object sender, EventArgs e)
     {
-        string strTsql = "Update Ima_GovernmentAuthority set FullAuthorityName=@FullAuthorityName,AbbreviatedAuthorityName=@AbbreviatedAuthorityName,Website=@Website,Mandatory=@Mandatory,CertificateValid=@CertificateValid,IsTransfer=@IsTransfer,Description=@Description,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),CertificationBody=@CertificationBody,AccreditedTest=@AccreditedTest,RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark,LeadTime=@LeadTime ";
+        string strTsql = "Update Ima_GovernmentAuthority set FullAuthorityName=@FullAuthorityName,AbbreviatedAuthorityName=@AbbreviatedAuthorityName,Website=@Website,Mandatory=@Mandatory,CertificateValid=@CertificateValid,IsTransfer=@IsTransfer,Description=@Description,LasterUpdateUser=@LasterUpdateUser,LasterUpdateDate=getdate(),CertificationBody=@CertificationBody,AccreditedTest=@AccreditedTest,RFRemark=@RFRemark,EMCRemark=@EMCRemark,SafetyRemark=@SafetyRemark,TelecomRemark=@TelecomRemark,LeadTime=@LeadTime";
+        strTsql += ",BodyListWebsite=@BodyListWebsite,LabListWebsite=@LabListWebsite,FeeListWebsite=@FeeListWebsite ";
         strTsql += "where GovernmentAuthorityID=@GovernmentAuthorityID ";
         //if (lblContactID.Text.Trim().Length > 0) 
         //{
@@ -632,6 +660,12 @@ public partial class Ima_ImaGovernmentAuth : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@TelecomRemark", DBNull.Value); }
         if (tbLeadT.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadT.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
+        if (tbBodyListWebsite.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@BodyListWebsite", tbBodyListWebsite.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@BodyListWebsite", DBNull.Value); }
+        if (tbLabListWebsite.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LabListWebsite", tbLabListWebsite.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@LabListWebsite", DBNull.Value); }
+        if (tbFeeListWebsite.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@FeeListWebsite", tbFeeListWebsite.Text.Trim()); }
+        else { cmd.Parameters.AddWithValue("@FeeListWebsite", DBNull.Value); }
         //if (lblContactID.Text.Trim().Length > 0)
         //{
         //    cmd.Parameters.AddWithValue("@FirstName", tbFirstName.Text.Trim());
