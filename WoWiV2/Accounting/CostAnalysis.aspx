@@ -1091,7 +1091,7 @@
                             </td>                            
                         </tr>
                    <tr><td colspan="6">
-                       <asp:Label ID="lblMsg" runat="server" Text="No matched data found." ></asp:Label>
+                    <asp:Label ID="lblMsg" runat="server" Text="No matched data found." ></asp:Label>
                        
                     <cc1:iRowSpanGridView ID="iGridView1" runat="server"  Width="100%" 
                            isMergedHeader="True" SkinID="GridView"

@@ -41,6 +41,7 @@
       <!--<siteMapNode url="" title="Invoice Report"  description="" />-->
       <siteMapNode url="" title="Analysis"  description="" >
         <siteMapNode url="~/Accounting/CostAnalysis.aspx" title="Gross Profit Analysis"  description="" />
+        <siteMapNode url="~/Accounting/CostAnalysisAll.aspx" title="Project Cost Analysis"  description="" />
         <siteMapNode url="~/Report/SalesReport.aspx" title="Sales Report"  description="" >
           <!--<siteMapNode url="~/Report/SalesAnalysisReport.aspx" title="分析報表"  description="" />-->
         </siteMapNode>
