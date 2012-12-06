@@ -192,12 +192,17 @@
       if (((Label)e.Row.FindControl("LabelTargetID")).Text == "-1"
         || e.Row.Cells[0].Text == "PROJECT TOTAL")
       {
-        e.Row.BackColor = System.Drawing.Color.LightBlue;
+        e.Row.BackColor = System.Drawing.Color.LightSteelBlue;
         e.Row.Cells[10].BackColor = System.Drawing.Color.Orange;
         e.Row.Cells[13].BackColor = System.Drawing.Color.Orange;
         e.Row.Cells[14].BackColor = System.Drawing.Color.Yellow;
         e.Row.Cells[15].BackColor = System.Drawing.Color.Orange;
         e.Row.Cells[22].BackColor = System.Drawing.Color.Orange;
+      }
+      if (((Label)e.Row.FindControl("LabelTargetID")).Text == "-1")
+      {
+        e.Row.BackColor = System.Drawing.Color.LightBlue;
+        e.Row.Cells[0].Text = "SUB TOTAL";
       }
     }
   }
