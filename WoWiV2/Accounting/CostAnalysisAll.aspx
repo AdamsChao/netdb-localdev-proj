@@ -238,10 +238,10 @@
   <p>
     <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
       <tr>
-        <th align="left" width="200px">
+        <th align="left">
           AE :&nbsp;
         </th>
-        <td width="20%" colspan="3">
+        <td colspan="3">
           <asp:DropDownList ID="ddlSales" runat="server" AppendDataBoundItems="True" OnLoad="ddlSales_Load">
             <asp:ListItem Value="%">- All -</asp:ListItem>
           </asp:DropDownList>
@@ -256,7 +256,7 @@
         </td>--%>
       </tr>
       <tr>
-        <th align="left" width="13%">
+        <th align="left" >
           Project No. :&nbsp;
         </th>
         <td colspan="3">
@@ -266,7 +266,7 @@
         </td>
       </tr>
       <tr>
-        <th align="left" width="13%">
+        <th align="left">
           Client :&nbsp;
         </th>
         <td colspan="3">
@@ -276,19 +276,19 @@
         </td>
       </tr>
       <tr>
-        <th align="left" width="13%">
+        <th align="left" >
           Open Project Date From :
         </th>
-        <td width="20%">
+        <td>
           <asp:TextBox ID="dcProjFrom" runat="server"></asp:TextBox>
           <asp:CalendarExtender ID="dcProjFrom_CalendarExtender" runat="server" Format="yyyy/MM/dd"
             Enabled="True" TargetControlID="dcProjFrom">
           </asp:CalendarExtender>
         </td>
-        <th align="left" width="13%">
+        <th align="left" >
           To :&nbsp;
         </th>
-        <td width="20%">
+        <td>
           <asp:TextBox ID="dcProjTo" runat="server"></asp:TextBox>
           <asp:CalendarExtender ID="dcProjTo_CalendarExtender" runat="server" Format="yyyy/MM/dd"
             Enabled="True" TargetControlID="dcProjTo">
@@ -296,7 +296,7 @@
         </td>
       </tr>
       <tr>
-        <th align="left" width="13%">
+        <th align="left" >
           Target :&nbsp;
         </th>
         <td colspan="3">
@@ -326,7 +326,7 @@
         </td>
       </tr>--%>
       <tr>
-        <th align="left" width="13%">
+        <th align="left" >
           Status :&nbsp;
         </th>
         <td colspan="3">
@@ -342,19 +342,19 @@
         </td>
       </tr>
       <tr>
-        <th align="left" width="13%">
+        <th align="left" >
           Status Date From :
         </th>
-        <td width="20%">
+        <td >
           <asp:TextBox ID="dcStatusFromDate" runat="server"></asp:TextBox>
           <asp:CalendarExtender ID="dcStatusFromDate_CalendarExtender" runat="server" Format="yyyy/MM/dd"
             Enabled="True" TargetControlID="dcStatusFromDate">
           </asp:CalendarExtender>
         </td>
-        <th align="left" width="13%">
+        <th align="left" >
           To :&nbsp;
         </th>
-        <td width="20%">
+        <td >
           <asp:TextBox ID="dcStatusToDate" runat="server"></asp:TextBox>
           <asp:CalendarExtender ID="dcStatusToDate_CalendarExtender" runat="server" Format="yyyy/MM/dd"
             Enabled="True" TargetControlID="dcStatusToDate">
@@ -362,11 +362,11 @@
         </td>
       </tr>
       <tr>
-        <th align="left" width="13%">
+        <th align="left" >
           <%-- <asp:TextBox ID="tbkey" runat="server" Text="" 
                                     ></asp:TextBox>--%>
         </th>
-        <td align="right" width="20%">
+        <td align="right" >
           <%-- <asp:TextBox ID="tbkey" runat="server" Text="" 
                                     ></asp:TextBox>--%>
           <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" />
@@ -377,7 +377,7 @@
         </td>
       </tr>
       <tr>
-        <td colspan="6">
+        <td colspan="4">
         <asp:Label ID="lblMsg" runat="server" EnableViewState="false"></asp:Label>
           <cc1:iRowSpanGridView ID="iGridViewCost" runat="server" isMergedHeader="True" Width="100%"
             CssClass="Gridview" AutoGenerateColumns="False" DataSourceID="SqlDataSourceSP"
