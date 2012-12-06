@@ -5,14 +5,16 @@
 <%@ Register Assembly="iServerControls" Namespace="iControls.Web" TagPrefix="cc1" %>
 <script runat="server">
 
-  QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
-  WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
+  QuotationModel.QuotationEntities db = null;
+  WoWiModel.WoWiEntities wowidb = null;
 
   protected void Page_Load(object sender, EventArgs e)
   {
     if (!Page.IsPostBack)
     {
-      SetMergedHerderColumns(iGridViewCost);
+      db = new QuotationModel.QuotationEntities();
+      wowidb = new WoWiModel.WoWiEntities();
+      SetMergedHerderColumns(iGridViewCost);      
     }
   }
   private void SetMergedHerderColumns(iRowSpanGridView iGridView1)
