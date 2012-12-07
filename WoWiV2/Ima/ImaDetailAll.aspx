@@ -3184,7 +3184,7 @@
                                     <tr>
                                         <td colspan="2" class="tdHeader">Fee schedule Detail</td>
                                     </tr>
-                                    <tr id="trTechName" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                    <tr id="trTechName" runat="server">
                                         <td class="tdRowName">Technologies：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblTechName" runat="server" Text='<%#Eval("wowi_tech_name")%>'></asp:Label></td>
                                     </tr>
