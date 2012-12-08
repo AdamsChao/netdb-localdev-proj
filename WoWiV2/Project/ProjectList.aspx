@@ -33,6 +33,12 @@ ORDER BY clientapplicant.companyname">
             AllowSorting="True" EmptyDataText="查詢不到任何相關Project資料!" AllowPaging="True" 
             onrowupdated="GridViewProject_RowUpdated" PageSize="20" Width="100%">
             <Columns>
+                <asp:TemplateField ShowHeader="False" Visible="False">
+                  <ItemTemplate>
+                    <asp:Button ID="ButtonDel" runat="server" CausesValidation="False" 
+                      CommandName="Delete" Text="刪除" OnClientClick="return confirm('是否確定刪除此Project ?');" />
+                  </ItemTemplate>
+                </asp:TemplateField>
                 <asp:CommandField ShowEditButton="True" />
                 <asp:BoundField DataField="Project_Id" HeaderText="Project Id" 
                     InsertVisible="False" ReadOnly="True" SortExpression="Project_Id" 

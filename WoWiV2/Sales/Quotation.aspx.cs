@@ -8,56 +8,62 @@ using QuotationModel;
 
 public partial class Sales_Quotation : System.Web.UI.Page
 {
-    protected void Page_Load(object sender, EventArgs e)
+  protected void Page_Load(object sender, EventArgs e)
+  {
+    if (!IsPostBack)
     {
-        if (!IsPostBack)
-        {
-            employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
-            ddlClient.DataSource = CodeTableController.GetClientApplicantList(emp.id);
-            ddlClient.DataTextField = "Value";
-            ddlClient.DataValueField = "Key";
-            ddlClient.DataBind();
-            txtCurrentEmployee_id.Text = emp.id.ToString();
-        }
+      employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
+      ddlClient.DataSource = CodeTableController.GetClientApplicantList(emp.id);
+      ddlClient.DataTextField = "Value";
+      ddlClient.DataValueField = "Key";
+      ddlClient.DataBind();
+      txtCurrentEmployee_id.Text = emp.id.ToString();
+
+      //Delete function
+      if (User.Identity.Name == "Shirley" || User.Identity.Name == "Scott")
+      {
+        GridViewQuotation.Columns[0].Visible = true;
+      }
+    }
+  }
+
+  protected void ButtonSearch_Click(object sender, EventArgs e)
+  {
+    SqlDataSourceQuot.SelectParameters.Clear();
+
+    string mySQLstr = "";
+    if (ddlClient.SelectedValue != "")
+    {
+      SqlDataSourceQuot.SelectParameters.Add("Client_Id", ddlClient.SelectedValue);
+      mySQLstr = " AND Client_Id=@Client_Id ";
+    }
+    if (ddlEmp.SelectedValue != "")
+    {
+      SqlDataSourceQuot.SelectParameters.Add("SalesId", ddlEmp.SelectedValue);
+      mySQLstr = " AND SalesId=@SalesId ";
+    }
+    if (txtProductName.Text != "")
+    {
+      SqlDataSourceQuot.SelectParameters.Add("Product_Name", txtProductName.Text);
+      mySQLstr = " AND ([Product_Name] LIKE '%' + @Product_Name + '%')";
+    }
+    if (txtModelNo.Text != "")
+    {
+      SqlDataSourceQuot.SelectParameters.Add("Model_No", txtModelNo.Text);
+      mySQLstr = " AND ([Model_No] LIKE '%' + @Model_No + '%')";
     }
 
-    protected void ButtonSearch_Click(object sender, EventArgs e)
-    {
-        SqlDataSourceQuot.SelectParameters.Clear();
 
-        string mySQLstr = "";
-        if (ddlClient.SelectedValue != "")
-        {
-            SqlDataSourceQuot.SelectParameters.Add("Client_Id", ddlClient.SelectedValue);
-            mySQLstr = " AND Client_Id=@Client_Id ";
-        }
-        if (ddlEmp.SelectedValue != "")
-        {
-            SqlDataSourceQuot.SelectParameters.Add("SalesId", ddlEmp.SelectedValue);
-            mySQLstr = " AND SalesId=@SalesId ";
-        }
-        if (txtProductName.Text != "")
-        {
-            SqlDataSourceQuot.SelectParameters.Add("Product_Name", txtProductName.Text);
-            mySQLstr = " AND ([Product_Name] LIKE '%' + @Product_Name + '%')";
-        }
-        if (txtModelNo.Text != "")
-        {
-            SqlDataSourceQuot.SelectParameters.Add("Model_No", txtModelNo.Text);
-            mySQLstr = " AND ([Model_No] LIKE '%' + @Model_No + '%')";
-        }
-
-
-        SqlDataSourceQuot.SelectCommand = "SELECT * FROM [vw_Quotation] WHERE 1=1 " + mySQLstr +
-            " ORDER BY  vw_Quotation.Quotation_No DESC, vw_Quotation.Vername, vw_Quotation.Model_No ";
-        GridViewQuotation.DataBind();
-    }
-    protected void ddlClient_DataBound(object sender, EventArgs e)
-    {
-        ddlClient.Items.Insert(0, new ListItem("--select--", ""));
-    }
-    protected void ddlEmp_DataBound(object sender, EventArgs e)
-    {
-        ddlEmp.Items.Insert(0, new ListItem("--select--", ""));
-    }
+    SqlDataSourceQuot.SelectCommand = "SELECT * FROM [vw_Quotation] WHERE 1=1 " + mySQLstr +
+        " ORDER BY  vw_Quotation.Quotation_No DESC, vw_Quotation.Vername, vw_Quotation.Model_No ";
+    GridViewQuotation.DataBind();
+  }
+  protected void ddlClient_DataBound(object sender, EventArgs e)
+  {
+    ddlClient.Items.Insert(0, new ListItem("--select--", ""));
+  }
+  protected void ddlEmp_DataBound(object sender, EventArgs e)
+  {
+    ddlEmp.Items.Insert(0, new ListItem("--select--", ""));
+  }
 }

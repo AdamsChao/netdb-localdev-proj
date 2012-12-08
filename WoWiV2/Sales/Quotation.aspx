@@ -67,12 +67,19 @@
         Quotation Lists :
         <br />
         <asp:GridView ID="GridViewQuotation" runat="server" AutoGenerateColumns="False" DataKeyNames="Quotation_Version_Id"
-            DataSourceID="SqlDataSourceQuot" Style="text-align: center" Width="100%" AllowSorting="True" PageSize="20"
-            CellPadding="4" ForeColor="#333333" GridLines="None" AllowPaging="True">
-            <AlternatingRowStyle BackColor="White" />
+            DataSourceID="SqlDataSourceQuot" Style="text-align: center" Width="100%" 
+          AllowSorting="True" PageSize="20" AllowPaging="True">
             <Columns>
+                <asp:TemplateField ShowHeader="False" Visible="False">
+                  <ItemTemplate>
+                     <asp:Button ID="ButtonDel" runat="server" CausesValidation="False" 
+                      CommandName="Delete" Text="刪除" OnClientClick="return confirm('是否確定刪除此報價單?\r請注意：\r一旦報價單刪除後，其所對應之Project資料亦將同步移除!');" />
+                  </ItemTemplate>
+                </asp:TemplateField>
                 <asp:HyperLinkField DataNavigateUrlFields="Quotation_Version_Id" DataNavigateUrlFormatString="CreateQuotation.aspx?q={0}"
                     NavigateUrl="CreateQuotation.aspx" Text="Edit\View" />
+                <asp:BoundField DataField="Quotation_Version_Id" HeaderText="Quot. ID" 
+                  Visible="False" />
                 <asp:BoundField DataField="Quotation_No" HeaderText="Quot. No" SortExpression="Quotation_No" />
                 <asp:BoundField DataField="Vername" HeaderText="Version" SortExpression="Vername" />
                 <asp:BoundField DataField="Quotation_Status_Name" HeaderText="Status" SortExpression="Quotation_Status_Name" />
@@ -84,23 +91,15 @@
                 <asp:BoundField DataField="fname" HeaderText="AE" SortExpression="fname" />
                 <asp:BoundField DataField="Quotation_OpenDate" HeaderText="Open Date" SortExpression="Quotation_OpenDate"
                     DataFormatString="{0:yyyy/MM/dd HH:mm}" />
+                
             </Columns>
-            <EditRowStyle BackColor="#2461BF" />
-            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="#EFF3FB" />
-            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-            <SortedAscendingCellStyle BackColor="#F5F7FB" />
-            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-            <SortedDescendingCellStyle BackColor="#E9EBEF" />
-            <SortedDescendingHeaderStyle BackColor="#4870BE" />
         </asp:GridView>
         <asp:SqlDataSource ID="SqlDataSourceQuot" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-            
-            
-            
-            SelectCommand="SELECT vw_Quotation.Quotation_Version_Id, vw_Quotation.Quotation_No, vw_Quotation.Vername, vw_Quotation.Quotation_Status_Name, vw_Quotation.code, vw_Quotation.companyname, vw_Quotation.Product_Name, vw_Quotation.Model_No, vw_Quotation.username, vw_Quotation.Quotation_OpenDate, vw_Quotation.Client_Id, vw_Quotation.fname, vw_Quotation.SalesId FROM vw_Quotation LEFT OUTER JOIN m_employee_accesslevel ON vw_Quotation.Access_Level_ID = m_employee_accesslevel.accesslevel_id WHERE (m_employee_accesslevel.employee_id = @employee_id) OR (vw_Quotation.Access_Level_ID IS NULL) ORDER BY vw_Quotation.Quotation_No DESC, vw_Quotation.Vername, vw_Quotation.Model_No">
+          SelectCommand="SELECT vw_Quotation.Quotation_Version_Id, vw_Quotation.Quotation_No, vw_Quotation.Vername, vw_Quotation.Quotation_Status_Name, vw_Quotation.code, vw_Quotation.companyname, vw_Quotation.Product_Name, vw_Quotation.Model_No, vw_Quotation.username, vw_Quotation.Quotation_OpenDate, vw_Quotation.Client_Id, vw_Quotation.fname, vw_Quotation.SalesId FROM vw_Quotation LEFT OUTER JOIN m_employee_accesslevel ON vw_Quotation.Access_Level_ID = m_employee_accesslevel.accesslevel_id WHERE (m_employee_accesslevel.employee_id = @employee_id) OR (vw_Quotation.Access_Level_ID IS NULL) ORDER BY vw_Quotation.Quotation_No DESC, vw_Quotation.Vername, vw_Quotation.Model_No" 
+          DeleteCommand="Delete from Quotation_Version where Quotation_Version_Id = @Quotation_Version_Id">
+            <DeleteParameters>
+              <asp:Parameter Name="Quotation_Version_Id" />
+            </DeleteParameters>
             <SelectParameters>
                 <asp:ControlParameter ControlID="txtCurrentEmployee_id" Name="employee_id" 
                     PropertyName="Text" />
