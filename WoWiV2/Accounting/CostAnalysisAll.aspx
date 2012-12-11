@@ -21,7 +21,7 @@
   {
     iGridViewCost.AddMergedColumns("Status", 8, 2);
     iGridViewCost.AddMergedColumns("Invoice", 15, 3);
-    iGridViewCost.AddMergedColumns("PR", 18, 7);
+    iGridViewCost.AddMergedColumns("PR", 20, 6);
   }
 
   protected void btnExport_Click(object sender, EventArgs e)
@@ -48,14 +48,14 @@
     (sender as DropDownList).DataBind();
   }
 
-  protected void ddlIMA_Load(object sender, EventArgs e)
+  protected void ddlCM_Load(object sender, EventArgs e)
   {
     if (Page.IsPostBack) return;
-    var sales = from s in wowidb.employees
-                from d in wowidb.departments
-                where d.name.Contains("IMA") && s.department_id == d.id
+    var sales = (from s in wowidb.employees
+                from d in wowidb.Quotation_Target
+                where d.Country_Manager == s.id
                 orderby s.fname, s.c_fname
-                select new { Id = s.id, Name = s.fname + " " + s.lname };
+                select new { Id = s.id, Name = s.fname + " " + s.lname }).Distinct();
     (sender as DropDownList).DataSource = sales;
     (sender as DropDownList).DataTextField = "Name";
     (sender as DropDownList).DataValueField = "Id";
@@ -199,7 +199,7 @@
         e.Row.Cells[13].BackColor = System.Drawing.Color.Orange;
         e.Row.Cells[14].BackColor = System.Drawing.Color.Yellow;
         e.Row.Cells[15].BackColor = System.Drawing.Color.Orange;
-        e.Row.Cells[22].BackColor = System.Drawing.Color.Orange;
+        e.Row.Cells[23].BackColor = System.Drawing.Color.Orange;
       }
       if (((Label)e.Row.FindControl("LabelTargetID")).Text == "-1")
       {
@@ -248,19 +248,19 @@
         <th align="left">
           AE :&nbsp;
         </th>
-        <td colspan="3">
+        <td>
           <asp:DropDownList ID="ddlSales" runat="server" AppendDataBoundItems="True" OnLoad="ddlSales_Load">
             <asp:ListItem Value="%">- All -</asp:ListItem>
           </asp:DropDownList>
         </td>
-        <%--<th align="left">
-          &nbsp;
+        <th align="left">
+          Country Manager
         </th>
         <td width="100%">
-          <asp:DropDownList ID="ddlIMA" runat="server" AppendDataBoundItems="True" OnLoad="ddlIMA_Load">
+          <asp:DropDownList ID="ddlCM" runat="server" AppendDataBoundItems="True" OnLoad="ddlCM_Load">
             <asp:ListItem Value="%">- All -</asp:ListItem>
           </asp:DropDownList>
-        </td>--%>
+        </td>
       </tr>
       <tr>
         <th align="left" >
@@ -418,8 +418,9 @@
               <asp:BoundField DataField="InvNo" HeaderText="Inv No" />
               <asp:BoundField DataField="IMAID" HeaderText="IMAID" ReadOnly="True" SortExpression="IMAID"
                 Visible="False" />
+              <asp:BoundField DataField="CM" HeaderText="CM" />
               <asp:BoundField DataField="IMA" HeaderText="IMA" ReadOnly="True" SortExpression="IMA"
-                HtmlEncode="False" />
+                HtmlEncode="False" Visible="False" />
               <asp:BoundField DataField="VenderName" HeaderText="Vender Name" ReadOnly="True" HtmlEncode="False" />
               <asp:BoundField DataField="IMACostCurrency" HeaderText="Currency" ReadOnly="True"
                 HtmlEncode="False" />
@@ -449,6 +450,8 @@
         Type="String" />
       <asp:ControlParameter ControlID="ddlSales" DefaultValue="%" Name="AE" PropertyName="SelectedValue"
         Type="String" />
+      <asp:ControlParameter ControlID="ddlCM" DefaultValue="%" Name="CM" 
+        PropertyName="SelectedValue" Type="String" />
       <asp:ControlParameter ControlID="dcProjFrom" DefaultValue="2010/1/1" Name="ProjectDateFrom"
         PropertyName="Text" Type="String" />
       <asp:ControlParameter ControlID="dcProjTo" DefaultValue="2020/1/1" Name="ProjectDateTo"
