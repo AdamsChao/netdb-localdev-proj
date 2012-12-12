@@ -37,11 +37,12 @@
   protected void ddlSales_Load(object sender, EventArgs e)
   {
     if (Page.IsPostBack) return;
-    var sales = from s in wowidb.employees
-                from d in wowidb.departments
-                where s.department_id == d.id && (d.name.Contains("Sales") || d.name.Contains("Admin"))
+    var sales = (from p in wowidb.Projects                
+                from q in wowidb.Quotation_Version
+                from s in wowidb.employees                
+                where p.Quotation_No == q.Quotation_No && s.id == q.SalesId
                 orderby s.fname, s.c_fname
-                select new { Id = s.id, Name = s.fname + " " + s.lname };
+                select new { Id = s.id, Name = s.fname + " " + s.lname }).Distinct();
     (sender as DropDownList).DataSource = sales;
     (sender as DropDownList).DataTextField = "Name";
     (sender as DropDownList).DataValueField = "Id";
@@ -75,7 +76,13 @@
   protected void ddlClient_Load(object sender, EventArgs e)
   {
     if (Page.IsPostBack) return;
-    var clients = from c in wowidb.clientapplicants where c.clientapplicant_type == 1 || c.clientapplicant_type == 3 orderby c.companyname, c.c_companyname select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname };
+    var clients = (from p in wowidb.Projects                
+                  from q in wowidb.Quotation_Version
+                  from c in wowidb.clientapplicants
+                  where p.Quotation_No == q.Quotation_No && c.id == q.Client_Id
+                  orderby c.companyname, c.c_companyname 
+                  select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname })
+                  .Distinct();
     (sender as DropDownList).DataSource = clients;
     (sender as DropDownList).DataTextField = "Name";
     (sender as DropDownList).DataValueField = "Id";
@@ -414,8 +421,9 @@
               <asp:BoundField DataField="Quote" HeaderText="Quote" />
               <asp:BoundField DataField="Discount" HeaderText="Discount" />
               <asp:BoundField DataField="InvUSD" HeaderText="Inv USD" />
-              <asp:BoundField DataField="InvDate" HeaderText="Inv Date" DataFormatString="{0:d}" />
-              <asp:BoundField DataField="InvNo" HeaderText="Inv No" />
+              <asp:BoundField DataField="InvDate" HeaderText="Inv Date" 
+                DataFormatString="{0:d}" HtmlEncode="False" />
+              <asp:BoundField DataField="InvNo" HeaderText="Inv No" HtmlEncode="False" />
               <asp:BoundField DataField="IMAID" HeaderText="IMAID" ReadOnly="True" SortExpression="IMAID"
                 Visible="False" />
               <asp:BoundField DataField="CM" HeaderText="CM" />
