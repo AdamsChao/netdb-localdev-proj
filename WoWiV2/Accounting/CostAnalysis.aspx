@@ -494,7 +494,7 @@
                             }//end of invoice
                             if (!state)
                             {
-                                continue;
+                                continue;//Key
                             }
                             temp2.InvUSD = tarTotal.ToString("F2");
                         }
@@ -580,7 +580,10 @@
                                         temp2.PRNo += pr.pr_id + " ";
                                         foreach (var prr in wowidb.PR_Payment.Where(c => c.pr_id == item.pr_id))
                                         {
-                                            prtot += (decimal)prr.total_amount;
+                                            if (prr.total_amount.HasValue)
+                                            {
+                                                prtot += (decimal)prr.total_amount;
+                                            }
                                             if (prr.pay_date.HasValue)
                                             {
                                                 temp2.PaymentDate += ((DateTime)prr.pay_date).ToString("yyyy-MM-dd") + " ";
