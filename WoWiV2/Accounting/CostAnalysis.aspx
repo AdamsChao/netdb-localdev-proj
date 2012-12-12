@@ -578,6 +578,12 @@
                                             }
                                         }
                                         temp2.PRNo += pr.pr_id + " ";
+                                        //if (pr.total_cost.HasValue)
+                                        //{
+                                            
+                                        //    prtot += (decimal)pr.total_cost;
+                                        //}
+                                        
                                         foreach (var prr in wowidb.PR_Payment.Where(c => c.pr_id == item.pr_id))
                                         {
                                             if (prr.total_amount.HasValue)
