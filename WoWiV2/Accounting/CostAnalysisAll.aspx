@@ -243,7 +243,7 @@
   <p>
     Project Cost Analysis</p>
   <p>
-    <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
+    <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%" style="background-color:White;"  >
       <tr>
         <th align="left">
           AE :&nbsp;
@@ -256,7 +256,7 @@
         <th align="left">
           Country Manager
         </th>
-        <td width="100%">
+        <td>
           <asp:DropDownList ID="ddlCM" runat="server" AppendDataBoundItems="True" OnLoad="ddlCM_Load">
             <asp:ListItem Value="%">- All -</asp:ListItem>
           </asp:DropDownList>
@@ -434,6 +434,7 @@
       </tr>
     </table>
   </p>
+  
   <asp:SqlDataSource ID="SqlDataSourceCost" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
     SelectCommand="SELECT * FROM [vw_CostAnalysis]" SelectCommandType="StoredProcedure">
   </asp:SqlDataSource>
