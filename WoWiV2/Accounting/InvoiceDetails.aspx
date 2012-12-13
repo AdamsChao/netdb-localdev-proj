@@ -54,7 +54,11 @@
                 }
             }
         }
-        
+
+        if (User.Identity.Name=="Amy" || User.Identity.Name=="Timur")
+        {
+          HyperLink1.Visible = false;         
+        }
     }
 
     protected void ddlProj_Load(object sender, EventArgs e)
