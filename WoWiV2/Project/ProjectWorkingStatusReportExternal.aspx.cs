@@ -50,6 +50,7 @@ public partial class Project_ProjectWorkingStatusReportExternal : System.Web.UI.
     {
         ButtonExcel.Visible = false;
         HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.Write("<meta http-equiv=Content-Type content=text/html;charset=utf-8>"); 
         HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename="
             + HttpContext.Current.Server.UrlEncode(LabelProject.Text) + "WorkingStatus.xls");
         HttpContext.Current.Response.Charset = "utf-8";
