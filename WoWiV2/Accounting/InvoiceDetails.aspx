@@ -257,7 +257,7 @@
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
-<script type="text/javascript">
+  <script type="text/javascript">
     function openPrintWin() {
         window.open('<%= "InvoicePrint.aspx?id=" + Request.QueryString["id"] %>', 'new', 'scrollbars=yes,menubar=yes,height=800,width=800,resizable=no,toolbar=no,location=no,status=no');
     }
