@@ -258,12 +258,18 @@
                 {
                     
                     WoWiModel.PR_Payment pay = (from p in wowidb.PR_Payment where p.pr_id == obj.pr_id select p).First();
-                    
+
                     if (pay.status == (byte)PRStatus.ClosePaid)
                     {
                         btnSave.Enabled = false;
                         tbPayRemarks.ReadOnly = true;
                         btnModify.Visible = false;
+
+                    }
+                    else
+                    {
+                        imgF.CssClass = "Hidden";
+                        imgF.Visible = false;
                     }
                     ddlAdjustOperate.SelectedValue = pay.adjust_operator;
                     ddlOperate.SelectedValue = pay.adjust_operator;
@@ -281,11 +287,6 @@
                     {
                         dcPaidDate.setText(((DateTime)pay.pay_date).ToString("yyyy/MM/dd"));
                         lblF.Text = ((DateTime)pay.pay_date).ToString("yyyy/MM/dd");
-                    }
-                    else
-                    {
-                        imgF.CssClass = "Hidden";
-                        imgF.Visible = false;
                     }
                     try 
 	                {	        
