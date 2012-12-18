@@ -277,8 +277,16 @@
                     tbTotal.Text = ((decimal)pay.total_amount).ToString("F2");
                     lblTotal.Text = ((decimal)pay.adjust_total).ToString("F2");
                     dcPaidDate.isReadOnly(true);
-                    dcPaidDate.setText(((DateTime)pay.pay_date).ToString("yyyy/MM/dd"));
-                    lblF.Text = ((DateTime)pay.pay_date).ToString("yyyy/MM/dd");
+                    if (pay.pay_date.HasValue)
+                    {
+                        dcPaidDate.setText(((DateTime)pay.pay_date).ToString("yyyy/MM/dd"));
+                        lblF.Text = ((DateTime)pay.pay_date).ToString("yyyy/MM/dd");
+                    }
+                    else
+                    {
+                        imgF.CssClass = "Hidden";
+                        imgF.Visible = false;
+                    }
                     try 
 	                {	        
 		                String f ;
