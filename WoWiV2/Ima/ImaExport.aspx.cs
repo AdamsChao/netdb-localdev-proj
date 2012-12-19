@@ -287,6 +287,11 @@ public partial class Ima_ImaExport : System.Web.UI.Page
     {
         SetCondition(cbRegion, lblRegion, false);
         SetCondition(cbTechnology, lblTechID, false);
+        string strRegion = lblRegion.Text.Trim();
+        if (strRegion.Length > 0 && strRegion.Substring(0, 1) == ",")
+        {
+            strRegion = strRegion.Remove(0, 1);
+        }
         string strSelCountryID = lblCountrys.Text.Trim();
         if (strSelCountryID.Length > 0 && strSelCountryID.Substring(0, 1) == ",") 
         {
@@ -294,7 +299,7 @@ public partial class Ima_ImaExport : System.Web.UI.Page
         }
         SqlCommand cmd = new SqlCommand("STP_GetExportData");
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("@RID", lblRegion.Text.Trim());
+        cmd.Parameters.AddWithValue("@RID", strRegion);
         cmd.Parameters.AddWithValue("@CID", strSelCountryID);
         cmd.Parameters.AddWithValue("@PTID", ddlProductType.SelectedValue);
         cmd.Parameters.AddWithValue("@TecID", lblTechID.Text.Trim());
