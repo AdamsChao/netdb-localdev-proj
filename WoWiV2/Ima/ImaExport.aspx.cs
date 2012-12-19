@@ -287,16 +287,27 @@ public partial class Ima_ImaExport : System.Web.UI.Page
     {
         SetCondition(cbRegion, lblRegion, false);
         SetCondition(cbTechnology, lblTechID, false);
-        string strRegion = lblRegion.Text.Trim();
-        if (strRegion.Length > 0 && strRegion.Substring(0, 1) == ",")
+        string strRegion = "";
+        foreach(string s in lblRegion.Text.Trim().Split(','))
         {
-            strRegion = strRegion.Remove(0, 1);
+            if (s != "") { strRegion += "," + s; }
         }
-        string strSelCountryID = lblCountrys.Text.Trim();
-        if (strSelCountryID.Length > 0 && strSelCountryID.Substring(0, 1) == ",") 
+        if (strRegion.Length > 0) { strRegion = strRegion.Remove(0, 1); }
+        string strSelCountryID = "";
+        foreach (string s in lblCountrys.Text.Trim().Split(','))
         {
-            strSelCountryID = strSelCountryID.Remove(0, 1);
+            if (s != "") { strSelCountryID += "," + s; }
         }
+        if (strSelCountryID.Length > 0) { strSelCountryID = strSelCountryID.Remove(0, 1); }
+        //string strSelCountryID = lblCountrys.Text.Trim();
+        //if (strSelCountryID.Length > 0 && strSelCountryID.Substring(0, 1) == ",") 
+        //{
+        //    strSelCountryID = strSelCountryID.Remove(0, 1);
+        //}
+        //if (strSelCountryID.Substring(strSelCountryID.Length - 1, 1) == ",")
+        //{
+        //    strSelCountryID = strSelCountryID.Remove(strSelCountryID.Length - 1, 1);
+        //}
         SqlCommand cmd = new SqlCommand("STP_GetExportData");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@RID", strRegion);
