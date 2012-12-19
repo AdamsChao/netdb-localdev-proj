@@ -875,7 +875,8 @@
                 try
                 {
                    
-                    int empid = (from emp in wowidb.employees where emp.username == username select emp.id).First();
+                    var employee = (from emp in wowidb.employees where emp.username == username select emp).First();
+                    int empid = employee.id;
                     switch (st)
                     {
                         case PRStatus.Init:
@@ -886,6 +887,9 @@
                                     btn.Enabled = true;
                                     EnableInput(true);
                                 }
+
+                                
+                                
                             }
 
                             break;
@@ -930,9 +934,12 @@
                                         EnableInput(true);
                                     }
                                 }
+                                
                             }
                             break;
                     }
+                    
+                    
                 }
                 catch
                 {
@@ -1352,6 +1359,42 @@
     protected void FormView1_PageIndexChanging(object sender, FormViewPageEventArgs e)
     {
 
+    }
+
+    protected void btnCancel_PreRender(object sender, EventArgs e)
+    {
+        if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+        {
+           
+            try
+            {
+               
+                Button btn = (Button)sender;
+                String btnID = btn.ID;
+                string username = User.Identity.Name;
+                try
+                {
+
+                    String lname = (from emp in wowidb.employees where emp.username == username select emp.lname).First();
+                    if ((username == "Shirley" && lname == "Kang") || (username == "Scott" && lname == "Wang"))
+                    {
+                        btn.Enabled = true;
+                        return;
+                    }
+
+                }
+                catch
+                {
+                }
+
+            }
+
+            catch (Exception)
+            {
+
+                //throw;
+            }
+        }
     }
 </script>
 
@@ -2005,7 +2048,7 @@
                                  </td>
                                  <td>
                                      <asp:Button ID="btnCancel" runat="server" Text="Withdraw" onload="btn_Load"
-                                         onclick="btnCancel_Click" />
+                                         onclick="btnCancel_Click" onprerender="btnCancel_PreRender" />
                                  </td>
                                  <td>
                                     
