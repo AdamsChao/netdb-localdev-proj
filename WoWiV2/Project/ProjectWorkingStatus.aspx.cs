@@ -26,10 +26,13 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
         }
         if (Request["TargetID"] != null)
         {
-          lblTarget.Text = Request["TargetID"].ToString();
-          ddlWorkingStatusTarget.DataBind();
-          ddlWorkingStatusTarget.SelectedValue = lblTarget.Text;
-          dvWorkingStatus.Visible = true;
+          if (!string.IsNullOrEmpty(Request["TargetID"]))
+          {
+            lblTarget.Text = Request["TargetID"].ToString();
+            ddlWorkingStatusTarget.DataBind();
+            ddlWorkingStatusTarget.SelectedValue = lblTarget.Text;
+            dvWorkingStatus.Visible = true;
+          }          
         }        
       }
     }

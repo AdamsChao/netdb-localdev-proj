@@ -86,6 +86,16 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
     }
 
 
+    protected void DropDownListProject_DataBound(object sender, EventArgs e)
+    {
+      DropDownList ddlProject = (DropDownList)sender;
+      ddlProject.Items.Insert(0, new ListItem()
+      {
+        Text = "Please select a Project...",
+        Value = "0"
+      });
+    }
+
     protected void DropDownListEmp_DataBound(object sender, EventArgs e)
     {
       DropDownList ddlEmp = (DropDownList)sender;
@@ -133,6 +143,21 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
     protected void LinkButtonTop_Click(object sender, EventArgs e)
     {
       Response.Redirect("~/Project/ProjectWorkingStatus.aspx?ProjectNo="
-        + DropDownList1.SelectedItem.Text);
+        + DropDownListProject.SelectedItem.Text
+        + "&ProjectID=" + HidProjectID.Value
+        + "&CountryID=" + HidCountryID.Value
+        + "&TargetID=" + HidTargetID.Value);
+    }
+
+    protected void DropDownListProject_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      HidProjectID.Value = DropDownListProject.SelectedValue.ToString();
+    }
+    protected void GridViewProjectTarget_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      Label LabelTargetID = (Label)GridViewProjectTarget.SelectedRow.FindControl("LabelTargetID");
+      HidTargetID.Value = LabelTargetID.Text;
+      Label LabelCountryID = (Label)GridViewProjectTarget.SelectedRow.FindControl("LabelCountryID");
+      HidCountryID.Value = LabelCountryID.Text;      
     }
 }
