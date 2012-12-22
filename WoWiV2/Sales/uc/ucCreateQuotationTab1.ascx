@@ -34,26 +34,30 @@
         </th>
         <td>
             <asp:DropDownList ID="DropDownListEmp" runat="server" DataSourceID="SqlDataSourceEmp"
-                DataTextField="fname" DataValueField="id">
+                DataTextField="empname" DataValueField="id">
             </asp:DropDownList>
             &nbsp;&nbsp;&nbsp; Access Level:<asp:DropDownList ID="ddlAccessLevel" 
-                runat="server" DataSourceID="SqlDataSourceAccessLevel" 
+                runat="server" DataSourceID="SqlDataSourceSalesAL" 
                 DataTextField="name" DataValueField="id" AppendDataBoundItems="True" 
                 ondatabound="ddlAccessLevel_DataBound">
                 <asp:ListItem Text="--select--" Value=""></asp:ListItem>
             </asp:DropDownList>
-            <asp:SqlDataSource ID="SqlDataSourceAccessLevel" runat="server" 
+            <asp:SqlDataSource ID="SqlDataSourceSalesAL" runat="server" 
+              ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" SelectCommand="select access_level.id,access_level.name
+from access_level
+where access_level.name like '%Sales%' and publish=1"></asp:SqlDataSource>
+            <%--<asp:SqlDataSource ID="SqlDataSourceAccessLevel" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
                 SelectCommand="SELECT access_level.id, access_level.name FROM access_level INNER JOIN m_employee_accesslevel ON access_level.id = m_employee_accesslevel.accesslevel_id WHERE (m_employee_accesslevel.employee_id = @employee_id) AND (access_level.publish = '1')">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="txtCurrentEmployee_id" Name="employee_id" 
                         PropertyName="Text" />
                 </SelectParameters>
-            </asp:SqlDataSource>
+            </asp:SqlDataSource>--%>
             <asp:TextBox ID="txtCurrentEmployee_id" runat="server" Visible="false"></asp:TextBox>
           
             <asp:SqlDataSource ID="SqlDataSourceEmp" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                SelectCommand="SELECT id, fname FROM employee WHERE (status = 'Active')"></asp:SqlDataSource>
+                SelectCommand="SELECT [id], [empname] FROM [vw_GetAEWithoutAccounting]"></asp:SqlDataSource>
         </td>
     </tr>
     <tr>

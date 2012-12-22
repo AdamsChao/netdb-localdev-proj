@@ -44,11 +44,11 @@
                 AE Name
             </th>
             <td>
-                <asp:DropDownList ID="ddlEmp" runat="server" DataSourceID="SqlDataSourceEmp" DataTextField="fname"
+                <asp:DropDownList ID="ddlEmp" runat="server" DataSourceID="SqlDataSourceEmp" DataTextField="empname"
                     DataValueField="id" OnDataBound="ddlEmp_DataBound">
                 </asp:DropDownList>
                 <asp:SqlDataSource ID="SqlDataSourceEmp" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                    SelectCommand="SELECT [id], [fname] FROM [employee] where status='Active'"></asp:SqlDataSource>
+                    SelectCommand="SELECT [id], [empname] FROM [vw_GetAEWithoutAccounting]"></asp:SqlDataSource>
             </td>
              <th  class="style4">
                 Model No
