@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true"
   CodeFile="ProjectWorkingStatus.aspx.cs" Inherits="Project_ProjectWorkingStatus" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
@@ -35,15 +36,12 @@
           <td>
             <p />
             Project：<asp:DropDownList ID="ddlWorkingStatusProject" runat="server" AutoPostBack="True"
-              DataSourceID="GetProjectsHasTargetSqlDataSource" DataTextField="Project_No" DataValueField="Project_Id"
+              DataSourceID="GetProjectsHasTargetSqlDataSource" DataTextField="Project_Name" DataValueField="Project_Id"
               EnableTheming="False" OnSelectedIndexChanged="ddlWorkingStatusProject_SelectedIndexChanged"
               OnDataBound="ddlWorkingStatusProject_DataBound">
             </asp:DropDownList>
             <asp:SqlDataSource ID="GetProjectsHasTargetSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-              SelectCommand="SELECT [Project_Id], [Project_No] +' [' + Model_NO + ']' as [Project_No]
-FROM [Project]
-INNER JOIN Quotation_Version ON [Project].Quotation_Id = Quotation_Version.Quotation_Version_Id
-WHERE ([Project_Status] LIKE '%' + @Project_Status + '%') ">
+              SelectCommand="SELECT [Project_Id],[Project_Name] FROM vw_GetProjectLists WHERE ([Project_Status] LIKE '%' + @Project_Status + '%') ">
               <SelectParameters>
                 <asp:ControlParameter ControlID="TreeViewMenu" DefaultValue="%" Name="Project_Status"
                   PropertyName="SelectedValue" Type="String" />
@@ -332,6 +330,11 @@ Where Quotation_Target.quotation_id in
             </ItemTemplate>
           </asp:TemplateField>
           <asp:CheckBoxField DataField="external_use" HeaderText="External" />
+          <asp:TemplateField HeaderText="Certification Completed">
+            <InsertItemTemplate>
+              <asp:Label ID="LabelCertificationDate" runat="server"></asp:Label>
+            </InsertItemTemplate>
+          </asp:TemplateField>
           <asp:CommandField CancelText="Cancel" InsertText="Save" NewText="Add" ShowInsertButton="True"
             ValidationGroup="AddWorkingStatus">
             <ItemStyle HorizontalAlign="Right" />

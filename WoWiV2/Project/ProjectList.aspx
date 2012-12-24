@@ -28,10 +28,11 @@
             </asp:TreeView>
           </td>
           <td>
+          <p/>
             Client :
             <asp:DropDownList ID="DropDownListClient" runat="server" AppendDataBoundItems="True"
               DataSourceID="SqlDataSourceClient" DataTextField="companyname" DataValueField="id">
-              <asp:ListItem Value="%">Please Select a Client (-All-)</asp:ListItem>
+              <asp:ListItem Value="%">- All -</asp:ListItem>
             </asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
               SelectCommand="SELECT DISTINCT  clientapplicant.id , clientapplicant.companyname 
@@ -43,6 +44,14 @@ ORDER BY clientapplicant.companyname"></asp:SqlDataSource>
             <p />
             and Model :
             <asp:TextBox ID="TextBoxDesc" runat="server"></asp:TextBox>
+            <p />            
+            and AE :
+            <asp:DropDownList ID="DropDownListAE" runat="server" AppendDataBoundItems="True"
+            DataSourceID="SqlDataSourceAE" DataTextField="empname" DataValueField="id">
+            <asp:ListItem Value="%">- All -</asp:ListItem>
+          </asp:DropDownList>
+          <asp:SqlDataSource ID="SqlDataSourceAE" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+            SelectCommand="SELECT [id],  empname FROM vw_GetAEWithoutAccounting"></asp:SqlDataSource>
             <p />
             <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
           </td>
@@ -108,7 +117,8 @@ ORDER BY clientapplicant.companyname"></asp:SqlDataSource>
             <asp:Label ID="Label4" runat="server" Text='<%# Bind("Create_Date") %>'></asp:Label>
           </ItemTemplate>
         </asp:TemplateField>
-        <asp:TemplateField HeaderText="Quotation No" SortExpression="Quotation_No">
+        <asp:TemplateField HeaderText="Quotation No" SortExpression="Quotation_No" 
+          Visible="False">
           <EditItemTemplate>
             <asp:Label ID="Label5" runat="server" Visible="false" Text='<%# Bind("Quotation_Id") %>'></asp:Label>
             <asp:Label ID="Label2" runat="server" Text='<%# Eval("Quotation_No") %>'></asp:Label>
@@ -118,14 +128,24 @@ ORDER BY clientapplicant.companyname"></asp:SqlDataSource>
             <asp:Label ID="Label6" runat="server" Text='<%# Bind("Quotation_No") %>'></asp:Label>
           </ItemTemplate>
         </asp:TemplateField>
+        <asp:HyperLinkField DataNavigateUrlFields="Quotation_Id" 
+          DataNavigateUrlFormatString="~/Sales/CreateQuotation.aspx?q={0}" 
+          HeaderText="Quotation No" DataTextField="Quotation_No" Target="_blank" />
       </Columns>
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSourceProject" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
       DeleteCommand="DELETE FROM [Project] WHERE [Project_Id] = @Project_Id" InsertCommand="INSERT INTO [Project] ([Project_No], [Project_Status], [Client_Action], [Create_Date], [Quotation_Id]) VALUES (@Project_No, @Project_Status, @Client_Action, @Create_Date, @Quotation_Id)"
-      SelectCommand="SELECT Project.Project_Id, Project.Project_No, Project.Project_Status, Project.Client_Action, Project.Create_Date, Project.Quotation_Id, (SELECT fname FROM employee WHERE (id = Quotation_Version.SalesId)) AS AE, Quotation_Version.Product_Name AS Product, Quotation_Version.Model_No AS Model, Quotation_Version.Model_Difference AS Description, (SELECT companyname FROM clientapplicant WHERE (id = Quotation_Version.Client_Id)) AS Client, (SELECT companyname FROM clientapplicant AS clientapplicant_1 WHERE (id = Quotation_Version.Applicant_Id)) AS Applicant, Quotation_Version.Quotation_No FROM Project INNER JOIN Quotation_Version ON Project.Quotation_Id = Quotation_Version.Quotation_Version_Id 
+      SelectCommand="SELECT Project.Project_Id, Project.Project_No, Project.Project_Status, Project.Client_Action, Project.Create_Date, Project.Quotation_Id
+, (SELECT fname + ' ' + lname as fname FROM employee WHERE (id = Quotation_Version.SalesId)) AS AE, Quotation_Version.Product_Name AS Product, Quotation_Version.Model_No AS Model, Quotation_Version.Model_Difference AS Description
+, (SELECT companyname FROM clientapplicant WHERE (id = Quotation_Version.Client_Id)) AS Client
+, (SELECT companyname FROM clientapplicant WHERE (id = Quotation_Version.Applicant_Id)) AS Applicant
+, Quotation_Version.Quotation_No 
+FROM Project 
+INNER JOIN Quotation_Version ON Project.Quotation_Id = Quotation_Version.Quotation_Version_Id 
 Where Quotation_Version.Client_Id like @clientID 
 and Quotation_Version.Model_No like  '%' + @Model + '%' 
 and Project_Status LIKE '%' + @Project_Status + '%'
+AND Quotation_Version.SalesId  LIKE @SalesId
 Order by Project.Project_Id desc" UpdateCommand="UPDATE [Project] SET [Project_No] = @Project_No, [Project_Status] = @Project_Status, [Client_Action] = @Client_Action, [Create_Date] = @Create_Date, [Quotation_Id] = @Quotation_Id WHERE [Project_Id] = @Project_Id">
       <DeleteParameters>
         <asp:Parameter Name="Project_Id" Type="Int32" />
@@ -143,6 +163,9 @@ Order by Project.Project_Id desc" UpdateCommand="UPDATE [Project] SET [Project_N
         <asp:ControlParameter ControlID="TextBoxDesc" DefaultValue="%" Name="Model" PropertyName="Text" />
         <asp:ControlParameter ControlID="TreeViewMenu" DefaultValue="%" Name="Project_Status"
           PropertyName="SelectedValue" />
+        <asp:ControlParameter ControlID="DropDownListAE" DefaultValue="%" Name="SalesId"
+              PropertyName="SelectedValue" />
+
       </SelectParameters>
       <UpdateParameters>
         <asp:Parameter Name="Project_No" Type="String" />

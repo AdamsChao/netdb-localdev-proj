@@ -36,7 +36,7 @@
               <asp:TreeView ID="TreeViewStatus" runat="server" ImageSet="WindowsHelp" ShowLines="True">
                 <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
                 <Nodes>
-                  <asp:TreeNode Text="案件管理" Value="案件管理">
+                  <asp:TreeNode Text="案件總覽(All)" Value="%">
                     <asp:TreeNode Text="新開案的案子(Open)" Value="Open"></asp:TreeNode>
                     <asp:TreeNode Text="申請中的案子(In-Progress)" Value="In-Progress"></asp:TreeNode>
                     <asp:TreeNode Text="暫停的案子(On-Hold)" Value="On-Hold"></asp:TreeNode>
@@ -44,7 +44,6 @@
                     <asp:TreeNode Text="取消的案子(Cancelled)" Value="Cancelled"></asp:TreeNode>
                     <asp:TreeNode Text="逾時案件(Delay)" Value="Delay"></asp:TreeNode>
                   </asp:TreeNode>
-                  <asp:TreeNode Text="案件總覽" Value="%"></asp:TreeNode>
                 </Nodes>
                 <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
                   NodeSpacing="0px" VerticalPadding="1px" />
@@ -75,21 +74,23 @@
         <asp:Panel ID="PanelSearch" runat="server" GroupingText="Project Target Search Condition">
           Project No:
           <asp:DropDownList ID="DropDownListPO" runat="server" DataSourceID="SqlDataSourceProject"
-            DataTextField="Project_No" DataValueField="Project_Id" AppendDataBoundItems="True">
+            DataTextField="Project_Name" DataValueField="Project_Id" AppendDataBoundItems="True">
             <asp:ListItem Value="%">- All -</asp:ListItem>
           </asp:DropDownList>
-          &nbsp;Country Manager :
+          <br />
+          <br />
+          Country Manager :
           <asp:DropDownList ID="DropDownListCM" runat="server" AppendDataBoundItems="True"
             DataSourceID="SqlDataSourceCM" DataTextField="fname" DataValueField="id">
             <asp:ListItem Value="0">- All -</asp:ListItem>
           </asp:DropDownList>
           &nbsp;AE :
           <asp:DropDownList ID="DropDownListAE" runat="server" AppendDataBoundItems="True"
-            DataSourceID="SqlDataSourceAE" DataTextField="fname" DataValueField="id">
+            DataSourceID="SqlDataSourceAE" DataTextField="empname" DataValueField="id">
             <asp:ListItem Value="%">- All -</asp:ListItem>
           </asp:DropDownList>
           <asp:SqlDataSource ID="SqlDataSourceAE" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-            SelectCommand="SELECT [id], [fname] FROM [employee] where status='Active'"></asp:SqlDataSource>
+            SelectCommand="SELECT [id],  empname FROM vw_GetAEWithoutAccounting"></asp:SqlDataSource>
           <br />
           <br />
           Region :
@@ -118,7 +119,7 @@
         <br />
         <asp:GridView ID="GridViewProjectTarget" runat="server" AllowPaging="True" AutoGenerateColumns="False"
           DataKeyNames="Quotation_Target_Id" DataSourceID="SqlDataSourceTarget" PageSize="20"
-          Width="100%" AllowSorting="True" EmptyDataText="Project下沒有可設定的相關資料!">
+          Width="100%" AllowSorting="True" EmptyDataText="Project下沒有可設定的相關資料!" OnRowDataBound="GridViewProjectTarget_RowDataBound">
           <Columns>
             <asp:HyperLinkField DataNavigateUrlFields="Project_Id,country_id,Quotation_Target_Id"
               DataNavigateUrlFormatString="~/Project/ProjectWorkingStatus.aspx?ProjectID={0}&amp;CountryID={1}&amp;TargetID={2}"
@@ -176,9 +177,9 @@
           SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Quotation_Target.quotation_id, Quotation_Target.target_id, Quotation_Target.target_description, Quotation_Target.country_id, Quotation_Target.product_type_id, Quotation_Target.authority_id, Quotation_Target.technology_id, Quotation_Target.target_rate, Quotation_Target.unit, Quotation_Target.unit_price, Quotation_Target.discount_type, Quotation_Target.discValue1, Quotation_Target.discValue2, Quotation_Target.discPrice, Quotation_Target.FinalPrice, Quotation_Target.PayTo, Quotation_Target.Status, Quotation_Target.Bill, Quotation_Target.option1, Quotation_Target.option2, Quotation_Target.advance1, Quotation_Target.advance2, Quotation_Target.balance1, Quotation_Target.balance2,Country_Manager
 , Quotation_Target.test_started, Quotation_Target.test_completed, Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed, Quotation_Target.Estimated_Lead_time, Quotation_Target.Actual_Lead_time, Quotation_Target.Agent
 , country.country_name, Authority.authority_name ,world_region.world_region_name
-,(Select fname from employee where id = Country_Manager ) as CountryManager
+,(Select fname + ' ' + lname as cmname from employee where id = Country_Manager ) as CountryManager
 ,Project.Project_Id, Project.Project_No, Project.Project_Status , Quotation_Version.Model_No
-, SalesId , Employee.fname as 'AE'
+, SalesId , Employee.fname + ' ' + lname  as 'AE'
 , Client_Id , clientapplicant.companyname as 'Client'
 FROM Quotation_Target 
 INNER JOIN country ON Quotation_Target.country_id = country.country_id 
@@ -207,12 +208,9 @@ AND (Client_Id  LIKE @Client_Id)
           </SelectParameters>
         </asp:SqlDataSource>
         <asp:SqlDataSource ID="SqlDataSourceCM" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-          SelectCommand="SELECT [id], [fname] FROM [employee] where status='Active'"></asp:SqlDataSource>
+          SelectCommand="SELECT [id],fname + ' ' + lname as [fname] FROM [employee] where status='Active'"></asp:SqlDataSource>
         <asp:SqlDataSource ID="SqlDataSourceProject" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-          SelectCommand="SELECT [Project].[Quotation_Id], [Project].[Quotation_No],[Project_Id], [Project_No] +' [' + Model_NO + ']' as [Project_No]
-FROM [Project]
-INNER JOIN Quotation_Version ON [Project].Quotation_Id = Quotation_Version.Quotation_Version_Id">
-        </asp:SqlDataSource>
+          SelectCommand="SELECT [Project_Id],[Project_Name] FROM vw_GetProjectLists"></asp:SqlDataSource>
         <asp:SqlDataSource ID="SqlDataSourceRegion" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
           SelectCommand="SELECT [world_region_id], [world_region_name] FROM [world_region]">
         </asp:SqlDataSource>

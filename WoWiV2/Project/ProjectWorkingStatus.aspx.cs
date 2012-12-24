@@ -33,7 +33,9 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
             ddlWorkingStatusTarget.SelectedValue = lblTarget.Text;
             dvWorkingStatus.Visible = true;
           }          
-        }        
+        }
+
+        
       }
     }
     protected void ddlWorkingStatusProject_SelectedIndexChanged(object sender, EventArgs e)
@@ -118,6 +120,24 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
         tmp.Text = System.DateTime.Now.ToShortDateString();
         Label lbl = (Label)dvWorkingStatus.FindControl("LabelCreateBy");
         lbl.Text = User.Identity.Name;
+        Label date = (Label)dvWorkingStatus.FindControl("LabelCertificationDate");
+        if (ddlWorkingStatusTarget.SelectedValue != "0" )
+        {
+          int targetid = int.Parse(ddlWorkingStatusTarget.SelectedValue);
+          QuotationModel.QuotationEntities dc = new QuotationModel.QuotationEntities();
+          var result = (from t in dc.Quotation_Target
+                        where t.Quotation_Target_Id == targetid
+                       select new { t.certification_completed }).First().certification_completed;
+          if (string.IsNullOrEmpty(result.ToString()))
+          {
+            date.Text = "N/A";
+          }
+          else
+          {
+            date.Text = result.Value.ToShortDateString();
+          }
+        }
+        
     }
 
     protected void ddlworkingStatusTemplate1_SelectedIndexChanged(object sender, EventArgs e)

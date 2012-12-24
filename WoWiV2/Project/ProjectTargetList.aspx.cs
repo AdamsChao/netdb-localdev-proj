@@ -160,4 +160,18 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
       Label LabelCountryID = (Label)GridViewProjectTarget.SelectedRow.FindControl("LabelCountryID");
       HidCountryID.Value = LabelCountryID.Text;      
     }
+    protected void GridViewProjectTarget_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+      if (e.Row.RowType == DataControlRowType.DataRow)
+      {
+        if (string.IsNullOrEmpty(e.Row.Cells[6].Text) || e.Row.Cells[6].Text == "&nbsp;")       
+          e.Row.Cells[6].Text = "N/A";
+        if (string.IsNullOrEmpty(e.Row.Cells[7].Text) || e.Row.Cells[7].Text == "&nbsp;")
+          e.Row.Cells[7].Text = "N/A";
+        if (string.IsNullOrEmpty(e.Row.Cells[8].Text) || e.Row.Cells[8].Text == "&nbsp;")
+          e.Row.Cells[8].Text = "N/A";
+        if (string.IsNullOrEmpty(e.Row.Cells[9].Text) || e.Row.Cells[9].Text == "&nbsp;")
+          e.Row.Cells[9].Text = "N/A";       
+      }
+    }
 }
