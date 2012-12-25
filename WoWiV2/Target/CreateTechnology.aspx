@@ -80,7 +80,7 @@
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="SqlDataSourceImaTech" runat="server" 
                             ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                            SelectCommand="SELECT [TechnologyCategoryID], [TechnologyCategoryName] FROM [Ima_Technology_Category]">
+                            SelectCommand="SELECT [TechnologyCategoryID], [TechnologyCategoryName] FROM [Ima_Technology_Category] Order by TechnologyCategoryName">
                         </asp:SqlDataSource>
                     </InsertItemTemplate>
                     <ItemTemplate>

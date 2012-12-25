@@ -32,7 +32,9 @@
             DataSourceID="SqlDataSourceRate" onrowupdated="GridViewRate_RowUpdated" 
             PageSize="20" Width="100%">
             <Columns>
-                <asp:CommandField ShowEditButton="True" />
+                <asp:CommandField ShowEditButton="True" >
+                <ItemStyle Wrap="False" />
+                </asp:CommandField>
                 <asp:BoundField DataField="Target_rate_id" HeaderText="ID" 
                     InsertVisible="False" ReadOnly="True" SortExpression="Target_rate_id" 
                     Visible="False" />

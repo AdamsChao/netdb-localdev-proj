@@ -134,7 +134,7 @@
                         ErrorMessage="至少選擇一個Technology" ForeColor="Red"></asp:RequiredFieldValidator>
                 <asp:SqlDataSource ID="SqlDataSourceTech" runat="server" 
                         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                        SelectCommand="SELECT [wowi_tech_id], [wowi_tech_name] FROM [wowi_tech] WHERE (([publish] = 1) AND ([wowi_product_type_id] = @wowi_product_type_id))">
+                        SelectCommand="SELECT [wowi_tech_id], [wowi_tech_name] FROM [wowi_tech] WHERE (([publish] = 1) AND ([wowi_product_type_id] = @wowi_product_type_id)) Order by wowi_tech_name">
                     <SelectParameters>
                         <asp:Parameter DefaultValue="Y" Name="publish" Type="String" />
                         <asp:ControlParameter ControlID="DropDownListPT" Name="wowi_product_type_id" 

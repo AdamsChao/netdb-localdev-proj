@@ -155,7 +155,7 @@
                         ErrorMessage="Can't be Empty"></asp:RequiredFieldValidator>
                     <asp:SqlDataSource ID="SqlDataSourceTech" runat="server" 
                         ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
-                        SelectCommand="SELECT [wowi_tech_id], [wowi_tech_name] FROM [wowi_tech] WHERE (([publish] = @publish) AND ([wowi_product_type_id] = @wowi_product_type_id))">
+                        SelectCommand="SELECT [wowi_tech_id], [wowi_tech_name] FROM [wowi_tech] WHERE (([publish] = @publish) AND ([wowi_product_type_id] = @wowi_product_type_id)) Order by wowi_tech_name">
                         <SelectParameters>
                             <asp:Parameter DefaultValue="Y" Name="publish" Type="String" />
                             <asp:ControlParameter ControlID="DropDownListPT" Name="wowi_product_type_id" 
