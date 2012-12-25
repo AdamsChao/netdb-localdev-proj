@@ -44,7 +44,7 @@
 
                     lblUSD.Text = "$" + ((decimal)invoice.total).ToString("F2");
                     lblUSD.ForeColor = System.Drawing.Color.Blue;
-                    lblNTD.Text = "$" + ((decimal)invoice.final_total * (decimal) invoice.exchange_rate).ToString("F2");
+                    lblNTD.Text = "$" + ((decimal)invoice.total * (decimal)invoice.exchange_rate).ToString("F2");
                 }
                 else
                 {
@@ -368,8 +368,8 @@
                             <td colspan="6"  >
                             Received History
                             <asp:Gridview ID="iGridView2" runat="server"  Width="100%" 
-                         AutoGenerateColumns="False" CssClass="Gridview"  ShowFooter="True" 
-                                    onrowcommand="iGridView2_RowCommand"  >
+                         AutoGenerateColumns="False"  ShowFooter="True" 
+                                    onrowcommand="iGridView2_RowCommand" s >
                         <Columns>
                        
                             <asp:TemplateField HeaderText="">

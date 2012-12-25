@@ -274,14 +274,14 @@
                     ddlAdjustOperate.SelectedValue = pay.adjust_operator;
                     ddlOperate.SelectedValue = pay.adjust_operator;
                     if (pay.adjust_amount.HasValue)
-                    tbAdjustAmount.Text = ((decimal)pay.adjust_amount).ToString("F2");
+                    tbAdjustAmount.Text = ((decimal)pay.adjust_amount).ToString("F4");
             
-                    tbRate.Text = ((decimal)pay.exchange_rate).ToString("F2");
+                    tbRate.Text = ((decimal)pay.exchange_rate).ToString("F4");
                     tbReason.Text = pay.reason;
                     tbPayRemarks.Text = pay.remarks;
                     tbToCurrency.Text = pay.tocurrency;
-                    tbTotal.Text = ((decimal)pay.total_amount).ToString("F2");
-                    lblTotal.Text = ((decimal)pay.adjust_total).ToString("F2");
+                    tbTotal.Text = ((decimal)pay.total_amount).ToString("F4");
+                    lblTotal.Text = ((decimal)pay.adjust_total).ToString("F4");
                     dcPaidDate.isReadOnly(true);
                     if (pay.pay_date.HasValue)
                     {

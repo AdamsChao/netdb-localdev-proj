@@ -33,21 +33,25 @@
   protected void DropDownList3_Load(object sender, EventArgs e)
   {
     if (Page.IsPostBack) return;
-    //var clients = from c in wowidb.clientapplicants where c.clientapplicant_type == 1 || c.clientapplicant_type == 3 orderby c.companyname, c.c_companyname select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname };
-    var clients =
-      (from i in wowidb.invoices
-       from p in wowidb.Projects
-       from q in wowidb.Quotation_Version
-       from c in wowidb.clientapplicants
-       where i.project_no == p.Project_No && p.Quotation_No == q.Quotation_No && c.id == q.Client_Id
-       orderby c.companyname, c.c_companyname
-       select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname })
-      .Distinct();
+    ////var clients = from c in wowidb.clientapplicants where c.clientapplicant_type == 1 || c.clientapplicant_type == 3 orderby c.companyname, c.c_companyname select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname };
+    //var clients =
+    //  (from i in wowidb.invoices
+    //   from p in wowidb.Projects
+    //   from q in wowidb.Quotation_Version
+    //   from c in wowidb.clientapplicants
+    //   where i.project_no == p.Project_No && p.Quotation_No == q.Quotation_No && c.id == q.Client_Id
+    //   orderby c.companyname, c.c_companyname
+    //   select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname })
+    //  .Distinct();
+    //(sender as DropDownList).DataSource = clients;
+    //(sender as DropDownList).DataTextField = "Name";
+    //(sender as DropDownList).DataValueField = "Id";
+    //(sender as DropDownList).DataBind();s
+    var clients = from c in wowidb.clientapplicants where c.clientapplicant_type == 1 || c.clientapplicant_type == 3 orderby c.companyname, c.c_companyname select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname };
     (sender as DropDownList).DataSource = clients;
     (sender as DropDownList).DataTextField = "Name";
     (sender as DropDownList).DataValueField = "Id";
     (sender as DropDownList).DataBind();
-
   }
 
   protected void Button2_Click(object sender, EventArgs e)
