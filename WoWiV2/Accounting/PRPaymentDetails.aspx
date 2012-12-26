@@ -56,7 +56,7 @@
                 }
                 lblPRNo.Text = obj.pr_id.ToString();
                 lblOCurrency1.Text = obj.currency;
-                lblOtotal.Text = ((decimal)obj.total_cost).ToString("F2");
+                lblOtotal.Text = ((decimal)obj.total_cost).ToString("F4");
                 QuotationModel.Project proj = (from pj in db.Project where  pj.Project_Id == obj.project_id select pj).First();
                 //lblProjectStatus.Text = proj.Project_Status;
                 lblProjNo.Text = proj.Project_No;
@@ -262,7 +262,7 @@
                     if (pay.status == (byte)PRStatus.ClosePaid)
                     {
                         btnSave.Enabled = false;
-                        tbPayRemarks.ReadOnly = true;
+                        //tbPayRemarks.ReadOnly = true;
                         btnModify.Visible = false;
 
                     }
@@ -392,6 +392,10 @@
             {
                 (sender as Button).Enabled = true;
             }
+            else
+            {
+                (sender as Button).Visible = false;
+            }
         }
         catch (Exception)
         {
@@ -452,6 +456,10 @@
         {
             height: 15px;
         }
+        .style2
+        {
+            width: 10%;
+        }
         </style>
 </head>
 <body>
@@ -479,7 +487,8 @@
             <p>
         <asp:LinkButton ID="Button2"
             runat="server" Text="PR Payment List" 
-                    PostBackUrl="~/Accounting/Payment4Vender.aspx" CausesValidation="False" />
+                    PostBackUrl="~/Accounting/Payment4Vender.aspx" CausesValidation="False" 
+                    Font-Size="13px" />
     </p>
                 <img border="0" height="56" src="../Images/Quotation/transparent.gif" width="168" />
             </td>
@@ -498,7 +507,7 @@
     </table>
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td class="ccstextboxh" valign="top">
+            <td class="ccstextboxh" valign="top" style="width:45%; font-size: 13px;">
                 <%--<p>
                     Today:
                     <asp:Label ID="lblToday" runat="server" Text="lblToday"></asp:Label></p> --%><p>
@@ -520,10 +529,10 @@
                     
                              <p>Email:
                             <asp:Label ID="lblClientEmail" runat="server"></asp:Label></p>
-            </td>  <td align="left" class="ccstextboxh"  valign="top" style="width:20%">
+            </td>  <td align="left" class="style2"  valign="top">
 
             </td>
-            <td align="left" class="ccstextboxh"  valign="top">
+            <td align="left" class="ccstextboxh"  valign="top" style="width:45%;font-size:13px;">
                     <p>
                     Access level:
                     <asp:Label ID="lblDept" runat="server" Text="lblDepartment"></asp:Label></p>
@@ -565,7 +574,8 @@
                     </tr>
                     <tr>
                         <td>
-                     <asp:GridView ID="BankGridView1" runat="server" Width="100%" AutoGenerateColumns="False"  onprerender="GridView1_PreRender">
+                     <asp:GridView ID="BankGridView1" runat="server" Width="100%" 
+                                AutoGenerateColumns="False"  onprerender="GridView1_PreRender" Font-Size="13px">
                                        <Columns>
            <asp:BoundField DataField="payment_type" HeaderText="Payment Type" 
                 SortExpression="payment_type" />
@@ -579,7 +589,8 @@
                 SortExpression="bank_telephone" />
         </Columns>
                                     </asp:GridView>
-                                    <asp:GridView ID="BankGridView2" runat="server" Width="100%" AutoGenerateColumns="False"  >
+                                    <asp:GridView ID="BankGridView2" runat="server" Width="100%" 
+                                AutoGenerateColumns="False" Font-Size="13px"  >
                                        <Columns>
             <asp:BoundField DataField="bank_account_no" HeaderText="Account No.(IBAN)" 
                 SortExpression="bank_account_no" />
@@ -591,8 +602,10 @@
                 SortExpression="bank_routing_no" />
         </Columns>
                                     </asp:GridView>
-              <asp:Label runat="server" ID="lblWUB" Text="Western Union Banking Information :"  Visible="false"></asp:Label>
-                                    <asp:GridView ID="WUBGridView" runat="server" Width="100%" AutoGenerateColumns="False"  >
+              <asp:Label runat="server" ID="lblWUB" Text="Western Union Banking Information :"  
+                                Visible="False" Font-Size="13px"></asp:Label>
+                                    <asp:GridView ID="WUBGridView" runat="server" Width="100%" 
+                                AutoGenerateColumns="False" Font-Size="13px"  >
                                        <Columns>
       <asp:BoundField DataField="wu_first_name" HeaderText="First Name" 
                 SortExpression="wu_first_name" />
@@ -610,7 +623,8 @@
                         </td>
                     </tr>
                         <td>
-                            <asp:GridView ID="TargetList" runat="server" AutoGenerateColumns="true" width="100%">
+                            <asp:GridView ID="TargetList" runat="server" AutoGenerateColumns="true" 
+                                width="100%" Font-Size="13px">
                              
                             </asp:GridView>
                          
@@ -623,81 +637,84 @@
 
             <tr>
             <td align="right" class="ccstextboxh" colspan="4" valign="top">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:13px;">
                  <tr>
-                        <td align="right" class="ccstextboxh" >
+                        <td align="right" class="ccstextboxh" style="width: 20%" >
               <%--  Original Currency :--%>
                     </td>
-                    <td align="left" class="ccstextboxh" >
+                    <td align="left" class="ccstextboxh" style="width: 35%" >
                      &nbsp;&nbsp;&nbsp;
                     </td>
-                    <td align="right" class="ccstextboxh" >
+                    <td align="right" class="ccstextboxh" style="width: 20%" >
                 Total :
                     </td>
-                    <td align="left" class="ccstextboxh" >
-                &nbsp;&nbsp;&nbsp;<asp:Label ID="lblOCurrency1" runat="server" Text="lblOCurrency"></asp:Label>$ <asp:Label ID="lblOtotal" runat="server" Text="lblOtotal"></asp:Label>
+                    <td align="right" class="ccstextboxh" style="width: 15%" >
+                &nbsp;&nbsp;&nbsp;<asp:Label ID="lblOCurrency1" runat="server" Text="lblOCurrency"></asp:Label>$ </td><td align="right" class="ccstextboxh" style="width: 10%"  ><asp:Label ID="lblOtotal" runat="server" Text="lblOtotal"></asp:Label>
                     </td>
                     </tr>
                    <tr>
-                        <td align="right" class="ccstextboxh" >
-                &nbsp;</td>
-                    <td align="left" class="ccstextboxh" >
-                        &nbsp;</td>
-                    <td align="right" class="ccstextboxh" >
-                Exchange Rate :
-                    </td>
-                    <td align="left" class="ccstextboxh" >
-                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlOperate" runat="server" Enabled="false" 
-                            AutoPostBack="True">
-                            <asp:ListItem>*</asp:ListItem>
-                            <asp:ListItem>/</asp:ListItem>
-                        </asp:DropDownList>
-               <asp:TextBox ID="tbRate" runat="server" AutoPostBack="True" ReadOnly = "true"
-                          ></asp:TextBox>
-                    </td>
-                    </tr>
-                     <tr>
                         <td align="right" class="ccstextboxh" >
                
                             Adjust&nbsp;Reason :
                
                     </td>
                     <td align="left" class="ccstextboxh" >
-                   &nbsp;&nbsp;&nbsp; <asp:TextBox ID="tbReason" runat="server" ReadOnly = "true"
-                            AutoPostBack="True" Width="300"></asp:TextBox>
-                  
+                   &nbsp;&nbsp;&nbsp;<%-- <asp:TextBox ID="tbReason" runat="server" ReadOnly = "true"
+                            AutoPostBack="True" Width="300"></asp:TextBox>--%>
+                   <asp:Label ID="tbReason" runat="server"></asp:Label>
                     </td>
                     <td align="right" class="ccstextboxh" >
-                Adjust Amount :
+                Exchange Rate :
                     </td>
-                    <td align="left" class="ccstextboxh" >
-                       &nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlAdjustOperate" runat="server" 
-                            Enabled=false
+                    <td align="right" class="ccstextboxh" >
+                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlOperate" runat="server" Enabled="false" 
                             AutoPostBack="True">
-                            <asp:ListItem>+</asp:ListItem>
-                            <asp:ListItem>-</asp:ListItem>
+                            <asp:ListItem>*</asp:ListItem>
+                            <asp:ListItem>/</asp:ListItem>
                         </asp:DropDownList>
-               <asp:TextBox ID="tbAdjustAmount" runat="server" AutoPostBack="True" ReadOnly = "true"
-                          ></asp:TextBox>
+              <%-- <asp:TextBox ID="tbRate" runat="server" AutoPostBack="True" ReadOnly = "true"
+                          ></asp:TextBox>--%></td><td align="right" class="ccstextboxh" ><asp:Label ID="tbRate" runat="server"></asp:Label>
                     </td>
                     </tr>
-                    <tr>
+                     <tr>
                         <td align="right" class="ccstextboxh" >
                             Pay Currency :
                     </td>
                     <td align="left" class="ccstextboxh" >
-                        &nbsp;&nbsp; &nbsp;<asp:TextBox ID="tbToCurrency" 
+                        &nbsp;&nbsp; &nbsp;<%--<asp:TextBox ID="tbToCurrency" 
                             runat="server" Text="" ReadOnly = "true" 
-                            AutoPostBack="True"></asp:TextBox></td>
+                            AutoPostBack="True"></asp:TextBox>--%><asp:Label ID="tbToCurrency" runat="server" 
+                    ></asp:Label></td>
                     <td align="right" class="ccstextboxh" >
-                        Balance Total :
+                Adjust Amount :
                     </td>
-                    <td align="left" class="ccstextboxh" >
-                 &nbsp;&nbsp;&nbsp;<asp:Label ID="lblPayCurrency" runat="server" Text="lblCurrency"></asp:Label>$ <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label>
+                    <td align="right" class="ccstextboxh" >
+                       &nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlAdjustOperate" runat="server" 
+                            Enabled="false"
+                            AutoPostBack="True">
+                            <asp:ListItem>+</asp:ListItem>
+                            <asp:ListItem>-</asp:ListItem>
+                        </asp:DropDownList>
+               <%--<asp:TextBox ID="tbAdjustAmount" runat="server" AutoPostBack="True" ReadOnly = "true"
+                          ></asp:TextBox>--%></td><td align="right" class="ccstextboxh" ><asp:Label ID="tbAdjustAmount" runat="server" 
+                    ></asp:Label>
                     </td>
                     </tr>
                     <tr>
                     <td align="right" class="ccstextboxh" >
+                       Remarks : 
+                    </td>
+                    <td align="left" class="ccstextboxh" >
+                &nbsp;&nbsp;&nbsp;&nbsp;<%--<asp:TextBox ID="tbPayRemarks" runat="server" Text=""  ></asp:TextBox>--%><asp:Label ID="tbPayRemarks" runat="server"></asp:Label></td>
+                    <td align="right" class="ccstextboxh" >
+                        Balance Total :
+                    </td>
+                    <td align="right" class="ccstextboxh" >
+                 &nbsp;&nbsp;&nbsp;<asp:Label ID="lblPayCurrency" runat="server" Text="lblCurrency"></asp:Label>$ </td><td align="right" class="ccstextboxh" ><asp:Label ID="lblTotal" runat="server" Text=""></asp:Label>
+                    </td>
+                    </tr>
+                    <tr>
+                   <td align="right" class="ccstextboxh" >
                          Paid Date : 
                     </td>
                     <td align="left" class="ccstextboxh" >
@@ -708,21 +725,20 @@
                 <td align="right" class="ccstextboxh" >
                        Convert To : 
                     </td>
-                     <td align="left" class="ccstextboxh" >
-                &nbsp;&nbsp;&nbsp;USD$ <asp:TextBox ID="tbTotal" runat="server" Text="" ReadOnly = "true"></asp:TextBox>
+                     <td align="right" class="ccstextboxh" >
+                &nbsp;&nbsp;&nbsp;USD$ <%--<asp:TextBox ID="tbTotal" runat="server" Text="" ReadOnly = "true"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                             ControlToValidate="tbTotal" ErrorMessage="Have to provide Concert to USD!" 
                             ForeColor="Red">*</asp:RequiredFieldValidator>
                         <asp:ValidationSummary ID="ValidationSummary1" runat="server" 
-                            ShowMessageBox="True" ShowSummary="False" />
+                            ShowMessageBox="True" ShowSummary="False" />--%>
+                            </td><td align="right" class="ccstextboxh" ><asp:Label ID="tbTotal" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>
-                    <td align="right" class="ccstextboxh" >
-                       Remarks : 
+                     <td align="right" class="ccstextboxh" colspan="2" >
+                       &nbsp;&nbsp;&nbsp;
                     </td>
-                    <td align="left" class="ccstextboxh" >
-                &nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbPayRemarks" runat="server" Text=""  ></asp:TextBox></td>
                     <td align="right" class="ccstextboxh" colspan="2" >
                         <asp:Button ID="btnModify" runat="server" onclick="Button3_Click" 
                             Text="Back to Modify" />
@@ -731,34 +747,36 @@
                     </td>
                     </tr>
                     <tr>
-             <td class="ccstextboxh" colspan="4" width="100%">
+             <td class="ccstextboxh" colspan="5" width="100%">
                     <hr />
                 </td>
                 </tr>
                            <tr>
-            <td class="ccstextboxh" valign="top"colspan="2" align="left" >
+                           <table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
+            <td class="ccstextboxh" valign="top"  width="50%" align="left" style="font-size: 13px;" >
                 <u>Internal Remarks</u><br />
                <%-- <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px"   TextMode="MultiLine"
                    ReadOnly="true"></asp:TextBox>--%>
                    <asp:Label ID="tbRemarks" runat="server" 
                     ></asp:Label>
             </td>
-            <td class="ccstextboxh" valign="top"colspan="2" align="left"  >
+            <td class="ccstextboxh" valign="top" width="50%" align="left" style="font-size: 13px;"  >
                 <u>External Instruction</u><br />
                 <%--<asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px"  TextMode="MultiLine"
                    ReadOnly="true"></asp:TextBox>--%>
                    <asp:Label ID="tbInstruction" runat="server" 
                     ></asp:Label>
             </td>
+
              </tr>
-             
+              </table></tr>
                 </table>
             </td>
         </tr>
         <!-- end cost summary service -->
     </table>
  
-        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:13px;">
             <tr>
                 <td class="ccstextboxh" colspan="2" width="100%">
                     <hr />
@@ -772,7 +790,7 @@
             <tr>
                  <td colspan="2" class="ccstextboxh">
                     <!-- Start Signature Section -->PR Approval : 
-                    <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                    <table border="1" cellpadding="0" cellspacing="0" width="100%" >
                         <tr>
                              <th class="style1" width="20%">
                                President / Date

@@ -420,7 +420,7 @@
                             </asp:TemplateField>
                             <asp:BoundField DataField="Balance" HeaderText="Balance"  ItemStyle-HorizontalAlign="Right"/>
                             <asp:BoundField DataField="IVNo" HeaderText="IVNo" />
-                            <asp:BoundField DataField="Note" HeaderText="Note" />
+                            <asp:BoundField DataField="Note" HeaderText="Note" ItemStyle-Wrap="true" />
                            
                         </Columns>
                     </asp:Gridview>
