@@ -633,6 +633,11 @@
         {
             font-weight: bold;
         }
+        
+        .alignRight
+        {
+            text-align:right;
+        }
         .CCSTextBoxRD
         {
             font-style: normal;
@@ -848,7 +853,7 @@
                             <asp:ListItem>/</asp:ListItem>
                         </asp:DropDownList></td><td align="right" class="ccstextboxh" >
                <asp:TextBox ID="tbRate" runat="server" AutoPostBack="True" 
-                            ontextchanged="tbRate_TextChanged"></asp:TextBox>
+                            ontextchanged="tbRate_TextChanged" CssClass="alignRight"></asp:TextBox>
                     </td>
                     </tr>
                      <tr>
@@ -870,7 +875,7 @@
                             <asp:ListItem>-</asp:ListItem>
                         </asp:DropDownList></td><td align="right" class="ccstextboxh" >
                <asp:TextBox ID="tbAdjustAmount" runat="server" AutoPostBack="True" 
-                            ontextchanged="tbAdjustAmount_TextChanged"></asp:TextBox>
+                            ontextchanged="tbAdjustAmount_TextChanged" CssClass="alignRight"></asp:TextBox>
                     </td>
                     </tr>
                     <tr>
@@ -899,7 +904,8 @@
                        Convert To : 
                     </td>
                     <td align="right" class="ccstextboxh" >
-                &nbsp;&nbsp;&nbsp;USD$ </td><td align="right" class="ccstextboxh" > <asp:TextBox ID="tbTotal" runat="server" Text=""></asp:TextBox>
+                &nbsp;&nbsp;&nbsp;USD$ </td><td align="right" class="ccstextboxh" > 
+                            <asp:TextBox ID="tbTotal" runat="server" Text="" CssClass="alignRight"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                             ControlToValidate="tbTotal" ErrorMessage="Have to provide Concert to USD!" 
                             ForeColor="Red">*</asp:RequiredFieldValidator>
