@@ -642,7 +642,7 @@
         }
         </style>
 </head>
-<body>
+<body style="font-size:13px;">sss
     <form id="form1" runat="server">
  
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -813,39 +813,20 @@
             <td align="right" class="ccstextboxh" colspan="4" valign="top">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                  <tr>
-                        <td align="right" class="ccstextboxh" >
+                        <td align="right" class="ccstextboxh" style="width: 20%" >
               <%--  Original Currency :--%>
                     </td>
-                    <td align="left" class="ccstextboxh" >
+                    <td align="left" class="ccstextboxh" style="width: 35%" >
                      &nbsp;&nbsp;&nbsp;
                     </td>
-                    <td align="right" class="ccstextboxh" >
+                    <td align="right" class="ccstextboxh" style="width: 20%" >
                 Total :
                     </td>
-                    <td align="left" class="ccstextboxh" >
-                &nbsp;&nbsp;&nbsp;<asp:Label ID="lblOCurrency1" runat="server" Text="lblOCurrency"></asp:Label>$ <asp:Label ID="lblOtotal" runat="server" Text="lblOtotal"></asp:Label>
+                    <td align="right" class="ccstextboxh" style="width: 15%" >
+                &nbsp;&nbsp;&nbsp;<asp:Label ID="lblOCurrency1" runat="server" Text="lblOCurrency"></asp:Label>$ </td><td align="right" class="ccstextboxh" style="width: 10%"  ><asp:Label ID="lblOtotal" runat="server" Text="lblOtotal"></asp:Label>
                     </td>
                     </tr>
                    <tr>
-                        <td align="right" class="ccstextboxh" >
-                &nbsp;</td>
-                    <td align="left" class="ccstextboxh" >
-                        &nbsp;</td>
-                    <td align="right" class="ccstextboxh" >
-                Exchange Rate :
-                    </td>
-                    <td align="left" class="ccstextboxh" >
-                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlOperate" runat="server" 
-                            onselectedindexchanged="ddlOperate_SelectedIndexChanged" 
-                            AutoPostBack="True">
-                            <asp:ListItem>*</asp:ListItem>
-                            <asp:ListItem>/</asp:ListItem>
-                        </asp:DropDownList>
-               <asp:TextBox ID="tbRate" runat="server" AutoPostBack="True" 
-                            ontextchanged="tbRate_TextChanged"></asp:TextBox>
-                    </td>
-                    </tr>
-                     <tr>
                         <td align="right" class="ccstextboxh" >
                
                             Adjust&nbsp;Reason :
@@ -857,20 +838,20 @@
                   
                     </td>
                     <td align="right" class="ccstextboxh" >
-                Adjust Amount :
+                Exchange Rate :
                     </td>
-                    <td align="left" class="ccstextboxh" >
-                       &nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlAdjustOperate" runat="server" 
-                            onselectedindexchanged="ddlAdjustOperate_SelectedIndexChanged" 
+                    <td align="right" class="ccstextboxh" >
+                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlOperate" runat="server" 
+                            onselectedindexchanged="ddlOperate_SelectedIndexChanged" 
                             AutoPostBack="True">
-                            <asp:ListItem>+</asp:ListItem>
-                            <asp:ListItem>-</asp:ListItem>
-                        </asp:DropDownList>
-               <asp:TextBox ID="tbAdjustAmount" runat="server" AutoPostBack="True" 
-                            ontextchanged="tbAdjustAmount_TextChanged"></asp:TextBox>
+                            <asp:ListItem>*</asp:ListItem>
+                            <asp:ListItem>/</asp:ListItem>
+                        </asp:DropDownList></td><td align="right" class="ccstextboxh" >
+               <asp:TextBox ID="tbRate" runat="server" AutoPostBack="True" 
+                            ontextchanged="tbRate_TextChanged"></asp:TextBox>
                     </td>
                     </tr>
-                    <tr>
+                     <tr>
                         <td align="right" class="ccstextboxh" >
                             Pay Currency :
                     </td>
@@ -879,10 +860,17 @@
                             runat="server" Text="" ontextchanged="tbToCurrency_TextChanged" 
                             AutoPostBack="True"></asp:TextBox></td>
                     <td align="right" class="ccstextboxh" >
-                        Balance Total :
+                Adjust Amount :
                     </td>
-                    <td align="left" class="ccstextboxh" >
-                 &nbsp;&nbsp;&nbsp;<asp:Label ID="lblPayCurrency" runat="server" Text="lblCurrency"></asp:Label>$ <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label>
+                    <td align="right" class="ccstextboxh" >
+                       &nbsp;&nbsp;&nbsp;<asp:DropDownList ID="ddlAdjustOperate" runat="server" 
+                            onselectedindexchanged="ddlAdjustOperate_SelectedIndexChanged" 
+                            AutoPostBack="True">
+                            <asp:ListItem>+</asp:ListItem>
+                            <asp:ListItem>-</asp:ListItem>
+                        </asp:DropDownList></td><td align="right" class="ccstextboxh" >
+               <asp:TextBox ID="tbAdjustAmount" runat="server" AutoPostBack="True" 
+                            ontextchanged="tbAdjustAmount_TextChanged"></asp:TextBox>
                     </td>
                     </tr>
                     <tr>
@@ -894,11 +882,24 @@
                         <%-- <uc1:DateChooser ID="DateChooser1" runat="server" />--%>
                         <uc1:DateChooser ID="dcPaidDate" runat="server" />
                 </td>
+                    <td align="right" class="ccstextboxh" >
+                        Balance Total :
+                    </td>
+                    <td align="right" class="ccstextboxh" >
+                 &nbsp;&nbsp;&nbsp;<asp:Label ID="lblPayCurrency" runat="server" Text="lblCurrency"></asp:Label>$ </td><td align="right" class="ccstextboxh" ><asp:Label ID="lblTotal" runat="server" Text=""></asp:Label>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td align="right" class="ccstextboxh" align="left" >
+                       Remarks : 
+                    </td>
+                    <td align="left" class="ccstextboxh" >
+                &nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbPayRemarks" runat="server" Text=""  Width="300" ></asp:TextBox></td>
                 <td align="right" class="ccstextboxh" >
                        Convert To : 
                     </td>
-                    <td align="left" class="ccstextboxh" >
-                &nbsp;&nbsp;&nbsp;USD$ <asp:TextBox ID="tbTotal" runat="server" Text=""></asp:TextBox>
+                    <td align="right" class="ccstextboxh" >
+                &nbsp;&nbsp;&nbsp;USD$ </td><td align="right" class="ccstextboxh" > <asp:TextBox ID="tbTotal" runat="server" Text=""></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                             ControlToValidate="tbTotal" ErrorMessage="Have to provide Concert to USD!" 
                             ForeColor="Red">*</asp:RequiredFieldValidator>
@@ -909,36 +910,37 @@
                     </tr>
                     <tr>
                     <td align="right" class="ccstextboxh" align="left" >
-                       Remarks : 
-                    </td>
+                        &nbsp;</td>
                     <td align="left" class="ccstextboxh" >
-                &nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbPayRemarks" runat="server" Text=""  Width="300" ></asp:TextBox></td>
-                    <td align="right" class="ccstextboxh" colspan="2" >
+                        &nbsp;</td>
+                    <td align="right" class="ccstextboxh" colspan="3" >
                         <asp:Button ID="btnSave" runat="server" Text="Save" onclick="btnSave_Click" />
                     </td>
                     </tr>
                      <tr>
-             <td class="ccstextboxh" colspan="4" width="100%">
+             <td class="ccstextboxh" colspan="5" width="100%">
                     <hr />
                 </td>
                 </tr>
-                     <tr>
-            <td class="ccstextboxh" valign="top"colspan="2" align="left"  >
+           <tr><td class="ccstextboxh" colspan="5" width="100%">
+                           <table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
+            <td class="ccstextboxh" valign="top"  width="50%" align="left" style="font-size: 13px;" >
                 <u>Internal Remarks</u><br />
-                <%--<asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px" ReadOnly=true TextMode="MultiLine"
-                    ></asp:TextBox>--%>
-                    <asp:Label ID="tbRemarks" runat="server" 
+               <%-- <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px"   TextMode="MultiLine"
+                   ReadOnly="true"></asp:TextBox>--%>
+                   <asp:Label ID="tbRemarks" runat="server" 
                     ></asp:Label>
             </td>
-            <td class="ccstextboxh" valign="top"colspan="2" align="left" >
+            <td class="ccstextboxh" valign="top" width="50%" align="left" style="font-size: 13px;"  >
                 <u>External Instruction</u><br />
-                <%--<asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px" ReadOnly=true TextMode="MultiLine"
-                   ></asp:TextBox>--%>
+                <%--<asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px"  TextMode="MultiLine"
+                   ReadOnly="true"></asp:TextBox>--%>
                    <asp:Label ID="tbInstruction" runat="server" 
                     ></asp:Label>
             </td>
-            </td>
+
              </tr>
+              </table></td></tr>
                     
                 </table>
             </td>

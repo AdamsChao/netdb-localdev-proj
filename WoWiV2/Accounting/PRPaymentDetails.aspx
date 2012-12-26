@@ -340,6 +340,9 @@
                 tbPayRemarks.Enabled = false;
                 btnModify.Visible = false;
                 wowidb.SaveChanges();
+                imgF.CssClass = "";
+                imgF.Visible = true;
+                   
             }
             catch (Exception)
             {
@@ -739,7 +742,7 @@
                      <td align="right" class="ccstextboxh" colspan="2" >
                        &nbsp;&nbsp;&nbsp;
                     </td>
-                    <td align="right" class="ccstextboxh" colspan="2" >
+                    <td align="right" class="ccstextboxh" colspan="3" >
                         <asp:Button ID="btnModify" runat="server" onclick="Button3_Click" 
                             Text="Back to Modify" />
 &nbsp;<asp:Button ID="btnSave" runat="server" Text="Paid" onclick="btnSave_Click" 
@@ -751,7 +754,7 @@
                     <hr />
                 </td>
                 </tr>
-                           <tr>
+                           <tr><td class="ccstextboxh" colspan="5" width="100%">
                            <table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
             <td class="ccstextboxh" valign="top"  width="50%" align="left" style="font-size: 13px;" >
                 <u>Internal Remarks</u><br />
@@ -769,7 +772,7 @@
             </td>
 
              </tr>
-              </table></tr>
+              </table></td></tr>
                 </table>
             </td>
         </tr>
