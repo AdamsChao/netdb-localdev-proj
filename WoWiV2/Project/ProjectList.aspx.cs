@@ -54,4 +54,30 @@ public partial class Project_ProjectList : System.Web.UI.Page
       Message.Text = "Project Update Successful!";
     }
   }
+
+  QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
+  WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
+
+  protected void GridViewProject_RowDataBound(object sender, GridViewRowEventArgs e)
+  {
+    //針對AE Sales去控管報價單的檢視權
+    HiddenField hidQuotation = (HiddenField)e.Row.FindControl("HidQuotationId");
+    if (hidQuotation!=null)
+    {
+      int qid = int.Parse(hidQuotation.Value);
+      var quo = (from q in db.Quotation_Version
+                 where q.Quotation_Version_Id == qid
+                 select q).First();
+      var user = wowidb.employees.Where(emp => emp.username == User.Identity.Name).First();
+      var access = wowidb.m_employee_accesslevel.Where(a => a.employee_id == user.id);
+      var isaccess = access.Where(a => a.accesslevel_id == quo.Access_Level_ID);
+      if (isaccess.Count() == 0)
+      {
+        HyperLink link = (HyperLink)e.Row.FindControl("LinkQuotation");
+        link.NavigateUrl = string.Empty;
+      }    
+    }
+    
+   
+  }
 }

@@ -61,7 +61,8 @@ ORDER BY clientapplicant.companyname"></asp:SqlDataSource>
     <asp:Label ID="Message" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
     <asp:GridView ID="GridViewProject" runat="server" AutoGenerateColumns="False" DataKeyNames="Project_Id"
       DataSourceID="SqlDataSourceProject" AllowSorting="True" EmptyDataText="查詢不到任何相關Project資料!"
-      AllowPaging="True" OnRowUpdated="GridViewProject_RowUpdated" PageSize="20" Width="100%">
+      AllowPaging="True" OnRowUpdated="GridViewProject_RowUpdated" PageSize="20" 
+      Width="100%" onrowdatabound="GridViewProject_RowDataBound">
       <Columns>
         <asp:TemplateField ShowHeader="False" Visible="False">
           <ItemTemplate>
@@ -128,9 +129,14 @@ ORDER BY clientapplicant.companyname"></asp:SqlDataSource>
             <asp:Label ID="Label6" runat="server" Text='<%# Bind("Quotation_No") %>'></asp:Label>
           </ItemTemplate>
         </asp:TemplateField>
-        <asp:HyperLinkField DataNavigateUrlFields="Quotation_Id" 
-          DataNavigateUrlFormatString="~/Sales/CreateQuotation.aspx?q={0}" 
-          HeaderText="Quotation No" DataTextField="Quotation_No" Target="_blank" />
+        <asp:TemplateField HeaderText="Quotation No">
+          <ItemTemplate>
+            <asp:HiddenField ID="HidQuotationId" runat="server" Value='<%# Bind("Quotation_Id") %>' />          
+            <asp:HyperLink ID="LinkQuotation" runat="server" 
+              NavigateUrl='<%# Eval("Quotation_Id", "~/Sales/CreateQuotation.aspx?q={0}") %>' 
+              Target="_blank" Text='<%# Eval("Quotation_No") %>'></asp:HyperLink>
+          </ItemTemplate>
+        </asp:TemplateField>
       </Columns>
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSourceProject" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
