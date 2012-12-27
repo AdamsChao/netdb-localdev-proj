@@ -614,11 +614,11 @@
             String owner = emp.fname + emp.lname;
             if (remark.Trim() != "")
             {
-                auth.remark += remark + " by " + owner + " \n";
+                auth.remark += remark + " by " + owner + " " + DateTime.Now.ToString("yyyy/MM/dd") + " \n";
             }
             if (inst.Trim() != "")
             {
-                auth.instruction += inst + " by " + owner + " \n";
+                auth.instruction += inst + " by " + owner + " " + DateTime.Now.ToString("yyyy/MM/dd") + " \n";
             }
             wowidb.SaveChanges();
         }
@@ -819,13 +819,13 @@
             String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
             if (remark.Trim() != "")
             {
-                auth.remark = remark + " by " + auth.requisitioner + " \n";
+                auth.remark = remark + " by " + auth.requisitioner + " " + DateTime.Now.ToString("yyyy/MM/dd") + " \n";
             }
             (FormView1.FindControl("tbInternalMarks") as TextBox).Enabled = false;
 
             if (inst.Trim() != "")
             {
-                auth.instruction = inst + " by " + auth.requisitioner + " \n";
+                auth.instruction = inst + " by " + auth.requisitioner + " " + DateTime.Now.ToString("yyyy/MM/dd") + " \n";
             }
             (FormView1.FindControl("tbInstruction") as TextBox).Enabled = false;
             wowidb.SaveChanges();
@@ -1003,11 +1003,11 @@
                             auth.supervisor_approval = "y";
                             if (remark.Trim() != "")
                             {
-                                auth.remark += remark + " by " + auth.supervisor + " \n";
+                                auth.remark += remark + " by " + auth.supervisor + " " + DateTime.Now.ToString("yyyy/MM/dd") + " \n";
                             }
                             if (inst.Trim() != "")
                             {
-                                auth.instruction += inst + " by " + auth.supervisor + " \n";
+                                auth.instruction += inst + " by " + auth.supervisor + " " + DateTime.Now.ToString("yyyy/MM/dd") + " \n";
                             }
                             wowidb.SaveChanges();
                             //Send Email To
@@ -1042,11 +1042,11 @@
                             auth.vp_approval = "y";
                             if (!String.IsNullOrEmpty(remark.Trim()))
                             {
-                                auth.remark += remark + " by " + auth.vp + " \n";
+                                auth.remark += remark + " by " + auth.vp + " " + DateTime.Now.ToString("yyyy/MM/dd") + " \n";
                             }
                             if (!String.IsNullOrEmpty(inst.Trim()))
                             {
-                                auth.instruction += inst + " by " + auth.vp + " \n";
+                                auth.instruction += inst + " by " + auth.vp + " " + DateTime.Now.ToString("yyyy/MM/dd") + " \n";
                             }
                             wowidb.SaveChanges();
                             //Send Email To
@@ -1074,11 +1074,11 @@
                             auth.president_approval = "y";
                             if (!String.IsNullOrEmpty(remark.Trim()))
                             {
-                                auth.remark += remark + " by " + auth.president + " \n";
+                                auth.remark += remark + " by " + auth.president + " " + DateTime.Now.ToString("yyyy/MM/dd") + " \n";
                             }
                             if (!String.IsNullOrEmpty(inst.Trim()))
                             {
-                                auth.instruction += inst + " by " + auth.president + " \n";
+                                auth.instruction += inst + " by " + auth.president + " " + DateTime.Now.ToString("yyyy/MM/dd") + " \n";
                             }
                             wowidb.SaveChanges();
                             PRUtils.PRStatusDone(wowidb,auth);
@@ -1146,11 +1146,11 @@
         String inst = (FormView1.FindControl("tbInstruction") as TextBox).Text;
         if (!String.IsNullOrEmpty(remark.Trim()))
         {
-            auth.remark += remark + " by " + owner + " \n";
+            auth.remark += remark + " by " + owner + " " + DateTime.Now.ToString("yyyy/MM/dd") + " \n";
         }
         if (!String.IsNullOrEmpty(inst.Trim()))
         {
-            auth.instruction += inst + " by " + owner + " \n";
+            auth.instruction += inst + " by " + owner + " " + DateTime.Now.ToString("yyyy/MM/dd") + " \n";
         }
         auth.status = (byte)PRStatus.History;//Become History
         (FormView1.FindControl("lblStatus") as Label).Text = PRStatus.History.ToString();
