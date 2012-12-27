@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#"  EnableTheming="false"%>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 <%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
 <script  runat="server">
@@ -57,6 +57,10 @@
                 {
 
                     lblTargetPDate.Text = "Not set yet";
+                }
+                if (Page.IsPostBack)
+                {
+                   return;
                 }
                 try
                 {
@@ -377,6 +381,7 @@
         }
 
         lblTotal.Text = total.ToString("F2");
+        //GridView1_PreRender(BankGridView1, null);
     }
     protected void ddlAdjustOperate_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -605,6 +610,8 @@
         }
         lblPayCurrency.Text = tbToCurrency.Text;
     }
+
+    
 </script>
 
 
@@ -613,7 +620,7 @@
 <head id="Head1" runat="server">
     <title></title>
     <style type="text/css">
-        .CCSTextBoxH
+       /* .CCSTextBoxH
         {
             font-style: normal;
             font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -642,7 +649,7 @@
             font-style: normal;
             font-family: Verdana, Arial, Helvetica, sans-serif;
             font-size: 7pt;
-        }
+        }*/
         B
         {
             font-weight: bold;
@@ -659,11 +666,17 @@
             background: #dddddd;
             font-size: 9pt;
         }
+        
+        .style3
+        {
+            font-size:13px;
+        }
         </style>
 </head>
 <body style="font-size:13px;">
     <form id="form1" runat="server">
- 
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                       <ContentTemplate>
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td align="right" class="ccstextboxh" colspan="3" height="15" valign="top">
@@ -699,7 +712,7 @@
         </tr>
         <tr>
                         <td colspan="3" >
-                            <hr color="#003300" noshade size="1" />
+                            <hr color="#003300"  />
                         </td>
                     </tr>
     </table>
@@ -768,7 +781,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <td>
-                            <hr color="#003300" noshade size="1" />
+                            <hr color="#003300" />
                         </td>
                     </tr>
                     <tr>
@@ -814,23 +827,15 @@
                     </tr>
                     <tr>
                         <td>
-                            <hr color="#003300" noshade size="1" />
-                        </td>
-                    </tr>
-                        <td>
                             <asp:GridView ID="TargetList" runat="server" AutoGenerateColumns="true" width="100%">
-                             
                             </asp:GridView>
-                         
                         </td>
                     </tr>
                 </table>
                 <!-- end target -->
             </td>
         </tr>
-       <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                       <ContentTemplate>
-            
+    
              <tr>
              
             <td align="right" class="ccstextboxh" colspan="4" valign="top">
@@ -927,7 +932,7 @@
                             <asp:TextBox ID="tbTotal" runat="server" Text="" CssClass="alignRight"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                             ControlToValidate="tbTotal" ErrorMessage="Have to provide Concert to USD!" 
-                            ForeColor="Red">*</asp:RequiredFieldValidator>
+                            ForeColor="Red" Display="Dynamic">*</asp:RequiredFieldValidator>
                         <asp:ValidationSummary ID="ValidationSummary1" runat="server" 
                             ShowMessageBox="True" ShowSummary="False" />
                         </td>
@@ -942,11 +947,7 @@
                         <asp:Button ID="btnSave" runat="server" Text="Save" onclick="btnSave_Click" />
                     </td>
                     </tr>
-                    </ContentTemplate>
-                       <Triggers>
-                           <asp:PostBackTrigger ControlID="btnSave" />
-                       </Triggers>
-                     </asp:UpdatePanel>
+                    
                      <tr>
              <td class="ccstextboxh" colspan="5" width="100%">
                     <hr />
@@ -1094,7 +1095,11 @@
         </table>
         <!-- end body -->
 
-   
+   </ContentTemplate>
+                       <Triggers>
+                           <asp:PostBackTrigger ControlID="btnSave" />
+                       </Triggers>
+                     </asp:UpdatePanel>
    
      </form>
 </body>

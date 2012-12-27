@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" EnableTheming="false" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 <%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
 <script  runat="server">
@@ -423,7 +423,7 @@
 <head id="Head1" runat="server">
     <title></title>
     <style type="text/css">
-        .CCSTextBoxH
+        /*.CCSTextBoxH
         {
             font-style: normal;
             font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -452,7 +452,7 @@
             font-style: normal;
             font-family: Verdana, Arial, Helvetica, sans-serif;
             font-size: 7pt;
-        }
+        }*/
         B
         {
             font-weight: bold;
@@ -472,12 +472,16 @@
         {
             width: 10%;
         }
+        .style3
+        {
+            font-size:12px;
+        }
         textarea {
 overflow:hidden;
 }
         </style>
 </head>
-<body>
+<body style="font-size:12px;">
     <form id="form1" runat="server">
  
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -503,7 +507,7 @@ overflow:hidden;
         <asp:LinkButton ID="Button2"
             runat="server" Text="PR Payment List" 
                     PostBackUrl="~/Accounting/Payment4Vender.aspx" CausesValidation="False" 
-                    Font-Size="13px" />
+                    Font-Size="12px" />
     </p>
                 <img border="0" height="56" src="../Images/Quotation/transparent.gif" width="168" />
             </td>
@@ -516,13 +520,13 @@ overflow:hidden;
         </tr>
         <tr>
                         <td colspan="3" >
-                            <hr color="#003300" noshade size="1" />
+                            <hr color="#003300" noshade  />
                         </td>
                     </tr>
     </table>
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td class="ccstextboxh" valign="top" style="width:45%; font-size: 13px;">
+            <td class="ccstextboxh" valign="top" style="width:45%; font-size: 12px;">
                 <%--<p>
                     Today:
                     <asp:Label ID="lblToday" runat="server" Text="lblToday"></asp:Label></p> --%>
@@ -550,7 +554,7 @@ overflow:hidden;
             </td>  <td align="left" class="style2"  valign="top">
 
             </td>
-            <td align="left" class="ccstextboxh"  valign="top" style="width:45%;font-size:13px;">
+            <td align="left" class="ccstextboxh"  valign="top" style="width:45%;font-size:12px;">
                     <p>
                     Access level:
                     <asp:Label ID="lblDept" runat="server" Text="lblDepartment"></asp:Label></p>
@@ -575,10 +579,6 @@ overflow:hidden;
                     <p>
                     Bank charge:
                     <asp:Label ID="lblBankCharge" runat="server" Text="lblBankCharge"></asp:Label></p>
-                    <p>
-                    
-                    
-                    
                         </td>
                     </tr>
         <tr>
@@ -587,13 +587,14 @@ overflow:hidden;
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <td>
-                            <hr color="#003300" noshade size="1" />
+                           <hr color="#003300"  />
                         </td>
                     </tr>
                     <tr>
                         <td>
                      <asp:GridView ID="BankGridView1" runat="server" Width="100%" 
-                                AutoGenerateColumns="False"  onprerender="GridView1_PreRender" Font-Size="13px">
+                                AutoGenerateColumns="False"  onprerender="GridView1_PreRender" 
+                                Font-Size="12px" CssClass="style3">
                                        <Columns>
            <asp:BoundField DataField="payment_type" HeaderText="Payment Type" 
                 SortExpression="payment_type" />
@@ -608,7 +609,7 @@ overflow:hidden;
         </Columns>
                                     </asp:GridView>
                                     <asp:GridView ID="BankGridView2" runat="server" Width="100%" 
-                                AutoGenerateColumns="False" Font-Size="13px"  >
+                                AutoGenerateColumns="False" Font-Size="12px" CssClass="style3"  >
                                        <Columns>
             <asp:BoundField DataField="bank_account_no" HeaderText="Account No.(IBAN)" 
                 SortExpression="bank_account_no" />
@@ -621,9 +622,9 @@ overflow:hidden;
         </Columns>
                                     </asp:GridView>
               <asp:Label runat="server" ID="lblWUB" Text="Western Union Banking Information :"  
-                                Visible="False" Font-Size="13px"></asp:Label>
+                                Visible="False" Font-Size="12px"></asp:Label>
                                     <asp:GridView ID="WUBGridView" runat="server" Width="100%" 
-                                AutoGenerateColumns="False" Font-Size="13px"  >
+                                AutoGenerateColumns="False" Font-Size="12px" CssClass="style3"  >
                                        <Columns>
       <asp:BoundField DataField="wu_first_name" HeaderText="First Name" 
                 SortExpression="wu_first_name" />
@@ -637,15 +638,9 @@ overflow:hidden;
                     </tr>
                     <tr>
                         <td>
-                            <hr color="#003300" noshade size="1" />
-                        </td>
-                    </tr>
-                        <td>
                             <asp:GridView ID="TargetList" runat="server" AutoGenerateColumns="true" 
-                                width="100%" Font-Size="13px">
-                             
+                                width="100%" Font-Size="12px">
                             </asp:GridView>
-                         
                         </td>
                     </tr>
                 </table>
@@ -655,7 +650,7 @@ overflow:hidden;
 
             <tr>
             <td align="right" class="ccstextboxh" colspan="4" valign="top">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:13px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:12px;">
                  <tr>
                         <td align="right" class="ccstextboxh" style="width: 20%" >
               <%--  Original Currency :--%>
@@ -740,7 +735,7 @@ overflow:hidden;
                        Remarks : 
                     </td>
                     <td align="left" class="ccstextboxh" rowspan="2" >
-                &nbsp;&nbsp;&nbsp;&nbsp;<%--<asp:TextBox ID="tbPayRemarks" runat="server" Text=""  ></asp:TextBox>--%><asp:TextBox ID="tbPayRemarks" runat="server" Text=""  Width="300" TextMode="MultiLine" Height="80"></asp:TextBox></td>
+                &nbsp;&nbsp;&nbsp;&nbsp;<%--<asp:TextBox ID="tbPayRemarks" runat="server" Text=""  ></asp:TextBox>--%><asp:TextBox ID="tbPayRemarks" runat="server" Text=""  Width="300" TextMode="MultiLine" Height="75"></asp:TextBox></td>
                 <td align="right" class="ccstextboxh" >
                        Convert To : 
                     </td>
@@ -772,14 +767,14 @@ overflow:hidden;
                 </tr>
                            <tr><td class="ccstextboxh" colspan="5" width="100%">
                            <table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
-            <td class="ccstextboxh" valign="top"  width="50%" align="left" style="font-size: 13px;" >
+            <td class="ccstextboxh" valign="top"  width="50%" align="left" style="font-size: 12px;" >
                 <u>Internal Remarks</u><br />
                <%-- <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px"   TextMode="MultiLine"
                    ReadOnly="true"></asp:TextBox>--%>
                    <asp:Label ID="tbRemarks" runat="server" 
                     ></asp:Label>
             </td>
-            <td class="ccstextboxh" valign="top" width="50%" align="left" style="font-size: 13px;"  >
+            <td class="ccstextboxh" valign="top" width="50%" align="left" style="font-size: 12px;"  >
                 <u>External Instruction</u><br />
                 <%--<asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px"  TextMode="MultiLine"
                    ReadOnly="true"></asp:TextBox>--%>
@@ -795,16 +790,12 @@ overflow:hidden;
         <!-- end cost summary service -->
     </table>
  
-        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:13px;">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:12px;">
             <tr>
                 <td class="ccstextboxh" colspan="2" width="100%">
                     <hr />
                 </td>
             </tr>
-           
-           
-            
-            
             <!-- end cost summary service -->
             <tr>
                  <td colspan="2" class="ccstextboxh">
