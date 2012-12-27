@@ -55,6 +55,18 @@
           <EntitySet Name="wowi_bankinfo" EntityType="WoWiModel.Store.wowi_bankinfo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="wowi_product_type" EntityType="WoWiModel.Store.wowi_product_type" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="wowi_tech" EntityType="WoWiModel.Store.wowi_tech" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_PR_item_PR" Association="WoWiModel.Store.FK_PR_item_PR">
+            <End Role="PR" EntitySet="PR" />
+            <End Role="PR_item" EntitySet="PR_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Quotation_Version" Association="WoWiModel.Store.FK_Project_Quotation_Version">
+            <End Role="Quotation_Version" EntitySet="Quotation_Version" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Target_Quotation_Version" Association="WoWiModel.Store.FK_Quotation_Target_Quotation_Version">
+            <End Role="Quotation_Version" EntitySet="Quotation_Version" />
+            <End Role="Quotation_Target" EntitySet="Quotation_Target" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="access_level">
           <Key>
@@ -408,6 +420,9 @@
           <Property Name="SafetyRemark" Type="nvarchar(max)" />
           <Property Name="TelecomRemark" Type="nvarchar(max)" />
           <Property Name="LeadTime" Type="nvarchar" MaxLength="30" />
+          <Property Name="BodyListWebsite" Type="nvarchar" MaxLength="500" />
+          <Property Name="LabListWebsite" Type="nvarchar" MaxLength="500" />
+          <Property Name="FeeListWebsite" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Ima_LocalAgent">
           <Key>
@@ -447,6 +462,7 @@
           <Property Name="LeadTime" Type="nvarchar" MaxLength="30" />
           <Property Name="LocalRep" Type="bit" />
           <Property Name="LocalRepFee" Type="decimal" Scale="3" />
+          <Property Name="LocalRepRemark" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="invoice">
           <Key>
@@ -613,7 +629,7 @@
           <Property Name="shipping_cost" Type="decimal" Precision="10" Scale="2" />
           <Property Name="total_cost" Type="decimal" Precision="10" Scale="2" />
           <Property Name="pr_auth_id" Type="int" />
-          <Property Name="currency" Type="nvarchar" MaxLength="5" />
+          <Property Name="currency" Type="nvarchar" MaxLength="50" />
           <Property Name="transfer_date" Type="datetime" />
           <Property Name="vendor_quote" Type="nvarchar" MaxLength="50" />
           <Property Name="create_user" Type="nvarchar" MaxLength="50" />
@@ -672,13 +688,13 @@
           <Property Name="pr_item_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="pr_id" Type="int" Nullable="false" />
           <Property Name="quantity" Type="int" />
-          <Property Name="item_desc" Type="nvarchar" MaxLength="200" />
-          <Property Name="model_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="item_desc" Type="nvarchar" MaxLength="500" />
+          <Property Name="model_no" Type="nvarchar" MaxLength="500" />
           <Property Name="unit_price" Type="money" />
           <Property Name="tax" Type="decimal" Precision="10" Scale="2" />
           <Property Name="amount" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="currency" Type="nvarchar" MaxLength="5" />
-          <Property Name="status" Type="nvarchar" MaxLength="5" />
+          <Property Name="currency" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
           <Property Name="quotation_target_id" Type="int" Nullable="false" />
           <Property Name="quotation_id" Type="int" Nullable="false" />
@@ -701,10 +717,10 @@
           <Property Name="status" Type="tinyint" Nullable="false" />
           <Property Name="modify_date" Type="datetime" />
           <Property Name="pay_date" Type="datetime" />
-          <Property Name="reason" Type="nvarchar" MaxLength="255" />
+          <Property Name="reason" Type="nvarchar" MaxLength="500" />
           <Property Name="reasontype" Type="nvarchar" MaxLength="100" />
           <Property Name="adjust_total" Type="decimal" Precision="20" Scale="5" />
-          <Property Name="remarks" Type="nvarchar" MaxLength="255" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="payment_term" Type="tinyint" />
         </EntityType>
         <EntityType Name="Project">
@@ -1024,6 +1040,48 @@
           <Property Name="modify_date" Type="datetime" />
           <Property Name="technology_category_id" Type="int" />
         </EntityType>
+        <Association Name="FK_PR_item_PR">
+          <End Role="PR" Type="WoWiModel.Store.PR" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PR_item" Type="WoWiModel.Store.PR_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR">
+              <PropertyRef Name="pr_id" />
+            </Principal>
+            <Dependent Role="PR_item">
+              <PropertyRef Name="pr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Quotation_Version">
+          <End Role="Quotation_Version" Type="WoWiModel.Store.Quotation_Version" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Project" Type="WoWiModel.Store.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Version">
+              <PropertyRef Name="Quotation_Version_Id" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="Quotation_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Target_Quotation_Version">
+          <End Role="Quotation_Version" Type="WoWiModel.Store.Quotation_Version" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Quotation_Target" Type="WoWiModel.Store.Quotation_Target" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Version">
+              <PropertyRef Name="Quotation_Version_Id" />
+            </Principal>
+            <Dependent Role="Quotation_Target">
+              <PropertyRef Name="quotation_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -1078,6 +1136,18 @@
           <EntitySet Name="Ima_CertificationBodies" EntityType="WoWiModel.Ima_CertificationBodies" />
           <EntitySet Name="Ima_GovernmentAuthority" EntityType="WoWiModel.Ima_GovernmentAuthority" />
           <EntitySet Name="Ima_LocalAgent" EntityType="WoWiModel.Ima_LocalAgent" />
+          <AssociationSet Name="FK_PR_item_PR" Association="WoWiModel.FK_PR_item_PR">
+            <End Role="PR" EntitySet="PRs" />
+            <End Role="PR_item" EntitySet="PR_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Quotation_Version" Association="WoWiModel.FK_Project_Quotation_Version">
+            <End Role="Quotation_Version" EntitySet="Quotation_Version" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Target_Quotation_Version" Association="WoWiModel.FK_Quotation_Target_Quotation_Version">
+            <End Role="Quotation_Version" EntitySet="Quotation_Version" />
+            <End Role="Quotation_Target" EntitySet="Quotation_Target" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="access_level">
           <Key>
@@ -1266,6 +1336,7 @@
           <Property Type="DateTime" Name="Create_Date" Nullable="false" />
           <Property Type="Int32" Name="Quotation_Id" Nullable="false" />
           <Property Type="String" Name="Quotation_No" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quotation_Version" Relationship="WoWiModel.FK_Project_Quotation_Version" FromRole="Project" ToRole="Quotation_Version" />
         </EntityType>
         <EntityType Name="Project_working_log">
           <Key>
@@ -1349,6 +1420,7 @@
           <Property Type="Decimal" Name="Bill2" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="Bill3" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="BillE" Precision="20" Scale="2" />
+          <NavigationProperty Name="Quotation_Version" Relationship="WoWiModel.FK_Quotation_Target_Quotation_Version" FromRole="Quotation_Target" ToRole="Quotation_Version" />
         </EntityType>
         <EntityType Name="Target_Rates">
           <Key>
@@ -1513,6 +1585,8 @@
           <Property Type="Decimal" Name="FinalTotalPrice" Precision="20" Scale="2" />
           <Property Type="String" Name="Probability" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Access_Level_ID" />
+          <NavigationProperty Name="Projects" Relationship="WoWiModel.FK_Project_Quotation_Version" FromRole="Quotation_Version" ToRole="Project" />
+          <NavigationProperty Name="Quotation_Target" Relationship="WoWiModel.FK_Quotation_Target_Quotation_Version" FromRole="Quotation_Version" ToRole="Quotation_Target" />
         </EntityType>
         <EntityType Name="country">
           <Key>
@@ -1658,6 +1732,7 @@
           <Property Type="Int32" Name="employee_id" />
           <Property Type="Int32" Name="department_id" />
           <Property Type="Byte" Name="payment_term" />
+          <NavigationProperty Name="PR_item" Relationship="WoWiModel.FK_PR_item_PR" FromRole="PR" ToRole="PR_item" />
         </EntityType>
         <EntityType Name="PR_authority_history">
           <Key>
@@ -1714,6 +1789,7 @@
           <Property Type="DateTime" Name="modify_date" />
           <Property Type="Int32" Name="quotation_target_id" Nullable="false" />
           <Property Type="Int32" Name="quotation_id" Nullable="false" />
+          <NavigationProperty Name="PR" Relationship="WoWiModel.FK_PR_item_PR" FromRole="PR_item" ToRole="PR" />
         </EntityType>
         <EntityType Name="PR_Payment">
           <Key>
@@ -1733,10 +1809,10 @@
           <Property Type="Byte" Name="status" Nullable="false" />
           <Property Type="DateTime" Name="modify_date" />
           <Property Type="DateTime" Name="pay_date" />
-          <Property Type="String" Name="reason" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="reason" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="reasontype" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="Decimal" Name="adjust_total" Precision="20" Scale="5" />
-          <Property Type="String" Name="remarks" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="remarks" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="Byte" Name="payment_term" />
         </EntityType>
         <EntityType Name="venderbanking">
@@ -2007,6 +2083,9 @@
           <Property Type="String" Name="SafetyRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="TelecomRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="LeadTime" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BodyListWebsite" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LabListWebsite" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FeeListWebsite" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Ima_LocalAgent">
           <Key>
@@ -2046,7 +2125,44 @@
           <Property Type="String" Name="LeadTime" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="LocalRep" />
           <Property Type="Decimal" Name="LocalRepFee" Precision="18" Scale="3" />
+          <Property Type="String" Name="LocalRepRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK_PR_item_PR">
+          <End Type="WoWiModel.PR" Role="PR" Multiplicity="1" />
+          <End Type="WoWiModel.PR_item" Role="PR_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR">
+              <PropertyRef Name="pr_id" />
+            </Principal>
+            <Dependent Role="PR_item">
+              <PropertyRef Name="pr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Quotation_Version">
+          <End Type="WoWiModel.Quotation_Version" Role="Quotation_Version" Multiplicity="1" />
+          <End Type="WoWiModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Version">
+              <PropertyRef Name="Quotation_Version_Id" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="Quotation_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Target_Quotation_Version">
+          <End Type="WoWiModel.Quotation_Version" Role="Quotation_Version" Multiplicity="0..1" />
+          <End Type="WoWiModel.Quotation_Target" Role="Quotation_Target" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Version">
+              <PropertyRef Name="Quotation_Version_Id" />
+            </Principal>
+            <Dependent Role="Quotation_Target">
+              <PropertyRef Name="quotation_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2992,6 +3108,9 @@
           <EntitySetMapping Name="Ima_GovernmentAuthority">
             <EntityTypeMapping TypeName="WoWiModel.Ima_GovernmentAuthority">
               <MappingFragment StoreEntitySet="Ima_GovernmentAuthority">
+                <ScalarProperty Name="FeeListWebsite" ColumnName="FeeListWebsite" />
+                <ScalarProperty Name="LabListWebsite" ColumnName="LabListWebsite" />
+                <ScalarProperty Name="BodyListWebsite" ColumnName="BodyListWebsite" />
                 <ScalarProperty Name="LeadTime" ColumnName="LeadTime" />
                 <ScalarProperty Name="TelecomRemark" ColumnName="TelecomRemark" />
                 <ScalarProperty Name="SafetyRemark" ColumnName="SafetyRemark" />
@@ -3024,6 +3143,7 @@
           <EntitySetMapping Name="Ima_LocalAgent">
             <EntityTypeMapping TypeName="WoWiModel.Ima_LocalAgent">
               <MappingFragment StoreEntitySet="Ima_LocalAgent">
+                <ScalarProperty Name="LocalRepRemark" ColumnName="LocalRepRemark" />
                 <ScalarProperty Name="LocalRepFee" ColumnName="LocalRepFee" />
                 <ScalarProperty Name="LocalRep" ColumnName="LocalRep" />
                 <ScalarProperty Name="LeadTime" ColumnName="LeadTime" />
@@ -3131,6 +3251,23 @@
         <EntityTypeShape EntityType="WoWiModel.Ima_CertificationBodies" Width="1.5" PointX="5.375" PointY="22.75" Height="5.1923632812499818" />
         <EntityTypeShape EntityType="WoWiModel.Ima_GovernmentAuthority" Width="1.5" PointX="7.375" PointY="22.75" Height="5.5442513020833246" />
         <EntityTypeShape EntityType="WoWiModel.Ima_LocalAgent" Width="1.5" PointX="9.375" PointY="22.75" Height="6.9518033854166674" />
+        <AssociationConnector Association="WoWiModel.FK_PR_item_PR" >
+          <ConnectorPoint PointX="18.25" PointY="4.75" />
+          <ConnectorPoint PointX="18.75" PointY="4.1829231770833326" />
+        </AssociationConnector>
+        <AssociationConnector Association="WoWiModel.FK_Project_Quotation_Version" >
+          <ConnectorPoint PointX="12.75" PointY="13.75" />
+          <ConnectorPoint PointX="12.375" PointY="13.375" />
+          <ConnectorPoint PointX="12.375" PointY="12.502259114583332" />
+          <ConnectorPoint PointX="10.625" PointY="12.502259114583332" />
+          <ConnectorPoint PointX="10.25" PointY="12.127259114583332" />
+        </AssociationConnector>
+        <AssociationConnector Association="WoWiModel.FK_Quotation_Target_Quotation_Version" >
+          <ConnectorPoint PointX="14.25" PointY="13.75" />
+          <ConnectorPoint PointX="14.625" PointY="13.375" />
+          <ConnectorPoint PointX="14.625" PointY="8.9565234375000014" />
+          <ConnectorPoint PointX="14.25" PointY="8.5815234375000014" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>
