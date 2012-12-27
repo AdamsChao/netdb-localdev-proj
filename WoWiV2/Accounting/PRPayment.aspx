@@ -70,7 +70,7 @@
                     //    lblPaymentTerm.Text = "Not set yet.";
                     //}
                     ddlAdjustOperate.SelectedValue = pay.adjust_operator;
-                    ddlOperate.SelectedValue = pay.adjust_operator;
+                    ddlOperate.SelectedValue = pay.rate_operator;
                     tbAdjustAmount.Text = ((decimal)pay.adjust_amount).ToString();
                     tbRate.Text = ((decimal)pay.exchange_rate).ToString();
                     tbReason.Text = pay.reason;
@@ -291,12 +291,20 @@
 
                         //throw;
                     }
-
+                    
                 }
                 catch (Exception ex)
                 {
                     //throw ex;//Show Message In Javascript
-                }   
+                }
+                try
+                {
+                    selectionChanged();
+                }
+                catch
+                {
+                }
+                    
                 
             }
             catch (Exception ex)
