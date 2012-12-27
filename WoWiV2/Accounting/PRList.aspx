@@ -202,12 +202,12 @@
         onload="DropDownList1_Load">
         <asp:ListItem Value="-1">- All -</asp:ListItem>
     </asp:DropDownList>
-&nbsp;Vender :
+&nbsp;<br>Vender :
     <asp:DropDownList ID="ddlVenderList" runat="server" AppendDataBoundItems="True" 
         onload="ddlVenderList_Load">
         <asp:ListItem Value="-1">- All -</asp:ListItem>
     </asp:DropDownList>
-&nbsp;Status :
+&nbsp;<br>Status :
     <asp:DropDownList ID="ddlStatus" runat="server" AppendDataBoundItems="True">
         <asp:ListItem Value="-1">- All -</asp:ListItem>
         <asp:ListItem Value="0">Init</asp:ListItem>
