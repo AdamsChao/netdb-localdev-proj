@@ -130,10 +130,10 @@
     protected void ddlProjectNo_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        (sender as DropDownList).DataSource = from c in wowidb.Projects orderby c.Project_No descending select new { Project_No = c.Project_No + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_Id };
+        (sender as DropDownList).DataSource = from c in wowidb.Projects orderby c.Project_No descending select new { Project_No = c.Project_No + " - " + ((from qq in wowidb.Quotation_Version from aa in wowidb.clientapplicants where qq.Quotation_No == c.Quotation_No & qq.Applicant_Id==aa.id select aa.companyname).FirstOrDefault()) + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == c.Quotation_No select qq.Model_No).FirstOrDefault()) + "]", Project_Id = c.Project_Id };
         (sender as DropDownList).DataTextField = "Project_No";
         (sender as DropDownList).DataValueField = "Project_Id";
-        //(sender as DropDownList).DataBind();
+        (sender as DropDownList).DataBind();
     }
 
     
@@ -190,7 +190,7 @@
                                 </asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                                     ControlToValidate="ddlProjectNo" ErrorMessage="Please select a project." InitialValue="-1"
-                                    ForeColor="Red">*</asp:RequiredFieldValidator>
+                                    ForeColor="Red" Display="Dynamic">*</asp:RequiredFieldValidator>
                             </td><th align="left" 
                                    class="style11">&nbsp; Qutation No.:&nbsp;</th><td class="style12" width="30%">
                                 <asp:DropDownList ID="ddlQuotationNo" runat="server" 

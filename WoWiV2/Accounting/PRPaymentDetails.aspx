@@ -2,7 +2,7 @@
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 <%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
 <script  runat="server">
-    QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
+    //QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -57,12 +57,13 @@
                 lblPRNo.Text = obj.pr_id.ToString();
                 lblOCurrency1.Text = obj.currency;
                 lblOtotal.Text = ((decimal)obj.total_cost).ToString("F4");
-                QuotationModel.Project proj = (from pj in db.Project where  pj.Project_Id == obj.project_id select pj).First();
+                WoWiModel.Project proj = (from pj in wowidb.Projects where pj.Project_Id == obj.project_id select pj).First();
                 //lblProjectStatus.Text = proj.Project_Status;
                 lblProjNo.Text = proj.Project_No;
                 //lblProjectDate.Text = proj.Create_Date.ToString("yyyy/MM/dd");
-                QuotationModel.Quotation_Version quo = db.Quotation_Version.First(c => c.Quotation_Version_Id == proj.Quotation_Id);
+                WoWiModel.Quotation_Version quo = wowidb.Quotation_Version.First(c => c.Quotation_Version_Id == proj.Quotation_Id);
                 lblQuoNo.Text = quo.Quotation_No;
+                lblClient.Text = (from aa in wowidb.clientapplicants where quo.Applicant_Id == aa.id select aa.companyname).FirstOrDefault(); 
                 int vender_id = (int)obj.vendor_id;
                 WoWiModel.vendor vendor = (from v in wowidb.vendors where v.id == vender_id select v).First();
                 try
@@ -219,10 +220,10 @@
                 int tid = (item.quotation_target_id);
                 try
                 {
-                    var quot = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select new { h.Currency, h.Model_No, h.CModel_No }).First();
+                    var quot = (from h in wowidb.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select new { h.Currency, h.Model_No, h.CModel_No }).First();
                     String currency = quot.Currency;
                     String ModelNo = String.IsNullOrEmpty(quot.Model_No) ? quot.CModel_No : quot.Model_No;
-                    var idata = from t in db.Target_Rates from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id select new { /*QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id,*/ ItemDescription = qt.target_description, ModelNo = ModelNo, /*Currency = currency,*/  Qty = qt.unit ,date = qt.certification_completed,status= qt.Status};
+                    var idata = from t in wowidb.Target_Rates from qt in wowidb.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id select new { /*QuotataionID = qt.quotation_id, Quotation_Target_Id = qt.Quotation_Target_Id,*/ ItemDescription = qt.target_description, ModelNo = ModelNo, /*Currency = currency,*/  Qty = qt.unit ,date = qt.certification_completed,status= qt.Status};
                     
                     //lblTotal.Text = lblOtotal.Text;
                     TargetList.DataSource = idata;
@@ -261,7 +262,7 @@
 
                     
                     ddlAdjustOperate.SelectedValue = pay.adjust_operator;
-                    ddlOperate.SelectedValue = pay.adjust_operator;
+                    ddlOperate.SelectedValue = pay.rate_operator;
                     if (pay.adjust_amount.HasValue)
                     tbAdjustAmount.Text = ((decimal)pay.adjust_amount).ToString();
             
@@ -408,6 +409,12 @@
             //throw;
         }
     }
+
+    protected void Page_PreRender(object sender, EventArgs e)
+    {
+        //Page_Load(sender, e);
+
+    }
 </script>
 
 
@@ -518,11 +525,14 @@ overflow:hidden;
             <td class="ccstextboxh" valign="top" style="width:45%; font-size: 13px;">
                 <%--<p>
                     Today:
-                    <asp:Label ID="lblToday" runat="server" Text="lblToday"></asp:Label></p> --%><p>
+                    <asp:Label ID="lblToday" runat="server" Text="lblToday"></asp:Label></p> --%>
+                    <p>
                     Project No.:
                     <asp:Label ID="lblProjNo" runat="server" Text="lblProjNo"></asp:Label></p>
                     Qutation No.:
                     <asp:Label ID="lblQuoNo" runat="server" Text="lblQuoNo"></asp:Label></p>
+                    Client:
+                    <asp:Label ID="lblClient" runat="server" Text="lblClient"></asp:Label></p>
                     <u>Vender Infomation </u><br />
                 Name:
                 <asp:Label ID="lblName" runat="server" Text="lblName"></asp:Label>
