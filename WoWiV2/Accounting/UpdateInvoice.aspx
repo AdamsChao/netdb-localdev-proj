@@ -21,6 +21,7 @@
             if(invoice.invoice_date.HasValue){
                 dcinvdate.setText(((DateTime)invoice.invoice_date).ToString("yyyy/MM/dd"));
             }
+            dcinvdate.isEnabled(false);
             tbivno.Text = invoice.invoice_no;
             InvoicePaymentStatus status;
             if (invoice.status.HasValue)
@@ -60,6 +61,22 @@
             {
                 
                 //throw;
+            }
+
+            try
+            {
+                WoWiModel.invoice_received invoiceReceived = (from i in wowidb.invoice_received where i.invoice_id == id select i).First();
+                tbivno.Text = invoiceReceived.iv_no;
+                if (invoiceReceived.received_date.HasValue)
+                {
+                    dcinvdate.setText(((DateTime)invoiceReceived.received_date).ToString("yyyy/MM/dd"));
+                }
+                
+            }
+            catch (Exception)
+            {
+                
+                
             }
         }
         
@@ -267,8 +284,8 @@
             }
             try
             {
-                invoice.invoice_no = tbivno.Text;
-                invoice.invoice_date = dcinvdate.GetDate();
+                //invoice.invoice_no = tbivno.Text;
+                //invoice.invoice_date = dcinvdate.GetDate();
             }
             catch (Exception)
             {
@@ -543,7 +560,8 @@
                              <th align="left" width="13%">
                                  I/V No. :&nbsp;</th>
                             <td width="20%">
-                                <asp:TextBox ID="tbivno" runat="server" MaxLength="10"></asp:TextBox>
+                                <asp:TextBox ID="tbivno" runat="server" MaxLength="10" ReadOnly="True" 
+                                    Enabled="False"></asp:TextBox>
                             </td>
                         </tr>
                        <tr>
