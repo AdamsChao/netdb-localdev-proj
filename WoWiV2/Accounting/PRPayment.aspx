@@ -943,7 +943,7 @@
                    
                     <td align="left" class="ccstextboxh" >
                         &nbsp;</td>
-                    <td align="right" class="ccstextboxh" colspan="2" align="right" >
+                    <td align="right" class="ccstextboxh" colspan="3" align="right" >
                         <asp:Button ID="btnSave" runat="server" Text="Save" onclick="btnSave_Click" />
                     </td>
                     </tr>
