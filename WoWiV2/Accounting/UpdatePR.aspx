@@ -2072,9 +2072,9 @@
                                   <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" 
                                             CommandName="Update" Text="Finish" ValidationGroup="VenderGroup" />
                                         &nbsp;
-                                        <asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" 
+                                        <asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" Visible="false"
                                             CommandName="Cancel" Text="Cancel" />
-                                        &nbsp;</td>
+                                       </td>
                           </tr>
                       </table>
                       </td></tr>
