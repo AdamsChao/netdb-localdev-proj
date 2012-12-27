@@ -259,34 +259,36 @@
                     
                     WoWiModel.PR_Payment pay = (from p in wowidb.PR_Payment where p.pr_id == obj.pr_id select p).First();
 
-                    if (pay.status == (byte)PRStatus.ClosePaid)
-                    {
-                        btnSave.Enabled = false;
-                        //tbPayRemarks.ReadOnly = true;
-                        btnModify.Visible = false;
-
-                    }
-                    else
-                    {
-                        imgF.CssClass = "Hidden";
-                        imgF.Visible = false;
-                    }
+                    
                     ddlAdjustOperate.SelectedValue = pay.adjust_operator;
                     ddlOperate.SelectedValue = pay.adjust_operator;
                     if (pay.adjust_amount.HasValue)
-                    tbAdjustAmount.Text = ((decimal)pay.adjust_amount).ToString("F4");
+                    tbAdjustAmount.Text = ((decimal)pay.adjust_amount).ToString();
             
-                    tbRate.Text = ((decimal)pay.exchange_rate).ToString("F4");
+                    tbRate.Text = ((decimal)pay.exchange_rate).ToString();
                     tbReason.Text = pay.reason;
                     tbPayRemarks.Text = pay.remarks;
                     tbToCurrency.Text = pay.tocurrency;
-                    tbTotal.Text = ((decimal)pay.total_amount).ToString("F4");
-                    lblTotal.Text = ((decimal)pay.adjust_total).ToString("F4");
+                    tbTotal.Text = ((decimal)pay.total_amount).ToString("F2");
+                    lblTotal.Text = ((decimal)pay.adjust_total).ToString("F2");
                     dcPaidDate.isReadOnly(true);
                     if (pay.pay_date.HasValue)
                     {
                         dcPaidDate.setText(((DateTime)pay.pay_date).ToString("yyyy/MM/dd"));
                         lblF.Text = ((DateTime)pay.pay_date).ToString("yyyy/MM/dd");
+                    }
+                    if (pay.status == (byte)PRStatus.ClosePaid)
+                    {
+                        btnSave.Enabled = false;
+                        //tbPayRemarks.ReadOnly = true;
+                        btnModify.Visible = false;
+                        btnSave.Visible = false;
+                    }
+                    else
+                    {
+                        imgF.CssClass = "Hidden";
+                        imgF.Visible = false;
+                        lblF.Text = "";
                     }
                     try 
 	                {	        
@@ -336,7 +338,7 @@
                 WoWiModel.PR_Payment pay = (from p in wowidb.PR_Payment where p.pr_id == id select p).First();
                 pay.remarks = tbPayRemarks.Text;
                 pay.status = (byte)PRStatus.ClosePaid;
-                (sender as Button).Enabled = false;
+                (sender as Button).Visible = false;
                 tbPayRemarks.Enabled = false;
                 btnModify.Visible = false;
                 wowidb.SaveChanges();
@@ -463,6 +465,9 @@
         {
             width: 10%;
         }
+        textarea {
+overflow:hidden;
+}
         </style>
 </head>
 <body>
@@ -704,11 +709,15 @@
                     </td>
                     </tr>
                     <tr>
-                    <td align="right" class="ccstextboxh" >
-                       Remarks : 
+                     <td align="right" class="ccstextboxh" >
+                         Paid Date : 
                     </td>
                     <td align="left" class="ccstextboxh" >
-                &nbsp;&nbsp;&nbsp;&nbsp;<%--<asp:TextBox ID="tbPayRemarks" runat="server" Text=""  ></asp:TextBox>--%><asp:Label ID="tbPayRemarks" runat="server"></asp:Label></td>
+                        &nbsp;&nbsp;&nbsp;
+                        <%-- <uc1:DateChooser ID="DateChooser1" runat="server" />--%>
+                        <uc1:DateChooser ID="dcPaidDate" runat="server" />
+                </td>
+                   
                     <td align="right" class="ccstextboxh" >
                         Balance Total :
                     </td>
@@ -718,13 +727,10 @@
                     </tr>
                     <tr>
                    <td align="right" class="ccstextboxh" >
-                         Paid Date : 
+                       Remarks : 
                     </td>
-                    <td align="left" class="ccstextboxh" >
-                        &nbsp;&nbsp;&nbsp;
-                        <%-- <uc1:DateChooser ID="DateChooser1" runat="server" />--%>
-                        <uc1:DateChooser ID="dcPaidDate" runat="server" />
-                </td>
+                    <td align="left" class="ccstextboxh" rowspan="2" >
+                &nbsp;&nbsp;&nbsp;&nbsp;<%--<asp:TextBox ID="tbPayRemarks" runat="server" Text=""  ></asp:TextBox>--%><asp:TextBox ID="tbPayRemarks" runat="server" Text=""  Width="300" TextMode="MultiLine" Height="80"></asp:TextBox></td>
                 <td align="right" class="ccstextboxh" >
                        Convert To : 
                     </td>
@@ -739,7 +745,7 @@
                         </td>
                     </tr>
                     <tr>
-                     <td align="right" class="ccstextboxh" colspan="2" >
+                     <td align="right" class="ccstextboxh"  >
                        &nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="right" class="ccstextboxh" colspan="3" >

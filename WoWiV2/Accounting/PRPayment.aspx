@@ -71,13 +71,13 @@
                     //}
                     ddlAdjustOperate.SelectedValue = pay.adjust_operator;
                     ddlOperate.SelectedValue = pay.adjust_operator;
-                    tbAdjustAmount.Text = ((decimal)pay.adjust_amount).ToString("F4");
-                    tbRate.Text = ((decimal)pay.exchange_rate).ToString("F4");
+                    tbAdjustAmount.Text = ((decimal)pay.adjust_amount).ToString();
+                    tbRate.Text = ((decimal)pay.exchange_rate).ToString();
                     tbReason.Text = pay.reason;
                     tbPayRemarks.Text = pay.remarks;
                     tbToCurrency.Text = pay.tocurrency;
-                    tbTotal.Text = ((decimal)pay.total_amount).ToString("F4");
-                    lblTotal.Text = ((decimal)pay.adjust_total).ToString("F4");
+                    tbTotal.Text = ((decimal)pay.total_amount).ToString("F2");
+                    lblTotal.Text = ((decimal)pay.adjust_total).ToString("F2");
                     dcPaidDate.setText(((DateTime)pay.pay_date).ToString("yyyy/MM/dd"));
                     if (pay.status == (byte)PRStatus.ClosePaid)
                     {
@@ -898,8 +898,8 @@
                     <td align="right" class="ccstextboxh" align="left" >
                        Remarks : 
                     </td>
-                    <td align="left" class="ccstextboxh" >
-                &nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbPayRemarks" runat="server" Text=""  Width="300" ></asp:TextBox></td>
+                    <td align="left" class="ccstextboxh" rowspan="2" >
+                &nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbPayRemarks" runat="server" Text=""  Width="300" TextMode="MultiLine" Height="80"></asp:TextBox></td>
                 <td align="right" class="ccstextboxh" >
                        Convert To : 
                     </td>
@@ -915,8 +915,7 @@
                     
                     </tr>
                     <tr>
-                    <td align="right" class="ccstextboxh" align="left" >
-                        &nbsp;</td>
+                   
                     <td align="left" class="ccstextboxh" >
                         &nbsp;</td>
                     <td align="right" class="ccstextboxh" colspan="3" >
