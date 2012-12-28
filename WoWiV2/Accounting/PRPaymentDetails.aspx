@@ -526,7 +526,7 @@ overflow:hidden;
     </table>
     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td class="ccstextboxh" valign="top" style="width:45%; font-size: 12px;">
+            <td class="ccstextboxh" valign="top" style="width:46%; font-size: 12px;">
                 <%--<p>
                     Today:
                     <asp:Label ID="lblToday" runat="server" Text="lblToday"></asp:Label></p> --%>
@@ -551,10 +551,10 @@ overflow:hidden;
                     
                              <p>Email:
                             <asp:Label ID="lblClientEmail" runat="server"></asp:Label></p>
-            </td>  <td align="left" class="style2"  valign="top">
+            </td>  <td align="left" style="width:8%; font-size: 12px;"  valign="top">
 
             </td>
-            <td align="left" class="ccstextboxh"  valign="top" style="width:45%;font-size:12px;">
+            <td align="left" class="ccstextboxh"  valign="top" style="width:46%;font-size:12px;">
                     <p>
                     Access level:
                     <asp:Label ID="lblDept" runat="server" Text="lblDepartment"></asp:Label></p>
