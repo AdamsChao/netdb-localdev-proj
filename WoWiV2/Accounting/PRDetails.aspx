@@ -4,7 +4,7 @@
 <%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
 <%@ Register src="../UserControls/UploadFileView.ascx" tagname="UploadFileView" tagprefix="uc2" %>
 <script runat="server">
-    QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
+    //QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
     int id;
  
@@ -130,8 +130,8 @@
             id = int.Parse(Request.QueryString["id"]);
             WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
             int quotaion_id = (int)obj.quotaion_id;
-            String quotaion_no = (from d in db.Quotation_Version where d.Quotation_Version_Id == quotaion_id select d.Quotation_No).First();
-            var list = from q in db.Quotation_Version
+            String quotaion_no = (from d in wowidb.Quotation_Version where d.Quotation_Version_Id == quotaion_id select d.Quotation_No).First();
+            var list = from q in wowidb.Quotation_Version
                        where q.Quotation_No.Equals(quotaion_no)
                        select new
                        {
@@ -150,8 +150,8 @@
             {
                 int tid = (from c in wowidb.PR_item where c.pr_id == id select c.quotation_target_id).First();
                 (sender as DropDownList).SelectedValue = tid.ToString();
-                String currency = (from h in db.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
-                var data2 = from t in db.Target_Rates from q in db.Quotation_Version from qt in db.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id && q.Quotation_Version_Id == obj.quotaion_id select new { QuotataionNo = q.Quotation_No, QuotataionID = q.Quotation_Version_Id, TargetName = ((from c in db.Authority where c.authority_id == qt.authority_id select c.authority_name).FirstOrDefault()), Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = qt.target_description, ModelNo = t.authority_name, Currency = currency, Qty = qt.unit };
+                String currency = (from h in wowidb.Quotation_Version where h.Quotation_Version_Id == obj.quotaion_id select h.Currency).First();
+                var data2 = from t in wowidb.Target_Rates from q in wowidb.Quotation_Version from qt in wowidb.Quotation_Target where qt.Quotation_Target_Id == tid & qt.target_id == t.Target_rate_id && q.Quotation_Version_Id == obj.quotaion_id select new { QuotataionNo = q.Quotation_No, QuotataionID = q.Quotation_Version_Id, TargetName = ((from c in wowidb.Authorities where c.authority_id == qt.authority_id select c.authority_name).FirstOrDefault()), Quotation_Target_Id = qt.Quotation_Target_Id, ItemDescription = qt.target_description, ModelNo = t.authority_name, Currency = currency, Qty = qt.unit };
                          
                 GridView gv = (FormView1.FindControl("GridView4") as GridView);
                 gv.DataSource = data2;
@@ -329,7 +329,7 @@
             id = int.Parse(Request.QueryString["id"]);
             WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
             int project_id = (int)obj.project_id;
-            (sender as Label).Text = (from p in db.Project where p.Project_Id == project_id select p.Project_No + " - [" + ((from qq in db.Quotation_Version where qq.Quotation_No == p.Quotation_No select qq.Model_No).FirstOrDefault()) + "]").First();
+            (sender as Label).Text = (from p in wowidb.Projects where p.Project_Id == project_id select p.Project_No + " - " + ((from qq in wowidb.Quotation_Version from aa in wowidb.clientapplicants where qq.Quotation_No == p.Quotation_No & qq.Applicant_Id == aa.id select aa.companyname).FirstOrDefault()) + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == p.Quotation_No select qq.Model_No).FirstOrDefault()) + "]").First();
         }
     }
 
@@ -340,7 +340,7 @@
             id = int.Parse(Request.QueryString["id"]);
             WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
             int quotaion_id = (int)obj.quotaion_id;
-            (sender as Label).Text = (from d in db.Quotation_Version where d.Quotation_Version_Id == quotaion_id select d.Quotation_No).First();
+            (sender as Label).Text = (from d in wowidb.Quotation_Version where d.Quotation_Version_Id == quotaion_id select d.Quotation_No).First();
         }
     }
 
@@ -435,7 +435,7 @@
             int authid = (int)obj.pr_auth_id;
             WoWiModel.PR_authority_history auth = (from au in wowidb.PR_authority_history where au.pr_auth_id == authid select au).First();
             auth.status = (byte)PRStatus.Cancel;
-            db.SaveChanges();
+            wowidb.SaveChanges();
         }
     }
 
