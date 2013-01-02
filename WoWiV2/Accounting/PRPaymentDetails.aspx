@@ -56,7 +56,7 @@
                 }
                 lblPRNo.Text = obj.pr_id.ToString();
                 lblOCurrency1.Text = obj.currency;
-                lblOtotal.Text = ((decimal)obj.total_cost).ToString("F4");
+                lblOtotal.Text = ((decimal)obj.total_cost).ToString("F2");
                 WoWiModel.Project proj = (from pj in wowidb.Projects where pj.Project_Id == obj.project_id select pj).First();
                 //lblProjectStatus.Text = proj.Project_Status;
                 lblProjNo.Text = proj.Project_No;

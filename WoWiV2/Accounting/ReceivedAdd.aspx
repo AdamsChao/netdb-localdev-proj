@@ -137,8 +137,9 @@
     {
 
         StringBuilder sb = new StringBuilder();
-        sb.Append("<table width='100%'><tr><td align='right' class='Total'>Currency$Total</td></tr></table>");
-        sb.Replace("Total", tot.ToString("F2"));
+        //sb.Append("<table width='100%'><tr><td align='right' class='Total'>Currency$TotalP</td></tr></table>");
+        sb.Append("Currency$TotalP");
+        sb.Replace("TotalP", tot.ToString("F2"));
         sb.Replace("Currency", currency);
         return sb.ToString();
     }
@@ -369,7 +370,7 @@
                             Received History
                             <asp:Gridview ID="iGridView2" runat="server"  Width="100%" 
                          AutoGenerateColumns="False"  ShowFooter="True" 
-                                    onrowcommand="iGridView2_RowCommand" s >
+                                    onrowcommand="iGridView2_RowCommand" s EnableTheming="False" >
                         <Columns>
                        
                             <asp:TemplateField HeaderText="">
@@ -406,13 +407,12 @@
                                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Amount") %>'></asp:TextBox>
                                 </EditItemTemplate>
                                 <ItemTemplate>
-                                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("Amount") %>'></asp:Label>
+                                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("Amount") %> '></asp:Label>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    <table width="100%">
-                                        <tr>
-                                            <td align="right">
-                                                <asp:Literal ID="Literal1" runat="server" Text="<%# GetTotal()%>"></asp:Literal>
+                                    <table width="100%" align="right">
+                                        <tr  align="right">
+                                            <td align="right"><asp:Label ID="Literal1" runat="server" Text="<%# GetTotal()%>"></asp:Label>
                                             </td>
                                         </tr>
                                     </table>
