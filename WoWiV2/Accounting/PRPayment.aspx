@@ -955,14 +955,17 @@
                 </tr>
            <tr><td class="ccstextboxh" colspan="5" width="100%">
                            <table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
-            <td class="ccstextboxh" valign="top"  width="50%" align="left" style="font-size: 13px;" >
+            <td class="ccstextboxh" valign="top"  width="48%" align="left" style="font-size: 13px;" >
                 <u>Internal Remarks</u><br />
                <%-- <asp:TextBox ID="tbRemarks" runat="server" Width="400px" Height="100px"   TextMode="MultiLine"
                    ReadOnly="true"></asp:TextBox>--%>
                    <asp:Label ID="tbRemarks" runat="server" 
                     ></asp:Label>
             </td>
-            <td class="ccstextboxh" valign="top" width="50%" align="left" style="font-size: 13px;"  >
+            <td class="ccstextboxh" valign="top"  width="4%" align="left" style="font-size: 12px;" >
+                &nbsp;
+            </td>
+            <td class="ccstextboxh" valign="top" width="48%" align="left" style="font-size: 13px;"  >
                 <u>External Instruction</u><br />
                 <%--<asp:TextBox ID="tbInstruction" runat="server" Width="400px" Height="100px"  TextMode="MultiLine"
                    ReadOnly="true"></asp:TextBox>--%>
