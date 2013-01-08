@@ -240,7 +240,8 @@ Order by log_date">
                         </asp:SqlDataSource>
                       </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="Client_Action" HeaderText="Action" SortExpression="Client_Action" />
+                    <asp:BoundField DataField="Client_Action" 
+                          HeaderText="Required action from the client" SortExpression="Client_Action" />
                   </Columns>
                 </asp:GridView>
                 <asp:SqlDataSource ID="SqlDataSourceReport" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
