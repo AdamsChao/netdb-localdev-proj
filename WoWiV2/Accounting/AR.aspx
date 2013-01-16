@@ -184,6 +184,8 @@
       {
         temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
       }
+      DateTime maxDate = DateTime.Now;
+      DateTime compareDate = maxDate; 
       try
       {
         var rlist = (from radd in wowidb.invoice_received where radd.invoice_id == item.invoice_id select radd);
@@ -192,7 +194,18 @@
           temp.IVNo += " " + ritem.iv_no;
           if (ritem.received_date.HasValue)
           {
-            temp.IVDate += " " + ((DateTime)ritem.received_date).ToString("yyyy/MM/dd");
+              if ((maxDate - compareDate).TotalMilliseconds != 0)
+              {
+                  if ((maxDate - (DateTime)ritem.received_date).TotalMilliseconds < 0)
+                  {
+                      maxDate = (DateTime)ritem.received_date;
+                  }
+              }
+              else
+              {
+                  maxDate = (DateTime)ritem.received_date;
+              }
+              temp.IVDate += " " + ((DateTime)ritem.received_date).ToString("yyyy/MM/dd");
           }
         }
       }
@@ -231,13 +244,25 @@
           if (client.paymentdays.HasValue)
           {
             temp.PaymentTerms = client.paymentdays + "";
-            days = (int)((DateTime)item.due_date - DateTime.Now).TotalDays;
+            DateTime dueDate = (DateTime)item.due_date;
+
+            days = (int)(dueDate - DateTime.Now).TotalDays;
           }
+            
+          decimal ARBalance0 = ((decimal)item.ar_balance);
+          if (ARBalance0 == 0)
+          {
+              temp.PaymentTerms = client.paymentdays + "";
+              DateTime dueDate = (DateTime)item.due_date;
+              days = (int)(dueDate - maxDate).TotalDays;
+          }
+          
           if (days != 0)
           {
             temp.OverDueDays = days.ToString();
             temp.OverDueInterval = ARUtils.GetARInterval(-1 * days);
           }
+         
           //int countryid = (int)client.country_id;
           //var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
           //temp.Country = country.country_name;
