@@ -259,7 +259,7 @@
           
           if (days != 0)
           {
-            temp.OverDueDays = days.ToString();
+            temp.OverDueDays = (days*-1).ToString();
             temp.OverDueInterval = ARUtils.GetARInterval(-1 * days);
           }
          
