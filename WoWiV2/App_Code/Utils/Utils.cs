@@ -226,6 +226,25 @@ public class Utils
 
     return ret;
   }
+  public static bool isSysAdmin(int id)
+  {
+      bool ret = false;
+      try
+      {
+          using (WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities())
+          {
+              var data = wowidb.employees.First(c => c.id == id && c.department_id == 1);
+              ret = true;
+          }
+      }
+      catch (Exception ex)
+      {
+
+          //throw;
+      }
+
+      return ret;
+  }
 
   public static void CellWrap(GridViewRow row)
   {
