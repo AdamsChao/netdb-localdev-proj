@@ -268,6 +268,25 @@
         {
             int id = int.Parse(Request.QueryString["id"]);//invoiceid
             WoWiModel.invoice invoice = (from i in wowidb.invoices where i.invoice_id == id select i).First();
+            try
+            {
+                decimal tot = 0;
+                foreach (GridViewRow row in iGridView2.Rows)
+                {
+                    tot += decimal.Parse((row.FindControl("lblPayAmount") as Label).Text);
+                }
+                invoice.ototal = tot;
+                (iGridView2.FooterRow.FindControl("lblOTotal") as Label).Text = tot.ToString("F2");
+                tbTax_TextChanged(iGridView2.FooterRow.FindControl("tbTax") as TextBox, null);
+                tbExchangeRate_TextChanged(iGridView2.FooterRow.FindControl("tbExchangeRate") as TextBox, null);
+               
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
             //invoice.status = (byte)InvoicePaymentStatus.WithDraw;
             invoice.exchange_operate = (iGridView2.FooterRow.FindControl("ddloperate") as DropDownList).SelectedValue;
             try
