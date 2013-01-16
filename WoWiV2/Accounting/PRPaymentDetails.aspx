@@ -345,7 +345,9 @@
                 wowidb.SaveChanges();
                 imgF.CssClass = "";
                 imgF.Visible = true;
-                   
+                if (pay.pay_date.HasValue)
+                lblF.Text = ((DateTime)pay.pay_date).ToString("yyyy/MM/dd");
+                lblF.Visible = true;
             }
             catch (Exception)
             {

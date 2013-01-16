@@ -261,7 +261,7 @@
                 <asp:BoundField DataField="currency" HeaderText="Currency" ItemStyle-HorizontalAlign="Right"
                     SortExpression="currency" />
                 <asp:BoundField DataField="total_cost" HeaderText="Total Cost" ItemStyle-HorizontalAlign="Right"
-                    SortExpression="total_cost" />
+                    SortExpression="total_cost"  DataFormatString="{0:F2}" />
                 <asp:BoundField DataField="create_date" HeaderText="Creation Date" 
                     SortExpression="create_date" DataFormatString="{0:yyyy/MM/dd}" />
                      <asp:BoundField DataField="target_payment_date" HeaderText="Target Payment Date" 
