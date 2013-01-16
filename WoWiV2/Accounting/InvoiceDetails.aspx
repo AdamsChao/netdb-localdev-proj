@@ -96,7 +96,7 @@
                 (iGridView2.FooterRow.FindControl("ddlCurrency") as DropDownList).SelectedValue = invoice.currency;
                 (iGridView2.FooterRow.FindControl("tbTotal") as TextBox).Text = ((decimal)invoice.final_total).ToString("F2");
                 (iGridView2.FooterRow.FindControl("tbRemarks") as TextBox).Text = invoice.remarks;
-                (iGridView2.FooterRow.FindControl("tbExchangeRate") as TextBox).Text = ((decimal)invoice.exchange_rate).ToString("F2");
+                (iGridView2.FooterRow.FindControl("tbExchangeRate") as TextBox).Text = ((decimal)invoice.exchange_rate).ToString("F4");
                 //(iGridView2.FooterRow.FindControl("tbbankAccount") as TextBox).Text = InvoiceUtils.WoWi_Bank_Info1;
             }
             catch (Exception)
