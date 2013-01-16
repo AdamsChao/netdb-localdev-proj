@@ -170,6 +170,14 @@
         (sender as DropDownList).DataValueField = "Id";
         (sender as DropDownList).DataBind();
     }
+
+    protected void HyperLink2_Load(object sender, EventArgs e)
+    {
+        if (!Utils.isSysAdmin(Utils.GetEmployeeID()))
+        {
+            (sender as HyperLink).Visible = false;
+        }
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -207,7 +215,7 @@
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:HyperLink ID="HyperLink2" runat="server" 
-                            NavigateUrl='<%# Bind("pr_id","~/Accounting/PRPayment.aspx?id={0}&type=payment") %>' >Edit</asp:HyperLink>
+                            NavigateUrl='<%# Bind("pr_id","~/Accounting/PRPayment.aspx?id={0}&type=payment") %>' OnLoad="HyperLink2_Load">Edit</asp:HyperLink>
                         &nbsp;
                         <asp:HyperLink ID="HyperLink3" runat="server" 
                             NavigateUrl='<%# Bind("pr_id","~/Accounting/PRPaymentDetails.aspx?id={0}") %>' >Details</asp:HyperLink>
