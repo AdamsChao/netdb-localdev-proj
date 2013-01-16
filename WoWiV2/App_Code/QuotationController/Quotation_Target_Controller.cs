@@ -60,6 +60,22 @@ public class Quotation_Target_Controller
       entities.Detach(item);
       item.EntityKey = null;
       item.quotation_id = New_Quotation_ID;
+      //Project Target Estimate Date 以下欄位資料不能複製至新Target
+      item.Status = "Open";
+      item.test_started = null;
+      item.test_completed = null;
+      item.certification_completed = null;
+      item.certification_submit_to_authority = null;
+      item.Estimated_Lead_time = string.Empty;
+      item.Actual_Lead_time = string.Empty;
+      item.Agent = 0;
+      item.Country_Manager = 0;
+      item.PR_Flag = string.Empty;
+      item.Bill1 = null;
+      item.Bill2 = null;
+      item.Bill3 = null;
+      item.BillE = null;
+
       Add(item);
     }
   }
