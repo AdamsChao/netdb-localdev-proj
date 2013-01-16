@@ -291,6 +291,10 @@
                         imgF.Visible = false;
                         lblF.Text = "";
                     }
+                    if(String.IsNullOrEmpty(Request.QueryString["payid"])){
+                        btnModify.Visible = false;
+                        btnSave.Visible = false;
+                    }
                     try 
 	                {	        
 		                String f ;
@@ -415,7 +419,11 @@
     protected void Page_PreRender(object sender, EventArgs e)
     {
         //Page_Load(sender, e);
-
+        if (String.IsNullOrEmpty(Request.QueryString["payid"]))
+        {
+            btnModify.Visible = false;
+            btnSave.Visible = false;
+        }
     }
 </script>
 
