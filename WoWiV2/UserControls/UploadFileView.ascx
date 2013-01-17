@@ -101,7 +101,7 @@
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                 <asp:HyperLink ID="fileLink" runat="server" 
-                            NavigateUrl='<%# Bind("Name","~/Accounting/FileListHandler.ashx?fn={0}") %>'>Download</asp:HyperLink>
+                            NavigateUrl='<%# "~/Accounting/FileListHandler.ashx?fn="+HttpUtility.UrlEncode(Eval("Name").ToString()) %>'>Download</asp:HyperLink>
                                  </ItemTemplate>
                             </asp:TemplateField>
         </Columns>
