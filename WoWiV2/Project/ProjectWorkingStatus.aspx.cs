@@ -140,47 +140,13 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
         
     }
 
-    protected void ddlworkingStatusTemplate1_SelectedIndexChanged(object sender, EventArgs e)
+    protected void ddlworkingStatusTemplate_SelectedIndexChanged(object sender, EventArgs e)
     {
-        DropDownList ddlTemplate = (DropDownList)dvWorkingStatus.Rows[3].FindControl("ddlWorkingStatusTemplate1");
-
-        if (ddlTemplate.SelectedValue.ToString() != "")
-        {
-            TextBox txtContent = (TextBox)dvWorkingStatus.Rows[3].FindControl("txtLogContent");
-            txtContent.Text += ddlTemplate.SelectedValue.ToString();
-        }
-    }
-
-    protected void ddlworkingStatusTemplate2_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        DropDownList ddlTemplate = (DropDownList)dvWorkingStatus.Rows[3].FindControl("ddlWorkingStatusTemplate2");
-
-        if (ddlTemplate.SelectedValue.ToString() != "")
-        {
-            TextBox txtContent = (TextBox)dvWorkingStatus.Rows[3].FindControl("txtLogContent");
-            txtContent.Text += ddlTemplate.SelectedValue.ToString();
-        }
-    }
-
-    protected void ddlworkingStatusTemplate3_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        DropDownList ddlTemplate = (DropDownList)dvWorkingStatus.Rows[3].FindControl("ddlWorkingStatusTemplate3");
-
-        if (ddlTemplate.SelectedValue.ToString() != "")
-        {
-            TextBox txtContent = (TextBox)dvWorkingStatus.Rows[3].FindControl("txtLogContent");
-            txtContent.Text += ddlTemplate.SelectedValue.ToString();
-        }
-    }
-
-    protected void ddlworkingStatusTemplate4_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        DropDownList ddlTemplate = (DropDownList)dvWorkingStatus.Rows[3].FindControl("ddlWorkingStatusTemplate4");
-
-        if (ddlTemplate.SelectedValue.ToString() != "")
-        {
-            TextBox txtContent = (TextBox)dvWorkingStatus.Rows[3].FindControl("txtLogContent");
-            txtContent.Text += ddlTemplate.SelectedValue.ToString();
-        }
+      DropDownList ddlTemplate = (DropDownList)sender;
+      if (ddlTemplate.SelectedValue.ToString() != "")
+      {
+        TextBox txtContent = (TextBox)dvWorkingStatus.Rows[3].FindControl("txtLogContent");
+        txtContent.Text += ddlTemplate.SelectedValue.ToString();
+      }
     }
 }

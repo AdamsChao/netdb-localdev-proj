@@ -213,7 +213,7 @@ Where Quotation_Target.quotation_id in
                   </td>
                   <td>
                     <asp:DropDownList ID="ddlworkingStatusTemplate1" runat="server" AutoPostBack="True"
-                      EnableTheming="False" OnSelectedIndexChanged="ddlworkingStatusTemplate1_SelectedIndexChanged">
+                      EnableTheming="False" OnSelectedIndexChanged="ddlworkingStatusTemplate_SelectedIndexChanged">
                       <asp:ListItem Value="">Select a template....</asp:ListItem>
                       <asp:ListItem>Application in preparation.</asp:ListItem>
                       <asp:ListItem>Project opened.</asp:ListItem>
@@ -227,7 +227,7 @@ Where Quotation_Target.quotation_id in
                   </td>
                   <td>
                     <asp:DropDownList ID="ddlworkingStatusTemplate2" runat="server" AutoPostBack="True"
-                      EnableTheming="False" OnSelectedIndexChanged="ddlworkingStatusTemplate2_SelectedIndexChanged">
+                      EnableTheming="False" OnSelectedIndexChanged="ddlworkingStatusTemplate_SelectedIndexChanged">
                       <asp:ListItem Value="">Select a template....</asp:ListItem>
                       <asp:ListItem>Application in progress.</asp:ListItem>
                       <asp:ListItem>Application under revision at Authority.</asp:ListItem>
@@ -265,7 +265,7 @@ Where Quotation_Target.quotation_id in
                   </td>
                   <td>
                     <asp:DropDownList ID="ddlworkingStatusTemplate3" runat="server" AutoPostBack="True"
-                      EnableTheming="False" OnSelectedIndexChanged="ddlworkingStatusTemplate3_SelectedIndexChanged">
+                      EnableTheming="False" OnSelectedIndexChanged="ddlworkingStatusTemplate_SelectedIndexChanged">
                       <asp:ListItem Value="">Select a template....</asp:ListItem>
                       <asp:ListItem>Attempted checking with Authority. Additional documents requested.</asp:ListItem>
                       <asp:ListItem>Attempted checking with Authority. Additional sample(s) requested.</asp:ListItem>
@@ -290,20 +290,41 @@ Where Quotation_Target.quotation_id in
                   </td>
                   <td>
                     <asp:DropDownList ID="ddlworkingStatusTemplate4" runat="server" AutoPostBack="True"
-                      EnableTheming="False" OnSelectedIndexChanged="ddlworkingStatusTemplate4_SelectedIndexChanged">
+                      EnableTheming="False" OnSelectedIndexChanged="ddlworkingStatusTemplate_SelectedIndexChanged">
                       <asp:ListItem Value="">Select a template....</asp:ListItem>
                       <asp:ListItem>Application rejected by Authority.</asp:ListItem>
-                      <asp:ListItem>Certificate received. Project closed.</asp:ListItem>
+                      <asp:ListItem>Scanned Certificate received. Project closed.</asp:ListItem>
                       <asp:ListItem>Project cancelled by Client.</asp:ListItem>
                       <asp:ListItem>Project resumed at Client's request.</asp:ListItem>
                       <asp:ListItem>Revision rejected by Authority.</asp:ListItem>
                     </asp:DropDownList>
                   </td>
                 </tr>
+                <tr>
+                  <td width="14%" style="font-weight: bold">
+                    Certificate / Sample return status：
+                  </td>
+                  <td>
+                    <asp:DropDownList ID="ddlworkingStatusTemplate5" runat="server" AutoPostBack="True"
+                      EnableTheming="False" OnSelectedIndexChanged="ddlworkingStatusTemplate_SelectedIndexChanged">
+                      <asp:ListItem Value="">Select a template....</asp:ListItem>
+                      <asp:ListItem>Original certificate retained by (local rep., local agent etc.).</asp:ListItem>
+                      <asp:ListItem>Original Certificate (and sample) is kept by local agent and will be returned (at the end of year or with materials of other projects).</asp:ListItem>
+                      <asp:ListItem>Original certificate mailed from (local agent or authority)and arrived at WoWi.</asp:ListItem>
+                      <asp:ListItem>Original certificate collected from (local agent or authority)and received by WoWi.</asp:ListItem>
+                      <asp:ListItem>There is no actual certificate. Yearly Gazette is published and released.</asp:ListItem>
+                      <asp:ListItem>There is no original certificate.  </asp:ListItem>
+                      <asp:ListItem>The original certificate mailed to client from WoWi.</asp:ListItem>
+                      <asp:ListItem>The original certificate mailed by local agent and received by local rep. (contact person).</asp:ListItem>
+                      <asp:ListItem>Testing sample(s) retained by Authority.</asp:ListItem>
+                      <asp:ListItem>Testing sample(s) returned from (testing lab, local agent etc.) to (WoWi, client etc.).</asp:ListItem>
+                    </asp:DropDownList>
+                  </td>
+                </tr>
               </table>
               <br />
               <asp:TextBox ID="txtLogContent" runat="server" EnableTheming="False" Rows="5" TextMode="MultiLine"
-                Width="450" ValidationGroup="AddWorkingStatus" Text='<%# Bind("log_content") %>'>
+                Width="100%" ValidationGroup="AddWorkingStatus" Text='<%# Bind("log_content") %>'>
               </asp:TextBox>
               <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtLogContent"
                 Display="None" EnableTheming="False" ErrorMessage="<strong>Required Field Missing</strong><br />&nbsp;&nbsp;Working Status is required."
