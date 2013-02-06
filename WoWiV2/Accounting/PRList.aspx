@@ -149,9 +149,23 @@
       if (ddlAccessLevel.SelectedValue != "-1")
       {
         newCriteria += " and P.department_id  = " + ddlAccessLevel.SelectedValue;
-
       }
     }
+
+    //Add by Adams 2013/2/6 for 加入PR NO為條件
+    if (!string.IsNullOrEmpty(txtPR.Text))
+    {
+      char[] delimiterChars = { ',', ';' };
+      string[] words = txtPR.Text.Split(delimiterChars);
+      string key = string.Empty;
+      foreach (string s in words)
+      {
+        if (!string.IsNullOrEmpty(s))
+          key += "," + s;
+      }
+      newCriteria += " and P.pr_id in (" + key.Substring(1) + ") ";
+    }
+    
     if (ddlProjectNo.SelectedValue != "-1")
     {
 
@@ -178,7 +192,16 @@
     }
 
     SqlDataSourceClient.SelectCommand += newCriteria + " Order by P.pr_id desc";
-    GridView1.DataBind();
+    
+    try
+    {
+      GridView1.DataBind();
+    }
+    catch (Exception ex)
+    {
+      lblMsg.Text = "請確認查詢條件設定正確! PR No.只能使用逗號和分號分隔!";
+    }
+    
     if (GridView1.Rows.Count == 0)
     {
 
@@ -196,6 +219,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
   PR Lists<br>
+  PR No. :
+  <asp:TextBox ID="txtPR" runat="server" Width="80%"></asp:TextBox>
+  <br />
   Project :
   <asp:DropDownList ID="ddlProjectNo" runat="server" AppendDataBoundItems="True" OnLoad="DropDownList1_Load">
     <asp:ListItem Value="-1">- All -</asp:ListItem>

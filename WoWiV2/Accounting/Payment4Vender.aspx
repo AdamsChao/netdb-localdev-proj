@@ -11,6 +11,20 @@
     int eid = Utils.GetEmployeeID(User.Identity.Name);
     newCriteria += " and P.department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
 
+    //Add by Adams 2013/2/6 for 加入PR NO為條件
+    if (!string.IsNullOrEmpty(txtPR.Text))
+    {
+      char[] delimiterChars = { ',' , ';' };
+      string[] words = txtPR.Text.Split(delimiterChars);
+      string key = string.Empty;
+      foreach (string s in words)
+      {
+        if (!string.IsNullOrEmpty(s))
+          key += "," + s;
+      }
+      newCriteria += " and P.pr_id in (" + key.Substring(1) + ") ";
+    }
+    
     if (ddlVenderList.SelectedValue != "-1")
     {
       newCriteria += " and P.vendor_id = " + ddlVenderList.SelectedValue;
@@ -94,7 +108,16 @@
       }
     }
 
-    GridView1.DataBind();
+    try
+    {
+      GridView1.DataBind();
+    }
+    catch (Exception ex)
+    {
+      lblMsg.Text = "請確認查詢條件設定正確! PR No.只能使用逗號和分號分隔!" ;
+    }
+    
+    
     if (GridView1.Rows.Count == 0)
     {
       lblMsg.Visible = true;
@@ -182,6 +205,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
   PR Payment Lists
+  <br />
+  PR No. :
+  <asp:TextBox ID="txtPR" runat="server" Width="80%"></asp:TextBox>
   <br />
   Vender :
   <asp:DropDownList ID="ddlVenderList" runat="server" AppendDataBoundItems="True" OnLoad="ddlVenderList_Load">
