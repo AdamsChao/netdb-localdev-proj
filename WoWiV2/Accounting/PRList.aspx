@@ -198,12 +198,7 @@
       GridView1.DataBind();
       if (GridView1.Rows.Count == 0)
       {
-        lblMsg.Visible = true;
         lblMsg.Text = "No match data found.";
-      }
-      else
-      {
-        lblMsg.Visible = false;
       }
     }
     catch (Exception ex)
@@ -254,7 +249,7 @@
   </asp:SqlDataSource>
   &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" /><br>
   <asp:Button ID="Button1" runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" /><br>
-  <asp:Label ID="lblMsg" runat="server" Text="No match data found."></asp:Label>
+  <asp:Label ID="lblMsg" runat="server" EnableViewState="False"></asp:Label>
   <p>
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" SkinID="GridView"
       Width="100%" PageSize="50" DataKeyNames="pr_id" DataSourceID="SqlDataSourceClient"
