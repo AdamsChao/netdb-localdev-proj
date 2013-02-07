@@ -111,22 +111,25 @@
     try
     {
       GridView1.DataBind();
+      if (GridView1.Rows.Count == 0)
+      {
+        lblMsg.Visible = true;
+        lblMsg.Text = "No match data found.";
+      }
+      else
+      {
+        lblMsg.Visible = false;
+      }
     }
     catch (Exception ex)
     {
+      SqlDataSource1.SelectCommand = "";
+      GridView1.DataBind();
       lblMsg.Text = "請確認查詢條件設定正確! PR No.只能使用逗號和分號分隔!" ;
     }
     
     
-    if (GridView1.Rows.Count == 0)
-    {
-      lblMsg.Visible = true;
-
-    }
-    else
-    {
-      lblMsg.Visible = false;
-    }
+    
 
   }
 
