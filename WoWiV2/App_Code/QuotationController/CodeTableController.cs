@@ -176,9 +176,9 @@ public class CodeTableController
                      join c in entities.clientapplicant  on n.accesslevel_id equals c.department_id
                      where n.employee_id == employee_id &&
                           (c.clientapplicant_type == 1 || c.clientapplicant_type== 3)
+                     orderby c.companyname
                      select c;
         return result.ToDictionary(n => n.id, n => n.companyname);
-
     }
 
     public static String GetEmployeeAccessLevel(int employee_id)

@@ -111,7 +111,8 @@
             <asp:ListItem Value="%">- All -</asp:ListItem>
           </asp:DropDownList>
           <asp:SqlDataSource ID="SqlDataSourceClient" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-            SelectCommand="SELECT [id], [companyname] FROM [clientapplicant] Where clientapplicant_type = 1 or clientapplicant_type = 3">
+            
+            SelectCommand="SELECT [id], [companyname] FROM [clientapplicant] Where clientapplicant_type = 1 or clientapplicant_type = 3 order by companyname">
           </asp:SqlDataSource>
           &nbsp;<asp:Button ID="ButtonSearch" runat="server" OnClick="ButtonSearch_Click" Text="Search" />
         </asp:Panel>
