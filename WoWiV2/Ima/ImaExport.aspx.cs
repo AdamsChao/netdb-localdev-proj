@@ -304,10 +304,17 @@ public partial class Ima_ImaExport : System.Web.UI.Page
         //{
         //    strSelCountryID = strSelCountryID.Remove(0, 1);
         //}
-        //if (strSelCountryID.Substring(strSelCountryID.Length - 1, 1) == ",")
-        //{
-        //    strSelCountryID = strSelCountryID.Remove(strSelCountryID.Length - 1, 1);
-        //}
+
+        //判斷選擇的區域最後是否有逗號
+        if (strRegion.Substring(strRegion.Length - 1, 1) == ",")
+        {
+            strRegion = strRegion.Remove(strRegion.Length - 1, 1);
+        }
+        //判斷選擇的國家最後是否有逗號
+        if (strSelCountryID.Substring(strSelCountryID.Length - 1, 1) == ",")
+        {
+            strSelCountryID = strSelCountryID.Remove(strSelCountryID.Length - 1, 1);
+        }
         SqlCommand cmd = new SqlCommand("STP_GetExportData");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@RID", strRegion);
