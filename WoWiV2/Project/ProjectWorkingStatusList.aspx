@@ -192,7 +192,7 @@ INNER JOIN Employee ON Employee.id = Quotation_Version.SalesId
 INNER JOIN clientapplicant ON Quotation_Version.Client_Id = clientapplicant.id 
 WHERE (Project.Project_ID LIKE @Project_ID)  
 AND (Quotation_Target.Status LIKE '%' + @Status + '%') 
-AND (country.country_name LIKE '%' + @country_name + '%') 
+AND (country.country_name = @country_name ) 
 AND (SalesId  LIKE @SalesId) 
 AND (Client_Id  LIKE @Client_Id) 
 ">
