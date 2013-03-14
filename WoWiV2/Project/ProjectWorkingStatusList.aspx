@@ -216,7 +216,7 @@ AND (Client_Id  LIKE @Client_Id)
           SelectCommand="SELECT [world_region_id], [world_region_name] FROM [world_region]">
         </asp:SqlDataSource>
         <asp:SqlDataSource ID="SqlDataSourceCountry" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-          SelectCommand="SELECT [country_id], [country_name] FROM [country] WHERE ([world_region_id] = @world_region_id)">
+          SelectCommand="SELECT [country_id], [country_name] FROM [country] WHERE ([world_region_id] = @world_region_id) order by country_name">
           <SelectParameters>
             <asp:ControlParameter ControlID="DropDownListRegion" Name="world_region_id" PropertyName="SelectedValue"
               Type="Byte" />
