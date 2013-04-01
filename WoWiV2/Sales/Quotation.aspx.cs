@@ -29,41 +29,43 @@ public partial class Sales_Quotation : System.Web.UI.Page
 
   protected void ButtonSearch_Click(object sender, EventArgs e)
   {
-    SqlDataSourceQuot.SelectParameters.Clear();
+    //SqlDataSourceQuot.SelectParameters.Clear();
+    //SqlDataSourceQuot.SelectParameters.Add("employee_id", txtCurrentEmployee_id.Text);
 
-    string mySQLstr = "";
-    if (ddlClient.SelectedValue != "")
-    {
-      SqlDataSourceQuot.SelectParameters.Add("Client_Id", ddlClient.SelectedValue);
-      mySQLstr = " AND Client_Id=@Client_Id ";
-    }
-    if (ddlEmp.SelectedValue != "")
-    {
-      SqlDataSourceQuot.SelectParameters.Add("SalesId", ddlEmp.SelectedValue);
-      mySQLstr = " AND SalesId=@SalesId ";
-    }
-    if (txtProductName.Text != "")
-    {
-      SqlDataSourceQuot.SelectParameters.Add("Product_Name", txtProductName.Text);
-      mySQLstr = " AND ([Product_Name] LIKE '%' + @Product_Name + '%')";
-    }
-    if (txtModelNo.Text != "")
-    {
-      SqlDataSourceQuot.SelectParameters.Add("Model_No", txtModelNo.Text);
-      mySQLstr = " AND ([Model_No] LIKE '%' + @Model_No + '%')";
-    }
+    //string mySQLstr = "";
+    //if (ddlClient.SelectedValue != "")
+    //{
+    //  SqlDataSourceQuot.SelectParameters.Add("Client_Id", ddlClient.SelectedValue);
+    //  mySQLstr = " AND Client_Id=@Client_Id ";
+    //}
+    //if (ddlEmp.SelectedValue != "")
+    //{
+    //  SqlDataSourceQuot.SelectParameters.Add("SalesId", ddlEmp.SelectedValue);
+    //  mySQLstr = " AND SalesId=@SalesId ";
+    //}
+    //if (txtProductName.Text != "")
+    //{
+    //  SqlDataSourceQuot.SelectParameters.Add("Product_Name", txtProductName.Text);
+    //  mySQLstr = " AND ([Product_Name] LIKE '%' + @Product_Name + '%')";
+    //}
+    //if (txtModelNo.Text != "")
+    //{
+    //  SqlDataSourceQuot.SelectParameters.Add("Model_No", txtModelNo.Text);
+    //  mySQLstr = " AND ([Model_No] LIKE '%' + @Model_No + '%')";
+    //}
 
 
-    SqlDataSourceQuot.SelectCommand = "SELECT * FROM [vw_Quotation] WHERE 1=1 " + mySQLstr +
-        " ORDER BY  vw_Quotation.Quotation_No DESC, vw_Quotation.Vername, vw_Quotation.Model_No ";
-    GridViewQuotation.DataBind();
+    //SqlDataSourceQuot.SelectCommand = "SELECT * FROM [vw_Quotation] WHERE 1=1 " + mySQLstr +
+    //    " ORDER BY  vw_Quotation.Quotation_No DESC, vw_Quotation.Vername, vw_Quotation.Model_No ";
+    //SqlDataSourceQuot.Select(DataSourceSelectArguments.Empty);
+    //GridViewQuotation.DataBind();
   }
   protected void ddlClient_DataBound(object sender, EventArgs e)
   {
-    ddlClient.Items.Insert(0, new ListItem("--select--", ""));
+    ddlClient.Items.Insert(0, new ListItem("- All -", "%"));
   }
   protected void ddlEmp_DataBound(object sender, EventArgs e)
   {
-    ddlEmp.Items.Insert(0, new ListItem("--select--", ""));
+    ddlEmp.Items.Insert(0, new ListItem("- All -", "%"));
   }
 }
