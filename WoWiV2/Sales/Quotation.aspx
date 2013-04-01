@@ -67,7 +67,7 @@
     <br />
     <asp:GridView ID="GridViewQuotation" runat="server" AutoGenerateColumns="False" DataKeyNames="Quotation_Version_Id"
       DataSourceID="SqlDataSourceQuot" Style="text-align: center" Width="100%" AllowSorting="True"
-      PageSize="5" AllowPaging="True">
+      PageSize="20" AllowPaging="True">
       <Columns>
         <asp:TemplateField ShowHeader="False" Visible="False">
           <ItemTemplate>
