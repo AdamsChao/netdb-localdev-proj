@@ -391,8 +391,7 @@
   <br>
   <asp:Button ID="Button1" runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" /><br>
   <asp:Label ID="lblMsg" runat="server" EnableViewState="False"></asp:Label>
-  <p>
-    &nbsp;<asp:Panel ID="PanelReport" runat="server">
+  <asp:Panel ID="PanelReport" runat="server">
       <asp:GridView ID="gv_pr" runat="server" AutoGenerateColumns="False" SkinID="GridView"
         Width="100%" PageSize="50" DataKeyNames="pr_id" DataSourceID="SqlDataSourceClient"
         AllowPaging="True" AllowSorting="True" 
