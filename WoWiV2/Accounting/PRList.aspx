@@ -1,121 +1,121 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" EnableEventValidation="false" %>
 
 <script runat="server">
   QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
   WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
 
-  protected void GridView1_PreRender(object sender, EventArgs e)
-  {
-    foreach (GridViewRow row in GridView1.Rows)
-    {
+  //protected void GridView1_PreRender(object sender, EventArgs e)
+  //{
+  //  foreach (GridViewRow row in gv_pr.Rows)
+  //  {
 
-      String projIDStr = row.Cells[2].Text;
-      try
-      {
-        int pid = int.Parse(projIDStr);
-        row.Cells[2].Text = (from p in db.Project where p.Project_Id == pid select p.Project_No).First();
-      }
-      catch (Exception)
-      {
+  //    String projIDStr = row.Cells[2].Text;
+  //    try
+  //    {
+  //      int pid = int.Parse(projIDStr);
+  //      row.Cells[2].Text = (from p in db.Project where p.Project_Id == pid select p.Project_No).First();
+  //    }
+  //    catch (Exception)
+  //    {
 
-        //throw;
-      }
-      String venderIDStr = row.Cells[5].Text;
-      if (venderIDStr == "-1")
-      {
-        row.Cells[5].Text = "Not set yet";
-      }
-      else
-      {
-        try
-        {
-          int vid = int.Parse(venderIDStr);
-          var vender = (from v in wowidb.vendors where v.id == vid select v).First();
-          row.Cells[5].Text = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
-        }
-        catch (Exception)
-        {
+  //      //throw;
+  //    }
+  //    String venderIDStr = row.Cells[5].Text;
+  //    if (venderIDStr == "-1")
+  //    {
+  //      row.Cells[5].Text = "Not set yet";
+  //    }
+  //    else
+  //    {
+  //      try
+  //      {
+  //        int vid = int.Parse(venderIDStr);
+  //        var vender = (from v in wowidb.vendors where v.id == vid select v).First();
+  //        row.Cells[5].Text = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
+  //      }
+  //      catch (Exception)
+  //      {
 
-          //throw;
-        }
-      }
-      if (row.Cells[6].Text.Trim() != "&nbsp;")
-      {
-        row.Cells[6].Text = row.Cells[6].Text + "$";
-      }
-      String quoIDStr = row.Cells[3].Text;
-      try
-      {
+  //        //throw;
+  //      }
+  //    }
+  //    if (row.Cells[6].Text.Trim() != "&nbsp;")
+  //    {
+  //      row.Cells[6].Text = row.Cells[6].Text + "$";
+  //    }
+  //    String quoIDStr = row.Cells[3].Text;
+  //    try
+  //    {
 
-        if (quoIDStr == "-1")
-        {
-          row.Cells[3].Text = "Not set yet";
-        }
-        else
-        {
-          int qid = int.Parse(quoIDStr);
-          row.Cells[3].Text = (from q in db.Quotation_Version where q.Quotation_Version_Id == qid select q.Quotation_No).First();
-        }
-      }
-      catch (Exception)
-      {
+  //      if (quoIDStr == "-1")
+  //      {
+  //        row.Cells[3].Text = "Not set yet";
+  //      }
+  //      else
+  //      {
+  //        int qid = int.Parse(quoIDStr);
+  //        row.Cells[3].Text = (from q in db.Quotation_Version where q.Quotation_Version_Id == qid select q.Quotation_No).First();
+  //      }
+  //    }
+  //    catch (Exception)
+  //    {
 
 
-      }
+  //    }
 
-      String Str = row.Cells[10].Text;
-      try
-      {
-        byte status = byte.Parse(Str);
-        row.Cells[10].Text = PRUtils.statusByteToString(status);
+  //    String Str = row.Cells[10].Text;
+  //    try
+  //    {
+  //      byte status = byte.Parse(Str);
+  //      row.Cells[10].Text = PRUtils.statusByteToString(status);
 
-      }
-      catch (Exception)
-      {
+  //    }
+  //    catch (Exception)
+  //    {
 
-        //throw;
-      }
+  //      //throw;
+  //    }
 
-      Str = row.Cells[12].Text;
-      try
-      {
-        if (Str == "-1")
-        {
-          row.Cells[12].Text = "Not set yet";
-        }
-        else
-        {
-          int aid = int.Parse(Str);
-          row.Cells[12].Text = (from p in wowidb.access_level where p.id == aid select p.name).First();
-        }
-      }
-      catch (Exception)
-      {
+  //    Str = row.Cells[12].Text;
+  //    try
+  //    {
+  //      if (Str == "-1")
+  //      {
+  //        row.Cells[12].Text = "Not set yet";
+  //      }
+  //      else
+  //      {
+  //        int aid = int.Parse(Str);
+  //        row.Cells[12].Text = (from p in wowidb.access_level where p.id == aid select p.name).First();
+  //      }
+  //    }
+  //    catch (Exception)
+  //    {
 
-        //throw;
-      }
+  //      //throw;
+  //    }
 
-      Str = row.Cells[13].Text;
-      try
-      {
-        if (Str == "-1")
-        {
-          row.Cells[13].Text = "Not set yet";
-        }
-        else
-        {
-          int aid = int.Parse(Str);
-          var emp = (from p in wowidb.employees where p.id == aid select p).First();
-          row.Cells[13].Text = emp.fname + " " + emp.lname;
-        }
-      }
-      catch (Exception)
-      {
+  //    Str = row.Cells[13].Text;
+  //    try
+  //    {
+  //      if (Str == "-1")
+  //      {
+  //        row.Cells[13].Text = "Not set yet";
+  //      }
+  //      else
+  //      {
+  //        int aid = int.Parse(Str);
+  //        var emp = (from p in wowidb.employees where p.id == aid select p).First();
+  //        row.Cells[13].Text = emp.fname + " " + emp.lname;
+  //      }
+  //    }
+  //    catch (Exception)
+  //    {
 
-        //throw;
-      }
-    }
-  }
+  //      //throw;
+  //    }
+  //  }
+  //}
 
   protected void DropDownList1_Load(object sender, EventArgs e)
   {
@@ -165,7 +165,7 @@
       }
       newCriteria += " and P.pr_id in (" + key.Substring(1) + ") ";
     }
-    
+
     if (ddlProjectNo.SelectedValue != "-1")
     {
 
@@ -192,11 +192,11 @@
     }
 
     SqlDataSourceClient.SelectCommand += newCriteria + " Order by P.pr_id desc";
-    
+
     try
     {
-      GridView1.DataBind();
-      if (GridView1.Rows.Count == 0)
+      gv_pr.DataBind();
+      if (gv_pr.Rows.Count == 0)
       {
         lblMsg.Text = "No match data found.";
       }
@@ -204,11 +204,140 @@
     catch (Exception ex)
     {
       SqlDataSourceClient.SelectCommand = "";
-      GridView1.DataBind();
+      gv_pr.DataBind();
       lblMsg.Text = "請確認查詢條件設定正確! PR No.只能使用逗號和分號分隔!";
     }
 
-    
+
+  }
+
+  protected void ButtonExcel_Click(object sender, EventArgs e)
+  {
+    if (gv_pr.Rows.Count > 0)
+    {
+      gv_pr.HeaderRow.BackColor = System.Drawing.Color.White;
+      gv_pr.Columns[0].Visible = false;
+      gv_pr.AllowPaging = false;
+      gv_pr.AllowSorting = false;
+      ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd-hhmmss-PR"), gv_pr);
+    }
+  }
+
+  public override void VerifyRenderingInServerForm(Control control)
+  {
+
+  }
+
+  protected void gv_pr_RowDataBound(object sender, GridViewRowEventArgs e)
+  {
+    if (e.Row.RowType == DataControlRowType.DataRow)
+    {
+      String projIDStr = e.Row.Cells[2].Text;
+      try
+      {
+        int pid = int.Parse(projIDStr);
+        e.Row.Cells[2].Text = (from p in db.Project where p.Project_Id == pid select p.Project_No).First();
+      }
+      catch (Exception)
+      {
+
+        //throw;
+      }
+      String venderIDStr = e.Row.Cells[5].Text;
+      if (venderIDStr == "-1")
+      {
+        e.Row.Cells[5].Text = "Not set yet";
+      }
+      else
+      {
+        try
+        {
+          int vid = int.Parse(venderIDStr);
+          var vender = (from v in wowidb.vendors where v.id == vid select v).First();
+          e.Row.Cells[5].Text = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
+        }
+        catch (Exception)
+        {
+
+          //throw;
+        }
+      }
+      if (e.Row.Cells[6].Text.Trim() != "&nbsp;")
+      {
+        e.Row.Cells[6].Text = e.Row.Cells[6].Text + "$";
+      }
+      String quoIDStr = e.Row.Cells[3].Text;
+      try
+      {
+
+        if (quoIDStr == "-1")
+        {
+          e.Row.Cells[3].Text = "Not set yet";
+        }
+        else
+        {
+          int qid = int.Parse(quoIDStr);
+          e.Row.Cells[3].Text = (from q in db.Quotation_Version where q.Quotation_Version_Id == qid select q.Quotation_No).First();
+        }
+      }
+      catch (Exception)
+      {
+
+
+      }
+
+      String Str = e.Row.Cells[10].Text;
+      try
+      {
+        byte status = byte.Parse(Str);
+        e.Row.Cells[10].Text = PRUtils.statusByteToString(status);
+
+      }
+      catch (Exception)
+      {
+
+        //throw;
+      }
+
+      Str = e.Row.Cells[12].Text;
+      try
+      {
+        if (Str == "-1")
+        {
+          e.Row.Cells[12].Text = "Not set yet";
+        }
+        else
+        {
+          int aid = int.Parse(Str);
+          e.Row.Cells[12].Text = (from p in wowidb.access_level where p.id == aid select p.name).First();
+        }
+      }
+      catch (Exception)
+      {
+
+        //throw;
+      }
+
+      Str = e.Row.Cells[13].Text;
+      try
+      {
+        if (Str == "-1")
+        {
+          e.Row.Cells[13].Text = "Not set yet";
+        }
+        else
+        {
+          int aid = int.Parse(Str);
+          var emp = (from p in wowidb.employees where p.id == aid select p).First();
+          e.Row.Cells[13].Text = emp.fname + " " + emp.lname;
+        }
+      }
+      catch (Exception)
+      {
+
+        //throw;
+      }      
+    }
   }
 </script>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
@@ -247,45 +376,50 @@
   <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
     SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name] ">
   </asp:SqlDataSource>
-  &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" /><br>
+  &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
+  <asp:Button ID="ButtonExcel" runat="server" Text="Export To Excel" OnClick="ButtonExcel_Click" />
+  <br>
   <asp:Button ID="Button1" runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" /><br>
   <asp:Label ID="lblMsg" runat="server" EnableViewState="False"></asp:Label>
   <p>
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" SkinID="GridView"
-      Width="100%" PageSize="50" DataKeyNames="pr_id" DataSourceID="SqlDataSourceClient"
-      AllowPaging="True" AllowSorting="True" OnPreRender="GridView1_PreRender">
-      <Columns>
-        <asp:TemplateField InsertVisible="False" SortExpression="pr_no">
-          <EditItemTemplate>
-            <asp:Label ID="Label1" runat="server" Text='<%# Eval("pr_no") %>'></asp:Label>
-          </EditItemTemplate>
-          <ItemTemplate>
-            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/UpdatePR.aspx?id={0}") %>'>Edit</asp:HyperLink>
-            &nbsp;
-            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/PRDetails.aspx?id={0}") %>'>Details</asp:HyperLink>
-          </ItemTemplate>
-        </asp:TemplateField>
-        <asp:BoundField DataField="pr_id" HeaderText="PR No" SortExpression="pr_id" ReadOnly="True" />
-        <asp:BoundField DataField="project_id" HeaderText="Project Id" SortExpression="project_id"
-          ReadOnly="True" />
-        <asp:BoundField DataField="quotaion_id" HeaderText="Quotation No" SortExpression="quotaion_id" />
-        <asp:BoundField DataField="model" HeaderText="Model No." SortExpression="model" />
-        <asp:BoundField DataField="vendor_id" HeaderText="Vender" SortExpression="vendor_id" />
-        <asp:BoundField DataField="currency" HeaderText="Currency" ItemStyle-HorizontalAlign="Right"
-          SortExpression="currency" />
-        <asp:BoundField DataField="total_cost" HeaderText="Total Cost" ItemStyle-HorizontalAlign="Right"
-          SortExpression="total_cost" DataFormatString="{0:F2}" />
-        <asp:BoundField DataField="create_date" HeaderText="Creation Date" SortExpression="create_date"
-          DataFormatString="{0:yyyy/MM/dd}" />
-        <asp:BoundField DataField="target_payment_date" HeaderText="Target Payment Date"
-          SortExpression="target_payment_date" DataFormatString="{0:yyyy/MM/dd}" />
-        <asp:BoundField DataField="pr_auth_id" HeaderText="Status" SortExpression="pr_auth_id" />
-        <asp:BoundField DataField="status_date" HeaderText="Status Date" SortExpression="status_date"
-          DataFormatString="{0:yyyy/MM/dd}" />
-        <asp:BoundField DataField="department_Id" HeaderText="Access Level" SortExpression="department_Id" />
-        <asp:BoundField DataField="employee_Id" HeaderText="Created By" SortExpression="employee_Id" />
-      </Columns>
-    </asp:GridView>
+    &nbsp;<asp:Panel ID="PanelReport" runat="server">
+      <asp:GridView ID="gv_pr" runat="server" AutoGenerateColumns="False" SkinID="GridView"
+        Width="100%" PageSize="50" DataKeyNames="pr_id" DataSourceID="SqlDataSourceClient"
+        AllowPaging="True" AllowSorting="True" 
+        onrowdatabound="gv_pr_RowDataBound">
+        <Columns>
+          <asp:TemplateField InsertVisible="False" SortExpression="pr_no">
+            <EditItemTemplate>
+              <asp:Label ID="Label1" runat="server" Text='<%# Eval("pr_no") %>'></asp:Label>
+            </EditItemTemplate>
+            <ItemTemplate>
+              <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/UpdatePR.aspx?id={0}") %>'>Edit</asp:HyperLink>
+              &nbsp;
+              <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/PRDetails.aspx?id={0}") %>'>Details</asp:HyperLink>
+            </ItemTemplate>
+          </asp:TemplateField>
+          <asp:BoundField DataField="pr_id" HeaderText="PR No" SortExpression="pr_id" ReadOnly="True" />
+          <asp:BoundField DataField="project_id" HeaderText="Project Id" SortExpression="project_id"
+            ReadOnly="True" />
+          <asp:BoundField DataField="quotaion_id" HeaderText="Quotation No" SortExpression="quotaion_id" />
+          <asp:BoundField DataField="model" HeaderText="Model No." SortExpression="model" />
+          <asp:BoundField DataField="vendor_id" HeaderText="Vender" SortExpression="vendor_id" />
+          <asp:BoundField DataField="currency" HeaderText="Currency" ItemStyle-HorizontalAlign="Right"
+            SortExpression="currency" />
+          <asp:BoundField DataField="total_cost" HeaderText="Total Cost" ItemStyle-HorizontalAlign="Right"
+            SortExpression="total_cost" DataFormatString="{0:F2}" />
+          <asp:BoundField DataField="create_date" HeaderText="Creation Date" SortExpression="create_date"
+            DataFormatString="{0:yyyy/MM/dd}" />
+          <asp:BoundField DataField="target_payment_date" HeaderText="Target Payment Date"
+            SortExpression="target_payment_date" DataFormatString="{0:yyyy/MM/dd}" />
+          <asp:BoundField DataField="pr_auth_id" HeaderText="Status" SortExpression="pr_auth_id" />
+          <asp:BoundField DataField="status_date" HeaderText="Status Date" SortExpression="status_date"
+            DataFormatString="{0:yyyy/MM/dd}" />
+          <asp:BoundField DataField="department_Id" HeaderText="Access Level" SortExpression="department_Id" />
+          <asp:BoundField DataField="employee_Id" HeaderText="Created By" SortExpression="employee_Id" />
+        </Columns>
+      </asp:GridView>
+    </asp:Panel>
   </p>
   <p>
     <br />
