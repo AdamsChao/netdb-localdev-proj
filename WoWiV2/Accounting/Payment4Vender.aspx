@@ -7,6 +7,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+      if (IsPostBack)
+      {
         String newCriteria = "";
         int eid = Utils.GetEmployeeID(User.Identity.Name);
         newCriteria += " and P.department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
@@ -14,25 +16,25 @@
         //Add by Adams 2013/2/6 for 加入PR NO為條件
         if (!string.IsNullOrEmpty(txtPR.Text))
         {
-            char[] delimiterChars = { ',', ';' };
-            string[] words = txtPR.Text.Split(delimiterChars);
-            string key = string.Empty;
-            foreach (string s in words)
-            {
-                if (!string.IsNullOrEmpty(s))
-                    key += "," + s;
-            }
-            newCriteria += " and P.pr_id in (" + key.Substring(1) + ") ";
+          char[] delimiterChars = { ',', ';' };
+          string[] words = txtPR.Text.Split(delimiterChars);
+          string key = string.Empty;
+          foreach (string s in words)
+          {
+            if (!string.IsNullOrEmpty(s))
+              key += "," + s;
+          }
+          newCriteria += " and P.pr_id in (" + key.Substring(1) + ") ";
         }
 
         if (ddlVenderList.SelectedValue != "-1")
         {
-            newCriteria += " and P.vendor_id = " + ddlVenderList.SelectedValue;
+          newCriteria += " and P.vendor_id = " + ddlVenderList.SelectedValue;
         }
         try
         {
-            DateTime fromDate = dcFrom.GetDate();
-            newCriteria += " and P.target_payment_date >= '" + dcFrom.GetText() + "' ";
+          DateTime fromDate = dcFrom.GetDate();
+          newCriteria += " and P.target_payment_date >= '" + dcFrom.GetText() + "' ";
         }
         catch (Exception)
         {
@@ -42,20 +44,20 @@
 
         try
         {
-            DateTime toDate = dcTo.GetDate();
-            newCriteria += " and P.target_payment_date <= '" + dcTo.GetText() + "' ";
+          DateTime toDate = dcTo.GetDate();
+          newCriteria += " and P.target_payment_date <= '" + dcTo.GetText() + "' ";
         }
         catch (Exception)
         {
-            //throw;
+          //throw;
         }
 
         bool append = false;
         try
         {
-            DateTime fromDate = dcPFrom.GetDate();
-            append = true;
-            newCriteria = "select * from (" + SqlDataSource1.SelectCommand + newCriteria + ") AS u where u.pay_date >= '" + dcPFrom.GetText() + "' ";
+          DateTime fromDate = dcPFrom.GetDate();
+          append = true;
+          newCriteria = "select * from (" + SqlDataSource1.SelectCommand + newCriteria + ") AS u where u.pay_date >= '" + dcPFrom.GetText() + "' ";
         }
         catch (Exception)
         {
@@ -66,20 +68,20 @@
         try
         {
 
-            DateTime toDate = dcPTo.GetDate();
-            if (append)
-            {
-                newCriteria += " and u.pay_date <= '" + dcPTo.GetText() + "' ";
-            }
-            else
-            {
-                append = true;
-                newCriteria = " select * from ( " + SqlDataSource1.SelectCommand + newCriteria + " ) AS u where u.pay_date <= '" + dcPTo.GetText() + "' ";
-            }
+          DateTime toDate = dcPTo.GetDate();
+          if (append)
+          {
+            newCriteria += " and u.pay_date <= '" + dcPTo.GetText() + "' ";
+          }
+          else
+          {
+            append = true;
+            newCriteria = " select * from ( " + SqlDataSource1.SelectCommand + newCriteria + " ) AS u where u.pay_date <= '" + dcPTo.GetText() + "' ";
+          }
         }
         catch (Exception)
         {
-            //throw;
+          //throw;
         }
 
         if (cbNotPay.Checked)
@@ -89,97 +91,43 @@
 
         if (append)
         {
-            if (cbNotPay.Checked)
-            {
-                newCriteria += " and u.pay_date IS NULL Order by u.pr_id desc ";
-            }
-            SqlDataSource1.SelectCommand = newCriteria;
+          if (cbNotPay.Checked)
+          {
+            newCriteria += " and u.pay_date IS NULL Order by u.pr_id desc ";
+          }
+          SqlDataSource1.SelectCommand = newCriteria;
         }
         else
         {
-            if (cbNotPay.Checked)
-            {
-                newCriteria = "select * from (" + SqlDataSource1.SelectCommand + newCriteria + ") AS u where u.pay_date IS NULL Order by u.pr_id desc ";
-                SqlDataSource1.SelectCommand = newCriteria;
-            }
-            else
-            {
-                SqlDataSource1.SelectCommand += newCriteria + " Order by P.pr_id desc ";
-            }
+          if (cbNotPay.Checked)
+          {
+            newCriteria = "select * from (" + SqlDataSource1.SelectCommand + newCriteria + ") AS u where u.pay_date IS NULL Order by u.pr_id desc ";
+            SqlDataSource1.SelectCommand = newCriteria;
+          }
+          else
+          {
+            SqlDataSource1.SelectCommand += newCriteria + " Order by P.pr_id desc ";
+          }
         }
 
         try
         {
-            GridView1.DataBind();
-            if (GridView1.Rows.Count == 0)
-            {
-                lblMsg.Text = "No match data found.";
-            }
+          GVPayment.DataBind();
+          if (GVPayment.Rows.Count == 0)
+          {
+            lblMsg.Text = "No match data found.";
+          }
         }
         catch (Exception ex)
         {
-            SqlDataSource1.SelectCommand = "";
-            GridView1.DataBind();
-            lblMsg.Text = "請確認查詢條件設定正確! PR No.只能使用逗號和分號分隔!";
-        }
-
-
-
-
+          SqlDataSource1.SelectCommand = "";
+          GVPayment.DataBind();
+          lblMsg.Text = "請確認查詢條件設定正確! PR No.只能使用逗號和分號分隔!";
+        }        
+      }
     }
 
-    protected void GridView1_PreRender(object sender, EventArgs e)
-    {
-        foreach (GridViewRow row in GridView1.Rows)
-        {
-
-            String projIDStr = row.Cells[2].Text;
-            try
-            {
-                int pid = int.Parse(projIDStr);
-                row.Cells[2].Text = (from p in db.Project where p.Project_Id == pid select p.Project_No).First();
-            }
-            catch (Exception)
-            {
-
-                //throw;
-            }
-            String venderIDStr = row.Cells[5].Text;
-            if (venderIDStr == "-1")
-            {
-                row.Cells[5].Text = "Not set yet";
-            }
-            else
-            {
-                try
-                {
-                    int vid = int.Parse(venderIDStr);
-                    var vender = (from v in wowidb.vendors where v.id == vid select v).First();
-                    row.Cells[5].Text = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
-                }
-                catch (Exception)
-                {
-
-                    //throw;
-                }
-            }
-            if (row.Cells[6].Text.Trim() != "&nbsp;")
-            {
-                row.Cells[6].Text = row.Cells[6].Text + "$";
-            }
-            String quoIDStr = row.Cells[3].Text;
-            try
-            {
-                int qid = int.Parse(quoIDStr);
-                row.Cells[3].Text = (from q in db.Quotation_Version where q.Quotation_Version_Id == qid select q.Quotation_No).First();
-            }
-            catch (Exception)
-            {
-
-                //throw;
-            }
-        }
-    }
+   
 
     protected void ddlVenderList_Load(object sender, EventArgs e)
     {
@@ -197,6 +145,75 @@
         {
             (sender as HyperLink).Visible = false;
         }
+    }
+
+    protected void ButtonExcel_Click(object sender, EventArgs e)
+    {
+      if (GVPayment.Rows.Count > 0)
+      {
+        GVPayment.Columns[0].Visible = false;
+        GVPayment.AllowPaging = false;
+        GVPayment.AllowSorting = false;
+        GVPayment.DataBind();
+        ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd-hhmmss-Payment4Vender"), GVPayment);
+      }
+    }
+
+    public override void VerifyRenderingInServerForm(Control control)
+    {
+
+    }
+
+    protected void GVPayment_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+      if (e.Row.RowType==DataControlRowType.DataRow)
+      {
+        String projIDStr = e.Row.Cells[2].Text;
+        try
+        {
+          int pid = int.Parse(projIDStr);
+          e.Row.Cells[2].Text = (from p in db.Project where p.Project_Id == pid select p.Project_No).First();
+        }
+        catch (Exception)
+        {
+
+          //throw;
+        }
+        String venderIDStr = e.Row.Cells[5].Text;
+        if (venderIDStr == "-1")
+        {
+          e.Row.Cells[5].Text = "Not set yet";
+        }
+        else
+        {
+          try
+          {
+            int vid = int.Parse(venderIDStr);
+            var vender = (from v in wowidb.vendors where v.id == vid select v).First();
+            e.Row.Cells[5].Text = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
+          }
+          catch (Exception)
+          {
+
+            //throw;
+          }
+        }
+        if (e.Row.Cells[6].Text.Trim() != "&nbsp;")
+        {
+          e.Row.Cells[6].Text = e.Row.Cells[6].Text + "$";
+        }
+        String quoIDStr = e.Row.Cells[3].Text;
+        try
+        {
+          int qid = int.Parse(quoIDStr);
+          e.Row.Cells[3].Text = (from q in db.Quotation_Version where q.Quotation_Version_Id == qid select q.Quotation_No).First();
+        }
+        catch (Exception)
+        {
+
+          //throw;
+        }        
+      }
     }
 </script>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
@@ -223,11 +240,14 @@
     <uc1:DateChooser ID="dcPTo" runat="server" />
     <asp:CheckBox ID="cbNotPay" runat="server" Text="未付" />
     &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
+  <asp:Button ID="ButtonExcel" runat="server" Text="Export To Excel" 
+      OnClick="ButtonExcel_Click" Visible="False" />
     <br>
     <asp:Label ID="lblMsg" runat="server" EnableViewState="False"></asp:Label>
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" SkinID="GridView"
-        Width="100%" DataKeyNames="pr_id" PageSize="20" AllowSorting="True" OnPreRender="GridView1_PreRender"
-        DataSourceID="SqlDataSource1" AllowPaging="True">
+    <asp:GridView ID="GVPayment" runat="server" AutoGenerateColumns="False" SkinID="GridView"
+        Width="100%" DataKeyNames="pr_id" PageSize="20" AllowSorting="True"
+        DataSourceID="SqlDataSource1" AllowPaging="True" 
+      onrowdatabound="GVPayment_RowDataBound">
         <Columns>
             <asp:TemplateField InsertVisible="False" SortExpression="pr_no">
                 <EditItemTemplate>
