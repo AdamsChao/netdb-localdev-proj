@@ -134,80 +134,83 @@
 
   protected void Page_Load(object sender, EventArgs e)
   {
-    String newCriteria = "";
-    int eid = Utils.GetEmployeeID(User.Identity.Name);
-    if (!Utils.isAdmin(eid))
-    {
-      newCriteria += " and P.department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
-      lblaccesslevel.Visible = false;
-      ddlAccessLevel.Visible = false;
-    }
-    else
-    {
-      lblaccesslevel.Visible = true;
-      ddlAccessLevel.Visible = true;
-      if (ddlAccessLevel.SelectedValue != "-1")
+
+      if (IsPostBack)
       {
-        newCriteria += " and P.department_id  = " + ddlAccessLevel.SelectedValue;
+          String newCriteria = "";
+          int eid = Utils.GetEmployeeID(User.Identity.Name);
+          if (!Utils.isAdmin(eid))
+          {
+              newCriteria += " and P.department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
+              lblaccesslevel.Visible = false;
+              ddlAccessLevel.Visible = false;
+          }
+          else
+          {
+              lblaccesslevel.Visible = true;
+              ddlAccessLevel.Visible = true;
+              if (ddlAccessLevel.SelectedValue != "-1")
+              {
+                  newCriteria += " and P.department_id  = " + ddlAccessLevel.SelectedValue;
+              }
+          }
+
+          //Add by Adams 2013/2/6 for 加入PR NO為條件
+          if (!string.IsNullOrEmpty(txtPR.Text))
+          {
+              char[] delimiterChars = { ',', ';' };
+              string[] words = txtPR.Text.Split(delimiterChars);
+              string key = string.Empty;
+              foreach (string s in words)
+              {
+                  if (!string.IsNullOrEmpty(s))
+                      key += "," + s;
+              }
+              newCriteria += " and P.pr_id in (" + key.Substring(1) + ") ";
+          }
+
+          if (ddlProjectNo.SelectedValue != "-1")
+          {
+
+              try
+              {
+                  int id = wowidb.Projects.First(c => c.Project_No == ddlProjectNo.SelectedValue).Project_Id;
+                  newCriteria += " and P.project_id = " + id;
+              }
+              catch (Exception)
+              {
+
+                  //throw;
+              }
+          }
+
+          if (ddlVenderList.SelectedValue != "-1")
+          {
+              newCriteria += " and P.vendor_id = " + ddlVenderList.SelectedValue;
+          }
+
+          if (ddlStatus.SelectedValue != "-1")
+          {
+              newCriteria += " and R.status = " + ddlStatus.SelectedValue;
+          }
+
+          SqlDataSourceClient.SelectCommand += newCriteria + " Order by P.pr_id desc";
+
+          try
+          {
+              gv_pr.DataBind();
+              if (gv_pr.Rows.Count == 0)
+              {
+                  lblMsg.Text = "No match data found.";
+              }
+          }
+          catch (Exception ex)
+          {
+              SqlDataSourceClient.SelectCommand = "";
+              gv_pr.DataBind();
+              lblMsg.Text = "請確認查詢條件設定正確! PR No.只能使用逗號和分號分隔!";
+          }          
       }
-    }
-
-    //Add by Adams 2013/2/6 for 加入PR NO為條件
-    if (!string.IsNullOrEmpty(txtPR.Text))
-    {
-      char[] delimiterChars = { ',', ';' };
-      string[] words = txtPR.Text.Split(delimiterChars);
-      string key = string.Empty;
-      foreach (string s in words)
-      {
-        if (!string.IsNullOrEmpty(s))
-          key += "," + s;
-      }
-      newCriteria += " and P.pr_id in (" + key.Substring(1) + ") ";
-    }
-
-    if (ddlProjectNo.SelectedValue != "-1")
-    {
-
-      try
-      {
-        int id = wowidb.Projects.First(c => c.Project_No == ddlProjectNo.SelectedValue).Project_Id;
-        newCriteria += " and P.project_id = " + id;
-      }
-      catch (Exception)
-      {
-
-        //throw;
-      }
-    }
-
-    if (ddlVenderList.SelectedValue != "-1")
-    {
-      newCriteria += " and P.vendor_id = " + ddlVenderList.SelectedValue;
-    }
-
-    if (ddlStatus.SelectedValue != "-1")
-    {
-      newCriteria += " and R.status = " + ddlStatus.SelectedValue;
-    }
-
-    SqlDataSourceClient.SelectCommand += newCriteria + " Order by P.pr_id desc";
-
-    try
-    {
-      gv_pr.DataBind();
-      if (gv_pr.Rows.Count == 0)
-      {
-        lblMsg.Text = "No match data found.";
-      }
-    }
-    catch (Exception ex)
-    {
-      SqlDataSourceClient.SelectCommand = "";
-      gv_pr.DataBind();
-      lblMsg.Text = "請確認查詢條件設定正確! PR No.只能使用逗號和分號分隔!";
-    }
-
 
   }
 
@@ -215,10 +218,10 @@
   {
     if (gv_pr.Rows.Count > 0)
     {
-      gv_pr.HeaderRow.BackColor = System.Drawing.Color.White;
       gv_pr.Columns[0].Visible = false;
       gv_pr.AllowPaging = false;
       gv_pr.AllowSorting = false;
+      gv_pr.DataBind();
       ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd-hhmmss-PR"), gv_pr);
     }
   }
@@ -339,6 +342,11 @@
       }      
     }
   }
+
+  protected void btnSearch_Click(object sender, EventArgs e)
+  {
+      
+  }
 </script>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
@@ -376,7 +384,8 @@
   <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
     SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name] ">
   </asp:SqlDataSource>
-  &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
+  &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" 
+        onclick="btnSearch_Click" />
   <asp:Button ID="ButtonExcel" runat="server" Text="Export To Excel" OnClick="ButtonExcel_Click" />
   <br>
   <asp:Button ID="Button1" runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" /><br>
