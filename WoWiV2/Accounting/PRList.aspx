@@ -222,7 +222,7 @@
       gv_pr.AllowPaging = false;
       gv_pr.AllowSorting = false;
       gv_pr.DataBind();
-      ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd-hhmmss-PR"), gv_pr);
+      ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd-hhmmss") + "-PR", gv_pr);
     }
   }
 
@@ -387,7 +387,7 @@
   &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" 
         onclick="btnSearch_Click" />
   <asp:Button ID="ButtonExcel" runat="server" Text="Export To Excel" 
-    OnClick="ButtonExcel_Click" Visible="False" />
+    OnClick="ButtonExcel_Click" />
   <br>
   <asp:Button ID="Button1" runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" /><br>
   <asp:Label ID="lblMsg" runat="server" EnableViewState="False"></asp:Label>

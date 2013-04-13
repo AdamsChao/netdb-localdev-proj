@@ -155,7 +155,7 @@
         GVPayment.AllowPaging = false;
         GVPayment.AllowSorting = false;
         GVPayment.DataBind();
-        ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd-hhmmss-Payment4Vender"), GVPayment);
+        ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd-hhmmss") + "-Payment4Vender", GVPayment);
       }
     }
 
@@ -241,7 +241,7 @@
     <asp:CheckBox ID="cbNotPay" runat="server" Text="未付" />
     &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
   <asp:Button ID="ButtonExcel" runat="server" Text="Export To Excel" 
-      OnClick="ButtonExcel_Click" Visible="False" />
+      OnClick="ButtonExcel_Click" />
     <br>
     <asp:Label ID="lblMsg" runat="server" EnableViewState="False"></asp:Label>
     <asp:GridView ID="GVPayment" runat="server" AutoGenerateColumns="False" SkinID="GridView"
