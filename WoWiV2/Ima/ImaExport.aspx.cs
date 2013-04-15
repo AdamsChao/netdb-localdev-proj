@@ -292,13 +292,13 @@ public partial class Ima_ImaExport : System.Web.UI.Page
         {
             if (s != "") { strRegion += "," + s; }
         }
-        if (strRegion.Length > 0) { strRegion = strRegion.Remove(0, 1); }
+        if (strRegion.Length > 0 && strRegion.Substring(0, 1) == ",") { strRegion = strRegion.Remove(0, 1); }
         string strSelCountryID = "";
         foreach (string s in lblCountrys.Text.Trim().Split(','))
         {
             if (s != "") { strSelCountryID += "," + s; }
         }
-        if (strSelCountryID.Length > 0) { strSelCountryID = strSelCountryID.Remove(0, 1); }
+        if (strSelCountryID.Length > 0 && strSelCountryID.Substring(0, 1) == ",") { strSelCountryID = strSelCountryID.Remove(0, 1); }
         //string strSelCountryID = lblCountrys.Text.Trim();
         //if (strSelCountryID.Length > 0 && strSelCountryID.Substring(0, 1) == ",") 
         //{
@@ -310,6 +310,7 @@ public partial class Ima_ImaExport : System.Web.UI.Page
         {
             strRegion = strRegion.Remove(strRegion.Length - 1, 1);
         }
+
         //判斷選擇的國家最後是否有逗號
         if (strSelCountryID.Length > 0 && strSelCountryID.Substring(strSelCountryID.Length - 1, 1) == ",")
         {
