@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
 
-<%@ Register Src="../UserControls/DateChooser.ascx" TagName="DateChooser" TagPrefix="uc1" %>
+<%@ Register Src="~/UserControls/DateChooser.ascx" TagName="DateChooser" TagPrefix="uc1" %>
+<%@ Register src="~/UserControls/NPOIExportControl.ascx" tagname="npoiexportcontrol" tagprefix="netdb" %>
 <script runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
@@ -155,10 +156,10 @@
         GVPayment.AllowPaging = false;
         GVPayment.AllowSorting = false;
         GVPayment.DataBind();
-        //ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd-hhmmss") + "-Payment4Vender", GVPayment);
-        string FileNamePath = "~/Accounting/Uploads/" + DateTime.Now.ToString("yyyyMMdd") + "-Payment4Vender.xlsx";
-        ExportUtil.ExportGridViewToExcel(Server.MapPath(FileNamePath), GVPayment);
-        Response.Redirect(FileNamePath);   
+        ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd-hhmmss") + "-Payment4Vender", GVPayment);
+        //string FileNamePath = "~/Accounting/Uploads/" + DateTime.Now.ToString("yyyyMMdd") + "-Payment4Vender.xlsx";
+        //ExportUtil.ExportGridViewToExcel(Server.MapPath(FileNamePath), GVPayment);
+        //Response.Redirect(FileNamePath);   
       }
     }
 
@@ -244,7 +245,9 @@
     <asp:CheckBox ID="cbNotPay" runat="server" Text="未付" />
     &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
   <asp:Button ID="ButtonExcel" runat="server" Text="Excel" 
-      OnClick="ButtonExcel_Click" />
+      OnClick="ButtonExcel_Click" Visible="False" />
+  <netdb:npoiexportcontrol ID="NPOIExportControl1" runat="server" 
+      SheetName="Payment4Vender" TargetGridViewID="GVPayment" />
     <br>
     <asp:Label ID="lblMsg" runat="server" EnableViewState="False"></asp:Label>
     <asp:GridView ID="GVPayment" runat="server" AutoGenerateColumns="False" SkinID="GridView"

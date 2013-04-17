@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" EnableEventValidation="false" %>
 <%@ Import Namespace="System.IO" %>
 
+<%@ Register src="~/UserControls/NPOIExportControl.ascx" tagname="NPOIExportControl" tagprefix="netdb" %>
+
 <script runat="server">
   QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
   WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
@@ -224,10 +226,10 @@
       gv_pr.AllowSorting = false;
       gv_pr.DataBind();      
      
-      //ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd") + "-PR", gv_pr);
-      string FileNamePath = "~/Accounting/Uploads/" + DateTime.Now.ToString("yyyyMMdd") + "-PR.xlsx";
-      ExportUtil.ExportGridViewToExcel(Server.MapPath(FileNamePath), gv_pr);
-      Response.Redirect(FileNamePath);     
+      ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd") + "-PR", gv_pr);
+      //string FileNamePath = "~/Accounting/Uploads/" + DateTime.Now.ToString("yyyyMMdd") + "-PR.xlsx";
+      //ExportUtil.ExportGridViewToExcel(Server.MapPath(FileNamePath), gv_pr);
+      //Response.Redirect(FileNamePath);     
     }
   }
 
@@ -393,7 +395,8 @@
   &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" 
         onclick="btnSearch_Click" />
   <asp:Button ID="ButtonExcel" runat="server" Text="Excel" 
-    OnClick="ButtonExcel_Click" />
+    OnClick="ButtonExcel_Click" Visible="False" />
+  <netdb:npoiexportcontrol ID="NPOIExportControl1" runat="server" SheetName="PR" TargetGridViewID="gv_pr" />
   <br>
   <asp:Button ID="Button1" runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" /><br>
   <asp:Label ID="lblMsg" runat="server" EnableViewState="False"></asp:Label>
