@@ -155,7 +155,10 @@
         GVPayment.AllowPaging = false;
         GVPayment.AllowSorting = false;
         GVPayment.DataBind();
-        ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd-hhmmss") + "-Payment4Vender", GVPayment);
+        //ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd-hhmmss") + "-Payment4Vender", GVPayment);
+        string FileNamePath = "~/Accounting/Uploads/" + DateTime.Now.ToString("yyyyMMdd") + "-Payment4Vender.xlsx";
+        ExportUtil.ExportGridViewToExcel(Server.MapPath(FileNamePath), GVPayment);
+        Response.Redirect(FileNamePath);   
       }
     }
 
@@ -240,7 +243,7 @@
     <uc1:DateChooser ID="dcPTo" runat="server" />
     <asp:CheckBox ID="cbNotPay" runat="server" Text="未付" />
     &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
-  <asp:Button ID="ButtonExcel" runat="server" Text="Export To Excel" 
+  <asp:Button ID="ButtonExcel" runat="server" Text="Excel" 
       OnClick="ButtonExcel_Click" />
     <br>
     <asp:Label ID="lblMsg" runat="server" EnableViewState="False"></asp:Label>

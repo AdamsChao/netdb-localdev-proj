@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" EnableEventValidation="false" %>
+<%@ Import Namespace="System.IO" %>
 
 <script runat="server">
   QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
@@ -221,11 +222,16 @@
       gv_pr.Columns[0].Visible = false;
       gv_pr.AllowPaging = false;
       gv_pr.AllowSorting = false;
-      gv_pr.DataBind();
-      ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd-hhmmss") + "-PR", gv_pr);
+      gv_pr.DataBind();      
+     
+      //ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd") + "-PR", gv_pr);
+      string FileNamePath = "~/Accounting/Uploads/" + DateTime.Now.ToString("yyyyMMdd") + "-PR.xlsx";
+      ExportUtil.ExportGridViewToExcel(Server.MapPath(FileNamePath), gv_pr);
+      Response.Redirect(FileNamePath);     
     }
   }
 
+ 
   public override void VerifyRenderingInServerForm(Control control)
   {
 
@@ -351,7 +357,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-  PR Lists<br>
+  yPR Lists<br>
   PR No. :
   <asp:TextBox ID="txtPR" runat="server" Width="80%"></asp:TextBox>
   <br />
@@ -386,7 +392,7 @@
   </asp:SqlDataSource>
   &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" 
         onclick="btnSearch_Click" />
-  <asp:Button ID="ButtonExcel" runat="server" Text="Export To Excel" 
+  <asp:Button ID="ButtonExcel" runat="server" Text="Excel" 
     OnClick="ButtonExcel_Click" />
   <br>
   <asp:Button ID="Button1" runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" /><br>
