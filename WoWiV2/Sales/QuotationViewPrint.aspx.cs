@@ -23,6 +23,8 @@ public partial class Sales_QuotationViewPrint : System.Web.UI.Page
                 hidQuotation_No.Text = quo.Quotation_No.ToString();                
                 lblQuotationNo.Text = quo.Quotation_No.ToString();
                 lblQuotationNo0.Text = quo.Quotation_No.ToString();
+                lblversion.Text = "V" + quo.Vername.ToString();
+                lblversion2.Text = "V" + quo.Vername.ToString();
                 lblRepresentative.Text = quo.fname + " " + quo.lname;
                 lblRepresentative0.Text = quo.fname + " " + quo.lname;
                 lblRepresentative1.Text = quo.fname + " " + quo.lname;

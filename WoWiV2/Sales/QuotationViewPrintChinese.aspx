@@ -98,6 +98,7 @@
             <font face="verdana" size="2">
                 報價單號
                 <asp:Label ID="lblQuotationNo" runat="server" Text=""></asp:Label>
+                -<asp:Label ID="lblversion" runat="server"></asp:Label>
                 </font>
 
             </td>
@@ -367,6 +368,7 @@
             <font face="verdana" size="2">
                 報價單號
                 <asp:Label ID="lblQuotationNo2" runat="server"></asp:Label>
+                -<asp:Label ID="lblversion2" runat="server"></asp:Label>
                 </font>
 
             </td>

@@ -51,7 +51,8 @@
       [vw_Quotation_Print].[Bill_Address] AS [Bill_Address], 
       [vw_Quotation_Print].[title] AS [title], 
       [vw_Quotation_Print].[Remark] AS [Remark], 
-      [vw_Quotation_Print].[jobtitle_name] AS [jobtitle_name]
+      [vw_Quotation_Print].[jobtitle_name] AS [jobtitle_name], 
+      [vw_Quotation_Print].[Vername] AS [Vername]
       FROM [dbo].[vw_Quotation_Print] AS [vw_Quotation_Print]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_Quotation_Print_Chinese" EntityType="QuotationModel.Store.vw_Quotation_Print_Chinese" store:Type="Views" store:Schema="dbo" store:Name="vw_Quotation_Print_Chinese">
@@ -90,7 +91,8 @@
       [vw_Quotation_Print_Chinese].[Bill_CTitle] AS [Bill_CTitle], 
       [vw_Quotation_Print_Chinese].[Bill_CCompanyname] AS [Bill_CCompanyname], 
       [vw_Quotation_Print_Chinese].[jobtitle_id] AS [jobtitle_id], 
-      [vw_Quotation_Print_Chinese].[jobtitle_name] AS [jobtitle_name]
+      [vw_Quotation_Print_Chinese].[jobtitle_name] AS [jobtitle_name], 
+      [vw_Quotation_Print_Chinese].[Vername] AS [Vername]
       FROM [dbo].[vw_Quotation_Print_Chinese] AS [vw_Quotation_Print_Chinese]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_Target" EntityType="QuotationModel.Store.vw_Target" store:Type="Views" store:Schema="dbo" store:Name="vw_Target">
@@ -568,8 +570,8 @@
           <Property Name="modify_date" Type="datetime" />
           <Property Name="technology_category_id" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Product_Type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Product_Type' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Product_Type">
           <Key>
@@ -579,8 +581,8 @@
           <Property Name="wowi_product_type_name" Type="varchar" MaxLength="50" />
           <Property Name="country_id" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Quotation_Print' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Quotation_Print' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Quotation_Print">
           <Key>
@@ -596,9 +598,9 @@
           <Property Name="workphone" Type="nvarchar" MaxLength="100" />
           <Property Name="email" Type="nvarchar" MaxLength="100" />
           <Property Name="work_ext" Type="nvarchar" MaxLength="5" />
-          <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Model_No" Type="nvarchar" MaxLength="50" />
-          <Property Name="Brand_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Product_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="Model_No" Type="nvarchar" MaxLength="100" />
+          <Property Name="Brand_Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Bill_Email" Type="nvarchar" MaxLength="100" />
@@ -607,9 +609,10 @@
           <Property Name="title" Type="nvarchar" MaxLength="100" />
           <Property Name="Remark" Type="nvarchar(max)" />
           <Property Name="jobtitle_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vername" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Quotation_Print_Chinese' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Quotation_Print_Chinese' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Quotation_Print_Chinese">
           <Key>
@@ -617,15 +620,15 @@
           </Key>
           <Property Name="Quotation_Version_Id" Type="int" Nullable="false" />
           <Property Name="Quotation_No" Type="nvarchar" MaxLength="20" />
-          <Property Name="Applicant" Type="nvarchar" MaxLength="50" />
+          <Property Name="Applicant" Type="nvarchar" MaxLength="255" />
           <Property Name="workphone" Type="nvarchar" MaxLength="100" />
           <Property Name="email" Type="nvarchar" MaxLength="100" />
-          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" />
           <Property Name="c_fname" Type="nvarchar" MaxLength="25" />
           <Property Name="c_lname" Type="nvarchar" MaxLength="25" />
-          <Property Name="CProduct_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="CModel_No" Type="nvarchar" MaxLength="50" />
-          <Property Name="CBrand_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CProduct_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="CModel_No" Type="nvarchar" MaxLength="100" />
+          <Property Name="CBrand_Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_Companyname" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_CName" Type="nvarchar" MaxLength="100" />
           <Property Name="Bill_Phone" Type="nvarchar" MaxLength="50" />
@@ -638,11 +641,11 @@
           <Property Name="Total_disc_amt" Type="money" />
           <Property Name="fname" Type="nvarchar" MaxLength="25" />
           <Property Name="lname" Type="nvarchar" MaxLength="25" />
-          <Property Name="c_companyname" Type="nvarchar" MaxLength="50" />
-          <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Model_No" Type="nvarchar" MaxLength="50" />
-          <Property Name="Brand_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Client_CName" Type="nvarchar" MaxLength="50" />
+          <Property Name="c_companyname" Type="nvarchar" MaxLength="255" />
+          <Property Name="Product_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="Model_No" Type="nvarchar" MaxLength="100" />
+          <Property Name="Brand_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Client_CName" Type="nvarchar" MaxLength="255" />
           <Property Name="Remark" Type="nvarchar(max)" />
           <Property Name="work_ext" Type="nvarchar" MaxLength="5" />
           <Property Name="Bill_CAddress" Type="nvarchar" MaxLength="100" />
@@ -650,9 +653,10 @@
           <Property Name="Bill_CCompanyname" Type="nvarchar" MaxLength="100" />
           <Property Name="jobtitle_id" Type="int" />
           <Property Name="jobtitle_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vername" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Target' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Target' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Target">
           <Key>
@@ -676,8 +680,8 @@
           <Property Name="local_agent_name" Type="nvarchar" MaxLength="50" />
           <Property Name="Publish" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'WoWi.dbo.vw_Test_Target_List' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'WoWi.dbo.vw_Test_Target_List' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
       -->
         <EntityType Name="vw_Test_Target_List">
           <Key>
@@ -823,6 +827,7 @@
           <Property Type="String" Name="Client" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Remark" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="jobtitle_name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Vername" />
         </EntityType>
         <EntityType Name="invoice_target">
           <Key>
@@ -1289,6 +1294,7 @@
           <Property Type="String" Name="Bill_CCompanyname" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="jobtitle_id" />
           <Property Type="String" Name="jobtitle_name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Vername" />
         </EntityType>
         <EntityType Name="invoice">
           <Key>
@@ -1383,6 +1389,7 @@
           <EntitySetMapping Name="vw_Quotation_Print">
             <EntityTypeMapping TypeName="QuotationModel.vw_Quotation_Print">
               <MappingFragment StoreEntitySet="vw_Quotation_Print">
+                <ScalarProperty Name="Vername" ColumnName="Vername" />
                 <ScalarProperty Name="jobtitle_name" ColumnName="jobtitle_name" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Client" ColumnName="Client" />
@@ -1843,6 +1850,7 @@
           <EntitySetMapping Name="vw_Quotation_Print_Chinese">
             <EntityTypeMapping TypeName="QuotationModel.vw_Quotation_Print_Chinese">
               <MappingFragment StoreEntitySet="vw_Quotation_Print_Chinese">
+                <ScalarProperty Name="Vername" ColumnName="Vername" />
                 <ScalarProperty Name="jobtitle_name" ColumnName="jobtitle_name" />
                 <ScalarProperty Name="jobtitle_id" ColumnName="jobtitle_id" />
                 <ScalarProperty Name="Bill_CCompanyname" ColumnName="Bill_CCompanyname" />

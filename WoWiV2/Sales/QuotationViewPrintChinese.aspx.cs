@@ -25,6 +25,8 @@ public partial class Sales_QuotationViewPrintChinese : System.Web.UI.Page
 
                 hidQuotation_No.Text = quo.Quotation_No;
                 lblQuotationNo.Text = quo.Quotation_No;
+                lblversion.Text = "V" + quo.Vername.ToString();
+                lblversion2.Text = "V" + quo.Vername.ToString();
                 lblRepresentative.Text = quo.c_lname + quo.c_fname;
                 lblRepresentative1.Text = quo.c_lname + quo.c_fname;
                 lblTel.Text = quo.workphone;

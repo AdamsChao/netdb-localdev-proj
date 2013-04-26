@@ -125,6 +125,7 @@
             <td align="middle" class="ccsh1" colspan="3" valign="top">
                 QUOTATION#
                 <asp:Label ID="lblQuotationNo" runat="server" Text=""></asp:Label>
+                -<asp:Label ID="lblversion" runat="server"></asp:Label>
                 <br />
             </td>
         </tr>
@@ -444,6 +445,7 @@
                 <td align="middle" class="ccsh1" colspan="3" valign="top">
                     QUOTATION#
                     <asp:Label ID="lblQuotationNo0" runat="server" Text=""></asp:Label>
+                    -<asp:Label ID="lblversion2" runat="server"></asp:Label>
                     &nbsp;
                 </td>
             </tr>
