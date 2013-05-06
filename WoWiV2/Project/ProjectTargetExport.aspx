@@ -45,7 +45,7 @@ FROM PROJECT
 INNER JOIN Quotation_Version ON PROJECT.Quotation_No = Quotation_Version.Quotation_No  AND Quotation_Status=5 
 INNER JOIN Quotation_Target ON Quotation_Target.quotation_id = Quotation_Version.Quotation_Version_Id
 WHERE PROJECT.Create_Date between DATEADD(year,-2,getdate()) and  DATEADD(year,1,getdate())
-Order by Quotation_Target.target_description ">
+Order by country_name , authority_name ">
   </asp:SqlDataSource>
 </asp:Content>
 
