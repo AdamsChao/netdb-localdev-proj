@@ -21,9 +21,6 @@
         SortExpression="country_name" />
       <asp:BoundField DataField="authority_name" HeaderText="Authority" 
         ReadOnly="True" SortExpression="authority_name" />
-      <asp:BoundField DataField="Project_Id" HeaderText="Project_Id" 
-        InsertVisible="False" ReadOnly="True" SortExpression="Project_Id" 
-        Visible="False" />
       <asp:BoundField DataField="Project No.[Model No.]" 
         HeaderText="Project No.[Model No.]" ReadOnly="True" 
         SortExpression="Project No.[Model No.]" />
