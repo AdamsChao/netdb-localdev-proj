@@ -42,12 +42,12 @@
       <siteMapNode url="" title="Analysis"  description="" >
         <siteMapNode url="~/Accounting/CostAnalysis.aspx" title="Gross Profit Analysis"  description="" />
         <siteMapNode url="~/Accounting/CostAnalysisAll.aspx" title="Project Cost Analysis"  description="" />
-        <siteMapNode url="~/Report/SalesReport.aspx" title="Sales Report"  description="" >
-          <!--<siteMapNode url="~/Report/SalesAnalysisReport.aspx" title="分析報表"  description="" />-->
+        <!--<siteMapNode url="~/Report/SalesReport.aspx" title="Sales Report"  description="" >
+          <siteMapNode url="~/Report/SalesAnalysisReport.aspx" title="分析報表"  description="" />
         </siteMapNode>
         <siteMapNode url="~/Report/IMAReport.aspx" title="Analysis by Vender"  description="" >
           <siteMapNode url="~/Report/IMAAnalysisReport.aspx" title="分析報表"  description="" />
-        </siteMapNode>
+        </siteMapNode>-->
       </siteMapNode>
     </siteMapNode>
     <siteMapNode url="" title="Project"  description=""   >
@@ -57,6 +57,7 @@
       <siteMapNode url="~/Project/ProjectWorkingStatus.aspx" title="Working Status"  description="" />
       <siteMapNode url="~/Project/ProjectWorkingStatusReport.aspx" title="Internal Working Status Report"  description="" />
       <siteMapNode url="~/Project/ProjectWorkingStatusReportExternal.aspx" title="External Working Status Report"  description="" />
+      <siteMapNode url="~/Project/ProjectTargetExport.aspx" title="Project Target Export"  description="" />
     </siteMapNode>    
     <siteMapNode url="" title="IMA System"  description=""   >
       <siteMapNode url="~/Ima/ImaList.aspx" title="Documents Manage"  description="" />
