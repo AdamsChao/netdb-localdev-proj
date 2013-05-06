@@ -1,16 +1,90 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" %>
+<%@ Import Namespace="NPOI" %>
+<%@ Import Namespace="NPOI.HSSF.UserModel" %>
+<%@ Import Namespace="NPOI.SS.UserModel" %>
+<%@ Import Namespace="System.IO" %>
 
 <%@ Register src="~/UserControls/NPOIExportControl.ascx" tagname="NPOIExportControl" tagprefix="netdb" %>
 
 <script runat="server">
 
+  protected void btn_export_Click(object sender, EventArgs e)
+  {
+    string SheetName = "ProjectTarget";
+    
+    #region 建立 WorkBook 及試算表
+    HSSFWorkbook workbook = new HSSFWorkbook();
+    MemoryStream ms = new MemoryStream();
+    HSSFSheet mySheet1 = workbook.CreateSheet(SheetName) as HSSFSheet;
+    #endregion
+
+    #region 建立 sheet 內容
+    // 建立 sheet 內容
+    HSSFRow rowHeader = mySheet1.CreateRow(0) as HSSFRow;
+    // 建立 Header
+    // 不用 GridView.Columns.Count，因為用 AutoGenerateColumns 會抓不到
+    for (int i = 1, iCount = gv_project.HeaderRow.Cells.Count; i < iCount; i++)
+    {
+      //若有啟用排序，Header會變成 LinkButton
+      LinkButton lb = null;
+      if (gv_project.HeaderRow.Cells[i].Controls.Count > 0)
+        lb = gv_project.HeaderRow.Cells[i].Controls[0] as LinkButton;
+      string strValue = (lb != null) ? lb.Text : gv_project.HeaderRow.Cells[i].Text;
+
+      rowHeader.CreateCell(i - 1).SetCellValue(strValue.Replace("&nbsp;", "").Replace("&amp;", "&").Trim());
+    }
+    // 建立 DataRow
+    HSSFRow rowItem = null;
+    HSSFCell cell = null;
+    for (int i = 0, iCount = gv_project.Rows.Count; i < iCount; i++)
+    {
+      rowItem = mySheet1.CreateRow(i + 1) as HSSFRow;
+      for (int j = 1, jCount = gv_project.HeaderRow.Cells.Count; j < jCount; j++)
+      {
+        cell = rowItem.CreateCell(j - 1) as HSSFCell;
+        string data = gv_project.Rows[i].Cells[j].Text.Replace("&nbsp;", "").Trim();        
+        
+        if (j==4 || j==5) //日期欄位
+        {
+          DateTime dt = new DateTime();
+          if (DateTime.TryParse(data,out dt))
+          {
+            cell.SetCellValue(dt);
+          }          
+          //設定日期格式
+          HSSFCellStyle cellStyle = workbook.CreateCellStyle() as HSSFCellStyle;
+          HSSFDataFormat format = workbook.CreateDataFormat() as HSSFDataFormat;
+          cellStyle.DataFormat = format.GetFormat("yyyy/mm/dd");
+          cell.CellStyle = cellStyle;
+        }
+        else
+        {
+          rowItem.CreateCell(j - 1).SetCellValue(data);
+        }
+      }
+    }
+    #endregion
+
+    #region 匯出
+    workbook.Write(ms);
+    Response.AddHeader("Content-Disposition",
+      string.Format("attachment; filename=" + Server.UrlEncode(DateTime.Now.ToString("yyyyMMdd") + "-" + SheetName) + ".xls"));
+    Response.BinaryWrite(ms.ToArray());
+    #endregion
+
+    #region 善後
+    workbook = null;
+    ms.Close();
+    ms.Dispose();
+    #endregion
+  }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-  <netdb:NPOIExportControl ID="NPOIExport" runat="server" 
-    SheetName="ProjectReport" TargetGridViewID="gv_project" />
+  <asp:Button ID="btn_export" runat="server" onclick="btn_export_Click" 
+    Text="Export Data To Excel" />
   ( 下列 Project 資料為兩年內 DATA )<asp:GridView ID="gv_project" runat="server" AutoGenerateColumns="False" 
     DataSourceID="SqlDataSource_Project" AllowPaging="True" PageSize="30">
     <Columns>
