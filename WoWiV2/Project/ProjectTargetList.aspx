@@ -261,6 +261,21 @@ AND Quotation_Target.Status LIKE '%' + @Status + '%' " UpdateCommand="UPDATE [Qu
                   <asp:Label ID="Label1" runat="server" Text='<%# Bind("authority_id") %>'></asp:Label>
                 </ItemTemplate>
               </asp:TemplateField>
+              <asp:TemplateField HeaderText="Document & Sample are ready to be process" SortExpression="document_ready_to_process">
+                <EditItemTemplate>
+                  <asp:TextBox ID="txtProcess" runat="server" Text='<%# Bind("document_ready_to_process","{0:d}") %>'/>
+                  <ajaxcontroltoolkit:CalendarExtender ID="txtProcess_CalendarExtender" runat="server"
+                    Enabled="True" Format="yyyy/MM/dd" PopupButtonID="Image_process" TargetControlID="txtProcess">
+                  </ajaxcontroltoolkit:CalendarExtender>
+                  <asp:Image ID="Image_process" runat="server" ImageUrl="~/Images/Calendar_scheduleHS.png" />
+                  <asp:CompareValidator ID="CV_Process" runat="server" ControlToValidate="txtProcess"
+                    Display="Dynamic" ErrorMessage="日期格式有誤" Operator="DataTypeCheck" SetFocusOnError="True"
+                    Type="Date" ForeColor="Red"></asp:CompareValidator>
+                     <asp:CompareValidator ID="CV_LessThan" runat="server" ControlToCompare="TextBox6"
+                    ControlToValidate="txtProcess" Display="Dynamic" ErrorMessage="ready to be process 日期不得大於 certification completed，請重新輸入!"
+                    ForeColor="Red" Operator="LessThan" Type="Date"></asp:CompareValidator>
+                </EditItemTemplate>            
+              </asp:TemplateField>
               <asp:TemplateField HeaderText="Test Started<br/>Test Completed" SortExpression="test_started">
                 <EditItemTemplate>
                   <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("test_started","{0:d}") %>'></asp:TextBox>
@@ -290,18 +305,7 @@ AND Quotation_Target.Status LIKE '%' + @Status + '%' " UpdateCommand="UPDATE [Qu
                 <ItemTemplate>
                   <asp:Label ID="Label4" runat="server" Text='<%# Bind("test_started") %>'></asp:Label>
                 </ItemTemplate>
-              </asp:TemplateField>
-              <%-- <asp:TemplateField HeaderText="test_completed" SortExpression="test_completed">
-                    <EditItemTemplate>
-                       
-                    </EditItemTemplate>
-                    <InsertItemTemplate>
-                        <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("test_completed") %>'></asp:TextBox>
-                    </InsertItemTemplate>
-                    <ItemTemplate>
-                        <asp:Label ID="Label5" runat="server" Text='<%# Bind("test_completed") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>--%>
+              </asp:TemplateField>              
               <asp:TemplateField HeaderText="Certification Submit To Authority<br/>Certification Completed"
                 SortExpression="certification_submit_to_authority">
                 <EditItemTemplate>
@@ -332,21 +336,7 @@ AND Quotation_Target.Status LIKE '%' + @Status + '%' " UpdateCommand="UPDATE [Qu
                 <ItemTemplate>
                   <asp:Label ID="Label6" runat="server" Text='<%# Bind("certification_submit_to_authority") %>'></asp:Label>
                 </ItemTemplate>
-              </asp:TemplateField>
-              <%-- <asp:TemplateField HeaderText="certification_completed" 
-                    SortExpression="certification_completed">
-                    <EditItemTemplate>
-                       
-                    </EditItemTemplate>
-                    <InsertItemTemplate>
-                        <asp:TextBox ID="TextBox7" runat="server" 
-                            Text='<%# Bind("certification_completed") %>'></asp:TextBox>
-                    </InsertItemTemplate>
-                    <ItemTemplate>
-                        <asp:Label ID="Label7" runat="server" 
-                            Text='<%# Bind("certification_completed") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>--%>
+              </asp:TemplateField>              
               <asp:TemplateField HeaderText="Estimated Lead Time" SortExpression="Estimated_Lead_time">
                 <EditItemTemplate>
                   <asp:TextBox ID="TextBoxEstimated" runat="server" Text='<%# Bind("Estimated_Lead_time") %>'></asp:TextBox>
@@ -368,6 +358,7 @@ AND Quotation_Target.Status LIKE '%' + @Status + '%' " UpdateCommand="UPDATE [Qu
                     Text='<%# Eval("Actual_Lead_time") %>'></asp:TextBox>
                   <asp:Label ID="Label_Actual_Lead_time" runat="server"></asp:Label>
                   (Weeks)
+                  [Certification Completed - Document & Sample are ready to be process]
                 </EditItemTemplate>
                 <InsertItemTemplate>
                   <asp:TextBox ID="TextBox_Actual_Lead_time" runat="server" Text='<%# Eval("Actual_Lead_time") %>'></asp:TextBox>
@@ -436,12 +427,12 @@ AND Quotation_Target.Status LIKE '%' + @Status + '%' " UpdateCommand="UPDATE [Qu
           <asp:SqlDataSource ID="SqlDataSourceModifyTarget" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
             DeleteCommand="DELETE FROM [Quotation_Target] WHERE [Quotation_Target_Id] = @Quotation_Target_Id"
             InsertCommand="INSERT INTO [Quotation_Target] ([authority_id], [test_started], [test_completed], [certification_submit_to_authority], [certification_completed], [Estimated_Lead_time], [Actual_Lead_time], [Agent]) VALUES (@authority_id, @test_started, @test_completed, @certification_submit_to_authority, @certification_completed, @Estimated_Lead_time, @Actual_Lead_time, @Agent)"
-            SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Quotation_Target.authority_id, Quotation_Target.test_started, Quotation_Target.test_completed, Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed, Quotation_Target.Estimated_Lead_time, Quotation_Target.Actual_Lead_time, Quotation_Target.Agent, country.country_name , Authority.authority_name,Country_Manager,world_region_name , Quotation_Target.Status
+            SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Quotation_Target.authority_id, Quotation_Target.test_started, Quotation_Target.test_completed, Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed, Quotation_Target.Estimated_Lead_time, Quotation_Target.Actual_Lead_time, Quotation_Target.Agent, country.country_name , Authority.authority_name,Country_Manager,world_region_name , Quotation_Target.Status , Quotation_Target.document_ready_to_process 
 FROM Quotation_Target 
 INNER JOIN country ON Quotation_Target.country_id = country.country_id 
 INNER JOIN Authority ON Quotation_Target.Authority_id = Authority.Authority_id 
 LEFT JOIN world_region ON country.world_region_id = world_region.world_region_id
-WHERE (Quotation_Target.Quotation_Target_Id = @Quotation_Target_Id)" UpdateCommand="UPDATE [Quotation_Target] SET [authority_id] = @authority_id, [test_started] = @test_started, [test_completed] = @test_completed, [certification_submit_to_authority] = @certification_submit_to_authority, [certification_completed] = @certification_completed, [Estimated_Lead_time] = @Estimated_Lead_time, [Actual_Lead_time] = @Actual_Lead_time, [Agent] = @Agent, [Country_Manager] =@Country_Manager , [Status] = @Status WHERE [Quotation_Target_Id] = @Quotation_Target_Id">
+WHERE (Quotation_Target.Quotation_Target_Id = @Quotation_Target_Id)" UpdateCommand="UPDATE [Quotation_Target] SET [authority_id] = @authority_id,[document_ready_to_process] = @document_ready_to_process , [test_started] = @test_started, [test_completed] = @test_completed, [certification_submit_to_authority] = @certification_submit_to_authority, [certification_completed] = @certification_completed, [Estimated_Lead_time] = @Estimated_Lead_time, [Actual_Lead_time] = @Actual_Lead_time, [Agent] = @Agent, [Country_Manager] =@Country_Manager , [Status] = @Status WHERE [Quotation_Target_Id] = @Quotation_Target_Id">
             <DeleteParameters>
               <asp:Parameter Name="Quotation_Target_Id" Type="Int32" />
             </DeleteParameters>
@@ -471,6 +462,7 @@ WHERE (Quotation_Target.Quotation_Target_Id = @Quotation_Target_Id)" UpdateComma
               <asp:Parameter Name="Country_Manager" />
               <asp:Parameter Name="Status" Type="String" />
               <asp:Parameter Name="Quotation_Target_Id" Type="Int32" />
+               <asp:Parameter Name="document_ready_to_process" Type="DateTime" />
             </UpdateParameters>
           </asp:SqlDataSource>
           <asp:HiddenField ID="HidProjectID" runat="server" />
