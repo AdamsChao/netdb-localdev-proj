@@ -11,6 +11,8 @@
   protected void btn_export_Click(object sender, EventArgs e)
   {
     string SheetName = "ProjectTarget";
+    gv_project.AllowPaging = false;
+    gv_project.DataBind();
     
     #region 建立 WorkBook 及試算表
     HSSFWorkbook workbook = new HSSFWorkbook();
@@ -44,7 +46,7 @@
         cell = rowItem.CreateCell(j - 1) as HSSFCell;
         string data = gv_project.Rows[i].Cells[j].Text.Replace("&nbsp;", "").Trim();        
         
-        if (j==4 || j==5) //日期欄位
+        if (j==5 || j==6) //日期欄位
         {
           DateTime dt = new DateTime();
           if (DateTime.TryParse(data,out dt))
@@ -91,6 +93,8 @@
       <asp:BoundField DataField="Quotation_Target_Id" 
         HeaderText="Quotation_Target_Id" InsertVisible="False" ReadOnly="True" 
         SortExpression="Quotation_Target_Id" Visible="False" />
+        <asp:BoundField DataField="Region" HeaderText="Region" ReadOnly="True" 
+        SortExpression="Region" />
       <asp:BoundField DataField="country_name" HeaderText="Country" ReadOnly="True" 
         SortExpression="country_name" />
       <asp:BoundField DataField="authority_name" HeaderText="Authority" 
@@ -110,6 +114,7 @@
   <asp:SqlDataSource ID="SqlDataSource_Project" runat="server" 
     ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" 
     SelectCommand="SELECT Quotation_Target_Id, 
+(SELECT world_region_name FROM world_region inner join country ON world_region.world_region_id = country.world_region_id WHERE country.country_id = Quotation_Target.country_id) AS Region ,
 (SELECT COUNTRY_NAME FROM COUNTRY WHERE COUNTRY_ID=Quotation_Target.country_id) AS country_name,
 (SELECT authority_name FROM Authority WHERE Authority.authority_id = Quotation_Target.authority_id ) AS authority_name, 
 Project_Id , 
