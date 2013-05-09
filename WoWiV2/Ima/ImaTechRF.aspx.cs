@@ -14,7 +14,8 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             int intGID = Convert.ToInt32(Request["group"]);
-            if (intGID == 13) { intGID = 12; }
+            //if (intGID == 13) { intGID = 12; }
+            if (intGID >= 13) { intGID -= 1; }
             ddlTech.SelectedIndex = intGID - 1;
             LoadData();
         }
@@ -82,6 +83,9 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
         //CDMA2000
         plTech = (Panel)cph.FindControl("plCDMA");
         GetTechFrequency(cmd, plTech, "CDMA2000");
+        //Wireless HD 60
+        plTech = (Panel)cph.FindControl("plWirelessHD60");
+        GetTechFrequency(cmd, plTech, "Wireless HD 60GHz");
     }
 
     private void GetTechFrequency(SqlCommand cmd, Panel plTech, string strTechName) 
@@ -183,7 +187,8 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
         cmd.Parameters.Add("@DFSDesc", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Seq", SqlDbType.SmallInt);
         cmd.Parameters.Add("@GID", SqlDbType.SmallInt);
-        cmd.Parameters["@GID"].Value = ddlTech.SelectedIndex + 1;
+        if (ddlTech.SelectedIndex > 11) { cmd.Parameters["@GID"].Value = ddlTech.SelectedIndex + 2; }
+        else { cmd.Parameters["@GID"].Value = ddlTech.SelectedIndex + 1; }       
 
         ContentPlaceHolder cph = (ContentPlaceHolder)Master.FindControl("MainContent");
         Panel plTech;
@@ -260,6 +265,12 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
             AddTechFrequency(cmd, plTech, "CDMA2000", 10);
             mbMsgCDMA.Show("Successfully saved!");
         }
+        else if (ddlTech.SelectedValue == "Wireless HD 60GHz")
+        {
+            plTech = (Panel)cph.FindControl("plWirelessHD60");
+            AddTechFrequency(cmd, plTech, "WirelessHD60", 1);
+            mbMsgWirelessHD60.Show("Successfully saved!");
+        }
     }
 
     protected void AddWiFi(SqlCommand cmd, Panel plTech) 
@@ -335,8 +346,17 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
         }
         if (tbRemark != null) { cmd.Parameters["@Remark"].Value = tbRemark.Text.Trim(); }
         else { cmd.Parameters["@Remark"].Value = DBNull.Value; }
-        cmd.Parameters["@IndoorAllowed"].Value =DBNull.Value;
-        cmd.Parameters["@OutdoorAllowed"].Value = DBNull.Value;
+        //WirelessHD60
+        if (plTech.ID.Replace("pl", "") == "WirelessHD60")
+        {
+            cmd.Parameters["@IndoorAllowed"].Value = cbWirelessHD60IDA1.Checked;
+            cmd.Parameters["@OutdoorAllowed"].Value = cbWirelessHD60ODA1.Checked;
+        }
+        else 
+        {
+            cmd.Parameters["@IndoorAllowed"].Value = DBNull.Value;
+            cmd.Parameters["@OutdoorAllowed"].Value = DBNull.Value;
+        }       
         cmd.Parameters["@HT20"].Value = DBNull.Value;
         cmd.Parameters["@HT40"].Value = DBNull.Value;
         cmd.Parameters["@HT80"].Value = DBNull.Value;

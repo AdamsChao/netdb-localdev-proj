@@ -4676,6 +4676,51 @@
                                     </asp:Panel>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <%-- Wireless HD 60GHz--%>
+                                    <asp:Panel ID="plWirelessHD60" runat="server" ScrollBars="Auto" Style="padding-top: 20px;">
+                                        <table cellpadding="1" cellspacing="1" border="0" class="tbEditItem" align="left" width="500px">
+                                            <tr>
+                                                <td colspan="2" class="tdHeader">Wireless HD 60GHz Detail</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tdRowName" style="width: 150px;">Frequency</td>
+                                                <td class="tdRowName1"><asp:Label ID="lblWirelessHD60F1" runat="server" Text="60 GHz"></asp:Label></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tdRowName" style="width: 150px;">Allowed/Not Allowed</td>
+                                                <td class="tdRowValue"><asp:Label ID="lblWirelessHD60ANA1" runat="server"></asp:Label></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tdRowName" style="width: 150px;">Power limit</td>
+                                                <td class="tdRowValue"><asp:Label ID="lblWirelessHD60PL1" runat="server"></asp:Label></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tdRowName" style="width: 150px;">Indoor/Outdoor allowed</td>
+                                                <td class="tdRowValue1">
+                                                    <table border="0" cellpadding="0" cellspacing="0" align="left">
+                                                        <tr>
+                                                            <td align="left"><asp:Label ID="lblWirelessHD60IDA1" runat="server"></asp:Label></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left"><asp:Label ID="lblWirelessHD60ODA1" runat="server"></asp:Label></td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tdRowName" valign="top" style="width: 150px;">Remark</td>
+                                                <td class="tdRowValue"><asp:Label ID="lblWirelessHD60Remark" runat="server"></asp:Label></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" align="center" class="tdFooter">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </asp:Panel>
+                                </td>
+                            </tr>
                         </table>
                     </asp:Panel>
                     <act:CollapsiblePanelExtender ID="cpeImaDetail99" runat="server" CollapseControlID="plInfoImaDetail99"

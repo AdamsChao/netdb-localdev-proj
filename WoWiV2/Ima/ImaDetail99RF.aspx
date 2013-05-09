@@ -30,6 +30,7 @@
             var pl3G = $("#pl3G");
             var pl4G = $("#pl4G");
             var plCDMA = $("#plCDMA");
+            var plWirelessHD60 = $("#plWirelessHD60");
             plWiFi.css("display", "none");
             plBluetooth.css("display", "none");
             plRFID.css("display", "none");
@@ -42,6 +43,7 @@
             pl3G.css("display", "none");
             pl4G.css("display", "none");
             plCDMA.css("display", "none");
+            plWirelessHD60.css("display", "none");
             if (ddlTech.val() == 'WiFi') { plWiFi.css("display", ""); }
             else if (ddlTech.val() == 'Bluetooth') { plBluetooth.css("display", ""); plBluetooth.css("padding-top", "0px"); }
             else if (ddlTech.val() == 'RFID') { plRFID.css("display", ""); plRFID.css("padding-top", "0px"); }
@@ -54,6 +56,7 @@
             else if (ddlTech.val() == '3G W-CDMA/HSPA(HSDPA and HSUPA)/HSPA+') { pl3G.css("display", ""); pl3G.css("padding-top", "0px"); }
             else if (ddlTech.val() == '4G LTE') { pl4G.css("display", ""); pl4G.css("padding-top", "0px"); }
             else if (ddlTech.val() == 'CDMA') { plCDMA.css("display", ""); plCDMA.css("padding-top", "0px"); }
+            else if (ddlTech.val() == 'Wireless HD 60GHz') { plWirelessHD60.css("display", ""); plWirelessHD60.css("padding-top", "0px"); }
             else {
                 plWiFi.css("display", "");
                 plBluetooth.css("display", "");
@@ -78,6 +81,8 @@
                 pl4G.css("padding-top", "20px");
                 plCDMA.css("display", "");
                 plCDMA.css("padding-top", "20px");
+                plWirelessHD60.css("display", "");
+                plWirelessHD60.css("padding-top", "20px");
             }
         }
     </script>
@@ -119,6 +124,7 @@
                                             <asp:ListItem Text="3G W-CDMA/HSPA(HSDPA and HSUPA)/HSPA+" Value="3G W-CDMA/HSPA(HSDPA and HSUPA)/HSPA+"></asp:ListItem>
                                             <asp:ListItem Text="4G LTE" Value="4G LTE"></asp:ListItem>
                                             <asp:ListItem Text="cdmaOne/CDMA2000" Value="CDMA"></asp:ListItem>
+                                            <asp:ListItem Text="Wireless HD 60GHz" Value="Wireless HD 60GHz"></asp:ListItem>
                                         </asp:DropDownList>
                                     </td>
                                 </tr>
@@ -1754,6 +1760,51 @@
                                     <tr>
                                         <td colspan="2" align="center" class="tdFooter">
                                             
+                                        </td>
+                                    </tr>
+                                </table>
+                            </asp:Panel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <%-- Wireless HD 60GHz--%>
+                            <asp:Panel ID="plWirelessHD60" runat="server" ScrollBars="Auto" Style="padding-top: 20px;">
+                                <table cellpadding="1" cellspacing="1" border="0" class="tbEditItem" align="left" width="500px">
+                                    <tr>
+                                        <td colspan="2" class="tdHeader">Wireless HD 60GHz Detail</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName" style="width: 150px;">Frequency</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblWirelessHD60F1" runat="server" Text="60 GHz"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName" style="width: 150px;">Allowed/Not Allowed</td>
+                                        <td class="tdRowValue"><asp:Label ID="lblWirelessHD60ANA1" runat="server"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName" style="width: 150px;">Power limit</td>
+                                        <td class="tdRowValue"><asp:Label ID="lblWirelessHD60PL1" runat="server"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName" style="width: 150px;">Indoor/Outdoor allowed</td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0" align="left">
+                                                <tr>
+                                                    <td align="left"><asp:Label ID="lblWirelessHD60IDA1" runat="server"></asp:Label></td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="left"><asp:Label ID="lblWirelessHD60ODA1" runat="server"></asp:Label></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName" valign="top" style="width: 150px;">Remark</td>
+                                        <td class="tdRowValue"><asp:Label ID="lblWirelessHD60Remark" runat="server"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="center" class="tdFooter">
                                         </td>
                                     </tr>
                                 </table>

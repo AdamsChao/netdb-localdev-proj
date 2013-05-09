@@ -14,7 +14,8 @@ public partial class Ima_ImaDetail99RF : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             int intGID = Convert.ToInt32(Request["group"]);
-            if (intGID == 13) { intGID = 12; }
+            //if (intGID == 13) { intGID = 12; }
+            if (intGID >= 13) { intGID -= 1; }
             ddlTech.SelectedIndex = intGID;
             LoadData();
         }
@@ -79,6 +80,9 @@ public partial class Ima_ImaDetail99RF : System.Web.UI.Page
         //CDMA2000
         plTech = (Panel)Form.FindControl("plCDMA");
         GetTechFrequency(cmd, plTech, "CDMA2000");
+        //Wireless HD 60
+        plTech = (Panel)Form.FindControl("plWirelessHD60");
+        GetTechFrequency(cmd, plTech, "Wireless HD 60GHz");
     }
 
     private void GetTechFrequency(SqlCommand cmd, Panel plTech, string strTechName)

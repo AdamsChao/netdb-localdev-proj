@@ -3,13 +3,13 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="act" %>
 <%@ Register Src="../UserControls/ImaTree.ascx" TagName="ImaTree" TagPrefix="uc1" %>
 <%@ Register Src="../UserControls/MsgBox.ascx" TagName="MsgBox" TagPrefix="uc2" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
     <script type="text/javascript">
         $(function () {
             var ddlTech = $("#<%= ddlTech.ClientID %>");
-//            var plWiFi = $("#<%= plWiFi.ClientID %>");
-//            var plBluetooth = $("#<%= plBluetooth.ClientID %>");
-//            var plRFID = $("#<%= plRFID.ClientID %>");
+            //            var plWiFi = $("#<%= plWiFi.ClientID %>");
+            //            var plBluetooth = $("#<%= plBluetooth.ClientID %>");
+            //            var plRFID = $("#<%= plRFID.ClientID %>");
             getSelect();
             //            plBluetooth.css("display", "none");
             ddlTech.change(function () {
@@ -45,6 +45,7 @@
             var pl3G = $("#<%= pl3G.ClientID %>");
             var pl4G = $("#<%= pl4G.ClientID %>");
             var plCDMA = $("#<%= plCDMA.ClientID %>");
+            var plWirelessHD60 = $("#<%= plWirelessHD60.ClientID %>");
             plWiFi.css("display", "none");
             plBluetooth.css("display", "none");
             plRFID.css("display", "none");
@@ -57,6 +58,7 @@
             pl3G.css("display", "none");
             pl4G.css("display", "none");
             plCDMA.css("display", "none");
+            plWirelessHD60.css("display", "none");
             if (ddlTech.val() == 'WiFi') { plWiFi.css("display", ""); }
             else if (ddlTech.val() == 'Bluetooth') { plBluetooth.css("display", ""); }
             else if (ddlTech.val() == 'RFID') { plRFID.css("display", ""); }
@@ -69,9 +71,9 @@
             else if (ddlTech.val() == '3G W-CDMA/HSPA(HSDPA and HSUPA)/HSPA+') { pl3G.css("display", ""); }
             else if (ddlTech.val() == '4G LTE') { pl4G.css("display", ""); }
             else if (ddlTech.val() == 'CDMA') { plCDMA.css("display", ""); }
+            else if (ddlTech.val() == 'Wireless HD 60GHz') { plWirelessHD60.css("display", ""); }
         }
     </script>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <table border="0">
@@ -111,6 +113,7 @@
                                             <asp:ListItem Text="3G W-CDMA/HSPA(HSDPA and HSUPA)/HSPA+" Value="3G W-CDMA/HSPA(HSDPA and HSUPA)/HSPA+"></asp:ListItem>
                                             <asp:ListItem Text="4G LTE" Value="4G LTE"></asp:ListItem>
                                             <asp:ListItem Text="cdmaOne/CDMA2000" Value="CDMA"></asp:ListItem>
+                                            <asp:ListItem Text="Wireless HD 60GHz" Value="Wireless HD 60GHz"></asp:ListItem>
                                         </asp:DropDownList>
                                     </td>
                                 </tr>
@@ -1307,6 +1310,60 @@
                                                     <uc2:MsgBox ID="mbMsgCDMA" runat="server" />
                                                     <asp:Button ID="btnCDMASave" runat="server" Text="Save" OnClick="btnSave_Click" />
                                                     <asp:Button ID="btnCDMACancel" runat="server" Text="Cancel/Back" CausesValidation="false" OnClick="btnCancel_Click" />
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </asp:Panel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <%-- Wireless HD 60GHz--%>
+                            <asp:Panel ID="plWirelessHD60" runat="server" ScrollBars="Auto">
+                                <table cellpadding="1" cellspacing="1" border="0" class="tbEditItem" align="left">
+                                    <tr>
+                                        <td colspan="2" class="tdHeader">Wireless HD 60GHz Edit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName">Frequency</td>
+                                        <td class="tdRowName1"><asp:Label ID="lblWirelessHD60F1" runat="server" Text="60 GHz"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName">Allowed/Not Allowed</td>
+                                        <td class="tdRowValue"><asp:CheckBox ID="cbWirelessHD60ANA1" runat="server" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName">Power limit</td>
+                                        <td class="tdRowValue"><asp:TextBox ID="tbWirelessHD60PL1" runat="server" Width="120px" TextMode="MultiLine" Rows="2"></asp:TextBox></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName">Indoor/Outdoor allowed</td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0" align="left">
+                                                <tr>
+                                                    <td align="left"><asp:CheckBox ID="cbWirelessHD60IDA1" runat="server" Text="Indoor allowed" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="left"><asp:CheckBox ID="cbWirelessHD60ODA1" runat="server" Text="Outdoor allowed" /></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdRowName" valign="top">Remark</td>
+                                        <td class="tdRowValue">
+                                            <asp:TextBox ID="tbWirelessHD60Remark" runat="server" TextMode="MultiLine" Rows="2" Width="200px"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="center" class="tdFooter">
+                                            <asp:UpdatePanel ID="upWirelessHD60" runat="server">
+                                                <ContentTemplate>
+                                                    <uc2:MsgBox ID="mbMsgWirelessHD60" runat="server" />
+                                                    <asp:Button ID="btnWirelessHD60Save" runat="server" Text="Save" OnClick="btnSave_Click" />
+                                                    <asp:Button ID="btnWirelessHD60Cancel" runat="server" Text="Cancel/Back" CausesValidation="false" OnClick="btnCancel_Click" />
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </td>

@@ -118,6 +118,9 @@ public partial class Ima_ImaDetailAll : System.Web.UI.Page
                 //UWB
                 plTech = (Panel)Form.FindControl("plUWB");
                 GetTechFrequency(cmd, plTech, "UWB");
+                //Wireless HD 60
+                plTech = (Panel)Form.FindControl("plWirelessHD60");
+                GetTechFrequency(cmd, plTech, "Wireless HD 60GHz");
             }
             //2G
             plTech = (Panel)Form.FindControl("pl2G");
