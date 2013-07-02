@@ -60,9 +60,11 @@
         String pNo = invoice.project_no;
         lblprojno.Text = pNo;
         var pro = (from p in db.Project where p.Project_No == pNo select p).First();
+        //修改抓取quotation_id要從invoice_target才正確 by Adams 2013/7/3
+        var invoice_target = (from t in db.invoice_target where t.invoice_id == invoice.invoice_id select t).FirstOrDefault();              
         try
         {
-          int qid = pro.Quotation_Id;
+          int qid = invoice_target.quotation_id;
           QuotationModel.Quotation_Version quotation = (from d in db.Quotation_Version where d.Quotation_Version_Id == qid select d).First();
           lblmodelno.Text = quotation.Model_No;
           lblpono.Text = quotation.pocheckno;
