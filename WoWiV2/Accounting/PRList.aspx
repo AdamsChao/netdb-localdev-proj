@@ -359,7 +359,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-  yPR Lists<br>
+  PR Lists<br>
   PR No. :
   <asp:TextBox ID="txtPR" runat="server" Width="80%"></asp:TextBox>
   <br />
