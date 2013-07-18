@@ -1471,10 +1471,10 @@
                                             <asp:Label ID="lbl4GF4" runat="server" Text="Band33"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GUL4" runat="server" Text="1900-1920 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GUL4" runat="server" Text="1900-1920 MHz(TDD)"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GDL4" runat="server" Text="1900-1920 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GDL4" runat="server" Text="1900-1920 MHz(TDD)"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1483,10 +1483,10 @@
                                             <asp:Label ID="lbl4GF5" runat="server" Text="Band34"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GUL5" runat="server" Text="2010-2025 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GUL5" runat="server" Text="2010-2025 MHz(TDD)"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GDL5" runat="server" Text="2010-2025 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GDL5" runat="server" Text="2010-2025 MHz(TDD)"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1495,10 +1495,10 @@
                                             <asp:Label ID="lbl4GF6" runat="server" Text="Band35"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GUL6" runat="server" Text="1850-1910 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GUL6" runat="server" Text="1850-1910 MHz(TDD)"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GDL6" runat="server" Text="1850-1910 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GDL6" runat="server" Text="1850-1910 MHz(TDD)"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1507,10 +1507,10 @@
                                             <asp:Label ID="lbl4GF7" runat="server" Text="Band36"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GUL7" runat="server" Text="1930-1990 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GUL7" runat="server" Text="1930-1990 MHz(TDD)"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GDL7" runat="server" Text="1930-1990 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GDL7" runat="server" Text="1930-1990 MHz(TDD)"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1519,10 +1519,10 @@
                                             <asp:Label ID="lbl4GF8" runat="server" Text="Band37"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GUL8" runat="server" Text="1910-1930 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GUL8" runat="server" Text="1910-1930 MHz(TDD)"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GDL8" runat="server" Text="1910-1930 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GDL8" runat="server" Text="1910-1930 MHz(TDD)"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1531,10 +1531,10 @@
                                             <asp:Label ID="lbl4GF9" runat="server" Text="Band38"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GUL9" runat="server" Text="2570-2620 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GUL9" runat="server" Text="2570-2620 MHz(TDD)"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GDL9" runat="server" Text="2570-2620 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GDL9" runat="server" Text="2570-2620 MHz(TDD)"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1543,10 +1543,10 @@
                                             <asp:Label ID="lbl4GF10" runat="server" Text="Band39"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GUL10" runat="server" Text="1880-1920 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GUL10" runat="server" Text="1880-1920 MHz(TDD)"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GDL10" runat="server" Text="1880-1920 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GDL10" runat="server" Text="1880-1920 MHz(TDD)"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1555,10 +1555,10 @@
                                             <asp:Label ID="lbl4GF11" runat="server" Text="Band40"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GUL11" runat="server" Text="2300-2400 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GUL11" runat="server" Text="2300-2400 MHz(TDD)"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GDL11" runat="server" Text="2300-2400 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GDL11" runat="server" Text="2300-2400 MHz(TDD)"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1567,10 +1567,10 @@
                                             <asp:Label ID="lbl4GF12" runat="server" Text="Band41"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GUL12" runat="server" Text="2496-2690 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GUL12" runat="server" Text="2496-2690 MHz(TDD)"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GDL12" runat="server" Text="2496-2690 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GDL12" runat="server" Text="2496-2690 MHz(TDD)"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1579,10 +1579,10 @@
                                             <asp:Label ID="lbl4GF13" runat="server" Text="Band42"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GUL13" runat="server" Text="3400-3600 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GUL13" runat="server" Text="3400-3600 MHz(TDD)"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GDL13" runat="server" Text="3400-3600 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GDL13" runat="server" Text="3400-3600 MHz(TDD)"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1591,10 +1591,10 @@
                                             <asp:Label ID="lbl4GF14" runat="server" Text="Band43"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GUL14" runat="server" Text="3600-3800 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GUL14" runat="server" Text="3600-3800 MHz(TDD)"></asp:Label>
                                         </td>
                                         <td class="tdRowValue1">
-                                            <asp:Label ID="lbl4GDL14" runat="server" Text="3600-3800 MHz(FDD)"></asp:Label>
+                                            <asp:Label ID="lbl4GDL14" runat="server" Text="3600-3800 MHz(TDD)"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
