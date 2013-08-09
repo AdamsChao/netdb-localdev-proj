@@ -674,7 +674,7 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Authority：</td>
-                                        <td class="tdRowValue" align="left"><asp:Label ID="lblAuthority" runat="server" Text='<%#Eval("Authority1") %>'></asp:Label></td>
+                                        <td class="tdRowValue" align="left"><asp:Label ID="lblAuthority" runat="server" Text='<%#Eval("Authority") %>'></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Also accredited test lab：</td>
@@ -682,7 +682,7 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Certification Body：</td>
-                                        <td class="tdRowValue" align="left"><asp:Label ID="lblCB" runat="server" Text='<%#Eval("CertificationBody1") %>'></asp:Label></td>
+                                        <td class="tdRowValue" align="left"><asp:Label ID="lblCB" runat="server" Text='<%#Eval("CertificationBody") %>'></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Volume Per Year：</td>
@@ -691,7 +691,7 @@
                                     <tr>
                                         <td class="tdRowName" valign="top">Publish：</td>
                                         <td class="tdRowValue" align="left">
-                                            <asp:Label ID="lblPublish" runat="server" Text='<%#Eval("Publish2") %>'></asp:Label>
+                                            <asp:Label ID="lblPublish" runat="server" Text='<%#Eval("Publish") %>'></asp:Label>
                                             <asp:Label ID="lblWebsite" runat="server" Text='<%#Eval("Website2") %>'></asp:Label>
                                             <asp:Label ID="lblCertificationBodiesID" runat="server" Text='<%#Eval("CertificationBodiesID") %>' Visible="false"></asp:Label>
                                         </td>
@@ -898,7 +898,7 @@
                                     <tr>
                                         <td class="tdRowName" valign="top">Publish：</td>
                                         <td class="tdRowValue" align="left">
-                                            <asp:Label ID="lblPublish" runat="server" Text='<%#Eval("Publish1") %>'></asp:Label>
+                                            <asp:Label ID="lblPublish" runat="server" Text='<%#Eval("Publish") %>'></asp:Label>
                                             <asp:Label ID="lblWebsite" runat="server" Text='<%#Eval("Website1") %>'></asp:Label>
                                             <asp:Label ID="lblAccreditedTestID" runat="server" Text='<%#Eval("AccreditedTestID") %>' Visible="false"></asp:Label>
                                         </td>
@@ -1390,7 +1390,7 @@
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellpadding="0" cellspacing="0">
                                                 <tr>
-                                                    <td><asp:Label ID="lblNDAYes" runat="server" Text='<%#Eval("NDAYes1") %>'></asp:Label></td>
+                                                    <td><asp:Label ID="lblNDAYes" runat="server" Text='<%#Eval("NDAYes") %>'></asp:Label></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -1438,7 +1438,7 @@
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellpadding="0" cellspacing="0">
                                                 <tr>
-                                                    <td><asp:Label ID="lblMOUYes" runat="server" Text='<%#Eval("MOUYes1") %>'></asp:Label></td>
+                                                    <td><asp:Label ID="lblMOUYes" runat="server" Text='<%#Eval("MOUYes") %>'></asp:Label></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -2311,7 +2311,7 @@
                                             <table border="0" cellpadding="0" cellspacing="0">
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="lblTestMark" runat="server" Text='<%#Eval("TestMark1")%>'></asp:Label>
+                                                        <asp:Label ID="lblTestMark" runat="server" Text='<%#Eval("TestMark")%>'></asp:Label>
                                                         <asp:Label ID="lblTestMarkRemark" runat="server" Text='<%#Eval("TestMarkRemark1")%>'></asp:Label>
                                                     </td>
                                                 </tr>
@@ -2822,6 +2822,9 @@
                                                 <tr>
                                                     <td><asp:Label ID="lblProof" runat="server" Text='<%#Eval("Proof1")%>'></asp:Label></td>
                                                 </tr>
+                                                <tr>
+                                                    <td><asp:Label ID="lblNA" runat="server" Text='<%#Eval("NA1")%>'></asp:Label></td>
+                                                </tr>
                                             </table>
                                         </td>
                                     </tr>
@@ -3048,11 +3051,11 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName" valign="top">Renewal：</td>
-                                        <td class="tdRowValue" align="left"><asp:Label ID="lblRenewal" runat="server" Text='<%#Eval("Renewal1")%>'></asp:Label></td>
+                                        <td class="tdRowValue" align="left"><asp:Label ID="lblRenewal" runat="server" Text='<%#Eval("Renewal")%>'></asp:Label></td>
                                     </tr>
                                     <tr id="trRequired" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Test Required：</td>
-                                        <td class="tdRowValue" align="left"><asp:Label ID="lblRequired" runat="server" Text='<%#Eval("Required1")%>'></asp:Label></td>
+                                        <td class="tdRowValue" align="left"><asp:Label ID="lblRequired" runat="server" Text='<%#Eval("Required")%>'></asp:Label></td>
                                     </tr>
                                     <tr id="trCostTest1" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName" valign="top">Cost W/Test：</td>

@@ -75,7 +75,7 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
             {
                 tbAccreditedLab.Text = dt.Rows[0]["AccreditedLab"].ToString();
                 tbVolumePerYear.Text = dt.Rows[0]["VolumePerYear"].ToString();
-                rblPublish.SelectedValue = Convert.ToInt32(dt.Rows[0]["Publish"]).ToString();
+                rblPublish.SelectedValue = dt.Rows[0]["Publish"].ToString();
                 tbWebsite.Text = dt.Rows[0]["Website"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 //2012/09/13會議取消copy預設
@@ -168,7 +168,7 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
                 cmd.Parameters["@wowi_product_type_id"].Value = str;
                 cmd.Parameters["@AccreditedLab"].Value = tbAccreditedLab.Text.Trim();
                 cmd.Parameters["@VolumePerYear"].Value = tbVolumePerYear.Text.Trim();
-                cmd.Parameters["@Publish"].Value = rblPublish.SelectedValue == "1";
+                cmd.Parameters["@Publish"].Value = rblPublish.SelectedValue;
                 cmd.Parameters["@Website"].Value = tbWebsite.Text.Trim();
                 cmd.Parameters["@CreateUser"].Value = IMAUtil.GetUser();
                 cmd.Parameters["@LasterUpdateUser"].Value = IMAUtil.GetUser();
@@ -305,7 +305,7 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@AccreditedTestID", Request["atid"]);
         cmd.Parameters.AddWithValue("@AccreditedLab", tbAccreditedLab.Text.Trim());
         cmd.Parameters.AddWithValue("@VolumePerYear", tbVolumePerYear.Text.Trim());
-        cmd.Parameters.AddWithValue("@Publish", rblPublish.SelectedValue == "1");
+        cmd.Parameters.AddWithValue("@Publish", rblPublish.SelectedValue);
         cmd.Parameters.AddWithValue("@Website", tbWebsite.Text.Trim());
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
         if (tbRFRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@RFRemark", tbRFRemark.Text.Trim()); }

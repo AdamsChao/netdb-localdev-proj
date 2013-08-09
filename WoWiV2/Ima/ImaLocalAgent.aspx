@@ -81,8 +81,9 @@
                                 <tr>
                                     <td>
                                         <asp:RadioButtonList ID="rblNDAYes" runat="server" RepeatDirection="Horizontal">
-                                            <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
-                                            <asp:ListItem Text="No" Value="0" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                            <asp:ListItem Text="No" Value="No" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                         </asp:RadioButtonList>
                                         <asp:CheckBox ID="cbNDAYes" runat="server" Text="Yes" Visible="false" />
                                         <asp:CheckBox ID="cbNDAChoose" runat="server" Text="Choose File" Visible="false" />
@@ -164,8 +165,9 @@
                                 <tr>
                                     <td>
                                         <asp:RadioButtonList ID="rblMOUYes" runat="server" RepeatDirection="Horizontal">
-                                            <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
-                                            <asp:ListItem Text="No" Value="0" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                            <asp:ListItem Text="No" Value="No" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                         </asp:RadioButtonList>
                                         <asp:CheckBox ID="cbMOUYes" runat="server" Text="Yes" Visible="false" />
                                         <asp:CheckBox ID="cbMOUChoose" runat="server" Text="Choose File" Visible="false" />
@@ -581,8 +583,9 @@
                                                 <asp:RadioButtonList ID="rblLocalRep" runat="server" 
                                                     RepeatDirection="Horizontal" AutoPostBack="true" 
                                                     onselectedindexchanged="rblLocalRep_SelectedIndexChanged">
-                                                    <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
-                                                    <asp:ListItem Text="No" Value="0" Selected="True"></asp:ListItem>
+                                                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                                    <asp:ListItem Text="NO" Value="NO" Selected="True"></asp:ListItem>
+                                                    <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                                 </asp:RadioButtonList>
                                             </td>
                                             <td style="padding-left:10px;">

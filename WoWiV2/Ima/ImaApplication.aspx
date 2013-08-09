@@ -69,6 +69,7 @@
                                 RepeatDirection="Horizontal">
                                 <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                 <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -81,6 +82,7 @@
                                 RepeatDirection="Horizontal">
                                 <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                 <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -93,6 +95,7 @@
                                 RepeatDirection="Horizontal">
                                 <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                 <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -104,6 +107,7 @@
                             <asp:RadioButtonList ID="rblEmail" runat="server" RepeatDirection="Horizontal">
                                 <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                 <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -115,6 +119,7 @@
                             <asp:RadioButtonList ID="rblCD" runat="server" RepeatDirection="Horizontal">
                                 <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                 <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -213,8 +218,9 @@
                         </td>
                         <td class="tdRowValue">
                             <asp:RadioButtonList ID="rbtnlSamplesRequired" runat="server"  RepeatDirection="Horizontal">
-                                <asp:ListItem Text="No Samples required" Value="false" Selected="True"></asp:ListItem>
-                                <asp:ListItem Text="Samples required(See Testing and Submission Preparation)" Value="true"></asp:ListItem>
+                                <asp:ListItem Text="No Samples required" Value="NO" Selected="True"></asp:ListItem>
+                                <asp:ListItem Text="Samples required(See Testing and Submission Preparation)" Value="Yes"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                             <%--<asp:CheckBox ID="cbSamplesRequired" runat="server" Text="No Samples required"  AutoPostBack="true" oncheckedchanged="cbSamplesRequired_CheckedChanged" />--%>
                         </td>
@@ -278,6 +284,7 @@
                                         <asp:RadioButtonList ID="rblModular" runat="server" RepeatDirection="Horizontal">
                                             <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                             <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                            <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>
@@ -370,6 +377,7 @@
                                             <asp:ListItem Value="Distributor" Text="Distributor"></asp:ListItem>
                                             <asp:ListItem Value="NotRequired" Text="Not Required"></asp:ListItem>
                                             <asp:ListItem Value="Operator" Text="Operator"></asp:ListItem>
+                                            <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>
@@ -494,6 +502,7 @@
                                         <asp:RadioButtonList ID="rblExpeditedProcess" runat="server" RepeatDirection="Horizontal">
                                             <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                             <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                            <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>
@@ -588,6 +597,7 @@
                             <asp:RadioButtonList ID="rblMMNamesListed" runat="server" RepeatDirection="Horizontal">
                                 <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                 <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -602,6 +612,7 @@
                                         <asp:RadioButtonList ID="rblAfterApproval" runat="server" RepeatDirection="Horizontal">
                                             <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                             <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                            <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>
@@ -811,6 +822,7 @@
                             <asp:RadioButtonList ID="rblOriginRequired" runat="server" RepeatDirection="Horizontal">
                                 <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                 <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -910,6 +922,7 @@
                             <asp:RadioButtonList ID="rblContractRequired" runat="server" RepeatDirection="Horizontal">
                                 <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                 <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -923,6 +936,7 @@
                             <asp:RadioButtonList ID="rblNotarizedPoARequired" runat="server" RepeatDirection="Horizontal">
                                 <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                 <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -934,6 +948,7 @@
                             <asp:RadioButtonList ID="rblCertificateIDCreateBy" runat="server" RepeatDirection="Horizontal">
                                 <asp:ListItem Value="Authority" Text="Authority" Selected="True"></asp:ListItem>
                                 <asp:ListItem Value="User" Text="User"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -947,6 +962,7 @@
                             <asp:RadioButtonList ID="rblGetCertificateNumber" runat="server" RepeatDirection="Horizontal">
                                 <asp:ListItem Value="Yes" Text="Yes" Selected="True"></asp:ListItem>
                                 <asp:ListItem Value="No" Text="No"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -964,6 +980,7 @@
                                                     <asp:RadioButtonList ID="rblProvisional" runat="server" RepeatDirection="Horizontal">
                                                         <asp:ListItem Value="Yes" Text="Yes"></asp:ListItem>
                                                         <asp:ListItem Value="No" Text="No" Selected="True"></asp:ListItem>
+                                                        <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                                     </asp:RadioButtonList>
                                                 </td>
                                                 <td>
@@ -1004,6 +1021,7 @@
                                                         <asp:ListItem Value="Permanent" Text="Permanent"></asp:ListItem>
                                                         <asp:ListItem Value="Non-Life time" Text="Non-Life time"></asp:ListItem>
                                                         <asp:ListItem Value="Life-time" Text="Life-time" Selected="True"></asp:ListItem>
+                                                        <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                                     </asp:RadioButtonList>
                                                 </td>
                                                 <td>
@@ -1113,6 +1131,7 @@
                                                     <asp:RadioButtonList ID="rblPeriodic" runat="server" RepeatDirection="Horizontal">
                                                         <asp:ListItem Value="Yes" Text="Yes"></asp:ListItem>
                                                         <asp:ListItem Value="No" Text="No" Selected="True"></asp:ListItem>
+                                                        <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                                     </asp:RadioButtonList>
                                                 </td>
                                                 <td>

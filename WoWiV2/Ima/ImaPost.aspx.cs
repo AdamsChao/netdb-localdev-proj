@@ -108,7 +108,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
                 tbRequiredDesc.Text = dt.Rows[0]["RequiredDesc"].ToString();
                 cbManufacturer.Checked = Convert.ToBoolean(dt.Rows[0]["Manufacturer"]);
                 cbImportation.Checked = Convert.ToBoolean(dt.Rows[0]["Importation"]);
-                rblProduct.SelectedValue = Convert.ToInt32(dt.Rows[0]["Product"]).ToString();
+                rblProduct.SelectedValue = dt.Rows[0]["Product"].ToString();
                 cbEUT1.Checked = Convert.ToBoolean(dt.Rows[0]["EUT1"]);
                 cbEUT2.Checked = Convert.ToBoolean(dt.Rows[0]["EUT2"]);
                 cbEUT3.Checked = Convert.ToBoolean(dt.Rows[0]["EUT3"]);
@@ -117,8 +117,8 @@ public partial class Ima_ImaPost : System.Web.UI.Page
                 cbEUT6.Checked = Convert.ToBoolean(dt.Rows[0]["EUT6"]);
                 cbEUT7.Checked = Convert.ToBoolean(dt.Rows[0]["EUT7"]);
                 cbEUT8.Checked = Convert.ToBoolean(dt.Rows[0]["EUT8"]);
-                rblRenewal.SelectedValue = Convert.ToInt32(dt.Rows[0]["Renewal"]).ToString();
-                rblRequired.SelectedValue = Convert.ToInt32(dt.Rows[0]["Required"]).ToString();
+                rblRenewal.SelectedValue = dt.Rows[0]["Renewal"].ToString();
+                rblRequired.SelectedValue = dt.Rows[0]["Required"].ToString();
                 tbCostTest1.Text = dt.Rows[0]["CostTest1"].ToString();
                 tbLeadTime1.Text = dt.Rows[0]["LeadTime1"].ToString();
                 tbCostTest2.Text = dt.Rows[0]["CostTest2"].ToString();
@@ -249,7 +249,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
                 cmd.Parameters["@Print"].Value = cbPrint.Checked;
                 cmd.Parameters["@Purchase"].Value = cbPurchase.Checked;
                 cmd.Parameters["@LabelsDesc"].Value = tbLabelsDesc.Text.Trim();
-                cmd.Parameters["@Required"].Value = rblRequired.SelectedValue == "1";
+                cmd.Parameters["@Required"].Value = rblRequired.SelectedValue;
                 if (tbYear.Text.Trim().Length > 0)
                 {
                     cmd.Parameters["@Year"].Value = tbYear.Text.Trim();
@@ -271,7 +271,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
                 cmd.Parameters["@LasterUpdateUser"].Value = IMAUtil.GetUser();
                 cmd.Parameters["@Manufacturer"].Value = cbManufacturer.Checked;
                 cmd.Parameters["@Importation"].Value = cbImportation.Checked;
-                cmd.Parameters["@Product"].Value = rblProduct.SelectedValue == "1";
+                cmd.Parameters["@Product"].Value = rblProduct.SelectedValue;
                 cmd.Parameters["@EUT1"].Value = cbEUT1.Checked;
                 cmd.Parameters["@EUT2"].Value = cbEUT2.Checked;
                 cmd.Parameters["@EUT3"].Value = cbEUT3.Checked;
@@ -280,7 +280,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
                 cmd.Parameters["@EUT6"].Value = cbEUT6.Checked;
                 cmd.Parameters["@EUT7"].Value = cbEUT7.Checked;
                 cmd.Parameters["@EUT8"].Value = cbEUT8.Checked;
-                cmd.Parameters["@Renewal"].Value = rblRenewal.SelectedValue == "1";
+                cmd.Parameters["@Renewal"].Value = rblRenewal.SelectedValue;
                 if (tbCostTest1.Text.Trim().Length > 0) { cmd.Parameters["@CostTest1"].Value = tbCostTest1.Text.Trim(); }
                 else { cmd.Parameters["@CostTest1"].Value = DBNull.Value; }
                 if (tbLeadTime1.Text.Trim().Length > 0) { cmd.Parameters["@LeadTime1"].Value = tbLeadTime1.Text.Trim(); }
@@ -458,7 +458,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Print", cbPrint.Checked);
         cmd.Parameters.AddWithValue("@Purchase", cbPurchase.Checked);
         cmd.Parameters.AddWithValue("@LabelsDesc", tbLabelsDesc.Text.Trim());
-        cmd.Parameters.AddWithValue("@Required", rblRequired.SelectedValue == "1");
+        cmd.Parameters.AddWithValue("@Required", rblRequired.SelectedValue);
         if (tbYear.Text.Trim().Length > 0)
         {
             cmd.Parameters.AddWithValue("@Year", tbYear.Text.Trim());
@@ -479,7 +479,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@LasterUpdateUser", IMAUtil.GetUser());
         cmd.Parameters.AddWithValue("@Manufacturer", cbManufacturer.Checked);
         cmd.Parameters.AddWithValue("@Importation", cbImportation.Checked);
-        cmd.Parameters.AddWithValue("@Product", rblProduct.SelectedValue == "1");
+        cmd.Parameters.AddWithValue("@Product", rblProduct.SelectedValue);
         cmd.Parameters.AddWithValue("@EUT1", cbEUT1.Checked);
         cmd.Parameters.AddWithValue("@EUT2", cbEUT2.Checked);
         cmd.Parameters.AddWithValue("@EUT3", cbEUT3.Checked);
@@ -488,7 +488,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@EUT6", cbEUT6.Checked);
         cmd.Parameters.AddWithValue("@EUT7", cbEUT7.Checked);
         cmd.Parameters.AddWithValue("@EUT8", cbEUT8.Checked);
-        cmd.Parameters.AddWithValue("@Renewal", rblRenewal.SelectedValue == "1");
+        cmd.Parameters.AddWithValue("@Renewal", rblRenewal.SelectedValue);
         if (tbCostTest1.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@CostTest1", tbCostTest1.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@CostTest1", DBNull.Value); }
         if (tbLeadTime1.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime1", tbLeadTime1.Text.Trim()); }

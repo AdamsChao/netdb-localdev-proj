@@ -84,9 +84,9 @@ public partial class Ima_ImaDetailP : System.Web.UI.Page
                 //lblMonth.Text = dt.Rows[0]["Month"].ToString();
                 lblRequiredDesc.Text = dt.Rows[0]["RequiredDesc"].ToString();
                 //rblProduct.SelectedValue = Convert.ToInt32(dt.Rows[0]["Product"]).ToString();
-                if (Convert.ToInt32(dt.Rows[0]["Product"]) == 1) { lblProduct.Text = "Yes"; }
-                else { lblProduct.Text = "No"; }
-
+                //if (Convert.ToInt32(dt.Rows[0]["Product"]) == 1) { lblProduct.Text = "Yes"; }
+                //else { lblProduct.Text = "No"; }
+                lblProduct.Text = dt.Rows[0]["Product"].ToString();
                 //cbEUT1.Checked = Convert.ToBoolean(dt.Rows[0]["EUT1"]);
                 //cbEUT2.Checked = Convert.ToBoolean(dt.Rows[0]["EUT2"]);
                 //cbEUT3.Checked = Convert.ToBoolean(dt.Rows[0]["EUT3"]);
@@ -132,11 +132,14 @@ public partial class Ima_ImaDetailP : System.Web.UI.Page
                     else { lblEUT.Text += "<br>EUT(module) and End Product and Package"; }
                 }
                 //rblRenewal.SelectedValue = Convert.ToInt32(dt.Rows[0]["Renewal"]).ToString();
-                if (Convert.ToInt32(dt.Rows[0]["Renewal"]) == 1) { lblRenewal.Text = "Yes"; }
-                else { lblRenewal.Text = "No"; }
+                //if (Convert.ToInt32(dt.Rows[0]["Renewal"]) == 1) { lblRenewal.Text = "Yes"; }
+                //else { lblRenewal.Text = "No"; }
+                lblRenewal.Text = dt.Rows[0]["Renewal"].ToString();
+
                 //rblRequired.SelectedValue = Convert.ToInt32(dt.Rows[0]["Required"]).ToString();
-                if (Convert.ToInt32(dt.Rows[0]["Required"]) == 1) { lblRequired.Text = "Yes"; }
-                else { lblRequired.Text = "No"; }
+                //if (Convert.ToInt32(dt.Rows[0]["Required"]) == 1) { lblRequired.Text = "Yes"; }
+                //else { lblRequired.Text = "No"; }
+                lblRequired.Text = dt.Rows[0]["Required"].ToString();
                 if (dt.Rows[0]["CostTest1"].ToString() != "")
                 {
                     lblCost1.Text = dt.Rows[0]["CostTest1"].ToString() + "&nbsp;&nbsp;USD";

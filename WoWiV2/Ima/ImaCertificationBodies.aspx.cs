@@ -74,11 +74,11 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
             if (dt.Rows.Count > 0)
             {
                 tbName.Text = dt.Rows[0]["Name"].ToString();
-                rblAuthority.SelectedValue = Convert.ToInt32(dt.Rows[0]["Authority"]).ToString();
+                rblAuthority.SelectedValue = dt.Rows[0]["Authority"].ToString();
                 rblAccreditedTest.SelectedValue = dt.Rows[0]["AccreditedTest"].ToString();
-                rblCB.SelectedValue = Convert.ToInt32(dt.Rows[0]["CertificationBody"]).ToString();
+                rblCB.SelectedValue = dt.Rows[0]["CertificationBody"].ToString();
                 tbVolumePerYear.Text = dt.Rows[0]["VolumePerYear"].ToString();
-                rblPublish.SelectedValue = Convert.ToInt32(dt.Rows[0]["Publish"]).ToString();
+                rblPublish.SelectedValue = dt.Rows[0]["Publish"].ToString();
                 tbAccredidedLab.Text = dt.Rows[0]["AccredidedLab"].ToString();
                 tbVolumePerYear1.Text = dt.Rows[0]["VolumePerYear1"].ToString();
                 rblPublish1.SelectedValue = Convert.ToInt32(dt.Rows[0]["Publish1"]).ToString();
@@ -181,10 +181,10 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
                 cmd.Parameters["@country_id"].Value = Request["cid"];
                 cmd.Parameters["@wowi_product_type_id"].Value = str;
                 cmd.Parameters["@Name"].Value = tbName.Text.Trim();
-                cmd.Parameters["@Authority"].Value = rblAuthority.SelectedValue == "1";
-                cmd.Parameters["@CertificationBody"].Value = rblCB.SelectedValue == "1";
+                cmd.Parameters["@Authority"].Value = rblAuthority.SelectedValue;
+                cmd.Parameters["@CertificationBody"].Value = rblCB.SelectedValue;
                 cmd.Parameters["@VolumePerYear"].Value = tbVolumePerYear.Text.Trim();
-                cmd.Parameters["@Publish"].Value = rblPublish.SelectedValue == "1";
+                cmd.Parameters["@Publish"].Value = rblPublish.SelectedValue;
                 cmd.Parameters["@AccredidedLab"].Value = tbAccredidedLab.Text.Trim();
                 cmd.Parameters["@VolumePerYear1"].Value = tbVolumePerYear1.Text.Trim();
                 cmd.Parameters["@Publish1"].Value = rblPublish1.SelectedValue == "1";
@@ -325,10 +325,10 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
         cmd.CommandText = strTsql;
         cmd.Parameters.AddWithValue("@CertificationBodiesID", Request["cbwid"]);
         cmd.Parameters.AddWithValue("@Name", tbName.Text.Trim());
-        cmd.Parameters.AddWithValue("@Authority", rblAuthority.SelectedValue == "1");
-        cmd.Parameters.AddWithValue("@CertificationBody", rblCB.SelectedValue == "1");
+        cmd.Parameters.AddWithValue("@Authority", rblAuthority.SelectedValue);
+        cmd.Parameters.AddWithValue("@CertificationBody", rblCB.SelectedValue);
         cmd.Parameters.AddWithValue("@VolumePerYear", tbVolumePerYear.Text.Trim());
-        cmd.Parameters.AddWithValue("@Publish", rblPublish.SelectedValue == "1");
+        cmd.Parameters.AddWithValue("@Publish", rblPublish.SelectedValue);
         cmd.Parameters.AddWithValue("@AccredidedLab", tbAccredidedLab.Text.Trim());
         cmd.Parameters.AddWithValue("@VolumePerYear1", tbVolumePerYear1.Text.Trim());
         cmd.Parameters.AddWithValue("@Publish1", rblPublish1.SelectedValue == "1");

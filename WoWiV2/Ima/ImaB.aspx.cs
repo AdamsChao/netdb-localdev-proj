@@ -62,7 +62,11 @@ public partial class Ima_ImaB : System.Web.UI.Page
                 lblAbbreviatedAuthorityNameS.Text = lblAbbreviatedAuthorityName.Text;
                 lblWebsite.Text = dt.Rows[0]["Website"].ToString();
                 lblMandatory.Text = dt.Rows[0]["Mandatory"].ToString();
-                lblCertificateValid.Text = dt.Rows[0]["CertificateValid"].ToString() + " Importer";
+                lblCertificateValid.Text = dt.Rows[0]["CertificateValid"].ToString();
+                if (dt.Rows[0]["CertificateValid"].ToString() != "N/A")
+                {
+                    lblCertificateValid.Text += " Importer";
+                }           
                 lblTransfer.Text = dt.Rows[0]["IsTransfer"].ToString();
                 lblTransferS.Text = lblTransfer.Text;
                 if (dt.Rows[0]["Description"].ToString().Trim().Length > 0) 

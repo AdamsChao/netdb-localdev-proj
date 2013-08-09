@@ -44,8 +44,7 @@ public partial class Ima_ImaDetailQ : System.Web.UI.Page
             {
                 lblAccreditedLab.Text = dt.Rows[0]["AccreditedLab"].ToString();
                 lblVolumePerYear.Text = dt.Rows[0]["VolumePerYear"].ToString();
-                if (Convert.ToInt32(dt.Rows[0]["Publish"]) == 1) { lblPublish.Text = "Yes"; }
-                else { lblPublish.Text = "No"; }
+                lblPublish.Text = dt.Rows[0]["Publish"].ToString();
                 if (dt.Rows[0]["Website"].ToString().Trim().Length > 0) { lblWebsite.Text = "<br>Website：" + dt.Rows[0]["Website"].ToString(); }
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 if (dt.Rows[0]["RFRemark"].ToString().Trim().Length > 0) { lblRFRemark.Text = "Remark：" + dt.Rows[0]["RFRemark"].ToString(); }

@@ -88,8 +88,14 @@ public partial class Ima_ImaDetailJ : System.Web.UI.Page
                 //cbCETest.Checked = Convert.ToBoolean(dt.Rows[0]["CETest"]);
                 //cbLocalTest.Checked = Convert.ToBoolean(dt.Rows[0]["LocalTest"]);
                 //if (dt.Rows[0]["Other"] != DBNull.Value) { cbOther.Checked = Convert.ToBoolean(dt.Rows[0]["Other"]); }
-                if (dt.Rows[0]["SamplesRequired"].ToString().ToLower() == "true") { lblSamplesRequired.Text = "Samples required(See Testing and Submission Preparation)"; }
-                else { lblSamplesRequired.Text = "No Samples required"; }
+                
+                //if (dt.Rows[0]["SamplesRequired"].ToString().ToLower() == "true") { lblSamplesRequired.Text = "Samples required(See Testing and Submission Preparation)"; }
+                //else { lblSamplesRequired.Text = "No Samples required"; }
+
+                if (dt.Rows[0]["SamplesRequired"].ToString().ToLower() == "yes") { lblSamplesRequired.Text = "Samples required(See Testing and Submission Preparation)"; }
+                else if (dt.Rows[0]["SamplesRequired"].ToString().ToLower() == "no") { lblSamplesRequired.Text = "No Samples required"; }
+                else { lblSamplesRequired.Text = dt.Rows[0]["SamplesRequired"].ToString(); }
+
                 //rbtnlSamplesRequired.SelectedValue = dt.Rows[0]["SamplesRequired"].ToString().ToLower();
                 //cbSamplesRequired.Checked = Convert.ToBoolean(dt.Rows[0]["SamplesRequired"]);
                 //if (cbSamplesRequired.Checked) 

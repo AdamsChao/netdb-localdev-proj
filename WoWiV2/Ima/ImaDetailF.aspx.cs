@@ -83,17 +83,17 @@ public partial class Ima_ImaDetailF : System.Web.UI.Page
                     if (lblCredit.Text.Trim().Length == 0) { lblCredit.Text = "Slow"; }
                     else { lblCredit.Text += "、Slow"; }
                 }
-
-                if (dt.Rows[0]["NDAYes"].ToString().Trim().ToLower() == "true") { lblNDAYes.Text = "Yes"; }
-                //if (dt.Rows[0]["NDAChoose"].ToString().Trim().ToLower() == "true") { cbNDAChoose.Checked = true; }
-                if (dt.Rows[0]["MOUYes"].ToString().Trim().ToLower() == "true") { lblMOUYes.Text = "Yes"; }
+                lblNDAYes.Text = dt.Rows[0]["NDAYes"].ToString();
+                //if (dt.Rows[0]["NDAChoose"].ToString().Trim().ToLower() == "true") { cbNDAChoose.Checked = true; }                
+                lblMOUYes.Text = dt.Rows[0]["MOUYes"].ToString();
                 //if (dt.Rows[0]["MOUChoose"].ToString().Trim().ToLower() == "true") { cbMOUChoose.Checked = true; }
                 if (dt.Rows[0]["RFRemark"].ToString().Trim().Length > 0) { lblRFRemark.Text = "Remark：" + dt.Rows[0]["RFRemark"].ToString(); }
                 if (dt.Rows[0]["EMCRemark"].ToString().Trim().Length > 0) { lblEMCRemark.Text = "Remark：" + dt.Rows[0]["EMCRemark"].ToString(); }
                 if (dt.Rows[0]["SafetyRemark"].ToString().Trim().Length > 0) { lblSafetyRemark.Text = "Remark：" + dt.Rows[0]["SafetyRemark"].ToString(); }
                 if (dt.Rows[0]["TelecomRemark"].ToString().Trim().Length > 0) { lblTelecomRemark.Text = "Remark：" + dt.Rows[0]["TelecomRemark"].ToString(); }
                 if (dt.Rows[0]["LeadTime"].ToString().Trim().Length > 0) { lblLeadT.Text = dt.Rows[0]["LeadTime"].ToString() + "&nbsp;Weeks"; }
-                if (dt.Rows[0]["LocalRep"].ToString().Trim().ToLower() == "true") { lblLocalRep.Text = "Yes"; }
+                //if (dt.Rows[0]["LocalRep"].ToString().Trim().ToLower() == "true") { lblLocalRep.Text = "Yes"; }
+                lblLocalRep.Text = dt.Rows[0]["LocalRep"].ToString();
                 if (dt.Rows[0]["LocalRepFee"].ToString().Trim().Length > 0) { lblLocalRep.Text += "  ；  Local Rep. Service fee：" + dt.Rows[0]["LocalRepFee"].ToString().Trim() + " USD"; }
                 if (dt.Rows[0]["LocalRepRemark"].ToString().Trim().Length > 0) { lblLocalRep.Text += "<br>Remark：" + dt.Rows[0]["LocalRepRemark"].ToString().Trim(); }
 

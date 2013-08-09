@@ -49,7 +49,8 @@
                             <asp:CheckBox ID="cbCopy" runat="server" Text="Hard copy to WoWi" /><br />
                             <asp:CheckBox ID="cbCollect" runat="server" Text="Hard copy to be Collected" /><br />
                             <asp:CheckBox ID="cbLocal" runat="server" Text="Hard copy to Local Applicant" /><br />
-                            <asp:CheckBox ID="cbProof" runat="server" Text="Proof shown on website" />
+                            <asp:CheckBox ID="cbProof" runat="server" Text="Proof shown on website" /><br />
+                            <asp:CheckBox ID="cbNA" runat="server" Text="N/A" />
                         </td>
                     </tr>
                     <tr>

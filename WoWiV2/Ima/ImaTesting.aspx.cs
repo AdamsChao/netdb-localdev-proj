@@ -138,7 +138,8 @@ public partial class Ima_Testing : System.Web.UI.Page
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 //2012/09/13會議取消copy預設
                 //cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
-                if (dt.Rows[0]["TestMark"] != DBNull.Value) { rblTestMark.SelectedValue = Convert.ToInt32(dt.Rows[0]["TestMark"]).ToString(); }
+                //if (dt.Rows[0]["TestMark"] != DBNull.Value) { rblTestMark.SelectedValue = Convert.ToInt32(dt.Rows[0]["TestMark"]).ToString(); }
+                rblTestMark.SelectedValue = dt.Rows[0]["TestMark"].ToString();
                 tbTestMarkRemark.Text = dt.Rows[0]["TestMarkRemark"].ToString();
                 if (dt.Rows[0]["BOM1"] != DBNull.Value) { cbBOM1.Checked = Convert.ToBoolean(dt.Rows[0]["BOM1"]); }
                 tbOfficialLanguage.Text = dt.Rows[0]["OfficialLanguage"].ToString();
@@ -321,7 +322,7 @@ public partial class Ima_Testing : System.Web.UI.Page
                 cmd.Parameters["@Email"].Value = cbEmail.Checked;
                 cmd.Parameters["@FTP"].Value = cbFTP.Checked;
                 cmd.Parameters["@TestNote"].Value = tbTestNote.Text.Trim();
-                cmd.Parameters["@TestMark"].Value = rblTestMark.SelectedValue == "1";
+                cmd.Parameters["@TestMark"].Value = rblTestMark.SelectedValue;
                 cmd.Parameters["@TestMarkRemark"].Value = tbTestMarkRemark.Text.Trim();
                 cmd.Parameters["@BOM1"].Value = cbBOM1.Checked;
                 cmd.Parameters["@OfficialLanguage"].Value = tbOfficialLanguage.Text.Trim();
@@ -541,7 +542,7 @@ public partial class Ima_Testing : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Email", cbEmail.Checked);
         cmd.Parameters.AddWithValue("@FTP", cbFTP.Checked);
         cmd.Parameters.AddWithValue("@TestNote", tbTestNote.Text.Trim());
-        cmd.Parameters.AddWithValue("@TestMark", rblTestMark.SelectedValue == "1");
+        cmd.Parameters.AddWithValue("@TestMark", rblTestMark.SelectedValue);
         cmd.Parameters.AddWithValue("@TestMarkRemark", tbTestMarkRemark.Text.Trim());
         cmd.Parameters.AddWithValue("@BOM1", cbBOM1.Checked);
         cmd.Parameters.AddWithValue("@OfficialLanguage", tbOfficialLanguage.Text.Trim());

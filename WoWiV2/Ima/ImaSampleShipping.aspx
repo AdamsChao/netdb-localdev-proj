@@ -190,6 +190,7 @@
                                         <asp:RadioButtonList ID="rblReturned" runat="server" RepeatDirection="Horizontal">
                                             <asp:ListItem Text="Yes" Value="Yes" Selected="True"></asp:ListItem>
                                             <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                            <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>

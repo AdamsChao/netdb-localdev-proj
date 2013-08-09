@@ -38,7 +38,8 @@ public partial class Ima_ImaDetailN : System.Web.UI.Page
                 if (dt.Rows[0]["FactoryInspection"].ToString() == "Document") { lblFactoryInspection.Text = "Document review only"; }
                 else if (dt.Rows[0]["FactoryInspection"].ToString() == "OneTime") { lblFactoryInspection.Text = "One-time on-site Inspection Required"; }
                 else if (dt.Rows[0]["FactoryInspection"].ToString() == "Periodic") { lblFactoryInspection.Text = "Periodic on-site Inspection Required"; }
-                else { lblFactoryInspection.Text = "Not Required"; }
+                else if (dt.Rows[0]["FactoryInspection"].ToString() == "NotRequired") { lblFactoryInspection.Text = "Not Required"; }
+                else { lblFactoryInspection.Text = dt.Rows[0]["FactoryInspection"].ToString(); }
                 if (dt.Rows[0]["Year"].ToString().Trim().Length > 0) { lblInspection.Text = "Inspection every：" + dt.Rows[0]["Year"].ToString() + " year(s) "; }
                 if (dt.Rows[0]["Month"].ToString().Trim().Length > 0) 
                 {

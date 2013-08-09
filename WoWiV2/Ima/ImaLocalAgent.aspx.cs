@@ -83,11 +83,9 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
                 if (dt.Rows[0]["Responsive"].ToString().Trim().ToLower() == "true") { cbResponsive.Checked = true; }
                 if (dt.Rows[0]["Knowledgeable"].ToString().Trim().ToLower() == "true") { cbKnowledgeable.Checked = true; }
                 if (dt.Rows[0]["Slow"].ToString().Trim().ToLower() == "true") { cbSlow.Checked = true; }
-                if (dt.Rows[0]["NDAYes"].ToString().Trim().ToLower() == "true") { rblNDAYes.SelectedValue = "1"; }
-                else { rblNDAYes.SelectedValue = "0"; }
+                rblNDAYes.SelectedValue = dt.Rows[0]["NDAYes"].ToString();
                 if (dt.Rows[0]["NDAChoose"].ToString().Trim().ToLower() == "true") { cbNDAChoose.Checked = true; }
-                if (dt.Rows[0]["MOUYes"].ToString().Trim().ToLower() == "true") { rblMOUYes.SelectedValue = "1"; }
-                else { rblMOUYes.SelectedValue = "0"; }
+                rblMOUYes.SelectedValue = dt.Rows[0]["MOUYes"].ToString();
                 if (dt.Rows[0]["MOUChoose"].ToString().Trim().ToLower() == "true") { cbMOUChoose.Checked = true; }
                 //lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 tbRFRemark.Text = dt.Rows[0]["RFRemark"].ToString();
@@ -95,7 +93,9 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
                 tbSafetyRemark.Text = dt.Rows[0]["SafetyRemark"].ToString();
                 tbTelecomRemark.Text = dt.Rows[0]["TelecomRemark"].ToString();
                 tbLeadT.Text = dt.Rows[0]["LeadTime"].ToString();
-                if (dt.Rows[0]["LocalRep"].ToString().Trim().ToLower() == "true") { rblLocalRep.SelectedValue = "1"; tbLocalRepFee.Enabled = true; }
+                //if (dt.Rows[0]["LocalRep"].ToString().Trim().ToLower() == "true") { rblLocalRep.SelectedValue = "1"; tbLocalRepFee.Enabled = true; }
+                rblLocalRep.SelectedValue = dt.Rows[0]["LocalRep"].ToString();
+                if (dt.Rows[0]["LocalRep"].ToString().Trim().ToLower() == "yes") { tbLocalRepFee.Enabled = true; }
                 if (dt.Rows[0]["LocalRepFee"].ToString().Trim().Length > 0) { tbLocalRepFee.Text = dt.Rows[0]["LocalRepFee"].ToString().Trim(); }
                 tbLocalRepRemark.Text = dt.Rows[0]["LocalRepRemark"].ToString();
                 //2012/09/13會議取消copy預設
@@ -229,9 +229,9 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Responsive", cbResponsive.Checked);
         cmd.Parameters.AddWithValue("@Knowledgeable", cbKnowledgeable.Checked);
         cmd.Parameters.AddWithValue("@Slow", cbSlow.Checked);
-        cmd.Parameters.AddWithValue("@NDAYes", Convert.ToInt32(rblNDAYes.SelectedValue));
+        cmd.Parameters.AddWithValue("@NDAYes", rblNDAYes.SelectedValue);
         cmd.Parameters.AddWithValue("@NDAChoose", cbNDAChoose.Checked);
-        cmd.Parameters.AddWithValue("@MOUYes", Convert.ToInt32(rblMOUYes.SelectedValue));
+        cmd.Parameters.AddWithValue("@MOUYes", rblMOUYes.SelectedValue);
         cmd.Parameters.AddWithValue("@MOUChoose", cbMOUChoose.Checked);
         if (tbRFRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@RFRemark", tbRFRemark.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@RFRemark", DBNull.Value); }
@@ -247,7 +247,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@ProductTypeName", DBNull.Value); }
         if (tbLeadT.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadT.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
-        cmd.Parameters.AddWithValue("@LocalRep", Convert.ToInt32(rblLocalRep.SelectedValue));
+        cmd.Parameters.AddWithValue("@LocalRep", rblLocalRep.SelectedValue);
         if (tbLocalRepFee.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LocalRepFee", tbLocalRepFee.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@LocalRepFee", DBNull.Value); }
         cmd.Parameters.AddWithValue("@LocalRepRemark", tbLocalRepRemark.Text.Trim());
@@ -558,9 +558,9 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Responsive", cbResponsive.Checked);
         cmd.Parameters.AddWithValue("@Knowledgeable", cbKnowledgeable.Checked);
         cmd.Parameters.AddWithValue("@Slow", cbSlow.Checked);
-        cmd.Parameters.AddWithValue("@NDAYes", Convert.ToInt32(rblNDAYes.SelectedValue));
+        cmd.Parameters.AddWithValue("@NDAYes", rblNDAYes.SelectedValue);
         cmd.Parameters.AddWithValue("@NDAChoose", cbNDAChoose.Checked);
-        cmd.Parameters.AddWithValue("@MOUYes", Convert.ToInt32(rblMOUYes.SelectedValue));
+        cmd.Parameters.AddWithValue("@MOUYes", rblMOUYes.SelectedValue);
         cmd.Parameters.AddWithValue("@MOUChoose", cbMOUChoose.Checked);
         if (tbRFRemark.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@RFRemark", tbRFRemark.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@RFRemark", DBNull.Value); }
@@ -576,7 +576,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
         else { cmd.Parameters.AddWithValue("@ProductTypeName", DBNull.Value); }
         if (tbLeadT.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LeadTime", tbLeadT.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@LeadTime", DBNull.Value); }
-        cmd.Parameters.AddWithValue("@LocalRep", Convert.ToInt32(rblLocalRep.SelectedValue));
+        cmd.Parameters.AddWithValue("@LocalRep", rblLocalRep.SelectedValue);
         if (tbLocalRepFee.Text.Trim().Length > 0) { cmd.Parameters.AddWithValue("@LocalRepFee", tbLocalRepFee.Text.Trim()); }
         else { cmd.Parameters.AddWithValue("@LocalRepFee", DBNull.Value); }
         cmd.Parameters.AddWithValue("@LocalRepRemark", tbLocalRepRemark.Text.Trim());
@@ -756,7 +756,7 @@ public partial class Ima_ImaLocalAgent : System.Web.UI.Page
     private void CheckLocalRep() 
     {
         plLocalRepFee.Visible = false;
-        if (rblLocalRep.SelectedValue == "0")
+        if (rblLocalRep.SelectedValue == "NO" || rblLocalRep.SelectedValue == "N/A")
         {
             tbLocalRepFee.Text = "";
             tbLocalRepRemark.Text = "";

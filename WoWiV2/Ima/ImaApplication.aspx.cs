@@ -113,15 +113,15 @@ public partial class Ima_ImaApplication : System.Web.UI.Page
                 cbDirect.Checked = Convert.ToBoolean(dt.Rows[0]["Direct"]);
                 cbLocalAgent.Checked = Convert.ToBoolean(dt.Rows[0]["LocalAgent"]);
                 rblInPerson.SelectedValue = dt.Rows[0]["InPerson"].ToString();
-                rblHardCopy.Text = dt.Rows[0]["HardCopy"].ToString();
-                rblWebsite.Text = dt.Rows[0]["Website"].ToString();
-                rblEmail.Text = dt.Rows[0]["Email"].ToString();
-                rblCD.Text = dt.Rows[0]["CD"].ToString();
+                rblHardCopy.SelectedValue = dt.Rows[0]["HardCopy"].ToString();
+                rblWebsite.SelectedValue = dt.Rows[0]["Website"].ToString();
+                rblEmail.SelectedValue = dt.Rows[0]["Email"].ToString();
+                rblCD.SelectedValue = dt.Rows[0]["CD"].ToString();
                 tbSubmissionDesc.Text = dt.Rows[0]["SubmissionDesc"].ToString();
                 cbFCCTest.Checked = Convert.ToBoolean(dt.Rows[0]["FCCTest"]);
                 cbCETest.Checked = Convert.ToBoolean(dt.Rows[0]["CETest"]);
                 cbLocalTest.Checked = Convert.ToBoolean(dt.Rows[0]["LocalTest"]);                
-                rbtnlSamplesRequired.SelectedValue = dt.Rows[0]["SamplesRequired"].ToString().ToLower();
+                rbtnlSamplesRequired.SelectedValue = dt.Rows[0]["SamplesRequired"].ToString();
                 //cbSamplesRequired.Checked = Convert.ToBoolean(dt.Rows[0]["SamplesRequired"]);
                 //if (cbSamplesRequired.Checked)
                 //{
@@ -358,7 +358,7 @@ public partial class Ima_ImaApplication : System.Web.UI.Page
                 cmd.Parameters["@FCCTest"].Value = cbFCCTest.Checked;
                 cmd.Parameters["@CETest"].Value = cbCETest.Checked;
                 cmd.Parameters["@LocalTest"].Value = cbLocalTest.Checked;
-                cmd.Parameters["@SamplesRequired"].Value = Convert.ToBoolean(rbtnlSamplesRequired.SelectedValue);
+                cmd.Parameters["@SamplesRequired"].Value = rbtnlSamplesRequired.SelectedValue;
                 //cmd.Parameters["@SamplesRequired"].Value = cbSamplesRequired.Checked;
                 if (tbRadiated.Text.Trim() == "") { cmd.Parameters["@Radiated"].Value = DBNull.Value; }
                 else { cmd.Parameters["@Radiated"].Value = tbRadiated.Text.Trim(); }
@@ -638,7 +638,7 @@ public partial class Ima_ImaApplication : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@FCCTest", cbFCCTest.Checked);
         cmd.Parameters.AddWithValue("@CETest", cbCETest.Checked);
         cmd.Parameters.AddWithValue("@LocalTest", cbLocalTest.Checked);
-        cmd.Parameters.AddWithValue("@SamplesRequired", Convert.ToBoolean(rbtnlSamplesRequired.SelectedValue));
+        cmd.Parameters.AddWithValue("@SamplesRequired",rbtnlSamplesRequired.SelectedValue);
         //cmd.Parameters.AddWithValue("@SamplesRequired", cbSamplesRequired.Checked);
         if (tbRadiated.Text.Trim() == "") { cmd.Parameters.AddWithValue("@Radiated", DBNull.Value); }
         else { cmd.Parameters.AddWithValue("@Radiated", tbRadiated.Text.Trim()); }

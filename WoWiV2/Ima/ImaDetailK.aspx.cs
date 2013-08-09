@@ -51,7 +51,8 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
             {
                 //rblLanguage.SelectedValue = dt.Rows[0]["Language"].ToString();
                 if (dt.Rows[0]["Language"].ToString() == "All") { lblLanguage.Text = "All English"; }
-                else { lblLanguage.Text = "Other or Partial"; }
+                else if (dt.Rows[0]["Language"].ToString() == "Other") { lblLanguage.Text = "Other or Partial"; }
+                else { lblLanguage.Text = dt.Rows[0]["Language"].ToString(); }
                 if (dt.Rows[0]["LanguageDesc"].ToString().Trim().Length > 0) { lblLanguageDesc.Text = "Remark：" + dt.Rows[0]["LanguageDesc"].ToString(); }
                 if (Convert.ToBoolean(dt.Rows[0]["BW"])) { lblEUTInfo.Text = "Sales Brochure (B/W)"; }
                 if (Convert.ToBoolean(dt.Rows[0]["Color"])) 
@@ -240,9 +241,11 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
                 if (dt.Rows[0]["TestMark"] != DBNull.Value) 
                 {
                     //rblTestMark.SelectedValue = Convert.ToInt32(dt.Rows[0]["TestMark"]).ToString();
-                    if (Convert.ToInt32(dt.Rows[0]["TestMark"]) == 1) { lblTestMark.Text = "Yes"; }
-                    else { lblTestMark.Text = "No"; }
+                    //if (Convert.ToInt32(dt.Rows[0]["TestMark"]) == 1) { lblTestMark.Text = "Yes"; }
+                    //else { lblTestMark.Text = "No"; }
+                    lblTestMark.Text = dt.Rows[0]["TestMark"].ToString();
                 }
+                
                 if (dt.Rows[0]["TestMarkRemark"].ToString().Trim().Length > 0) { lblTestMarkRemark.Text = "<br>Remark：" + dt.Rows[0]["TestMarkRemark"].ToString(); }
                 
                 //if (dt.Rows[0]["BOM1"] != DBNull.Value) { cbBOM1.Checked = Convert.ToBoolean(dt.Rows[0]["BOM1"]); } 

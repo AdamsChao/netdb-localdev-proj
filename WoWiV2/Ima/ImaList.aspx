@@ -164,7 +164,7 @@
                                                     </asp:BoundField>
                                                     <asp:TemplateField HeaderText="Certificate is valid for Single Importer / Any Importer">
                                                         <ItemTemplate>
-                                                            <asp:Label ID="lblCertificateValid" runat="server" Text='<%# Eval("CertificateValid").ToString()!="" ? Eval("CertificateValid").ToString()+" Importer" : "" %>'></asp:Label>
+                                                            <asp:Label ID="lblCertificateValid" runat="server" Text='<%# Eval("CertificateValid").ToString()!="N/A" ? Eval("CertificateValid").ToString()+" Importer" : Eval("CertificateValid").ToString() %>'></asp:Label>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
@@ -252,7 +252,8 @@
                                                     </asp:BoundField>
                                                     <asp:TemplateField HeaderText="Also Authority">
                                                         <ItemTemplate>
-                                                            <asp:Label ID="lblAuthority" runat="server" Text='<%# Convert.ToBoolean(Eval("Authority")) ? "Yes" : "No" %>'></asp:Label>
+                                                            <%--<asp:Label ID="lblAuthority" runat="server" Text='<%# Convert.ToBoolean(Eval("Authority")) ? "Yes" : "No" %>'></asp:Label>--%>
+                                                            <asp:Label ID="lblAuthority" runat="server" Text='<%# Eval("Authority") %>'></asp:Label>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
@@ -263,7 +264,7 @@
                                                     </asp:BoundField>
                                                     <asp:TemplateField HeaderText="Certification Body">
                                                         <ItemTemplate>
-                                                            <asp:Label ID="lblCertificationBody" runat="server" Text='<%# Convert.ToBoolean(Eval("CertificationBody")) ? "Yes" : "No" %>'></asp:Label>
+                                                            <asp:Label ID="lblCertificationBody" runat="server" Text='<%# Eval("CertificationBody") %>'></asp:Label>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
@@ -274,7 +275,8 @@
                                                     </asp:BoundField>
                                                     <asp:TemplateField HeaderText="Publish">
                                                         <ItemTemplate>
-                                                            <asp:Label ID="lblPublish" runat="server" Text='<%# Convert.ToBoolean(Eval("Publish")) ? "Yes" : "No" %>'></asp:Label>
+                                                            <%--<asp:Label ID="lblPublish" runat="server" Text='<%# Convert.ToBoolean(Eval("Publish")) ? "Yes" : "No" %>'></asp:Label>--%>
+                                                            <asp:Label ID="lblPublish" runat="server" Text='<%# Eval("Publish") %>'></asp:Label>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
@@ -327,7 +329,8 @@
                                                     </asp:BoundField>
                                                     <asp:TemplateField HeaderText="Publish">
                                                         <ItemTemplate>
-                                                            <asp:Label ID="lblPublish" runat="server" Text='<%# Convert.ToBoolean(Eval("Publish")) ? "Yes" : "No" %>'></asp:Label>
+                                                            <%--<asp:Label ID="lblPublish" runat="server" Text='<%# Convert.ToBoolean(Eval("Publish")) ? "Yes" : "No" %>'></asp:Label>--%>
+                                                            <asp:Label ID="lblPublish" runat="server" Text='<%# Eval("Publish") %>'></asp:Label>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
@@ -477,6 +480,7 @@
                                                             <asp:Label ID="lblOneTime" runat="server" Text="One-time on-site Inspection Required" Visible='<%#Eval("FactoryInspection").ToString()=="OneTime" ? true : false %>'></asp:Label>
                                                             <asp:Label ID="lblPeriodic" runat="server" Text="Periodic on-site Inspection Required" Visible='<%#Eval("FactoryInspection").ToString()=="Periodic" ? true : false %>'></asp:Label>
                                                             <asp:Label ID="lblNotRequired" runat="server" Text="Not Required" Visible='<%#Eval("FactoryInspection").ToString()=="NotRequired" ? true : false %>'></asp:Label>
+                                                            <asp:Label ID="lblNA" runat="server" Text="N/A" Visible='<%#Eval("FactoryInspection").ToString()=="N/A" ? true : false %>'></asp:Label>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Left" />
@@ -523,6 +527,7 @@
                                                             <asp:CheckBox ID="cbCollect" runat="server" Text="Hard copy to be Collected" Checked='<%# Eval("Collect") %>' Enabled="false" />
                                                             <asp:CheckBox ID="cbLocal" runat="server" Text="Hard copy to Local Applicant" Checked='<%# Eval("Local") %>' Enabled="false" />
                                                             <asp:CheckBox ID="cbProof" runat="server" Text="Proof shown on website" Checked='<%# Eval("Proof") %>' Enabled="false" />
+                                                            <asp:CheckBox ID="cbNA" runat="server" Text="N/A" Checked='<%# Eval("NA") %>' Enabled="false" />
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
@@ -753,7 +758,8 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Language Acceptance">
                                                         <ItemTemplate>
-                                                            <asp:Label ID="lblRequirement" runat="server" Text='<%# Eval("Language").ToString()=="All" ? "All English" : "Other or Partial" %>'></asp:Label>
+                                                            <%--<asp:Label ID="lblRequirement" runat="server" Text='<%# Eval("Language").ToString()=="All" ? "All English" : "Other or Partial" %>'></asp:Label>--%>
+                                                            <asp:Label ID="lblLanguage" runat="server" Text='<%# Eval("Language1") %>'></asp:Label>
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Left" />

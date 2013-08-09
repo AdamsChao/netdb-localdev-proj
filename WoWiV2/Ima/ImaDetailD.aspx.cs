@@ -36,14 +36,11 @@ public partial class Ima_ImaDetailD : System.Web.UI.Page
             if (dt.Rows.Count > 0)
             {
                 lblName.Text = dt.Rows[0]["Name"].ToString();
-                if (Convert.ToInt32(dt.Rows[0]["Authority"]) == 1) { lblAuthority.Text = "Yes"; }
-                else { lblAuthority.Text = "No"; }
+                lblAuthority.Text = dt.Rows[0]["Authority"].ToString();                
                 lblAccreditedTest.Text = dt.Rows[0]["AccreditedTest"].ToString();
-                if (Convert.ToInt32(dt.Rows[0]["CertificationBody"]) == 1) { lblCB.Text = "Yes"; }
-                else { lblCB.Text = "No"; }
+                lblCB.Text = dt.Rows[0]["CertificationBody"].ToString();
                 lblVolumePerYear.Text = dt.Rows[0]["VolumePerYear"].ToString();
-                if (Convert.ToInt32(dt.Rows[0]["Publish"]) == 1) { lblPublish.Text = "Yes"; }
-                else { lblPublish.Text = "No"; }
+                lblPublish.Text = dt.Rows[0]["Publish"].ToString();
                 lblAccredidedLab.Text = dt.Rows[0]["AccredidedLab"].ToString();
                 lblVolumePerYear1.Text = dt.Rows[0]["VolumePerYear1"].ToString();
                 if (dt.Rows[0]["Website"].ToString().Trim().Length > 0) { lblWebsite.Text = "<br>Website：" + dt.Rows[0]["Website"].ToString(); }

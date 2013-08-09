@@ -131,6 +131,7 @@
                                 RepeatDirection="Horizontal">
                                 <asp:ListItem Text="Mandatory" Value="Mandatory" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="Voluntary" Value="Voluntary"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -211,6 +212,7 @@
                             <asp:RadioButtonList ID="rblCertificationBody" runat="server" RepeatDirection="Horizontal">
                                 <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
                                 <asp:ListItem Text="No" Value="No" Selected="True"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -222,6 +224,7 @@
                             <asp:RadioButtonList ID="rblAccreditedTest" runat="server" RepeatDirection="Horizontal">
                                 <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
                                 <asp:ListItem Text="No" Value="No" Selected="True"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
@@ -392,6 +395,7 @@
                                 RepeatDirection="Horizontal">
                                 <asp:ListItem Text="Single Importer" Value="Single" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="Any Importer" Value="Any"></asp:ListItem>
+                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
