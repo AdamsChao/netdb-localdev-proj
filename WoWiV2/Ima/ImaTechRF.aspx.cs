@@ -293,6 +293,7 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
         CheckBox cbWiFiTPC;
         TextBox tbWiFiDFS;
         CheckBox cbWiFiANA;
+        CheckBox cbWiFiANAN;
         for (int i = 1; i <= 6; i++)
         {
             lblWiFiF = (Label)plTech.FindControl("lblWiFiF" + i.ToString());
@@ -308,10 +309,12 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
             cbWiFiTPC = (CheckBox)plTech.FindControl("cbWiFiTPC" + i.ToString());
             tbWiFiDFS = (TextBox)plTech.FindControl("tbWiFiDFS" + i.ToString());
             cbWiFiANA = (CheckBox)plTech.FindControl("cbWiFiANA" + i.ToString());
+            cbWiFiANAN = (CheckBox)plTech.FindControl("cbWiFiANAN" + i.ToString());
             cmd.Parameters["@Frequency"].Value = lblWiFiF.Text.Trim();
             cmd.Parameters["@FrequencyDesc"].Value = DBNull.Value;
             cmd.Parameters["@PowerLimit"].Value = tbWiFiPL.Text.Trim();
             cmd.Parameters["@IsAllowed"].Value = cbWiFiANA.Checked;
+            cmd.Parameters["@IsNotAllowed"].Value = cbWiFiANAN.Checked;
             cmd.Parameters["@IndoorAllowed"].Value = cbWiFiIDA.Checked;
             cmd.Parameters["@OutdoorAllowed"].Value = cbWiFiODA.Checked;
             cmd.Parameters["@HT20"].Value = cbWiFiHT20.Checked;
