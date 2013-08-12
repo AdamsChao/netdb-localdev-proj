@@ -108,6 +108,7 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
             CheckBox cbTPC;
             TextBox tbDFS;
             CheckBox cbANA;
+            CheckBox cbANAN;
             for (int i = 1; i <= intRowCount; i++)
             {
                 TextBox tbFrequencyDesc = (TextBox)plTech.FindControl("tb" + strTechName + "FDesc" + i.ToString());
@@ -136,6 +137,8 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
                 if (tbDFS != null) { tbDFS.Text = dtTech.Rows[i - 1]["DFSDesc"].ToString(); }
                 cbANA = (CheckBox)plTech.FindControl("cb" + strTechName + "ANA" + i.ToString());
                 if (cbANA != null) { cbANA.Checked = Convert.ToBoolean(dtTech.Rows[i - 1]["IsAllowed"]); }
+                cbANAN = (CheckBox)plTech.FindControl("cb" + strTechName + "ANAN" + i.ToString());
+                if (cbANAN != null) { cbANAN.Checked = Convert.ToBoolean(dtTech.Rows[i - 1]["IsNotAllowed"]); }
                 if (i == 1) 
                 {
                     TextBox tbRemark;
@@ -166,8 +169,7 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
         cmd.Parameters.Add("@LasterUpdateUser", SqlDbType.NVarChar);
         cmd.Parameters["@world_region_id"].Value = Convert.ToInt32(Request["rid"]);
         cmd.Parameters["@country_id"].Value = Convert.ToInt32(Request["cid"]);
-        cmd.Parameters["@wowi_product_type_id"].Value = Convert.ToInt32(lblProType.Text.Trim());
-        
+        cmd.Parameters["@wowi_product_type_id"].Value = Convert.ToInt32(lblProType.Text.Trim());        
         cmd.Parameters["@CreateUser"].Value = IMAUtil.GetUser();
         cmd.Parameters["@LasterUpdateUser"].Value = IMAUtil.GetUser();
         cmd.Parameters.Add("@Remark", SqlDbType.NVarChar);
@@ -175,6 +177,7 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
         cmd.Parameters.Add("@FrequencyDesc", SqlDbType.NVarChar);
         cmd.Parameters.Add("@PowerLimit", SqlDbType.NVarChar);
         cmd.Parameters.Add("@IsAllowed", SqlDbType.Bit);
+        cmd.Parameters.Add("@IsNotAllowed", SqlDbType.Bit);
         cmd.Parameters.Add("@IndoorAllowed", SqlDbType.Bit);
         cmd.Parameters.Add("@OutdoorAllowed", SqlDbType.Bit);
         cmd.Parameters.Add("@HT20", SqlDbType.Bit);
@@ -368,11 +371,13 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
         Label lblF;
         TextBox tbPL;
         CheckBox cbANA;
+        CheckBox cbANAN;
         for (int i = 1; i <= intNum; i++)
         {
             lblF = (Label)plTech.FindControl("lbl" + strTechName + "F" + i.ToString());
             tbPL = (TextBox)plTech.FindControl("tb" + strTechName + "PL" + i.ToString());
             cbANA = (CheckBox)plTech.FindControl("cb" + strTechName + "ANA" + i.ToString());
+            cbANAN = (CheckBox)plTech.FindControl("cb" + strTechName + "ANAN" + i.ToString());
             if (lblF != null) { cmd.Parameters["@Frequency"].Value = lblF.Text.Trim(); }
             else { cmd.Parameters["@Frequency"].Value = DBNull.Value; }            
             if (strTechName == "FMTransmitter" || strTechName == "Above1GSRD")
@@ -386,6 +391,8 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
             else { cmd.Parameters["@PowerLimit"].Value = DBNull.Value; }
             if (cbANA != null) { cmd.Parameters["@IsAllowed"].Value = cbANA.Checked; }
             else { cmd.Parameters["@IsAllowed"].Value = DBNull.Value; }
+            if (cbANAN != null) { cmd.Parameters["@IsNotAllowed"].Value = cbANAN.Checked; }
+            else { cmd.Parameters["@IsNotAllowed"].Value = DBNull.Value; }
             cmd.Parameters["@Seq"].Value = i;
             SQLUtil.ExecuteSql(cmd);
         }

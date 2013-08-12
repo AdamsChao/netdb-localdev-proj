@@ -139,12 +139,42 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Allowed/Not Allowed</td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA1" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA2" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA3" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA4" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA5" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbWiFiANA6" runat="server" /></td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbWiFiANA1" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbWiFiANAN1" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbWiFiANA2" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbWiFiANAN2" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbWiFiANA3" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbWiFiANAN3" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbWiFiANA4" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbWiFiANAN4" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbWiFiANA5" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbWiFiANAN5" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbWiFiANA6" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbWiFiANAN6" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Power limit</td>
@@ -419,7 +449,10 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Allowed/Not Allowed</td>
-                                        <td class="tdRowValue"><asp:CheckBox ID="cbBluetoothANA1" runat="server" /></td>
+                                        <td class="tdRowValue">
+                                            <asp:CheckBox ID="cbBluetoothANA1" runat="server" Text="Allowed" />
+                                            <asp:CheckBox ID="cbBluetoothANAN1" runat="server" Text="Not Allowed" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName" valign="top">Remark</td>
@@ -474,14 +507,54 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Allowed/Not Allowed</td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbRFIDANA1" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbRFIDANA2" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbRFIDANA3" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbRFIDANA4" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbRFIDANA5" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbRFIDANA6" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbRFIDANA7" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbRFIDANA8" runat="server" /></td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANA1" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANAN1" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANA2" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANAN2" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANA3" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANAN3" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANA4" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANAN4" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANA5" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANAN5" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANA6" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANAN6" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANA7" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANAN7" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANA8" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbRFIDANAN8" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName" valign="top">Remark</td>
@@ -529,7 +602,10 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Allowed/Not Allowed</td>
-                                        <td class="tdRowValue"><asp:CheckBox ID="cbFMTransmitterANA1" runat="server" /></td>
+                                        <td class="tdRowValue">
+                                            <asp:CheckBox ID="cbFMTransmitterANA1" runat="server" Text="Allowed" />
+                                            <asp:CheckBox ID="cbFMTransmitterANAN1" runat="server" Text="Not Allowed" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName" valign="top">Remark</td>
@@ -576,10 +652,30 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Allowed/Not Allowed</td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbBelow1GSRDANA1" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbBelow1GSRDANA2" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbBelow1GSRDANA3" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbBelow1GSRDANA4" runat="server" /></td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbBelow1GSRDANA1" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbBelow1GSRDANAN1" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbBelow1GSRDANA2" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbBelow1GSRDANAN2" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbBelow1GSRDANA3" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbBelow1GSRDANAN3" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbBelow1GSRDANA4" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbBelow1GSRDANAN4" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName" valign="top">Remark</td>
@@ -636,8 +732,18 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Allowed/Not Allowed</td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbAbove1GSRDANA1" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbAbove1GSRDANA2" runat="server" /></td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbAbove1GSRDANA1" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbAbove1GSRDANAN1" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbAbove1GSRDANA2" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbAbove1GSRDANAN2" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName" valign="top">Remark</td>
@@ -682,9 +788,24 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Allowed/Not Allowed</td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbZigbeeANA1" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbZigbeeANA2" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbZigbeeANA3" runat="server" /></td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbZigbeeANA1" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbZigbeeANAN1" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbZigbeeANA2" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbZigbeeANAN2" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbZigbeeANA3" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbZigbeeANAN3" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName" valign="top">Remark</td>
@@ -737,13 +858,48 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Allowed/Not Allowed</td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA1" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA2" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA3" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA4" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA5" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA6" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA7" runat="server" /></td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA1" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN1" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA2" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN2" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA3" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN3" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA4" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN4" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA5" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN5" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA6" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN6" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA7" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN7" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td colspan="15" style="height:1px;"></td>
@@ -770,13 +926,48 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Allowed/Not Allowed</td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA8" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA9" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA10" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA11" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA12" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA13" runat="server" /></td>
-                                        <td class="tdRowValue1"><asp:CheckBox ID="cbUWBANA14" runat="server" /></td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA8" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN8" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA9" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN9" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA10" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN10" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA11" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN11" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA12" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN12" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA13" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN13" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
+                                        <td class="tdRowValue1">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANA14" runat="server" Text="Allowed" /></td></tr>
+                                                <tr><td align="left"><asp:CheckBox ID="cbUWBANAN14" runat="server" Text="Not Allowed" /></td></tr>
+                                            </table>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName" valign="top">Remark</td>
@@ -1332,7 +1523,10 @@
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Allowed/Not Allowed</td>
-                                        <td class="tdRowValue"><asp:CheckBox ID="cbWirelessHD60ANA1" runat="server" /></td>
+                                        <td class="tdRowValue">
+                                            <asp:CheckBox ID="cbWirelessHD60ANA1" runat="server" Text="Allowed" />
+                                            <asp:CheckBox ID="cbWirelessHD60ANAN1" runat="server" Text="Not Allowed" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="tdRowName">Power limit</td>

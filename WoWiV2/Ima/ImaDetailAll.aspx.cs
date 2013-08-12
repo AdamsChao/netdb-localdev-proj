@@ -231,8 +231,11 @@ public partial class Ima_ImaDetailAll : System.Web.UI.Page
                 lblANA = (Label)plTech.FindControl("lbl" + strTechName + "ANA" + i.ToString());
                 if (lblANA != null)
                 {
+                    //if (Convert.ToBoolean(dtTech.Rows[i - 1]["IsAllowed"])) { lblANA.Text = "Allowed"; }
+                    //else { lblANA.Text = "Not Allowed"; }
                     if (Convert.ToBoolean(dtTech.Rows[i - 1]["IsAllowed"])) { lblANA.Text = "Allowed"; }
-                    else { lblANA.Text = "Not Allowed"; }
+                    else if (Convert.ToBoolean(dtTech.Rows[i - 1]["IsNotAllowed"])) { lblANA.Text = "Not Allowed"; }
+                    else { lblANA.Text = ""; }
                 }
                 if (i == 1)
                 {

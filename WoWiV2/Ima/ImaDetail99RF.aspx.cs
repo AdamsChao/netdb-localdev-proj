@@ -162,7 +162,8 @@ public partial class Ima_ImaDetail99RF : System.Web.UI.Page
                 if (lblANA != null) 
                 {
                     if (Convert.ToBoolean(dtTech.Rows[i - 1]["IsAllowed"])) { lblANA.Text = "Allowed"; }
-                    else { lblANA.Text = "Not Allowed"; }
+                    else if (Convert.ToBoolean(dtTech.Rows[i - 1]["IsNotAllowed"])) { lblANA.Text = "Not Allowed"; }
+                    else { lblANA.Text = ""; }
                 }
                 if (i == 1)
                 {
