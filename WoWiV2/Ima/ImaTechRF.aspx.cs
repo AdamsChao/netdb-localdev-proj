@@ -395,7 +395,7 @@ public partial class Ima_ImaTechRF : System.Web.UI.Page
             if (cbANA != null) { cmd.Parameters["@IsAllowed"].Value = cbANA.Checked; }
             else { cmd.Parameters["@IsAllowed"].Value = DBNull.Value; }
             if (cbANAN != null) { cmd.Parameters["@IsNotAllowed"].Value = cbANAN.Checked; }
-            else { cmd.Parameters["@IsNotAllowed"].Value = DBNull.Value; }
+            else { cmd.Parameters["@IsNotAllowed"].Value = false; }
             cmd.Parameters["@Seq"].Value = i;
             SQLUtil.ExecuteSql(cmd);
         }
