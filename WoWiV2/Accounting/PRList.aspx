@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" EnableEventValidation="false" %>
+
 <%@ Import Namespace="System.IO" %>
-
-<%@ Register src="~/UserControls/NPOIExportControl.ascx" tagname="NPOIExportControl" tagprefix="netdb" %>
-
+<%@ Register Src="~/UserControls/NPOIExportControl.ascx" TagName="NPOIExportControl"
+  TagPrefix="netdb" %>
 <script runat="server">
   QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
   WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
@@ -138,82 +138,82 @@
   protected void Page_Load(object sender, EventArgs e)
   {
 
-      if (IsPostBack)
+    String newCriteria = "";
+    int eid = Utils.GetEmployeeID(User.Identity.Name);
+    if (!Utils.isAdmin(eid))
+    {
+      newCriteria += " and P.department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
+      lblaccesslevel.Visible = false;
+      ddlAccessLevel.Visible = false;
+    }
+    else
+    {
+      lblaccesslevel.Visible = true;
+      ddlAccessLevel.Visible = true;
+      if (ddlAccessLevel.SelectedValue != "-1")
       {
-          String newCriteria = "";
-          int eid = Utils.GetEmployeeID(User.Identity.Name);
-          if (!Utils.isAdmin(eid))
-          {
-              newCriteria += " and P.department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
-              lblaccesslevel.Visible = false;
-              ddlAccessLevel.Visible = false;
-          }
-          else
-          {
-              lblaccesslevel.Visible = true;
-              ddlAccessLevel.Visible = true;
-              if (ddlAccessLevel.SelectedValue != "-1")
-              {
-                  newCriteria += " and P.department_id  = " + ddlAccessLevel.SelectedValue;
-              }
-          }
-
-          //Add by Adams 2013/2/6 for 加入PR NO為條件
-          if (!string.IsNullOrEmpty(txtPR.Text))
-          {
-              char[] delimiterChars = { ',', ';' };
-              string[] words = txtPR.Text.Split(delimiterChars);
-              string key = string.Empty;
-              foreach (string s in words)
-              {
-                  if (!string.IsNullOrEmpty(s))
-                      key += "," + s;
-              }
-              newCriteria += " and P.pr_id in (" + key.Substring(1) + ") ";
-          }
-
-          if (ddlProjectNo.SelectedValue != "-1")
-          {
-
-              try
-              {
-                  int id = wowidb.Projects.First(c => c.Project_No == ddlProjectNo.SelectedValue).Project_Id;
-                  newCriteria += " and P.project_id = " + id;
-              }
-              catch (Exception)
-              {
-
-                  //throw;
-              }
-          }
-
-          if (ddlVenderList.SelectedValue != "-1")
-          {
-              newCriteria += " and P.vendor_id = " + ddlVenderList.SelectedValue;
-          }
-
-          if (ddlStatus.SelectedValue != "-1")
-          {
-              newCriteria += " and R.status = " + ddlStatus.SelectedValue;
-          }
-
-          SqlDataSourceClient.SelectCommand += newCriteria + " Order by P.pr_id desc";
-
-          try
-          {
-              gv_pr.DataBind();
-              if (gv_pr.Rows.Count == 0)
-              {
-                  lblMsg.Text = "No match data found.";
-              }
-          }
-          catch (Exception ex)
-          {
-              SqlDataSourceClient.SelectCommand = "";
-              gv_pr.DataBind();
-              lblMsg.Text = "請確認查詢條件設定正確! PR No.只能使用逗號和分號分隔!";
-          }          
+        newCriteria += " and P.department_id  = " + ddlAccessLevel.SelectedValue;
       }
+    }
+
+    if (IsPostBack)
+    {
+      //Add by Adams 2013/2/6 for 加入PR NO為條件
+      if (!string.IsNullOrEmpty(txtPR.Text))
+      {
+        char[] delimiterChars = { ',', ';' };
+        string[] words = txtPR.Text.Split(delimiterChars);
+        string key = string.Empty;
+        foreach (string s in words)
+        {
+          if (!string.IsNullOrEmpty(s))
+            key += "," + s;
+        }
+        newCriteria += " and P.pr_id in (" + key.Substring(1) + ") ";
+      }
+
+      if (ddlProjectNo.SelectedValue != "-1")
+      {
+
+        try
+        {
+          int id = wowidb.Projects.First(c => c.Project_No == ddlProjectNo.SelectedValue).Project_Id;
+          newCriteria += " and P.project_id = " + id;
+        }
+        catch (Exception)
+        {
+
+          //throw;
+        }
+      }
+
+      if (ddlVenderList.SelectedValue != "-1")
+      {
+        newCriteria += " and P.vendor_id = " + ddlVenderList.SelectedValue;
+      }
+
+      if (ddlStatus.SelectedValue != "-1")
+      {
+        newCriteria += " and R.status = " + ddlStatus.SelectedValue;
+      }
+    }
+
+    SqlDataSourceClient.SelectCommand += newCriteria + " Order by P.pr_id desc";
+
+    try
+    {
+      gv_pr.DataBind();
+      if (gv_pr.Rows.Count == 0)
+      {
+        lblMsg.Text = "No match data found.";
+      }
+    }
+    catch (Exception ex)
+    {
+      SqlDataSourceClient.SelectCommand = "";
+      gv_pr.DataBind();
+      lblMsg.Text = "請確認查詢條件設定正確! PR No.只能使用逗號和分號分隔!";
+    }
 
   }
 
@@ -224,8 +224,8 @@
       gv_pr.Columns[0].Visible = false;
       gv_pr.AllowPaging = false;
       gv_pr.AllowSorting = false;
-      gv_pr.DataBind();      
-     
+      gv_pr.DataBind();
+
       ExportUtil.ExportWebControlToExcel(DateTime.Now.ToString("yyyyMMdd") + "-PR", gv_pr);
       //string FileNamePath = "~/Accounting/Uploads/" + DateTime.Now.ToString("yyyyMMdd") + "-PR.xlsx";
       //ExportUtil.ExportGridViewToExcel(Server.MapPath(FileNamePath), gv_pr);
@@ -233,7 +233,7 @@
     }
   }
 
- 
+
   public override void VerifyRenderingInServerForm(Control control)
   {
 
@@ -347,13 +347,13 @@
       {
 
         //throw;
-      }      
+      }
     }
   }
 
   protected void btnSearch_Click(object sender, EventArgs e)
   {
-      
+
   }
 </script>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
@@ -392,52 +392,50 @@
   <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
     SelectCommand="SELECT [id], [name] FROM [access_level] WHERE [publish] = 'true' order by [name] ">
   </asp:SqlDataSource>
-  &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" 
-        onclick="btnSearch_Click" />
-  <asp:Button ID="ButtonExcel" runat="server" Text="Excel" 
-    OnClick="ButtonExcel_Click" Visible="False" />
-  <netdb:npoiexportcontrol ID="NPOIExportControl1" runat="server" SheetName="PR" TargetGridViewID="gv_pr" />
+  &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
+  <asp:Button ID="ButtonExcel" runat="server" Text="Excel" OnClick="ButtonExcel_Click"
+    Visible="False" />
+  <netdb:NPOIExportControl ID="NPOIExportControl1" runat="server" SheetName="PR" TargetGridViewID="gv_pr" />
   <br>
   <asp:Button ID="Button1" runat="server" Text="Create" PostBackUrl="~/Accounting/CreatePR.aspx" /><br>
   <asp:Label ID="lblMsg" runat="server" EnableViewState="False"></asp:Label>
   <asp:Panel ID="PanelReport" runat="server">
-      <asp:GridView ID="gv_pr" runat="server" AutoGenerateColumns="False" SkinID="GridView"
-        Width="100%" PageSize="50" DataKeyNames="pr_id" DataSourceID="SqlDataSourceClient"
-        AllowPaging="True" AllowSorting="True" 
-        onrowdatabound="gv_pr_RowDataBound">
-        <Columns>
-          <asp:TemplateField InsertVisible="False" SortExpression="pr_no">
-            <EditItemTemplate>
-              <asp:Label ID="Label1" runat="server" Text='<%# Eval("pr_no") %>'></asp:Label>
-            </EditItemTemplate>
-            <ItemTemplate>
-              <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/UpdatePR.aspx?id={0}") %>'>Edit</asp:HyperLink>
-              &nbsp;
-              <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/PRDetails.aspx?id={0}") %>'>Details</asp:HyperLink>
-            </ItemTemplate>
-          </asp:TemplateField>
-          <asp:BoundField DataField="pr_id" HeaderText="PR No" SortExpression="pr_id" ReadOnly="True" />
-          <asp:BoundField DataField="project_id" HeaderText="Project Id" SortExpression="project_id"
-            ReadOnly="True" />
-          <asp:BoundField DataField="quotaion_id" HeaderText="Quotation No" SortExpression="quotaion_id" />
-          <asp:BoundField DataField="model" HeaderText="Model No." SortExpression="model" />
-          <asp:BoundField DataField="vendor_id" HeaderText="Vender" SortExpression="vendor_id" />
-          <asp:BoundField DataField="currency" HeaderText="Currency" ItemStyle-HorizontalAlign="Right"
-            SortExpression="currency" />
-          <asp:BoundField DataField="total_cost" HeaderText="Total Cost" ItemStyle-HorizontalAlign="Right"
-            SortExpression="total_cost" DataFormatString="{0:F2}" />
-          <asp:BoundField DataField="create_date" HeaderText="Creation Date" SortExpression="create_date"
-            DataFormatString="{0:yyyy/MM/dd}" />
-          <asp:BoundField DataField="target_payment_date" HeaderText="Target Payment Date"
-            SortExpression="target_payment_date" DataFormatString="{0:yyyy/MM/dd}" />
-          <asp:BoundField DataField="pr_auth_id" HeaderText="Status" SortExpression="pr_auth_id" />
-          <asp:BoundField DataField="status_date" HeaderText="Status Date" SortExpression="status_date"
-            DataFormatString="{0:yyyy/MM/dd}" />
-          <asp:BoundField DataField="department_Id" HeaderText="Access Level" SortExpression="department_Id" />
-          <asp:BoundField DataField="employee_Id" HeaderText="Created By" SortExpression="employee_Id" />
-        </Columns>
-      </asp:GridView>
-    </asp:Panel>
+    <asp:GridView ID="gv_pr" runat="server" AutoGenerateColumns="False" SkinID="GridView"
+      Width="100%" PageSize="50" DataKeyNames="pr_id" DataSourceID="SqlDataSourceClient"
+      AllowPaging="True" AllowSorting="True" OnRowDataBound="gv_pr_RowDataBound">
+      <Columns>
+        <asp:TemplateField InsertVisible="False" SortExpression="pr_no">
+          <EditItemTemplate>
+            <asp:Label ID="Label1" runat="server" Text='<%# Eval("pr_no") %>'></asp:Label>
+          </EditItemTemplate>
+          <ItemTemplate>
+            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/UpdatePR.aspx?id={0}") %>'>Edit</asp:HyperLink>
+            &nbsp;
+            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/PRDetails.aspx?id={0}") %>'>Details</asp:HyperLink>
+          </ItemTemplate>
+        </asp:TemplateField>
+        <asp:BoundField DataField="pr_id" HeaderText="PR No" SortExpression="pr_id" ReadOnly="True" />
+        <asp:BoundField DataField="project_id" HeaderText="Project Id" SortExpression="project_id"
+          ReadOnly="True" />
+        <asp:BoundField DataField="quotaion_id" HeaderText="Quotation No" SortExpression="quotaion_id" />
+        <asp:BoundField DataField="model" HeaderText="Model No." SortExpression="model" />
+        <asp:BoundField DataField="vendor_id" HeaderText="Vender" SortExpression="vendor_id" />
+        <asp:BoundField DataField="currency" HeaderText="Currency" ItemStyle-HorizontalAlign="Right"
+          SortExpression="currency" />
+        <asp:BoundField DataField="total_cost" HeaderText="Total Cost" ItemStyle-HorizontalAlign="Right"
+          SortExpression="total_cost" DataFormatString="{0:F2}" />
+        <asp:BoundField DataField="create_date" HeaderText="Creation Date" SortExpression="create_date"
+          DataFormatString="{0:yyyy/MM/dd}" />
+        <asp:BoundField DataField="target_payment_date" HeaderText="Target Payment Date"
+          SortExpression="target_payment_date" DataFormatString="{0:yyyy/MM/dd}" />
+        <asp:BoundField DataField="pr_auth_id" HeaderText="Status" SortExpression="pr_auth_id" />
+        <asp:BoundField DataField="status_date" HeaderText="Status Date" SortExpression="status_date"
+          DataFormatString="{0:yyyy/MM/dd}" />
+        <asp:BoundField DataField="department_Id" HeaderText="Access Level" SortExpression="department_Id" />
+        <asp:BoundField DataField="employee_Id" HeaderText="Created By" SortExpression="employee_Id" />
+      </Columns>
+    </asp:GridView>
+  </asp:Panel>
   </p>
   <p>
     <br />
