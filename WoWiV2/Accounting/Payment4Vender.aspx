@@ -8,10 +8,10 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+      int eid = Utils.GetEmployeeID(User.Identity.Name);
       if (IsPostBack)
       {
-        String newCriteria = "";
-        int eid = Utils.GetEmployeeID(User.Identity.Name);
+        String newCriteria = "";        
         newCriteria += " and P.department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
 
         //Add by Adams 2013/2/6 for 加入PR NO為條件
@@ -109,23 +109,27 @@
           {
             SqlDataSource1.SelectCommand += newCriteria + " Order by P.pr_id desc ";
           }
-        }
-
-        try
-        {
-          GVPayment.DataBind();
-          if (GVPayment.Rows.Count == 0)
-          {
-            lblMsg.Text = "No match data found.";
-          }
-        }
-        catch (Exception ex)
-        {
-          SqlDataSource1.SelectCommand = "";
-          GVPayment.DataBind();
-          lblMsg.Text = "請確認查詢條件設定正確! PR No.只能使用逗號和分號分隔!";
-        }        
+        }       
       }
+      else
+      {
+        SqlDataSource1.SelectCommand = "SELECT P.total_cost,P.currency,P.pr_id, P.project_id, P.vendor_id, P.quotaion_id,(select model_no from quotation_version where quotation_version.Quotation_Version_Id = quotaion_id) as model , P.target_payment_date,(CASE P.payment_term WHEN 0 THEN 'Prepayment 1' WHEN 1 THEN 'Prepayment 2' WHEN 2 THEN 'Prepayment 3' ELSE 'Final Prepayment' END) AS payment_term,(select Status from Quotation_Target where Quotation_Target_Id = (Select Quotation_Target_Id from PR_item where pr_id=P.pr_id)) As target_status, (SELECT Top 1 PP.pay_date FROM PR AS P1, PR_Payment AS PP WHERE P1.pr_id = PP.pr_id and PP.pr_id = P.pr_id and PP.Status = 10) AS pay_date FROM PR AS P, PR_authority_history AS AU  where P.pr_auth_id = AU.pr_auth_id and AU.status = 6  and P.department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")  Order by P.pr_id desc ";
+      }
+
+      try
+      {
+        GVPayment.DataBind();
+        if (GVPayment.Rows.Count == 0)
+        {
+          lblMsg.Text = "No match data found.";
+        }
+      }
+      catch (Exception ex)
+      {
+        SqlDataSource1.SelectCommand = "";
+        GVPayment.DataBind();
+        lblMsg.Text = "請確認查詢條件設定正確! PR No.只能使用逗號和分號分隔!";
+      }        
     }
 
    
