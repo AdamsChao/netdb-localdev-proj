@@ -209,6 +209,7 @@
       {
         e.Row.BackColor = System.Drawing.Color.LightBlue;
         e.Row.Cells[0].Text = "SUB TOTAL";
+        e.Row.Visible = false;
       }
     }
   }
