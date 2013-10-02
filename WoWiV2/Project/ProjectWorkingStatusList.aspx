@@ -211,7 +211,7 @@ AND (Client_Id  LIKE @Client_Id)
         <asp:SqlDataSource ID="SqlDataSourceCM" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
           SelectCommand="SELECT [id],fname + ' ' + lname as [fname] FROM [employee] where status='Active'"></asp:SqlDataSource>
         <asp:SqlDataSource ID="SqlDataSourceProject" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-          SelectCommand="SELECT [Project_Id],[Project_Name] FROM vw_GetProjectLists"></asp:SqlDataSource>
+          SelectCommand="SELECT [Project_Id],[Project_Name] FROM vw_GetProjectLists  Order By Companyname , Project_Id desc"></asp:SqlDataSource>
         <asp:SqlDataSource ID="SqlDataSourceRegion" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
           SelectCommand="SELECT [world_region_id], [world_region_name] FROM [world_region]">
         </asp:SqlDataSource>

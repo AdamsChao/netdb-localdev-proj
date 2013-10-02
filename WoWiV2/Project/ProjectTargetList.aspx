@@ -82,7 +82,7 @@
             OnDataBound="DropDownListProject_DataBound">
           </asp:DropDownList>
           <asp:SqlDataSource ID="SqlDataSourceProject" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-            SelectCommand="SELECT [Project_Id],[Project_Name] FROM vw_GetProjectLists WHERE ([Project_Status] LIKE '%' + @Project_Status + '%') ">
+            SelectCommand="SELECT [Project_Id],[Project_Name] FROM vw_GetProjectLists WHERE ([Project_Status] LIKE '%' + @Project_Status + '%')  Order By Companyname , Project_Id desc ">
             <SelectParameters>
               <asp:ControlParameter ControlID="TreeViewMenu" DefaultValue="%" Name="Project_Status"
                 PropertyName="SelectedValue" />
