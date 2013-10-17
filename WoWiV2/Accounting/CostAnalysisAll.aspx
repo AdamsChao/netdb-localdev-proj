@@ -79,7 +79,7 @@
                   where p.Quotation_No == q.Quotation_No && c.id == q.Client_Id
                   orderby c.companyname, c.c_companyname 
                   select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname })
-                  .Distinct();
+                  .Distinct().OrderBy(c=>c.Name);
     (sender as DropDownList).DataSource = clients;
     (sender as DropDownList).DataTextField = "Name";
     (sender as DropDownList).DataValueField = "Id";

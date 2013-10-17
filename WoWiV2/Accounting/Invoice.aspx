@@ -19,7 +19,13 @@
   protected void DropDownList1_Load(object sender, EventArgs e)
   {
     if (Page.IsPostBack) return;
-    var sales = from s in wowidb.employees from d in wowidb.departments where d.name.Contains("Sales") && s.department_id == d.id orderby s.fname, s.c_fname select new { Id = s.id, Name = s.fname + " " + s.lname };
+    var sales = (from i in wowidb.invoices
+                 from p in wowidb.Projects
+                 from q in wowidb.Quotation_Version
+                 from s in wowidb.employees
+                 where i.project_no == p.Project_No && p.Quotation_No == q.Quotation_No && s.id == q.SalesId
+                 orderby s.fname, s.c_fname
+                 select new { Id = s.id, Name = s.fname + " " + s.lname }).Distinct();
     (sender as DropDownList).DataSource = sales;
     (sender as DropDownList).DataTextField = "Name";
     (sender as DropDownList).DataValueField = "Id";
@@ -35,7 +41,11 @@
   protected void DropDownList3_Load(object sender, EventArgs e)
   {
     if (Page.IsPostBack) return;
-    var clients = from c in wowidb.clientapplicants where c.clientapplicant_type == 1 || c.clientapplicant_type == 3 orderby c.companyname, c.c_companyname select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname };
+    var clients = (from c in wowidb.clientapplicants 
+                  where c.clientapplicant_type == 1 || c.clientapplicant_type == 3
+                  orderby c.companyname, c.c_companyname 
+                  select new { Id = c.id, 
+                      Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname }).OrderBy(c=>c.Name);
     (sender as DropDownList).DataSource = clients;
     (sender as DropDownList).DataTextField = "Name";
     (sender as DropDownList).DataValueField = "Id";

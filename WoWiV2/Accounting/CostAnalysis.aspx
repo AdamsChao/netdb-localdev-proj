@@ -1,9 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" EnableEventValidation = "false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" EnableEventValidation="false" %>
 
-<%@ Register src="../UserControls/DateChooser.ascx" tagname="DateChooser" tagprefix="uc1" %>
-
-<%@ Register assembly="iServerControls" namespace="iControls.Web" tagprefix="cc1" %>
-
+<%@ Register Src="../UserControls/DateChooser.ascx" TagName="DateChooser" TagPrefix="uc1" %>
+<%@ Register Assembly="iServerControls" Namespace="iControls.Web" TagPrefix="cc1" %>
 <script runat="server">
     QuotationModel.QuotationEntities db = new QuotationModel.QuotationEntities();
     WoWiModel.WoWiEntities wowidb = new WoWiModel.WoWiEntities();
@@ -14,7 +12,7 @@
         {
             SetMergedHerderColumns(iGridView1);
         }
-        lblMsg.Visible = false;         
+        lblMsg.Visible = false;
     }
 
     private void SetMergedHerderColumns(iRowSpanGridView iGridView1)
@@ -25,8 +23,8 @@
         //iGridView1.AddMergedColumns("Prepayment", 20, 2);
         //iGridView1.AddMergedColumns("Payment", 25, 2);
     }
-    
-    
+
+
     private int i = 0;
     int count = 0;
     protected void iGridView1_SetCSSClass(GridViewRow row)
@@ -53,14 +51,14 @@
     }
     protected void Search(String str)
     {
-        
+
         List<CostAnalysisData> list = new List<CostAnalysisData>();
         CostAnalysisData temp = new CostAnalysisData();
         try
         {
             //var datas = from pr in wowidb.PRs from a in wowidb.PR_authority_history where pr.pr_auth_id == a.pr_auth_id && (a.status == (byte)PRStatus.Done ) select pr;
-            var projs = from pro in wowidb.Projects orderby pro.Project_Id descending  select pro;
-            
+            var projs = from pro in wowidb.Projects orderby pro.Project_Id descending select pro;
+
             foreach (var proj in projs)
             {
                 HashSet<String> disAE = new HashSet<String>();
@@ -68,7 +66,7 @@
                 temp.ProjectNo = proj.Project_No;
                 temp.Status = proj.Project_Status;
                 String targetDesc = "";
-               
+
                 if (ddlProj.SelectedValue != "-1")
                 {
                     String projID = ddlProj.SelectedValue;
@@ -117,9 +115,9 @@
                 {
                     int qid = proj.Quotation_Id;
                     WoWiModel.Quotation_Version quo = (from q in wowidb.Quotation_Version where q.Quotation_Version_Id == qid select q).First();
-                   
+
                     temp.QutationId = qid;
-                    
+
                     temp.Model = quo.Model_No;
                     int cid = (int)quo.Client_Id;
                     WoWiModel.clientapplicant cli = (from c in wowidb.clientapplicants where c.id == cid select c).First();
@@ -141,9 +139,9 @@
                         }
                     }
                     WoWiModel.employee sales = (from s in wowidb.employees where s.id == sid select s).First();
-                        temp.Sales = String.IsNullOrEmpty(sales.c_fname) ? sales.fname + " " + sales.lname : sales.c_lname + " " + sales.c_fname;
+                    temp.Sales = String.IsNullOrEmpty(sales.c_fname) ? sales.fname + " " + sales.lname : sales.c_lname + " " + sales.c_fname;
                     var qids = wowidb.Quotation_Version.Where(c => c.Quotation_No == proj.Quotation_No);
-                    var targets = from qt in wowidb.Quotation_Target from qid1 in qids where qt.quotation_id == qid1.Quotation_Version_Id  select qt;
+                    var targets = from qt in wowidb.Quotation_Target from qid1 in qids where qt.quotation_id == qid1.Quotation_Version_Id select qt;
                     String disIVNo = "";
                     String disIVDate = "";
                     HashSet<int> hs = new HashSet<int>();
@@ -160,7 +158,7 @@
                             }
                         }
                         CostAnalysisData temp2 = new CostAnalysisData();
-                       
+
                         temp2.ProjectNo = temp.ProjectNo;
                         temp.Status = t.Status;
                         temp2.Status = t.Status;
@@ -210,7 +208,7 @@
                             catch (Exception)
                             {
 
-                               ttFlag = true;
+                                ttFlag = true;
                             }
                             bool tsss = ttFlag && tpFlag;
                             if (!tsss)
@@ -224,7 +222,7 @@
                             {
                                 DateTime fromDate = dcStatusFromDate.GetDate();
                                 continue;
-                                
+
                             }
                             catch (Exception)
                             {
@@ -235,7 +233,7 @@
                             {
                                 DateTime toDate = dcStatusToDate.GetDate();
                                 continue;
-                                
+
                             }
                             catch (Exception)
                             {
@@ -246,27 +244,27 @@
                         try
                         {
                             var d = wowidb.Quotation_Version.First(c => c.Quotation_Version_Id == (int)t.quotation_id);
-                            temp2.QutationNo = d.Quotation_No + "-V"+d.Vername;
+                            temp2.QutationNo = d.Quotation_No + "-V" + d.Vername;
                         }
                         catch (Exception)
                         {
 
                         }
-                        
+
                         temp2.QutationId = (int)t.quotation_id;
                         temp2.Model = temp.Model;
                         temp2.Client = temp.Client;
                         temp2.Sales = temp.Sales;
                         targetDesc = t.target_description;
                         temp2.Country = t.target_description;
-                        
+
                         //Get all invoices
                         decimal tarTotal = 0;
-                        
-                        
+
+
                         try
                         {
-                            var invList = from inv in wowidb.invoices where inv.project_no == temp2.ProjectNo && inv.status !=(byte)InvoicePaymentStatus.WithDraw select inv;
+                            var invList = from inv in wowidb.invoices where inv.project_no == temp2.ProjectNo && inv.status != (byte)InvoicePaymentStatus.WithDraw select inv;
 
                             bool isflag = false;
                             bool flag = false;
@@ -275,7 +273,7 @@
                             {
                                 try
                                 {
-                                    
+
                                     if (!hs.Contains(inv.invoice_id))
                                     {
                                         hs.Add(inv.invoice_id);
@@ -294,10 +292,10 @@
                                                 }
                                                 catch (Exception)
                                                 {
-                                                    
+
                                                     //throw;
                                                 }
-                                                
+
                                             }
                                             if (inv.ocurrency != "USD")
                                             {
@@ -339,7 +337,7 @@
                                             try
                                             {
                                                 DateTime toDate = dcInvoiceTo.GetDate();
-                                                if (((int)(toDate - (DateTime)inv.issue_invoice_date).TotalDays)>= 0)
+                                                if (((int)(toDate - (DateTime)inv.issue_invoice_date).TotalDays) >= 0)
                                                 {
                                                     dflag = true;
                                                 }
@@ -356,7 +354,7 @@
                                             dstate = dflag & disflag;
                                         }
                                     }
-                                    
+
                                     try
                                     {
 
@@ -385,7 +383,7 @@
                                         flag = true;
 
                                     }
-                                    
+
                                     state = isflag & flag;
                                     flag = false;
                                     isflag = false;
@@ -395,7 +393,7 @@
                                     {
                                         if (intar.quotation_target_id == t.Quotation_Target_Id)
                                         {
-                                            
+
                                             try
                                             {
                                                 if (inv.ocurrency != "USD")
@@ -408,7 +406,7 @@
                                                 }
                                                 temp2.InvNo += inv.issue_invoice_no + " ";
 
-                                                
+
 
                                                 if (inv.issue_invoice_date.HasValue)
                                                 {
@@ -458,16 +456,16 @@
                                                 //isflag = false;
                                                 foreach (var invr in wowidb.invoice_received.Where(c => c.invoice_id == inv.invoice_id))
                                                 {
-                                                   
+
                                                     try
                                                     {
                                                         temp2.InvNo += invr.iv_no + " ";
                                                         if (invr.received_date.HasValue)
                                                         {
                                                             temp2.InvDate += ((DateTime)invr.received_date).ToString("yyyy-MM-dd") + " ";
-                                                                             
+
                                                         }
-                                                        
+
                                                     }
                                                     catch (Exception)
                                                     {
@@ -475,7 +473,7 @@
                                                         //isflag = true;
                                                     }
                                                 }
-                                               
+
                                             }
                                             catch (Exception)
                                             {
@@ -504,11 +502,11 @@
                             //throw;
                         }
 
-                        
+
                         decimal prtot = 0;
                         try
                         {
-                            
+
                             try
                             {
                                 int eid = -1;
@@ -516,7 +514,7 @@
                                 {
                                     try
                                     {
-                                        eid= (int)t.Country_Manager;
+                                        eid = (int)t.Country_Manager;
                                         if (eid != int.Parse(ddlIMA.SelectedValue))
                                         {
                                             continue;
@@ -531,25 +529,25 @@
                                 else
                                 {
                                     eid = (int)t.Country_Manager;
-                                    
+
                                 }
                                 var e = wowidb.employees.First(c => c.id == eid);
                                 temp2.IMA = e.fname + " " + e.lname;
                             }
                             catch (Exception)
                             {
-                                
+
                                 //throw;
                             }
-                            
-                            
+
+
                         }
                         catch (Exception)
                         {
-              
+
                             //continue;
                         }
-                        
+
                         try
                         {
                             temp2.IMACostCurrency = "USD";
@@ -569,7 +567,7 @@
                                             try
                                             {
                                                 var vender = (from ven in wowidb.vendors where ven.id == pr.vendor_id select ven).First();
-                                                temp2.VenderName +=  ( (String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name) +"/ ");
+                                                temp2.VenderName += ((String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name) + "/ ");
                                             }
                                             catch (Exception)
                                             {
@@ -580,10 +578,10 @@
                                         temp2.PRNo += pr.pr_id + " ";
                                         //if (pr.total_cost.HasValue)
                                         //{
-                                            
+
                                         //    prtot += (decimal)pr.total_cost;
                                         //}
-                                        
+
                                         foreach (var prr in wowidb.PR_Payment.Where(c => c.pr_id == item.pr_id))
                                         {
                                             if (prr.total_amount.HasValue)
@@ -600,12 +598,12 @@
                                 }
                                 catch (Exception)
                                 {
-                                    
+
                                     //throw;
                                 }
-                                
+
                             }
-                            
+
                         }
                         catch
                         {
@@ -616,9 +614,9 @@
                         imausd += prtot;
                         profit += (tarTotal - prtot);
                         list.Add(temp2);
-                        
+
                     }//end of targets
-                    if (projDisTotal != 0 && dstate )
+                    if (projDisTotal != 0 && dstate)
                     {
                         CostAnalysisData tempD = new CostAnalysisData();
                         tempD.ProjectNo = temp.ProjectNo;
@@ -698,7 +696,7 @@
                             }
                             catch (Exception)
                             {
-                                
+
                                 //throw;
                             }
                             try
@@ -709,7 +707,7 @@
                             }
                             catch (Exception)
                             {
-                               
+
                                 //throw;
                             }
                             if (!disFlag)
@@ -717,7 +715,7 @@
                                 list.Add(tempD);
                             }
                         }
-                        
+
                     }
                     projDisTotal = 0;
                     disIVNo = "";
@@ -726,17 +724,17 @@
                 catch
                 {
                 }
-                
+
             }//end of project
-        
-            
+
+
         }
         catch (Exception)
         {
 
             //throw;
         }
-        
+
 
         if (str == null)
         {
@@ -779,12 +777,12 @@
         {
             btnExport.Enabled = false;
             lblMsg.Visible = true;
-            
+
         }
         else
         {
             btnExport.Enabled = true;
-            lblMsg.Visible = false;            
+            lblMsg.Visible = false;
         }
     }
 
@@ -801,7 +799,13 @@
     protected void ddlSales_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        var sales = from s in wowidb.employees from d in wowidb.departments where d.name.Contains("Sales")  && s.department_id == d.id orderby s.fname, s.c_fname select new { Id = s.id, Name = s.fname + " " + s.lname };
+        var sales = (from i in wowidb.invoices
+                     from p in wowidb.Projects
+                     from q in wowidb.Quotation_Version
+                     from s in wowidb.employees
+                     where i.project_no == p.Project_No && p.Quotation_No == q.Quotation_No && s.id == q.SalesId
+                     orderby s.fname, s.c_fname
+                     select new { Id = s.id, Name = s.fname + " " + s.lname }).Distinct();
         (sender as DropDownList).DataSource = sales;
         (sender as DropDownList).DataTextField = "Name";
         (sender as DropDownList).DataValueField = "Id";
@@ -811,7 +815,7 @@
     protected void ddlIMA_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        var sales = from s in wowidb.employees from d in wowidb.departments where d.name.Contains("IMA") && s.department_id == d.id orderby s.fname, s.c_fname  select new { Id = s.id, Name = s.fname + " " + s.lname };
+        var sales = from s in wowidb.employees from d in wowidb.departments where d.name.Contains("IMA") && s.department_id == d.id orderby s.fname, s.c_fname select new { Id = s.id, Name = s.fname + " " + s.lname };
         (sender as DropDownList).DataSource = sales;
         (sender as DropDownList).DataTextField = "Name";
         (sender as DropDownList).DataValueField = "Id";
@@ -828,7 +832,15 @@
     protected void ddlClient_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack) return;
-        var clients = from c in wowidb.clientapplicants where c.clientapplicant_type == 1 || c.clientapplicant_type == 3 orderby c.companyname,c.c_companyname select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname };
+        var clients = (from c in wowidb.clientapplicants
+                       where c.clientapplicant_type == 1 || c.clientapplicant_type == 3
+                       orderby c.companyname, c.c_companyname
+                       select new
+                       {
+                           Id = c.id,
+                           Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname
+                       })
+                          .OrderBy(c => c.Name);
         (sender as DropDownList).DataSource = clients;
         (sender as DropDownList).DataTextField = "Name";
         (sender as DropDownList).DataValueField = "Id";
@@ -843,12 +855,12 @@
         (sender as DropDownList).DataValueField = "Id";
         (sender as DropDownList).DataBind();
     }
-   
+
     protected void iGridView1_PreRender(object sender, EventArgs e)
     {
         RowSpanHandeler(0);
     }
-       
+
 
     private void RowSpanHandeler(int idx)
     {
@@ -859,7 +871,7 @@
         //Get all rows
         foreach (GridViewRow wkItem in iGridView1.Rows)
         {
-            
+
             AlternatingRowStyle_j += 1;
             if (idx > -1)
             {
@@ -871,7 +883,7 @@
                     {
                         wkItem.Cells[j].RowSpan = 1;
                     }
-                    
+
                 }
                 else
                 {
@@ -883,8 +895,8 @@
                         flag = t1.Text.Trim() == t2.Text.Trim();
 
                     }
-                    
-                    
+
+
                     if (flag)
                     {
                         //rowspan
@@ -894,26 +906,26 @@
                             wkItem.Cells[j].Visible = false;
                         }
                         i = i + 1;
-                        
+
                     }
                     else
                     {
-        
+
                         AlternatingRowStyle_i += 1;
-                        
+
                         foreach (var j in indexs)
                         {
                             iGridView1.Rows[wkItem.RowIndex].Cells[j].RowSpan = 1;
                         }
-                       
+
                         i = 1;
 
                     }
                 }
-               
+
             }
 
-           
+
 
         }
     }
@@ -926,11 +938,11 @@
             Display dis = new Display();
             try
             {
-            var country_id = wowidb.Quotation_Target.First(c=> c.target_description==t).country_id;
-            var cName = wowidb.countries.First(c => c.country_id == country_id).country_name;
-            dis.Text = t + " - [ " + cName + " ]";
-            dis.Id = t;
-            list.Add(dis);
+                var country_id = wowidb.Quotation_Target.First(c => c.target_description == t).country_id;
+                var cName = wowidb.countries.First(c => c.country_id == country_id).country_name;
+                dis.Text = t + " - [ " + cName + " ]";
+                dis.Id = t;
+                list.Add(dis);
             }
             catch (Exception)
             {
@@ -963,205 +975,221 @@
 
     protected void iGridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-       if(e.Row.RowType == DataControlRowType.Footer){
-           e.Row.Cells[8].CssClass = "HighLight1";
-           e.Row.Cells[10].CssClass = "HighLight1";
-           e.Row.Cells[16].CssClass = "HighLight1";
-       }
+        if (e.Row.RowType == DataControlRowType.Footer)
+        {
+            e.Row.Cells[8].CssClass = "HighLight1";
+            e.Row.Cells[10].CssClass = "HighLight1";
+            e.Row.Cells[16].CssClass = "HighLight1";
+        }
 
     }
 
 
    
 </script>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
-    
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-  <ContentTemplate>
-      Gross Profit Analysis
-                    <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
-                       <tr>
-                            <th align="left" width="200px">
-                                AE :&nbsp;</th>
-                            <td width="20%">
-                                <asp:DropDownList ID="ddlSales" runat="server"  AppendDataBoundItems="True" 
-                                    onload="ddlSales_Load">
-                                    <asp:ListItem Value="-1">- All -</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                            <th align="left" >
-                                IMA :&nbsp;</th>
-                            <td width="100%">
-                                <asp:DropDownList ID="ddlIMA" runat="server"  AppendDataBoundItems="True" 
-                                    onload="ddlIMA_Load">
-                                    <asp:ListItem Value="-1">- All -</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>                            
-                        </tr>
-                        <tr> <th align="left" width="13%">
-                                 Project No. :&nbsp;</th>
-                            <td colspan="3">
-                                <asp:DropDownList ID="ddlProj" runat="server" AppendDataBoundItems="True" 
-                                    onload="ddlProj_Load">
-                                     <asp:ListItem Value="-1">- All -</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                            </tr>
-                            <tr>
-                            <th align="left" width="13%">
-                                Client :&nbsp;</th>
-                            <td colspan="3">
-                                <asp:DropDownList ID="ddlClient" runat="server" AppendDataBoundItems="True" 
-                                    onload="ddlClient_Load">
-                                     <asp:ListItem Value="-1">- All -</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                            </tr>
-                        <tr>                            
-                            <th align="left" width="13%">
-                                Open Project Date From : </th>
-                            <td width="20%">
-                                <uc1:DateChooser ID="dcProjFrom" runat="server" />
-                            </td>
-                             <th align="left" width="13%">
-                                 To :&nbsp;</th>
-                            <td width="20%">
-                                <uc1:DateChooser ID="dcProjTo" runat="server" />
-                            </td>
-                        </tr>
-                        <tr>
-                         <th align="left" width="13%">
-                                Target :&nbsp;</th>
-                            <td colspan="3">
-                                <asp:DropDownList ID="ddlCountry" runat="server" AppendDataBoundItems="True" 
-                                    onload="ddlCountry_Load">
-                                     <asp:ListItem Value="-1">- All -</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>                           
-                            <th align="left" width="13%">
-                                Issue Invoice Date From : </th>
-                            <td width="20%">
-                                <uc1:DateChooser ID="dcInvoiceFrom" runat="server" />
-                            </td>
-                             <th align="left" width="13%">
-                                 To :&nbsp;</th>
-                            <td width="20%">
-                                <uc1:DateChooser ID="dcInvoiceTo" runat="server" />
-                            </td>
-                        </tr>
-                        <tr>
-                             <th align="left" width="13%">
-                                Status :&nbsp;</th>
-                            <td colspan="3">
-                                <asp:DropDownList ID="DropDownList3" runat="server" AppendDataBoundItems="True">
-                                    <asp:ListItem>- All -</asp:ListItem>
-                                    <asp:ListItem Value="Open">新開案的案子(Open)</asp:ListItem>
-                                  <asp:ListItem Value="In-Progress">申請中的案子(In-Progress)</asp:ListItem>
-                                  <asp:ListItem Value="On-Hold">暫停的案子(On-Hold)</asp:ListItem>
-                                  <asp:ListItem Value="Done">完成的案子(Done)</asp:ListItem>
-                                  <asp:ListItem Value="Cancelled">取消的案子(Cancelled)</asp:ListItem>
-                                  <asp:ListItem Value="Delay">逾時案件(Delay)</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>
-                           
-                            <th align="left" width="13%">
-                                Status Date From : </th>
-                            <td width="20%">
-                                <uc1:DateChooser ID="dcStatusFromDate" runat="server" />
-                            </td>
-                             <th align="left" width="13%">
-                                 To :&nbsp;</th>
-                            <td width="20%">
-                                <uc1:DateChooser ID="dcStatusToDate" runat="server" Visible="True" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th align="left" width="13%">
-                               <%-- Keyword Search :&nbsp;--%></th>
-                            <td align="right" width="20%">
-                               <%-- <asp:TextBox ID="tbkey" runat="server" Text="" 
+        <ContentTemplate>
+            Gross Profit Analysis
+            <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th align="left" width="200px">
+                        AE :&nbsp;
+                    </th>
+                    <td width="20%">
+                        <asp:DropDownList ID="ddlSales" runat="server" AppendDataBoundItems="True" OnLoad="ddlSales_Load">
+                            <asp:ListItem Value="-1">- All -</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                    <th align="left">
+                        IMA :&nbsp;
+                    </th>
+                    <td width="100%">
+                        <asp:DropDownList ID="ddlIMA" runat="server" AppendDataBoundItems="True" OnLoad="ddlIMA_Load">
+                            <asp:ListItem Value="-1">- All -</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <th align="left" width="13%">
+                        Project No. :&nbsp;
+                    </th>
+                    <td colspan="3">
+                        <asp:DropDownList ID="ddlProj" runat="server" AppendDataBoundItems="True" OnLoad="ddlProj_Load">
+                            <asp:ListItem Value="-1">- All -</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <th align="left" width="13%">
+                        Client :&nbsp;
+                    </th>
+                    <td colspan="3">
+                        <asp:DropDownList ID="ddlClient" runat="server" AppendDataBoundItems="True" OnLoad="ddlClient_Load">
+                            <asp:ListItem Value="-1">- All -</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <th align="left" width="13%">
+                        Open Project Date From :
+                    </th>
+                    <td width="20%">
+                        <uc1:DateChooser ID="dcProjFrom" runat="server" />
+                    </td>
+                    <th align="left" width="13%">
+                        To :&nbsp;
+                    </th>
+                    <td width="20%">
+                        <uc1:DateChooser ID="dcProjTo" runat="server" />
+                    </td>
+                </tr>
+                <tr>
+                    <th align="left" width="13%">
+                        Target :&nbsp;
+                    </th>
+                    <td colspan="3">
+                        <asp:DropDownList ID="ddlCountry" runat="server" AppendDataBoundItems="True" OnLoad="ddlCountry_Load">
+                            <asp:ListItem Value="-1">- All -</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <th align="left" width="13%">
+                        Issue Invoice Date From :
+                    </th>
+                    <td width="20%">
+                        <uc1:DateChooser ID="dcInvoiceFrom" runat="server" />
+                    </td>
+                    <th align="left" width="13%">
+                        To :&nbsp;
+                    </th>
+                    <td width="20%">
+                        <uc1:DateChooser ID="dcInvoiceTo" runat="server" />
+                    </td>
+                </tr>
+                <tr>
+                    <th align="left" width="13%">
+                        Status :&nbsp;
+                    </th>
+                    <td colspan="3">
+                        <asp:DropDownList ID="DropDownList3" runat="server" AppendDataBoundItems="True">
+                            <asp:ListItem>- All -</asp:ListItem>
+                            <asp:ListItem Value="Open">新開案的案子(Open)</asp:ListItem>
+                            <asp:ListItem Value="In-Progress">申請中的案子(In-Progress)</asp:ListItem>
+                            <asp:ListItem Value="On-Hold">暫停的案子(On-Hold)</asp:ListItem>
+                            <asp:ListItem Value="Done">完成的案子(Done)</asp:ListItem>
+                            <asp:ListItem Value="Cancelled">取消的案子(Cancelled)</asp:ListItem>
+                            <asp:ListItem Value="Delay">逾時案件(Delay)</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <th align="left" width="13%">
+                        Status Date From :
+                    </th>
+                    <td width="20%">
+                        <uc1:DateChooser ID="dcStatusFromDate" runat="server" />
+                    </td>
+                    <th align="left" width="13%">
+                        To :&nbsp;
+                    </th>
+                    <td width="20%">
+                        <uc1:DateChooser ID="dcStatusToDate" runat="server" Visible="True" />
+                    </td>
+                </tr>
+                <tr>
+                    <th align="left" width="13%">
+                        <%-- Keyword Search :&nbsp;--%>
+                    </th>
+                    <td align="right" width="20%">
+                        <%-- <asp:TextBox ID="tbkey" runat="server" Text="" 
                                     ></asp:TextBox>--%>
-                                <asp:Button ID="btnSearch" runat="server" onclick="btnSearch_Click" 
-                                    Text="Search" />
-                            </td>
-                            <td align="right" colspan="2">                                
-                                <asp:Button ID="btnExport" runat="server" Enabled="False" 
-                                    onclick="btnExport_Click" Text="Excel" />                                
-                            </td>                            
-                        </tr>
-                   <tr><td colspan="6">
-                    <asp:Label ID="lblMsg" runat="server" Text="No matched data found." ></asp:Label>
-                       
-                    <cc1:iRowSpanGridView ID="iGridView1" runat="server"  Width="100%" 
-                           isMergedHeader="True" SkinID="GridView"
-                        AutoGenerateColumns="False" CssClass="Gridview" ShowFooter="true"
-                         onsorting="iGridView1_Sorting" 
-                           SkipColNum="0" onrowdatabound="iGridView1_RowDataBound" onprerender="iGridView1_PreRender" 
-                           >
-                           <HeaderStyle Wrap="false" />
-                        <Columns>
-                            <asp:BoundField DataField="ProjectNo" HeaderText="Project No" SortExpression="ProjectNo"/>
-                            <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" SortExpression="QutationNo"/>
-                            <asp:BoundField DataField="OpenDate" HeaderText="Open Date" />
-                            <asp:BoundField DataField="Client" HeaderText="Client" SortExpression="Client"/>
-                            <asp:BoundField DataField="Model" HeaderText="Model" SortExpression="Model"/>
-                            <asp:BoundField DataField="Country" HeaderText="Target" SortExpression="Country"/>
-                            <asp:BoundField DataField="Status" HeaderText="Status" />
-                            <asp:BoundField DataField="StatusDate" HeaderText="Status Date" />
-                            <asp:TemplateField HeaderText="Gross Profit US" ItemStyle-HorizontalAlign="Right">
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("GrossProfitUS") %>'></asp:TextBox>
-                                </EditItemTemplate>
-                                <ItemTemplate>
-                                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("GrossProfitUS") %>'></asp:Label>
-                                </ItemTemplate>
-                                 <FooterTemplate>
-                                   <table width="100%"><tr><td align="right">
-                                   <asp:Literal ID="Literal1" runat="server" Text="<%# GetGrossProfitUS()%>"></asp:Literal>
-                                    </td></tr></table>
-                                     </FooterTemplate>
-                            </asp:TemplateField>
-                            <asp:BoundField DataField="Sales" HeaderText="AE" SortExpression="Sales" />
-                            <asp:TemplateField HeaderText="Inv USD" ItemStyle-HorizontalAlign="Right">
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("InvUSD") %>'></asp:TextBox>
-                                </EditItemTemplate>
-                                <ItemTemplate>
-                                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("InvUSD") %>'></asp:Label>
-                                </ItemTemplate>
-                                 <FooterTemplate>
-                                 <table width="100%"><tr><td align="right">
-                                    <asp:Literal ID="Literal1" runat="server" Text="<%# GetInvUSD()%>"></asp:Literal>
-                                    </td></tr></table>
-                                     </FooterTemplate>
-                            </asp:TemplateField>
-                            <asp:BoundField DataField="InvDate" HeaderText="Inv Date" />
-                            <asp:BoundField DataField="InvNo" HeaderText="Inv No" />
-                            <asp:BoundField DataField="IMA" HeaderText="IMA" SortExpression="IMA"/>
-                            <%--<asp:BoundField DataField="VenderNo" HeaderText="No" />--%>
-                            <asp:BoundField DataField="VenderName" HeaderText="VenderName" />
-                            <asp:BoundField DataField="IMACostCurrency" HeaderText="幣別" />
-                            <asp:TemplateField HeaderText="Cost$" ItemStyle-HorizontalAlign="Right">
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("IMACost") %>'></asp:TextBox>
-                                </EditItemTemplate>
-                                <ItemTemplate>
-                                    <asp:Label ID="Label3" runat="server" Text='<%# Bind("IMACost") %>'></asp:Label>
-                                </ItemTemplate>
-                                <FooterTemplate>
-                                 <table width="100%"><tr><td align="right">
-                                   <asp:Literal ID="Literal1" runat="server" Text="<%# GetIMACost()%>"></asp:Literal>
-                                    </td></tr></table>
-                                     </FooterTemplate>
-                            </asp:TemplateField>
-                            <%--<asp:BoundField DataField="SubCostUSD" HeaderText="SubCost USD" />
+                        <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" />
+                    </td>
+                    <td align="right" colspan="2">
+                        <asp:Button ID="btnExport" runat="server" Enabled="False" OnClick="btnExport_Click"
+                            Text="Excel" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <asp:Label ID="lblMsg" runat="server" Text="No matched data found."></asp:Label>
+                        <cc1:iRowSpanGridView ID="iGridView1" runat="server" Width="100%" isMergedHeader="True"
+                            SkinID="GridView" AutoGenerateColumns="False" CssClass="Gridview" ShowFooter="true"
+                            OnSorting="iGridView1_Sorting" SkipColNum="0" OnRowDataBound="iGridView1_RowDataBound"
+                            OnPreRender="iGridView1_PreRender">
+                            <HeaderStyle Wrap="false" />
+                            <Columns>
+                                <asp:BoundField DataField="ProjectNo" HeaderText="Project No" SortExpression="ProjectNo" />
+                                <asp:BoundField DataField="QutationNo" HeaderText="Qutation No" SortExpression="QutationNo" />
+                                <asp:BoundField DataField="OpenDate" HeaderText="Open Date" />
+                                <asp:BoundField DataField="Client" HeaderText="Client" SortExpression="Client" />
+                                <asp:BoundField DataField="Model" HeaderText="Model" SortExpression="Model" />
+                                <asp:BoundField DataField="Country" HeaderText="Target" SortExpression="Country" />
+                                <asp:BoundField DataField="Status" HeaderText="Status" />
+                                <asp:BoundField DataField="StatusDate" HeaderText="Status Date" />
+                                <asp:TemplateField HeaderText="Gross Profit US" ItemStyle-HorizontalAlign="Right">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("GrossProfitUS") %>'></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("GrossProfitUS") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <table width="100%">
+                                            <tr>
+                                                <td align="right">
+                                                    <asp:Literal ID="Literal1" runat="server" Text="<%# GetGrossProfitUS()%>"></asp:Literal>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </FooterTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="Sales" HeaderText="AE" SortExpression="Sales" />
+                                <asp:TemplateField HeaderText="Inv USD" ItemStyle-HorizontalAlign="Right">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("InvUSD") %>'></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("InvUSD") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <table width="100%">
+                                            <tr>
+                                                <td align="right">
+                                                    <asp:Literal ID="Literal1" runat="server" Text="<%# GetInvUSD()%>"></asp:Literal>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </FooterTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="InvDate" HeaderText="Inv Date" />
+                                <asp:BoundField DataField="InvNo" HeaderText="Inv No" />
+                                <asp:BoundField DataField="IMA" HeaderText="IMA" SortExpression="IMA" />
+                                <%--<asp:BoundField DataField="VenderNo" HeaderText="No" />--%>
+                                <asp:BoundField DataField="VenderName" HeaderText="VenderName" />
+                                <asp:BoundField DataField="IMACostCurrency" HeaderText="幣別" />
+                                <asp:TemplateField HeaderText="Cost$" ItemStyle-HorizontalAlign="Right">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("IMACost") %>'></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label3" runat="server" Text='<%# Bind("IMACost") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <table width="100%">
+                                            <tr>
+                                                <td align="right">
+                                                    <asp:Literal ID="Literal1" runat="server" Text="<%# GetIMACost()%>"></asp:Literal>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </FooterTemplate>
+                                </asp:TemplateField>
+                                <%--<asp:BoundField DataField="SubCostUSD" HeaderText="SubCost USD" />
                             <asp:BoundField DataField="Prepay" HeaderText="Prepay" />
                             <asp:BoundField DataField="Preunpay" HeaderText="Preunpay" />
                             <asp:BoundField DataField="Unpay" HeaderText="Unpay" />
@@ -1169,27 +1197,26 @@
                             <asp:BoundField DataField="Payment" HeaderText="Payment" />
                             <asp:BoundField DataField="TotalPayment" HeaderText="$" />
                             <asp:BoundField DataField="PaymentDate" HeaderText="Date" />--%>
-                            <asp:BoundField DataField="PaymentDate" HeaderText="Paid Date" />
-                            <asp:BoundField DataField="PRNo" HeaderText="PR No" />
-                        </Columns>
-                    </cc1:iRowSpanGridView>
+                                <asp:BoundField DataField="PaymentDate" HeaderText="Paid Date" />
+                                <asp:BoundField DataField="PRNo" HeaderText="PR No" />
+                            </Columns>
+                        </cc1:iRowSpanGridView>
                     </td>
-                  </tr>
-                    </table>
-      </ContentTemplate>
+                </tr>
+            </table>
+        </ContentTemplate>
         <Triggers>
             <asp:PostBackTrigger ControlID="btnExport" />
         </Triggers>
-   </asp:UpdatePanel>
-   <asp:UpdateProgress ID="UpdateProgress1" runat="server" EnableViewState="False" AssociatedUpdatePanelID="UpdatePanel1">
+    </asp:UpdatePanel>
+    <asp:UpdateProgress ID="UpdateProgress1" runat="server" EnableViewState="False" AssociatedUpdatePanelID="UpdatePanel1">
         <ProgressTemplate>
-         <div id="processdiv" style="position:absolute;border:#6593cf 1px solid; padding:2px;background:#ccca; z-index:1; left: 40%;
-top: 35%;"> 
-            <div style="line-height:36px;border:#a3bad9 1px solid;background:white;padding:2px 10px 2px 10px">
-             Generating ....
+            <div id="processdiv" style="position: absolute; border: #6593cf 1px solid; padding: 2px;
+                background: #ccca; z-index: 1; left: 40%; top: 35%;">
+                <div style="line-height: 36px; border: #a3bad9 1px solid; background: white; padding: 2px 10px 2px 10px">
+                    Generating ....
+                </div>
             </div>
-        </div>
         </ProgressTemplate>
     </asp:UpdateProgress>
 </asp:Content>
-
