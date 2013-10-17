@@ -63,7 +63,8 @@
                 //lblProjectDate.Text = proj.Create_Date.ToString("yyyy/MM/dd");
                 WoWiModel.Quotation_Version quo = wowidb.Quotation_Version.First(c => c.Quotation_Version_Id == proj.Quotation_Id);
                 lblQuoNo.Text = quo.Quotation_No;
-                lblClient.Text = (from aa in wowidb.clientapplicants where quo.Applicant_Id == aa.id select aa.companyname).FirstOrDefault(); 
+                //lblClient.Text = (from aa in wowidb.clientapplicants where quo.Applicant_Id == aa.id select aa.companyname).FirstOrDefault(); 
+                lblClient.Text = (from aa in wowidb.clientapplicants where quo.Client_Id == aa.id select aa.companyname).FirstOrDefault(); 
                 int vender_id = (int)obj.vendor_id;
                 WoWiModel.vendor vendor = (from v in wowidb.vendors where v.id == vender_id select v).First();
                 try

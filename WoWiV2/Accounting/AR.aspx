@@ -47,7 +47,10 @@
     //(sender as DropDownList).DataTextField = "Name";
     //(sender as DropDownList).DataValueField = "Id";
     //(sender as DropDownList).DataBind();s
-    var clients = from c in wowidb.clientapplicants where c.clientapplicant_type == 1 || c.clientapplicant_type == 3 orderby c.companyname, c.c_companyname select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname };
+    var clients = (from c in wowidb.clientapplicants 
+                  where c.clientapplicant_type == 1 || c.clientapplicant_type == 3
+                  orderby c.companyname, c.c_companyname 
+                  select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname }).OrderBy(c=>c.Name);
     (sender as DropDownList).DataSource = clients;
     (sender as DropDownList).DataTextField = "Name";
     (sender as DropDownList).DataValueField = "Id";
