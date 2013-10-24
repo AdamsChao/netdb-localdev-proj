@@ -38,7 +38,7 @@
               SelectCommand="SELECT DISTINCT  clientapplicant.id , clientapplicant.companyname 
 FROM Project 
 INNER JOIN Quotation_Version ON Project.Quotation_Id = Quotation_Version.Quotation_Version_Id 
-INNER JOIN clientapplicant ON clientapplicant.id = Quotation_Version.Applicant_Id
+INNER JOIN clientapplicant ON clientapplicant.id = Quotation_Version.Client_Id
 WHERE clientapplicant.clientapplicant_type=1 or clientapplicant.clientapplicant_type=3
 ORDER BY clientapplicant.companyname"></asp:SqlDataSource>
             <p />
