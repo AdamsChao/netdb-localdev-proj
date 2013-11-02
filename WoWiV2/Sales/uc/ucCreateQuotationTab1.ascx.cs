@@ -270,42 +270,44 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
         //else
         //    btnSubmit.Enabled = false;
 
+
+        //EUT永遠都允許修改
         if (obj.Quotation_Status >= 3)
-        { 
-            DropDownListEmp.Enabled=false;
-            ddlAccessLevel.Enabled=false;
-            txtCurrentEmployee_id.Enabled=false;
-            RadioButtonListCurrency.Enabled=false;
-            txtProductName.Enabled=false;
-            txtCProductName.Enabled=false;
-            txtModelNo.Enabled=false;
-            txtCModelNo.Enabled=false;
-            txtBrandName.Enabled=false;
-            txtCBrandName.Enabled=false;
-            txtModelDifference.Enabled=false;
-            txtCModelDifferencev.Enabled=false;
-            DropDownListClient.Enabled=false;
-            DropDownListContact.Enabled=false;
-            DropDownListApp.Enabled=false;
-            rblSame.Enabled=false;
-            DropDownListClient2.Enabled=false;
-            DropDownListContact2.Enabled=false;
-            txtBill_Name.Enabled=false;
-            txtBill_Title.Enabled=false;
-            txtBillCompanyname.Enabled=false;
-            txtBill_CName.Enabled=false;
-            txtBill_CTitle.Enabled=false;
-            txtBill_CCompanyname.Enabled=false;
-            txtBill_Phone.Enabled=false;
-            txtBill_Email.Enabled=false;
-            txtBill_Country.Enabled=false;
-            txtBill_Address.Enabled=false;
-            txtBill_CAddress.Enabled=false;
-            ddlPaymentDays.Enabled=false;
-            ddlPayment_Term.Enabled=false;
-            txtClient_Status.Enabled=false;
-            txtDHL.Enabled = false;
-            btnSubmit.Enabled = false;
+        {
+            DropDownListEmp.Enabled = false;
+            //ddlAccessLevel.Enabled = false;
+            txtCurrentEmployee_id.Enabled = false;
+            RadioButtonListCurrency.Enabled = false;
+            //txtProductName.Enabled = false;
+            //txtCProductName.Enabled = false;
+            //txtModelNo.Enabled = false;
+            //txtCModelNo.Enabled = false;
+            //txtBrandName.Enabled = false;
+            //txtCBrandName.Enabled = false;
+            //txtModelDifference.Enabled = false;
+            //txtCModelDifferencev.Enabled = false;
+            //DropDownListClient.Enabled = false;
+            //DropDownListContact.Enabled = false;
+            //DropDownListApp.Enabled = false;
+            //rblSame.Enabled = false;
+            //DropDownListClient2.Enabled = false;
+            //DropDownListContact2.Enabled = false;
+            //txtBill_Name.Enabled = false;
+            //txtBill_Title.Enabled = false;
+            //txtBillCompanyname.Enabled = false;
+            //txtBill_CName.Enabled = false;
+            //txtBill_CTitle.Enabled = false;
+            //txtBill_CCompanyname.Enabled = false;
+            //txtBill_Phone.Enabled = false;
+            //txtBill_Email.Enabled = false;
+            //txtBill_Country.Enabled = false;
+            //txtBill_Address.Enabled = false;
+            //txtBill_CAddress.Enabled = false;
+            //ddlPaymentDays.Enabled = false;
+            //ddlPayment_Term.Enabled = false;
+            //txtClient_Status.Enabled = false;
+            //txtDHL.Enabled = false;
+            //btnSubmit.Enabled = false;
         }
     }
     protected void DropDownListClient_SelectedIndexChanged(object sender, EventArgs e)

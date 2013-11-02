@@ -66,25 +66,7 @@
   {
 
   }
-
-  protected void iGridView1_PreRender(object sender, EventArgs e)
-  {
-
-    foreach (GridViewRow row in iGridView1.Rows)
-    {
-      if ((row.Cells[17].FindControl("Label5") as Label).Text == "USD")
-      //if (row.Cells[17].Text == "USD")
-      {
-        row.Cells[5].CssClass = "HighLight";
-      }
-      else
-      {
-        row.Cells[6].CssClass = "HighLight";
-      }
-      if (!Page.IsPostBack)
-        row.Cells[18].Text = "$" + row.Cells[18].Text;
-    }
-  }
+ 
   double usdtotal = 0;
   double usdissuetotal = 0;
   double ntdtotal = 0;
@@ -320,6 +302,7 @@
         var user = wowidb.employees.Where(e => e.username == User.Identity.Name).First();
         var access = wowidb.m_employee_accesslevel.Where(a => a.employee_id == user.id);
         var isaccess = access.Where(a => a.accesslevel_id == quo.Access_Level_ID);
+        
         if (isaccess.Count() == 0)
         {
           continue;
@@ -331,7 +314,6 @@
       }
       catch (Exception)
       {
-
         //throw;
       }
 
@@ -462,6 +444,24 @@
     lblMsg.Visible = false;
     Button2.Enabled = false;
   }
+
+  protected void iGridView1_DataBound(object sender, EventArgs e)
+  {
+      foreach (GridViewRow row in iGridView1.Rows)
+      {
+          if ((row.Cells[17].FindControl("Label5") as Label).Text == "USD")
+          //if (row.Cells[17].Text == "USD")
+          {
+              row.Cells[5].CssClass = "HighLight";
+          }
+          else
+          {
+              row.Cells[6].CssClass = "HighLight";
+          }
+          if (!Page.IsPostBack)
+              row.Cells[18].Text = "$" + row.Cells[18].Text;
+      }
+  }
 </script>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
@@ -480,16 +480,12 @@
             </asp:DropDownList>
           </td>
           <th align="left" width="13%">
-            Issue Invoice Date From :
+            Issue Invoice 
           </th>
           <td width="20%">
-            <uc1:DateChooser ID="dcFromDate" runat="server" />
-          </td>
-          <th align="left" width="13%">
-            To :&nbsp;
-          </th>
-          <td width="20%">
-            <uc1:DateChooser ID="dcToDate" runat="server" />
+            Date From : <uc1:DateChooser ID="dcFromDate" runat="server" />
+            <br/>
+            To : <uc1:DateChooser ID="dcToDate" runat="server" />
           </td>
         </tr>
         <tr>
@@ -502,33 +498,24 @@
             </asp:DropDownList>
           </td>
           <th align="left" width="13%">
-            Client :
+          AR Balance
           </th>
           <td width="20%">
-            <asp:DropDownList ID="ddlClient" runat="server" AppendDataBoundItems="True" OnLoad="DropDownList3_Load">
-              <asp:ListItem Value="-1">- All -</asp:ListItem>
-            </asp:DropDownList>
-          </td>
-          <th align="left" width="13%">
-            AR Balance
-          </th>
-          <td width="20%">
-            <asp:CheckBox ID="cbARBalance0" runat="server" Text="等於0" />
+           <asp:CheckBox ID="cbARBalance0" runat="server" Text="等於0" />
             <asp:CheckBox ID="cbARBalance1" runat="server" Text="不等於0" />
           </td>
         </tr>
         <tr>
           <th align="left" width="13%">
-            <%-- Keyword Search :&nbsp;--%>
+              Client :
           </th>
           <td width="20%">
-            <%--  <asp:TextBox ID="TextBox5" runat="server" Text="" Enabled="False" 
-                                    ></asp:TextBox>--%>
+             <asp:DropDownList ID="ddlClient" runat="server" AppendDataBoundItems="True" OnLoad="DropDownList3_Load">
+              <asp:ListItem Value="-1">- All -</asp:ListItem>
+            </asp:DropDownList>
           </td>
           <td align="right" colspan="2">
-          </td>
-          <td align="right" colspan="2">
-            <asp:Button ID="Button3" runat="server" Text="Search" OnClick="Button3_Click" />
+          <asp:Button ID="Button3" runat="server" Text="Search" OnClick="Button3_Click" />
             &nbsp;&nbsp;&nbsp;
             <asp:Button ID="Button2" runat="server" Text="Excel" OnClick="Button2_Click" />
           </td>
@@ -536,8 +523,8 @@
       </table>
       <asp:Label ID="lblMsg" runat="server" Text="No match data found."></asp:Label>
       <asp:GridView ID="iGridView1" runat="server" Height="150px" SkinID="GridView" PageSize="50"
-        AutoGenerateColumns="False" OnPreRender="iGridView1_PreRender" ShowFooter="True"
-        OnSorting="iGridView1_Sorting">
+        AutoGenerateColumns="False" ShowFooter="True"
+        OnSorting="iGridView1_Sorting" ondatabound="iGridView1_DataBound">
         <HeaderStyle Wrap="false" />
         <Columns>
           <asp:TemplateField HeaderText="Invoice No">

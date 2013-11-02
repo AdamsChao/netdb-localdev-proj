@@ -418,7 +418,7 @@
               <asp:BoundField DataField="AE" HeaderText="AE" ReadOnly="True" SortExpression="AE" />
               <asp:BoundField DataField="Quote" HeaderText="Quote" />
               <asp:BoundField DataField="Discount" HeaderText="Discount" />
-              <asp:BoundField DataField="InvUSD" HeaderText="Inv USD" />
+              <asp:BoundField DataField="InvUSD" HeaderText="Inv USD" DataFormatString="{0:F2}" />
               <asp:BoundField DataField="InvDate" HeaderText="Inv Date" 
                 DataFormatString="{0:d}" HtmlEncode="False" />
               <asp:BoundField DataField="InvNo" HeaderText="Inv No" HtmlEncode="False" />
