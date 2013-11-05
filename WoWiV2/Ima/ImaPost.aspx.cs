@@ -200,7 +200,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
         cmd.Parameters.Add("@Print", SqlDbType.Bit);
         cmd.Parameters.Add("@Purchase", SqlDbType.Bit);
         cmd.Parameters.Add("@LabelsDesc", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@Required", SqlDbType.Bit);
+        cmd.Parameters.Add("@Required", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Year", SqlDbType.Int);
         cmd.Parameters.Add("@Month", SqlDbType.Int);
         cmd.Parameters.Add("@RequiredDesc", SqlDbType.NVarChar);
@@ -208,7 +208,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
         cmd.Parameters.Add("@LasterUpdateUser", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Manufacturer", SqlDbType.Bit);
         cmd.Parameters.Add("@Importation", SqlDbType.Bit);
-        cmd.Parameters.Add("@Product", SqlDbType.Bit);
+        cmd.Parameters.Add("@Product", SqlDbType.NVarChar);
         cmd.Parameters.Add("@EUT1", SqlDbType.Bit);
         cmd.Parameters.Add("@EUT2", SqlDbType.Bit);
         cmd.Parameters.Add("@EUT3", SqlDbType.Bit);
@@ -217,7 +217,7 @@ public partial class Ima_ImaPost : System.Web.UI.Page
         cmd.Parameters.Add("@EUT6", SqlDbType.Bit);
         cmd.Parameters.Add("@EUT7", SqlDbType.Bit);
         cmd.Parameters.Add("@EUT8", SqlDbType.Bit);
-        cmd.Parameters.Add("@Renewal", SqlDbType.Bit);
+        cmd.Parameters.Add("@Renewal", SqlDbType.NVarChar);
         cmd.Parameters.Add("@CostTest1", SqlDbType.Decimal);
         cmd.Parameters.Add("@LeadTime1", SqlDbType.NVarChar);
         cmd.Parameters.Add("@CostTest2", SqlDbType.Decimal);

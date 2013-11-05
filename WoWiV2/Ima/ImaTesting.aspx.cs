@@ -253,7 +253,7 @@ public partial class Ima_Testing : System.Web.UI.Page
         cmd.Parameters.Add("@Email", SqlDbType.Bit);
         cmd.Parameters.Add("@FTP", SqlDbType.Bit);
         cmd.Parameters.Add("@TestNote", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@TestMark", SqlDbType.Bit);
+        cmd.Parameters.Add("@TestMark", SqlDbType.NVarChar);
         cmd.Parameters.Add("@TestMarkRemark", SqlDbType.NVarChar);
         cmd.Parameters.Add("@BOM1", SqlDbType.Bit);
         cmd.Parameters.Add("@OfficialLanguage", SqlDbType.NVarChar);

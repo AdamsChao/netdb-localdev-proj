@@ -132,7 +132,7 @@ public partial class Ima_AccreditedTestLab : System.Web.UI.Page
         cmd.Parameters.Add("@wowi_product_type_id", SqlDbType.Int);
         cmd.Parameters.Add("@AccreditedLab", SqlDbType.NVarChar);
         cmd.Parameters.Add("@VolumePerYear", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@Publish", SqlDbType.Bit);
+        cmd.Parameters.Add("@Publish", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Website", SqlDbType.NVarChar);
         cmd.Parameters.Add("@CreateUser", SqlDbType.NVarChar);
         cmd.Parameters.Add("@LasterUpdateUser", SqlDbType.NVarChar);

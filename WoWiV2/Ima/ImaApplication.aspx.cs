@@ -274,7 +274,7 @@ public partial class Ima_ImaApplication : System.Web.UI.Page
         cmd.Parameters.Add("@FCCTest", SqlDbType.Bit);
         cmd.Parameters.Add("@CETest", SqlDbType.Bit);
         cmd.Parameters.Add("@LocalTest", SqlDbType.Bit);
-        cmd.Parameters.Add("@SamplesRequired", SqlDbType.Bit);
+        cmd.Parameters.Add("@SamplesRequired", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Radiated", SqlDbType.Int);
         cmd.Parameters.Add("@Conducted", SqlDbType.Int);
         cmd.Parameters.Add("@NormalLink", SqlDbType.Int);

@@ -138,10 +138,10 @@ public partial class Ima_ImaCertificationBodies : System.Web.UI.Page
         cmd.Parameters.Add("@country_id", SqlDbType.Int);
         cmd.Parameters.Add("@wowi_product_type_id", SqlDbType.Int);
         cmd.Parameters.Add("@Name", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@Authority", SqlDbType.Bit);
-        cmd.Parameters.Add("@CertificationBody", SqlDbType.Bit);
+        cmd.Parameters.Add("@Authority", SqlDbType.NVarChar);
+        cmd.Parameters.Add("@CertificationBody", SqlDbType.NVarChar);
         cmd.Parameters.Add("@VolumePerYear", SqlDbType.NVarChar);
-        cmd.Parameters.Add("@Publish", SqlDbType.Bit);
+        cmd.Parameters.Add("@Publish", SqlDbType.NVarChar);
         cmd.Parameters.Add("@AccredidedLab", SqlDbType.NVarChar);
         cmd.Parameters.Add("@VolumePerYear1", SqlDbType.NVarChar);
         cmd.Parameters.Add("@Publish1", SqlDbType.Bit);
