@@ -359,10 +359,13 @@
                 <tr>
                     <td colspan="7">
                         PO No:
-                        <asp:TextBox ID="txtPocheckno" CssClass="CCSTextBox" Width="100" runat="server"></asp:TextBox>  &nbsp;  PO 
-                        Limit:
-                        <asp:TextBox ID="txtPOLimit" CssClass="CCSTextBox" MaxLength="20" Width="100" runat="server"></asp:TextBox> &nbsp; Deposit Check No:
-                        <asp:TextBox ID="txtDeposit_Check_No" CssClass="CCSTextBox" MaxLength="20" Width="100" runat="server"></asp:TextBox> &nbsp;  Amount:
+                        <asp:TextBox ID="txtPocheckno" CssClass="CCSTextBox" Width="90%" runat="server"></asp:TextBox>  &nbsp;  
+                        <br />
+                        PO 
+                        Limit: 
+                        <asp:TextBox ID="txtPOLimit" CssClass="CCSTextBox" Width="100" runat="server"></asp:TextBox> &nbsp; Deposit Check No:
+                        <asp:TextBox ID="txtDeposit_Check_No" CssClass="CCSTextBox" Width="100" 
+                            runat="server"></asp:TextBox> &nbsp;  Amount:
                         <asp:TextBox ID="txtPO_Amount" CssClass="CCSTextBox" MaxLength="20" Width="100" runat="server"></asp:TextBox>
                     </td>
                 </tr>
