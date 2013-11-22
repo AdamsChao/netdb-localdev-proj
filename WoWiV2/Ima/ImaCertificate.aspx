@@ -42,14 +42,16 @@
                     </tr>
                     <tr>
                         <td class="tdRowName">
-                            <span style="color: Red; font-size: 10pt;">*</span>Types of enforcement applied：
+                            <%--<span style="color: Red; font-size: 10pt;">*</span>Types of enforcement applied：--%>
                         </td>
                         <td class="tdRowValue">
                             <asp:CheckBox ID="cbEmail" runat="server" Text="Email to WoWi" /><br />
                             <asp:CheckBox ID="cbCopy" runat="server" Text="Hard copy to WoWi" /><br />
                             <asp:CheckBox ID="cbCollect" runat="server" Text="Hard copy to be Collected" /><br />
                             <asp:CheckBox ID="cbLocal" runat="server" Text="Hard copy to Local Applicant" /><br />
+                            <asp:CheckBox ID="cbAgent" runat="server" Text="Hard copy to Local Agent" /><br />
                             <asp:CheckBox ID="cbProof" runat="server" Text="Proof shown on website" /><br />
+                            <asp:CheckBox ID="cbOriginal" runat="server" Text="No original certificate" /><br />
                             <asp:CheckBox ID="cbNA" runat="server" Text="N/A" />
                         </td>
                     </tr>

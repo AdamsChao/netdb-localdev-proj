@@ -526,11 +526,13 @@
                                                             <asp:CheckBox ID="cbCopy" runat="server" Text="Hard copy to WoWi" Checked='<%# Eval("Copy") %>' Enabled="false" />
                                                             <asp:CheckBox ID="cbCollect" runat="server" Text="Hard copy to be Collected" Checked='<%# Eval("Collect") %>' Enabled="false" />
                                                             <asp:CheckBox ID="cbLocal" runat="server" Text="Hard copy to Local Applicant" Checked='<%# Eval("Local") %>' Enabled="false" />
+                                                            <asp:CheckBox ID="cbAgent" runat="server" Text="Hard copy to Local Agent" Checked='<%# Eval("Agent") %>' Enabled="false" />
                                                             <asp:CheckBox ID="cbProof" runat="server" Text="Proof shown on website" Checked='<%# Eval("Proof") %>' Enabled="false" />
+                                                            <asp:CheckBox ID="cbOriginal" runat="server" Text="No original certificate" Checked='<%# Eval("Original") %>' Enabled="false" />
                                                             <asp:CheckBox ID="cbNA" runat="server" Text="N/A" Checked='<%# Eval("NA") %>' Enabled="false" />
                                                         </ItemTemplate>
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
-                                                        <ItemStyle HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Left" />
                                                     </asp:TemplateField>
                                                     <asp:BoundField DataField="wowi_product_type_name" HeaderText="Certification Type">
                                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />

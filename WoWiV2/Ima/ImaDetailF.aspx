@@ -355,7 +355,50 @@
                             <td class="tdRowName">
                                 Local Rep. Service：
                             </td>
-                            <td class="tdRowValue"><asp:Label ID="lblLocalRep" runat="server" Text="No"></asp:Label></td>
+                            <td class="tdRowValue">
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td><asp:Label ID="lblLocalRep" runat="server" Text="No"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:GridView ID="gvFile7" runat="server" SkinID="gvList" DataKeyNames="FileID" DataSourceID="sdsFile7">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="NO">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                        <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FileName">
+                                                        <ItemTemplate>
+                                                            <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "File.ashx?fid="+Eval("FileID").ToString() %>'
+                                                                Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" />
+                                                        <ItemStyle HorizontalAlign="Left" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
+                                            <asp:SqlDataSource ID="sdsFile7" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='G'">
+                                                <SelectParameters>
+                                                    <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
+                                                    <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
+                                                </SelectParameters>
+                                            </asp:SqlDataSource>
+                                        </td>
+                                    </tr>
+                                </table>                                
+                            </td>
                         </tr>
                         <tr>
                             <td class="tdRowName">

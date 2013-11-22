@@ -601,17 +601,130 @@
                                                                 <act:ValidatorCalloutExtender ID="vceLocalRepFee" runat="server" TargetControlID="revLocalRepFee">
                                                                 </act:ValidatorCalloutExtender>
                                                             </td>
-                                                            <td style="padding-left:20px;">
+                                                            <%--<td style="padding-left:20px;">
                                                                 <table border="0" cellpadding="0" cellspacing="0">
                                                                     <tr>
                                                                         <td>Remark：</td>
                                                                         <td><asp:TextBox ID="tbLocalRepRemark" runat="server" TextMode="MultiLine" Rows="2" Width="230px"></asp:TextBox></td>
                                                                     </tr>
                                                                 </table>
-                                                            </td>
+                                                            </td>--%>
                                                         </tr>
                                                     </table>
                                                 </asp:Panel>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <table border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>Sample can be returned by agent：</td>
+                                                        <td>
+                                                            <asp:RadioButtonList ID="rblSampleReturn" runat="server" RepeatDirection="Horizontal" >
+                                                                <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                                                <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
+                                                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
+                                                            </asp:RadioButtonList>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <table border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>Sample return shipping costs and delivery schedules：</td>
+                                                        <td>
+                                                            <asp:RadioButtonList ID="rblPayBy" runat="server" RepeatDirection="Horizontal" >
+                                                                <asp:ListItem Text="Pay by WoWi" Value="WoWi"></asp:ListItem>
+                                                                <asp:ListItem Text="Pay by Agent" Value="Agent"></asp:ListItem>
+                                                            </asp:RadioButtonList>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <table border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td valign="top">Remark：</td>
+                                                        <td>
+                                                            <asp:TextBox ID="tbLocalRepRemark" runat="server" TextMode="MultiLine" Rows="2" Width="500px"></asp:TextBox>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                    <tr>
+                                                        <td>
+                                                            1.<asp:FileUpload ID="FileUpload26" runat="server" Width="90%" /><br />
+                                                            2.<asp:FileUpload ID="FileUpload27" runat="server" Width="90%" /><br />
+                                                            3.<asp:FileUpload ID="FileUpload28" runat="server" Width="90%" /><br />
+                                                            4.<asp:FileUpload ID="FileUpload29" runat="server" Width="90%" /><br />
+                                                            5.<asp:FileUpload ID="FileUpload30" runat="server" Width="90%" />
+                                                            <asp:UpdatePanel ID="upFile7" runat="server" UpdateMode="Conditional">
+                                                                <ContentTemplate>
+                                                                    <asp:GridView ID="gvFile7" runat="server" SkinID="gvList" DataKeyNames="FileID" DataSourceID="sdsFile7">
+                                                                        <Columns>
+                                                                            <asp:TemplateField ShowHeader="False">
+                                                                                <ItemTemplate>
+                                                                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
+                                                                                        Text="Delete" OnClientClick="return confirm('Delete？')"></asp:LinkButton>
+                                                                                </ItemTemplate>
+                                                                                <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                                                <ItemStyle HorizontalAlign="Center" />
+                                                                            </asp:TemplateField>
+                                                                            <asp:TemplateField HeaderText="Copy to">
+                                                                                <ItemTemplate>
+                                                                                    <asp:CheckBox ID="chSelCopy" runat="server" Checked="true" />
+                                                                                </ItemTemplate>
+                                                                                <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                                                <ItemStyle HorizontalAlign="Center" />
+                                                                            </asp:TemplateField>
+                                                                            <asp:TemplateField HeaderText="NO" Visible="false">
+                                                                                <ItemTemplate>
+                                                                                    <%#Container.DataItemIndex+1 %>
+                                                                                </ItemTemplate>
+                                                                                <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                                                <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                                            </asp:TemplateField>
+                                                                            <asp:TemplateField HeaderText="FileName">
+                                                                                <ItemTemplate>
+                                                                                    <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "File.ashx?fid="+Eval("FileID").ToString() %>'
+                                                                                        Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                                                                </ItemTemplate>
+                                                                                <HeaderStyle Font-Bold="False" />
+                                                                                <ItemStyle HorizontalAlign="Left" />
+                                                                            </asp:TemplateField>
+                                                                            <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                                                <ItemTemplate>
+                                                                                    <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                                                </ItemTemplate>
+                                                                                <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                                                <ItemStyle HorizontalAlign="Center" />
+                                                                            </asp:TemplateField>
+                                                                        </Columns>
+                                                                    </asp:GridView>
+                                                                    <asp:SqlDataSource ID="sdsFile7" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                                        DeleteCommand="DELETE FROM [Ima_Files] WHERE [FileID] = @FileID" SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='G'">
+                                                                        <DeleteParameters>
+                                                                            <asp:Parameter Name="FileID" Type="Int32" />
+                                                                        </DeleteParameters>
+                                                                        <SelectParameters>
+                                                                            <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
+                                                                            <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
+                                                                        </SelectParameters>
+                                                                    </asp:SqlDataSource>
+                                                                </ContentTemplate>
+                                                            </asp:UpdatePanel>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                             </td>
                                         </tr>
                                     </table>

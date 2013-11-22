@@ -95,6 +95,14 @@ public partial class Ima_ImaDetailF : System.Web.UI.Page
                 //if (dt.Rows[0]["LocalRep"].ToString().Trim().ToLower() == "true") { lblLocalRep.Text = "Yes"; }
                 lblLocalRep.Text = dt.Rows[0]["LocalRep"].ToString();
                 if (dt.Rows[0]["LocalRepFee"].ToString().Trim().Length > 0) { lblLocalRep.Text += "  ；  Local Rep. Service fee：" + dt.Rows[0]["LocalRepFee"].ToString().Trim() + " USD"; }
+                if (dt.Rows[0]["SampleReturn"].ToString().Trim().Length > 0) 
+                {
+                    lblLocalRep.Text += "<br>Sample can be returned by agent：" + dt.Rows[0]["SampleReturn"].ToString();
+                }
+                if (dt.Rows[0]["SampleReturnPayBy"].ToString().Trim().Length > 0)
+                {
+                    lblLocalRep.Text += "<br>Sample return shipping costs and delivery schedules：Pay by " + dt.Rows[0]["SampleReturnPayBy"].ToString();
+                }
                 if (dt.Rows[0]["LocalRepRemark"].ToString().Trim().Length > 0) { lblLocalRep.Text += "<br>Remark：" + dt.Rows[0]["LocalRepRemark"].ToString().Trim(); }
 
                 foreach (ListItem li in cbProductType.Items)
