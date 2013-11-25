@@ -584,7 +584,7 @@
                                                     RepeatDirection="Horizontal" AutoPostBack="true" 
                                                     onselectedindexchanged="rblLocalRep_SelectedIndexChanged">
                                                     <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                                    <asp:ListItem Text="NO" Value="NO" Selected="True"></asp:ListItem>
+                                                    <asp:ListItem Text="No" Value="No" Selected="True"></asp:ListItem>
                                                     <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                                 </asp:RadioButtonList>
                                             </td>
@@ -622,7 +622,7 @@
                                                         <td>
                                                             <asp:RadioButtonList ID="rblSampleReturn" runat="server" RepeatDirection="Horizontal" >
                                                                 <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                                                <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
+                                                                <asp:ListItem Text="No" Value="No"></asp:ListItem>
                                                                 <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                                             </asp:RadioButtonList>
                                                         </td>
