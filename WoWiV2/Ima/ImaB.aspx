@@ -38,7 +38,7 @@
                         </tr>
                         <tr>
                             <td class="tdRowName">
-                                Full Authority Name：
+                                Authority FullName：
                             </td>
                             <td class="tdRowValue">
                                 <asp:Label ID="lblFullAuthorityNameS" runat="server" ></asp:Label>
@@ -46,10 +46,27 @@
                         </tr>
                         <tr>
                             <td class="tdRowName">
-                                Abbreviated Authority Name：
+                                Authority Name：
                             </td>
                             <td class="tdRowValue">
                                 <asp:Label ID="lblAbbreviatedAuthorityNameS" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdRowName">
+                                Mandatory or Voluntary：
+                            </td>
+                            <td class="tdRowValue">
+                                <asp:Label ID="lblMandatoryS" runat="server" ></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdRowName">
+                                Certificate is valid for<br />
+                                Single Importer / Any Importer：
+                            </td>
+                            <td class="tdRowValue">
+                                <asp:Label ID="lblCertificateValidS" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -116,7 +133,7 @@
                         </tr>
                         <tr>
                             <td class="tdRowName">
-                                Full Authority Name：
+                                Authority FullName：
                             </td>
                             <td class="tdRowValue">
                                 <asp:Label ID="lblFullAuthorityName" runat="server" ></asp:Label>
@@ -124,7 +141,7 @@
                         </tr>
                         <tr>
                             <td class="tdRowName">
-                                Abbreviated Authority Name：
+                                Authority Name：
                             </td>
                             <td class="tdRowValue">
                                 <asp:Label ID="lblAbbreviatedAuthorityName" runat="server"></asp:Label>

@@ -61,8 +61,15 @@ public partial class Ima_ImaB : System.Web.UI.Page
                 lblAbbreviatedAuthorityName.Text = dt.Rows[0]["AbbreviatedAuthorityName"].ToString();
                 lblAbbreviatedAuthorityNameS.Text = lblAbbreviatedAuthorityName.Text;
                 lblWebsite.Text = dt.Rows[0]["Website"].ToString();
-                lblMandatory.Text = dt.Rows[0]["Mandatory"].ToString();
-                lblCertificateValid.Text = dt.Rows[0]["CertificateValid"].ToString();
+                lblMandatory.Text = lblMandatoryS.Text = dt.Rows[0]["Mandatory"].ToString();
+                if (dt.Rows[0]["CertificateValid"].ToString() != "N/A")
+                {
+                    lblCertificateValid.Text = lblCertificateValidS.Text = dt.Rows[0]["CertificateValid"].ToString() + " Importer";
+                }
+                else 
+                {
+                    lblCertificateValid.Text = lblCertificateValidS.Text = dt.Rows[0]["CertificateValid"].ToString();
+                }
                 if (dt.Rows[0]["CertificateValid"].ToString() != "N/A")
                 {
                     lblCertificateValid.Text += " Importer";
