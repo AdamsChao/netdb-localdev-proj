@@ -159,7 +159,7 @@
                     </tr>
                     <tr>
                         <td class="tdRowName" valign="top">
-                            Samples can be returned：
+                            Samples can be returned from Authority：
                         </td>
                         <td class="tdRowValue">
                             <asp:Label ID="lblReturned" runat="server"></asp:Label>
