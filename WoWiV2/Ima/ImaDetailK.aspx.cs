@@ -69,6 +69,7 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
                     
                 }
                 lblEUTInfoS.Text = lblEUTInfo.Text;
+                lblManualS.Text = lblManual.Text;
                 //cbFCCTest.Checked = Convert.ToBoolean(dt.Rows[0]["FCCTest"]);
                 //cbFCCCertificate.Checked = Convert.ToBoolean(dt.Rows[0]["FCCCertificate"]);
                 //cbCETest.Checked = Convert.ToBoolean(dt.Rows[0]["CETest"]);
