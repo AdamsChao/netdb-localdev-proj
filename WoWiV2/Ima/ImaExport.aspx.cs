@@ -634,6 +634,9 @@ public partial class Ima_ImaExport : System.Web.UI.Page
                                 case "5":
                                 case "6":
                                 case "7":
+                                case "9":
+                                case "10":
+                                case "11":
                                     //CountryID篩選
                                     dv = dsTech.Tables[Convert.ToInt32(strValue.Split('／')[1])].DefaultView;
                                     dv.RowFilter = "country_id=" + strCountryID;
