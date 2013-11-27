@@ -67,7 +67,8 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
                     if (lblEUTInfo.Text.Trim().Length == 0) { lblManual.Text = "User Manual In " + dt.Rows[0]["Manual"].ToString() + " Language"; }
                     else { lblManual.Text = "<br>User Manual In " + dt.Rows[0]["Manual"].ToString() + " Language"; }
                     
-                }                
+                }
+                lblEUTInfoS.Text = lblEUTInfo.Text;
                 //cbFCCTest.Checked = Convert.ToBoolean(dt.Rows[0]["FCCTest"]);
                 //cbFCCCertificate.Checked = Convert.ToBoolean(dt.Rows[0]["FCCCertificate"]);
                 //cbCETest.Checked = Convert.ToBoolean(dt.Rows[0]["CETest"]);

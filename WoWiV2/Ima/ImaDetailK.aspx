@@ -62,6 +62,17 @@
                         </tr>
                         <tr>
                             <td class="tdRowName" valign="top">
+                                EUT Info：
+                            </td>
+                            <td class="tdRowValue">
+                                <asp:Label ID="lblEUTInfoS" runat="server"></asp:Label>
+                                <%--<asp:CheckBox ID="cbBW" runat="server" Text="Sales Brochure (B/W)" Enabled="false" />
+                                <asp:CheckBox ID="cbColor" runat="server" Text="Sales Brochure (Color)" Enabled="false" /><br />--%>
+                                <asp:Label ID="lblManualS" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdRowName" valign="top">
                                 Test Report/Certification：
                             </td>
                             <td class="tdRowValue" align="left">
