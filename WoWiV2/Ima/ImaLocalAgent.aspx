@@ -639,6 +639,7 @@
                                                             <asp:RadioButtonList ID="rblPayBy" runat="server" RepeatDirection="Horizontal" >
                                                                 <asp:ListItem Text="Pay by WoWi" Value="WoWi"></asp:ListItem>
                                                                 <asp:ListItem Text="Pay by Agent" Value="Agent"></asp:ListItem>
+                                                                <asp:ListItem Text="N/A" Value="N/A"></asp:ListItem>
                                                             </asp:RadioButtonList>
                                                         </td>
                                                     </tr>
