@@ -151,7 +151,7 @@
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" Width="140px" />
                                                         <ItemStyle HorizontalAlign="Center" Width="140px" />
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Full Authority Name">
+                                                    <asp:TemplateField HeaderText="Authority FullName">
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblFullAuthorityName" runat="server" Text='<%#Eval("FullAuthorityName") %>'></asp:Label>
                                                         </ItemTemplate>

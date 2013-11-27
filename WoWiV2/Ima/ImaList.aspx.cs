@@ -36,7 +36,7 @@ public partial class Ima_ImaList : System.Web.UI.Page
             ddlDocCategory.Items.RemoveAt(3);
             //ddlDocCategory.Items.RemoveAt(1);
             gvImaGover.Columns[2].Visible = false;
-            gvImaGover.Columns[3].Visible = false;
+            //gvImaGover.Columns[3].Visible = false;
             gvJ.Columns[1].Visible = false;
             gvJ.Columns[2].Visible = false;
             gvK.Columns[4].Visible = false;
