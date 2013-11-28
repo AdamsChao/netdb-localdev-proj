@@ -146,11 +146,10 @@
                 </table>
               </td>
               <td>
-                Add. 3F., No.79, Zhouzi St., Neihu Dist., Taipei City 114, Taiwan (R.O.C.)
+                WoWi Approval Services, Inc.<br /> Add. 3F., No.79, Zhouzi St., Neihu Dist., 
+                Taipei City 114, Taiwan (R.O.C.)
                 <br />
                 Tel. +886-2799-8382 Fax. +886-2799-8387
-                <br />
-                地址. 台北市內湖區洲子街79號3樓
                 <br />
                 http://www.WoWiApproval.com
               </td>
