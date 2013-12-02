@@ -50,13 +50,14 @@ public partial class Ima_ImaDetailP : System.Web.UI.Page
             if (dt.Rows.Count > 0)
             {
                 //rblRequirement.SelectedValue = dt.Rows[0]["Requirement"].ToString();
-                lblRequirement.Text = dt.Rows[0]["Requirement"].ToString();
+                lblRequirement.Text = lblRequirementS.Text = dt.Rows[0]["Requirement"].ToString();
                 if (dt.Rows[0]["RequirementDesc"].ToString().Trim().Length > 0) { lblRequirementDesc.Text = "Remark：" + dt.Rows[0]["RequirementDesc"].ToString(); }
+                lblRequirementDescS.Text = lblRequirementDesc.Text;
                 //cbPrint.Checked = Convert.ToBoolean(dt.Rows[0]["Print"]);
                 //cbPurchase.Checked = Convert.ToBoolean(dt.Rows[0]["Purchase"]);
                 //cbManufacturer.Checked = Convert.ToBoolean(dt.Rows[0]["Manufacturer"]);
                 //cbImportation.Checked = Convert.ToBoolean(dt.Rows[0]["Importation"]);
-                if (Convert.ToBoolean(dt.Rows[0]["Print"])) { lblPrint.Text = "Labels can be self-printed"; }
+                if (Convert.ToBoolean(dt.Rows[0]["Print"])) { lblPrint.Text = "Labels can be self-printed"; }                
                 if (Convert.ToBoolean(dt.Rows[0]["Purchase"])) 
                 {
                     if (lblPrint.Text.Trim().Length == 0) { lblPrint.Text = "Labels need to be purchase from authority"; }
@@ -77,12 +78,13 @@ public partial class Ima_ImaDetailP : System.Web.UI.Page
                     if (lblPrint.Text.Trim().Length == 0) { lblLabelsDesc.Text = dt.Rows[0]["LabelsDesc"].ToString(); }
                     else { lblLabelsDesc.Text = "Remark：" + dt.Rows[0]["LabelsDesc"].ToString(); }
                 }
-                
+                lblPrintS.Text = lblPrint.Text;
+                lblLabelsDescS.Text = lblLabelsDesc.Text;
                 //rbtnYes.Checked = Convert.ToBoolean(dt.Rows[0]["Required"]);
                 //rbtnNo.Checked = Convert.ToBoolean(dt.Rows[0]["Required"]);
                 //lblYear.Text = dt.Rows[0]["Year"].ToString();
                 //lblMonth.Text = dt.Rows[0]["Month"].ToString();
-                lblRequiredDesc.Text = dt.Rows[0]["RequiredDesc"].ToString();
+                lblRequiredDesc.Text = lblRequiredDescS.Text = dt.Rows[0]["RequiredDesc"].ToString();
                 //rblProduct.SelectedValue = Convert.ToInt32(dt.Rows[0]["Product"]).ToString();
                 //if (Convert.ToInt32(dt.Rows[0]["Product"]) == 1) { lblProduct.Text = "Yes"; }
                 //else { lblProduct.Text = "No"; }
@@ -139,7 +141,7 @@ public partial class Ima_ImaDetailP : System.Web.UI.Page
                 //rblRequired.SelectedValue = Convert.ToInt32(dt.Rows[0]["Required"]).ToString();
                 //if (Convert.ToInt32(dt.Rows[0]["Required"]) == 1) { lblRequired.Text = "Yes"; }
                 //else { lblRequired.Text = "No"; }
-                lblRequired.Text = dt.Rows[0]["Required"].ToString();
+                lblRequired.Text = lblRequiredS.Text = dt.Rows[0]["Required"].ToString();
                 if (dt.Rows[0]["CostTest1"].ToString() != "")
                 {
                     lblCost1.Text = dt.Rows[0]["CostTest1"].ToString() + "&nbsp;&nbsp;USD";
@@ -166,8 +168,8 @@ public partial class Ima_ImaDetailP : System.Web.UI.Page
                 {
                     if (dt.Rows[0]["Month"].ToString() != "") { lblYearMonth.Text = dt.Rows[0]["Month"].ToString() + "&nbsp;&nbsp;month(s)"; }
                 }
-                else { if (dt.Rows[0]["Month"].ToString() != "") { lblYearMonth.Text += "，" + dt.Rows[0]["Month"].ToString() + "&nbsp;&nbsp;month(s)"; } }                
-                lblRemark.Text = dt.Rows[0]["Remark"].ToString();
+                else { if (dt.Rows[0]["Month"].ToString() != "") { lblYearMonth.Text += "，" + dt.Rows[0]["Month"].ToString() + "&nbsp;&nbsp;month(s)"; } }
+                lblRemark.Text = lblRemarkS.Text = dt.Rows[0]["Remark"].ToString();
                 lblRequiredDoc.Text = dt.Rows[0]["RequiredDoc"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();

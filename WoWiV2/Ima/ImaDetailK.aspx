@@ -166,6 +166,14 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="tdRowName" valign="top">
+                                Remark：
+                            </td>
+                            <td class="tdRowValue">
+                                <asp:Label ID="lblRemarkS" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="2" align="center" class="tdFooter">
                             </td>
                         </tr>

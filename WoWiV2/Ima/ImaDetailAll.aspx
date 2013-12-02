@@ -204,21 +204,21 @@
                                         <td colspan="2" class="tdHeader">Government Authority Detail</td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowName">Full Authority Name：</td>
+                                        <td class="tdRowName">Authority FullName：</td>
                                         <td class="tdRowValue">
                                             <asp:Label ID="lblGovernmentAuthorityID" runat="server" Text='<%#Eval("GovernmentAuthorityID") %>' Visible="false"></asp:Label>
                                             <asp:Label ID="lblFullAuthorityName" runat="server" Text='<%#Eval("FullAuthorityName") %>'></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tdRowName">Abbreviated Authority Name：</td>
+                                        <td class="tdRowName">Authority Name：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblAbbreviatedAuthorityName" runat="server" Text='<%#Eval("AbbreviatedAuthorityName") %>'></asp:Label></td>
                                     </tr>
                                     <tr id="trWebsite" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                         <td class="tdRowName">Website：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblWebsite" runat="server" Text='<%#Eval("Website") %>'></asp:Label></td>
                                     </tr>
-                                    <tr id="trMandatory" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                    <tr id="trMandatory" runat="server">
                                         <td class="tdRowName">Mandatory or Voluntary：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblMandatory" runat="server" Text='<%#Eval("Mandatory") %>'></asp:Label></td>
                                     </tr>
@@ -329,7 +329,7 @@
                                             </asp:SqlDataSource>
                                         </td>
                                     </tr>
-                                    <tr id="trCertificateValid" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                    <tr id="trCertificateValid" runat="server">
                                         <td class="tdRowName">Certificate is valid for<br />Single Importer / Any Importer：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblCertificateValid" runat="server" Text='<%#Eval("CertificateValid1") %>'></asp:Label></td>
                                     </tr>
@@ -2389,7 +2389,7 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr id="trEUTInfo" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                    <tr id="trEUTInfo" runat="server">
                                         <td class="tdRowName" valign="top">EUT Info：</td>
                                         <td class="tdRowValue">
                                             <asp:Label ID="lblEUTInfo" runat="server" Text='<%#Eval("EUTInfo")%>'></asp:Label>
@@ -2533,7 +2533,7 @@
                                             <asp:Label ID="lblTestNote" runat="server" Text='<%#Eval("TestNote1")%>'></asp:Label>
                                         </td>
                                     </tr>
-                                    <tr id="trRemark" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                    <tr id="trRemark" runat="server">
                                         <td class="tdRowName" valign="top">Remark：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblRemark" runat="server" Text='<%#Eval("Remark")%>'></asp:Label></td>
                                     </tr>
@@ -2917,10 +2917,10 @@
                                                         <asp:Label ID="lblPostID" runat="server" Text='<%#Eval("PostID")%>' Visible="false"></asp:Label>
                                                     </td>
                                                 </tr>
-                                                <tr id="trRequirementDesc" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                                <tr id="trRequirementDesc" runat="server">
                                                     <td><asp:Label ID="lblRequirementDesc" runat="server" Text='<%#Eval("RequirementDesc1").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr id="trRequirementFile" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                                <tr id="trRequirementFile" runat="server">
                                                     <td>
                                                         <asp:GridView ID="gvImaPFile1" runat="server" SkinID="gvList" DataKeyNames="PostFileID" DataSourceID="sdsImaPFile1">
                                                             <Columns>
@@ -2956,19 +2956,19 @@
                                                         </asp:SqlDataSource>
                                                     </td>
                                                 </tr>
-                                                <tr id="trPrint" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                                <tr id="trPrint" runat="server">
                                                     <td><asp:Label ID="lblPrint" runat="server" Text='<%#Eval("Print1")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr id="trPurchase" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                                <tr id="trPurchase" runat="server">
                                                     <td><asp:Label ID="lblPurchase" runat="server" Text='<%#Eval("Purchase1")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr id="trManufacturer" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                                <tr id="trManufacturer" runat="server">
                                                     <td><asp:Label ID="lblManufacturer" runat="server" Text='<%#Eval("Manufacturer1")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr id="trImportation" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                                <tr id="trImportation" runat="server">
                                                     <td><asp:Label ID="lblImportation" runat="server" Text='<%#Eval("Importation1")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr id="trLabelsDesc" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                                <tr id="trLabelsDesc" runat="server">
                                                     <td><asp:Label ID="lblLabelsDesc" runat="server" Text='<%#Eval("LabelsDesc1").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                                 </tr>
                                             </table>
@@ -3044,14 +3044,14 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr id="trWarningStatement" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                    <tr>
                                         <td class="tdRowName" valign="top">Warning Statement：</td>
                                         <td class="tdRowValue" align="left">
                                             <table border="0" cellpadding="0" cellspacing="0">
                                                 <tr>
                                                     <td><asp:Label ID="lblRequiredDesc" runat="server" Text='<%#Eval("RequiredDesc").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trWarningStatement" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
                                                     <td>
                                                         <asp:GridView ID="gvImaPFile3" runat="server" SkinID="gvList" DataKeyNames="PostFileID" DataSourceID="sdsImaPFile3">
                                                             <Columns>
@@ -3094,7 +3094,7 @@
                                         <td class="tdRowName" valign="top">Renewal：</td>
                                         <td class="tdRowValue" align="left"><asp:Label ID="lblRenewal" runat="server" Text='<%#Eval("Renewal")%>'></asp:Label></td>
                                     </tr>
-                                    <tr id="trRequired" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                    <tr id="trRequired" runat="server">
                                         <td class="tdRowName" valign="top">Test Required：</td>
                                         <td class="tdRowValue" align="left"><asp:Label ID="lblRequired" runat="server" Text='<%#Eval("Required")%>'></asp:Label></td>
                                     </tr>
@@ -3128,7 +3128,7 @@
                                         <td class="tdRowName" valign="top">Renewal Required Document：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblRequiredDoc" runat="server" Text='<%#Eval("RequiredDoc").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                     </tr>
-                                    <tr id="trLabelRenewalRemark" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                    <tr id="trLabelRenewalRemark" runat="server">
                                         <td class="tdRowName" valign="top">Remark：</td>
                                         <td class="tdRowValue"><asp:Label ID="lblRemark" runat="server" Text='<%#Eval("Remark").ToString().Replace(Convert.ToChar(10).ToString(), "<br>")%>'></asp:Label></td>
                                     </tr>

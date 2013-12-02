@@ -251,8 +251,8 @@ public partial class Ima_ImaDetailK : System.Web.UI.Page
                 if (dt.Rows[0]["TestMarkRemark"].ToString().Trim().Length > 0) { lblTestMarkRemark.Text = "<br>Remark：" + dt.Rows[0]["TestMarkRemark"].ToString(); }
                 
                 //if (dt.Rows[0]["BOM1"] != DBNull.Value) { cbBOM1.Checked = Convert.ToBoolean(dt.Rows[0]["BOM1"]); } 
-                
-                lblRemark.Text = dt.Rows[0]["Remark"].ToString();
+
+                lblRemark.Text = lblRemarkS.Text = dt.Rows[0]["Remark"].ToString();
                 lblProType.Text = dt.Rows[0]["wowi_product_type_id"].ToString();
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);

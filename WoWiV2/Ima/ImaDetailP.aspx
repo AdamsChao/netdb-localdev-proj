@@ -39,7 +39,67 @@
                                 Label Requirement：
                             </td>
                             <td class="tdRowValue">
-                                <asp:Label ID="lblRequirementS" runat="server"></asp:Label>
+                                <table border="0" cellpadding="0" cellspacing="0" align="left">
+                                    <tr>
+                                        <td><asp:Label ID="lblRequirementS" runat="server"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:Label ID="lblRequirementDescS" runat="server"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:GridView ID="gvFile1S" runat="server" SkinID="gvList" DataKeyNames="PostFileID"
+                                                DataSourceID="sdsFile1S">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="NO">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" Width="30px" HorizontalAlign="Center" />
+                                                        <ItemStyle Width="30px" HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FileName">
+                                                        <ItemTemplate>
+                                                            <asp:HyperLink ID="hlGeneralFileName" runat="server" NavigateUrl='<%# "PostFile.ashx?fid="+Eval("PostFileID").ToString() %>'
+                                                                Text='<%# Eval("FileName").ToString()+"."+Eval("FileType").ToString() %>' Target="_self"></asp:HyperLink>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" />
+                                                        <ItemStyle HorizontalAlign="Left" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FileURL" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblFileURL" runat="server" Text='<%#Eval("FileURL")%>'></asp:Label>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
+                                            <asp:SqlDataSource ID="sdsFile1S" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+                                                DeleteCommand="DELETE FROM [Ima_Post_Files] WHERE [PostFileID] = @PostFileID"
+                                                SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='A'">
+                                                <DeleteParameters>
+                                                    <asp:Parameter Name="PostFileID" Type="Int32" />
+                                                </DeleteParameters>
+                                                <SelectParameters>
+                                                    <asp:QueryStringParameter Name="PostID" QueryStringField="pcid" Type="Int32" />
+                                                </SelectParameters>
+                                            </asp:SqlDataSource>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:Label ID="lblPrintS" runat="server"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:Label ID="lblLabelsDescS" runat="server"></asp:Label>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                         <tr>
@@ -67,11 +127,25 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="tdRowName" valign="top">Warning Statement：</td>
+                            <td class="tdRowValue" align="left">
+                                <asp:Label ID="lblRequiredDescS" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="tdRowName" valign="top">
                                 Renewal：
                             </td>
                             <td class="tdRowValue" align="left">
                                 <asp:Label ID="lblRenewalS" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdRowName" valign="top">
+                                Test Required：
+                            </td>
+                            <td class="tdRowValue" align="left">
+                                <asp:Label ID="lblRequiredS" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -88,6 +162,14 @@
                             </td>
                             <td class="tdRowValue">
                                 <asp:Label ID="lblRequiredDocS" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdRowName" valign="top">
+                                Remark：
+                            </td>
+                            <td class="tdRowValue">
+                                <asp:Label ID="lblRemarkS" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
