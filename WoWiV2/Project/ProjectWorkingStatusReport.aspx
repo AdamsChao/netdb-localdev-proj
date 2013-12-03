@@ -171,10 +171,10 @@ Order by Project.Project_Id Desc">
                 </table>
               </td>
               <td>
-                WoWi Approval Services, Inc.<br /> Add. 3F., No.79, Zhouzi St., Neihu Dist., 
+                <B>WoWi Approval Services, Inc.</B><br /> Add: 3F., No.79, Zhouzi St., Neihu Dist., 
                 Taipei City 114, Taiwan (R.O.C.)
                 <br />
-                Tel. +886-2799-8382 Fax. +886-2799-8387
+                Tel: +886-2799-8382 Fax: +886-2799-8387
                 <br />
                 http://www.WoWiApproval.com
               </td>
