@@ -221,7 +221,7 @@
                         <td class="tdRowValue">
                             <asp:CheckBox ID="cbBW" runat="server" Text="Sales Brochure (B/W)" />
                             <asp:CheckBox ID="cbColor" runat="server" Text="Sales Brochure (Color)" /><br />
-                            User Manual In <asp:TextBox ID="tbManual" runat="server" Width="300px"></asp:TextBox> Language
+                            User Manual in <asp:TextBox ID="tbManual" runat="server" Width="300px"></asp:TextBox> language
                         </td>
                     </tr>
                     <tr>
@@ -335,17 +335,17 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Technical Spec In <asp:TextBox ID="tbTechnical" runat="server" Width="300px"></asp:TextBox> Language
+                                        Technical Spec in <asp:TextBox ID="tbTechnical" runat="server" Width="300px"></asp:TextBox> language
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Antenna Spec In <asp:TextBox ID="tbAntenna" runat="server" Width="300px"></asp:TextBox> Language
+                                        Antenna Spec in <asp:TextBox ID="tbAntenna" runat="server" Width="300px"></asp:TextBox> language
                                     </td>
                                 </tr>
                                 <tr id="trBOM" runat="server" visible="false">
                                     <td>
-                                        BOM In <asp:TextBox ID="tbBOM" runat="server" Width="300px"></asp:TextBox>
+                                        BOM in <asp:TextBox ID="tbBOM" runat="server" Width="300px"></asp:TextBox>
                                     </td>
                                 </tr>
                             </table>
@@ -359,9 +359,9 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="cbOfficial" runat="server" Text="Official Application Form" /> in <asp:TextBox ID="tbOfficialLanguage" runat="server"></asp:TextBox> Language<br />
+                                        <asp:CheckBox ID="cbOfficial" runat="server" Text="Official Application Form" /> in <asp:TextBox ID="tbOfficialLanguage" runat="server"></asp:TextBox> language<br />
                                         <asp:CheckBox ID="cbWoWiRequest" runat="server" Text="WoWi Request Letter" /><br />
-                                        <asp:CheckBox ID="cbISO" runat="server" Text="ISO/Quality Documents" /> in <asp:TextBox ID="tbISOLanguage" runat="server"></asp:TextBox> Language
+                                        <asp:CheckBox ID="cbISO" runat="server" Text="ISO/Quality Documents" /> in <asp:TextBox ID="tbISOLanguage" runat="server"></asp:TextBox> language
                                     </td>
                                 </tr>
                                 <tr>
