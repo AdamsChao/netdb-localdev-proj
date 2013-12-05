@@ -169,7 +169,7 @@
                         var data = from a in db.m_employee_accesslevel where a.employee_id == eid && a.accesslevel_id == vaid select a;
                         if (data.Count() != 0)
                         {
-                            list = db.contact_info.Where(c => c.department_id == vaid);
+                          list = db.contact_info.Where(c => c.department_id == vaid).OrderBy(c=>c.c_fname);
                         }
                     }
                     catch (Exception)
@@ -189,7 +189,7 @@
                         var data = from a in db.m_employee_accesslevel where a.employee_id == eid && a.accesslevel_id == vaid select a;
                         if (data.Count() != 0)
                         {
-                            list = db.contact_info.Where(c => c.department_id == vaid);
+                          list = db.contact_info.Where(c => c.department_id == vaid).OrderBy(c => c.c_fname);
                         }
                     }
                     catch (Exception)
@@ -200,7 +200,7 @@
                 }
                 else
                 {
-                    list = db.contact_info;
+                  list = db.contact_info.OrderBy(c => c.c_fname);
                 }
                 if (list != null)
                 {
@@ -251,8 +251,8 @@
                         var item = new ListItem(String.Format("{0}", fullname), con.id + "");
                         if (lbSelectedContacts.Items.Contains(item) == false)
                         {
-                            lb.Items.Add(item);
-                        }
+                            lb.Items.Add(item);                          
+                        }                      
                     }
                 }
 
@@ -269,7 +269,7 @@
                         var list = from c in data where c.vender_id == id select c.contact_id;
                         foreach (var i in list)
                         {
-                            var con = (from k in db.contact_info where k.id == i select k).First();
+                            var con = (from k in db.contact_info where k.id == i orderby k.c_fname select k).First();
                             String fname = con.c_fname;
                             String lname = con.c_lname;
                             bool flag = true;
@@ -337,7 +337,7 @@
                         var list = from c in data where c.clientappliant_id == id select c.contact_id;
                         foreach (var i in list)
                         {
-                            var con = (from k in db.contact_info where k.id == i select k).First();
+                          var con = (from k in db.contact_info where k.id == i orderby k.c_fname select k).First();
                             String fname = con.c_fname;
                             String lname = con.c_lname;
                             bool flag = true;
