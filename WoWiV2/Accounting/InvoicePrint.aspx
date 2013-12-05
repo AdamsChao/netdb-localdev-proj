@@ -71,6 +71,7 @@
                     lblquono.Text = quotation.Quotation_No;
                     lblBillName.Text = quotation.Bill_Companyname;
                     lblBillAddress.Text = quotation.Bill_Address;
+                    lblBillCountry.Text = quotation.Bill_Country;
                     lblBillContact.Text = quotation.Bill_Name;
                     int sid = (int)quotation.SalesId;
                     try
@@ -88,6 +89,8 @@
                     lblName.Text = String.IsNullOrEmpty(client.companyname) ? client.c_companyname : client.companyname;
                     //lblBillName.Text = String.IsNullOrEmpty(client.bill_companyname) ? client.bill_ccompanyname : client.bill_companyname;
                     lblAddress.Text = String.IsNullOrEmpty(client.address) ? client.c_address : client.address;
+                    var countryname = wowidb.countries.Where(c => c.country_id == client.country_id).FirstOrDefault().country_name;
+                    lblCountry.Text = countryname;
                     //lblBillAddress.Text = String.IsNullOrEmpty(client.bill_address) ? client.bill_caddress : client.bill_address;
                     try
                     {
@@ -352,7 +355,8 @@
                 <asp:Label ID="lblBillName" runat="server" Text="lblName"></asp:Label>
                 <p>
                     Address :
-                    <asp:Label ID="lblBillAddress" runat="server" Text="lblAddress"></asp:Label></p>
+                    <asp:Label ID="lblBillAddress" runat="server" ></asp:Label>&nbsp;<asp:Label 
+                      ID="lblBillCountry" runat="server" ></asp:Label></p>
                 <p>
                     Contact :
                     <asp:Label ID="lblBillContact" runat="server" Text="lblContact"></asp:Label></p>
@@ -366,7 +370,8 @@
                 <asp:Label ID="lblName" runat="server" Text="lblName"></asp:Label>
                 <p>
                     Address :
-                    <asp:Label ID="lblAddress" runat="server" Text="lblAddress"></asp:Label></p>
+                    <asp:Label ID="lblAddress" runat="server"></asp:Label>
+                    &nbsp;<asp:Label ID="lblCountry" runat="server"></asp:Label></p>
                 <p>
                     Contact :
                     <asp:Label ID="lblContact" runat="server" Text="lblContact"></asp:Label></p>
