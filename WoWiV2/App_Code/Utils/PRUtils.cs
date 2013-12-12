@@ -436,6 +436,17 @@ public class PRUtils
             //throw;
         }
     }
+
+    public static List<int> SupervisorList = new List<int>();
+    public static void GetSupervisorByEmpID(int empId)
+    {
+     var supervisor = (from c in wowidb.employees where c.id == empId select c).First();
+     SupervisorList.Add((int)supervisor.supervisor_id);
+     if (supervisor.supervisor_id != 13) //Scott
+     {
+       GetSupervisorByEmpID((int)supervisor.supervisor_id);
+     }
+    }
 }
 
 public class Display
