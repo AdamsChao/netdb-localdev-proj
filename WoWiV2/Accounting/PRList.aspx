@@ -302,6 +302,10 @@
       {
         byte status = byte.Parse(Str);
         e.Row.Cells[10].Text = PRUtils.statusByteToString(status);
+        if (status == (byte)PRStatus.Init || status == (byte)PRStatus.Requisitioner)
+        {
+          (e.Row.FindControl("pr_report") as HyperLink).Visible = false;
+        }
 
       }
       catch (Exception)
@@ -410,20 +414,32 @@
           </EditItemTemplate>
           <ItemTemplate>
             <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/UpdatePR.aspx?id={0}") %>'>Edit</asp:HyperLink>
-            &nbsp;
-            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/PRDetails.aspx?id={0}") %>'>Details</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/PRDetails.aspx?id={0}") %>'>Details</asp:HyperLink>            
           </ItemTemplate>
         </asp:TemplateField>
-        <asp:BoundField DataField="pr_id" HeaderText="PR No" SortExpression="pr_id" ReadOnly="True" />
+        <asp:TemplateField HeaderText="PR No" SortExpression="pr_id">
+          <EditItemTemplate>
+            <asp:Label ID="Label2" runat="server" Text='<%# Eval("pr_id") %>'></asp:Label>
+          </EditItemTemplate>
+          <ItemTemplate>
+            <asp:Label ID="Label1" runat="server" Text='<%# Bind("pr_id") %>'></asp:Label>
+            <asp:HyperLink ID="pr_report" runat="server" Target="_blank"
+             NavigateUrl='<%# Bind("pr_id","~/Accounting/PRPaymentDetails.aspx?id={0}") %>'>Report</asp:HyperLink>
+          </ItemTemplate>
+        </asp:TemplateField>
         <asp:BoundField DataField="project_id" HeaderText="Project Id" SortExpression="project_id"
           ReadOnly="True" />
         <asp:BoundField DataField="quotaion_id" HeaderText="Quotation No" SortExpression="quotaion_id" />
         <asp:BoundField DataField="model" HeaderText="Model No." SortExpression="model" />
         <asp:BoundField DataField="vendor_id" HeaderText="Vender" SortExpression="vendor_id" />
         <asp:BoundField DataField="currency" HeaderText="Currency" ItemStyle-HorizontalAlign="Right"
-          SortExpression="currency" />
+          SortExpression="currency" >
+        <ItemStyle HorizontalAlign="Right" />
+        </asp:BoundField>
         <asp:BoundField DataField="total_cost" HeaderText="Total Cost" ItemStyle-HorizontalAlign="Right"
-          SortExpression="total_cost" DataFormatString="{0:F2}" />
+          SortExpression="total_cost" DataFormatString="{0:F2}" >
+        <ItemStyle HorizontalAlign="Right" />
+        </asp:BoundField>
         <asp:BoundField DataField="create_date" HeaderText="Creation Date" SortExpression="create_date"
           DataFormatString="{0:yyyy/MM/dd}" />
         <asp:BoundField DataField="target_payment_date" HeaderText="Target Payment Date"
