@@ -18,7 +18,7 @@ public partial class Ima_ImaC : System.Web.UI.Page
         }
     }
 
-    //取得資料
+    //取得資料 
     protected void LoadData()
     {
         string strID = Request["ngid"];
