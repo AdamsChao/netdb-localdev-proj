@@ -105,7 +105,8 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
     //Technology
     private void ddlTechnology_Bind()
     {
-        ddlTechnology.DataSource = CodeTableController.GetAll_wowi_tech();
+        var Techs = CodeTableController.GetAll_wowi_tech().OrderBy(n=>n.Value);
+        ddlTechnology.DataSource = Techs;
         ddlTechnology.DataTextField = "Value";
         ddlTechnology.DataValueField = "Key";
         ddlTechnology.DataBind();
