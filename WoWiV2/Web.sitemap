@@ -53,6 +53,7 @@
     <siteMapNode url="" title="Project"  description=""   >
       <siteMapNode url="~/Project/ProjectList.aspx" title="Project List"  description="" />
       <siteMapNode url="~/Project/ProjectTargetList.aspx" title="Project Target Estimate Date"  description="" />
+      <siteMapNode url="~/Project/CertificateExpirationTrackerAndExport.aspx" title="Certificate Expiration Tracker and Export"  description="" />      
       <siteMapNode url="~/Project/ProjectWorkingStatusList.aspx" title="Project Target Lists"  description="" />
       <siteMapNode url="~/Project/ProjectWorkingStatus.aspx" title="Working Status"  description="" />
       <siteMapNode url="~/Project/ProjectWorkingStatusReport.aspx" title="Internal Working Status Report"  description="" />
