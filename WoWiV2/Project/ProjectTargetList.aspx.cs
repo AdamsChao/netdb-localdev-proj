@@ -54,8 +54,8 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
     }    
     SqlDataSourceModifyTarget.UpdateParameters["Actual_Lead_time"].DefaultValue = wk.ToString();
 
-    DropDownList ddlAgent = (DropDownList)DetailsViewTarget.FindControl("DropDownListAgent");
-    SqlDataSourceModifyTarget.UpdateParameters["Agent"].DefaultValue = ddlAgent.SelectedValue;
+    //DropDownList ddlAgent = (DropDownList)DetailsViewTarget.FindControl("DropDownListAgent");
+    //SqlDataSourceModifyTarget.UpdateParameters["Agent"].DefaultValue = ddlAgent.SelectedValue;
 
     DropDownList ddlEmp = (DropDownList)DetailsViewTarget.FindControl("DropDownListEmp");
     SqlDataSourceModifyTarget.UpdateParameters["Country_Manager"].DefaultValue = ddlEmp.SelectedValue;
@@ -77,7 +77,6 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
     {
       DropDownList ddlStatus = (DropDownList)DetailsViewTarget.FindControl("ddlStatus");
       SqlDataSourceModifyTarget.UpdateParameters["Status"].DefaultValue = ddlStatus.SelectedValue;
-
     }
   }
 
@@ -114,15 +113,15 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
       Value = "0"
     });
   }
-  protected void DropDownListAgent_DataBound(object sender, EventArgs e)
-  {
-    DropDownList ddlAgent = (DropDownList)sender;
-    ddlAgent.Items.Insert(0, new ListItem()
-    {
-      Text = "Please select a Agent...",
-      Value = "0"
-    });
-  }
+  //protected void DropDownListAgent_DataBound(object sender, EventArgs e)
+  //{
+  //  DropDownList ddlAgent = (DropDownList)sender;
+  //  ddlAgent.Items.Insert(0, new ListItem()
+  //  {
+  //    Text = "Please select a Agent...",
+  //    Value = "0"
+  //  });
+  //}
   protected void DetailsViewTarget_DataBound(object sender, EventArgs e)
   {
     //處理CM
@@ -133,12 +132,12 @@ public partial class Project_ProjectTargetList : System.Web.UI.Page
       ddlEmp.SelectedValue = txtCM.Text;
     }
     //處理Agent(Vender)
-    TextBox txtAgent = (TextBox)DetailsViewTarget.FindControl("TextBoxAgent");
-    DropDownList ddlAgent = (DropDownList)DetailsViewTarget.FindControl("DropDownListAgent");
-    if (ddlAgent != null)
-    {
-      ddlAgent.SelectedValue = txtAgent.Text;
-    }
+    //TextBox txtAgent = (TextBox)DetailsViewTarget.FindControl("TextBoxAgent");
+    //DropDownList ddlAgent = (DropDownList)DetailsViewTarget.FindControl("DropDownListAgent");
+    //if (ddlAgent != null)
+    //{
+    //  ddlAgent.SelectedValue = txtAgent.Text;
+    //}
 
     //處理Status
     TextBox txtStatus = (TextBox)DetailsViewTarget.FindControl("TextBoxStatus");

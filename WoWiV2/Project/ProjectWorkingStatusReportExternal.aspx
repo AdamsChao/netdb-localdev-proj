@@ -163,33 +163,31 @@
                   OnRowDataBound="GridViewReport_RowDataBound">
                   <Columns>
                     <asp:BoundField DataField="country_name" HeaderText="Country" SortExpression="country_name" />
-                    <asp:BoundField DataField="authority_name" HeaderText="Authority" SortExpression="authority_name" />
-                    <asp:BoundField DataField="VenderName" HeaderText="Agent" SortExpression="companyname"
-                      Visible="False" />
+                    <asp:BoundField DataField="authority_name" HeaderText="Authority" SortExpression="authority_name" />                   
+                    <asp:BoundField DataField="Estimated_Lead_time" 
+                      HeaderText="Estimated Lead Time" SortExpression="Estimated_Lead_time" />
+                    <asp:BoundField HeaderText="Start Date" DataField="document_ready_to_process" DataFormatString="{0:d}" />
+                    <asp:BoundField HeaderText="Sample Received" DataField="sample_received_from_client__date" DataFormatString="{0:d}"/>
+                    <asp:BoundField DataField="certification_submit_to_authority" HeaderText="Submit to Authority / Test Lab"
+                      SortExpression="certification_submit_to_authority" 
+                      DataFormatString="{0:d}" />
                     <asp:TemplateField HeaderText="Test Started" SortExpression="test_started">
                       <ItemTemplate>
-                        <asp:Label ID="LabelTestDate" runat="server" Text='<%# Bind("test_started", "{0:d}") %>'></asp:Label>
-                      </ItemTemplate>
-                      <EditItemTemplate>
-                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("test_started") %>'></asp:TextBox>
-                      </EditItemTemplate>
+                        <asp:Label ID="LabelTestDate" runat="server" 
+                          Text='<%# Bind("test_started", "{0:d}") %>'></asp:Label>
+                      </ItemTemplate>                      
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Est. Completed" SortExpression="test_completed">
+                    <asp:TemplateField HeaderText="Est. Test Completed" 
+                      SortExpression="test_completed">
                       <ItemTemplate>
-                        <asp:Label ID="LabelEstDate" runat="server" Text='<%# Bind("test_completed", "{0:d}") %>'></asp:Label>
-                      </ItemTemplate>
-                      <EditItemTemplate>
-                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("test_completed") %>'></asp:TextBox>
-                      </EditItemTemplate>
+                        <asp:Label ID="LabelEstDate" runat="server" 
+                          Text='<%# Bind("test_completed", "{0:d}") %>'></asp:Label>
+                      </ItemTemplate>                     
                     </asp:TemplateField>
-                    <asp:BoundField DataField="certification_submit_to_authority" HeaderText="Submit to Authority"
-                      SortExpression="certification_submit_to_authority" DataFormatString="{0:d}" />
                     <asp:BoundField DataField="certification_completed" HeaderText="Est. Completed" SortExpression="certification_completed"
                       DataFormatString="{0:d}" />
-                    <asp:BoundField DataField="Estimated_Lead_time" HeaderText="Estimated Lead Time"
-                      SortExpression="Estimated_Lead_time" Visible="False" />
-                    <asp:BoundField DataField="Actual_Lead_time" HeaderText="Actual Lead Time" SortExpression="Actual_Lead_time"
-                      Visible="False" />
+                    <asp:BoundField DataField="Actual_Lead_time" HeaderText="Actual Lead Time"
+                      SortExpression="Actual_Lead_time" />
                     <asp:BoundField DataField="CountryManager" HeaderText="Country Manager" Visible="False" />
                     <asp:TemplateField HeaderText="Project Status">
                       <ItemTemplate>
@@ -216,7 +214,8 @@
 (SELECT authority_name FROM Authority WHERE Authority.authority_id = Quotation_Target.authority_id ) AS authority_name, 
 test_started, test_completed, certification_submit_to_authority, certification_completed, Estimated_Lead_time, Actual_Lead_time, 
 Project.Client_Action, 
-(Select fname + ' ' + lname as cm from employee where id = Country_Manager ) as CountryManager
+(Select fname + ' ' + lname as cm from employee where id = Country_Manager ) as CountryManager,
+document_ready_to_process , sample_received_from_client__date
 FROM PROJECT 
 INNER JOIN Quotation_Version ON PROJECT.Quotation_No = Quotation_Version.Quotation_No  AND Quotation_Status=5 
 INNER JOIN Quotation_Target ON Quotation_Target.quotation_id = Quotation_Version.Quotation_Version_Id
