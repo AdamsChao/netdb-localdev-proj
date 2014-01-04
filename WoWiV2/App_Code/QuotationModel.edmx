@@ -259,15 +259,15 @@
           <Property Name="c_companyname" Type="nvarchar" MaxLength="100" />
           <Property Name="c_address" Type="nvarchar" MaxLength="300" />
           <Property Name="country_id" Type="int" />
-          <Property Name="workphone" Type="nvarchar" MaxLength="200" />
+          <Property Name="workphone" Type="nvarchar" MaxLength="300" />
           <Property Name="ext" Type="nvarchar" MaxLength="10" />
-          <Property Name="cellphone" Type="nvarchar" MaxLength="200" />
+          <Property Name="cellphone" Type="nvarchar" MaxLength="300" />
           <Property Name="fax" Type="nvarchar" MaxLength="200" />
           <Property Name="email" Type="nvarchar" MaxLength="300" />
           <Property Name="create_date" Type="datetime" />
-          <Property Name="create_user" Type="nvarchar" MaxLength="26" />
+          <Property Name="create_user" Type="nvarchar" MaxLength="50" />
           <Property Name="modify_date" Type="datetime" />
-          <Property Name="modify_user" Type="nvarchar" MaxLength="26" />
+          <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
           <Property Name="publish" Type="bit" Nullable="false" />
           <Property Name="department_id" Type="int" />
           <Property Name="employee_id" Type="int" />
@@ -340,7 +340,7 @@
           <Property Name="ototal" Type="decimal" Precision="10" Scale="2" />
           <Property Name="tax" Type="decimal" Precision="10" Scale="2" />
           <Property Name="total" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="exchange_rate" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="exchange_rate" Type="decimal" Precision="10" Scale="4" />
           <Property Name="create_user" Type="nvarchar" MaxLength="50" />
           <Property Name="create_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
@@ -385,7 +385,7 @@
           <Property Name="Project_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Project_No" Type="nvarchar" MaxLength="20" />
           <Property Name="Project_Status" Type="nvarchar" MaxLength="50" />
-          <Property Name="Client_Action" Type="nvarchar" MaxLength="500" />
+          <Property Name="Client_Action" Type="nvarchar(max)" />
           <Property Name="Create_Date" Type="smalldatetime" Nullable="false" />
           <Property Name="Quotation_Id" Type="int" Nullable="false" />
           <Property Name="Quotation_No" Type="nvarchar" MaxLength="20" />
@@ -434,11 +434,38 @@
           <Property Name="Actual_Lead_time" Type="nvarchar" MaxLength="50" />
           <Property Name="Agent" Type="int" />
           <Property Name="Country_Manager" Type="int" />
-          <Property Name="PR_Flag" Type="char" MaxLength="1" />
+          <Property Name="PR_Flag" Type="nchar" MaxLength="10" />
           <Property Name="Bill1" Type="decimal" Precision="20" Scale="2" />
           <Property Name="Bill2" Type="decimal" Precision="20" Scale="2" />
           <Property Name="Bill3" Type="decimal" Precision="20" Scale="2" />
           <Property Name="BillE" Type="decimal" Precision="20" Scale="2" />
+          <Property Name="document_ready_to_process" Type="smalldatetime" />
+          <Property Name="certificate_type" Type="nvarchar" MaxLength="500" />
+          <Property Name="certificate_issue_date" Type="smalldatetime" />
+          <Property Name="certificate_expiry_date" Type="smalldatetime" />
+          <Property Name="email_renewal_notice_date" Type="smalldatetime" />
+          <Property Name="renewal_confirmation_check" Type="nchar" MaxLength="1" />
+          <Property Name="conduct_renewal_action_date" Type="smalldatetime" />
+          <Property Name="sample_received_from_client_date" Type="smalldatetime" />
+          <Property Name="customer_request_sample_returned" Type="bit" />
+          <Property Name="sample_returned_to_client_date" Type="smalldatetime" />
+          <Property Name="sample_shipping_tracking_no" Type="nvarchar" MaxLength="100" />
+          <Property Name="customer_request_original_certificate_returned" Type="bit" />
+          <Property Name="original_certificate_mailed_to_client_date" Type="smalldatetime" />
+          <Property Name="Certificate_shipping_tracking_no" Type="nvarchar" MaxLength="100" />
+          <Property Name="sample_can_be_returned_from_authority" Type="bit" />
+          <Property Name="sample_is_kept_by_local_agent" Type="bit" />
+          <Property Name="request_local_agent_to_destroy_tested_samples" Type="bit" />
+          <Property Name="returned_of_tested_sample_date" Type="smalldatetime" />
+          <Property Name="CMB1" Type="bit" />
+          <Property Name="CMB2" Type="bit" />
+          <Property Name="CMB3" Type="bit" />
+          <Property Name="CMB4" Type="bit" />
+          <Property Name="CMB5" Type="bit" />
+          <Property Name="CMB6" Type="bit" />
+          <Property Name="CMB7" Type="bit" />
+          <Property Name="CMB8" Type="bit" />
+          <Property Name="original_certificate_received_date" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="Quotation_Version">
           <Key>
@@ -462,10 +489,10 @@
           <Property Name="Max_Q_Authorize_Amt" Type="int" />
           <Property Name="Waiting_Approve_UserID" Type="int" />
           <Property Name="Payment_Method_Id" Type="int" />
-          <Property Name="pocheckno" Type="nvarchar" MaxLength="50" />
-          <Property Name="POLimit" Type="nvarchar" MaxLength="50" />
-          <Property Name="Deposit_Check_No" Type="nvarchar" MaxLength="50" />
-          <Property Name="PO_Amount" Type="nvarchar" MaxLength="50" />
+          <Property Name="pocheckno" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLimit" Type="nvarchar" MaxLength="500" />
+          <Property Name="Deposit_Check_No" Type="nvarchar" MaxLength="500" />
+          <Property Name="PO_Amount" Type="nvarchar" MaxLength="500" />
           <Property Name="paymentlimit" Type="nvarchar" MaxLength="10" />
           <Property Name="SalesId" Type="int" />
           <Property Name="Currency" Type="nvarchar" MaxLength="3" />
@@ -887,6 +914,33 @@
           <Property Type="Decimal" Name="Bill3" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="BillE" Precision="20" Scale="2" />
           <NavigationProperty Name="Quotation_Version" Relationship="QuotationModel.FK_Quotation_Target_Quotation_Version" FromRole="Quotation_Target" ToRole="Quotation_Version" />
+          <Property Type="DateTime" Name="document_ready_to_process" />
+          <Property Type="String" Name="certificate_type" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="certificate_issue_date" />
+          <Property Type="DateTime" Name="certificate_expiry_date" />
+          <Property Type="DateTime" Name="email_renewal_notice_date" />
+          <Property Type="String" Name="renewal_confirmation_check" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="conduct_renewal_action_date" />
+          <Property Type="DateTime" Name="sample_received_from_client_date" />
+          <Property Type="Boolean" Name="customer_request_sample_returned" />
+          <Property Type="DateTime" Name="sample_returned_to_client_date" />
+          <Property Type="String" Name="sample_shipping_tracking_no" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="customer_request_original_certificate_returned" />
+          <Property Type="DateTime" Name="original_certificate_mailed_to_client_date" />
+          <Property Type="String" Name="Certificate_shipping_tracking_no" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="sample_can_be_returned_from_authority" />
+          <Property Type="Boolean" Name="sample_is_kept_by_local_agent" />
+          <Property Type="Boolean" Name="request_local_agent_to_destroy_tested_samples" />
+          <Property Type="DateTime" Name="returned_of_tested_sample_date" />
+          <Property Type="Boolean" Name="CMB1" />
+          <Property Type="Boolean" Name="CMB2" />
+          <Property Type="Boolean" Name="CMB3" />
+          <Property Type="Boolean" Name="CMB4" />
+          <Property Type="Boolean" Name="CMB5" />
+          <Property Type="Boolean" Name="CMB6" />
+          <Property Type="Boolean" Name="CMB7" />
+          <Property Type="Boolean" Name="CMB8" />
+          <Property Type="DateTime" Name="original_certificate_received_date" />
         </EntityType>
         <EntityType Name="Target_Rates">
           <Key>
@@ -1433,6 +1487,33 @@
           <EntitySetMapping Name="Quotation_Target">
             <EntityTypeMapping TypeName="QuotationModel.Quotation_Target">
               <MappingFragment StoreEntitySet="Quotation_Target">
+                <ScalarProperty Name="original_certificate_received_date" ColumnName="original_certificate_received_date" />
+                <ScalarProperty Name="CMB8" ColumnName="CMB8" />
+                <ScalarProperty Name="CMB7" ColumnName="CMB7" />
+                <ScalarProperty Name="CMB6" ColumnName="CMB6" />
+                <ScalarProperty Name="CMB5" ColumnName="CMB5" />
+                <ScalarProperty Name="CMB4" ColumnName="CMB4" />
+                <ScalarProperty Name="CMB3" ColumnName="CMB3" />
+                <ScalarProperty Name="CMB2" ColumnName="CMB2" />
+                <ScalarProperty Name="CMB1" ColumnName="CMB1" />
+                <ScalarProperty Name="returned_of_tested_sample_date" ColumnName="returned_of_tested_sample_date" />
+                <ScalarProperty Name="request_local_agent_to_destroy_tested_samples" ColumnName="request_local_agent_to_destroy_tested_samples" />
+                <ScalarProperty Name="sample_is_kept_by_local_agent" ColumnName="sample_is_kept_by_local_agent" />
+                <ScalarProperty Name="sample_can_be_returned_from_authority" ColumnName="sample_can_be_returned_from_authority" />
+                <ScalarProperty Name="Certificate_shipping_tracking_no" ColumnName="Certificate_shipping_tracking_no" />
+                <ScalarProperty Name="original_certificate_mailed_to_client_date" ColumnName="original_certificate_mailed_to_client_date" />
+                <ScalarProperty Name="customer_request_original_certificate_returned" ColumnName="customer_request_original_certificate_returned" />
+                <ScalarProperty Name="sample_shipping_tracking_no" ColumnName="sample_shipping_tracking_no" />
+                <ScalarProperty Name="sample_returned_to_client_date" ColumnName="sample_returned_to_client_date" />
+                <ScalarProperty Name="customer_request_sample_returned" ColumnName="customer_request_sample_returned" />
+                <ScalarProperty Name="sample_received_from_client_date" ColumnName="sample_received_from_client_date" />
+                <ScalarProperty Name="conduct_renewal_action_date" ColumnName="conduct_renewal_action_date" />
+                <ScalarProperty Name="renewal_confirmation_check" ColumnName="renewal_confirmation_check" />
+                <ScalarProperty Name="email_renewal_notice_date" ColumnName="email_renewal_notice_date" />
+                <ScalarProperty Name="certificate_expiry_date" ColumnName="certificate_expiry_date" />
+                <ScalarProperty Name="certificate_issue_date" ColumnName="certificate_issue_date" />
+                <ScalarProperty Name="certificate_type" ColumnName="certificate_type" />
+                <ScalarProperty Name="document_ready_to_process" ColumnName="document_ready_to_process" />
                 <ScalarProperty Name="BillE" ColumnName="BillE" />
                 <ScalarProperty Name="Bill3" ColumnName="Bill3" />
                 <ScalarProperty Name="Bill2" ColumnName="Bill2" />
