@@ -167,7 +167,7 @@
                     <asp:BoundField DataField="Estimated_Lead_time" 
                       HeaderText="Estimated Lead Time" SortExpression="Estimated_Lead_time" />
                     <asp:BoundField HeaderText="Start Date" DataField="document_ready_to_process" DataFormatString="{0:d}" />
-                    <asp:BoundField HeaderText="Sample Received" DataField="sample_received_from_client__date" DataFormatString="{0:d}"/>
+                    <asp:BoundField HeaderText="Sample Received" DataField="sample_received_from_client_date" DataFormatString="{0:d}"/>
                     <asp:BoundField DataField="certification_submit_to_authority" HeaderText="Submit to Authority / Test Lab"
                       SortExpression="certification_submit_to_authority" 
                       DataFormatString="{0:d}" />
@@ -215,7 +215,7 @@
 test_started, test_completed, certification_submit_to_authority, certification_completed, Estimated_Lead_time, Actual_Lead_time, 
 Project.Client_Action, 
 (Select fname + ' ' + lname as cm from employee where id = Country_Manager ) as CountryManager,
-document_ready_to_process , sample_received_from_client__date
+document_ready_to_process , sample_received_from_client_date
 FROM PROJECT 
 INNER JOIN Quotation_Version ON PROJECT.Quotation_No = Quotation_Version.Quotation_No  AND Quotation_Status=5 
 INNER JOIN Quotation_Target ON Quotation_Target.quotation_id = Quotation_Version.Quotation_Version_Id
