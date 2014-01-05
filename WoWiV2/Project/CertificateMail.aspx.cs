@@ -4,57 +4,29 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.IO;
 
-public partial class Project_CertificateExpirationTrackerAndExport : System.Web.UI.Page
+public partial class Project_CertificateMail : System.Web.UI.Page
 {
   protected void Page_Load(object sender, EventArgs e)
   {
-    if (Page.IsPostBack)
+    if (Cache["IsMailCertificateRenewalAlert"] == null)
     {
-      if (DropDownListCM.SelectedValue != "0")
-      {
-        SqlDataSourceTarget.SelectCommand +=
-          " AND (Quotation_Target.Country_Manager LIKE " + DropDownListCM.SelectedValue + ") ";
-      }
-
-      if (DropDownListRegion.SelectedValue != "0")
-      {
-        SqlDataSourceTarget.SelectCommand +=
-          " AND (world_region_name LIKE '%" + DropDownListRegion.SelectedItem.Text + "%') ";
-      }
-
-      if (!string.IsNullOrEmpty(txt_certificate_issue_date.Text))
-      {
-        SqlDataSourceTarget.SelectCommand += " AND (certificate_issue_date >= '" + txt_certificate_issue_date.Text + "') ";
-      }
-
-      if (!string.IsNullOrEmpty(txt_certificate_expiry_date.Text))
-      {
-        SqlDataSourceTarget.SelectCommand += " AND (certificate_issue_date <= '" + txt_certificate_expiry_date.Text + "') ";
+      if (GridViewProjectTarget.Rows.Count > 0)
+      { 
+        string[] mailto = { "sales@wowiapproval.com", "cm@wowiapproval.com" };
+        string[] mailcc = { "Shirley.Kang@WoWiApproval.com", "Scott.Wang@WoWiApproval.com" };
+        MailUtil.SendHTMLMail("dbservice@wowiapproval.com", mailto, mailcc, null, "Certificate Renewal Alert", PanelMail);
+        Cache.Insert("IsMailCertificateRenewalAlert", "1", null
+       , DateTime.Now.AddDays(1)
+       , System.Web.Caching.Cache.NoSlidingExpiration);
       }
     }
   }
 
-  protected void DropDownListCountry_DataBound(object sender, EventArgs e)
-  {
-    DropDownListCountry.Items.Insert(0, new ListItem()
-    {
-      Text = "- All -",
-      Value = "%"
-    });
-  }
-
-  protected void ButtonSearch_Click(object sender, EventArgs e)
-  {
-    SqlDataSourceTarget.SelectCommand += " ORDER BY Project.Project_Id Desc ";
-    GridViewProjectTarget.DataBind();
-  }
   protected void GridViewProjectTarget_RowDataBound(object sender, GridViewRowEventArgs e)
   {
     if (e.Row.RowType == DataControlRowType.DataRow)
     {
-
       Label lbl_certificate_issue_date = e.Row.FindControl("lbl_certificate_issue_date") as Label;
       Label lbl_certificate_expiry_date = e.Row.FindControl("lbl_certificate_expiry_date") as Label;
 
@@ -104,37 +76,16 @@ public partial class Project_CertificateExpirationTrackerAndExport : System.Web.
       }
     }
   }
-  protected void SqlDataSourceTarget_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
-  {
-    if (!Page.IsPostBack)
-    {
-      e.Cancel = true;
-    }
-  }
-  protected void btn_export_Click(object sender, EventArgs e)
-  {
-    if (GridViewProjectTarget.Rows.Count > 0)
-    {
-      GridViewProjectTarget.AllowPaging = false;
-      GridViewProjectTarget.AllowSorting = false;
-      GridViewProjectTarget.DataBind();
-
-      HttpContext.Current.Response.Clear();
-      HttpContext.Current.Response.Write("<meta http-equiv=Content-Type content=text/html;charset=utf-8>");
-      HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename=Certificate Expiration Tracker.xls");
-      HttpContext.Current.Response.Charset = "utf-8";
-      HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
-      StringWriter sw = new StringWriter();
-      HtmlTextWriter hw = new HtmlTextWriter(sw);
-      PanelReport.RenderControl(hw);
-      HttpContext.Current.Response.Write(sw.ToString());
-      HttpContext.Current.Response.Flush();
-      HttpContext.Current.Response.End();
-    }
-  }
-
   public override void VerifyRenderingInServerForm(Control control)
   {
 
+  }
+
+  protected void SqlDataSourceTarget_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
+  {
+    if (Cache["IsMailCertificateRenewalAlert"] != null)
+    {
+      e.Cancel = true;
+    }
   }
 }
