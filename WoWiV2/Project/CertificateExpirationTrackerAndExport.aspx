@@ -77,6 +77,7 @@
     Model :
     <asp:TextBox ID="TextBoxModel" runat="server"></asp:TextBox>
     <br />
+    <br />
     <asp:Button ID="ButtonSearch" runat="server" OnClick="ButtonSearch_Click" Text="Search" />
     <asp:Button ID="btn_export" runat="server" OnClick="btn_export_Click" Text="Export Data To Excel" />
   </asp:Panel>
