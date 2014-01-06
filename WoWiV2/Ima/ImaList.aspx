@@ -689,11 +689,11 @@
                                                         <HeaderStyle Font-Bold="false" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:BoundField>
-                                                    <asp:BoundField DataField="Renew" HeaderText="Renew(USD)">
+                                                    <asp:BoundField DataField="Renew" HeaderText="Renew(USD)" Visible="false">
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Center" />
                                                     </asp:BoundField>
-                                                    <asp:BoundField DataField="RenewalRemark" HeaderText="Remark(Renew)">
+                                                    <asp:BoundField DataField="RenewalRemark" HeaderText="Remark(Renew)" Visible="false">
                                                         <HeaderStyle Font-Bold="False" HorizontalAlign="Center" />
                                                         <ItemStyle HorizontalAlign="Left" />
                                                     </asp:BoundField>
