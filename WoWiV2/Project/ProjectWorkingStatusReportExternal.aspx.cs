@@ -28,13 +28,13 @@ public partial class Project_ProjectWorkingStatusReportExternal : System.Web.UI.
         {
             if (wkItem.RowIndex != 0)
             {
-                GridViewReport.Rows[(wkItem.RowIndex - i)].Cells[11].RowSpan += 1;
-                wkItem.Cells[11].Visible = false;
+                GridViewReport.Rows[(wkItem.RowIndex - i)].Cells[12].RowSpan += 1;
+                wkItem.Cells[12].Visible = false;
                 i = i + 1;
             }
             else
             {
-                wkItem.Cells[11].RowSpan = 1;
+                wkItem.Cells[12].RowSpan = 1;
             }
         }
     }

@@ -84,57 +84,120 @@
       });
 
       //Sample Can be Returned from Authority 
-      if ($("[id*=cbSampleReturnedAuthority]").attr('checked') == 'checked') {
-        $("[id*=div_sample_return]").show();
+      //      if ($("[id*=cbSampleReturnedAuthority]").attr('checked') == 'checked') {
+      //        $("[id*=div_sample_return]").show();
+      //      }
+      //      else {
+      //        $("[id*=div_sample_return]").hide();
+      //      }
+
+      //      $("[id*=cbSampleReturnedAuthority]").click(function () {
+      //        if ($("[id*=cbSampleReturnedAuthority]").attr('checked') == 'checked') {
+      //          $("[id*=div_sample_return]").fadeIn(300);
+      //        }
+      //        else {
+      //          $("[id*=div_sample_return]").fadeOut(300);
+      //        }
+      //      });
+
+      //      if ($("[id*=rbSampleReturnedAuthority]:checked").length > 0) {
+      //        $("[id*=div_sample_return]").show();
+      //      }
+      //      else {
+      //        $("[id*=div_sample_return]").hide();
+      //      }
+
+      //Sample Can be Returned from Authority using radioButton
+      if ($("[id*=rbSampleReturnedAuthorityYes]:checked").length > 0) {
+        $("[id*=div_sample_return]").fadeIn(300);
       }
       else {
-        $("[id*=div_sample_return]").hide();
+        $("[id*=rbSampleReturnedAuthorityNo]").attr("checked", true);
       }
-
-      $("[id*=cbSampleReturnedAuthority]").click(function () {
-        if ($("[id*=cbSampleReturnedAuthority]").attr('checked') == 'checked') {
+      $("[id*=rbSampleReturnedAuthorityYes]").click(function () {
+        if ($("[id*=rbSampleReturnedAuthorityYes]:checked").length > 0) {
           $("[id*=div_sample_return]").fadeIn(300);
         }
-        else {
+      });
+      $("[id*=rbSampleReturnedAuthorityNo]").click(function () {
+        if ($("[id*=rbSampleReturnedAuthorityNo]:checked").length > 0) {
           $("[id*=div_sample_return]").fadeOut(300);
         }
       });
 
       //customer_request_sample_returned
-      if ($("[id*=cb_sample_returned]").attr('checked') == 'checked') {
-        $("[id*=div_customer_request_sample_returned]").show();
+//      if ($("[id*=cb_sample_returned]").attr('checked') == 'checked') {
+//        $("[id*=div_customer_request_sample_returned]").show();
+//      }
+//      else {
+//        $("[id*=div_customer_request_sample_returned]").hide();
+//      }
+
+//      $("[id*=cb_sample_returned]").click(function () {
+//        if ($("[id*=cb_sample_returned]").attr('checked') == 'checked') {
+//          $("[id*=div_customer_request_sample_returned]").fadeIn(300);
+//        }
+//        else {
+//          $("[id*=div_customer_request_sample_returned]").fadeOut(300);
+//        }
+//      });
+
+      //customer_request_sample_returned using radio
+      if ($("[id*=rb_sample_returnedYes]:checked").length > 0) {
+        $("[id*=div_customer_request_sample_returned]").fadeIn(300);
       }
       else {
-        $("[id*=div_customer_request_sample_returned]").hide();
+        $("[id*=rb_sample_returnedNo]").attr("checked", true);
       }
 
-      $("[id*=cb_sample_returned]").click(function () {
-        if ($("[id*=cb_sample_returned]").attr('checked') == 'checked') {
+      $("[id*=rb_sample_returnedYes]").click(function () {
+        if ($("[id*=rb_sample_returnedYes]:checked").length > 0) {
           $("[id*=div_customer_request_sample_returned]").fadeIn(300);
         }
-        else {
+      });
+      $("[id*=rb_sample_returnedNo]").click(function () {
+        if ($("[id*=rb_sample_returnedNo]:checked").length > 0) {
           $("[id*=div_customer_request_sample_returned]").fadeOut(300);
         }
       });
 
       //customer_request_original_certificate_returned
-      if ($("[id*=cb_certificate_returned]").attr('checked') == 'checked') {
-        $("[id*=div_customer_request_original_certificate_returned]").show();
+      //      if ($("[id*=cb_certificate_returned]").attr('checked') == 'checked') {
+      //        $("[id*=div_customer_request_original_certificate_returned]").show();
+      //      }
+      //      else {
+      //        $("[id*=div_customer_request_original_certificate_returned]").hide();
+      //      }
+
+      //      $("[id*=cb_certificate_returned]").click(function () {
+      //        if ($("[id*=cb_certificate_returned]").attr('checked') == 'checked') {
+      //          $("[id*=div_customer_request_original_certificate_returned]").fadeIn(300);
+      //        }
+      //        else {
+      //          $("[id*=div_customer_request_original_certificate_returned]").fadeOut(300);
+      //        }
+      //      });
+
+      //customer_request_original_certificate_returned using radio
+      if ($("[id*=rb_certificate_returnedYes]:checked").length > 0) {
+        $("[id*=div_customer_request_original_certificate_returned]").fadeIn(300);
       }
       else {
-        $("[id*=div_customer_request_original_certificate_returned]").hide();
+        $("[id*=rb_certificate_returnedNo]").attr("checked", true);
       }
 
-      $("[id*=cb_certificate_returned]").click(function () {
-        if ($("[id*=cb_certificate_returned]").attr('checked') == 'checked') {
+      $("[id*=rb_certificate_returnedYes]").click(function () {
+        if ($("[id*=rb_certificate_returnedYes]:checked").length > 0) {
           $("[id*=div_customer_request_original_certificate_returned]").fadeIn(300);
         }
-        else {
+      });
+      $("[id*=rb_certificate_returnedNo]").click(function () {
+        if ($("[id*=rb_certificate_returnedNo]:checked").length > 0) {
           $("[id*=div_customer_request_original_certificate_returned]").fadeOut(300);
         }
       });
 
-      
+
     });
   </script>
 </asp:Content>
@@ -367,70 +430,89 @@ AND Quotation_Target.Status LIKE '%' + @Status + '%' " UpdateCommand="UPDATE [Qu
               </asp:TemplateField>
               <asp:TemplateField HeaderText="Customer Request Sample Returned">
                 <EditItemTemplate>
-                  <asp:CheckBox ID="cb_sample_returned" runat="server" Checked='<%# Bind("customer_request_sample_returned") %>'
-                    Text="YES" /><br/>
-                    <div id="div_customer_request_sample_returned" style="display:none" >
+                  <%--<asp:CheckBox ID="cb_sample_returned" runat="server" Checked='<%# Bind("customer_request_sample_returned") %>' Text="YES" />--%>
+                    <asp:RadioButton ID="rb_sample_returnedYes" runat="server" Checked='<%# Bind("customer_request_sample_returned") %>'
+                    GroupName="customer_request_sample_returned" Text="YES" />
+                  <asp:RadioButton ID="rb_sample_returnedNo" runat="server" GroupName="customer_request_sample_returned" Text="NO" />                   
+                  <div id="div_customer_request_sample_returned" style="display: none">
                     Sample Returned to Client Date：
-                  <asp:TextBox ID="TextBox_sample_returned_to_client_date" runat="server" Text='<%# Bind("sample_returned_to_client_date","{0:yyyy/MM/dd}") %>'></asp:TextBox>
-                  <asp:CompareValidator ID="CV6" runat="server" ControlToValidate="TextBox_sample_returned_to_client_date"
-                    Display="Dynamic" ErrorMessage="日期格式有誤" Operator="DataTypeCheck" SetFocusOnError="True"
-                    Type="Date"></asp:CompareValidator><br/>
-                  Shipping Tracking No.：
-                  <asp:TextBox ID="TextBox_sample_shipping_tracking_no" runat="server" Text='<%# Bind("sample_shipping_tracking_no") %>'></asp:TextBox>
+                    <asp:TextBox ID="TextBox_sample_returned_to_client_date" runat="server" Text='<%# Bind("sample_returned_to_client_date","{0:yyyy/MM/dd}") %>'></asp:TextBox>
+                    <asp:CompareValidator ID="CV6" runat="server" ControlToValidate="TextBox_sample_returned_to_client_date"
+                      Display="Dynamic" ErrorMessage="日期格式有誤" Operator="DataTypeCheck" SetFocusOnError="True"
+                      Type="Date"></asp:CompareValidator><br />
+                    Shipping Tracking No.：
+                    <asp:TextBox ID="TextBox_sample_shipping_tracking_no" runat="server" Text='<%# Bind("sample_shipping_tracking_no") %>'></asp:TextBox>
                   </div>
                 </EditItemTemplate>
                 <HeaderStyle ForeColor="Blue" />
-              </asp:TemplateField>              
+              </asp:TemplateField>
               <asp:TemplateField HeaderText="Customer Request Original Certificate Returned">
                 <EditItemTemplate>
-                  <asp:CheckBox ID="cb_certificate_returned" runat="server" Text="YES" Checked='<%# Bind("customer_request_original_certificate_returned") %>' /><br/>
-                  <div id="div_customer_request_original_certificate_returned" style="display:none" >
-                  Original Certificate Mailed to Client Date：
-                  <asp:TextBox ID="TextBox_original_certificate_mailed_to_client_date" runat="server"
-                    Text='<%# Bind("original_certificate_mailed_to_client_date","{0:yyyy/MM/dd}") %>'></asp:TextBox>
+                  <%--<asp:CheckBox ID="cb_certificate_returned" runat="server" Text="YES" Checked='<%# Bind("customer_request_original_certificate_returned") %>' /><br />--%>
+                  <asp:RadioButton ID="rb_certificate_returnedYes" runat="server" Checked='<%# Bind("customer_request_original_certificate_returned") %>'
+                    GroupName="customer_request_original_certificate_returned" Text="YES" />
+                  <asp:RadioButton ID="rb_certificate_returnedNo" runat="server" GroupName="customer_request_original_certificate_returned"
+                    Text="NO" />
+                  <div id="div_customer_request_original_certificate_returned" style="display: none">
+                    Original Certificate Mailed to Client Date：
+                    <asp:TextBox ID="TextBox_original_certificate_mailed_to_client_date" runat="server"
+                      Text='<%# Bind("original_certificate_mailed_to_client_date","{0:yyyy/MM/dd}") %>'></asp:TextBox>
                     <asp:CompareValidator ID="CV7" runat="server" ControlToValidate="TextBox_original_certificate_mailed_to_client_date"
-                    Display="Dynamic" ErrorMessage="日期格式有誤" Operator="DataTypeCheck" SetFocusOnError="True"
-                    Type="Date"></asp:CompareValidator><br/>
-                  Shipping Tracking No.：
-                  <asp:TextBox ID="TextBox_Certificate_shipping_tracking_no" runat="server" Text='<%# Bind("Certificate_shipping_tracking_no") %>'></asp:TextBox>
+                      Display="Dynamic" ErrorMessage="日期格式有誤" Operator="DataTypeCheck" SetFocusOnError="True"
+                      Type="Date"></asp:CompareValidator><br />
+                    Shipping Tracking No.：
+                    <asp:TextBox ID="TextBox_Certificate_shipping_tracking_no" runat="server" Text='<%# Bind("Certificate_shipping_tracking_no") %>'></asp:TextBox>
                   </div>
                 </EditItemTemplate>
                 <HeaderStyle ForeColor="Blue" />
-              </asp:TemplateField>              
+              </asp:TemplateField>
               <asp:TemplateField HeaderText="Sample Can be Returned from Authority">
-                <EditItemTemplate>                  
-                  <asp:CheckBox ID="cbSampleReturnedAuthority" runat="server" Text="YES" Checked='<%# Bind("sample_can_be_returned_from_authority") %>' />                  
-                  <div id="div_sample_return" style="display:none" >
-                    1. <asp:CheckBox ID="cbKept" runat="server" Text="Sample is Kept by Local Agent"
-                      Checked='<%# Bind("sample_is_kept_by_local_agent") %>' /><br />
-                    2. <asp:CheckBox ID="cbDestroy" runat="server" Text="Request Local Agent to Destroy Tested Samples"
+                <EditItemTemplate>
+                  <%--<asp:CheckBox ID="cbSampleReturnedAuthority" runat="server" Text="YES" Checked='<%# Bind("sample_can_be_returned_from_authority") %>' />--%>
+                  <asp:RadioButton ID="rbSampleReturnedAuthorityYes" runat="server" Checked='<%# Bind("sample_can_be_returned_from_authority") %>'
+                    GroupName="sample_can_be_returned_from_authority" Text="YES" />
+                  <asp:RadioButton ID="rbSampleReturnedAuthorityNo" runat="server" GroupName="sample_can_be_returned_from_authority"
+                    Text="NO" />
+                  <div id="div_sample_return" style="display: none">
+                    1.
+                    <asp:CheckBox ID="cbKept" runat="server" Text="Sample is Kept by Local Agent" Checked='<%# Bind("sample_is_kept_by_local_agent") %>' /><br />
+                    2.
+                    <asp:CheckBox ID="cbDestroy" runat="server" Text="WoWi Request Local Agent to Destroy Tested Samples"
                       Checked='<%# Bind("request_local_agent_to_destroy_tested_samples") %>' /><br />
                     3. Returned of Tested Sample Date：
                     <asp:TextBox ID="TextBox_returned_of_tested_sample_date" runat="server" Text='<%# Bind("returned_of_tested_sample_date","{0:yyyy/MM/dd}") %>'></asp:TextBox>
                     <asp:CompareValidator ID="CV8" runat="server" ControlToValidate="TextBox_returned_of_tested_sample_date"
-                    Display="Dynamic" ErrorMessage="日期格式有誤" Operator="DataTypeCheck" SetFocusOnError="True"
-                    Type="Date"></asp:CompareValidator>
+                      Display="Dynamic" ErrorMessage="日期格式有誤" Operator="DataTypeCheck" SetFocusOnError="True"
+                      Type="Date"></asp:CompareValidator>
                   </div>
                 </EditItemTemplate>
                 <HeaderStyle ForeColor="Red" />
               </asp:TemplateField>
               <asp:TemplateField HeaderText="Original Certificate">
                 <EditItemTemplate>
-                  <asp:CheckBox ID="cb_OriginalCertificate1" runat="server" Checked='<%# Bind("CMB1") %>' Text="No Original Certificate" /><br/>
-                  <asp:CheckBox ID="cb_OriginalCertificate2" runat="server" Checked='<%# Bind("CMB2") %>' Text="There is No Actual Certificate, Yearly Gazette will be Published and Released" /><br/>
-                  <asp:CheckBox ID="cb_OriginalCertificate3" runat="server" Checked='<%# Bind("CMB3") %>' Text="Original Certificate is Kept by Authority and can be Returned upon Request" /><br/>
-                  <asp:CheckBox ID="cb_OriginalCertificate4" runat="server" Checked='<%# Bind("CMB4") %>' Text="Original Certificate is Held by Authority and cannot be Returned" /><br/>
-                  <asp:CheckBox ID="cb_OriginalCertificate5" runat="server" Checked='<%# Bind("CMB5") %>' Text="Original Certificate is Held by Local Rep. and cannot be Returned" /><br/>
-                  <asp:CheckBox ID="cb_OriginalCertificate6" runat="server" Checked='<%# Bind("CMB6") %>' Text="Original Certificate is Kept by Local Agent and can be Returned upon Request" /><br/>
-                  <asp:CheckBox ID="cb_OriginalCertificate7" runat="server" Checked='<%# Bind("CMB7") %>' Text="Original Certificate will be Returned by Authority via Postal Mail only" /><br/>
-                  <asp:CheckBox ID="cb_OriginalCertificate8" runat="server" Checked='<%# Bind("CMB8") %>' Text="Original Certificate will be Returned by Authority via FedEx or DHL" /><br/>
+                  <asp:CheckBox ID="cb_OriginalCertificate1" runat="server" Checked='<%# Bind("CMB1") %>'
+                    Text="No Original Certificate" /><br />
+                  <asp:CheckBox ID="cb_OriginalCertificate2" runat="server" Checked='<%# Bind("CMB2") %>'
+                    Text="There is No Actual Certificate, Yearly Gazette will be Published and Released" /><br />
+                  <asp:CheckBox ID="cb_OriginalCertificate3" runat="server" Checked='<%# Bind("CMB3") %>'
+                    Text="Original Certificate is Kept by Authority and can be Returned upon Request" /><br />
+                  <asp:CheckBox ID="cb_OriginalCertificate4" runat="server" Checked='<%# Bind("CMB4") %>'
+                    Text="Original Certificate is Held by Authority and cannot be Returned" /><br />
+                  <asp:CheckBox ID="cb_OriginalCertificate5" runat="server" Checked='<%# Bind("CMB5") %>'
+                    Text="Original Certificate is Held by Local Rep. and cannot be Returned" /><br />
+                  <asp:CheckBox ID="cb_OriginalCertificate6" runat="server" Checked='<%# Bind("CMB6") %>'
+                    Text="Original Certificate is Kept by Local Agent and can be Returned upon Request" /><br />
+                  <asp:CheckBox ID="cb_OriginalCertificate7" runat="server" Checked='<%# Bind("CMB7") %>'
+                    Text="Original Certificate will be Returned by Authority via Postal Mail only" /><br />
+                  <asp:CheckBox ID="cb_OriginalCertificate8" runat="server" Checked='<%# Bind("CMB8") %>'
+                    Text="Original Certificate will be Returned by Authority via FedEx or DHL" /><br />
                 </EditItemTemplate>
                 <HeaderStyle ForeColor="Red" />
-              </asp:TemplateField>             
+              </asp:TemplateField>
               <asp:TemplateField HeaderText="Original Certificate Received Date">
                 <EditItemTemplate>
-                  <asp:TextBox ID="TextBox_original_certificate_received_date" runat="server" Text='<%# Bind("original_certificate_received_date","{0:yyyy/MM/dd}") %>'></asp:TextBox>                  
-                    <asp:CompareValidator ID="CV9" runat="server" ControlToValidate="TextBox_original_certificate_received_date"
+                  <asp:TextBox ID="TextBox_original_certificate_received_date" runat="server" Text='<%# Bind("original_certificate_received_date","{0:yyyy/MM/dd}") %>'></asp:TextBox>
+                  <asp:CompareValidator ID="CV9" runat="server" ControlToValidate="TextBox_original_certificate_received_date"
                     Display="Dynamic" ErrorMessage="日期格式有誤" Operator="DataTypeCheck" SetFocusOnError="True"
                     Type="Date"></asp:CompareValidator>
                 </EditItemTemplate>
@@ -551,6 +633,7 @@ AND Quotation_Target.Status LIKE '%' + @Status + '%' " UpdateCommand="UPDATE [Qu
                     <asp:ListItem Value="3">No Need (無須更新)</asp:ListItem>
                   </asp:RadioButtonList>
                 </EditItemTemplate>
+                <HeaderStyle ForeColor="Blue" />
               </asp:TemplateField>
               <asp:TemplateField HeaderText="Conduct Renewal Action Date" SortExpression="conduct_renewal_action_date">
                 <EditItemTemplate>
@@ -565,7 +648,7 @@ AND Quotation_Target.Status LIKE '%' + @Status + '%' " UpdateCommand="UPDATE [Qu
               <asp:TemplateField HeaderText="Certificate Type" SortExpression="certificate_type">
                 <EditItemTemplate>
                   <asp:TextBox ID="TextBox2" runat="server" Width="300" Text='<%# Bind("certificate_type") %>'></asp:TextBox>
-                  (EX：NEW、RENEW 1 次、RENEW 2 次 ... )
+                  (EX：NEW、RENEW#1、RENEW#2 ... )
                 </EditItemTemplate>
               </asp:TemplateField>
               <asp:TemplateField HeaderText="Country Manager" SortExpression="Country_Manager">
