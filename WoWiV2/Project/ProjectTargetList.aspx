@@ -475,7 +475,7 @@ AND Quotation_Target.Status LIKE '%' + @Status + '%' " UpdateCommand="UPDATE [Qu
                     Text="NO" />
                   <div id="div_sample_return" style="display: none">
                     1.
-                    <asp:CheckBox ID="cbKept" runat="server" Text="Sample is Kept by Local Agent" Checked='<%# Bind("sample_is_kept_by_local_agent") %>' /><br />
+                    <asp:CheckBox ID="cbKept" runat="server" Text="Sample is Kept by Local Agent/Authority" Checked='<%# Bind("sample_is_kept_by_local_agent") %>' /><br />
                     2.
                     <asp:CheckBox ID="cbDestroy" runat="server" Text="WoWi Request Local Agent to Destroy Tested Samples"
                       Checked='<%# Bind("request_local_agent_to_destroy_tested_samples") %>' /><br />
