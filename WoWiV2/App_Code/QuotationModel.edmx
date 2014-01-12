@@ -777,7 +777,6 @@
           <EntitySet Name="clientapplicant_technology" EntityType="QuotationModel.clientapplicant_technology" />
           <EntitySet Name="vw_Quotation_Print" EntityType="QuotationModel.vw_Quotation_Print" />
           <EntitySet Name="invoice_target" EntityType="QuotationModel.invoice_target" />
-          <EntitySet Name="Quotation_Target" EntityType="QuotationModel.Quotation_Target" />
           <EntitySet Name="Target_Rates" EntityType="QuotationModel.Target_Rates" />
           <EntitySet Name="Authority" EntityType="QuotationModel.Authority" />
           <EntitySet Name="Project" EntityType="QuotationModel.Project" />
@@ -797,6 +796,7 @@
             <End Role="Quotation_Version" EntitySet="Quotation_Version" />
             <End Role="Project" EntitySet="Project" />
           </AssociationSet>
+          <EntitySet Name="Quotation_Target" EntityType="QuotationModel.Quotation_Target" />
           <AssociationSet Name="FK_Quotation_Target_Quotation_Version" Association="QuotationModel.FK_Quotation_Target_Quotation_Version">
             <End Role="Quotation_Version" EntitySet="Quotation_Version" />
             <End Role="Quotation_Target" EntitySet="Quotation_Target" />
@@ -870,77 +870,6 @@
           <Property Type="Decimal" Name="amount" Nullable="false" Precision="10" Scale="2" />
           <Property Type="Int32" Name="invoice_id" Nullable="false" />
           <Property Type="String" Name="invoice_no" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Quotation_Target">
-          <Key>
-            <PropertyRef Name="Quotation_Target_Id" />
-          </Key>
-          <Property Type="Int32" Name="Quotation_Target_Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="quotation_id" />
-          <Property Type="Int32" Name="target_id" />
-          <Property Type="String" Name="target_description" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="country_id" />
-          <Property Type="Int32" Name="product_type_id" />
-          <Property Type="Int32" Name="authority_id" />
-          <Property Type="Int32" Name="technology_id" />
-          <Property Type="Decimal" Name="target_rate" Precision="20" Scale="2" />
-          <Property Type="Double" Name="unit" />
-          <Property Type="Decimal" Name="unit_price" Precision="20" Scale="2" />
-          <Property Type="String" Name="discount_type" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="Int32" Name="discValue1" />
-          <Property Type="Decimal" Name="discValue2" Precision="20" Scale="2" />
-          <Property Type="Decimal" Name="discPrice" Precision="20" Scale="2" />
-          <Property Type="Decimal" Name="FinalPrice" Precision="20" Scale="2" />
-          <Property Type="String" Name="PayTo" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Status" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Bill" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="option1" />
-          <Property Type="Boolean" Name="option2" />
-          <Property Type="String" Name="advance1" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="advance2" Precision="20" Scale="2" />
-          <Property Type="String" Name="balance1" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="balance2" Precision="20" Scale="2" />
-          <Property Type="DateTime" Name="test_started" />
-          <Property Type="DateTime" Name="test_completed" />
-          <Property Type="DateTime" Name="certification_submit_to_authority" />
-          <Property Type="DateTime" Name="certification_completed" />
-          <Property Type="String" Name="Estimated_Lead_time" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Actual_Lead_time" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="Agent" />
-          <Property Type="Int32" Name="Country_Manager" />
-          <Property Type="String" Name="PR_Flag" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="Decimal" Name="Bill1" Precision="20" Scale="2" />
-          <Property Type="Decimal" Name="Bill2" Precision="20" Scale="2" />
-          <Property Type="Decimal" Name="Bill3" Precision="20" Scale="2" />
-          <Property Type="Decimal" Name="BillE" Precision="20" Scale="2" />
-          <NavigationProperty Name="Quotation_Version" Relationship="QuotationModel.FK_Quotation_Target_Quotation_Version" FromRole="Quotation_Target" ToRole="Quotation_Version" />
-          <Property Type="DateTime" Name="document_ready_to_process" />
-          <Property Type="String" Name="certificate_type" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="certificate_issue_date" />
-          <Property Type="DateTime" Name="certificate_expiry_date" />
-          <Property Type="DateTime" Name="email_renewal_notice_date" />
-          <Property Type="String" Name="renewal_confirmation_check" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Type="DateTime" Name="conduct_renewal_action_date" />
-          <Property Type="DateTime" Name="sample_received_from_client_date" />
-          <Property Type="String" Name="customer_request_sample_returned" MaxLength="1" Unicode="true" FixedLength="true" />
-          <Property Type="DateTime" Name="sample_returned_to_client_date" />
-          <Property Type="String" Name="sample_shipping_tracking_no" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="customer_request_original_certificate_returned" MaxLength="1" Unicode="true" FixedLength="true" />
-          <Property Type="DateTime" Name="original_certificate_mailed_to_client_date" />
-          <Property Type="String" Name="Certificate_shipping_tracking_no" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="sample_can_be_returned_from_authority" MaxLength="1" Unicode="true" FixedLength="true" />
-          <Property Type="Boolean" Name="sample_is_kept_by_local_agent" />
-          <Property Type="Boolean" Name="request_local_agent_to_destroy_tested_samples" />
-          <Property Type="DateTime" Name="returned_of_tested_sample_date" />
-          <Property Type="Boolean" Name="CMB1" />
-          <Property Type="Boolean" Name="CMB2" />
-          <Property Type="Boolean" Name="CMB3" />
-          <Property Type="Boolean" Name="CMB4" />
-          <Property Type="Boolean" Name="CMB5" />
-          <Property Type="Boolean" Name="CMB6" />
-          <Property Type="Boolean" Name="CMB7" />
-          <Property Type="Boolean" Name="CMB8" />
-          <Property Type="DateTime" Name="original_certificate_received_date" />
         </EntityType>
         <EntityType Name="Target_Rates">
           <Key>
@@ -1392,6 +1321,77 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Quotation_Target">
+          <Key>
+            <PropertyRef Name="Quotation_Target_Id" />
+          </Key>
+          <Property Type="Int32" Name="Quotation_Target_Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="quotation_id" />
+          <Property Type="Int32" Name="target_id" />
+          <Property Type="String" Name="target_description" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="country_id" />
+          <Property Type="Int32" Name="product_type_id" />
+          <Property Type="Int32" Name="authority_id" />
+          <Property Type="Int32" Name="technology_id" />
+          <Property Type="Decimal" Name="target_rate" Precision="20" Scale="2" />
+          <Property Type="Double" Name="unit" />
+          <Property Type="Decimal" Name="unit_price" Precision="20" Scale="2" />
+          <Property Type="String" Name="discount_type" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="discValue1" />
+          <Property Type="Decimal" Name="discValue2" Precision="20" Scale="2" />
+          <Property Type="Decimal" Name="discPrice" Precision="20" Scale="2" />
+          <Property Type="Decimal" Name="FinalPrice" Precision="20" Scale="2" />
+          <Property Type="String" Name="PayTo" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Status" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Bill" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="option1" />
+          <Property Type="Boolean" Name="option2" />
+          <Property Type="String" Name="advance1" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="advance2" Precision="20" Scale="2" />
+          <Property Type="String" Name="balance1" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="balance2" Precision="20" Scale="2" />
+          <Property Type="DateTime" Name="test_started" />
+          <Property Type="DateTime" Name="test_completed" />
+          <Property Type="DateTime" Name="certification_submit_to_authority" />
+          <Property Type="DateTime" Name="certification_completed" />
+          <Property Type="String" Name="Estimated_Lead_time" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Actual_Lead_time" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Agent" />
+          <Property Type="Int32" Name="Country_Manager" />
+          <Property Type="String" Name="PR_Flag" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="Decimal" Name="Bill1" Precision="20" Scale="2" />
+          <Property Type="Decimal" Name="Bill2" Precision="20" Scale="2" />
+          <Property Type="Decimal" Name="Bill3" Precision="20" Scale="2" />
+          <Property Type="Decimal" Name="BillE" Precision="20" Scale="2" />
+          <Property Type="DateTime" Name="document_ready_to_process" />
+          <Property Type="String" Name="certificate_type" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="certificate_issue_date" />
+          <Property Type="DateTime" Name="certificate_expiry_date" />
+          <Property Type="DateTime" Name="email_renewal_notice_date" />
+          <Property Type="String" Name="renewal_confirmation_check" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="conduct_renewal_action_date" />
+          <Property Type="DateTime" Name="sample_received_from_client_date" />
+          <Property Type="String" Name="customer_request_sample_returned" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="sample_returned_to_client_date" />
+          <Property Type="String" Name="sample_shipping_tracking_no" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="customer_request_original_certificate_returned" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="original_certificate_mailed_to_client_date" />
+          <Property Type="String" Name="Certificate_shipping_tracking_no" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="sample_can_be_returned_from_authority" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="Boolean" Name="sample_is_kept_by_local_agent" />
+          <Property Type="Boolean" Name="request_local_agent_to_destroy_tested_samples" />
+          <Property Type="DateTime" Name="returned_of_tested_sample_date" />
+          <Property Type="Boolean" Name="CMB1" />
+          <Property Type="Boolean" Name="CMB2" />
+          <Property Type="Boolean" Name="CMB3" />
+          <Property Type="Boolean" Name="CMB4" />
+          <Property Type="Boolean" Name="CMB5" />
+          <Property Type="Boolean" Name="CMB6" />
+          <Property Type="Boolean" Name="CMB7" />
+          <Property Type="Boolean" Name="CMB8" />
+          <Property Type="DateTime" Name="original_certificate_received_date" />
+          <NavigationProperty Name="Quotation_Version" Relationship="QuotationModel.FK_Quotation_Target_Quotation_Version" FromRole="Quotation_Target" ToRole="Quotation_Version" />
+        </EntityType>
         <Association Name="FK_Quotation_Target_Quotation_Version">
           <End Type="QuotationModel.Quotation_Version" Role="Quotation_Version" Multiplicity="0..1" />
           <End Type="QuotationModel.Quotation_Target" Role="Quotation_Target" Multiplicity="*" />
@@ -1481,77 +1481,6 @@
                 <ScalarProperty Name="quotation_id" ColumnName="quotation_id" />
                 <ScalarProperty Name="quotation_target_id" ColumnName="quotation_target_id" />
                 <ScalarProperty Name="invoice_target_id" ColumnName="invoice_target_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Quotation_Target">
-            <EntityTypeMapping TypeName="QuotationModel.Quotation_Target">
-              <MappingFragment StoreEntitySet="Quotation_Target">
-                <ScalarProperty Name="original_certificate_received_date" ColumnName="original_certificate_received_date" />
-                <ScalarProperty Name="CMB8" ColumnName="CMB8" />
-                <ScalarProperty Name="CMB7" ColumnName="CMB7" />
-                <ScalarProperty Name="CMB6" ColumnName="CMB6" />
-                <ScalarProperty Name="CMB5" ColumnName="CMB5" />
-                <ScalarProperty Name="CMB4" ColumnName="CMB4" />
-                <ScalarProperty Name="CMB3" ColumnName="CMB3" />
-                <ScalarProperty Name="CMB2" ColumnName="CMB2" />
-                <ScalarProperty Name="CMB1" ColumnName="CMB1" />
-                <ScalarProperty Name="returned_of_tested_sample_date" ColumnName="returned_of_tested_sample_date" />
-                <ScalarProperty Name="request_local_agent_to_destroy_tested_samples" ColumnName="request_local_agent_to_destroy_tested_samples" />
-                <ScalarProperty Name="sample_is_kept_by_local_agent" ColumnName="sample_is_kept_by_local_agent" />
-                <ScalarProperty Name="sample_can_be_returned_from_authority" ColumnName="sample_can_be_returned_from_authority" />
-                <ScalarProperty Name="Certificate_shipping_tracking_no" ColumnName="Certificate_shipping_tracking_no" />
-                <ScalarProperty Name="original_certificate_mailed_to_client_date" ColumnName="original_certificate_mailed_to_client_date" />
-                <ScalarProperty Name="customer_request_original_certificate_returned" ColumnName="customer_request_original_certificate_returned" />
-                <ScalarProperty Name="sample_shipping_tracking_no" ColumnName="sample_shipping_tracking_no" />
-                <ScalarProperty Name="sample_returned_to_client_date" ColumnName="sample_returned_to_client_date" />
-                <ScalarProperty Name="customer_request_sample_returned" ColumnName="customer_request_sample_returned" />
-                <ScalarProperty Name="sample_received_from_client_date" ColumnName="sample_received_from_client_date" />
-                <ScalarProperty Name="conduct_renewal_action_date" ColumnName="conduct_renewal_action_date" />
-                <ScalarProperty Name="renewal_confirmation_check" ColumnName="renewal_confirmation_check" />
-                <ScalarProperty Name="email_renewal_notice_date" ColumnName="email_renewal_notice_date" />
-                <ScalarProperty Name="certificate_expiry_date" ColumnName="certificate_expiry_date" />
-                <ScalarProperty Name="certificate_issue_date" ColumnName="certificate_issue_date" />
-                <ScalarProperty Name="certificate_type" ColumnName="certificate_type" />
-                <ScalarProperty Name="document_ready_to_process" ColumnName="document_ready_to_process" />
-                <ScalarProperty Name="BillE" ColumnName="BillE" />
-                <ScalarProperty Name="Bill3" ColumnName="Bill3" />
-                <ScalarProperty Name="Bill2" ColumnName="Bill2" />
-                <ScalarProperty Name="Bill1" ColumnName="Bill1" />
-                <ScalarProperty Name="PR_Flag" ColumnName="PR_Flag" />
-                <ScalarProperty Name="Country_Manager" ColumnName="Country_Manager" />
-                <ScalarProperty Name="Agent" ColumnName="Agent" />
-                <ScalarProperty Name="Actual_Lead_time" ColumnName="Actual_Lead_time" />
-                <ScalarProperty Name="Estimated_Lead_time" ColumnName="Estimated_Lead_time" />
-                <ScalarProperty Name="certification_completed" ColumnName="certification_completed" />
-                <ScalarProperty Name="certification_submit_to_authority" ColumnName="certification_submit_to_authority" />
-                <ScalarProperty Name="test_completed" ColumnName="test_completed" />
-                <ScalarProperty Name="test_started" ColumnName="test_started" />
-                <ScalarProperty Name="balance2" ColumnName="balance2" />
-                <ScalarProperty Name="balance1" ColumnName="balance1" />
-                <ScalarProperty Name="advance2" ColumnName="advance2" />
-                <ScalarProperty Name="advance1" ColumnName="advance1" />
-                <ScalarProperty Name="option2" ColumnName="option2" />
-                <ScalarProperty Name="option1" ColumnName="option1" />
-                <ScalarProperty Name="Bill" ColumnName="Bill" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="PayTo" ColumnName="PayTo" />
-                <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
-                <ScalarProperty Name="discPrice" ColumnName="discPrice" />
-                <ScalarProperty Name="discValue2" ColumnName="discValue2" />
-                <ScalarProperty Name="discValue1" ColumnName="discValue1" />
-                <ScalarProperty Name="discount_type" ColumnName="discount_type" />
-                <ScalarProperty Name="unit_price" ColumnName="unit_price" />
-                <ScalarProperty Name="unit" ColumnName="unit" />
-                <ScalarProperty Name="target_rate" ColumnName="target_rate" />
-                <ScalarProperty Name="technology_id" ColumnName="technology_id" />
-                <ScalarProperty Name="authority_id" ColumnName="authority_id" />
-                <ScalarProperty Name="product_type_id" ColumnName="product_type_id" />
-                <ScalarProperty Name="country_id" ColumnName="country_id" />
-                <ScalarProperty Name="target_description" ColumnName="target_description" />
-                <ScalarProperty Name="target_id" ColumnName="target_id" />
-                <ScalarProperty Name="quotation_id" ColumnName="quotation_id" />
-                <ScalarProperty Name="Quotation_Target_Id" ColumnName="Quotation_Target_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2001,6 +1930,77 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Quotation_Target">
+            <EntityTypeMapping TypeName="QuotationModel.Quotation_Target">
+              <MappingFragment StoreEntitySet="Quotation_Target">
+                <ScalarProperty Name="original_certificate_received_date" ColumnName="original_certificate_received_date" />
+                <ScalarProperty Name="CMB8" ColumnName="CMB8" />
+                <ScalarProperty Name="CMB7" ColumnName="CMB7" />
+                <ScalarProperty Name="CMB6" ColumnName="CMB6" />
+                <ScalarProperty Name="CMB5" ColumnName="CMB5" />
+                <ScalarProperty Name="CMB4" ColumnName="CMB4" />
+                <ScalarProperty Name="CMB3" ColumnName="CMB3" />
+                <ScalarProperty Name="CMB2" ColumnName="CMB2" />
+                <ScalarProperty Name="CMB1" ColumnName="CMB1" />
+                <ScalarProperty Name="returned_of_tested_sample_date" ColumnName="returned_of_tested_sample_date" />
+                <ScalarProperty Name="request_local_agent_to_destroy_tested_samples" ColumnName="request_local_agent_to_destroy_tested_samples" />
+                <ScalarProperty Name="sample_is_kept_by_local_agent" ColumnName="sample_is_kept_by_local_agent" />
+                <ScalarProperty Name="sample_can_be_returned_from_authority" ColumnName="sample_can_be_returned_from_authority" />
+                <ScalarProperty Name="Certificate_shipping_tracking_no" ColumnName="Certificate_shipping_tracking_no" />
+                <ScalarProperty Name="original_certificate_mailed_to_client_date" ColumnName="original_certificate_mailed_to_client_date" />
+                <ScalarProperty Name="customer_request_original_certificate_returned" ColumnName="customer_request_original_certificate_returned" />
+                <ScalarProperty Name="sample_shipping_tracking_no" ColumnName="sample_shipping_tracking_no" />
+                <ScalarProperty Name="sample_returned_to_client_date" ColumnName="sample_returned_to_client_date" />
+                <ScalarProperty Name="customer_request_sample_returned" ColumnName="customer_request_sample_returned" />
+                <ScalarProperty Name="sample_received_from_client_date" ColumnName="sample_received_from_client_date" />
+                <ScalarProperty Name="conduct_renewal_action_date" ColumnName="conduct_renewal_action_date" />
+                <ScalarProperty Name="renewal_confirmation_check" ColumnName="renewal_confirmation_check" />
+                <ScalarProperty Name="email_renewal_notice_date" ColumnName="email_renewal_notice_date" />
+                <ScalarProperty Name="certificate_expiry_date" ColumnName="certificate_expiry_date" />
+                <ScalarProperty Name="certificate_issue_date" ColumnName="certificate_issue_date" />
+                <ScalarProperty Name="certificate_type" ColumnName="certificate_type" />
+                <ScalarProperty Name="document_ready_to_process" ColumnName="document_ready_to_process" />
+                <ScalarProperty Name="BillE" ColumnName="BillE" />
+                <ScalarProperty Name="Bill3" ColumnName="Bill3" />
+                <ScalarProperty Name="Bill2" ColumnName="Bill2" />
+                <ScalarProperty Name="Bill1" ColumnName="Bill1" />
+                <ScalarProperty Name="PR_Flag" ColumnName="PR_Flag" />
+                <ScalarProperty Name="Country_Manager" ColumnName="Country_Manager" />
+                <ScalarProperty Name="Agent" ColumnName="Agent" />
+                <ScalarProperty Name="Actual_Lead_time" ColumnName="Actual_Lead_time" />
+                <ScalarProperty Name="Estimated_Lead_time" ColumnName="Estimated_Lead_time" />
+                <ScalarProperty Name="certification_completed" ColumnName="certification_completed" />
+                <ScalarProperty Name="certification_submit_to_authority" ColumnName="certification_submit_to_authority" />
+                <ScalarProperty Name="test_completed" ColumnName="test_completed" />
+                <ScalarProperty Name="test_started" ColumnName="test_started" />
+                <ScalarProperty Name="balance2" ColumnName="balance2" />
+                <ScalarProperty Name="balance1" ColumnName="balance1" />
+                <ScalarProperty Name="advance2" ColumnName="advance2" />
+                <ScalarProperty Name="advance1" ColumnName="advance1" />
+                <ScalarProperty Name="option2" ColumnName="option2" />
+                <ScalarProperty Name="option1" ColumnName="option1" />
+                <ScalarProperty Name="Bill" ColumnName="Bill" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PayTo" ColumnName="PayTo" />
+                <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
+                <ScalarProperty Name="discPrice" ColumnName="discPrice" />
+                <ScalarProperty Name="discValue2" ColumnName="discValue2" />
+                <ScalarProperty Name="discValue1" ColumnName="discValue1" />
+                <ScalarProperty Name="discount_type" ColumnName="discount_type" />
+                <ScalarProperty Name="unit_price" ColumnName="unit_price" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="target_rate" ColumnName="target_rate" />
+                <ScalarProperty Name="technology_id" ColumnName="technology_id" />
+                <ScalarProperty Name="authority_id" ColumnName="authority_id" />
+                <ScalarProperty Name="product_type_id" ColumnName="product_type_id" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="target_description" ColumnName="target_description" />
+                <ScalarProperty Name="target_id" ColumnName="target_id" />
+                <ScalarProperty Name="quotation_id" ColumnName="quotation_id" />
+                <ScalarProperty Name="Quotation_Target_Id" ColumnName="Quotation_Target_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2027,7 +2027,6 @@
         <EntityTypeShape EntityType="QuotationModel.clientapplicant_technology" Width="1.5" PointX="0.75" PointY="3.75" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print" Width="1.5" PointX="2.75" PointY="3.75" Height="4.2879036458333388" />
         <EntityTypeShape EntityType="QuotationModel.invoice_target" Width="1.5" PointX="6.75" PointY="0.75" Height="2.9417936197916674" />
-        <EntityTypeShape EntityType="QuotationModel.Quotation_Target" Width="2" PointX="6.75" PointY="4.75" Height="13.710673828124996" />
         <EntityTypeShape EntityType="QuotationModel.Target_Rates" Width="1.5" PointX="8.75" PointY="4.75" Height="3.1340950520833353" />
         <EntityTypeShape EntityType="QuotationModel.Authority" Width="1.5" PointX="8.75" PointY="8.75" Height="3.1340950520833317" />
         <EntityTypeShape EntityType="QuotationModel.Project" Width="1.5" PointX="0.75" PointY="9.75" Height="2.3648893229166674" />
@@ -2045,11 +2044,12 @@
         <EntityTypeShape EntityType="QuotationModel.invoice" Width="1.5" PointX="13.375" PointY="13.75" Height="5.3683072916666674" />
         <AssociationConnector Association="QuotationModel.FK_Project_Quotation_Version" >
           <ConnectorPoint PointX="1.5" PointY="12.75" />
-          <ConnectorPoint PointX="1.5" PointY="12.127259114583332" />
+          <ConnectorPoint PointX="1.5" PointY="12.307190755208332" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="QuotationModel.Quotation_Target" Width="1.5" PointX="3" PointY="14.375" Height="13.710673828124996" />
         <AssociationConnector Association="QuotationModel.FK_Quotation_Target_Quotation_Version" >
-          <ConnectorPoint PointX="2.25" PointY="13.317047526041666" />
-          <ConnectorPoint PointX="6.75" PointY="13.317047526041666" />
+          <ConnectorPoint PointX="2.25" PointY="21.230336914062498" />
+          <ConnectorPoint PointX="3" PointY="21.230336914062498" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

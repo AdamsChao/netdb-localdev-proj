@@ -155,22 +155,6 @@ namespace QuotationModel
         /// <summary>
         /// 沒有可用的中繼資料文件。
         /// </summary>
-        public ObjectSet<Quotation_Target> Quotation_Target
-        {
-            get
-            {
-                if ((_Quotation_Target == null))
-                {
-                    _Quotation_Target = base.CreateObjectSet<Quotation_Target>("Quotation_Target");
-                }
-                return _Quotation_Target;
-            }
-        }
-        private ObjectSet<Quotation_Target> _Quotation_Target;
-    
-        /// <summary>
-        /// 沒有可用的中繼資料文件。
-        /// </summary>
         public ObjectSet<Target_Rates> Target_Rates
         {
             get
@@ -407,6 +391,22 @@ namespace QuotationModel
             }
         }
         private ObjectSet<invoice> _invoice;
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        public ObjectSet<Quotation_Target> Quotation_Target
+        {
+            get
+            {
+                if ((_Quotation_Target == null))
+                {
+                    _Quotation_Target = base.CreateObjectSet<Quotation_Target>("Quotation_Target");
+                }
+                return _Quotation_Target;
+            }
+        }
+        private ObjectSet<Quotation_Target> _Quotation_Target;
 
         #endregion
 
@@ -450,14 +450,6 @@ namespace QuotationModel
         public void AddToinvoice_target(invoice_target invoice_target)
         {
             base.AddObject("invoice_target", invoice_target);
-        }
-    
-        /// <summary>
-        /// 將新物件加入 Quotation_Target EntitySet 的方法已被取代。請考慮改為使用關聯的 ObjectSet&lt;T&gt; 屬性的 .Add 方法。
-        /// </summary>
-        public void AddToQuotation_Target(Quotation_Target quotation_Target)
-        {
-            base.AddObject("Quotation_Target", quotation_Target);
         }
     
         /// <summary>
@@ -578,6 +570,14 @@ namespace QuotationModel
         public void AddToinvoice(invoice invoice)
         {
             base.AddObject("invoice", invoice);
+        }
+    
+        /// <summary>
+        /// 將新物件加入 Quotation_Target EntitySet 的方法已被取代。請考慮改為使用關聯的 ObjectSet&lt;T&gt; 屬性的 .Add 方法。
+        /// </summary>
+        public void AddToQuotation_Target(Quotation_Target quotation_Target)
+        {
+            base.AddObject("Quotation_Target", quotation_Target);
         }
 
         #endregion

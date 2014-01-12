@@ -795,13 +795,13 @@ WHERE [Quotation_Target_Id] = @Quotation_Target_Id ">
               <asp:Parameter Name="renewal_confirmation_check" Type="String" />
               <asp:Parameter Name="conduct_renewal_action_date" Type="DateTime" />
               <asp:Parameter Name="sample_received_from_client_date" Type="DateTime" />
-              <asp:Parameter Name="customer_request_sample_returned" Type="Boolean" />
+              <asp:Parameter Name="customer_request_sample_returned" Type="String" />
               <asp:Parameter Name="sample_returned_to_client_date" Type="DateTime" />
               <asp:Parameter Name="sample_shipping_tracking_no" Type="String" />
-              <asp:Parameter Name="customer_request_original_certificate_returned" Type="Boolean" />
+              <asp:Parameter Name="customer_request_original_certificate_returned" Type="String" />
               <asp:Parameter Name="original_certificate_mailed_to_client_date" Type="DateTime" />
               <asp:Parameter Name="Certificate_shipping_tracking_no" Type="String" />
-              <asp:Parameter Name="sample_can_be_returned_from_authority" Type="Boolean" />
+              <asp:Parameter Name="sample_can_be_returned_from_authority" Type="String" />
               <asp:Parameter Name="sample_is_kept_by_local_agent" Type="Boolean" />
               <asp:Parameter Name="request_local_agent_to_destroy_tested_samples" Type="Boolean" />
               <asp:Parameter Name="returned_of_tested_sample_date" Type="DateTime" />
