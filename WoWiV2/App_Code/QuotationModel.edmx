@@ -447,13 +447,13 @@
           <Property Name="renewal_confirmation_check" Type="nchar" MaxLength="1" />
           <Property Name="conduct_renewal_action_date" Type="smalldatetime" />
           <Property Name="sample_received_from_client_date" Type="smalldatetime" />
-          <Property Name="customer_request_sample_returned" Type="bit" />
+          <Property Name="customer_request_sample_returned" Type="nchar" MaxLength="1" />
           <Property Name="sample_returned_to_client_date" Type="smalldatetime" />
           <Property Name="sample_shipping_tracking_no" Type="nvarchar" MaxLength="100" />
-          <Property Name="customer_request_original_certificate_returned" Type="bit" />
+          <Property Name="customer_request_original_certificate_returned" Type="nchar" MaxLength="1" />
           <Property Name="original_certificate_mailed_to_client_date" Type="smalldatetime" />
           <Property Name="Certificate_shipping_tracking_no" Type="nvarchar" MaxLength="100" />
-          <Property Name="sample_can_be_returned_from_authority" Type="bit" />
+          <Property Name="sample_can_be_returned_from_authority" Type="nchar" MaxLength="1" />
           <Property Name="sample_is_kept_by_local_agent" Type="bit" />
           <Property Name="request_local_agent_to_destroy_tested_samples" Type="bit" />
           <Property Name="returned_of_tested_sample_date" Type="smalldatetime" />
@@ -922,13 +922,13 @@
           <Property Type="String" Name="renewal_confirmation_check" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Type="DateTime" Name="conduct_renewal_action_date" />
           <Property Type="DateTime" Name="sample_received_from_client_date" />
-          <Property Type="Boolean" Name="customer_request_sample_returned" />
+          <Property Type="String" Name="customer_request_sample_returned" MaxLength="1" Unicode="true" FixedLength="true" />
           <Property Type="DateTime" Name="sample_returned_to_client_date" />
           <Property Type="String" Name="sample_shipping_tracking_no" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="customer_request_original_certificate_returned" />
+          <Property Type="String" Name="customer_request_original_certificate_returned" MaxLength="1" Unicode="true" FixedLength="true" />
           <Property Type="DateTime" Name="original_certificate_mailed_to_client_date" />
           <Property Type="String" Name="Certificate_shipping_tracking_no" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="sample_can_be_returned_from_authority" />
+          <Property Type="String" Name="sample_can_be_returned_from_authority" MaxLength="1" Unicode="true" FixedLength="true" />
           <Property Type="Boolean" Name="sample_is_kept_by_local_agent" />
           <Property Type="Boolean" Name="request_local_agent_to_destroy_tested_samples" />
           <Property Type="DateTime" Name="returned_of_tested_sample_date" />
@@ -2027,7 +2027,7 @@
         <EntityTypeShape EntityType="QuotationModel.clientapplicant_technology" Width="1.5" PointX="0.75" PointY="3.75" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print" Width="1.5" PointX="2.75" PointY="3.75" Height="4.2879036458333388" />
         <EntityTypeShape EntityType="QuotationModel.invoice_target" Width="1.5" PointX="6.75" PointY="0.75" Height="2.9417936197916674" />
-        <EntityTypeShape EntityType="QuotationModel.Quotation_Target" Width="1.5" PointX="6.75" PointY="4.75" Height="8.3262337239583388" />
+        <EntityTypeShape EntityType="QuotationModel.Quotation_Target" Width="2" PointX="6.75" PointY="4.75" Height="13.710673828124996" />
         <EntityTypeShape EntityType="QuotationModel.Target_Rates" Width="1.5" PointX="8.75" PointY="4.75" Height="3.1340950520833353" />
         <EntityTypeShape EntityType="QuotationModel.Authority" Width="1.5" PointX="8.75" PointY="8.75" Height="3.1340950520833317" />
         <EntityTypeShape EntityType="QuotationModel.Project" Width="1.5" PointX="0.75" PointY="9.75" Height="2.3648893229166674" />
@@ -2048,9 +2048,8 @@
           <ConnectorPoint PointX="1.5" PointY="12.127259114583332" />
         </AssociationConnector>
         <AssociationConnector Association="QuotationModel.FK_Quotation_Target_Quotation_Version" >
-          <ConnectorPoint PointX="2.25" PointY="23.751933593750003" />
-          <ConnectorPoint PointX="7.59375" PointY="23.751933593750003" />
-          <ConnectorPoint PointX="7.59375" PointY="12.581523437500001" />
+          <ConnectorPoint PointX="2.25" PointY="13.317047526041666" />
+          <ConnectorPoint PointX="6.75" PointY="13.317047526041666" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

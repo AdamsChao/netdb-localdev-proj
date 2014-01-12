@@ -108,58 +108,85 @@
       //      }
 
       //Sample Can be Returned from Authority using radioButton
-      if ($("[id*=rbSampleReturnedAuthorityYes]:checked").length > 0) {
+      //      if ($("[id*=rbSampleReturnedAuthorityYes]:checked").length > 0) {
+      //        $("[id*=div_sample_return]").fadeIn(300);
+      //      }
+      //      else {
+      //        $("[id*=rbSampleReturnedAuthorityNo]").attr("checked", true);
+      //      }
+      //      $("[id*=rbSampleReturnedAuthorityYes]").click(function () {
+      //        if ($("[id*=rbSampleReturnedAuthorityYes]:checked").length > 0) {
+      //          $("[id*=div_sample_return]").fadeIn(300);
+      //        }
+      //      });
+      //      $("[id*=rbSampleReturnedAuthorityNo]").click(function () {
+      //        if ($("[id*=rbSampleReturnedAuthorityNo]:checked").length > 0) {
+      //          $("[id*=div_sample_return]").fadeOut(300);
+      //        }
+      //      });
+
+      //Sample Can be Returned from Authority using radioButtonlist
+      if ($("[id*=rb_sample_returned_authority]:checked").val() == "1") {
         $("[id*=div_sample_return]").fadeIn(300);
       }
-      else {
-        $("[id*=rbSampleReturnedAuthorityNo]").attr("checked", true);
-      }
-      $("[id*=rbSampleReturnedAuthorityYes]").click(function () {
-        if ($("[id*=rbSampleReturnedAuthorityYes]:checked").length > 0) {
+      $("[id*=rb_sample_returned_authority]").click(function () {
+        if ($("[id*=rb_sample_returned_authority]:checked").val() == "1") {
           $("[id*=div_sample_return]").fadeIn(300);
         }
-      });
-      $("[id*=rbSampleReturnedAuthorityNo]").click(function () {
-        if ($("[id*=rbSampleReturnedAuthorityNo]:checked").length > 0) {
+        else {
           $("[id*=div_sample_return]").fadeOut(300);
         }
       });
 
       //customer_request_sample_returned
-//      if ($("[id*=cb_sample_returned]").attr('checked') == 'checked') {
-//        $("[id*=div_customer_request_sample_returned]").show();
-//      }
-//      else {
-//        $("[id*=div_customer_request_sample_returned]").hide();
-//      }
+      //      if ($("[id*=cb_sample_returned]").attr('checked') == 'checked') {
+      //        $("[id*=div_customer_request_sample_returned]").show();
+      //      }
+      //      else {
+      //        $("[id*=div_customer_request_sample_returned]").hide();
+      //      }
 
-//      $("[id*=cb_sample_returned]").click(function () {
-//        if ($("[id*=cb_sample_returned]").attr('checked') == 'checked') {
-//          $("[id*=div_customer_request_sample_returned]").fadeIn(300);
-//        }
-//        else {
-//          $("[id*=div_customer_request_sample_returned]").fadeOut(300);
-//        }
-//      });
+      //      $("[id*=cb_sample_returned]").click(function () {
+      //        if ($("[id*=cb_sample_returned]").attr('checked') == 'checked') {
+      //          $("[id*=div_customer_request_sample_returned]").fadeIn(300);
+      //        }
+      //        else {
+      //          $("[id*=div_customer_request_sample_returned]").fadeOut(300);
+      //        }
+      //      });
 
       //customer_request_sample_returned using radio
-      if ($("[id*=rb_sample_returnedYes]:checked").length > 0) {
+      //      if ($("[id*=rb_sample_returnedYes]:checked").length > 0) {
+      //        $("[id*=div_customer_request_sample_returned]").fadeIn(300);
+      //      }
+      //      else {
+      //        $("[id*=rb_sample_returnedNo]").attr("checked", true);
+      //      }
+
+      //      $("[id*=rb_sample_returnedYes]").click(function () {
+      //        if ($("[id*=rb_sample_returnedYes]:checked").length > 0) {
+      //          $("[id*=div_customer_request_sample_returned]").fadeIn(300);
+      //        }
+      //      });
+      //      $("[id*=rb_sample_returnedNo]").click(function () {
+      //        if ($("[id*=rb_sample_returnedNo]:checked").length > 0) {
+      //          $("[id*=div_customer_request_sample_returned]").fadeOut(300);
+      //        }
+      //      });
+
+      //customer_request_sample_returned using radiobuttonlist
+      if ($("[id*=rb_sample_returned]:checked").val() == "1") {
         $("[id*=div_customer_request_sample_returned]").fadeIn(300);
       }
-      else {
-        $("[id*=rb_sample_returnedNo]").attr("checked", true);
-      }
-
-      $("[id*=rb_sample_returnedYes]").click(function () {
-        if ($("[id*=rb_sample_returnedYes]:checked").length > 0) {
+      $("[id*=rb_sample_returned]").click(function () {
+        if ($("[id*=rb_sample_returned]:checked").val() == "1") {
           $("[id*=div_customer_request_sample_returned]").fadeIn(300);
         }
-      });
-      $("[id*=rb_sample_returnedNo]").click(function () {
-        if ($("[id*=rb_sample_returnedNo]:checked").length > 0) {
+        else {
           $("[id*=div_customer_request_sample_returned]").fadeOut(300);
         }
       });
+
 
       //customer_request_original_certificate_returned
       //      if ($("[id*=cb_certificate_returned]").attr('checked') == 'checked') {
@@ -179,20 +206,33 @@
       //      });
 
       //customer_request_original_certificate_returned using radio
-      if ($("[id*=rb_certificate_returnedYes]:checked").length > 0) {
+      //      if ($("[id*=rb_certificate_returnedYes]:checked").length > 0) {
+      //        $("[id*=div_customer_request_original_certificate_returned]").fadeIn(300);
+      //      }
+      //      else {
+      //        $("[id*=rb_certificate_returnedNo]").attr("checked", true);
+      //      }
+
+      //      $("[id*=rb_certificate_returnedYes]").click(function () {
+      //        if ($("[id*=rb_certificate_returnedYes]:checked").length > 0) {
+      //          $("[id*=div_customer_request_original_certificate_returned]").fadeIn(300);
+      //        }
+      //      });
+      //      $("[id*=rb_certificate_returnedNo]").click(function () {
+      //        if ($("[id*=rb_certificate_returnedNo]:checked").length > 0) {
+      //          $("[id*=div_customer_request_original_certificate_returned]").fadeOut(300);
+      //        }
+      //      });
+
+      //customer_request_original_certificate_returned using radiobuttonlist
+      if ($("[id*=rb_certificate_returned]:checked").val() == "1") {
         $("[id*=div_customer_request_original_certificate_returned]").fadeIn(300);
       }
-      else {
-        $("[id*=rb_certificate_returnedNo]").attr("checked", true);
-      }
-
-      $("[id*=rb_certificate_returnedYes]").click(function () {
-        if ($("[id*=rb_certificate_returnedYes]:checked").length > 0) {
+      $("[id*=rb_certificate_returned]").click(function () {
+        if ($("[id*=rb_certificate_returned]:checked").val() == "1") {
           $("[id*=div_customer_request_original_certificate_returned]").fadeIn(300);
         }
-      });
-      $("[id*=rb_certificate_returnedNo]").click(function () {
-        if ($("[id*=rb_certificate_returnedNo]:checked").length > 0) {
+        else {
           $("[id*=div_customer_request_original_certificate_returned]").fadeOut(300);
         }
       });
@@ -430,10 +470,16 @@ AND Quotation_Target.Status LIKE '%' + @Status + '%' " UpdateCommand="UPDATE [Qu
               </asp:TemplateField>
               <asp:TemplateField HeaderText="Customer Request Sample Returned">
                 <EditItemTemplate>
-                  <%--<asp:CheckBox ID="cb_sample_returned" runat="server" Checked='<%# Bind("customer_request_sample_returned") %>' Text="YES" />--%>
+                  <%--<asp:CheckBox ID="cb_sample_returned" runat="server" Checked='<%# Bind("customer_request_sample_returned") %>' Text="YES" />
                     <asp:RadioButton ID="rb_sample_returnedYes" runat="server" Checked='<%# Bind("customer_request_sample_returned") %>'
                     GroupName="customer_request_sample_returned" Text="YES" />
-                  <asp:RadioButton ID="rb_sample_returnedNo" runat="server" GroupName="customer_request_sample_returned" Text="NO" />                   
+                  <asp:RadioButton ID="rb_sample_returnedNo" runat="server" GroupName="customer_request_sample_returned" Text="NO" />--%>
+                  <asp:RadioButtonList ID="rb_sample_returned" runat="server" RepeatDirection="Horizontal"
+                    SelectedValue='<%# Bind("customer_request_sample_returned") %>'>
+                    <asp:ListItem Value="0">Not Setup</asp:ListItem>
+                    <asp:ListItem Value="1">YES</asp:ListItem>
+                    <asp:ListItem Value="2">NO</asp:ListItem>
+                  </asp:RadioButtonList>
                   <div id="div_customer_request_sample_returned" style="display: none">
                     Sample Returned to Client Date：
                     <asp:TextBox ID="TextBox_sample_returned_to_client_date" runat="server" Text='<%# Bind("sample_returned_to_client_date","{0:yyyy/MM/dd}") %>'></asp:TextBox>
@@ -449,10 +495,16 @@ AND Quotation_Target.Status LIKE '%' + @Status + '%' " UpdateCommand="UPDATE [Qu
               <asp:TemplateField HeaderText="Customer Request Original Certificate Returned">
                 <EditItemTemplate>
                   <%--<asp:CheckBox ID="cb_certificate_returned" runat="server" Text="YES" Checked='<%# Bind("customer_request_original_certificate_returned") %>' /><br />--%>
-                  <asp:RadioButton ID="rb_certificate_returnedYes" runat="server" Checked='<%# Bind("customer_request_original_certificate_returned") %>'
+                  <%-- <asp:RadioButton ID="rb_certificate_returnedYes" runat="server" Checked='<%# Bind("customer_request_original_certificate_returned") %>'
                     GroupName="customer_request_original_certificate_returned" Text="YES" />
                   <asp:RadioButton ID="rb_certificate_returnedNo" runat="server" GroupName="customer_request_original_certificate_returned"
-                    Text="NO" />
+                    Text="NO" />--%>
+                  <asp:RadioButtonList ID="rb_certificate_returned" runat="server" RepeatDirection="Horizontal"
+                    SelectedValue='<%# Bind("customer_request_original_certificate_returned") %>'>
+                    <asp:ListItem Value="0">Not Setup</asp:ListItem>
+                    <asp:ListItem Value="1">YES</asp:ListItem>
+                    <asp:ListItem Value="2">NO</asp:ListItem>
+                  </asp:RadioButtonList>
                   <div id="div_customer_request_original_certificate_returned" style="display: none">
                     Original Certificate Mailed to Client Date：
                     <asp:TextBox ID="TextBox_original_certificate_mailed_to_client_date" runat="server"
@@ -469,13 +521,20 @@ AND Quotation_Target.Status LIKE '%' + @Status + '%' " UpdateCommand="UPDATE [Qu
               <asp:TemplateField HeaderText="Sample Can be Returned from Authority">
                 <EditItemTemplate>
                   <%--<asp:CheckBox ID="cbSampleReturnedAuthority" runat="server" Text="YES" Checked='<%# Bind("sample_can_be_returned_from_authority") %>' />--%>
-                  <asp:RadioButton ID="rbSampleReturnedAuthorityYes" runat="server" Checked='<%# Bind("sample_can_be_returned_from_authority") %>'
+                  <%--<asp:RadioButton ID="rbSampleReturnedAuthorityYes" runat="server" Checked='<%# Bind("sample_can_be_returned_from_authority") %>'
                     GroupName="sample_can_be_returned_from_authority" Text="YES" />
                   <asp:RadioButton ID="rbSampleReturnedAuthorityNo" runat="server" GroupName="sample_can_be_returned_from_authority"
-                    Text="NO" />
+                    Text="NO" />--%>
+                  <asp:RadioButtonList ID="rb_sample_returned_authority" runat="server" RepeatDirection="Horizontal"
+                    SelectedValue='<%# Bind("sample_can_be_returned_from_authority") %>'>
+                    <asp:ListItem Value="0">Not Setup</asp:ListItem>
+                    <asp:ListItem Value="1">YES</asp:ListItem>
+                    <asp:ListItem Value="2">NO</asp:ListItem>
+                  </asp:RadioButtonList>
                   <div id="div_sample_return" style="display: none">
                     1.
-                    <asp:CheckBox ID="cbKept" runat="server" Text="Sample is Kept by Local Agent/Authority" Checked='<%# Bind("sample_is_kept_by_local_agent") %>' /><br />
+                    <asp:CheckBox ID="cbKept" runat="server" Text="Sample is Kept by Local Agent/Authority"
+                      Checked='<%# Bind("sample_is_kept_by_local_agent") %>' /><br />
                     2.
                     <asp:CheckBox ID="cbDestroy" runat="server" Text="WoWi Request Local Agent to Destroy Tested Samples"
                       Checked='<%# Bind("request_local_agent_to_destroy_tested_samples") %>' /><br />

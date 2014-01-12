@@ -6763,7 +6763,7 @@ namespace QuotationModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> customer_request_sample_returned
+        public global::System.String customer_request_sample_returned
         {
             get
             {
@@ -6773,13 +6773,13 @@ namespace QuotationModel
             {
                 Oncustomer_request_sample_returnedChanging(value);
                 ReportPropertyChanging("customer_request_sample_returned");
-                _customer_request_sample_returned = StructuralObject.SetValidValue(value);
+                _customer_request_sample_returned = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("customer_request_sample_returned");
                 Oncustomer_request_sample_returnedChanged();
             }
         }
-        private Nullable<global::System.Boolean> _customer_request_sample_returned;
-        partial void Oncustomer_request_sample_returnedChanging(Nullable<global::System.Boolean> value);
+        private global::System.String _customer_request_sample_returned;
+        partial void Oncustomer_request_sample_returnedChanging(global::System.String value);
         partial void Oncustomer_request_sample_returnedChanged();
     
         /// <summary>
@@ -6835,7 +6835,7 @@ namespace QuotationModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> customer_request_original_certificate_returned
+        public global::System.String customer_request_original_certificate_returned
         {
             get
             {
@@ -6845,13 +6845,13 @@ namespace QuotationModel
             {
                 Oncustomer_request_original_certificate_returnedChanging(value);
                 ReportPropertyChanging("customer_request_original_certificate_returned");
-                _customer_request_original_certificate_returned = StructuralObject.SetValidValue(value);
+                _customer_request_original_certificate_returned = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("customer_request_original_certificate_returned");
                 Oncustomer_request_original_certificate_returnedChanged();
             }
         }
-        private Nullable<global::System.Boolean> _customer_request_original_certificate_returned;
-        partial void Oncustomer_request_original_certificate_returnedChanging(Nullable<global::System.Boolean> value);
+        private global::System.String _customer_request_original_certificate_returned;
+        partial void Oncustomer_request_original_certificate_returnedChanging(global::System.String value);
         partial void Oncustomer_request_original_certificate_returnedChanged();
     
         /// <summary>
@@ -6907,7 +6907,7 @@ namespace QuotationModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> sample_can_be_returned_from_authority
+        public global::System.String sample_can_be_returned_from_authority
         {
             get
             {
@@ -6917,13 +6917,13 @@ namespace QuotationModel
             {
                 Onsample_can_be_returned_from_authorityChanging(value);
                 ReportPropertyChanging("sample_can_be_returned_from_authority");
-                _sample_can_be_returned_from_authority = StructuralObject.SetValidValue(value);
+                _sample_can_be_returned_from_authority = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("sample_can_be_returned_from_authority");
                 Onsample_can_be_returned_from_authorityChanged();
             }
         }
-        private Nullable<global::System.Boolean> _sample_can_be_returned_from_authority;
-        partial void Onsample_can_be_returned_from_authorityChanging(Nullable<global::System.Boolean> value);
+        private global::System.String _sample_can_be_returned_from_authority;
+        partial void Onsample_can_be_returned_from_authorityChanging(global::System.String value);
         partial void Onsample_can_be_returned_from_authorityChanged();
     
         /// <summary>

@@ -254,9 +254,9 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
 
     //Add by Adams 2014/1/5
     target.renewal_confirmation_check = "0";
-    target.customer_request_sample_returned = false;
-    target.customer_request_original_certificate_returned = false;
-    target.sample_can_be_returned_from_authority = false;
+    target.customer_request_sample_returned = "0";
+    target.customer_request_original_certificate_returned = "0";
+    target.sample_can_be_returned_from_authority = "0";
     target.sample_is_kept_by_local_agent = false;
     target.request_local_agent_to_destroy_tested_samples = false;
     target.CMB1 = false;
