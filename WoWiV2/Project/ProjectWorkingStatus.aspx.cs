@@ -47,12 +47,11 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
 
   //Project 一開始預設值
   protected void DropDownListPO_DataBound(object sender, EventArgs e)
-  {
-    DropDownList ddlProject = sender as DropDownList;
-    ddlProject.Items.Insert(0, new ListItem()
+  { 
+    DropDownListPO.Items.Insert(0, new ListItem()
     {
       Text = "- All -",
-      Value = "0"
+      Value = "%"
     });
   }
 
@@ -87,6 +86,8 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
 
   protected void tvProject_SelectedNodeChanged(object sender, EventArgs e)
   {
+    SqlDataSourceProject.SelectParameters.Clear();
+    SqlDataSourceProject.SelectParameters.Add("Project_Status", tvProject.SelectedValue);
     DropDownListPO.DataBind();
     HFAccordionStatus.Value = "0";
   }

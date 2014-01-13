@@ -124,7 +124,9 @@
         <table>
           <tr valign="top">
             <td>
-              <asp:TreeView ID="tvProject" runat="server" ShowLines="True" OnSelectedNodeChanged="tvProject_SelectedNodeChanged">
+              <asp:TreeView ID="tvProject" runat="server" ImageSet="WindowsHelp" 
+                ShowLines="True">
+                <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
                 <Nodes>
                   <asp:TreeNode Text="案件總覽(All)" Value="%">
                     <asp:TreeNode Text="新開案的案子(Open)" Value="Open"></asp:TreeNode>
@@ -133,13 +135,17 @@
                     <asp:TreeNode Text="取消的案子(Cancelled)" Value="Cancelled"></asp:TreeNode>
                   </asp:TreeNode>
                 </Nodes>
+                <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" 
+                  HorizontalPadding="5px" NodeSpacing="0px" VerticalPadding="1px" />
+                <ParentNodeStyle Font-Bold="False" />
+                <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" 
+                  HorizontalPadding="0px" VerticalPadding="0px" />
               </asp:TreeView>
             </td>
             <td>
               Project No:
               <asp:DropDownList ID="DropDownListPO" runat="server" DataSourceID="SqlDataSourceProject"
-                DataTextField="Project_Name" DataValueField="Project_Id" AppendDataBoundItems="True">
-                <asp:ListItem Value="%">- All -</asp:ListItem>
+                DataTextField="Project_Name" DataValueField="Project_Id" OnDataBound="DropDownListPO_DataBound">                
               </asp:DropDownList>
               <asp:SqlDataSource ID="SqlDataSourceProject" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 SelectCommand="SELECT [Project_Id],[Project_Name] FROM vw_GetProjectLists WHERE ([Project_Status] LIKE '%' + @Project_Status + '%')  Order By Companyname , Project_Id desc ">
