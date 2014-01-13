@@ -51,15 +51,15 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
   // Accordion 0
 
   //Project 一開始預設值
-  protected void DropDownListPO_DataBound(object sender, EventArgs e)
-  {
-    DropDownList ddlProject = sender as DropDownList;
-    ddlProject.Items.Insert(0, new ListItem()
-    {
-      Text = "Please Select a Project...",
-      Value = "0"
-    });
-  }
+  //protected void DropDownListPO_DataBound(object sender, EventArgs e)
+  //{
+  //  DropDownList ddlProject = sender as DropDownList;
+  //  ddlProject.Items.Insert(0, new ListItem()
+  //  {
+  //    Text = "Please Select a Project...",
+  //    Value = "0"
+  //  });
+  //}
 
   protected void DropDownListCountry_DataBound(object sender, EventArgs e)
   {

@@ -3,7 +3,6 @@
   MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxcontroltoolkit" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
   <script type="text/javascript">
     $(function () {
@@ -139,7 +138,8 @@
             <td>
               Project No:
               <asp:DropDownList ID="DropDownListPO" runat="server" DataSourceID="SqlDataSourceProject"
-                DataTextField="Project_Name" DataValueField="Project_Id" OnDataBound="DropDownListPO_DataBound">
+                DataTextField="Project_Name" DataValueField="Project_Id" AppendDataBoundItems="True">
+                <asp:ListItem Value="%">- All -</asp:ListItem>
               </asp:DropDownList>
               <asp:SqlDataSource ID="SqlDataSourceProject" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 SelectCommand="SELECT [Project_Id],[Project_Name] FROM vw_GetProjectLists WHERE ([Project_Status] LIKE '%' + @Project_Status + '%')  Order By Companyname , Project_Id desc ">
@@ -217,10 +217,8 @@
       <br />
       <asp:GridView ID="GridViewProjectTarget" runat="server" AllowPaging="True" AutoGenerateColumns="False"
         DataKeyNames="Quotation_Target_Id" DataSourceID="SqlDataSourceTarget" PageSize="15"
-        Width="100%" AllowSorting="True" 
-        OnSelectedIndexChanging="GridViewProjectTarget_SelectedIndexChanging" 
-        onpageindexchanging="GridViewProjectTarget_PageIndexChanging" 
-        onsorting="GridViewProjectTarget_Sorting">
+        Width="100%" AllowSorting="True" OnSelectedIndexChanging="GridViewProjectTarget_SelectedIndexChanging"
+        OnPageIndexChanging="GridViewProjectTarget_PageIndexChanging" OnSorting="GridViewProjectTarget_Sorting">
         <Columns>
           <asp:CommandField HeaderText="Working Status" SelectText="Setting" ShowSelectButton="True" />
           <asp:TemplateField HeaderText="ID" InsertVisible="False">
@@ -233,9 +231,8 @@
               <asp:Label ID="LabelProjectNo" runat="server" Text='<%# Bind("Project_No") %>'></asp:Label>
               <asp:HiddenField ID="HFCountry" runat="server" Value='<%# Bind("country_id") %>' />
               <asp:HiddenField ID="HFProjectID" runat="server" Value='<%# Bind("Project_Id") %>' />
-              
               <asp:HiddenField ID="HFClient" runat="server" Value='<%# Bind("Client") %>' />
-              <asp:HiddenField ID="HFModelNo" runat="server" Value='<%# Bind("Model_No") %>' />              
+              <asp:HiddenField ID="HFModelNo" runat="server" Value='<%# Bind("Model_No") %>' />
               <asp:HiddenField ID="HFProductName" runat="server" Value='<%# Bind("Product_Name") %>' />
             </ItemTemplate>
           </asp:TemplateField>
@@ -321,8 +318,7 @@ AND (Client_Id  LIKE @Client_Id)
       <asp:Label ID="lblCountry" runat="server" Visible="False"></asp:Label>
       <asp:Label ID="lblTarget" runat="server" Visible="False"></asp:Label>
       Project：<asp:DropDownList ID="ddlWorkingStatusProject" runat="server" AutoPostBack="True"
-        DataSourceID="GetProjectsHasTargetSqlDataSource" 
-        DataTextField="Project_Name" DataValueField="Project_Id"
+        DataSourceID="GetProjectsHasTargetSqlDataSource" DataTextField="Project_Name" DataValueField="Project_Id"
         EnableTheming="False" OnSelectedIndexChanged="ddlWorkingStatusProject_SelectedIndexChanged"
         OnDataBound="ddlWorkingStatusProject_DataBound" Enabled="False">
       </asp:DropDownList>
@@ -335,9 +331,8 @@ AND (Client_Id  LIKE @Client_Id)
       <p />
       Country：<asp:DropDownList ID="ddlWorkingStatusCountry" runat="server" AutoPostBack="True"
         DataSourceID="ProjectCountrySqlDataSource" DataTextField="country_name" DataValueField="country_id"
-        EnableTheming="False" OnDataBound="ddlWorkingStatusCountry_DataBound" 
-          OnSelectedIndexChanged="ddlWorkingStatusCountry_SelectedIndexChanged" 
-          Enabled="False">
+        EnableTheming="False" OnDataBound="ddlWorkingStatusCountry_DataBound" OnSelectedIndexChanged="ddlWorkingStatusCountry_SelectedIndexChanged"
+        Enabled="False">
       </asp:DropDownList>
       <asp:SqlDataSource ID="ProjectCountrySqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
         SelectCommand="SELECT Quotation_Target.country_id, country.country_name 
@@ -352,12 +347,10 @@ Where Quotation_Target.quotation_id in
         </SelectParameters>
       </asp:SqlDataSource>
       <p />
-      Target：<asp:DropDownList 
-          ID="ddlWorkingStatusTarget" runat="server" AutoPostBack="True"
+      Target：<asp:DropDownList ID="ddlWorkingStatusTarget" runat="server" AutoPostBack="True"
         DataSourceID="WorkingStatusTargetSqlDataSource" DataTextField="authority_name"
         DataValueField="Quotation_Target_Id" EnableTheming="False" OnDataBound="ddlWorkingStatusTarget_DataBound"
-        OnSelectedIndexChanged="ddlWorkingStatusTarget_SelectedIndexChanged" 
-          Enabled="False">
+        OnSelectedIndexChanged="ddlWorkingStatusTarget_SelectedIndexChanged" Enabled="False">
       </asp:DropDownList>
       <asp:SqlDataSource ID="WorkingStatusTargetSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
         SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, 
@@ -375,13 +368,11 @@ Where Quotation_Target.quotation_id in
         </SelectParameters>
       </asp:SqlDataSource>
       <p />
-      <asp:GridView ID="gvWorkingStatus" runat="server" 
-          DataSourceID="gvWorkingStatusSqlDataSource" AutoGenerateColumns="False" CellPadding="4"
-        DataKeyNames="log_id" EmptyDataText="沒有資料可以顯示。" ForeColor="#333333" HorizontalAlign="Center"
-        RowHeaderColumn="id" ShowHeaderWhenEmpty="True" Width="100%" EnablePersistedSelection="True"
-        EnableTheming="False" OnRowDataBound="gvWorkingStatus_RowDataBound" 
-          PageSize="30" onrowediting="gvWorkingStatus_RowEditing" 
-          onsorting="gvWorkingStatus_Sorting">
+      <asp:GridView ID="gvWorkingStatus" runat="server" DataSourceID="gvWorkingStatusSqlDataSource"
+        AutoGenerateColumns="False" CellPadding="4" DataKeyNames="log_id" EmptyDataText="沒有資料可以顯示。"
+        ForeColor="#333333" HorizontalAlign="Center" RowHeaderColumn="id" ShowHeaderWhenEmpty="True"
+        Width="100%" EnablePersistedSelection="True" EnableTheming="False" OnRowDataBound="gvWorkingStatus_RowDataBound"
+        PageSize="30" OnRowEditing="gvWorkingStatus_RowEditing" OnSorting="gvWorkingStatus_Sorting">
         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
         <Columns>
           <asp:BoundField DataField="log_id" HeaderText="ID" InsertVisible="False" ReadOnly="True"
@@ -464,23 +455,23 @@ Where Quotation_Target.quotation_id in
               <asp:TextBox ID="txtLogDate" runat="server" ValidationGroup="AddWorkingStatus" Text='<%# Bind("log_date") %>'
                 EnableTheming="False">
               </asp:TextBox>
-              <ajaxcontroltoolkit:CalendarExtender ID="txtLogDate_CalendarExtender" runat="server" Enabled="True"
-                Format="yyyy/MM/dd" TargetControlID="txtLogDate" TodaysDateFormat="yyyy/MM/dd">
+              <ajaxcontroltoolkit:CalendarExtender ID="txtLogDate_CalendarExtender" runat="server"
+                Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtLogDate" TodaysDateFormat="yyyy/MM/dd">
               </ajaxcontroltoolkit:CalendarExtender>
               <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtLogDate"
                 Display="None" EnableTheming="False" ErrorMessage="<strong>Required Field Missing</strong><br />&nbsp;&nbsp;Please enter a valid date."
                 ForeColor="Red" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date" ValidationGroup="AddWorkingStatus">
               </asp:CompareValidator>
-              <ajaxcontroltoolkit:ValidatorCalloutExtender ID="ValidatorCalloutExtender1" runat="server" Enabled="True"
-                HighlightCssClass="RequiredFieldHighlight" TargetControlID="CompareValidator1"
+              <ajaxcontroltoolkit:ValidatorCalloutExtender ID="ValidatorCalloutExtender1" runat="server"
+                Enabled="True" HighlightCssClass="RequiredFieldHighlight" TargetControlID="CompareValidator1"
                 Width="250px" PopupPosition="Right">
               </ajaxcontroltoolkit:ValidatorCalloutExtender>
               <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtLogDate"
                 Display="None" EnableTheming="False" ErrorMessage="<strong>Required Field Missing</strong><br />&nbsp;&nbsp;Date is required."
                 ForeColor="Red" SetFocusOnError="True" ValidationGroup="AddWorkingStatus">
               </asp:RequiredFieldValidator>
-              <ajaxcontroltoolkit:ValidatorCalloutExtender ID="ValidatorCalloutExtender2" runat="server" Enabled="True"
-                HighlightCssClass="RequiredFieldHighlight" TargetControlID="RequiredFieldValidator2"
+              <ajaxcontroltoolkit:ValidatorCalloutExtender ID="ValidatorCalloutExtender2" runat="server"
+                Enabled="True" HighlightCssClass="RequiredFieldHighlight" TargetControlID="RequiredFieldValidator2"
                 Width="250px" PopupPosition="Right">
               </ajaxcontroltoolkit:ValidatorCalloutExtender>
             </InsertItemTemplate>
@@ -615,8 +606,8 @@ Where Quotation_Target.quotation_id in
                 Display="None" EnableTheming="False" ErrorMessage="<strong>Required Field Missing</strong><br />&nbsp;&nbsp;Working Status is required."
                 ForeColor="Red" SetFocusOnError="True" ValidationGroup="AddWorkingStatus">
               </asp:RequiredFieldValidator>
-              <ajaxcontroltoolkit:ValidatorCalloutExtender ID="ValidatorCalloutExtender3" runat="server" Enabled="True"
-                HighlightCssClass="RequiredFieldHighlight" TargetControlID="RequiredFieldValidator3"
+              <ajaxcontroltoolkit:ValidatorCalloutExtender ID="ValidatorCalloutExtender3" runat="server"
+                Enabled="True" HighlightCssClass="RequiredFieldHighlight" TargetControlID="RequiredFieldValidator3"
                 Width="250px" PopupPosition="BottomLeft">
               </ajaxcontroltoolkit:ValidatorCalloutExtender>
             </InsertItemTemplate>
@@ -668,10 +659,9 @@ Where Quotation_Target.quotation_id in
     <h3>
       Target Estimate Date</h3>
     <div>
-      <asp:DetailsView ID="DetailsViewTarget" runat="server" AutoGenerateRows="False"
-        DataKeyNames="Quotation_Target_Id" DataSourceID="SqlDataSourceModifyTarget" DefaultMode="Edit"
-        Width="100%" OnItemUpdated="DetailsViewTarget_ItemUpdated" OnItemUpdating="DetailsViewTarget_ItemUpdating"
-        OnDataBound="DetailsViewTarget_DataBound">
+      <asp:DetailsView ID="DetailsViewTarget" runat="server" AutoGenerateRows="False" DataKeyNames="Quotation_Target_Id"
+        DataSourceID="SqlDataSourceModifyTarget" DefaultMode="Edit" Width="100%" OnItemUpdated="DetailsViewTarget_ItemUpdated"
+        OnItemUpdating="DetailsViewTarget_ItemUpdating" OnDataBound="DetailsViewTarget_DataBound">
         <Fields>
           <asp:BoundField DataField="Quotation_Target_Id" HeaderText="ID" InsertVisible="False"
             ReadOnly="True" SortExpression="Quotation_Target_Id" />
@@ -1128,7 +1118,8 @@ WHERE [Quotation_Target_Id] = @Quotation_Target_Id ">
                       <asp:Label ID="Label_Quotation_Target_Id" runat="server" Visible="false" Text='<%# Bind("Quotation_Target_Id") %>'></asp:Label>
                       <asp:BulletedList ID="BulletedListStatus" runat="server" DataSourceID="SqlDataSourceStatus"
                         DataTextField="Status" DataValueField="voided" OnDataBound="BulletedListStatus_DataBound"
-                        BulletStyle="Numbered"></asp:BulletedList>
+                        BulletStyle="Numbered">
+                      </asp:BulletedList>
                       <asp:SqlDataSource ID="SqlDataSourceStatus" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                         SelectCommand="SELECT voided , 
 	Case external_use 
