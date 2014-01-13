@@ -153,7 +153,7 @@
               Country Manager :
               <asp:DropDownList ID="DropDownListCM" runat="server" AppendDataBoundItems="True"
                 DataSourceID="SqlDataSourceCM" DataTextField="fname" DataValueField="id">
-                <asp:ListItem Value="0">- All -</asp:ListItem>
+                <asp:ListItem Value="%">- All -</asp:ListItem>
               </asp:DropDownList>
               <asp:SqlDataSource ID="SqlDataSourceCM" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 SelectCommand="SELECT [id],fname + ' ' + lname as [fname] FROM [employee] where status='Active'">
@@ -307,7 +307,7 @@ AND (Client_Id  LIKE @Client_Id)
             PropertyName="SelectedValue" />
           <asp:ControlParameter ControlID="DropDownListAE" DefaultValue="%" Name="SalesId"
             PropertyName="SelectedValue" />
-             <asp:ControlParameter ControlID="DropDownListCM" DefaultValue="%" Name="Country_Manager"
+          <asp:ControlParameter ControlID="DropDownListCM" DefaultValue="%" Name="Country_Manager"
             PropertyName="SelectedValue" />
           <asp:ControlParameter ControlID="DropDownListClient" DefaultValue="%" Name="Client_Id"
             PropertyName="SelectedValue" />
