@@ -34,12 +34,7 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
           dvWorkingStatus.Visible = true;
         }
       }
-
-      if (DropDownListCM.SelectedValue != "0")
-      {
-        SqlDataSourceTarget.SelectCommand +=
-          " AND (Quotation_Target.Country_Manager LIKE " + DropDownListCM.SelectedValue + ")";
-      }
+      
       if (DropDownListRegion.SelectedValue != "0")
       {
         SqlDataSourceTarget.SelectCommand +=

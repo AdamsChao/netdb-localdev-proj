@@ -295,6 +295,7 @@ WHERE (Project.Project_ID LIKE @Project_ID)
 AND (Quotation_Target.Status LIKE '%' + @Status + '%') 
 AND (country.country_name LIKE @country_name ) 
 AND (SalesId  LIKE @SalesId) 
+AND (Country_Manager  LIKE @Country_Manager) 
 AND (Client_Id  LIKE @Client_Id) 
 " OnSelecting="SqlDataSourceTarget_Selecting">
         <SelectParameters>
@@ -305,6 +306,8 @@ AND (Client_Id  LIKE @Client_Id)
           <asp:ControlParameter ControlID="DropDownListCountry" DefaultValue="%" Name="country_name"
             PropertyName="SelectedValue" />
           <asp:ControlParameter ControlID="DropDownListAE" DefaultValue="%" Name="SalesId"
+            PropertyName="SelectedValue" />
+             <asp:ControlParameter ControlID="DropDownListCM" DefaultValue="%" Name="Country_Manager"
             PropertyName="SelectedValue" />
           <asp:ControlParameter ControlID="DropDownListClient" DefaultValue="%" Name="Client_Id"
             PropertyName="SelectedValue" />
