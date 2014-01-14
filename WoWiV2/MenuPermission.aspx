@@ -73,6 +73,8 @@
   <table class="style1">
     <tr valign="top">
       <td class="style2">
+        Employees Lists :
+        <br />
         <asp:ListBox ID="ListBoxUsers" runat="server" DataSourceID="SqlDataSourceEmp" 
     DataTextField="username" DataValueField="id" Rows="20" SelectionMode="Multiple" 
           Width="300px" onselectedindexchanged="ListBoxUsers_SelectedIndexChanged" 
