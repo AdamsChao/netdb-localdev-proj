@@ -34,12 +34,11 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
           dvWorkingStatus.Visible = true;
         }
       }
-      
-      if (DropDownListRegion.SelectedValue != "0")
-      {
-        SqlDataSourceTarget.SelectCommand +=
-          " AND (world_region_name LIKE '%" + DropDownListRegion.SelectedItem.Text + "%')";
-      }
+    }
+    if (DropDownListRegion.SelectedValue != "0")
+    {
+      SqlDataSourceTarget.SelectCommand +=
+        " AND (world_region_name LIKE '%" + DropDownListRegion.SelectedItem.Text + "')";
     }
   }
 
