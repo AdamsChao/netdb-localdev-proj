@@ -381,7 +381,9 @@
             var data = from cc in db.contact_info orderby cc.fname, cc.lname  select cc;
             if (!Utils.isAdmin(eid))
             {
-                var data2 = from d in data from a in db.m_employee_accesslevel where a.employee_id == eid && d.department_id == a.accesslevel_id select d;
+                var data2 = from d in data from a in db.m_employee_accesslevel
+                            orderby d.fname , d.lname 
+                            where a.employee_id == eid && d.department_id == a.accesslevel_id select d;
                 foreach (WoWiModel.contact_info contract in data2)
                 {
                     dl.Items.Add(new ListItem(String.Format("{0,10} {1,10} ( {2,20} )", contract.fname, contract.lname, contract.companyname), contract.id + ""));
