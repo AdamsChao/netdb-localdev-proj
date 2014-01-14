@@ -91,7 +91,7 @@ first child of the left and right table columns */
 {
   width: 100%;
   background-color: #fff;
-  margin: 20px auto 0px auto;
+  margin: 10px auto 0px auto;
   border: 1px solid #496077;
 }
 
@@ -99,20 +99,16 @@ first child of the left and right table columns */
 {
   position: relative;
   margin: 0px;
-  padding: 0px; /*background: #4b6c9e;*/
-  background: #fff;
-  width: 100%;
+  padding: 0px; 
+  background: #fff url(images/banner_newyear.jpg) no-repeat 370px;
+  width: 100%;  
 }
 
 .header h1
 {
-  font-weight: 700;
-  margin: 0px;
-  padding: 0px 0px 0px 20px;
-  color: #f9f9f9;
   border: none;
-  line-height: 2em;
-  font-size: 2em;
+  margin: 0px;
+  padding: 0px 0px 0px 0px; 
 }
 
 .main
@@ -152,8 +148,8 @@ div.hideSkiplink
 div.menu
 {
   padding: 4px 0px 4px 8px;
-  position:relative;
-  z-index:2;
+  position: relative;
+  z-index: 2;
 }
 
 div.menu ul
