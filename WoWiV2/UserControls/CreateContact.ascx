@@ -670,7 +670,7 @@
     protected void ddlEmployeeList_Load(object sender, EventArgs ea)
     {
 
-        if (Page.IsPostBack) return;
+        //if (Page.IsPostBack) return;
         var list = EmployeeUtils.GetEmployeeList(wowidb);
         (sender as DropDownList).DataSource = list;
         (sender as DropDownList).DataTextField = "name";
