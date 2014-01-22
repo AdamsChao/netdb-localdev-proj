@@ -368,9 +368,12 @@
   <asp:TextBox ID="txtPR" runat="server" Width="80%"></asp:TextBox>
   <br />
   Project :
-  <asp:DropDownList ID="ddlProjectNo" runat="server" AppendDataBoundItems="True" OnLoad="DropDownList1_Load">
+  <asp:DropDownList ID="ddlProjectNo" runat="server" AppendDataBoundItems="True" DataSourceID="SqlDataSourceProject"
+    DataTextField="Project_Name" DataValueField="Project_no">
     <asp:ListItem Value="-1">- All -</asp:ListItem>
   </asp:DropDownList>
+  <asp:SqlDataSource ID="SqlDataSourceProject" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
+          SelectCommand="SELECT [Project_no],[Project_Name] FROM vw_GetProjectLists  Order By Companyname , Project_no desc"></asp:SqlDataSource>
   &nbsp;<br>
   Vender :
   <asp:DropDownList ID="ddlVenderList" runat="server" AppendDataBoundItems="True" OnLoad="ddlVenderList_Load">
@@ -414,7 +417,7 @@
           </EditItemTemplate>
           <ItemTemplate>
             <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/UpdatePR.aspx?id={0}") %>'>Edit</asp:HyperLink>
-            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/PRDetails.aspx?id={0}") %>'>Details</asp:HyperLink>            
+            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl='<%# Bind("pr_id","~/Accounting/PRDetails.aspx?id={0}") %>'>Details</asp:HyperLink>
           </ItemTemplate>
         </asp:TemplateField>
         <asp:TemplateField HeaderText="PR No" SortExpression="pr_id">
@@ -423,8 +426,7 @@
           </EditItemTemplate>
           <ItemTemplate>
             <asp:Label ID="Label1" runat="server" Text='<%# Bind("pr_id") %>'></asp:Label>
-            <asp:HyperLink ID="pr_report" runat="server" Target="_blank"
-             NavigateUrl='<%# Bind("pr_id","~/Accounting/PRPaymentDetails.aspx?id={0}") %>'>Report</asp:HyperLink>
+            <asp:HyperLink ID="pr_report" runat="server" Target="_blank" NavigateUrl='<%# Bind("pr_id","~/Accounting/PRPaymentDetails.aspx?id={0}") %>'>Report</asp:HyperLink>
           </ItemTemplate>
         </asp:TemplateField>
         <asp:BoundField DataField="project_id" HeaderText="Project Id" SortExpression="project_id"
@@ -433,12 +435,12 @@
         <asp:BoundField DataField="model" HeaderText="Model No." SortExpression="model" />
         <asp:BoundField DataField="vendor_id" HeaderText="Vender" SortExpression="vendor_id" />
         <asp:BoundField DataField="currency" HeaderText="Currency" ItemStyle-HorizontalAlign="Right"
-          SortExpression="currency" >
-        <ItemStyle HorizontalAlign="Right" />
+          SortExpression="currency">
+          <ItemStyle HorizontalAlign="Right" />
         </asp:BoundField>
         <asp:BoundField DataField="total_cost" HeaderText="Total Cost" ItemStyle-HorizontalAlign="Right"
-          SortExpression="total_cost" DataFormatString="{0:F2}" >
-        <ItemStyle HorizontalAlign="Right" />
+          SortExpression="total_cost" DataFormatString="{0:F2}">
+          <ItemStyle HorizontalAlign="Right" />
         </asp:BoundField>
         <asp:BoundField DataField="create_date" HeaderText="Creation Date" SortExpression="create_date"
           DataFormatString="{0:yyyy/MM/dd}" />
