@@ -63,7 +63,7 @@ public class PRUtils
   {
     try
     {
-      string mailSubject = GetPRMailSubject(wowidb, auth);
+      string mailSubject = GetPRMailSubject(wowidb, auth, " Waiting For Supervisor Approve");
       string sender = auth.requisitioner + "<br />" + PRApproval_URL + auth.pr_id;
       string mailContent = GetPRMailContent(mailSubject, sender);
       string to = GetEmail((int)auth.supervisor_id);
@@ -85,7 +85,7 @@ public class PRUtils
   {
     try
     {
-      string mailSubject = GetPRMailSubject(wowidb, auth);
+      string mailSubject = GetPRMailSubject(wowidb, auth, " Waiting For VP Approve");
       string sender = auth.supervisor + "<br />" + PRApproval_URL + auth.pr_id;
       string mailContent = GetPRMailContent(mailSubject, sender);
       string to = GetEmail((int)auth.vp_id);
@@ -108,7 +108,7 @@ public class PRUtils
   {
     try
     {
-      string mailSubject = GetPRMailSubject(wowidb, auth);
+      string mailSubject = GetPRMailSubject(wowidb, auth, "Waiting For President Approve");
       string sender = auth.vp + "<br />" + PRApproval_URL + auth.pr_id;
       string mailContent = GetPRMailContent(mailSubject, sender);
       string to = GetEmail((int)auth.president_id);
@@ -132,7 +132,7 @@ public class PRUtils
   {
     try
     {
-      string mailSubject = GetPRMailSubject(wowidb, auth, "disapprove");
+      string mailSubject = GetPRMailSubject(wowidb, auth, " Supervisor disapprove");
       string sender = auth.supervisor + "<br />" + PRApproval_URL + auth.pr_id;
       string mailContent = GetPRMailContent(mailSubject, sender);
       string to = GetEmail((int)auth.requisitioner_id);
@@ -161,7 +161,7 @@ public class PRUtils
 
       //throw;
     }
-    string mailSubject = GetPRMailSubject(wowidb, auth, "disapprove");
+    string mailSubject = GetPRMailSubject(wowidb, auth, " VP disapprove");
     string sender = auth.vp + "<br />" + PRApproval_URL + auth.pr_id;
     string mailContent = GetPRMailContent(mailSubject, sender);
     string to = GetEmail((int)auth.requisitioner_id);
@@ -187,7 +187,7 @@ public class PRUtils
 
       //throw;
     }
-    string mailSubject = GetPRMailSubject(wowidb, auth, "disapprove");
+    string mailSubject = GetPRMailSubject(wowidb, auth, " President disapprove");
     string sender = auth.president + "<br />" + PRApproval_URL + auth.pr_id;
     string mailContent = GetPRMailContent(mailSubject, sender);
     string to = GetEmail((int)auth.requisitioner_id);
@@ -255,7 +255,7 @@ public class PRUtils
   {
     try
     {
-      string mailSubject = GetPRMailSubject(wowidb, auth, "approved");
+      string mailSubject = GetPRMailSubject(wowidb, auth, "approved. PR Status is : " + statusByteToString((byte)auth.status));
       string sender = "<br />" + PRApproval_URL + auth.pr_id;
       string mailContent = mailSubject + sender;
       string to = GetEmail((int)auth.requisitioner_id);
