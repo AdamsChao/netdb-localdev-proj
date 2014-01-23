@@ -7,8 +7,37 @@
   <script type="text/javascript">
     $(function () {
       $("#accordion").accordion({
-        collapsible: true
+        collapsible: true,
+        heightStyle: "content"
       });
+
+//      $('.open').click(function () {
+//        $('.ui-accordion-header').removeClass('ui-corner-all').addClass('ui-accordion-header-active ui-state-active ui-corner-top').attr({ 'aria-selected': 'true', 'tabindex': '0' });
+//        $('.ui-accordion-header .ui-icon').removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
+//        $('.ui-accordion-content').addClass('ui-accordion-content-active').attr({ 'aria-expanded': 'true', 'aria-hidden': 'false' }).show();
+//        $(this).hide();
+//        $('.close').show();
+//      });
+//      $('.close').click(function () {
+//        $('.ui-accordion-header').removeClass('ui-accordion-header-active ui-state-active ui-corner-top').addClass('ui-corner-all').attr({ 'aria-selected': 'false', 'tabindex': '-1' });
+//        $('.ui-accordion-header .ui-icon').removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
+//        $('.ui-accordion-content').removeClass('ui-accordion-content-active').attr({ 'aria-expanded': 'false', 'aria-hidden': 'true' }).hide();
+//        $(this).hide();
+//        $('.open').show();
+//      });
+//      $('.ui-accordion-header').click(function () {
+//        $('.open').show();
+//        $('.close').show();
+//      });
+
+//      // Expand/Collapse all
+//      $('.accordion-expand-collapse a').click(function () {
+//        $('.accordion .ui-accordion-header:not(.ui-state-active)').next().slideToggle();
+//        $(this).text($(this).text() == 'Expand all' ? 'Collapse all' : 'Expand all');
+//        $(this).toggleClass('collapse');
+//        return false;
+//      });
+
       //紀錄是哪一個accordion要展開
       var status = $("[id*=HFAccordionStatus]").val();
       $('#accordion').accordion('option', 'active', parseInt(status));
@@ -116,6 +145,12 @@
   </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
+  <%--<div class="accordion-expand-holder">
+    <button type="button" class="open">
+      Expand all</button>
+    <button type="button" class="close">
+      Collapse all</button>
+  </div>  --%>
   <div id="accordion">
     <h3>
       Project Target Lists</h3>
@@ -124,8 +159,7 @@
         <table>
           <tr valign="top">
             <td>
-              <asp:TreeView ID="tvProject" runat="server" ImageSet="WindowsHelp" 
-                ShowLines="True">
+              <asp:TreeView ID="tvProject" runat="server" ImageSet="WindowsHelp" ShowLines="True">
                 <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
                 <Nodes>
                   <asp:TreeNode Text="案件總覽(All)" Value="%">
@@ -135,17 +169,17 @@
                     <asp:TreeNode Text="取消的案子(Cancelled)" Value="Cancelled"></asp:TreeNode>
                   </asp:TreeNode>
                 </Nodes>
-                <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" 
-                  HorizontalPadding="5px" NodeSpacing="0px" VerticalPadding="1px" />
+                <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
+                  NodeSpacing="0px" VerticalPadding="1px" />
                 <ParentNodeStyle Font-Bold="False" />
-                <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" 
-                  HorizontalPadding="0px" VerticalPadding="0px" />
+                <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" HorizontalPadding="0px"
+                  VerticalPadding="0px" />
               </asp:TreeView>
             </td>
             <td>
               Project No:
               <asp:DropDownList ID="DropDownListPO" runat="server" DataSourceID="SqlDataSourceProject"
-                DataTextField="Project_Name" DataValueField="Project_Id" OnDataBound="DropDownListPO_DataBound">                
+                DataTextField="Project_Name" DataValueField="Project_Id" OnDataBound="DropDownListPO_DataBound">
               </asp:DropDownList>
               <asp:SqlDataSource ID="SqlDataSourceProject" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                 SelectCommand="SELECT [Project_Id],[Project_Name] FROM vw_GetProjectLists WHERE ([Project_Status] LIKE '%' + @Project_Status + '%')  Order By Companyname , Project_Id desc ">
