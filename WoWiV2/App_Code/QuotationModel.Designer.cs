@@ -7213,6 +7213,30 @@ namespace QuotationModel
         private Nullable<global::System.DateTime> _original_certificate_received_date;
         partial void Onoriginal_certificate_received_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onoriginal_certificate_received_dateChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> Lifetime
+        {
+            get
+            {
+                return _Lifetime;
+            }
+            set
+            {
+                OnLifetimeChanging(value);
+                ReportPropertyChanging("Lifetime");
+                _Lifetime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Lifetime");
+                OnLifetimeChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _Lifetime;
+        partial void OnLifetimeChanging(Nullable<global::System.Boolean> value);
+        partial void OnLifetimeChanged();
 
         #endregion
 

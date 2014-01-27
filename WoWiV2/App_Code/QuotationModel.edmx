@@ -466,6 +466,7 @@
           <Property Name="CMB7" Type="bit" />
           <Property Name="CMB8" Type="bit" />
           <Property Name="original_certificate_received_date" Type="smalldatetime" />
+          <Property Name="Lifetime" Type="bit" />
         </EntityType>
         <EntityType Name="Quotation_Version">
           <Key>
@@ -1391,6 +1392,7 @@
           <Property Type="Boolean" Name="CMB8" />
           <Property Type="DateTime" Name="original_certificate_received_date" />
           <NavigationProperty Name="Quotation_Version" Relationship="QuotationModel.FK_Quotation_Target_Quotation_Version" FromRole="Quotation_Target" ToRole="Quotation_Version" />
+          <Property Type="Boolean" Name="Lifetime" />
         </EntityType>
         <Association Name="FK_Quotation_Target_Quotation_Version">
           <End Type="QuotationModel.Quotation_Version" Role="Quotation_Version" Multiplicity="0..1" />
@@ -1933,6 +1935,7 @@
           <EntitySetMapping Name="Quotation_Target">
             <EntityTypeMapping TypeName="QuotationModel.Quotation_Target">
               <MappingFragment StoreEntitySet="Quotation_Target">
+                <ScalarProperty Name="Lifetime" ColumnName="Lifetime" />
                 <ScalarProperty Name="original_certificate_received_date" ColumnName="original_certificate_received_date" />
                 <ScalarProperty Name="CMB8" ColumnName="CMB8" />
                 <ScalarProperty Name="CMB7" ColumnName="CMB7" />

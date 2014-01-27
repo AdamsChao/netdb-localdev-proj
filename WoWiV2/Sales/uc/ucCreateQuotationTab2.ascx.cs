@@ -267,6 +267,7 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
     target.CMB6 = false;
     target.CMB7 = false;
     target.CMB8 = false;
+    target.Lifetime = false;
     Quotation_Target_Controller.Add(target);
 
     Response.Redirect("CreateQuotation.aspx?q=" + quotation_id.ToString() + "&t=1");
