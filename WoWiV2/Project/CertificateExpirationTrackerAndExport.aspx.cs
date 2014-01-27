@@ -102,6 +102,15 @@ public partial class Project_CertificateExpirationTrackerAndExport : System.Web.
           lbl_renewal_confirmation_check.Text = "Not Setup(未設定)";
           break;
       }
+
+      //Lifetime
+      CheckBox cb = e.Row.FindControl("cb_Lifetime") as CheckBox;
+      if (cb.Checked)
+      {
+        lbl_certificate_expiry_date.Text = "N/A";
+        lbl_certificate_duration.Text = "Lifetime";
+        lbl_time_until_expiration.Text = "N/A";
+      }
     }
   }
   protected void SqlDataSourceTarget_Selecting(object sender, SqlDataSourceSelectingEventArgs e)

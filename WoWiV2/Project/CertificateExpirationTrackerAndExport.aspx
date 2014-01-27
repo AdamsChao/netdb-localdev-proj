@@ -147,6 +147,7 @@
           <ItemTemplate>
             <asp:Label ID="lbl_certificate_expiry_date" runat="server" 
               Text='<%# Bind("certificate_expiry_date", "{0:d}") %>'></asp:Label>
+              <asp:CheckBox ID="cb_Lifetime" runat="server" Text="Lifetime" Checked='<%# Bind("Lifetime") %>' Visible="false" />
           </ItemTemplate>         
         </asp:TemplateField>
         <asp:TemplateField HeaderText="Certificate Duration">
@@ -185,7 +186,7 @@
 , SalesId , Employee.fname + ' ' + lname  as 'AE' 
 , Client_Id , clientapplicant.companyname as 'Client' 
 , [certificate_type],[certificate_issue_date],[certificate_expiry_date]
-, [email_renewal_notice_date],[renewal_confirmation_check],[conduct_renewal_action_date]
+, [email_renewal_notice_date],[renewal_confirmation_check],[conduct_renewal_action_date],[Lifetime]
 FROM Quotation_Target 
 INNER JOIN country ON Quotation_Target.country_id = country.country_id 
 INNER JOIN world_region ON world_region.world_region_id = country.world_region_id

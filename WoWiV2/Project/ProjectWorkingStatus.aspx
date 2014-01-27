@@ -928,7 +928,8 @@ Where Quotation_Target.quotation_id in
               <asp:TextBox ID="TextBox_certificate_expiry_date" runat="server" Text='<%# Bind("certificate_expiry_date","{0:yyyy/MM/dd}") %>'></asp:TextBox>
               <asp:CompareValidator ID="CV2" runat="server" ControlToValidate="TextBox_certificate_expiry_date"
                 Display="Dynamic" ErrorMessage="日期格式有誤" Operator="DataTypeCheck" SetFocusOnError="True"
-                Type="Date"></asp:CompareValidator>
+                Type="Date"></asp:CompareValidator>                
+                <asp:CheckBox ID="cb_Lifetime" runat="server" Text="Lifetime" Checked='<%# Bind("Lifetime") %>' />
             </EditItemTemplate>
           </asp:TemplateField>
           <asp:TemplateField HeaderText="Email Renewal Notice Date" SortExpression="email_renewal_notice_date">
@@ -1006,7 +1007,7 @@ SELECT Quotation_Target.Quotation_Target_Id, Quotation_Target.authority_id, Quot
 ,[sample_can_be_returned_from_authority],[sample_is_kept_by_local_agent]
 ,[request_local_agent_to_destroy_tested_samples]
 ,[returned_of_tested_sample_date]
-,[CMB1],[CMB2],[CMB3],[CMB4],[CMB5],[CMB6],[CMB7],[CMB8],[original_certificate_received_date]
+,[CMB1],[CMB2],[CMB3],[CMB4],[CMB5],[CMB6],[CMB7],[CMB8],[original_certificate_received_date],[Lifetime]
 FROM Quotation_Target 
 INNER JOIN country ON Quotation_Target.country_id = country.country_id 
 INNER JOIN Authority ON Quotation_Target.Authority_id = Authority.Authority_id 
@@ -1017,6 +1018,7 @@ UPDATE [Quotation_Target] SET [authority_id] = @authority_id,[document_ready_to_
 , [sample_received_from_client_date] = @sample_received_from_client_date, [customer_request_sample_returned] = @customer_request_sample_returned, [sample_returned_to_client_date] = @sample_returned_to_client_date, [sample_shipping_tracking_no] = @sample_shipping_tracking_no, [customer_request_original_certificate_returned] = @customer_request_original_certificate_returned, [original_certificate_mailed_to_client_date] = @original_certificate_mailed_to_client_date, [Certificate_shipping_tracking_no] = @Certificate_shipping_tracking_no
 , [sample_can_be_returned_from_authority] = @sample_can_be_returned_from_authority, [sample_is_kept_by_local_agent] = @sample_is_kept_by_local_agent, [request_local_agent_to_destroy_tested_samples] = @request_local_agent_to_destroy_tested_samples, [returned_of_tested_sample_date] = @returned_of_tested_sample_date
 , [CMB1] = @CMB1, [CMB2] = @CMB2, [CMB3] = @CMB3, [CMB4] = @CMB4, [CMB5] = @CMB5, [CMB6] = @CMB6, [CMB7] = @CMB7, [CMB8] = @CMB8, [original_certificate_received_date] = @original_certificate_received_date 
+, [Lifetime] = @Lifetime
 WHERE [Quotation_Target_Id] = @Quotation_Target_Id ">
         <DeleteParameters>
           <asp:Parameter Name="Quotation_Target_Id" Type="Int32" />
@@ -1072,6 +1074,7 @@ WHERE [Quotation_Target_Id] = @Quotation_Target_Id ">
           <asp:Parameter Name="CMB7" Type="Boolean" />
           <asp:Parameter Name="CMB8" Type="Boolean" />
           <asp:Parameter Name="original_certificate_received_date" Type="DateTime" />
+          <asp:Parameter Name="Lifetime" Type="Boolean" />          
           <asp:Parameter Name="Quotation_Target_Id" Type="Int32" />
         </UpdateParameters>
       </asp:SqlDataSource>
