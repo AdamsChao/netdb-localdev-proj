@@ -169,7 +169,7 @@
                         var data = from a in db.m_employee_accesslevel where a.employee_id == eid && a.accesslevel_id == vaid select a;
                         if (data.Count() != 0)
                         {
-                          list = db.contact_info.Where(c => c.department_id == vaid).OrderBy(c=>c.c_fname);
+                          list = db.contact_info.Where(c => c.department_id == vaid).OrderBy(c=>c.companyname);
                         }
                     }
                     catch (Exception)
@@ -189,7 +189,7 @@
                         var data = from a in db.m_employee_accesslevel where a.employee_id == eid && a.accesslevel_id == vaid select a;
                         if (data.Count() != 0)
                         {
-                          list = db.contact_info.Where(c => c.department_id == vaid).OrderBy(c => c.c_fname);
+                          list = db.contact_info.Where(c => c.department_id == vaid).OrderBy(c => c.companyname);
                         }
                     }
                     catch (Exception)
@@ -200,7 +200,7 @@
                 }
                 else
                 {
-                  list = db.contact_info.OrderBy(c => c.c_fname);
+                  list = db.contact_info.OrderBy(c => c.c_fname).OrderBy(c=>c.companyname);
                 }
                 if (list != null)
                 {
