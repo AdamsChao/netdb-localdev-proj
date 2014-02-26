@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true"
   CodeFile="ProjectWorkingStatus.aspx.cs" Inherits="Project_ProjectWorkingStatus"
+ EnableEventValidation="false"
   MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxcontroltoolkit" %>
@@ -11,32 +12,32 @@
         heightStyle: "content"
       });
 
-//      $('.open').click(function () {
-//        $('.ui-accordion-header').removeClass('ui-corner-all').addClass('ui-accordion-header-active ui-state-active ui-corner-top').attr({ 'aria-selected': 'true', 'tabindex': '0' });
-//        $('.ui-accordion-header .ui-icon').removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
-//        $('.ui-accordion-content').addClass('ui-accordion-content-active').attr({ 'aria-expanded': 'true', 'aria-hidden': 'false' }).show();
-//        $(this).hide();
-//        $('.close').show();
-//      });
-//      $('.close').click(function () {
-//        $('.ui-accordion-header').removeClass('ui-accordion-header-active ui-state-active ui-corner-top').addClass('ui-corner-all').attr({ 'aria-selected': 'false', 'tabindex': '-1' });
-//        $('.ui-accordion-header .ui-icon').removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
-//        $('.ui-accordion-content').removeClass('ui-accordion-content-active').attr({ 'aria-expanded': 'false', 'aria-hidden': 'true' }).hide();
-//        $(this).hide();
-//        $('.open').show();
-//      });
-//      $('.ui-accordion-header').click(function () {
-//        $('.open').show();
-//        $('.close').show();
-//      });
+      //      $('.open').click(function () {
+      //        $('.ui-accordion-header').removeClass('ui-corner-all').addClass('ui-accordion-header-active ui-state-active ui-corner-top').attr({ 'aria-selected': 'true', 'tabindex': '0' });
+      //        $('.ui-accordion-header .ui-icon').removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
+      //        $('.ui-accordion-content').addClass('ui-accordion-content-active').attr({ 'aria-expanded': 'true', 'aria-hidden': 'false' }).show();
+      //        $(this).hide();
+      //        $('.close').show();
+      //      });
+      //      $('.close').click(function () {
+      //        $('.ui-accordion-header').removeClass('ui-accordion-header-active ui-state-active ui-corner-top').addClass('ui-corner-all').attr({ 'aria-selected': 'false', 'tabindex': '-1' });
+      //        $('.ui-accordion-header .ui-icon').removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
+      //        $('.ui-accordion-content').removeClass('ui-accordion-content-active').attr({ 'aria-expanded': 'false', 'aria-hidden': 'true' }).hide();
+      //        $(this).hide();
+      //        $('.open').show();
+      //      });
+      //      $('.ui-accordion-header').click(function () {
+      //        $('.open').show();
+      //        $('.close').show();
+      //      });
 
-//      // Expand/Collapse all
-//      $('.accordion-expand-collapse a').click(function () {
-//        $('.accordion .ui-accordion-header:not(.ui-state-active)').next().slideToggle();
-//        $(this).text($(this).text() == 'Expand all' ? 'Collapse all' : 'Expand all');
-//        $(this).toggleClass('collapse');
-//        return false;
-//      });
+      //      // Expand/Collapse all
+      //      $('.accordion-expand-collapse a').click(function () {
+      //        $('.accordion .ui-accordion-header:not(.ui-state-active)').next().slideToggle();
+      //        $(this).text($(this).text() == 'Expand all' ? 'Collapse all' : 'Expand all');
+      //        $(this).toggleClass('collapse');
+      //        return false;
+      //      });
 
       //紀錄是哪一個accordion要展開
       var status = $("[id*=HFAccordionStatus]").val();
@@ -221,7 +222,7 @@
                 DataTextField="country_name" DataValueField="country_name" OnDataBound="DropDownListCountry_DataBound">
               </asp:DropDownList>
               <asp:SqlDataSource ID="SqlDataSourceCountry" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                SelectCommand="SELECT [country_id], [country_name] FROM [country] WHERE ([world_region_id] = @world_region_id) order by country_name">
+                SelectCommand="SELECT [country_id], [country_name] FROM [country] order by country_name">
                 <SelectParameters>
                   <asp:ControlParameter ControlID="DropDownListRegion" Name="world_region_id" PropertyName="SelectedValue"
                     Type="Byte" />
@@ -316,10 +317,14 @@
       </asp:GridView>
       <asp:SqlDataSource ID="SqlDataSourceTarget" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
         SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Quotation_Target.quotation_id, Quotation_Target.target_id, Quotation_Target.target_description, Quotation_Target.country_id, Quotation_Target.product_type_id, Quotation_Target.authority_id, Quotation_Target.technology_id, Quotation_Target.target_rate, Quotation_Target.unit, Quotation_Target.unit_price, Quotation_Target.discount_type, Quotation_Target.discValue1, Quotation_Target.discValue2, Quotation_Target.discPrice, Quotation_Target.FinalPrice, Quotation_Target.PayTo, Quotation_Target.Status, Quotation_Target.Bill, Quotation_Target.option1, Quotation_Target.option2, Quotation_Target.advance1, Quotation_Target.advance2, Quotation_Target.balance1, Quotation_Target.balance2,Country_Manager
-, Quotation_Target.test_started, Quotation_Target.test_completed, Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed, Quotation_Target.Estimated_Lead_time, Quotation_Target.Actual_Lead_time, Quotation_Target.Agent
+, Quotation_Target.test_started, Quotation_Target.test_completed
+, Quotation_Target.certification_submit_to_authority, Quotation_Target.certification_completed
+, Quotation_Target.Estimated_Lead_time, Quotation_Target.Actual_Lead_time, Quotation_Target.Agent
+, Quotation_Target.document_ready_to_process , Quotation_Target.sample_received_from_client_date
 , country.country_name, Authority.authority_name ,world_region.world_region_name
-,(Select fname + ' ' + lname as cmname from employee where id = Country_Manager ) as CountryManager
-,Project.Project_Id, Project.Project_No, Project.Project_Status , Quotation_Version.Model_No
+, (Select fname + ' ' + lname as cmname from employee where id = Country_Manager ) as CountryManager
+, Project.Project_Id, Project.Project_No, Project.Project_Status ,Project.Client_Action
+, Quotation_Version.Model_No
 , SalesId , Employee.fname + ' ' + lname  as 'AE' 
 , Client_Id , clientapplicant.companyname as 'Client' 
 , Quotation_Version.Product_Name 
@@ -336,7 +341,7 @@ AND (Quotation_Target.Status LIKE '%' + @Status + '%')
 AND (country.country_name LIKE @country_name ) 
 AND (SalesId  LIKE @SalesId) 
 AND (Country_Manager  LIKE @Country_Manager) 
-AND (Client_Id  LIKE @Client_Id) 
+AND (Client_Id  LIKE @Client_Id)
 " OnSelecting="SqlDataSourceTarget_Selecting">
         <SelectParameters>
           <asp:ControlParameter ControlID="DropDownListPO" DefaultValue="%" Name="Project_ID"
@@ -928,8 +933,8 @@ Where Quotation_Target.quotation_id in
               <asp:TextBox ID="TextBox_certificate_expiry_date" runat="server" Text='<%# Bind("certificate_expiry_date","{0:yyyy/MM/dd}") %>'></asp:TextBox>
               <asp:CompareValidator ID="CV2" runat="server" ControlToValidate="TextBox_certificate_expiry_date"
                 Display="Dynamic" ErrorMessage="日期格式有誤" Operator="DataTypeCheck" SetFocusOnError="True"
-                Type="Date"></asp:CompareValidator>                
-                <asp:CheckBox ID="cb_Lifetime" runat="server" Text="Lifetime" Checked='<%# Bind("Lifetime") %>' />
+                Type="Date"></asp:CompareValidator>
+              <asp:CheckBox ID="cb_Lifetime" runat="server" Text="Lifetime" Checked='<%# Bind("Lifetime") %>' />
             </EditItemTemplate>
           </asp:TemplateField>
           <asp:TemplateField HeaderText="Email Renewal Notice Date" SortExpression="email_renewal_notice_date">
@@ -1074,7 +1079,7 @@ WHERE [Quotation_Target_Id] = @Quotation_Target_Id ">
           <asp:Parameter Name="CMB7" Type="Boolean" />
           <asp:Parameter Name="CMB8" Type="Boolean" />
           <asp:Parameter Name="original_certificate_received_date" Type="DateTime" />
-          <asp:Parameter Name="Lifetime" Type="Boolean" />          
+          <asp:Parameter Name="Lifetime" Type="Boolean" />
           <asp:Parameter Name="Quotation_Target_Id" Type="Int32" />
         </UpdateParameters>
       </asp:SqlDataSource>
@@ -1085,57 +1090,20 @@ WHERE [Quotation_Target_Id] = @Quotation_Target_Id ">
       <asp:Panel ID="PanelReport" runat="server" Visible="False">
         <asp:Button ID="ButtonExcel" runat="server" Text="Export Report To Excel" OnClick="ButtonExcel_Click" />
         <br />
-        <table cellspacing="1" class="style1">
-          <tr>
-            <td>
-              <asp:Image ID="ImageLogo" runat="server" ImageUrl="~/Images/logo.gif" Visible="False" />
-              <table border="1" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td class="style2">
-                    <strong>Product Name</strong>
-                  </td>
-                  <td class="style2">
-                    <strong>Model No</strong>
-                  </td>
-                  <td class="style2">
-                    <strong>Client</strong>
-                  </td>
-                  <td class="style2">
-                    <strong>Project No</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <asp:Label ID="LabelProduct" runat="server"></asp:Label>
-                  </td>
-                  <td>
-                    <asp:Label ID="LabelModel" runat="server"></asp:Label>
-                  </td>
-                  <td>
-                    <asp:Label ID="LabelClient" runat="server"></asp:Label>
-                  </td>
-                  <td>
-                    <asp:Label ID="LabelProject" runat="server"></asp:Label>
-                  </td>
-                </tr>
-              </table>
-            </td>
-            <td>
-              <b>WoWi Approval Services, Inc.</b><br />
-              Add: 3F., No.79, Zhouzi St., Neihu Dist., Taipei City 114, Taiwan (R.O.C.)
-              <br />
-              Tel: +886-2799-8382 Fax: +886-2799-8387
-              <br />
-              http://www.WoWiApproval.com
-            </td>
-          </tr>
+        <table cellspacing="1" class="style1">          
           <tr>
             <td colspan="2">
               <br />
               <asp:GridView ID="GridViewReport" runat="server" AutoGenerateColumns="False" DataKeyNames="Quotation_Target_Id"
-                DataSourceID="SqlDataSourceReport" OnPreRender="GridViewReport_PreRender" Width="100%"
-                Caption="Project Working Status" EmptyDataText="此案件尚未有相關的Project Status紀錄!" SkinID="None">
+                DataSourceID="SqlDataSourceTarget" OnPreRender="GridViewReport_PreRender" Width="100%"
+                Caption="Project Working Status" EmptyDataText="尚未有相關的Target Status紀錄!" 
+                SkinID="None" AllowPaging="True" 
+                onpageindexchanging="GridViewReport_PageIndexChanging">
                 <Columns>
+                  <asp:BoundField DataField="Project_No" HeaderText="Project No." SortExpression="Project_No" />
+                  <asp:BoundField DataField="Client" HeaderText="Client" SortExpression="Client" />
+                  <asp:BoundField DataField="Model_No" HeaderText="Model No" />
+                  <asp:BoundField DataField="world_region_name" HeaderText="Region" SortExpression="world_region_name" />
                   <asp:BoundField DataField="country_name" HeaderText="Country" SortExpression="country_name" />
                   <asp:BoundField DataField="authority_name" HeaderText="Authority" SortExpression="authority_name" />
                   <asp:BoundField DataField="Estimated_Lead_time" HeaderText="Estimated Lead Time"
@@ -1158,6 +1126,7 @@ WHERE [Quotation_Target_Id] = @Quotation_Target_Id ">
                   <asp:BoundField DataField="certification_completed" HeaderText="Est. Completed" SortExpression="certification_completed"
                     DataFormatString="{0:d}" />
                   <asp:BoundField DataField="Actual_Lead_time" HeaderText="Actual Lead Time" SortExpression="Actual_Lead_time" />
+                  <asp:BoundField DataField="Status" HeaderText="Target Status" SortExpression="Status" />
                   <asp:BoundField DataField="CountryManager" HeaderText="Country Manager" />
                   <asp:TemplateField HeaderText="Project Status">
                     <ItemTemplate>
@@ -1182,8 +1151,6 @@ Order by log_date">
                       </asp:SqlDataSource>
                     </ItemTemplate>
                   </asp:TemplateField>
-                  <asp:BoundField DataField="Client_Action" HeaderText="Required action from the client"
-                    SortExpression="Client_Action" />
                 </Columns>
               </asp:GridView>
               <asp:SqlDataSource ID="SqlDataSourceReport" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"

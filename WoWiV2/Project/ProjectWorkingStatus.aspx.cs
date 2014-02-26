@@ -78,7 +78,14 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
     SqlDataSourceTarget.SelectCommand += " ORDER BY Project.Project_Id Desc ";
     GridViewProjectTarget.DataBind();
     GridViewProjectTarget.SelectedIndex = -1;
-
+    if (GridViewProjectTarget.Rows.Count > 0)
+    {
+      PanelReport.Visible = true;      
+    }
+    else
+    {
+      PanelReport.Visible = false;      
+    }
     HFAccordionStatus.Value = "0"; //控制accordion
   }
 
@@ -111,12 +118,12 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
 
     HFAccordionStatus.Value = "1";//控制accordion
 
-    //Setting Target Report
-    LabelProject.Text = (row.FindControl("LabelProjectNo") as Label).Text;
-    LabelClient.Text = (row.FindControl("HFClient") as HiddenField).Value;
-    LabelModel.Text = (row.FindControl("HFModelNo") as HiddenField).Value;
-    LabelProduct.Text = (row.FindControl("HFProductName") as HiddenField).Value;
-    PanelReport.Visible = true;
+    //Setting Target Report    
+    //LabelProject.Text = (row.FindControl("LabelProjectNo") as Label).Text;
+    //LabelClient.Text = (row.FindControl("HFClient") as HiddenField).Value;
+    //LabelModel.Text = (row.FindControl("HFModelNo") as HiddenField).Value;
+    //LabelProduct.Text = (row.FindControl("HFProductName") as HiddenField).Value;
+    //PanelReport.Visible = true;
   }
 
   protected void GridViewProjectTarget_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -387,38 +394,46 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
   // Accordion 3
   protected void GridViewReport_PreRender(object sender, EventArgs e)
   {
-    int i = 1;
-    foreach (GridViewRow wkItem in GridViewReport.Rows)
-    {
-      if (wkItem.RowIndex != 0)
-      {
-        GridViewReport.Rows[(wkItem.RowIndex - i)].Cells[12].RowSpan += 1;
-        wkItem.Cells[12].Visible = false;
-        i = i + 1;
-      }
-      else
-      {
-        wkItem.Cells[12].RowSpan = 1;
-      }
-    }
+    //int i = 1;
+    //foreach (GridViewRow wkItem in GridViewReport.Rows)
+    //{
+    //  if (wkItem.RowIndex != 0)
+    //  {
+    //    GridViewReport.Rows[(wkItem.RowIndex - i)].Cells[12].RowSpan += 1;
+    //    wkItem.Cells[12].Visible = false;
+    //    i = i + 1;
+    //  }
+    //  else
+    //  {
+    //    wkItem.Cells[12].RowSpan = 1;
+    //  }
+    //}
   }
 
   protected void ButtonExcel_Click(object sender, EventArgs e)
   {
-    ButtonExcel.Visible = false;
-    HttpContext.Current.Response.Clear();
-    HttpContext.Current.Response.Write("<meta http-equiv=Content-Type content=text/html;charset=utf-8>");
-    HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename="
-        + HttpContext.Current.Server.UrlEncode(LabelProject.Text) + "WorkingStatus.xls");
-    HttpContext.Current.Response.Charset = "utf-8";
-    HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
-    System.IO.StringWriter sw = new System.IO.StringWriter();
-    HtmlTextWriter hw = new HtmlTextWriter(sw);
-    PanelReport.RenderControl(hw);
-    HttpContext.Current.Response.Write(sw.ToString());
-    HttpContext.Current.Response.Flush();
-    HttpContext.Current.Response.End();
-    ButtonExcel.Visible = true;
+    if (GridViewReport.Rows.Count > 0)
+    {
+      GridViewReport.AllowPaging = false;
+      GridViewReport.AllowSorting = false;
+      GridViewReport.DataBind();
+
+      ButtonExcel.Visible = false;
+      HttpContext.Current.Response.Clear();
+      HttpContext.Current.Response.Write("<meta http-equiv=Content-Type content=text/html;charset=utf-8>");
+      HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename="
+          + DateTime.Now.ToString("yyyyMMdd-mmhhss") + "WorkingStatus.xls");
+      HttpContext.Current.Response.Charset = "utf-8";
+      HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+      System.IO.StringWriter sw = new System.IO.StringWriter();
+      HtmlTextWriter hw = new HtmlTextWriter(sw);
+      PanelReport.RenderControl(hw);
+      HttpContext.Current.Response.Write(sw.ToString());
+      HttpContext.Current.Response.Flush();
+      HttpContext.Current.Response.End();
+      ButtonExcel.Visible = true;
+
+    }    
   }
 
   public override void VerifyRenderingInServerForm(Control control)
@@ -447,5 +462,9 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
   protected void gvWorkingStatus_RowEditing(object sender, GridViewEditEventArgs e)
   {
     HFAccordionStatus.Value = "1";//控制accordion
+  }
+  protected void GridViewReport_PageIndexChanging(object sender, GridViewPageEventArgs e)
+  {
+    HFAccordionStatus.Value = "3";//控制accordion
   }
 }
