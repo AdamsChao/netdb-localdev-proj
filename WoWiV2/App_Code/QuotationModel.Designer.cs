@@ -9256,6 +9256,30 @@ namespace QuotationModel
         private Nullable<global::System.Int32> _Access_Level_ID;
         partial void OnAccess_Level_IDChanging(Nullable<global::System.Int32> value);
         partial void OnAccess_Level_IDChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String quotation_country
+        {
+            get
+            {
+                return _quotation_country;
+            }
+            set
+            {
+                Onquotation_countryChanging(value);
+                ReportPropertyChanging("quotation_country");
+                _quotation_country = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("quotation_country");
+                Onquotation_countryChanged();
+            }
+        }
+        private global::System.String _quotation_country;
+        partial void Onquotation_countryChanging(global::System.String value);
+        partial void Onquotation_countryChanged();
 
         #endregion
 

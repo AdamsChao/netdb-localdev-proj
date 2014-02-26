@@ -553,6 +553,7 @@
           <Property Name="FinalTotalPrice" Type="decimal" Precision="20" Scale="2" />
           <Property Name="Probability" Type="nvarchar" MaxLength="50" />
           <Property Name="Access_Level_ID" Type="int" />
+          <Property Name="quotation_country" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Target">
           <Key>
@@ -1222,6 +1223,7 @@
           <Property Type="Int32" Name="Access_Level_ID" />
           <NavigationProperty Name="Project" Relationship="QuotationModel.FK_Project_Quotation_Version" FromRole="Quotation_Version" ToRole="Project" />
           <NavigationProperty Name="Quotation_Target" Relationship="QuotationModel.FK_Quotation_Target_Quotation_Version" FromRole="Quotation_Version" ToRole="Quotation_Target" />
+          <Property Type="String" Name="quotation_country" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="country">
           <Key>
@@ -1758,6 +1760,7 @@
           <EntitySetMapping Name="Quotation_Version">
             <EntityTypeMapping TypeName="QuotationModel.Quotation_Version">
               <MappingFragment StoreEntitySet="Quotation_Version">
+                <ScalarProperty Name="quotation_country" ColumnName="quotation_country" />
                 <ScalarProperty Name="Access_Level_ID" ColumnName="Access_Level_ID" />
                 <ScalarProperty Name="Probability" ColumnName="Probability" />
                 <ScalarProperty Name="FinalTotalPrice" ColumnName="FinalTotalPrice" />
@@ -2028,7 +2031,7 @@
         <EntityTypeShape EntityType="QuotationModel.vw_Product_Type" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="QuotationModel.Quotation_Status" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583317" />
         <EntityTypeShape EntityType="QuotationModel.clientapplicant_technology" Width="1.5" PointX="0.75" PointY="3.75" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print" Width="1.5" PointX="2.75" PointY="3.75" Height="4.2879036458333388" />
+        <EntityTypeShape EntityType="QuotationModel.vw_Quotation_Print" Width="2.125" PointX="2.75" PointY="3.75" Height="5.2494108072916656" />
         <EntityTypeShape EntityType="QuotationModel.invoice_target" Width="1.5" PointX="6.75" PointY="0.75" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="QuotationModel.Target_Rates" Width="1.5" PointX="8.75" PointY="4.75" Height="3.1340950520833353" />
         <EntityTypeShape EntityType="QuotationModel.Authority" Width="1.5" PointX="8.75" PointY="8.75" Height="3.1340950520833317" />
