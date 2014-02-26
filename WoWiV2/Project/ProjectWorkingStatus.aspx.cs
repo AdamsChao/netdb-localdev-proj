@@ -414,6 +414,7 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
   {
     if (GridViewReport.Rows.Count > 0)
     {
+      SqlDataSourceTarget.SelectCommand += " ORDER BY Project.Project_Id Desc ";
       GridViewReport.AllowPaging = false;
       GridViewReport.AllowSorting = false;
       GridViewReport.DataBind();
