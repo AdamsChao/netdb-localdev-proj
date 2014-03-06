@@ -58,7 +58,7 @@
     </tr>
     <tr>
       <th class="style4">
-        Country
+        Target Country
       </th>
       <td>
         <asp:TextBox ID="txtCountry" runat="server"></asp:TextBox>
@@ -93,8 +93,7 @@
         <asp:BoundField DataField="Model_No" HeaderText="Model No" SortExpression="Model_No" />
         <asp:BoundField DataField="fname" HeaderText="AE" SortExpression="fname" />
         <asp:BoundField DataField="Quotation_OpenDate" HeaderText="Open Date" SortExpression="Quotation_OpenDate"
-          DataFormatString="{0:yyyy/MM/dd HH:mm}" />
-          <asp:BoundField DataField="quotation_country" HeaderText="Country" SortExpression="quotation_country" />
+          DataFormatString="{0:yyyy/MM/dd HH:mm}" />          
       </Columns>
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSourceQuot" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
@@ -110,7 +109,10 @@ AND Client_Id like @Client_Id
 AND SalesId like @SalesId 
 AND ([Product_Name] LIKE '%' + @Product_Name + '%') 
 AND ([Model_No] LIKE '%' + @Model_No + '%') 
-AND ([quotation_country] LIKE '%' + @quotation_country + '%')
+AND vw_Quotation.Quotation_Version_Id in 
+(Select quotation_id
+from Quotation_Target,Country 
+Where Quotation_Target.country_id = dbo.country.country_id and country_name like '%' + @quotation_country + '%') 
 ORDER BY vw_Quotation.Quotation_No DESC, vw_Quotation.Vername, vw_Quotation.Model_No "
       DeleteCommand="Delete from Quotation_Version where Quotation_Version_Id = @Quotation_Version_Id">
       <DeleteParameters>

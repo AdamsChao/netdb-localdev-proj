@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true"
-  CodeFile="CreateQuotation.aspx.cs" Inherits="Sales_CreateQuotation" %>
+  CodeFile="CreateQuotation.aspx.cs" Inherits="Sales_CreateQuotation" ValidateRequest="false" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="uc/ucCreateQuotationTab1.ascx" TagName="ucCreateQuotationTab1"
@@ -32,8 +32,8 @@
       var windowName = 'Print' + uniqueName.getTime();
       var printWindow = window.open(windowUrl, windowName);
 
-      //            printWindow.document.write(printContent.innerHTML);
-      //            printWindow.document.close();
+      //printWindow.document.write(printContent.innerHTML);
+      //printWindow.document.close();
       printWindow.focus();
       //printWindow.print();
       //printWindow.close();

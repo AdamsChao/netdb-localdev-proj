@@ -30,17 +30,10 @@
   </tr>
   <tr>
     <th class="style4">
-      Quotation Country
-    </th>
-    <td>
-      <asp:TextBox ID="txtCountry" runat="server"></asp:TextBox>
-    </td>
-  </tr>
-  <tr>
-    <th class="style4">
       AE Name
     </th>
     <td>
+      <asp:TextBox ID="txtCountry" runat="server" Visible="false"></asp:TextBox>
       <asp:DropDownList ID="DropDownListEmp" runat="server" DataSourceID="SqlDataSourceEmp"
         DataTextField="empname" DataValueField="id">
       </asp:DropDownList>
