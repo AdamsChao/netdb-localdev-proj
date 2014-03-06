@@ -109,10 +109,6 @@ AND Client_Id like @Client_Id
 AND SalesId like @SalesId 
 AND ([Product_Name] LIKE '%' + @Product_Name + '%') 
 AND ([Model_No] LIKE '%' + @Model_No + '%') 
-AND vw_Quotation.Quotation_Version_Id in 
-(Select quotation_id
-from Quotation_Target,Country 
-Where Quotation_Target.country_id = dbo.country.country_id and country_name like '%' + @quotation_country + '%') 
 ORDER BY vw_Quotation.Quotation_No DESC, vw_Quotation.Vername, vw_Quotation.Model_No "
       DeleteCommand="Delete from Quotation_Version where Quotation_Version_Id = @Quotation_Version_Id">
       <DeleteParameters>
@@ -123,8 +119,8 @@ ORDER BY vw_Quotation.Quotation_No DESC, vw_Quotation.Vername, vw_Quotation.Mode
         <asp:ControlParameter ControlID="txtModelNo" DefaultValue="%" Name="Model_No" PropertyName="Text" Type="String" />
         <asp:ControlParameter ControlID="txtProductName" DefaultValue="%" Name="Product_Name" PropertyName="Text" Type="String" />
         <asp:ControlParameter ControlID="ddlClient" DefaultValue="%" Name="Client_Id" PropertyName="SelectedValue" Type="String" />
-        <asp:ControlParameter ControlID="ddlEmp" DefaultValue="%" Name="SalesId" PropertyName="SelectedValue" Type="String" />
-        <asp:ControlParameter ControlID="txtCountry" DefaultValue="%" Name="quotation_country" PropertyName="Text" Type="String" />
+        <asp:ControlParameter ControlID="ddlEmp" DefaultValue="%" Name="SalesId" PropertyName="SelectedValue" Type="String" />        
+        <asp:ControlParameter ControlID="txtCountry" DefaultValue="%" Name="quotation_country" PropertyName="Text" Type="String" />        
       </SelectParameters>
     </asp:SqlDataSource>
   </p>
