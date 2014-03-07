@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true"
   CodeFile="ProjectWorkingStatus.aspx.cs" Inherits="Project_ProjectWorkingStatus"
- EnableEventValidation="false"
-  MaintainScrollPositionOnPostback="true" %>
+  EnableEventValidation="false" ValidateRequest="false" MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxcontroltoolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
@@ -1090,15 +1089,14 @@ WHERE [Quotation_Target_Id] = @Quotation_Target_Id ">
       <asp:Panel ID="PanelReport" runat="server" Visible="False">
         <asp:Button ID="ButtonExcel" runat="server" Text="Export Report To Excel" OnClick="ButtonExcel_Click" />
         <br />
-        <table cellspacing="1" class="style1">          
+        <table cellspacing="1" class="style1">
           <tr>
             <td colspan="2">
               <br />
               <asp:GridView ID="GridViewReport" runat="server" AutoGenerateColumns="False" DataKeyNames="Quotation_Target_Id"
                 DataSourceID="SqlDataSourceTarget" OnPreRender="GridViewReport_PreRender" Width="100%"
-                Caption="Project Working Status" EmptyDataText="尚未有相關的Target Status紀錄!" 
-                SkinID="None" AllowPaging="True" 
-                onpageindexchanging="GridViewReport_PageIndexChanging">
+                Caption="Project Working Status" EmptyDataText="尚未有相關的Target Status紀錄!" SkinID="None"
+                AllowPaging="True" OnPageIndexChanging="GridViewReport_PageIndexChanging">
                 <Columns>
                   <asp:BoundField DataField="Project_No" HeaderText="Project No." SortExpression="Project_No" />
                   <asp:BoundField DataField="Client" HeaderText="Client" SortExpression="Client" />
