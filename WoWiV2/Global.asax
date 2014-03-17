@@ -25,7 +25,7 @@
     // 啟動新工作階段時執行的程式碼
     try
     {
-      if (DateTime.Now.DayOfWeek.ToString() == "1") //星期一
+      if (DateTime.Now.DayOfWeek.GetHashCode() == 1) //星期一
       {
         HttpContext.Current.Server.Execute("~/Project/CertificateMail.aspx");
       }
