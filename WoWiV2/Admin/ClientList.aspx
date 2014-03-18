@@ -19,7 +19,7 @@
             SearchPanel.Visible = true;
             if (ddlAccessLevel.SelectedValue != "-1")
             {
-                newCriteria = " and department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id = " + ddlAccessLevel.SelectedValue + " )";
+              newCriteria = " and department_id in (Select accesslevel_id from m_employee_accesslevel where accesslevel_id = " + ddlAccessLevel.SelectedValue + " )";
                 SqlDataSourceClient.SelectCommand += newCriteria;
                 GridView1.DataBind();
             }
