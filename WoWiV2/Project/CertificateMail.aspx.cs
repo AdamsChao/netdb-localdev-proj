@@ -13,7 +13,7 @@ public partial class Project_CertificateMail : System.Web.UI.Page
         {
             if (GridViewProjectTarget.Rows.Count > 0)
             {
-                string[] mailto = { "sales@wowiapproval.com", "cm@wowiapproval.com" };
+                string[] mailto = { "ima1@wowiapproval.com", "ima2@wowiapproval.com", "ima3@wowiapproval.com", "ima4@wowiapproval.com", "sales-1@wowiapproval.com", "sales-2@wowiapproval.com", "sales-3@wowiapproval.com", "sales-4@wowiapproval.com", "sales-5@wowiapproval.com", "sales-6@wowiapproval.com" };
                 string[] mailcc = { "Shirley.Kang@WoWiApproval.com", "Scott.Wang@WoWiApproval.com", "Miranda.Chen@WoWiApproval.com" };
                 string[] mailbcc = { "adams@netdb.com.tw" };
                 MailUtil.SendHTMLMail("dbservice@wowiapproval.com", mailto, mailcc, mailbcc, "Certificate Renewal Alert", PanelMail);
