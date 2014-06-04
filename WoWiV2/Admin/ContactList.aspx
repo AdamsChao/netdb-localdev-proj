@@ -34,7 +34,23 @@
         int eid = Utils.GetEmployeeID(User.Identity.Name);
         if (!Utils.isAdmin(eid))
         {
-            newCriteria += " and department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
+            var dept_id = (from emp in db.employees
+                          where emp.id == eid select emp.department_id).FirstOrDefault();
+            var dept_name = (from d in db.departments
+                             where d.id == dept_id select d.name).SingleOrDefault();
+            if (dept_name.ToLower().Contains("sales"))
+            {
+                //Adams:如果是業務的話，那麼就算AccessLevel有設定到IMA相關，也不能檢視IMA的聯絡人 2014/6/5
+                newCriteria += @" and department_id in 
+ (Select accesslevel_id from m_employee_accesslevel 
+ inner join access_level on m_employee_accesslevel.accesslevel_id=access_level.id  
+ where access_level.name NOT LIKE 'IMA%' and employee_id =" + eid + ")";                    
+            }
+            else
+            {  
+                newCriteria += @" and department_id in (Select accesslevel_id from m_employee_accesslevel where employee_id =" + eid + ")";
+            }
+            
             lblaccesslevel.Visible = false;
             ddlAccessLevel.Visible = false;
         }
