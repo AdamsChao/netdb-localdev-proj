@@ -107,12 +107,11 @@
         var country_id = wowidb.Quotation_Target.First(c => c.target_description == t).country_id;
         var cName = wowidb.countries.First(c => c.country_id == country_id).country_name;
         dis.Text = t + " - [ " + cName + " ]";
-        dis.Id = t;
+        dis.Id = t.Trim();
         list.Add(dis);
       }
       catch (Exception)
       {
-
         throw;
       }
 

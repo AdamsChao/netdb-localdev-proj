@@ -466,9 +466,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-  <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-    <ContentTemplate>
-      AR Management
+
+AR Management
       <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
         <tr>
           <th align="left" width="13%">
@@ -637,9 +636,13 @@
           </asp:TemplateField>
         </Columns>
       </asp:GridView>
+
+  <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>
+      
     </ContentTemplate>
     <Triggers>
       <asp:PostBackTrigger ControlID="Button2" />
     </Triggers>
-  </asp:UpdatePanel>
+  </asp:UpdatePanel>--%>
 </asp:Content>
