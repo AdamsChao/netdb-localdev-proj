@@ -34,9 +34,9 @@
     </th>
     <td>
       <asp:TextBox ID="txtCountry" runat="server" Visible="false"></asp:TextBox>
-      <asp:DropDownList ID="DropDownListEmp" runat="server" DataSourceID="SqlDataSourceEmp"
+      <netdb:DropDownList2 ID="DropDownListEmp" runat="server" DataSourceID="SqlDataSourceEmp"
         DataTextField="empname" DataValueField="id">
-      </asp:DropDownList>
+      </netdb:DropDownList2>
       &nbsp;&nbsp;&nbsp; Access Level:<asp:DropDownList ID="ddlAccessLevel" runat="server"
         DataSourceID="SqlDataSourceSalesAL" DataTextField="name" DataValueField="id" AppendDataBoundItems="True"
         OnDataBound="ddlAccessLevel_DataBound">
