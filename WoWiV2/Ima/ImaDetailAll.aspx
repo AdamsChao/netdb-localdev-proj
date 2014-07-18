@@ -1882,7 +1882,7 @@
                                     <tr>
                                         <td colspan="2" class="tdHeader">Application Procedures Detail</td>
                                     </tr>
-                                    <tr id="trApprovalMethod" runat="server" visible='<%#IMAUtil.IsEditOn() %>'>
+                                    <tr id="trApprovalMethod" runat="server">
                                         <td class="tdRowName" valign="top">Name of approval method：</td>
                                         <td class="tdRowValue">
                                             <asp:Label ID="lblApprovalMethod" runat="server" Text='<%#Eval("ApprovalMethod1") %>'></asp:Label>

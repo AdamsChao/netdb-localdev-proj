@@ -20,6 +20,15 @@
                         </tr>
                         <tr>
                             <td class="tdRowName" valign="top">
+                                Name of approval method：
+                            </td>
+                            <td class="tdRowValue">
+                                <asp:Label ID="lblApprovalMethodS" runat="server"></asp:Label>
+                                <asp:Label ID="lblOtherApprovalMethodS" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdRowName" valign="top">
                                 Certification Type：
                             </td>
                             <td class="tdRowValue">

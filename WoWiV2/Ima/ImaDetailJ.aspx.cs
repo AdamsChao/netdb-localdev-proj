@@ -240,6 +240,8 @@ public partial class Ima_ImaDetailJ : System.Web.UI.Page
                 cbProductType.SelectedValue = dt.Rows[0]["wowi_product_type_id"].ToString();
                 lblProTypeName.Text = IMAUtil.GetProductType(lblProType.Text);
                 //業務人員可以檢視的欄位
+                lblApprovalMethodS.Text = lblApprovalMethod.Text;
+                lblOtherApprovalMethodS.Text = lblOtherApprovalMethod.Text;
                 lblProTypeNameS.Text = lblProTypeName.Text;
                 lblAcceptS.Text = lblAccept.Text;
                 lblSamplesRequiredS.Text = lblSamplesRequired.Text;
