@@ -175,6 +175,11 @@
         
     }
 
+    protected void FormView1_DataBound(object sender, EventArgs e)
+    {
+      Label lblRemarks = FormView1.FindControl("lblRemarks") as Label;
+      lblRemarks.Text = lblRemarks.Text.Replace("\r", "<br/>");
+    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
@@ -195,7 +200,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
    <asp:FormView ID="FormView1" runat="server" DataKeyNames="id" SkinID="FormView"
-            DataSourceID="EntityDataSource1" DefaultMode="ReadOnly" Width="100%" onitemupdating="FormView1_ItemUpdating" >
+            DataSourceID="EntityDataSource1" DefaultMode="ReadOnly" Width="100%" 
+     onitemupdating="FormView1_ItemUpdating" ondatabound="FormView1_DataBound" >
             
             <ItemTemplate>
               <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional"><ContentTemplate>
@@ -628,8 +634,9 @@
                                </tr>
                                <tr>
                                    <td colspan="4">
-                                       <asp:TextBox ID="tbRemarks" runat="server" Height="70" TextMode="MultiLine" Text='<%# Bind("remark") %>' Enabled="false"
-                                           Width="100%"></asp:TextBox>
+                                       <%--<asp:TextBox ID="tbRemarks" runat="server" Height="70" TextMode="MultiLine" Text='<%# Bind("remark") %>' Enabled="false"
+                                           Width="100%"></asp:TextBox>--%>
+                                           <asp:Label ID="lblRemarks" runat="server" Text='<%# Bind("remark") %>'></asp:Label>
                                    </td>
                                </tr>
 
