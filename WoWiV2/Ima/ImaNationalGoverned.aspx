@@ -94,7 +94,7 @@
                                     </asp:GridView>
                                     <asp:SqlDataSource ID="sdsImaFiles" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                         DeleteCommand="DELETE FROM [Ima_NationalGover_Files] WHERE [NationalGovFileID] = @NationalGovFileID"
-                                        SelectCommand="SELECT * FROM [Ima_NationalGover_Files] WHERE ([NationalGovID] = @NationalGovID)">
+                                        SelectCommand="SELECT * FROM [Ima_NationalGover_Files] WHERE ([NationalGovID] = @NationalGovID) order by FileName">
                                         <DeleteParameters>
                                             <asp:Parameter Name="NationalGovFileID" Type="Int32" />
                                         </DeleteParameters>

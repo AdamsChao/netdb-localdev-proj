@@ -112,7 +112,7 @@
                                                 </asp:GridView>
                                                 <asp:SqlDataSource ID="sdsFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                     DeleteCommand="DELETE FROM [Ima_Post_Files] WHERE [PostFileID] = @PostFileID"
-                                                    SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='A'">
+                                                    SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='A' order by FileName">
                                                     <DeleteParameters>
                                                         <asp:Parameter Name="PostFileID" Type="Int32" />
                                                     </DeleteParameters>
@@ -224,7 +224,7 @@
                                                 </asp:GridView>
                                                 <asp:SqlDataSource ID="sdsFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                     DeleteCommand="DELETE FROM [Ima_Post_Files] WHERE [PostFileID] = @PostFileID"
-                                                    SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='B'">
+                                                    SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='B' order by FileName">
                                                     <DeleteParameters>
                                                         <asp:Parameter Name="PostFileID" Type="Int32" />
                                                     </DeleteParameters>
@@ -301,7 +301,7 @@
                                                 </asp:GridView>
                                                 <asp:SqlDataSource ID="sdsFile3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                     DeleteCommand="DELETE FROM [Ima_Post_Files] WHERE [PostFileID] = @PostFileID"
-                                                    SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='C'">
+                                                    SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='C' order by FileName">
                                                     <DeleteParameters>
                                                         <asp:Parameter Name="PostFileID" Type="Int32" />
                                                     </DeleteParameters>

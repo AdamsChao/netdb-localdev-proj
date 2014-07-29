@@ -98,7 +98,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='A'">
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='A' order by FileName">
                                                 <SelectParameters>
                                                     <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
                                                     <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
@@ -151,7 +151,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='B'">
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='B' order by FileName">
                                                 <SelectParameters>
                                                     <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
                                                     <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
@@ -389,7 +389,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsFile7" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='G'">
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='G' order by FileName">
                                                 <SelectParameters>
                                                     <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
                                                     <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
@@ -480,7 +480,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsFile3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='C'">
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='C' order by FileName">
                                                 <SelectParameters>
                                                     <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
                                                     <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
@@ -558,7 +558,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsFile4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='D'">
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='D' order by FileName">
                                                 <SelectParameters>
                                                     <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
                                                     <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
@@ -636,7 +636,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsFile5" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='E'">
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='E' order by FileName">
                                                 <SelectParameters>
                                                     <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
                                                     <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />
@@ -714,7 +714,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsFile6" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='F'">
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='F' order by FileName">
                                                 <SelectParameters>
                                                     <asp:QueryStringParameter Name="DocID" QueryStringField="laid" Type="Int32" />
                                                     <asp:QueryStringParameter Name="DocCategory" QueryStringField="categroy" Type="String" />

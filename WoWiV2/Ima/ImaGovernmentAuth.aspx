@@ -191,7 +191,7 @@
                                     </asp:GridView>
                                     <asp:SqlDataSource ID="sdsImaFiles1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                         DeleteCommand="DELETE FROM [Ima_GoverAuth_Files] WHERE [GoverAuthFileID] = @GoverAuthFileID"
-                                        SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='A'">
+                                        SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='A' order by FileName">
                                         <DeleteParameters>
                                             <asp:Parameter Name="GoverAuthFileID" Type="Int32" />
                                         </DeleteParameters>
@@ -292,7 +292,7 @@
                                                 </asp:GridView>
                                                 <asp:SqlDataSource ID="sdsImaFiles2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                     DeleteCommand="DELETE FROM [Ima_GoverAuth_Files] WHERE [GoverAuthFileID] = @GoverAuthFileID"
-                                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='C'">
+                                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='C' order by FileName">
                                                     <DeleteParameters>
                                                         <asp:Parameter Name="GoverAuthFileID" Type="Int32" />
                                                     </DeleteParameters>
@@ -371,7 +371,7 @@
                                                 </asp:GridView>
                                                 <asp:SqlDataSource ID="sdsImaFiles3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                     DeleteCommand="DELETE FROM [Ima_GoverAuth_Files] WHERE [GoverAuthFileID] = @GoverAuthFileID"
-                                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='D'">
+                                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='D' order by FileName">
                                                     <DeleteParameters>
                                                         <asp:Parameter Name="GoverAuthFileID" Type="Int32" />
                                                     </DeleteParameters>
@@ -471,7 +471,7 @@
                                                 </asp:GridView>
                                                 <asp:SqlDataSource ID="sdsImaFiles" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                     DeleteCommand="DELETE FROM [Ima_GoverAuth_Files] WHERE [GoverAuthFileID] = @GoverAuthFileID"
-                                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='B'">
+                                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='B' order by FileName">
                                                     <DeleteParameters>
                                                         <asp:Parameter Name="GoverAuthFileID" Type="Int32" />
                                                     </DeleteParameters>
@@ -1003,7 +1003,7 @@
                                                 </asp:GridView>
                                                 <asp:SqlDataSource ID="sdsImaFiles4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                     DeleteCommand="DELETE FROM [Ima_GoverAuth_Files] WHERE [GoverAuthFileID] = @GoverAuthFileID"
-                                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='E'">
+                                                    SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='E' order by FileName">
                                                     <DeleteParameters>
                                                         <asp:Parameter Name="GoverAuthFileID" Type="Int32" />
                                                     </DeleteParameters>

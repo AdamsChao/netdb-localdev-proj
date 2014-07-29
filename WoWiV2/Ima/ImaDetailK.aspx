@@ -265,7 +265,7 @@
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                 DeleteCommand="DELETE FROM [Ima_Testing_Files] WHERE [TestingFileID] = @TestingFileID"
-                                                SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='A'">
+                                                SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='A' order by FileName">
                                                 <DeleteParameters>
                                                     <asp:Parameter Name="TestingFileID" Type="Int32" />
                                                 </DeleteParameters>
@@ -325,7 +325,7 @@
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsFile4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                 DeleteCommand="DELETE FROM [Ima_Testing_Files] WHERE [TestingFileID] = @TestingFileID"
-                                                SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='D'">
+                                                SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='D' order by FileName">
                                                 <DeleteParameters>
                                                     <asp:Parameter Name="TestingFileID" Type="Int32" />
                                                 </DeleteParameters>
@@ -406,7 +406,7 @@
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                 DeleteCommand="DELETE FROM [Ima_Testing_Files] WHERE [TestingFileID] = @TestingFileID"
-                                                SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='B'">
+                                                SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='B' order by FileName">
                                                 <DeleteParameters>
                                                     <asp:Parameter Name="TestingFileID" Type="Int32" />
                                                 </DeleteParameters>
@@ -513,7 +513,7 @@
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsFile3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                 DeleteCommand="DELETE FROM [Ima_Testing_Files] WHERE [TestingFileID] = @TestingFileID"
-                                                SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='C'">
+                                                SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='C' order by FileName">
                                                 <DeleteParameters>
                                                     <asp:Parameter Name="TestingFileID" Type="Int32" />
                                                 </DeleteParameters>

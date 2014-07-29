@@ -78,7 +78,7 @@
                                         </asp:GridView>
                                         <asp:SqlDataSource ID="sdsImaFiles" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                             DeleteCommand="DELETE FROM [Ima_ProductsControl_Files] WHERE [ProductControlFileID] = @ProductControlFileID"
-                                            SelectCommand="SELECT * FROM [Ima_ProductsControl_Files] WHERE ([ProductControlID] = @ProductControlID)">
+                                            SelectCommand="SELECT * FROM [Ima_ProductsControl_Files] WHERE ([ProductControlID] = @ProductControlID) order by FileName">
                                             <DeleteParameters>
                                                 <asp:Parameter Name="ProductControlFileID" Type="Int32" />
                                             </DeleteParameters>

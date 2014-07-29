@@ -130,7 +130,7 @@
                                                 </asp:GridView>
                                                 <asp:SqlDataSource ID="sdsFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                     DeleteCommand="DELETE FROM [Ima_Periodic_Files] WHERE [PeriodicFileID] = @PeriodicFileID"
-                                                    SelectCommand="SELECT * FROM [Ima_Periodic_Files] WHERE ([PeriodicID] = @PeriodicID) and FileCategory='A'">
+                                                    SelectCommand="SELECT * FROM [Ima_Periodic_Files] WHERE ([PeriodicID] = @PeriodicID) and FileCategory='A' order by FileName">
                                                     <DeleteParameters>
                                                         <asp:Parameter Name="PeriodicFileID" Type="Int32" />
                                                     </DeleteParameters>

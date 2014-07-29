@@ -151,7 +151,7 @@
                                                 </asp:GridView>
                                                 <asp:SqlDataSource ID="sdsFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                     DeleteCommand="DELETE FROM [Ima_Standard_Files] WHERE [StandardFileID] = @StandardFileID"
-                                                    SelectCommand="SELECT * FROM [Ima_Standard_Files] WHERE ([StandardID] = @StandardID) and FileCategory='A'">
+                                                    SelectCommand="SELECT * FROM [Ima_Standard_Files] WHERE ([StandardID] = @StandardID) and FileCategory='A' order by FileName">
                                                     <DeleteParameters>
                                                         <asp:Parameter Name="StandardFileID" Type="Int32" />
                                                     </DeleteParameters>

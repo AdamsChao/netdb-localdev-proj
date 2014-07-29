@@ -244,7 +244,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsImaBFiles1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='A'">
+                                                SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='A' order by FileName">
                                                 <SelectParameters>
                                                     <asp:ControlParameter ControlID="lblGovernmentAuthorityID" Name="GovernmentAuthorityID" PropertyName="Text" Type="Int32" />
                                                 </SelectParameters>
@@ -286,7 +286,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsImaFiles2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='C'">
+                                                SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='C' order by FileName">
                                                 <SelectParameters>
                                                     <asp:ControlParameter ControlID="lblGovernmentAuthorityID" Name="GovernmentAuthorityID"
                                                         PropertyName="Text" Type="Int32" />
@@ -321,7 +321,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsImaFiles3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='D'">
+                                                SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='D' order by FileName">
                                                 <SelectParameters>
                                                     <asp:ControlParameter ControlID="lblGovernmentAuthorityID" Name="GovernmentAuthorityID"
                                                         PropertyName="Text" Type="Int32" />
@@ -358,7 +358,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsImaBFiles" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='B'">
+                                                SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='B' order by FileName">
                                                 <SelectParameters>
                                                     <asp:ControlParameter ControlID="lblGovernmentAuthorityID" Name="GovernmentAuthorityID" PropertyName="Text" Type="Int32" />
                                                 </SelectParameters>
@@ -546,7 +546,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsImaFiles4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='E'">
+                                                SelectCommand="SELECT * FROM [Ima_GoverAuth_Files] WHERE ([GovernmentAuthorityID] = @GovernmentAuthorityID) and FileCategory='E' order by FileName">
                                                 <SelectParameters>
                                                     <asp:ControlParameter ControlID="lblGovernmentAuthorityID" Name="GovernmentAuthorityID"
                                                         PropertyName="Text" Type="Int32" />
@@ -622,7 +622,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsImaCFiles" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_NationalGover_Files] WHERE ([NationalGovID] = @NationalGovID)">
+                                                SelectCommand="SELECT * FROM [Ima_NationalGover_Files] WHERE ([NationalGovID] = @NationalGovID) order by FileName">
                                                 <SelectParameters>
                                                     <asp:ControlParameter ControlID="lblImaCID" Name="NationalGovID" PropertyName="Text" Type="Int32" />
                                                 </SelectParameters>
@@ -1135,7 +1135,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaGFiles" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_ProductsControl_Files] WHERE ([ProductControlID] = @ProductControlID)">
+                                                            SelectCommand="SELECT * FROM [Ima_ProductsControl_Files] WHERE ([ProductControlID] = @ProductControlID) order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblProductControlID" Name="ProductControlID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -1227,7 +1227,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsImaHFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_Standard_Files] WHERE ([StandardID] = @StandardID) and FileCategory='A'">
+                                                SelectCommand="SELECT * FROM [Ima_Standard_Files] WHERE ([StandardID] = @StandardID) and FileCategory='A' order by FileName">
                                                 <SelectParameters>
                                                     <asp:ControlParameter ControlID="lblStandardID" Name="StandardID" PropertyName="Text" Type="Int32" />
                                                 </SelectParameters>
@@ -1422,7 +1422,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaFFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='A'">
+                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='A' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblLocalAgentID" Name="DocID" PropertyName="Text" Type="Int32" />
                                                                 <asp:Parameter Name="DocCategory" Type="String" DefaultValue="F" />
@@ -1469,7 +1469,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaFFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='B'">
+                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='B' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblLocalAgentID" Name="DocID" PropertyName="Text" Type="Int32" />
                                                                 <asp:Parameter Name="DocCategory" Type="String" DefaultValue="F" />
@@ -1565,7 +1565,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsImaFFile7" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='G'">
+                                                SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='G' order by FileName">
                                                 <SelectParameters>
                                                     <asp:ControlParameter ControlID="lblLocalAgentID" Name="DocID" PropertyName="Text" Type="Int32" />
                                                     <asp:Parameter Name="DocCategory" Type="String" DefaultValue="F" />
@@ -1635,7 +1635,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaFFile3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='C'">
+                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='C' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblLocalAgentID" Name="DocID" PropertyName="Text" Type="Int32" />
                                                                 <asp:Parameter Name="DocCategory" Type="String" DefaultValue="F" />
@@ -1701,7 +1701,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaFFile4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='D'">
+                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='D' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblLocalAgentID" Name="DocID" PropertyName="Text"  Type="Int32" />
                                                                 <asp:Parameter Name="DocCategory" Type="String" DefaultValue="F" />
@@ -1767,7 +1767,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaFFile5" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='E'">
+                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='E' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblLocalAgentID" Name="DocID" PropertyName="Text" Type="Int32" />
                                                                 <asp:Parameter Name="DocCategory" Type="String" DefaultValue="F" />
@@ -1832,7 +1832,7 @@
                                                                 </asp:TemplateField>
                                                             </Columns>
                                                         </asp:GridView>
-                                                        <asp:SqlDataSource ID="sdsImaFFile6" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='F'">
+                                                        <asp:SqlDataSource ID="sdsImaFFile6" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>" SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='F' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblLocalAgentID" Name="DocID" PropertyName="Text"
                                                                     Type="Int32" />
@@ -1949,7 +1949,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaJFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Application_Files] WHERE ([ApplicationID] = @ApplicationID) and FileCategory='A'">
+                                                            SelectCommand="SELECT * FROM [Ima_Application_Files] WHERE ([ApplicationID] = @ApplicationID) and FileCategory='A' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblApplicationID" Name="ApplicationID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -2006,7 +2006,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaJFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Application_Files] WHERE ([ApplicationID] = @ApplicationID) and FileCategory='B'">
+                                                            SelectCommand="SELECT * FROM [Ima_Application_Files] WHERE ([ApplicationID] = @ApplicationID) and FileCategory='B' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblApplicationID" Name="ApplicationID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -2055,7 +2055,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaJFile3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Application_Files] WHERE ([ApplicationID] = @ApplicationID) and FileCategory='C'">
+                                                            SelectCommand="SELECT * FROM [Ima_Application_Files] WHERE ([ApplicationID] = @ApplicationID) and FileCategory='C' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblApplicationID" Name="ApplicationID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -2104,7 +2104,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaJFile4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Application_Files] WHERE ([ApplicationID] = @ApplicationID) and FileCategory='D'">
+                                                            SelectCommand="SELECT * FROM [Ima_Application_Files] WHERE ([ApplicationID] = @ApplicationID) and FileCategory='D' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblApplicationID" Name="ApplicationID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -2164,7 +2164,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaJFile5" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Application_Files] WHERE ([ApplicationID] = @ApplicationID) and FileCategory='E'">
+                                                            SelectCommand="SELECT * FROM [Ima_Application_Files] WHERE ([ApplicationID] = @ApplicationID) and FileCategory='E' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblApplicationID" Name="ApplicationID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -2330,7 +2330,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaKFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='A'">
+                                                            SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='A' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblTestingID" Name="TestingID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -2379,7 +2379,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaKFile4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='D'">
+                                                            SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='D' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblTestingID" Name="TestingID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -2435,7 +2435,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaKFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='B'">
+                                                            SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='B' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblTestingID" Name="TestingID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -2500,7 +2500,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaJFile3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='C'">
+                                                            SelectCommand="SELECT * FROM [Ima_Testing_Files] WHERE ([TestingID] = @TestingID) and FileCategory='C' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblTestingID" Name="TestingID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -2618,7 +2618,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaMFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_SampleShipping_Files] WHERE ([SampleShippingID] = @SampleShippingID) and FileCategory='A'">
+                                                            SelectCommand="SELECT * FROM [Ima_SampleShipping_Files] WHERE ([SampleShippingID] = @SampleShippingID) and FileCategory='A' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblSampleShippingID" Name="SampleShippingID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -2679,7 +2679,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="sdsImaMFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                SelectCommand="SELECT * FROM [Ima_SampleShipping_Files] WHERE ([SampleShippingID] = @SampleShippingID) and FileCategory='B'">
+                                                SelectCommand="SELECT * FROM [Ima_SampleShipping_Files] WHERE ([SampleShippingID] = @SampleShippingID) and FileCategory='B' order by FileName">
                                                 <SelectParameters>
                                                     <asp:ControlParameter ControlID="lblSampleShippingID" Name="SampleShippingID" PropertyName="Text"
                                                         Type="Int32" />
@@ -2771,7 +2771,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaNFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Periodic_Files] WHERE ([PeriodicID] = @PeriodicID) and FileCategory='A'">
+                                                            SelectCommand="SELECT * FROM [Ima_Periodic_Files] WHERE ([PeriodicID] = @PeriodicID) and FileCategory='A' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblPeriodicID" Name="PeriodicID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -2949,7 +2949,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaPFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='A'">
+                                                            SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='A' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblPostID" Name="PostID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -3034,7 +3034,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaPFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='B'">
+                                                            SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='B' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblPostID" Name="PostID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -3080,7 +3080,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaPFile3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='C'">
+                                                            SelectCommand="SELECT * FROM [Ima_Post_Files] WHERE ([PostID] = @PostID) and FileCategory='C' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblPostID" Name="PostID" PropertyName="Text" Type="Int32" />
                                                             </SelectParameters>
@@ -3283,7 +3283,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaLFiles1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='A'">
+                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='A' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblFeeScheduleID" Name="DocID" PropertyName="Text" Type="Int32" />
                                                                 <asp:Parameter Name="DocCategory" Type="String" DefaultValue="L" />
@@ -3336,7 +3336,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaLFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='B'">
+                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='B' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblFeeScheduleID" Name="DocID" PropertyName="Text" Type="Int32" />
                                                                 <asp:Parameter Name="DocCategory" Type="String" DefaultValue="L" />
@@ -3387,7 +3387,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaLFile3" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='C'">
+                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='C' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblFeeScheduleID" Name="DocID" PropertyName="Text" Type="Int32" />
                                                                 <asp:Parameter Name="DocCategory" Type="String" DefaultValue="L" />
@@ -3450,7 +3450,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaLFile4" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='D'">
+                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='D' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblFeeScheduleID" Name="DocID" PropertyName="Text" Type="Int32" />
                                                                 <asp:Parameter Name="DocCategory" Type="String" DefaultValue="L" />
@@ -3497,7 +3497,7 @@
                                                             </Columns>
                                                         </asp:GridView>
                                                         <asp:SqlDataSource ID="sdsImaLFile5" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='E'">
+                                                            SelectCommand="SELECT * FROM [Ima_Files] WHERE ([DocID] = @DocID) and DocCategory=@DocCategory and FileCategory='E' order by FileName">
                                                             <SelectParameters>
                                                                 <asp:ControlParameter ControlID="lblFeeScheduleID" Name="DocID" PropertyName="Text" Type="Int32" />
                                                                 <asp:Parameter Name="DocCategory" Type="String" DefaultValue="L" />

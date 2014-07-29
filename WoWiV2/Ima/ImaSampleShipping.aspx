@@ -113,7 +113,7 @@
                                                 </asp:GridView>
                                                 <asp:SqlDataSource ID="sdsFile1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                     DeleteCommand="DELETE FROM [Ima_SampleShipping_Files] WHERE [SampleShippingFileID] = @SampleShippingFileID"
-                                                    SelectCommand="SELECT * FROM [Ima_SampleShipping_Files] WHERE ([SampleShippingID] = @SampleShippingID) and FileCategory='A'">
+                                                    SelectCommand="SELECT * FROM [Ima_SampleShipping_Files] WHERE ([SampleShippingID] = @SampleShippingID) and FileCategory='A' order by FileName">
                                                     <DeleteParameters>
                                                         <asp:Parameter Name="SampleShippingFileID" Type="Int32" />
                                                     </DeleteParameters>
@@ -250,7 +250,7 @@
                                                 </asp:GridView>
                                                 <asp:SqlDataSource ID="sdsFile2" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
                                                     DeleteCommand="DELETE FROM [Ima_SampleShipping_Files] WHERE [SampleShippingFileID] = @SampleShippingFileID"
-                                                    SelectCommand="SELECT * FROM [Ima_SampleShipping_Files] WHERE ([SampleShippingID] = @SampleShippingID) and FileCategory='B'">
+                                                    SelectCommand="SELECT * FROM [Ima_SampleShipping_Files] WHERE ([SampleShippingID] = @SampleShippingID) and FileCategory='B' order by FileName">
                                                     <DeleteParameters>
                                                         <asp:Parameter Name="SampleShippingFileID" Type="Int32" />
                                                     </DeleteParameters>
