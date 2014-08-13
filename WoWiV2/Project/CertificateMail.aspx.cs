@@ -48,7 +48,8 @@ INNER JOIN Employee ON Employee.id = Quotation_Version.SalesId
 INNER JOIN clientapplicant ON Quotation_Version.Client_Id = clientapplicant.id 
 WHERE  (Quotation_Target.Status = 'Done' OR Quotation_Target.Status = 'Delay')
 AND (renewal_confirmation_check = '1' or renewal_confirmation_check = '2')
-AND (Quotation_Target.conduct_renewal_action_date < getdate()) ";
+AND (Quotation_Target.conduct_renewal_action_date <= getdate()) 
+AND (Quotation_Target.certificate_expiry_date >= getdate()) ";
       SqlDataSourceTarget.Select(DataSourceSelectArguments.Empty);
       GridViewProjectTarget.DataBind();
       if (GridViewProjectTarget.Rows.Count > 0)
