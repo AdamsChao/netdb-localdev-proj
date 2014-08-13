@@ -121,7 +121,7 @@ INNER JOIN Employee ON Employee.id = Quotation_Version.SalesId
 INNER JOIN clientapplicant ON Quotation_Version.Client_Id = clientapplicant.id 
 WHERE  (Quotation_Target.Status = 'Done' OR Quotation_Target.Status = 'Delay')
 AND (renewal_confirmation_check = '0')
-AND (Quotation_Target.email_renewal_notice_date &lt; getdate() OR Quotation_Target.conduct_renewal_action_date &lt; getdate()) " 
+AND (Quotation_Target.email_renewal_notice_date &lt; getdate()) " 
       onselecting="SqlDataSourceTarget_Selecting">
     </asp:SqlDataSource>
   </div>
