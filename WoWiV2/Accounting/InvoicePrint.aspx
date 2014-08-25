@@ -241,7 +241,7 @@
         {
             counter += 1;
             //Label lblbr = (Label)e.Row.FindControl("lblbr");
-            if (counter == 30 || counter == 80)
+            if (counter == 32 || counter == 80)
             {
                 GridViewRow gv_row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Normal);
                 TableCell tc = new TableCell();

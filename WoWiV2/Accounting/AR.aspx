@@ -46,11 +46,23 @@
     //(sender as DropDownList).DataSource = clients;
     //(sender as DropDownList).DataTextField = "Name";
     //(sender as DropDownList).DataValueField = "Id";
-    //(sender as DropDownList).DataBind();s
-    var clients = (from c in wowidb.clientapplicants 
-                  where c.clientapplicant_type == 1 || c.clientapplicant_type == 3
-                  orderby c.companyname, c.c_companyname 
-                  select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname }).OrderBy(c=>c.Name);
+    //(sender as DropDownList).DataBind();
+    
+    //var clients = (from c in wowidb.clientapplicants 
+    //              where c.clientapplicant_type == 1 || c.clientapplicant_type == 3
+    //              orderby c.companyname, c.c_companyname
+    //              select new { Id = c.id, Name = c.companyname + " " + c.c_companyname }).OrderBy(c => c.Name);
+    //              //select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname }).OrderBy(c=>c.Name);
+
+    var clients = (from p in wowidb.Projects
+                   from q in wowidb.Quotation_Version
+                   from c in wowidb.clientapplicants
+                   from i in wowidb.invoice_target
+                   where p.Quotation_No == q.Quotation_No && c.id == q.Client_Id && i.quotation_id == q.Quotation_Version_Id
+                   orderby c.companyname, c.c_companyname
+                   //select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname })
+                   select new { Id = c.id, Name = c.companyname + " " + c.c_companyname })
+              .Distinct().OrderBy(c => c.Name);
     (sender as DropDownList).DataSource = clients;
     (sender as DropDownList).DataTextField = "Name";
     (sender as DropDownList).DataValueField = "Id";
@@ -202,8 +214,12 @@
       temp.ProjectNo = item.project_no;
       try
       {
-        QuotationModel.Project proj = (from pp in db.Project where pp.Project_No == item.project_no select pp).First();
-        QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_Version_Id == proj.Quotation_Id select q).First();
+        //adams:2014/08/25
+        var invoice_target = (from t in db.invoice_target where t.invoice_id == item.invoice_id select t).FirstOrDefault();
+        int qid = invoice_target.quotation_id;
+        QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_Version_Id == qid select q).First();
+        //QuotationModel.Project proj = (from pp in db.Project where pp.Project_No == item.project_no select pp).First();
+        //QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_Version_Id == proj.Quotation_Id select q).First();
         temp.Model = quo.Model_No;
 
         int cid = (int)quo.Client_Id;

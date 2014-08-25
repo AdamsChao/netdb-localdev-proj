@@ -41,11 +41,20 @@
   protected void DropDownList3_Load(object sender, EventArgs e)
   {
     if (Page.IsPostBack) return;
-    var clients = (from c in wowidb.clientapplicants 
-                  where c.clientapplicant_type == 1 || c.clientapplicant_type == 3
-                  orderby c.companyname, c.c_companyname 
-                  select new { Id = c.id, 
-                      Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname }).OrderBy(c=>c.Name);
+    //var clients = (from c in wowidb.clientapplicants 
+    //              where c.clientapplicant_type == 1 || c.clientapplicant_type == 3
+    //              orderby c.companyname, c.c_companyname
+    //              select new { Id = c.id, Name = c.companyname + " " + c.c_companyname }).OrderBy(c => c.Name);
+    //              //select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname }).OrderBy(c=>c.Name);
+    var clients = (from p in wowidb.Projects
+                   from q in wowidb.Quotation_Version
+                   from c in wowidb.clientapplicants
+                   from i in wowidb.invoice_target
+                   where p.Quotation_No == q.Quotation_No && c.id == q.Client_Id && i.quotation_id == q.Quotation_Version_Id
+                   orderby c.companyname, c.c_companyname
+                   //select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname })
+                   select new { Id = c.id, Name = c.companyname + " " + c.c_companyname })
+              .Distinct().OrderBy(c => c.Name);
     (sender as DropDownList).DataSource = clients;
     (sender as DropDownList).DataTextField = "Name";
     (sender as DropDownList).DataValueField = "Id";
@@ -227,7 +236,10 @@
       temp.ProjectNo = item.project_no;
       try
       {
-        QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_No == item.quotaion_no select q).First();
+        var invoice_target = (from t in db.invoice_target where t.invoice_id == item.invoice_id select t).FirstOrDefault();
+        int qid = invoice_target.quotation_id;
+        QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_Version_Id == qid select q).First();
+        //QuotationModel.Quotation_Version quo = (from q in db.Quotation_Version where q.Quotation_No == item.quotaion_no select q).First();
         temp.Model = quo.Model_No;
 
         int cid = (int)quo.Client_Id;
@@ -451,12 +463,14 @@
           <th align="left" width="13%">
             Project No. :&nbsp;
           </th>
-          <td width="20%">
+          <td width="20%" colspan="5">
             <asp:DropDownList ID="ddlProj" runat="server" AppendDataBoundItems="True" OnLoad="DropDownList2_Load">
               <asp:ListItem Value="-1">All</asp:ListItem>
             </asp:DropDownList>
           </td>
-          <th align="left" width="13%">
+          
+        </tr>
+        <tr><th align="left" width="13%">
             Open Date :
           </th>
           <td width="20%">
@@ -469,8 +483,7 @@
             <asp:DropDownList ID="ddlClient" runat="server" AppendDataBoundItems="True" OnLoad="DropDownList3_Load">
               <asp:ListItem Value="-1">All</asp:ListItem>
             </asp:DropDownList>
-          </td>
-        </tr>
+          </td><th></th><td></td></tr>
         <tr>
           <th align="left" width="13%">
             <%-- Keyword Search :&nbsp;--%>Invoice No. :
