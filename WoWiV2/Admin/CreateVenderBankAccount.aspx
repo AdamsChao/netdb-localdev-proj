@@ -159,6 +159,7 @@
                                                    <asp:ListItem Value="3">信用卡</asp:ListItem>
                                                    <asp:ListItem Value="4">現金</asp:ListItem>
                                                    <asp:ListItem Value="5">西聯匯款</asp:ListItem>
+                                                   <asp:ListItem Value="7">速匯金 MoneyGram</asp:ListItem>
                                                </asp:DropDownList> &nbsp;<font color="red"><b>*</b></font>國內匯款 不需輸入&nbsp;<font color="red">Swif Code</font>&nbsp;，支票 或是 匯票 &nbsp;<font color="red">Beneficiary Name</font>&nbsp;一定要輸入，空白欄位一律填入&nbsp;<font color="red">N/A</font>&nbsp;
                                        <asp:Label ID="lblPaymentType" runat="server" Text='<%# Bind("payment_type") %>' CssClass="hidden"></asp:Label>
                                     </td></tr>

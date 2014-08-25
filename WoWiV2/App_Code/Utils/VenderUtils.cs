@@ -48,6 +48,9 @@ public class VenderUtils
             case "6":
                 ret = "國外匯款 Foreign Wire Transfer";
                 break;
+            case "7":
+                ret = "速匯金 MoneyGram";
+                break;
         }
         return ret;
     }

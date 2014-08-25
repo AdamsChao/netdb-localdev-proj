@@ -233,6 +233,7 @@
                                                    <asp:ListItem Value="3">信用卡 Credit Card</asp:ListItem>
                                                    <asp:ListItem Value="4">現金 Cash</asp:ListItem>
                                                    <asp:ListItem Value="5">西聯匯款 Westerm Union</asp:ListItem>
+                                                   <asp:ListItem Value="7">速匯金 MoneyGram</asp:ListItem>
                                                </asp:DropDownList>
                                                
                                            </td>
