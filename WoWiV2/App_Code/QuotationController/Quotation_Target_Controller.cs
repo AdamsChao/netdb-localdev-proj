@@ -76,6 +76,36 @@ public class Quotation_Target_Controller
       item.Bill3 = null;
       item.BillE = null;
 
+      //adams:2014/8/25
+      item.document_ready_to_process = null;
+      item.certificate_type = null;
+      item.certificate_issue_date = null;
+      item.certificate_expiry_date = null;
+      item.email_renewal_notice_date = null;
+      item.renewal_confirmation_check = "0";
+      item.conduct_renewal_action_date = null;
+      item.sample_received_from_client_date = null;
+      item.customer_request_sample_returned = "0";
+      item.sample_returned_to_client_date = null;
+      item.sample_shipping_tracking_no = null;
+      item.customer_request_original_certificate_returned = "0";
+      item.original_certificate_mailed_to_client_date = null;
+      item.Certificate_shipping_tracking_no = null;
+      item.sample_can_be_returned_from_authority = "0";
+      item.sample_is_kept_by_local_agent = false;
+      item.request_local_agent_to_destroy_tested_samples = false;
+      item.returned_of_tested_sample_date = null;
+      item.CMB1 = false;
+      item.CMB2 = false;
+      item.CMB3 = false;
+      item.CMB4 = false;
+      item.CMB5 = false;
+      item.CMB6 = false;
+      item.CMB7 = false;
+      item.CMB8 = false;
+      item.original_certificate_received_date = null;
+      item.Lifetime = false;
+
       Add(item);
     }
   }
