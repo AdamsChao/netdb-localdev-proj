@@ -33,7 +33,7 @@
       Type="Date" ForeColor="Red"></asp:CompareValidator>
     <br />
     <br />
-    Certificate Expity Date :
+    Certificate Expiry Date :
     <asp:TextBox ID="from_txt_certificate_expiry_date" runat="server" />
     <asp:CompareValidator ID="CV3" runat="server" 
       ControlToValidate="from_txt_certificate_expiry_date" Display="Dynamic" 
