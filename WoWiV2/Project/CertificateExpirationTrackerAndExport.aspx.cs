@@ -24,14 +24,23 @@ public partial class Project_CertificateExpirationTrackerAndExport : System.Web.
           " AND (world_region_name LIKE '%" + DropDownListRegion.SelectedItem.Text + "%') ";
       }
 
-      if (!string.IsNullOrEmpty(txt_certificate_issue_date.Text))
+      if (!string.IsNullOrEmpty(from_txt_certificate_issue_date.Text))
       {
-        SqlDataSourceTarget.SelectCommand += " AND (certificate_issue_date >= '" + txt_certificate_issue_date.Text + "') ";
+        SqlDataSourceTarget.SelectCommand += " AND (certificate_issue_date >= '" + from_txt_certificate_issue_date.Text + "') ";
+      }
+      if (!string.IsNullOrEmpty(to_txt_certificate_issue_date.Text))
+      {
+        SqlDataSourceTarget.SelectCommand += " AND (certificate_issue_date <= '" + to_txt_certificate_issue_date.Text + "') ";
       }
 
-      if (!string.IsNullOrEmpty(txt_certificate_expiry_date.Text))
+
+      if (!string.IsNullOrEmpty(from_txt_certificate_expiry_date.Text))
       {
-        SqlDataSourceTarget.SelectCommand += " AND (certificate_issue_date <= '" + txt_certificate_expiry_date.Text + "') ";
+        SqlDataSourceTarget.SelectCommand += " AND (certificate_expiry_date >= '" + from_txt_certificate_expiry_date.Text + "') ";
+      }
+      if (!string.IsNullOrEmpty(to_txt_certificate_expiry_date.Text))
+      {
+        SqlDataSourceTarget.SelectCommand += " AND (certificate_expiry_date <= '" + to_txt_certificate_expiry_date.Text + "') ";
       }
     }
   }

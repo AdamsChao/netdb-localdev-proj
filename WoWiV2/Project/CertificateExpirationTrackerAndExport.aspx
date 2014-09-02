@@ -21,16 +21,30 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
   <asp:Panel ID="PanelSearch" runat="server" GroupingText="Certificate Expiration Tracker Search Condition (Target Status is Done or Delay)">
-    Certificate Date : Start
-    <asp:TextBox ID="txt_certificate_issue_date" runat="server" />
-    <asp:CompareValidator ID="CV1" runat="server" ControlToValidate="txt_certificate_issue_date"
+    Certificate Issue Date :
+    <asp:TextBox ID="from_txt_certificate_issue_date" runat="server" />
+    <asp:CompareValidator ID="CV1" runat="server" ControlToValidate="from_txt_certificate_issue_date"
       Display="Dynamic" ErrorMessage="日期格式有誤" Operator="DataTypeCheck" SetFocusOnError="True"
       Type="Date" ForeColor="Red"></asp:CompareValidator>
-    ~ Expiry
-    <asp:TextBox ID="txt_certificate_expiry_date" runat="server" />
-    <asp:CompareValidator ID="CV2" runat="server" ControlToValidate="txt_certificate_expiry_date"
+    ~
+    <asp:TextBox ID="to_txt_certificate_issue_date" runat="server" />
+    <asp:CompareValidator ID="CV2" runat="server" ControlToValidate="to_txt_certificate_issue_date"
       Display="Dynamic" ErrorMessage="日期格式有誤" Operator="DataTypeCheck" SetFocusOnError="True"
       Type="Date" ForeColor="Red"></asp:CompareValidator>
+    <br />
+    <br />
+    Certificate Expity Date :
+    <asp:TextBox ID="from_txt_certificate_expiry_date" runat="server" />
+    <asp:CompareValidator ID="CV3" runat="server" 
+      ControlToValidate="from_txt_certificate_expiry_date" Display="Dynamic" 
+      ErrorMessage="日期格式有誤" ForeColor="Red" Operator="DataTypeCheck" 
+      SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+    ~
+    <asp:TextBox ID="to_txt_certificate_expiry_date" runat="server" />
+    <asp:CompareValidator ID="CV4" runat="server" 
+      ControlToValidate="to_txt_certificate_expiry_date" Display="Dynamic" 
+      ErrorMessage="日期格式有誤" ForeColor="Red" Operator="DataTypeCheck" 
+      SetFocusOnError="True" Type="Date"></asp:CompareValidator>
     <br />
     <br />
     Project No:
