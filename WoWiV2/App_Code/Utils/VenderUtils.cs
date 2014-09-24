@@ -43,7 +43,7 @@ public class VenderUtils
                 ret = "現金 Cash";
                 break;
             case "5":
-                ret = "西聯匯款 Westerm Union";
+                ret = "西聯匯款 Western Union";
                 break;
             case "6":
                 ret = "國外匯款 Foreign Wire Transfer";
