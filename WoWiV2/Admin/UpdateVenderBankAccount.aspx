@@ -431,7 +431,7 @@
              <%-- <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional"><ContentTemplate>--%>
               <table align="left" border="0" cellpadding="2" cellspacing="0"  style="width:100%">
               <tr><th 
-                           align="left" class="style10"><font size="+1">Western Union Bank Account Information&#160; </font></th></tr><tr><td><table 
+                           align="left" class="style10"><font size="+1">Bank Account Information&#160; </font></th></tr><tr><td><table 
                                align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
                                 <tr><th 
                                    align="left" class="style9"><font color="red">*&nbsp;</font> First Name:&#160;</th><td width="30%"><asp:TextBox 
@@ -510,7 +510,7 @@
     <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" Width="100%"
            AllowPaging="True" PageSize="5" DataSourceID="SqlDataSource2" onrowcommand="GridView2_RowCommand" onrowcreated="GridView1_RowCreated" >                             
         <Columns>
-        <asp:TemplateField ShowHeader="False" HeaderText="西聯">
+        <asp:TemplateField ShowHeader="False" HeaderText="">
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
                         CommandName="MySelect" Text="Select" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>'></asp:LinkButton>

@@ -15,7 +15,7 @@
         {
             WoWiModel.vendor obj = (WoWiModel.vendor)e.Entity;
             String WestUintQueryString = "";
-            if (obj.payment_type == 5)
+            if (obj.payment_type == 5 || obj.payment_type == 7)
             {
                 WestUintQueryString = "&iswu=1";
             }
