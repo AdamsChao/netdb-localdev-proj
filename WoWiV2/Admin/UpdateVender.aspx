@@ -19,8 +19,10 @@
             {
                 WestUintQueryString = "&iswu=1";
             }
-
-            Response.Redirect("~/Admin/UpdateVenderBankAccount.aspx?id=" + obj.id + WestUintQueryString);
+            //Response.Redirect("~/Admin/UpdateVenderBankAccount.aspx?id=" + obj.id + WestUintQueryString);
+            Response.Redirect("~/Admin/UpdateVenderBankAccount.aspx?id=" + obj.id 
+              + "&ptype=" + obj.payment_type.ToString() 
+              + WestUintQueryString);
         }
     }
 
