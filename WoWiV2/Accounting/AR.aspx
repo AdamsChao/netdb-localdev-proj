@@ -176,7 +176,7 @@
       {
         temp.InvoiceDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
       }
-      temp.IVNo = item.invoice_no;
+      //temp.IVNo = item.invoice_no; // mark by Adams 2014/10/6
       if (item.invoice_date.HasValue)
       {
         temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
