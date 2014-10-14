@@ -74,7 +74,8 @@
     <asp:GridView ID="GridViewQuotation" runat="server" AutoGenerateColumns="False" DataKeyNames="Quotation_Version_Id"
       DataSourceID="SqlDataSourceQuot" Style="text-align: center" Width="100%" AllowSorting="True"
       PageSize="20" AllowPaging="True" 
-      onpageindexchanging="GridViewQuotation_PageIndexChanging">
+      onpageindexchanging="GridViewQuotation_PageIndexChanging" 
+      onsorting="GridViewQuotation_Sorting">
       <Columns>
         <asp:TemplateField ShowHeader="False" Visible="False">
           <ItemTemplate>
