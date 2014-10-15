@@ -20,13 +20,13 @@
   private void SetMergedHerderColumns(iRowSpanGridView iGridView1)
   {
     iGridViewCost.AddMergedColumns("Status", 8, 2);
-    iGridViewCost.AddMergedColumns("Invoice", 15, 3);
-    iGridViewCost.AddMergedColumns("PR", 20, 6);
+    iGridViewCost.AddMergedColumns("Invoice", 14, 3);
+    //iGridViewCost.AddMergedColumns("PR", 20, 6);
   }
 
   protected void btnExport_Click(object sender, EventArgs e)
   {
-    Utils.ExportExcel(iGridViewCost, "CostAnalysis");
+    Utils.ExportExcel(iGridViewCost, "ProjectAnalysis");
   }
 
   public override void VerifyRenderingInServerForm(Control control)
@@ -37,16 +37,41 @@
   protected void ddlSales_Load(object sender, EventArgs e)
   {
     if (Page.IsPostBack) return;
-    var sales = (from p in wowidb.Projects
-                 from q in wowidb.Quotation_Version
-                 from s in wowidb.employees
-                 where p.Quotation_No == q.Quotation_No && s.id == q.SalesId
-                 orderby s.fname, s.c_fname
-                 select new { Id = s.id, Name = s.fname + " " + s.lname }).Distinct();
-    (sender as DropDownList).DataSource = sales;
-    (sender as DropDownList).DataTextField = "Name";
-    (sender as DropDownList).DataValueField = "Id";
-    (sender as DropDownList).DataBind();
+
+    DropDownList ddl = sender as DropDownList;
+    
+    int eid = Utils.GetEmployeeID(User.Identity.Name);
+    if (eid == 8 || eid == 13 || eid == 21)
+    {
+      var sales = (from p in wowidb.Projects
+                   from q in wowidb.Quotation_Version
+                   from s in wowidb.employees
+                   where p.Quotation_No == q.Quotation_No && s.id == q.SalesId
+                   orderby s.fname, s.c_fname
+                   select new { Id = s.id, Name = s.fname + " " + s.lname }).Distinct();
+      ddl.DataSource = sales;
+      ddl.DataTextField = "Name";
+      ddl.DataValueField = "Id";
+      ddl.DataBind();
+      ddl.Items.Insert(0, new ListItem()
+      {
+        Text = "- All -",
+        Value = "%"
+      });
+    }
+    else
+    {
+      var sales = (from p in wowidb.Projects
+                   from q in wowidb.Quotation_Version
+                   from s in wowidb.employees
+                   where p.Quotation_No == q.Quotation_No && s.id == q.SalesId && s.id == eid
+                   orderby s.fname, s.c_fname
+                   select new { Id = s.id, Name = s.fname + " " + s.lname }).Distinct();
+      ddl.DataSource = sales;
+      ddl.DataTextField = "Name";
+      ddl.DataValueField = "Id";
+      ddl.DataBind();            
+    }    
   }
 
   protected void ddlCM_Load(object sender, EventArgs e)
@@ -78,8 +103,7 @@
                    from c in wowidb.clientapplicants
                    from i in wowidb.invoice_target
                    where p.Quotation_No == q.Quotation_No && c.id == q.Client_Id && i.quotation_id == q.Quotation_Version_Id
-                   orderby c.companyname, c.c_companyname
-                   //select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname })
+                   orderby c.companyname, c.c_companyname                   
                    select new { Id = c.id, Name = c.companyname + " " + c.c_companyname })
                   .Distinct().OrderBy(c => c.Name);
     (sender as DropDownList).DataSource = clients;
@@ -201,11 +225,9 @@
         || e.Row.Cells[0].Text == "PROJECT TOTAL")
       {
         e.Row.BackColor = System.Drawing.Color.LightSteelBlue;
-        e.Row.Cells[10].BackColor = System.Drawing.Color.Orange;
+        e.Row.Cells[12].BackColor = System.Drawing.Color.Orange;
         e.Row.Cells[13].BackColor = System.Drawing.Color.Orange;
-        e.Row.Cells[14].BackColor = System.Drawing.Color.Yellow;
-        e.Row.Cells[15].BackColor = System.Drawing.Color.Orange;
-        e.Row.Cells[23].BackColor = System.Drawing.Color.Orange;
+        e.Row.Cells[14].BackColor = System.Drawing.Color.Yellow;        
       }
       if (((Label)e.Row.FindControl("LabelTargetID")).Text == "-1")
       {
@@ -256,7 +278,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
   <p>
-    Project Cost Analysis</p>
+    Project Analysis : </p>
   <p>
     <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%" style="background-color: White;">
       <tr>
@@ -265,14 +287,13 @@
         </th>
         <td>
           <asp:DropDownList ID="ddlSales" runat="server" AppendDataBoundItems="True" OnLoad="ddlSales_Load">
-            <asp:ListItem Value="%">- All -</asp:ListItem>
           </asp:DropDownList>
         </td>
         <th align="left">
-          Country Manager
-        </th>
+          &nbsp;</th>
         <td>
-          <asp:DropDownList ID="ddlCM" runat="server" AppendDataBoundItems="True" OnLoad="ddlCM_Load">
+          <asp:DropDownList ID="ddlCM" runat="server" AppendDataBoundItems="True" 
+            OnLoad="ddlCM_Load" Visible="False">
             <asp:ListItem Value="%">- All -</asp:ListItem>
           </asp:DropDownList>
         </td>
@@ -326,27 +347,7 @@
             <asp:ListItem Value="%">- All -</asp:ListItem>
           </asp:DropDownList>
         </td>
-      </tr>
-      <%--<tr>
-        <th align="left" width="13%">
-          Issue Invoice Date From :
-        </th>
-        <td width="20%">          
-          <asp:TextBox ID="dcInvoiceFrom" runat="server"></asp:TextBox>
-          <asp:CalendarExtender ID="dcInvoiceFrom_CalendarExtender" runat="server" Format="yyyy/MM/dd"
-              Enabled="True" TargetControlID="dcInvoiceFrom">
-          </asp:CalendarExtender>
-        </td>
-        <th align="left" width="13%">
-          To :&nbsp;
-        </th>
-        <td width="20%">
-          <asp:TextBox ID="dcInvoiceTo" runat="server"></asp:TextBox>
-          <asp:CalendarExtender ID="dcInvoiceTo_CalendarExtender" runat="server" Format="yyyy/MM/dd"
-              Enabled="True" TargetControlID="dcInvoiceTo">
-          </asp:CalendarExtender>
-        </td>
-      </tr>--%>
+      </tr>      
       <tr>
         <th align="left">
           Status :&nbsp;
@@ -422,8 +423,7 @@
               </asp:TemplateField>
               <asp:BoundField DataField="Target" HeaderText="Target" SortExpression="Target" />
               <asp:BoundField DataField="Status" HeaderText="Status" />
-              <asp:BoundField DataField="StatusDate" HeaderText="Status Date" DataFormatString="{0:d}" />
-              <asp:BoundField DataField="GrossProfitUS" HeaderText="Gross Profit US" ReadOnly="True" />
+              <asp:BoundField DataField="StatusDate" HeaderText="Status Date" DataFormatString="{0:d}" />              
               <asp:BoundField DataField="AE_ID" HeaderText="AE_ID" SortExpression="AE_ID" Visible="False" />
               <asp:BoundField DataField="AE" HeaderText="AE" ReadOnly="True" SortExpression="AE" />
               <asp:BoundField DataField="Quote" HeaderText="Quote" />
@@ -433,17 +433,7 @@
                 HtmlEncode="False" />
               <asp:BoundField DataField="InvNo" HeaderText="Inv No" HtmlEncode="False" />
               <asp:BoundField DataField="IMAID" HeaderText="IMAID" ReadOnly="True" SortExpression="IMAID"
-                Visible="False" />
-              <asp:BoundField DataField="CM" HeaderText="CM" />
-              <asp:BoundField DataField="IMA" HeaderText="IMA" ReadOnly="True" SortExpression="IMA"
-                HtmlEncode="False" Visible="False" />
-              <asp:BoundField DataField="VenderName" HeaderText="Vender Name" ReadOnly="True" HtmlEncode="False" />
-              <asp:BoundField DataField="IMACostCurrency" HeaderText="Currency" ReadOnly="True"
-                HtmlEncode="False" />
-              <asp:BoundField DataField="IMACost" HeaderText="Cost$" />
-              <asp:BoundField DataField="PaymentDate" HeaderText="Pay Date" ReadOnly="True" DataFormatString="{0:d}"
-                HtmlEncode="False" />
-              <asp:BoundField DataField="PRNO" HeaderText="PR" ReadOnly="True" HtmlEncode="False" />
+                Visible="False" />              
             </Columns>
           </cc1:iRowSpanGridView>
         </td>
@@ -454,7 +444,7 @@
     SelectCommand="SELECT * FROM [vw_CostAnalysis]" SelectCommandType="StoredProcedure">
   </asp:SqlDataSource>
   <asp:SqlDataSource ID="SqlDataSourceSP" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-    SelectCommand="sp_CostAnalysis_All" SelectCommandType="StoredProcedure" 
+    SelectCommand="sp_ProjectAnalysis" SelectCommandType="StoredProcedure" 
     OnSelected="SqlDataSourceSP_Selected" onselecting="SqlDataSourceSP_Selecting">
     <SelectParameters>
       <asp:ControlParameter ControlID="ddlProj" DefaultValue="%" Name="ProjectNo" PropertyName="SelectedValue"
@@ -465,7 +455,7 @@
         Type="String" />
       <asp:ControlParameter ControlID="DropDownList3" DefaultValue="%" Name="Status" PropertyName="SelectedValue"
         Type="String" />
-      <asp:ControlParameter ControlID="ddlSales" DefaultValue="%" Name="AE" PropertyName="SelectedValue"
+      <asp:ControlParameter ControlID="ddlSales" Name="AE" PropertyName="SelectedValue"
         Type="String" />
       <asp:ControlParameter ControlID="ddlCM" DefaultValue="%" Name="CM" PropertyName="SelectedValue"
         Type="String" />

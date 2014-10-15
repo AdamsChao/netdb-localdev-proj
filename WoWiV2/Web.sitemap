@@ -27,6 +27,7 @@
     </siteMapNode>
     <siteMapNode url="" title="Sales"  description="" >     
       <siteMapNode url="~/Sales/Quotation.aspx" title="Quotation"  description="" />
+      <siteMapNode url="~/Sales/ProjectAnalysis.aspx" title="Project Analysis"  description="" />
     </siteMapNode>
     <siteMapNode url="" title="Accounting"  description=""  >
       <siteMapNode url="~/Accounting/PRList.aspx" title="PR"  description="" />
