@@ -204,7 +204,7 @@
           {
             int vid = int.Parse(venderIDStr);
             var vender = (from v in wowidb.vendors where v.id == vid select v).First();
-            e.Row.Cells[5].Text = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
+            e.Row.Cells[5].Text = String.IsNullOrEmpty(vender.name) ? vender.c_name : vender.name;
           }
           catch (Exception)
           {

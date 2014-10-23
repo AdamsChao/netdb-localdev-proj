@@ -47,7 +47,7 @@
     //(sender as DropDownList).DataTextField = "Name";
     //(sender as DropDownList).DataValueField = "Id";
     //(sender as DropDownList).DataBind();
-    
+
     //var clients = (from c in wowidb.clientapplicants 
     //              where c.clientapplicant_type == 1 || c.clientapplicant_type == 3
     //              orderby c.companyname, c.c_companyname
@@ -78,7 +78,7 @@
   {
 
   }
- 
+
   double usdtotal = 0;
   double usdissuetotal = 0;
   double ntdtotal = 0;
@@ -182,7 +182,7 @@
         temp.IVDate = ((DateTime)item.invoice_date).ToString("yyyy/MM/dd");
       }
       DateTime maxDate = DateTime.Now;
-      DateTime compareDate = maxDate; 
+      DateTime compareDate = maxDate;
       try
       {
         var rlist = (from radd in wowidb.invoice_received where radd.invoice_id == item.invoice_id select radd);
@@ -191,18 +191,18 @@
           temp.IVNo += " " + ritem.iv_no;
           if (ritem.received_date.HasValue)
           {
-              if ((maxDate - compareDate).TotalMilliseconds != 0)
+            if ((maxDate - compareDate).TotalMilliseconds != 0)
+            {
+              if ((maxDate - (DateTime)ritem.received_date).TotalMilliseconds < 0)
               {
-                  if ((maxDate - (DateTime)ritem.received_date).TotalMilliseconds < 0)
-                  {
-                      maxDate = (DateTime)ritem.received_date;
-                  }
+                maxDate = (DateTime)ritem.received_date;
               }
-              else
-              {
-                  maxDate = (DateTime)ritem.received_date;
-              }
-              temp.IVDate += " " + ((DateTime)ritem.received_date).ToString("yyyy/MM/dd");
+            }
+            else
+            {
+              maxDate = (DateTime)ritem.received_date;
+            }
+            temp.IVDate += " " + ((DateTime)ritem.received_date).ToString("yyyy/MM/dd");
           }
         }
       }
@@ -249,21 +249,21 @@
 
             days = (int)(dueDate - DateTime.Now).TotalDays;
           }
-            
+
           decimal ARBalance0 = ((decimal)item.ar_balance);
           if (ARBalance0 == 0)
           {
-              temp.PaymentTerms = client.paymentdays + "";
-              DateTime dueDate = (DateTime)item.due_date;
-              days = (int)(dueDate - maxDate).TotalDays;
+            temp.PaymentTerms = client.paymentdays + "";
+            DateTime dueDate = (DateTime)item.due_date;
+            days = (int)(dueDate - maxDate).TotalDays;
           }
-          
+
           if (days != 0)
           {
-            temp.OverDueDays = (days*-1).ToString();
+            temp.OverDueDays = (days * -1).ToString();
             temp.OverDueInterval = ARUtils.GetARInterval(-1 * days);
           }
-         
+
           //int countryid = (int)client.country_id;
           //var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
           //temp.Country = country.country_name;
@@ -318,7 +318,7 @@
         var user = wowidb.employees.Where(e => e.username == User.Identity.Name).First();
         var access = wowidb.m_employee_accesslevel.Where(a => a.employee_id == user.id);
         var isaccess = access.Where(a => a.accesslevel_id == quo.Access_Level_ID);
-        
+
         if (isaccess.Count() == 0)
         {
           continue;
@@ -394,7 +394,9 @@
     }
     if (str == null)
     {
-      iGridView1.DataSource = list;
+      iGridView1.DataSource = list
+        .OrderByDescending(q => q.InvoiceNo)
+        .OrderByDescending(q => q.InvoiceDate);
     }
     else
     {
@@ -463,196 +465,195 @@
 
   protected void iGridView1_DataBound(object sender, EventArgs e)
   {
-      foreach (GridViewRow row in iGridView1.Rows)
+    foreach (GridViewRow row in iGridView1.Rows)
+    {
+      if ((row.Cells[17].FindControl("Label5") as Label).Text == "USD")
+      //if (row.Cells[17].Text == "USD")
       {
-          if ((row.Cells[17].FindControl("Label5") as Label).Text == "USD")
-          //if (row.Cells[17].Text == "USD")
-          {
-              row.Cells[5].CssClass = "HighLight";
-          }
-          else
-          {
-              row.Cells[6].CssClass = "HighLight";
-          }
-          if (!Page.IsPostBack)
-              row.Cells[18].Text = "$" + row.Cells[18].Text;
+        row.Cells[5].CssClass = "HighLight";
       }
+      else
+      {
+        row.Cells[6].CssClass = "HighLight";
+      }
+      if (!Page.IsPostBack)
+        row.Cells[18].Text = "$" + row.Cells[18].Text;
+    }
   }
 </script>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-
-AR Management
-      <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
-        <tr>
-          <th align="left" width="13%">
-            AE :&nbsp;
-          </th>
-          <td width="20%">
-            <asp:DropDownList ID="ddlSales" runat="server" AppendDataBoundItems="True" OnLoad="DropDownList1_Load">
-              <asp:ListItem Value="-1">- All -</asp:ListItem>
-            </asp:DropDownList>
-          </td>
-          <th align="left" width="13%">
-            Issue Invoice 
-          </th>
-          <td width="20%">
-            Date From : <uc1:DateChooser ID="dcFromDate" runat="server" />
-            <br/>
-            To : <uc1:DateChooser ID="dcToDate" runat="server" />
-          </td>
-        </tr>
-        <tr>
-          <th align="left" width="13%">
-            Project No. :&nbsp;
-          </th>
-          <td width="20%">
-            <asp:DropDownList ID="ddlProj" runat="server" AppendDataBoundItems="True" OnLoad="DropDownList2_Load">
-              <asp:ListItem Value="-1">- All -</asp:ListItem>
-            </asp:DropDownList>
-          </td>
-          <th align="left" width="13%">
-          AR Balance
-          </th>
-          <td width="20%">
-           <asp:CheckBox ID="cbARBalance0" runat="server" Text="等於0" />
-            <asp:CheckBox ID="cbARBalance1" runat="server" Text="不等於0" />
-          </td>
-        </tr>
-        <tr>
-          <th align="left" width="13%">
-              Client :
-          </th>
-          <td width="20%">
-             <asp:DropDownList ID="ddlClient" runat="server" AppendDataBoundItems="True" OnLoad="DropDownList3_Load">
-              <asp:ListItem Value="-1">- All -</asp:ListItem>
-            </asp:DropDownList>
-          </td>
-          <td align="right" colspan="2">
-          <asp:Button ID="Button3" runat="server" Text="Search" OnClick="Button3_Click" />
-            &nbsp;&nbsp;&nbsp;
-            <asp:Button ID="Button2" runat="server" Text="Excel" OnClick="Button2_Click" />
-          </td>
-        </tr>
-      </table>
-      <asp:Label ID="lblMsg" runat="server" Text="No match data found."></asp:Label>
-      <asp:GridView ID="iGridView1" runat="server" Height="150px" SkinID="GridView" PageSize="50"
-        AutoGenerateColumns="False" ShowFooter="True"
-        OnSorting="iGridView1_Sorting" ondatabound="iGridView1_DataBound">
-        <HeaderStyle Wrap="false" />
-        <Columns>
-          <asp:TemplateField HeaderText="Invoice No">
-            <EditItemTemplate>
-              <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("InvoiceNo") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-              <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Bind("id","~/Accounting/ReceivedAdd.aspx?id={0}") %>'
-                Text='<%# Bind("InvoiceNo") %>'></asp:HyperLink>
-              <%--   <asp:Label ID="lblCurrency" runat="server" Text='<%# Bind("Currency") %>' CssClass="hidden"></asp:Label>--%>
-            </ItemTemplate>
-          </asp:TemplateField>
-          <asp:BoundField DataField="InvoiceDate" HeaderText="Invoice Date" />
-          <asp:BoundField DataField="ProjectNo" HeaderText="Project No" SortExpression="ProjectNo" />
-          <asp:TemplateField HeaderText="Client" SortExpression="Client">
-            <EditItemTemplate>
-              <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Client") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <FooterTemplate>
-              <table width="100%">
-                <tr>
-                  <td align="right">
-                    Total :
-                  </td>
-                </tr>
-                <tr>
-                  <td align="right">
-                    Issue Invoice Total :
-                  </td>
-                </tr>
-              </table>
-            </FooterTemplate>
-            <ItemTemplate>
-              <asp:Label ID="Label1" runat="server" Text='<%# Bind("Client") %>'></asp:Label>
-            </ItemTemplate>
-          </asp:TemplateField>
-          <asp:BoundField DataField="Attn" HeaderText="Attn" SortExpression="Attn" />
-          <asp:TemplateField HeaderText="AR Inv USD$" ItemStyle-HorizontalAlign="Right">
-            <EditItemTemplate>
-              <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("USD") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-              <asp:Label ID="Label2" runat="server" Text='<%# Bind("USD", "{0:F2}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-              <asp:Literal ID="Literal1" runat="server" Text="<%# GetUSD()%>"></asp:Literal>
-            </FooterTemplate>
-            <ControlStyle CssClass="Currency" />
-            <ItemStyle HorizontalAlign="Right" />
-          </asp:TemplateField>
-          <asp:TemplateField HeaderText="AR Inv NT$" ItemStyle-HorizontalAlign="Right">
-            <EditItemTemplate>
-              <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("NTD") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-              <asp:Label ID="Label3" runat="server" Text='<%# Bind("NTD", "{0:F2}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-              <asp:Literal ID="Literal1" runat="server" Text="<%# GetNTD()%>"></asp:Literal>
-            </FooterTemplate>
-            <ControlStyle CssClass="Currency" />
-            <ItemStyle HorizontalAlign="Right" />
-          </asp:TemplateField>
-          <asp:BoundField DataField="IVDate" HeaderText="I/V Date" />
-          <asp:BoundField DataField="IVNo" HeaderText="I/V No" />
-          <asp:BoundField DataField="Sales" HeaderText="AE" SortExpression="Sales" />
-          <asp:BoundField DataField="Model" HeaderText="Model" SortExpression="Model" />
-          <asp:BoundField DataField="Country" HeaderText="Country" />
-          <asp:BoundField DataField="QutationNo" HeaderText="Quotation No" />
-          <asp:BoundField DataField="PaymentTerms" HeaderText="收款天數" ItemStyle-HorizontalAlign="Right" />
-          <asp:BoundField DataField="PlanDueDate" HeaderText="預計收款日" ItemStyle-HorizontalAlign="Right" />
-          <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" SortExpression="OverDueDays"
-            ItemStyle-HorizontalAlign="Right" />
-          <asp:BoundField DataField="OverDueInterval" HeaderText="逾期區間" SortExpression="OverDueInterval" />
-          <%-- <asp:BoundField DataField="OCurrency" HeaderText="Currency" SortExpression="OCurrency" ItemStyle-HorizontalAlign="Right"/>
-          --%>
-          <asp:TemplateField HeaderText="Currency" ItemStyle-HorizontalAlign="Right" SortExpression="Currency">
-            <EditItemTemplate>
-              <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Currency") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-              <asp:Label ID="Label5" runat="server" Text='<%# Bind("Currency") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-              <table width="100%">
-                <tr>
-                  <td align="right">
-                    US$
-                  </td>
-                </tr>
-                <tr>
-                  <td align="right">
-                    NT$
-                  </td>
-                </tr>
-              </table>
-            </FooterTemplate>
-          </asp:TemplateField>
-          <asp:TemplateField HeaderText="AR Balance">
-            <ItemTemplate>
-              <asp:Label ID="Label4" runat="server" Text='<%# Bind("ARBalance") %>'></asp:Label>
-            </ItemTemplate>
-            <EditItemTemplate>
-              <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("ARBalance") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <FooterTemplate>
-              <asp:Literal ID="Literal1" runat="server" Text="<%# GetAR()%>"></asp:Literal>
-            </FooterTemplate>
-            <ItemStyle HorizontalAlign="Right" />
-          </asp:TemplateField>
-        </Columns>
-      </asp:GridView>
-
+  AR Management
+  <table align="center" border="1" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+      <th align="left" width="13%">
+        AE :&nbsp;
+      </th>
+      <td width="20%">
+        <asp:DropDownList ID="ddlSales" runat="server" AppendDataBoundItems="True" OnLoad="DropDownList1_Load">
+          <asp:ListItem Value="-1">- All -</asp:ListItem>
+        </asp:DropDownList>
+      </td>
+      <th align="left" width="13%">
+        Issue Invoice
+      </th>
+      <td width="20%">
+        Date From :
+        <uc1:DateChooser ID="dcFromDate" runat="server" />
+        <br />
+        To :
+        <uc1:DateChooser ID="dcToDate" runat="server" />
+      </td>
+    </tr>
+    <tr>
+      <th align="left" width="13%">
+        Project No. :&nbsp;
+      </th>
+      <td width="20%">
+        <asp:DropDownList ID="ddlProj" runat="server" AppendDataBoundItems="True" OnLoad="DropDownList2_Load">
+          <asp:ListItem Value="-1">- All -</asp:ListItem>
+        </asp:DropDownList>
+      </td>
+      <th align="left" width="13%">
+        AR Balance
+      </th>
+      <td width="20%">
+        <asp:CheckBox ID="cbARBalance0" runat="server" Text="等於0" />
+        <asp:CheckBox ID="cbARBalance1" runat="server" Text="不等於0" />
+      </td>
+    </tr>
+    <tr>
+      <th align="left" width="13%">
+        Client :
+      </th>
+      <td width="20%">
+        <asp:DropDownList ID="ddlClient" runat="server" AppendDataBoundItems="True" OnLoad="DropDownList3_Load">
+          <asp:ListItem Value="-1">- All -</asp:ListItem>
+        </asp:DropDownList>
+      </td>
+      <td align="right" colspan="2">
+        <asp:Button ID="Button3" runat="server" Text="Search" OnClick="Button3_Click" />
+        &nbsp;&nbsp;&nbsp;
+        <asp:Button ID="Button2" runat="server" Text="Excel" OnClick="Button2_Click" />
+      </td>
+    </tr>
+  </table>
+  <asp:Label ID="lblMsg" runat="server" Text="No match data found."></asp:Label>
+  <asp:GridView ID="iGridView1" runat="server" Height="150px" SkinID="GridView" PageSize="50"
+    AutoGenerateColumns="False" ShowFooter="True" OnSorting="iGridView1_Sorting" OnDataBound="iGridView1_DataBound">
+    <HeaderStyle Wrap="false" />
+    <Columns>
+      <asp:TemplateField HeaderText="Invoice No">
+        <EditItemTemplate>
+          <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("InvoiceNo") %>'></asp:TextBox>
+        </EditItemTemplate>
+        <ItemTemplate>
+          <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Bind("id","~/Accounting/ReceivedAdd.aspx?id={0}") %>'
+            Text='<%# Bind("InvoiceNo") %>'></asp:HyperLink>
+          <%--   <asp:Label ID="lblCurrency" runat="server" Text='<%# Bind("Currency") %>' CssClass="hidden"></asp:Label>--%>
+        </ItemTemplate>
+      </asp:TemplateField>
+      <asp:BoundField DataField="InvoiceDate" HeaderText="Invoice Date" />
+      <asp:BoundField DataField="ProjectNo" HeaderText="Project No" SortExpression="ProjectNo" />
+      <asp:TemplateField HeaderText="Client" SortExpression="Client">
+        <EditItemTemplate>
+          <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Client") %>'></asp:TextBox>
+        </EditItemTemplate>
+        <FooterTemplate>
+          <table width="100%">
+            <tr>
+              <td align="right">
+                Total :
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                Issue Invoice Total :
+              </td>
+            </tr>
+          </table>
+        </FooterTemplate>
+        <ItemTemplate>
+          <asp:Label ID="Label1" runat="server" Text='<%# Bind("Client") %>'></asp:Label>
+        </ItemTemplate>
+      </asp:TemplateField>
+      <asp:BoundField DataField="Attn" HeaderText="Attn" SortExpression="Attn" />
+      <asp:TemplateField HeaderText="AR Inv USD$" ItemStyle-HorizontalAlign="Right">
+        <EditItemTemplate>
+          <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("USD") %>'></asp:TextBox>
+        </EditItemTemplate>
+        <ItemTemplate>
+          <asp:Label ID="Label2" runat="server" Text='<%# Bind("USD", "{0:F2}") %>'></asp:Label>
+        </ItemTemplate>
+        <FooterTemplate>
+          <asp:Literal ID="Literal1" runat="server" Text="<%# GetUSD()%>"></asp:Literal>
+        </FooterTemplate>
+        <ControlStyle CssClass="Currency" />
+        <ItemStyle HorizontalAlign="Right" />
+      </asp:TemplateField>
+      <asp:TemplateField HeaderText="AR Inv NT$" ItemStyle-HorizontalAlign="Right">
+        <EditItemTemplate>
+          <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("NTD") %>'></asp:TextBox>
+        </EditItemTemplate>
+        <ItemTemplate>
+          <asp:Label ID="Label3" runat="server" Text='<%# Bind("NTD", "{0:F2}") %>'></asp:Label>
+        </ItemTemplate>
+        <FooterTemplate>
+          <asp:Literal ID="Literal1" runat="server" Text="<%# GetNTD()%>"></asp:Literal>
+        </FooterTemplate>
+        <ControlStyle CssClass="Currency" />
+        <ItemStyle HorizontalAlign="Right" />
+      </asp:TemplateField>
+      <asp:BoundField DataField="IVDate" HeaderText="I/V Date" />
+      <asp:BoundField DataField="IVNo" HeaderText="I/V No" />
+      <asp:BoundField DataField="Sales" HeaderText="AE" SortExpression="Sales" />
+      <asp:BoundField DataField="Model" HeaderText="Model" SortExpression="Model" />
+      <asp:BoundField DataField="Country" HeaderText="Country" />
+      <asp:BoundField DataField="QutationNo" HeaderText="Quotation No" />
+      <asp:BoundField DataField="PaymentTerms" HeaderText="收款天數" ItemStyle-HorizontalAlign="Right" />
+      <asp:BoundField DataField="PlanDueDate" HeaderText="預計收款日" ItemStyle-HorizontalAlign="Right" />
+      <asp:BoundField DataField="OverDueDays" HeaderText="逾期天數" SortExpression="OverDueDays"
+        ItemStyle-HorizontalAlign="Right" />
+      <asp:BoundField DataField="OverDueInterval" HeaderText="逾期區間" SortExpression="OverDueInterval" />
+      <%-- <asp:BoundField DataField="OCurrency" HeaderText="Currency" SortExpression="OCurrency" ItemStyle-HorizontalAlign="Right"/>
+      --%>
+      <asp:TemplateField HeaderText="Currency" ItemStyle-HorizontalAlign="Right" SortExpression="Currency">
+        <EditItemTemplate>
+          <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Currency") %>'></asp:TextBox>
+        </EditItemTemplate>
+        <ItemTemplate>
+          <asp:Label ID="Label5" runat="server" Text='<%# Bind("Currency") %>'></asp:Label>
+        </ItemTemplate>
+        <FooterTemplate>
+          <table width="100%">
+            <tr>
+              <td align="right">
+                US$
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                NT$
+              </td>
+            </tr>
+          </table>
+        </FooterTemplate>
+      </asp:TemplateField>
+      <asp:TemplateField HeaderText="AR Balance">
+        <ItemTemplate>
+          <asp:Label ID="Label4" runat="server" Text='<%# Bind("ARBalance") %>'></asp:Label>
+        </ItemTemplate>
+        <EditItemTemplate>
+          <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("ARBalance") %>'></asp:TextBox>
+        </EditItemTemplate>
+        <FooterTemplate>
+          <asp:Literal ID="Literal1" runat="server" Text="<%# GetAR()%>"></asp:Literal>
+        </FooterTemplate>
+        <ItemStyle HorizontalAlign="Right" />
+      </asp:TemplateField>
+    </Columns>
+  </asp:GridView>
   <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
       
