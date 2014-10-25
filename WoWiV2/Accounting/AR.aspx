@@ -33,26 +33,6 @@
   protected void DropDownList3_Load(object sender, EventArgs e)
   {
     if (Page.IsPostBack) return;
-    ////var clients = from c in wowidb.clientapplicants where c.clientapplicant_type == 1 || c.clientapplicant_type == 3 orderby c.companyname, c.c_companyname select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname };
-    //var clients =
-    //  (from i in wowidb.invoices
-    //   from p in wowidb.Projects
-    //   from q in wowidb.Quotation_Version
-    //   from c in wowidb.clientapplicants
-    //   where i.project_no == p.Project_No && p.Quotation_No == q.Quotation_No && c.id == q.Client_Id
-    //   orderby c.companyname, c.c_companyname
-    //   select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname })
-    //  .Distinct();
-    //(sender as DropDownList).DataSource = clients;
-    //(sender as DropDownList).DataTextField = "Name";
-    //(sender as DropDownList).DataValueField = "Id";
-    //(sender as DropDownList).DataBind();
-
-    //var clients = (from c in wowidb.clientapplicants 
-    //              where c.clientapplicant_type == 1 || c.clientapplicant_type == 3
-    //              orderby c.companyname, c.c_companyname
-    //              select new { Id = c.id, Name = c.companyname + " " + c.c_companyname }).OrderBy(c => c.Name);
-    //              //select new { Id = c.id, Name = String.IsNullOrEmpty(c.c_companyname) ? c.companyname : c.c_companyname }).OrderBy(c=>c.Name);
 
     var clients = (from p in wowidb.Projects
                    from q in wowidb.Quotation_Version
@@ -108,6 +88,17 @@
 
     return sb.ToString();
   }
+
+  protected void Page_Load(object sender, EventArgs e)
+  {
+    if (!Page.IsPostBack)
+    {
+      Search(null);
+      lblMsg.Visible = false;
+      Button2.Enabled = false;
+    }
+  }
+
 
   protected void Button3_Click(object sender, EventArgs e)
   {
@@ -235,7 +226,19 @@
             }
           }
           temp.Client = String.IsNullOrEmpty(client.c_companyname) ? client.companyname : client.c_companyname;
-          temp.PlanDueDate = ((DateTime)item.due_date).ToString("yyyy/MM/dd");
+
+          //預計收款日(必須加入client的付款方式來判斷2014/10/26)
+          if (client.paymentdays.HasValue)
+          {            
+            int paydays = (int)client.paymentdays;
+            //temp.PlanDueDate = ((DateTime)item.due_date).ToString("yyyy/MM/dd");
+            temp.PlanDueDate = ((DateTime)item.issue_invoice_date).AddDays((int)client.paymentdays).ToString("yyyy/MM/dd");
+          }
+          else
+          {
+            temp.PlanDueDate = ((DateTime)item.issue_invoice_date).ToString("yyyy/MM/dd");
+          }
+          
           int days = 0;
           //if (client.paymentterm.HasValue)
           //{
@@ -245,24 +248,31 @@
           if (client.paymentdays.HasValue)
           {
             temp.PaymentTerms = client.paymentdays + "";
-            DateTime dueDate = (DateTime)item.due_date;
-
+            //DateTime dueDate = (DateTime)item.due_date;
+            DateTime dueDate = DateTime.Parse(temp.PlanDueDate);
             days = (int)(dueDate - DateTime.Now).TotalDays;
           }
 
           decimal ARBalance0 = ((decimal)item.ar_balance);
+          
           if (ARBalance0 == 0)
           {
             temp.PaymentTerms = client.paymentdays + "";
-            DateTime dueDate = (DateTime)item.due_date;
+            //DateTime dueDate = (DateTime)item.due_date;
+            DateTime dueDate = DateTime.Parse(temp.PlanDueDate);
+            //與最後一筆發票日期做比較
             days = (int)(dueDate - maxDate).TotalDays;
           }
-
-          if (days != 0)
-          {
-            temp.OverDueDays = (days * -1).ToString();
-            temp.OverDueInterval = ARUtils.GetARInterval(-1 * days);
-          }
+          
+          //假設預計收款剛好為今日查詢日期，依舊呈現資料
+          temp.OverDueDays = (days * -1).ToString();
+          temp.OverDueInterval = ARUtils.GetARInterval(-1 * days);
+          
+          //if (days != 0)
+          //{
+          //  temp.OverDueDays = (days * -1).ToString();
+          //  temp.OverDueInterval = ARUtils.GetARInterval(-1 * days);
+          //}
 
           //int countryid = (int)client.country_id;
           //var country = (from con in wowidb.countries where con.country_id == countryid select con).First();
@@ -455,13 +465,6 @@
     //obj = null;
   }
 
-  protected void Page_Load(object sender, EventArgs e)
-  {
-    if (Page.IsPostBack) return;
-    //Search(null);
-    lblMsg.Visible = false;
-    Button2.Enabled = false;
-  }
 
   protected void iGridView1_DataBound(object sender, EventArgs e)
   {

@@ -178,7 +178,7 @@ public class CodeTableController
                           (c.clientapplicant_type == 1 || c.clientapplicant_type== 3)
                      orderby c.companyname
                      select c;
-        return result.ToDictionary(n => n.id, n => n.companyname);
+        return result.ToDictionary(n => n.id, n => n.companyname + " " + n.c_companyname);
     }
 
     public static String GetEmployeeAccessLevel(int employee_id)
