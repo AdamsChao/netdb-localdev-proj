@@ -180,7 +180,8 @@
 
                     WoWiModel.wowi_bankinfo b = wowidb.wowi_bankinfo.First(c => c.id == bid);
                     //lblbankAcct.Text = b.info;                    
-                    lblbankAcct.Text = Regex.Replace(b.info, "[\r\n\t]", "<br/>", RegexOptions.IgnoreCase);
+                    //lblbankAcct.Text = Regex.Replace(b.info, "[\r\n\t]", "<br/>", RegexOptions.IgnoreCase);
+                    lblbankAcct.Text = Regex.Replace(b.info, "[\r\n\t]", "<p/>", RegexOptions.IgnoreCase);
                 }
                 catch (Exception)
                 {
