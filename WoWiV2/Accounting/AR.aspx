@@ -404,9 +404,12 @@
     }
     if (str == null)
     {
+      //iGridView1.DataSource = list
+      //  .OrderByDescending(q => q.InvoiceNo)
+      //  .OrderByDescending(q => q.InvoiceDate);
       iGridView1.DataSource = list
-        .OrderByDescending(q => q.InvoiceNo)
-        .OrderByDescending(q => q.InvoiceDate);
+        .OrderBy(q => q.InvoiceNo)
+        .OrderBy(q => q.InvoiceDate);
     }
     else
     {
