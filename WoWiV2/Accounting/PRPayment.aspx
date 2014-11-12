@@ -812,7 +812,8 @@
                 SortExpression="bank_routing_no" />
         </Columns>
                                     </asp:GridView>
-              <asp:Label runat="server" ID="lblWUB" Text="Western Union Banking Information :"  Visible="false"></asp:Label>
+              <asp:Label runat="server" ID="lblWUB" Text="Vender Bank Account Information :"  
+                            Visible="False"></asp:Label>
                                     <asp:GridView ID="WUBGridView" runat="server" Width="100%" AutoGenerateColumns="False"  >
                                        <Columns>
       <asp:BoundField DataField="wu_first_name" HeaderText="First Name" 
