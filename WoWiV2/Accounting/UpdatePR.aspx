@@ -1408,6 +1408,24 @@
       }
     }
   }
+
+
+  protected void GridView3_RowDataBound(object sender, GridViewRowEventArgs e)
+  {
+    if (e.Row.RowType == DataControlRowType.DataRow)
+    {
+      String paymentType = e.Row.Cells[0].Text;
+      try
+      {
+        e.Row.Cells[0].Text = VenderUtils.GetPaymentType(paymentType);
+      }
+      catch (Exception)
+      {
+        //throw;
+      }
+    }
+  }
+  
 </script>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
   <style type="text/css">
@@ -1987,11 +2005,11 @@
                 </tr>
                 <tr>
                   <td align="left" colspan="4">
-                    <asp:Label runat="server" ID="lblWUB" Text="Western Union Banking Information :"
-                      Visible="false"></asp:Label>
+                    <asp:Label runat="server" ID="lblWUB" Text="Vender Bank Account Information :" Visible="false"></asp:Label>
                     <asp:GridView ID="GridView3" runat="server" Width="100%" AutoGenerateColumns="False"
-                      Visible="false">
+                      Visible="false"  OnRowDataBound="GridView3_RowDataBound">
                       <Columns>
+                        <asp:BoundField DataField="payment_type" HeaderText="Payment Type" />
                         <asp:BoundField DataField="wu_first_name" HeaderText="First Name" SortExpression="wu_first_name" />
                         <asp:BoundField DataField="wu_last_name" HeaderText="Last Name" SortExpression="wu_last_name" />
                         <asp:BoundField DataField="wu_destination" HeaderText="Destination" SortExpression="wu_destination" />

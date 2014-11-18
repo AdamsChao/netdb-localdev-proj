@@ -615,23 +615,16 @@
     protected void WUBGridView_RowDataBound(object sender, GridViewRowEventArgs e)
     {
       if (e.Row.RowType == DataControlRowType.DataRow)
-      {
-        string payment = e.Row.Cells[0].Text;
-        if (!string.IsNullOrEmpty(payment))
+      { 
+        String paymentType = e.Row.Cells[0].Text;
+        try
         {
-          if (payment == "5")
-          {
-            e.Row.Cells[0].Text = "西聯匯款 Western Union";
-          }
-          else if (payment == "7")
-          {
-            e.Row.Cells[0].Text = "速匯金 MoneyGram";
-          }
-          else
-          {
-            e.Row.Cells[0].Text = "N/A";
-          }          
-        }        
+          e.Row.Cells[0].Text = VenderUtils.GetPaymentType(paymentType);
+        }
+        catch (Exception)
+        {
+          //throw;
+        }
       }
     }
 </script>
