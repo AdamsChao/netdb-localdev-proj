@@ -429,6 +429,29 @@
       btnSave.Visible = false;
     }
   }
+
+  protected void WUBGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+  {
+    if (e.Row.RowType == DataControlRowType.DataRow)
+    {
+      string payment = e.Row.Cells[0].Text;
+      if (!string.IsNullOrEmpty(payment))
+      {
+        if (payment == "5")
+        {
+          e.Row.Cells[0].Text = "西聯匯款 Western Union";
+        }
+        else if (payment == "7")
+        {
+          e.Row.Cells[0].Text = "速匯金 MoneyGram";
+        }
+        else
+        {
+          e.Row.Cells[0].Text = "N/A";
+        }
+      }
+    }
+  }
 </script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -625,8 +648,9 @@
               <asp:Label runat="server" ID="lblWUB" Text="Vender Bank Account Information :"
                 Visible="False" Font-Size="12px"></asp:Label>
               <asp:GridView ID="WUBGridView" runat="server" Width="100%" AutoGenerateColumns="False"
-                Font-Size="12px" CssClass="style3">
+                Font-Size="12px" CssClass="style3" onrowdatabound="WUBGridView_RowDataBound">
                 <Columns>
+                  <asp:BoundField DataField="payment_type" HeaderText="Payment Type" />
                   <asp:BoundField DataField="wu_first_name" HeaderText="First Name" SortExpression="wu_first_name" />
                   <asp:BoundField DataField="wu_last_name" HeaderText="Last Name" SortExpression="wu_last_name" />
                   <asp:BoundField DataField="wu_destination" HeaderText="Destination" SortExpression="wu_destination" />

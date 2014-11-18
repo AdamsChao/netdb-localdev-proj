@@ -616,20 +616,20 @@
     {
       if (e.Row.RowType == DataControlRowType.DataRow)
       {
-        string payment = e.Row.Cells[3].Text;
+        string payment = e.Row.Cells[0].Text;
         if (!string.IsNullOrEmpty(payment))
         {
           if (payment == "5")
           {
-            e.Row.Cells[3].Text = "西聯匯款 Western Union";
+            e.Row.Cells[0].Text = "西聯匯款 Western Union";
           }
           else if (payment == "7")
           {
-            e.Row.Cells[3].Text = "速匯金 MoneyGram";
+            e.Row.Cells[0].Text = "速匯金 MoneyGram";
           }
           else
           {
-            e.Row.Cells[3].Text = "N/A";
+            e.Row.Cells[0].Text = "N/A";
           }          
         }        
       }
@@ -839,13 +839,13 @@
                                     <asp:GridView ID="WUBGridView" runat="server" Width="100%" 
                             AutoGenerateColumns="False" onrowdatabound="WUBGridView_RowDataBound"  >
                                        <Columns>
+                                         <asp:BoundField DataField="payment_type" HeaderText="Payment Type" />
       <asp:BoundField DataField="wu_first_name" HeaderText="First Name" 
                 SortExpression="wu_first_name" />
             <asp:BoundField DataField="wu_last_name" HeaderText="Last Name" 
                 SortExpression="wu_last_name" />
                 <asp:BoundField DataField="wu_destination" HeaderText="Destination" 
                 SortExpression="wu_destination" />
-                                         <asp:BoundField DataField="payment_type" HeaderText="Payment Type" />
         </Columns>
                                     </asp:GridView>
                         </td>
