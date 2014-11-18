@@ -611,7 +611,29 @@
         lblPayCurrency.Text = tbToCurrency.Text;
     }
 
-    
+
+    protected void WUBGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+      if (e.Row.RowType == DataControlRowType.DataRow)
+      {
+        string payment = e.Row.Cells[3].Text;
+        if (!string.IsNullOrEmpty(payment))
+        {
+          if (payment == "5")
+          {
+            e.Row.Cells[3].Text = "西聯匯款 Western Union";
+          }
+          else if (payment == "7")
+          {
+            e.Row.Cells[3].Text = "速匯金 MoneyGram";
+          }
+          else
+          {
+            e.Row.Cells[3].Text = "N/A";
+          }          
+        }        
+      }
+    }
 </script>
 
 
@@ -814,7 +836,8 @@
                                     </asp:GridView>
               <asp:Label runat="server" ID="lblWUB" Text="Vender Bank Account Information :"  
                             Visible="False"></asp:Label>
-                                    <asp:GridView ID="WUBGridView" runat="server" Width="100%" AutoGenerateColumns="False"  >
+                                    <asp:GridView ID="WUBGridView" runat="server" Width="100%" 
+                            AutoGenerateColumns="False" onrowdatabound="WUBGridView_RowDataBound"  >
                                        <Columns>
       <asp:BoundField DataField="wu_first_name" HeaderText="First Name" 
                 SortExpression="wu_first_name" />
@@ -822,6 +845,7 @@
                 SortExpression="wu_last_name" />
                 <asp:BoundField DataField="wu_destination" HeaderText="Destination" 
                 SortExpression="wu_destination" />
+                                         <asp:BoundField DataField="payment_type" HeaderText="Payment Type" />
         </Columns>
                                     </asp:GridView>
                         </td>
