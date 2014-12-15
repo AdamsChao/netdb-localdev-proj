@@ -233,7 +233,7 @@ public partial class Sales_uc_ucCreateQuotationTab2 : System.Web.UI.UserControl
     Quotation_Target target = new Quotation_Target();
     target.quotation_id = quotation_id;
     target.target_id = int.Parse(hidTarget_Rates_ID.Value);
-    target.target_description = txtDespction.Text;
+    target.target_description = txtDespction.Text.Trim();
     //target.target_code = target.target_code;
     target.country_id = Int32.Parse(ddlCountry.SelectedValue);
     target.product_type_id = Int32.Parse(ddlProductType.SelectedValue);
