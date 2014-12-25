@@ -254,7 +254,7 @@
 
         //throw;
       }
-      String venderIDStr = e.Row.Cells[5].Text;
+      String venderIDStr = e.Row.Cells[6].Text;
       if (venderIDStr == "-1")
       {
         e.Row.Cells[5].Text = "Not set yet";
@@ -265,7 +265,7 @@
         {
           int vid = int.Parse(venderIDStr);
           var vender = (from v in wowidb.vendors where v.id == vid select v).First();
-          e.Row.Cells[5].Text = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
+          e.Row.Cells[6].Text = String.IsNullOrEmpty(vender.c_name) ? vender.name : vender.c_name;
         }
         catch (Exception)
         {
@@ -273,9 +273,9 @@
           //throw;
         }
       }
-      if (e.Row.Cells[6].Text.Trim() != "&nbsp;")
+      if (e.Row.Cells[7].Text.Trim() != "&nbsp;")
       {
-        e.Row.Cells[6].Text = e.Row.Cells[6].Text + "$";
+        e.Row.Cells[7].Text = e.Row.Cells[7].Text + "$";
       }
       String quoIDStr = e.Row.Cells[3].Text;
       try
@@ -297,35 +297,16 @@
 
       }
 
-      String Str = e.Row.Cells[10].Text;
+      String Str = e.Row.Cells[11].Text;
       try
       {
         byte status = byte.Parse(Str);
-        e.Row.Cells[10].Text = PRUtils.statusByteToString(status);
+        e.Row.Cells[11].Text = PRUtils.statusByteToString(status);
         if (status == (byte)PRStatus.Init || status == (byte)PRStatus.Requisitioner)
         {
           (e.Row.FindControl("pr_report") as HyperLink).Visible = false;
         }
 
-      }
-      catch (Exception)
-      {
-
-        //throw;
-      }
-
-      Str = e.Row.Cells[12].Text;
-      try
-      {
-        if (Str == "-1")
-        {
-          e.Row.Cells[12].Text = "Not set yet";
-        }
-        else
-        {
-          int aid = int.Parse(Str);
-          e.Row.Cells[12].Text = (from p in wowidb.access_level where p.id == aid select p.name).First();
-        }
       }
       catch (Exception)
       {
@@ -343,8 +324,27 @@
         else
         {
           int aid = int.Parse(Str);
+          e.Row.Cells[13].Text = (from p in wowidb.access_level where p.id == aid select p.name).First();
+        }
+      }
+      catch (Exception)
+      {
+
+        //throw;
+      }
+
+      Str = e.Row.Cells[14].Text;
+      try
+      {
+        if (Str == "-1")
+        {
+          e.Row.Cells[14].Text = "Not set yet";
+        }
+        else
+        {
+          int aid = int.Parse(Str);
           var emp = (from p in wowidb.employees where p.id == aid select p).First();
-          e.Row.Cells[13].Text = emp.fname + " " + emp.lname;
+          e.Row.Cells[14].Text = emp.fname + " " + emp.lname;
         }
       }
       catch (Exception)
@@ -433,6 +433,8 @@
           ReadOnly="True" />
         <asp:BoundField DataField="quotaion_id" HeaderText="Quotation No" SortExpression="quotaion_id" />
         <asp:BoundField DataField="model" HeaderText="Model No." SortExpression="model" />
+        <asp:BoundField DataField="Country" HeaderText="Country" 
+          SortExpression="Country" />
         <asp:BoundField DataField="vendor_id" HeaderText="Vender" SortExpression="vendor_id" />
         <asp:BoundField DataField="currency" HeaderText="Currency" ItemStyle-HorizontalAlign="Right"
           SortExpression="currency">
@@ -461,7 +463,10 @@
       SelectCommand="
 SELECT P.currency, P.pr_id, P.project_id, P.quotaion_id,
 (select model_no from quotation_version where quotation_version.Quotation_Version_Id = quotaion_id) as model ,
-P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id , (CASE R.status WHEN 0 THEN R.create_date WHEN 1 THEN  R.requisitioner_date WHEN 2 THEN supervisor_date WHEN 3 THEN  R.vp_date WHEN 4 THEN  R.president_date WHEN 5 THEN R.modify_date  WHEN 6 THEN R.modify_date END) as status_date, P.department_id,P.employee_id 
+(select country.country_name from PR_item,Quotation_Target,country where PR_item.pr_id = P.pr_id and Quotation_Target.Quotation_Target_Id = PR_item.quotation_target_id and country.country_id = Quotation_Target.country_id) as Country ,
+P.vendor_id, P.total_cost,P.create_date,P.target_payment_date,R.status AS pr_auth_id , 
+(CASE R.status WHEN 0 THEN R.create_date WHEN 1 THEN  R.requisitioner_date WHEN 2 THEN supervisor_date WHEN 3 THEN  R.vp_date WHEN 4 THEN  R.president_date WHEN 5 THEN R.modify_date  WHEN 6 THEN R.modify_date END) as status_date, 
+P.department_id, P.employee_id 
 FROM PR AS P , PR_authority_history AS R 
 WHERE P.pr_auth_id = R.pr_auth_id "></asp:SqlDataSource>
   </p>
