@@ -249,6 +249,11 @@
                 <asp:ListItem Value="Cancelled">取消的案子(Cancelled)</asp:ListItem>
                 <asp:ListItem Value="Delay">逾時案件(Delay)</asp:ListItem>
               </asp:DropDownList>
+              <br />
+              <br />
+              Model No. : 
+              <asp:TextBox ID="TextBoxModelNo" runat="server"></asp:TextBox>
+              
               &nbsp;<asp:Button ID="ButtonSearch" runat="server" OnClick="ButtonSearch_Click" Text="Search" />
             </td>
           </tr>
@@ -341,6 +346,7 @@ AND (country.country_name LIKE @country_name )
 AND (SalesId  LIKE @SalesId) 
 AND (Country_Manager  LIKE @Country_Manager) 
 AND (Client_Id  LIKE @Client_Id)
+AND (Model_No LIKE  '%' + @Model_No + '%') 
 " OnSelecting="SqlDataSourceTarget_Selecting">
         <SelectParameters>
           <asp:ControlParameter ControlID="DropDownListPO" DefaultValue="%" Name="Project_ID"
@@ -355,6 +361,7 @@ AND (Client_Id  LIKE @Client_Id)
             PropertyName="SelectedValue" />
           <asp:ControlParameter ControlID="DropDownListClient" DefaultValue="%" Name="Client_Id"
             PropertyName="SelectedValue" />
+          <asp:ControlParameter ControlID="TextBoxModelNo" DefaultValue="%" Name="Model_No" PropertyName="Text" />
         </SelectParameters>
       </asp:SqlDataSource>
     </div>
