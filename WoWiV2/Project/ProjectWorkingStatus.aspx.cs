@@ -75,7 +75,7 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
 
   protected void ButtonSearch_Click(object sender, EventArgs e)
   {
-    SqlDataSourceTarget.SelectCommand += " ORDER BY Project.Project_Id Desc ";
+    SqlDataSourceTarget.SelectCommand += " ORDER BY Project.Project_Id  Desc , Quotation_Target.Country_id Asc ";
     GridViewProjectTarget.DataBind();
     GridViewProjectTarget.SelectedIndex = -1;
     if (GridViewProjectTarget.Rows.Count > 0)
