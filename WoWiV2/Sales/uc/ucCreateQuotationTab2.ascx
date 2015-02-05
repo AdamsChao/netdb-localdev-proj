@@ -160,7 +160,7 @@
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
-                SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Quotation_Target.quotation_id, Quotation_Target.target_description, Quotation_Target.FinalPrice, Quotation_Version.Quotation_Status as Status ,(Select country_name from country where country_id = Quotation_Target.country_id) as Country FROM Quotation_Target LEFT OUTER JOIN Quotation_Version ON Quotation_Target.quotation_id = Quotation_Version.Quotation_Version_Id WHERE (Quotation_Target.quotation_id = @quotation_id)"
+                SelectCommand="SELECT Quotation_Target.Quotation_Target_Id, Quotation_Target.quotation_id, Quotation_Target.target_description, Quotation_Target.FinalPrice, Quotation_Version.Quotation_Status as Status ,(Select country_name from country where country_id = Quotation_Target.country_id) as Country FROM Quotation_Target LEFT OUTER JOIN Quotation_Version ON Quotation_Target.quotation_id = Quotation_Version.Quotation_Version_Id WHERE (Quotation_Target.quotation_id = @quotation_id) Order by Quotation_Target.target_description"
                 ConflictDetection="CompareAllValues"
                 OldValuesParameterFormatString="original_{0}">
                 <SelectParameters>
