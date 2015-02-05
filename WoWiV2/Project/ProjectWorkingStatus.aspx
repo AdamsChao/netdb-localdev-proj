@@ -1002,6 +1002,7 @@ Where Quotation_Target.quotation_id in
                 <asp:ListItem Value="Delay">逾時案件(Delay)</asp:ListItem>
               </asp:DropDownList>
               <asp:TextBox ID="TextBoxStatus" runat="server" Text='<%# Eval("Status") %>' Visible="False"></asp:TextBox>
+              <asp:Label ID="lblStatusMessage" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
             </EditItemTemplate>
           </asp:TemplateField>
           <asp:CommandField ShowEditButton="True" />

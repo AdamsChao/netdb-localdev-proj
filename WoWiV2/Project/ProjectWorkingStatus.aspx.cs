@@ -341,6 +341,7 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
     TextBox TextBox_Actual_Lead_time = (TextBox)DetailsViewTarget.FindControl("TextBox_Actual_Lead_time");
     TextBox textBoxEstimated = (TextBox)DetailsViewTarget.FindControl("TextBoxEstimated");
     TextBox txtProcess = (TextBox)DetailsViewTarget.FindControl("txtProcess"); //2013/5/6 新增需求
+    DropDownList ddlStatus = (DropDownList)DetailsViewTarget.FindControl("ddlStatus");
 
     decimal wk = 0;
 
@@ -364,16 +365,24 @@ public partial class Project_ProjectWorkingStatus : System.Web.UI.Page
         SqlDataSourceModifyTarget.UpdateParameters["Status"].DefaultValue = "Delay";
       }
       else
-      {
-        DropDownList ddlStatus = (DropDownList)DetailsViewTarget.FindControl("ddlStatus");
+      {        
         SqlDataSourceModifyTarget.UpdateParameters["Status"].DefaultValue = ddlStatus.SelectedValue;
       }
     }
     else
-    {
-      DropDownList ddlStatus = (DropDownList)DetailsViewTarget.FindControl("ddlStatus");
+    {      
       SqlDataSourceModifyTarget.UpdateParameters["Status"].DefaultValue = ddlStatus.SelectedValue;
     }
+
+    //2015/2/6 新增需求：若Status=Done則certification completed必填
+    if (ddlStatus.SelectedValue == "Done" && string.IsNullOrEmpty(certification_completed.Text.Trim()))
+    {
+      Label lblStatusMessage = (Label)DetailsViewTarget.FindControl("lblStatusMessage");
+      lblStatusMessage.Text = "Warning : If Target Status is 'Done' then Certification Completed can't be Empty!";
+      Message.Text = "Target Details Update Fail!"; 
+      e.Cancel = true;
+    }
+
 
     HFAccordionStatus.Value = "2";//控制accordion
   }
