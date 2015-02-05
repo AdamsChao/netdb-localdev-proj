@@ -141,6 +141,15 @@
         }
       });
 
+      //2015/2/6 當Status為Done，要即時跳出警示訊息!
+      $("[id*='ddlStatus']").change(function () {
+        if ($("[id*='ddlStatus'] :selected").val() == "Done" && $("[id*='TextBox6']").val() == "") {
+          alert("Warning : Certification Completed can't be Empty");
+          $("[id*='TextBox6']").focus();
+        }
+      });
+
+
     });
   </script>
 </asp:Content>
