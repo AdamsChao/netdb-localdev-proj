@@ -644,7 +644,7 @@
       id = int.Parse(Request.QueryString["id"]);
       WoWiModel.PR obj = (from pr in wowidb.PRs where pr.pr_id == id select pr).First();
       int project_id = (int)obj.project_id;
-      (sender as Label).Text = (from p in wowidb.Projects where p.Project_Id == project_id select p.Project_No + " - " + ((from qq in wowidb.Quotation_Version from aa in wowidb.clientapplicants where qq.Quotation_No == p.Quotation_No & qq.Applicant_Id == aa.id select aa.companyname).FirstOrDefault()) + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == p.Quotation_No select qq.Model_No).FirstOrDefault()) + "]").First();
+      (sender as Label).Text = (from p in wowidb.Projects where p.Project_Id == project_id select p.Project_No + " - " + ((from qq in wowidb.Quotation_Version from aa in wowidb.clientapplicants where qq.Quotation_No == p.Quotation_No & qq.Client_Id == aa.id select aa.companyname).FirstOrDefault()) + " - [" + ((from qq in wowidb.Quotation_Version where qq.Quotation_No == p.Quotation_No select qq.Model_No).FirstOrDefault()) + "]").First();
     }
   }
 
