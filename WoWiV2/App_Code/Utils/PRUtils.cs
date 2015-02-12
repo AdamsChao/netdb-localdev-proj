@@ -375,6 +375,9 @@ public class PRUtils
       case 30:
         str = "30 days";
         break;
+      case 45:
+        str = "45 days";
+        break;
       case 60:
         str = "60 days";
         break;
