@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true"
-  CodeFile="ProjectWorkingStatusReport.aspx.cs" Inherits="Project_ProjectWorkingStatusReport" %>
+  CodeFile="ProjectWorkingStatusReport.aspx.cs" Inherits="Project_ProjectWorkingStatusReport"
+  EnableEventValidation="false"  %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
   <script type="text/javascript">
@@ -95,7 +96,8 @@
         </table>
       </td>
       <td valign="top" cellpadding="10" cellspacing="10" style="width: 100%" height="100%">
-        <center><font color="blue">Internal Working Status Report</font></center>
+        <center>
+          <font color="blue">Internal Working Status Report</font></center>
         <br />
         Sales (AE) :
         <asp:DropDownList ID="DropDownListAE" runat="server" AppendDataBoundItems="True"
@@ -133,7 +135,27 @@ Order by Project.Project_Id Desc">
         </asp:SqlDataSource>
         <br />
         <asp:Panel ID="PanelReport" runat="server" Visible="False">
-          <asp:Button ID="ButtonExcel" runat="server" Text="Export Report To Excel" OnClick="ButtonExcel_Click" />
+          <table id="tbStatus" runat="server">
+            <tr>
+              <td>
+                <asp:Label ID="lblStatus" runat="server" Text="Target Status : " />
+              </td>
+              <td>
+                <asp:CheckBoxList ID="cbStatusList" runat="server" RepeatDirection="Horizontal">
+                  <asp:ListItem Selected="True" Text="Open" Value="Open" />
+                  <asp:ListItem Selected="True" Text="In-Progress" Value="In-Progress" />
+                  <asp:ListItem Selected="True" Text="On-Hold" Value="On-Hold" />
+                  <asp:ListItem Selected="True" Text="Done" Value="Done" />
+                  <asp:ListItem Selected="True" Text="Cancelled" Value="Cancelled" />
+                  <asp:ListItem Selected="True" Text="Delay" Value="Delay" />
+                </asp:CheckBoxList>
+              </td>
+              <td>
+              <asp:Button ID="ButtonStatus" runat="server" Text="Filter Target Status" OnClick="ButtonStatus_Click" />
+                <asp:Button ID="ButtonExcel" runat="server" Text="Export Report To Excel" OnClick="ButtonExcel_Click" />
+              </td>
+            </tr>
+          </table>
           <br />
           <table cellspacing="1" class="style1">
             <tr>
@@ -171,8 +193,8 @@ Order by Project.Project_Id Desc">
                 </table>
               </td>
               <td>
-                <B>WoWi Approval Services, Inc.</B><br /> Add: 3F., No.79, Zhouzi St., Neihu Dist., 
-                Taipei City 114, Taiwan (R.O.C.)
+                <b>WoWi Approval Services, Inc.</b><br />
+                Add: 3F., No.79, Zhouzi St., Neihu Dist., Taipei City 114, Taiwan (R.O.C.)
                 <br />
                 Tel: +886-2799-8382 Fax: +886-2799-8387
                 <br />
@@ -189,30 +211,26 @@ Order by Project.Project_Id Desc">
                   <Columns>
                     <asp:BoundField DataField="country_name" HeaderText="Country" SortExpression="country_name" />
                     <asp:BoundField DataField="authority_name" HeaderText="Authority" SortExpression="authority_name" />
-                    <asp:BoundField DataField="Estimated_Lead_time" 
-                      HeaderText="Estimated Lead Time" SortExpression="Estimated_Lead_time" />
+                    <asp:BoundField DataField="Estimated_Lead_time" HeaderText="Estimated Lead Time"
+                      SortExpression="Estimated_Lead_time" />
                     <asp:BoundField HeaderText="Start Date" DataField="document_ready_to_process" DataFormatString="{0:d}" />
-                    <asp:BoundField HeaderText="Sample Received" DataField="sample_received_from_client_date" DataFormatString="{0:d}"/>
-                    <asp:BoundField DataField="certification_submit_to_authority" HeaderText="Submit to Authority / Test Lab"
-                      SortExpression="certification_submit_to_authority" 
+                    <asp:BoundField HeaderText="Sample Received" DataField="sample_received_from_client_date"
                       DataFormatString="{0:d}" />
+                    <asp:BoundField DataField="certification_submit_to_authority" HeaderText="Submit to Authority / Test Lab"
+                      SortExpression="certification_submit_to_authority" DataFormatString="{0:d}" />
                     <asp:TemplateField HeaderText="Test Started" SortExpression="test_started">
                       <ItemTemplate>
-                        <asp:Label ID="LabelTestDate" runat="server" 
-                          Text='<%# Bind("test_started", "{0:d}") %>'></asp:Label>
-                      </ItemTemplate>                      
+                        <asp:Label ID="LabelTestDate" runat="server" Text='<%# Bind("test_started", "{0:d}") %>'></asp:Label>
+                      </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Est. Test Completed" 
-                      SortExpression="test_completed">
+                    <asp:TemplateField HeaderText="Est. Test Completed" SortExpression="test_completed">
                       <ItemTemplate>
-                        <asp:Label ID="LabelEstDate" runat="server" 
-                          Text='<%# Bind("test_completed", "{0:d}") %>'></asp:Label>
-                      </ItemTemplate>                     
+                        <asp:Label ID="LabelEstDate" runat="server" Text='<%# Bind("test_completed", "{0:d}") %>'></asp:Label>
+                      </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="certification_completed" HeaderText="Est. Completed" SortExpression="certification_completed"
                       DataFormatString="{0:d}" />
-                    <asp:BoundField DataField="Actual_Lead_time" HeaderText="Actual Lead Time"
-                      SortExpression="Actual_Lead_time" />
+                    <asp:BoundField DataField="Actual_Lead_time" HeaderText="Actual Lead Time" SortExpression="Actual_Lead_time" />
                     <asp:BoundField DataField="CountryManager" HeaderText="Country Manager" />
                     <asp:TemplateField HeaderText="Project Status">
                       <ItemTemplate>
@@ -237,8 +255,9 @@ Order by log_date">
                         </asp:SqlDataSource>
                       </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="Client_Action" 
-                          HeaderText="Required action from the client" SortExpression="Client_Action" />
+                    <asp:BoundField DataField="Client_Action" HeaderText="Required action from the client"
+                      SortExpression="Client_Action" />
+                    <asp:BoundField DataField="Status" HeaderText="Target Status" SortExpression="Status" />
                   </Columns>
                 </asp:GridView>
                 <asp:SqlDataSource ID="SqlDataSourceReport" runat="server" ConnectionString="<%$ ConnectionStrings:WoWiConnectionString %>"
@@ -248,11 +267,11 @@ Order by log_date">
 test_started, test_completed, certification_submit_to_authority, certification_completed, Estimated_Lead_time, Actual_Lead_time, 
 Project.Client_Action, 
 (Select fname + ' ' + lname as cm from employee where id = Country_Manager ) as CountryManager,
-document_ready_to_process , sample_received_from_client_date
+document_ready_to_process , sample_received_from_client_date , Status
 FROM PROJECT 
 INNER JOIN Quotation_Version ON PROJECT.Quotation_No = Quotation_Version.Quotation_No  AND Quotation_Status=5 
 INNER JOIN Quotation_Target ON Quotation_Target.quotation_id = Quotation_Version.Quotation_Version_Id
-WHERE Project_Id = @Project_ID">
+WHERE Project_Id = @Project_ID ">
                   <SelectParameters>
                     <asp:ControlParameter ControlID="GridViewProject" Name="Project_ID" PropertyName="SelectedValue" />
                   </SelectParameters>
