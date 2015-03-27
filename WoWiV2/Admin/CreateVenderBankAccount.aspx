@@ -41,6 +41,15 @@
         //lblWest.Visible = true;
         GridView1.Visible = false;
         GridView2.Visible = true;
+
+        //2015/3/27 : 使用paymenttype對應至 ddlPaymentTypeCreate 正確的付款方式 
+        if (!string.IsNullOrEmpty(Request["paymenttype"]))
+        {
+          FormView2.DataBind();
+          DropDownList ddl = FormView2.FindControl("ddlPaymentTypeCreate") as DropDownList;          
+          ddl.SelectedValue = Request["paymenttype"];
+          ddl.Enabled = false;
+        }
       }
       else
       {
@@ -52,6 +61,9 @@
         GridView2.Visible = false;
       }
       isWUStr += "&paymenttype=" + Request.QueryString["paymenttype"];
+
+      
+      
     }
     catch
     {
