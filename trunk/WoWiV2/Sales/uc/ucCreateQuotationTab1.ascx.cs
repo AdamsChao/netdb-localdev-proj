@@ -140,6 +140,7 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
     else
       obj.Access_Level_ID = null;
 
+    obj.Specification = txtSpecification.Text; //Adams: add at 2015/4/2
 
     int QuotationID = Quotation_Controller.Add_Quotation(obj);
 
@@ -220,6 +221,8 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
       obj.Access_Level_ID = AccessLevelID;
     else
       obj.Access_Level_ID = null;
+
+    obj.Specification = txtSpecification.Text; //Adams: add at 2015/4/2
 
     Quotation_Controller.Update_Quotation(Quotation_Controller.ent, obj);
     if (QuotationIDChanged != null)

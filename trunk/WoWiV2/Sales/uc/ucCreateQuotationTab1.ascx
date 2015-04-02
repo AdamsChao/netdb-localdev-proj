@@ -134,6 +134,14 @@ where access_level.name like '%Sales%' and publish=1"></asp:SqlDataSource>
       <asp:TextBox ID="txtCModelDifferencev" runat="server" Width="97%" MaxLength="500"></asp:TextBox>
     </td>
   </tr>
+  <tr>
+    <th class="style4">
+      Specification
+    </th>
+    <td>
+      <asp:TextBox ID="txtSpecification" runat="server" Width="97%" MaxLength="500"></asp:TextBox>
+    </td>
+  </tr>
   <tr align="center" style="color: #FFFFFF; background-color: #0066FF">
     <th colspan="2">
       Client & Applicant

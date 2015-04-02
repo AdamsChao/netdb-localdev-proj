@@ -9280,6 +9280,30 @@ namespace QuotationModel
         private global::System.String _quotation_country;
         partial void Onquotation_countryChanging(global::System.String value);
         partial void Onquotation_countryChanged();
+    
+        /// <summary>
+        /// 沒有可用的中繼資料文件。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Specification
+        {
+            get
+            {
+                return _Specification;
+            }
+            set
+            {
+                OnSpecificationChanging(value);
+                ReportPropertyChanging("Specification");
+                _Specification = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Specification");
+                OnSpecificationChanged();
+            }
+        }
+        private global::System.String _Specification;
+        partial void OnSpecificationChanging(global::System.String value);
+        partial void OnSpecificationChanged();
 
         #endregion
 
