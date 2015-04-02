@@ -202,7 +202,7 @@
           <Property Name="creditlimit" Type="money" />
           <Property Name="paymentterm" Type="int" />
           <Property Name="clientstatus" Type="tinyint" />
-          <Property Name="remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="remark" Type="nvarchar(max)" />
           <Property Name="create_user" Type="nvarchar" MaxLength="50" />
           <Property Name="create_date" Type="datetime" />
           <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
@@ -248,26 +248,26 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="fname" Type="nvarchar" MaxLength="100" />
-          <Property Name="lname" Type="nvarchar" MaxLength="100" />
-          <Property Name="title" Type="nvarchar" MaxLength="100" />
-          <Property Name="companyname" Type="nvarchar" MaxLength="100" />
-          <Property Name="address" Type="nvarchar" MaxLength="300" />
-          <Property Name="c_fname" Type="nvarchar" MaxLength="100" />
-          <Property Name="c_lname" Type="nvarchar" MaxLength="100" />
-          <Property Name="c_title" Type="nvarchar" MaxLength="100" />
-          <Property Name="c_companyname" Type="nvarchar" MaxLength="100" />
-          <Property Name="c_address" Type="nvarchar" MaxLength="300" />
+          <Property Name="fname" Type="nvarchar" MaxLength="500" />
+          <Property Name="lname" Type="nvarchar" MaxLength="500" />
+          <Property Name="title" Type="nvarchar" MaxLength="500" />
+          <Property Name="companyname" Type="nvarchar" MaxLength="500" />
+          <Property Name="address" Type="nvarchar" MaxLength="500" />
+          <Property Name="c_fname" Type="nvarchar" MaxLength="500" />
+          <Property Name="c_lname" Type="nvarchar" MaxLength="500" />
+          <Property Name="c_title" Type="nvarchar" MaxLength="500" />
+          <Property Name="c_companyname" Type="nvarchar" MaxLength="500" />
+          <Property Name="c_address" Type="nvarchar" MaxLength="500" />
           <Property Name="country_id" Type="int" />
-          <Property Name="workphone" Type="nvarchar" MaxLength="300" />
-          <Property Name="ext" Type="nvarchar" MaxLength="10" />
-          <Property Name="cellphone" Type="nvarchar" MaxLength="300" />
-          <Property Name="fax" Type="nvarchar" MaxLength="200" />
-          <Property Name="email" Type="nvarchar" MaxLength="300" />
+          <Property Name="workphone" Type="nvarchar" MaxLength="500" />
+          <Property Name="ext" Type="nvarchar" MaxLength="500" />
+          <Property Name="cellphone" Type="nvarchar" MaxLength="500" />
+          <Property Name="fax" Type="nvarchar" MaxLength="500" />
+          <Property Name="email" Type="nvarchar" MaxLength="500" />
           <Property Name="create_date" Type="datetime" />
-          <Property Name="create_user" Type="nvarchar" MaxLength="50" />
+          <Property Name="create_user" Type="nvarchar" MaxLength="500" />
           <Property Name="modify_date" Type="datetime" />
-          <Property Name="modify_user" Type="nvarchar" MaxLength="50" />
+          <Property Name="modify_user" Type="nvarchar" MaxLength="500" />
           <Property Name="publish" Type="bit" Nullable="false" />
           <Property Name="department_id" Type="int" />
           <Property Name="employee_id" Type="int" />
@@ -404,7 +404,7 @@
           <Property Name="Quotation_Target_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="quotation_id" Type="int" />
           <Property Name="target_id" Type="int" />
-          <Property Name="target_description" Type="nvarchar" MaxLength="500" />
+          <Property Name="target_description" Type="nvarchar(max)" />
           <Property Name="country_id" Type="int" />
           <Property Name="product_type_id" Type="int" />
           <Property Name="authority_id" Type="int" />
@@ -419,10 +419,10 @@
           <Property Name="FinalPrice" Type="decimal" Precision="20" Scale="2" />
           <Property Name="PayTo" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="nvarchar" MaxLength="20" />
-          <Property Name="Bill" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bill" Type="nvarchar" MaxLength="100" />
           <Property Name="option1" Type="bit" />
           <Property Name="option2" Type="bit" />
-          <Property Name="advance1" Type="nvarchar" MaxLength="50" />
+          <Property Name="advance1" Type="nvarchar" MaxLength="100" />
           <Property Name="advance2" Type="decimal" Precision="20" Scale="2" />
           <Property Name="balance1" Type="nvarchar" MaxLength="50" />
           <Property Name="balance2" Type="decimal" Precision="20" Scale="2" />
@@ -434,13 +434,13 @@
           <Property Name="Actual_Lead_time" Type="nvarchar" MaxLength="50" />
           <Property Name="Agent" Type="int" />
           <Property Name="Country_Manager" Type="int" />
-          <Property Name="PR_Flag" Type="nchar" MaxLength="10" />
+          <Property Name="PR_Flag" Type="char" MaxLength="1" />
           <Property Name="Bill1" Type="decimal" Precision="20" Scale="2" />
           <Property Name="Bill2" Type="decimal" Precision="20" Scale="2" />
           <Property Name="Bill3" Type="decimal" Precision="20" Scale="2" />
           <Property Name="BillE" Type="decimal" Precision="20" Scale="2" />
           <Property Name="document_ready_to_process" Type="smalldatetime" />
-          <Property Name="certificate_type" Type="nvarchar" MaxLength="500" />
+          <Property Name="certificate_type" Type="nvarchar(max)" />
           <Property Name="certificate_issue_date" Type="smalldatetime" />
           <Property Name="certificate_expiry_date" Type="smalldatetime" />
           <Property Name="email_renewal_notice_date" Type="smalldatetime" />
@@ -494,32 +494,32 @@
           <Property Name="POLimit" Type="nvarchar" MaxLength="500" />
           <Property Name="Deposit_Check_No" Type="nvarchar" MaxLength="500" />
           <Property Name="PO_Amount" Type="nvarchar" MaxLength="500" />
-          <Property Name="paymentlimit" Type="nvarchar" MaxLength="10" />
+          <Property Name="paymentlimit" Type="nvarchar" MaxLength="500" />
           <Property Name="SalesId" Type="int" />
           <Property Name="Currency" Type="nvarchar" MaxLength="3" />
           <Property Name="Product_Name" Type="nvarchar" MaxLength="500" />
           <Property Name="CProduct_Name" Type="nvarchar" MaxLength="500" />
-          <Property Name="Model_No" Type="nvarchar" MaxLength="100" />
-          <Property Name="CModel_No" Type="nvarchar" MaxLength="100" />
-          <Property Name="Brand_Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="CBrand_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Model_No" Type="nvarchar" MaxLength="500" />
+          <Property Name="CModel_No" Type="nvarchar" MaxLength="500" />
+          <Property Name="Brand_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="CBrand_Name" Type="nvarchar" MaxLength="500" />
           <Property Name="Model_Difference" Type="nvarchar" MaxLength="500" />
           <Property Name="CModel_Difference" Type="nvarchar" MaxLength="500" />
           <Property Name="Client_Id" Type="int" />
           <Property Name="Client_Contact" Type="int" />
           <Property Name="Applicant_Id" Type="int" />
           <Property Name="Applicant_Contact" Type="int" />
-          <Property Name="Bill_Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Bill_Title" Type="nvarchar" MaxLength="100" />
-          <Property Name="Bill_Companyname" Type="nvarchar" MaxLength="100" />
-          <Property Name="Bill_CName" Type="nvarchar" MaxLength="100" />
-          <Property Name="Bill_CTitle" Type="nvarchar" MaxLength="100" />
-          <Property Name="Bill_CCompanyname" Type="nvarchar" MaxLength="100" />
-          <Property Name="Bill_Phone" Type="nvarchar" MaxLength="50" />
-          <Property Name="Bill_Email" Type="nvarchar" MaxLength="100" />
-          <Property Name="Bill_Country" Type="nvarchar" MaxLength="100" />
-          <Property Name="Bill_Address" Type="nvarchar" MaxLength="100" />
-          <Property Name="Bill_CAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="Bill_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="Bill_Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Bill_Companyname" Type="nvarchar" MaxLength="500" />
+          <Property Name="Bill_CName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Bill_CTitle" Type="nvarchar" MaxLength="500" />
+          <Property Name="Bill_CCompanyname" Type="nvarchar" MaxLength="500" />
+          <Property Name="Bill_Phone" Type="nvarchar" MaxLength="500" />
+          <Property Name="Bill_Email" Type="nvarchar" MaxLength="500" />
+          <Property Name="Bill_Country" Type="nvarchar" MaxLength="500" />
+          <Property Name="Bill_Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="Bill_CAddress" Type="nvarchar" MaxLength="500" />
           <Property Name="Approve" Type="char" MaxLength="1" />
           <Property Name="Approved_Date" Type="datetime" />
           <Property Name="ApprovedBy" Type="int" />
@@ -532,28 +532,29 @@
           <Property Name="On_hold_date" Type="datetime" />
           <Property Name="Done_date" Type="datetime" />
           <Property Name="Total_disc_amt" Type="money" />
-          <Property Name="rolling_forecast_dollar0" Type="nvarchar" MaxLength="50" />
-          <Property Name="rolling_forecast_dollar1" Type="nvarchar" MaxLength="50" />
-          <Property Name="rolling_forecast_dollar2" Type="nvarchar" MaxLength="50" />
-          <Property Name="rolling_forecast_dollar3" Type="nvarchar" MaxLength="50" />
-          <Property Name="rolling_forecast_dollar4" Type="nvarchar" MaxLength="50" />
-          <Property Name="rolling_forecast_dollar5" Type="nvarchar" MaxLength="50" />
-          <Property Name="rolling_forecast_dollar6" Type="nvarchar" MaxLength="50" />
-          <Property Name="rolling_forecast_dollar7" Type="nvarchar" MaxLength="50" />
-          <Property Name="rolling_forecast_dollar8" Type="nvarchar" MaxLength="50" />
-          <Property Name="rolling_forecast_dollar9" Type="nvarchar" MaxLength="50" />
-          <Property Name="rolling_forecast_dollar10" Type="nvarchar" MaxLength="50" />
-          <Property Name="rolling_forecast_dollar11" Type="nvarchar" MaxLength="50" />
-          <Property Name="Payment_Days" Type="nvarchar" MaxLength="50" />
-          <Property Name="Payment_Term" Type="nvarchar" MaxLength="50" />
-          <Property Name="Client_Status" Type="nvarchar" MaxLength="50" />
-          <Property Name="DHL_Acct" Type="nvarchar" MaxLength="50" />
+          <Property Name="rolling_forecast_dollar0" Type="nvarchar" MaxLength="500" />
+          <Property Name="rolling_forecast_dollar1" Type="nvarchar" MaxLength="500" />
+          <Property Name="rolling_forecast_dollar2" Type="nvarchar" MaxLength="500" />
+          <Property Name="rolling_forecast_dollar3" Type="nvarchar" MaxLength="500" />
+          <Property Name="rolling_forecast_dollar4" Type="nvarchar" MaxLength="500" />
+          <Property Name="rolling_forecast_dollar5" Type="nvarchar" MaxLength="500" />
+          <Property Name="rolling_forecast_dollar6" Type="nvarchar" MaxLength="500" />
+          <Property Name="rolling_forecast_dollar7" Type="nvarchar" MaxLength="500" />
+          <Property Name="rolling_forecast_dollar8" Type="nvarchar" MaxLength="500" />
+          <Property Name="rolling_forecast_dollar9" Type="nvarchar" MaxLength="500" />
+          <Property Name="rolling_forecast_dollar10" Type="nvarchar" MaxLength="500" />
+          <Property Name="rolling_forecast_dollar11" Type="nvarchar" MaxLength="500" />
+          <Property Name="Payment_Days" Type="nvarchar" MaxLength="500" />
+          <Property Name="Payment_Term" Type="nvarchar" MaxLength="500" />
+          <Property Name="Client_Status" Type="nvarchar" MaxLength="500" />
+          <Property Name="DHL_Acct" Type="nvarchar" MaxLength="500" />
           <Property Name="TargetTotalPrice" Type="decimal" Precision="20" Scale="2" />
           <Property Name="Discount" Type="decimal" Precision="20" Scale="2" />
           <Property Name="FinalTotalPrice" Type="decimal" Precision="20" Scale="2" />
-          <Property Name="Probability" Type="nvarchar" MaxLength="50" />
+          <Property Name="Probability" Type="nvarchar" MaxLength="500" />
           <Property Name="Access_Level_ID" Type="int" />
           <Property Name="quotation_country" Type="nvarchar" MaxLength="200" />
+          <Property Name="Specification" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Target">
           <Key>
@@ -1224,6 +1225,7 @@
           <NavigationProperty Name="Project" Relationship="QuotationModel.FK_Project_Quotation_Version" FromRole="Quotation_Version" ToRole="Project" />
           <NavigationProperty Name="Quotation_Target" Relationship="QuotationModel.FK_Quotation_Target_Quotation_Version" FromRole="Quotation_Version" ToRole="Quotation_Target" />
           <Property Type="String" Name="quotation_country" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Specification" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="country">
           <Key>
@@ -1760,6 +1762,7 @@
           <EntitySetMapping Name="Quotation_Version">
             <EntityTypeMapping TypeName="QuotationModel.Quotation_Version">
               <MappingFragment StoreEntitySet="Quotation_Version">
+                <ScalarProperty Name="Specification" ColumnName="Specification" />
                 <ScalarProperty Name="quotation_country" ColumnName="quotation_country" />
                 <ScalarProperty Name="Access_Level_ID" ColumnName="Access_Level_ID" />
                 <ScalarProperty Name="Probability" ColumnName="Probability" />
