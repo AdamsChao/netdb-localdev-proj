@@ -8,7 +8,7 @@
     <tr valign="top">
       <td>
         <div class="div-inline">
-          <asp:Image ID="imgHoliday" runat="server" ImageUrl="~/Images/815.jpg"
+          <asp:Image ID="imgHoliday" runat="server" ImageUrl="~/Images/merry-christmas.jpg"
             Width="500" />
         </div>
       </td>
