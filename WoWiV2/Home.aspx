@@ -7,9 +7,10 @@
   <table>
     <tr valign="top">
       <td>
+        <asp:Calendar ID="Calendar1" runat="server">
+        </asp:Calendar>
         <div class="div-inline">
-          <asp:Image ID="imgHoliday" runat="server" ImageUrl="~/Images/merry-christmas.jpg"
-            Width="500" />
+          <%--<asp:Image ID="imgHoliday" runat="server" ImageUrl="~/Images/merry-christmas.jpg"  Width="500" />--%>
         </div>
       </td>
       <td>
@@ -31,7 +32,6 @@
           <ul>
             <li>North Americas / South America / Asia Pacific / Europe / MIDDLE EAST AFRICA</li>
           </ul>
-          
         </div>
       </td>
     </tr>
