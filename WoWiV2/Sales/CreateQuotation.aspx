@@ -73,6 +73,7 @@
         </td>
         <td>
           <asp:Button ID="cmdAdditional" runat="server" Text="Additional Quotation" OnClick="cmdAdditional_Click" />
+          <asp:CheckBox ID="cbCopyTarget" runat="server" Text="Copy Target" />
         </td>
         <td>
           <asp:Button ID="cmdCopy" runat="server" Text="Copy" OnClick="cmdCopy_Click" />

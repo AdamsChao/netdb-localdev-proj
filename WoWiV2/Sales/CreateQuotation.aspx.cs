@@ -298,7 +298,7 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
         if (QuotationID != 0)
         {
             Quotation_Version quotation = Quotation_Controller.Get_Quotation(QuotationID);
-            int new_id = Quotation_Controller.Copy_Quotation(QuotationID, false, quotation.Quotation_No);
+            int new_id = Quotation_Controller.Copy_Quotation(QuotationID, false, quotation.Quotation_No,cbCopyTarget.Checked);
             Response.Redirect("CreateQuotation.aspx?q=" + new_id.ToString());
          
         }
@@ -311,7 +311,7 @@ public partial class Sales_CreateQuotation : System.Web.UI.Page, Imaster
         {
             if (QuotationID > 0)
             {
-                int new_id = Quotation_Controller.Copy_Quotation(QuotationID, true, "");
+                int new_id = Quotation_Controller.Copy_Quotation(QuotationID, true, "",false);
                 Response.Redirect("CreateQuotation.aspx?q=" + new_id.ToString());
             }
         }
