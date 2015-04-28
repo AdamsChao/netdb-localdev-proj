@@ -429,7 +429,7 @@ public class IMAUtil
     public static bool IsEditOn()
     {
         string strUserName = HttpContext.Current.User.Identity.Name.ToLower().Trim();
-        if (strUserName == "amy" || strUserName == "timur" || strUserName == "doris" || strUserName == "amanda.cheng") { return false; }
+        if (strUserName == "amy" || strUserName == "timur" || strUserName == "doris" || strUserName == "amanda.cheng" || strUserName == "Sharline Hung") { return false; }
         return true;
     }
 
