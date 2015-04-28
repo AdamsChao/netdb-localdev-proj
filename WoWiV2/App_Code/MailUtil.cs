@@ -121,7 +121,7 @@ public class MailUtil
         mail.Attachments.Add(AF);
 
         SmtpClient smtpClient = new SmtpClient(); //從WEB.CONFIG讀SMTP CONFIG
-        smtpClient.Send(mail);
+        //smtpClient.Send(mail);
       }
       catch (Exception ex)
       {
