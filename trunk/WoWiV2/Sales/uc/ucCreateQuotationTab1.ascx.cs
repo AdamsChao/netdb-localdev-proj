@@ -268,6 +268,8 @@ public partial class Sales_uc_ucCreateQuotationTab1 : System.Web.UI.UserControl,
     txtClient_Status.Text = obj.Client_Status;
     txtDHL.Text = obj.DHL_Acct;
 
+    txtSpecification.Text = obj.Specification; //Adams : 2015/6/17
+
     employee emp = CodeTableController.GetEmployee(Page.User.Identity.Name);
 
     //if (obj.SalesId == emp.id)
