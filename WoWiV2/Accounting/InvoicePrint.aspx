@@ -270,7 +270,7 @@
         .CCSH1
         {
             font-style: normal;
-            font-family: Times New Roman;
+            font-family: Verdana, Arial, Helvetica, sans-serif;
             color: rgb(0,0,0);
             font-size: 14pt;
             font-weight: 700;
